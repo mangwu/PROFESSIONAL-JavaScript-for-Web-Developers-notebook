@@ -1,6 +1,5 @@
 const fs = require("fs");
 
-
 // 本文件用于删除Notion生成的32位hash
 const path = "./Export-b59e9ccf-c2b7-4f8e-ae94-61c138c939f2"; // 修改需要更新文件名称的文件夹
 const reg = /[0-9a-z]{32}/;
@@ -56,7 +55,50 @@ const dfs = (path) => {
   });
 };
 
-dfs(path);
+// dfs(path);
+// 添加link
+const dfsStyle = (path) => {
+  fs.readdir(path, function (err, files) {
+    if (!err) {
+      for (const file of files) {
+        if (file.includes(".html")) {
+          // 修改文件
+          let oldPath = path + "/" + file;
+          let cur = -2;
+          for (const ch of oldPath) {
+            if (ch === "/") cur++;
+          }
+          fs.readFile(oldPath, "utf-8", function (err, datastr) {
+            if (!err) {
+              // 删除hash
+              const newStr = datastr.replace(
+                /<\/head>/,
+                (_) =>
+                  `<link rel="stylesheet" href="${"../".repeat(
+                    cur
+                  )}style.css">${_}`
+              );
+              fs.writeFile(oldPath, newStr, "utf-8", (err) => {
+                if (err) {
+                  return console.log("文件写入失败", err.message);
+                } else {
+                  console.log(`${file}：文件内容修改成功`);
+                }
+              });
+            }
+          });
+        } else if (file.indexOf(".") === -1) {
+          // 文件夹
+          let oldPath = path + "/" + file;
+          dfsStyle(oldPath);
+        }
+      }
+    } else {
+      // return console.log(`${path}路径读取失败`, err.message);
+    }
+  });
+};
+dfsStyle(path);
 // 测试文件写入
 // let kkk =
 //   "D:/project/study/PROFESSIONAL-JavaScript-for-Web-Developers-notebook/Export-b59e9ccf-c2b7-4f8e-ae94-61c138c939f2";
