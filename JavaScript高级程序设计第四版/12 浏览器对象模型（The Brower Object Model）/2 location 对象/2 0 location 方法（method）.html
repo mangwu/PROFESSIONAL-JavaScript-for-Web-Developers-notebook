@@ -1,0 +1,675 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2.0 location 方法（method）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="978ccc67-1f58-41a7-b6d3-75e86ad33bb0" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_vincent_van_gogh_oleanders.jpg" style="object-position:center 0%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🌇</span></div><h1 class="page-title">2.0 location 方法（method）</h1></header><div class="page-body"><div id="ab4eaa7b-f0c1-49bb-9b60-798de5845200" class="column-list"><div id="77c323eb-ea16-4bd1-b241-b1b167d825db" style="width:12.5%" class="column"><nav id="1143c5d1-cc06-440a-a7d9-6bea9b0bc926" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#35ecae68-ee62-461e-96b2-f56551c27477">2.1 <code>location.assign()</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7a4c6f97-b467-4ab5-b314-79bffb096e8a">2.1.1 定义</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#baa0a30a-46aa-4e96-88d1-10e0ffcabe7b">2.1.2 语法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#45d77ba9-40dd-48a8-83ac-fcdd7cbcb76d">2.1.3 例子</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8184ba64-8634-4ae3-a441-0fc326bc6519">2.2 <code>location.</code><code><strong>reload()</strong></code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#58faf012-aa7c-4895-a5e3-60b933ac1998">2.2.1 定义</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b1cbbdca-7573-48d6-af8d-ac6fcec28c09">2.2.2 语法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2370a69f-c0d0-4222-b85b-697f4cc22757">2.2.3 例子</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4f78ad3a-0325-47b3-b89c-ae07377a70ad">2.3 <code><strong>location.replace()</strong></code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1ecb4b00-5244-4869-8bcc-c4c70792955d">2.3.1 定义</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e3237f70-8a39-452a-9e2e-219f9f112f55">2.3.2 语法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fd62a5b1-44c4-450b-b64d-0af761e02b59">2.3.3 例子</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#56341030-fd06-49d8-b2aa-d65387dccc0f">2.4 <code>location.toString()</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0f095ab9-9fc7-4bef-97a9-837a8ea33962">2.4.1 定义</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a9cc5e46-72f5-4dd9-a42f-f3756b997c15">2.4.2 语法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bd8b4398-4b13-464b-97bf-0ff836510ab7">2.4.3 例子</a></div></nav><p id="c14d76ec-defc-4f9f-b1af-127cd70eca71" class="">
+</p></div><div id="84576ee7-281a-47e7-bf96-e8049174a9c1" style="width:87.5%" class="column"><h1 id="35ecae68-ee62-461e-96b2-f56551c27477" class="">2.1 <code>location.assign()</code></h1><h2 id="7a4c6f97-b467-4ab5-b314-79bffb096e8a" class="">2.1.1 定义</h2><ul id="145bb551-3793-4ffc-ae3c-481894e95a09" class="bulleted-list"><li style="list-style-type:disc">该方法使窗口加载和显示指定的URL的文档，它可以用于当前页面的网址导航</li></ul><ul id="039278df-d1bb-4b9d-8a60-c501f285a1c9" class="bulleted-list"><li style="list-style-type:disc"><strong>导航</strong>（<strong>navigation</strong>）完成后，用户可以通过按下浏览器地址栏左侧的“back”按钮导航回调用上一个调用<code>assign()</code> 方法的页面</li></ul><hr id="741d3f47-b33c-4744-a613-82bbd6a354db"/><ul id="825b2854-844b-42b4-b389-dd3a1d9419f0" class="bulleted-list"><li style="list-style-type:disc">该方法调用时可能因为<strong>违反安全性</strong>（<strong>security violation</strong>）而不能进行赋值（assignment），此时会抛出类型为<code>SECURITY_ERROR</code> 的<code>DOMException</code> 的错误</li></ul><ul id="71a414bf-1691-44e7-8cc1-95c6d6affc3b" class="bulleted-list"><li style="list-style-type:disc">违反安全性的情况：如果调用<code>location.assign()</code> 的脚本的源（origin）和当前窗口的<code>location</code> 对象的源（<code>location.origin</code>）不同就会发生这种情况，尤其当加载的脚本驻留在不同的域中时</li></ul><hr id="7dd0db22-af37-4ebb-911c-277475ca6df8"/><ul id="237493eb-7a2d-460a-9619-f62c002e44c0" class="bulleted-list"><li style="list-style-type:disc">如果提供给<code>location.assign()</code> 的参数不是一个合法的URL，会抛出一个类型为<code>SYNTAX_ERROR</code> 的<code>DOMException</code> 的错误</li></ul><h2 id="baa0a30a-46aa-4e96-88d1-10e0ffcabe7b" class="">2.1.2 语法</h2><pre id="35769a70-f6b8-45a7-a407-40cbcc7cc99e" class="code"><code>window.location.assign(url)</code></pre><ul id="65a8566e-a997-42c2-ac09-578ff94802c5" class="bulleted-list"><li style="list-style-type:disc">参数：<code>url</code> ，导航到的目标地址</li></ul><ul id="7c2b86b0-2e93-4a45-bedc-2b864244fcc4" class="bulleted-list"><li style="list-style-type:disc">返回值：<code>undefined</code></li></ul><h2 id="45d77ba9-40dd-48a8-83ac-fcdd7cbcb76d" class="">2.1.3 例子</h2><pre id="4c841e16-5d55-411d-a31e-896aed1d429c" class="code"><code>window.location.assign(&quot;https://developer.mozilla.org/en-US/docs/Web/API/Location/assign&quot;)</code></pre><ul id="7b398dc4-8049-40f6-b602-42d5f046b214" class="bulleted-list"><li style="list-style-type:disc">导航到<a href="https://developer.mozilla.org/en-US/docs/Web/API/Location/assign">MDN-location.assgin</a> 地址，当前窗口会加载到指定的网址</li></ul><h1 id="8184ba64-8634-4ae3-a441-0fc326bc6519" class="">2.2 <code>location.</code><code><strong>reload()</strong></code></h1><h2 id="58faf012-aa7c-4895-a5e3-60b933ac1998" class="">2.2.1 定义</h2><ul id="e544fa5e-d440-44d7-a1de-4b593591d55e" class="bulleted-list"><li style="list-style-type:disc"><code>location.reload()</code> 会刷新当前页面，相当于浏览器地址栏左边的重新加载按钮，即重新加载当前URL</li></ul><ul id="96de6b99-aecf-4658-a873-252c65ccf3c8" class="bulleted-list"><li style="list-style-type:disc">和<code>location.assign()</code> 一样，如果调用<code>location.reload()</code> 的脚本的源（origin）和当前窗口的<code>location.origin</code> 源不一样就会抛出一个类型为<code>SECURITY_ERROR</code> 的<code>DOMException</code> 异常</li></ul><h2 id="b1cbbdca-7573-48d6-af8d-ac6fcec28c09" class="">2.2.2 语法</h2><pre id="d9263c14-8cf5-4f37-8322-250f0d10de1e" class="code"><code>window.location.reload()</code></pre><ul id="d62ed34c-ff1c-44a0-a35a-2ea6c3c0a26f" class="bulleted-list"><li style="list-style-type:disc">没有参数，返回值为<code>undefined</code></li></ul><h2 id="2370a69f-c0d0-4222-b85b-697f4cc22757" class="">2.2.3 例子</h2><pre id="7e325551-c285-4c44-bb3d-b25b81548452" class="code"><code>setTimeout(() =&gt; {
+	window.location.reload();
+}, 2000); // 2s后重新加载地址
+</code></pre><h1 id="4f78ad3a-0325-47b3-b89c-ae07377a70ad" class="">2.3 <code><strong>location.replace()</strong></code></h1><h2 id="1ecb4b00-5244-4869-8bcc-c4c70792955d" class="">2.3.1 定义</h2><ul id="afddd2ce-cd19-4cbf-9aae-f946b0ae6f48" class="bulleted-list"><li style="list-style-type:disc">功能和<code>location.assign()</code> 类似，将当前资源（窗口，页面）替换为指定URL上的资源，即加载指定的URL文档</li></ul><ul id="88174297-d09c-4947-963f-a0b79934479b" class="bulleted-list"><li style="list-style-type:disc">与<code>location.assign()</code> 不同之处在于，当前页面不会保存到<strong>历史会话</strong>（<strong>session History</strong>）中，也就是说当前页面加载指定URL资源后，<strong>无法通过</strong>地址栏旁边的回退（back）按钮导航回到调用<code>location.assign()</code> 的页面</li></ul><hr id="66746289-8e8b-4aa9-95c4-70eddf596a92"/><ul id="5b2164a2-47f9-4838-aed6-cd3670290899" class="bulleted-list"><li style="list-style-type:disc">该方法调用时可能因为<strong>违反安全性</strong>（<strong>security violation</strong>）而不能进行URL替换，此时会抛出类型为<code>SECURITY_ERROR</code> 的<code>DOMException</code> 的错误</li></ul><ul id="f89d3673-a56e-4e52-afb9-60c35111bde6" class="bulleted-list"><li style="list-style-type:disc">违反安全性的情况：如果调用<code>location.replace()</code> 的脚本的源（origin）和当前窗口的<code>location</code> 对象的源（<code>location.origin</code>）不同就会发生这种情况，尤其当加载的脚本驻留在不同的域中时</li></ul><hr id="af0bb352-9b2d-488f-ac2a-a68e94f96229"/><ul id="7c5b0907-ec06-4d99-8cd9-def0d7f03d0c" class="bulleted-list"><li style="list-style-type:disc">如果提供给<code>location.replace()</code> 的参数不是一个合法的URL，会抛出一个类型为<code>SYNTAX_ERROR</code> 的<code>DOMException</code> 的错误</li></ul><h2 id="e3237f70-8a39-452a-9e2e-219f9f112f55" class="">2.3.2 语法</h2><pre id="8255400d-26cd-4014-bddf-582b7c4ffa2b" class="code"><code>window.location.replace(url)</code></pre><ul id="5f021233-0989-44b4-b89e-6b943e7b139a" class="bulleted-list"><li style="list-style-type:disc">参数：<code>url</code> ，导航到的目标地址</li></ul><ul id="3616768a-8584-4314-8f01-ad3e1cab711c" class="bulleted-list"><li style="list-style-type:disc">返回值：<code>undefined</code></li></ul><h2 id="fd62a5b1-44c4-450b-b64d-0af761e02b59" class="">2.3.3 例子</h2><pre id="c915bcde-f9fa-4a3c-8636-9ba2ceb59e21" class="code"><code>window.location.replace(&quot;https://developer.mozilla.org/en-US/docs/Web/API/Location/replace&quot;)</code></pre><h1 id="56341030-fd06-49d8-b2aa-d65387dccc0f" class="">2.4 <code>location.toString()</code></h1><h2 id="0f095ab9-9fc7-4bef-97a9-837a8ea33962" class="">2.4.1 定义</h2><ul id="0efbe1b3-7f50-474d-98df-fda59b3f3df8" class="bulleted-list"><li style="list-style-type:disc">返回<code>location</code> 表示的完整URL，相当于读取<code>location.href</code> ，但是它时只读版本</li></ul><h2 id="a9cc5e46-72f5-4dd9-a42f-f3756b997c15" class="">2.4.2 语法</h2><pre id="aac8bf1a-1619-46e4-834c-7a257f46c05a" class="code"><code>window.location.toString()</code></pre><ul id="1aa7d7fe-a6bd-4b96-b4d0-a414b81eac59" class="bulleted-list"><li style="list-style-type:disc">参数：无</li></ul><ul id="bf3c97f1-5258-4f62-9ea9-6af32e1a58bc" class="bulleted-list"><li style="list-style-type:disc">返回值：URL字符串</li></ul><h2 id="bd8b4398-4b13-464b-97bf-0ff836510ab7" class="">2.4.3 例子</h2><pre id="90b09751-1624-419c-93ee-daab06a0df73" class="code"><code>const anchor = document.getElementById(&quot;myAnchor&quot;); // 假设有一个a标签的链接为下面的地址
+const result = anchor.toString(); // Returns: &#x27;https://developer.mozilla.org/en-US/docs/Location/toString&#x27;</code></pre><ul id="abb9cb10-9170-4f50-9ed0-8fa32c90b882" class="bulleted-list"><li style="list-style-type:disc">上面的例子是MDN举出的例子，其实并不好，因为<code>anchor</code> 并不是一个<code>Location</code> 实例，它是一个<code>HTMLAnchorElement</code> 实例，而这个实例也有<code>toString()</code> 方法，查看<a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/toString">MDN-HTMLAnchorElement-toString</a></li></ul><ul id="50c4db0f-f3f6-4300-b1a0-4b886426ad51" class="bulleted-list"><li style="list-style-type:disc">可以直接在浏览器控制台中通过<code>location</code> 调用这个方法，如下<figure id="6dbe168e-b636-4ad2-9115-8ff827005453" class="image"><a href="2%200%20location%20%E6%96%B9%E6%B3%95%EF%BC%88method%EF%BC%89/toString.png"><img style="width:720px" src="2%200%20location%20%E6%96%B9%E6%B3%95%EF%BC%88method%EF%BC%89/toString.png"/></a></figure></li></ul></div></div><p id="ab393a8b-d257-4e9a-ac3b-608cfc1a2b8b" class="">
+</p></div></article></body></html>

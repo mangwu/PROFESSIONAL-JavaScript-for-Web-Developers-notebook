@@ -1,0 +1,676 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>10. 函数（Functions）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="66cd1686-8372-4933-8a23-a9cb117423cf" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_william_morris_1875.jpg" style="object-position:center 0%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🧪</span></div><h1 class="page-title">10. 函数（Functions）</h1></header><div class="page-body"><p id="fd9d4759-2c57-4a5e-b6f5-8442a437aa21" class="">本章内容</p><ul id="be5f429f-4c88-4a90-b1cd-aeafd1b4cccf" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">函数表达式（Function expression）、函数声明（function declaration）及箭头函数（arrow functions）</span></li></ul><ul id="06a808c2-7652-4328-a367-54e72708a66b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">默认参数，<strong>扩展操作符</strong>（<strong>spread operators</strong>）</span></li></ul><ul id="15ea6715-20b3-4cdd-93d1-9866c80496a5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">使用函数实现<strong>递归</strong>（<strong>Recursion </strong>with functions）</span></li></ul><ul id="95a60600-ef3e-48ff-8175-c1e483a6e89b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">使用<strong>闭包</strong>实现私有变量（Private variables using <strong>closures</strong>）</span></li></ul><p id="37bb1804-76c0-45c8-a68a-e793b41bc573" class=""><strong>实例化函数对象</strong></p><ul id="95138e14-4680-4fa9-987d-91399ada378c" class="bulleted-list"><li style="list-style-type:disc">函数是ECMAScript中最有意思的一部分因为<strong>函数实际上是对象</strong>（JavaScript中一切皆对象），<strong>每个函数都是</strong><code><strong>Function</strong></code><strong>类型的实例，</strong>而<code><strong>Function</strong></code>和其它引用类型一样也有属性和方法<ul id="2a4ae8f1-b8bd-4a5b-baaf-4f81419438c4" class="bulleted-list"><li style="list-style-type:circle">函数是对象，所以函数名（function names）就是指向函数对象的指针（pointers）</li></ul><ul id="2b7c7cdd-2454-4dbf-bf31-ee1195df4206" class="bulleted-list"><li style="list-style-type:circle">函数名不一定与函数本身紧密绑定，因为它们作为保存指针的变量可以被赋值为其它值</li></ul></li></ul><ul id="5e5bf2b4-430c-4e0d-b294-e6826c1d6f96" class="bulleted-list"><li style="list-style-type:disc">有四种创建函数对象的方式：<ul id="65340e7a-a167-40d5-a651-28e8ab072cd8" class="bulleted-list"><li style="list-style-type:circle">函数声明语法（func-declaration syntax）<pre id="effcfea9-7a03-483e-a3eb-5f2701f3f75d" class="code code-wrap"><code>function sum(num1, num2) {
+  return num1 + num2;
+}</code></pre><ul id="ae96bf73-e53d-48f9-8c0a-f52056f384e2" class="bulleted-list"><li style="list-style-type:square">在函数声明语法中，变量<code><strong>sum</strong></code>被定义并初始化为一个函数</li></ul><ul id="3ba54ebe-4a1a-46a8-bd8a-afb9b0332c49" class="bulleted-list"><li style="list-style-type:square">注意函数声明语法后没有<strong>分号（semicolon）</strong></li></ul></li></ul><ul id="bff011b3-0d36-4dac-8d4d-ea7bd897e86b" class="bulleted-list"><li style="list-style-type:circle">另一种几乎与函数声明语法等价的语法是函数表达式（function expression）语法<pre id="1e50a847-58e5-4d06-8926-fd55cbb3b624" class="code code-wrap"><code>let sum = function (num1, num2) {
+  return num1 + num2;
+};</code></pre><ul id="f6557033-879e-4dbc-be52-3dc260fc3c49" class="bulleted-list"><li style="list-style-type:square">函数表达式定义了一个变量<code><strong>sum</strong></code>并将其初始化为一个函数</li></ul><ul id="d6572f24-d9ee-4ddd-b64c-dec4b4f3403a" class="bulleted-list"><li style="list-style-type:square">注意function关键字后面没有名称，因为不是必要的（函数被引用到了变量<code>sum</code>）</li></ul><ul id="a7973e73-678e-4c94-b01f-7f864fbb02d6" class="bulleted-list"><li style="list-style-type:square">注意函数表达式语法末尾有<strong>分号</strong>（<strong>semicolon</strong>），就和任何变量初始化语句一样</li></ul></li></ul><ul id="273e0e79-7894-44e2-8860-a7f8cebd1c08" class="bulleted-list"><li style="list-style-type:circle">还有一种和函数表达式很像的定义函数的方式：箭头函数（arrow function）,因为使用箭头（<code>=&gt;</code>）所以得名<pre id="cd8c218c-b14f-4559-b93b-67f80380a945" class="code code-wrap"><code>let sum = (num1, num2) =&gt; {
+  return num1 + num2;
+};</code></pre></li></ul><ul id="6828da22-8717-4e0e-bdd6-9dfb37ce6d36" class="bulleted-list"><li style="list-style-type:circle">最后一种定义函数的方式是使用<code>Function</code>构造函数（constructor），这个构造函数接受任意多个字符串参数，最后一个参数始终被当作函数体（function body），而之前的参数按顺序<strong>枚举</strong>（<strong>enumerate</strong>）为新函数的参数<pre id="516dd201-09fc-4e71-b614-b225bac5eb58" class="code code-wrap"><code>let sum = new Function(&quot;num1&quot;, &quot;num2&quot;, &quot;return num1 + num2&quot;);</code></pre><ul id="1f8729f8-8eda-46ee-bd65-78fd5fe10745" class="bulleted-list"><li style="list-style-type:square">注意这种构造方式需要将函数体写成字符串形式，并<strong>不推荐</strong>（<strong>not recommended</strong>）</li></ul><ul id="4f9919d9-592f-4cd4-bc5d-4af871d49c6b" class="bulleted-list"><li style="list-style-type:square">并且由于字符串形式的原因，会导致这段代码被<strong>解释</strong>（<strong>interpretation</strong>）两次（会影响性能）<ul id="657374e6-3eb9-4cff-b9d4-ea351012b123" class="bulleted-list"><li style="list-style-type:disc">第一次被当作常规的ECMAScript代码</li></ul><ul id="6475f98e-c2d3-4968-ae2c-ecf0cd2e4dfe" class="bulleted-list"><li style="list-style-type:disc">第二次解释传给构造函数的字符串</li></ul></li></ul><ul id="df72fdfa-2b1a-4c60-b35f-ebf5b31981c7" class="bulleted-list"><li style="list-style-type:square">但是这种语法能更好理解：<strong>函数是对象，函数名是指针</strong></li></ul></li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="56139297-7319-4b22-b97c-e454edbc5a07"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>注意：</strong>这几种实例化函数对象的方式之间存在<strong>微妙（subtle）</strong>但是重要的差别，不能一概而论，但是其中任何一种方式都能创建函数对象</div></figure></li></ul><ul id="745b4cb6-c270-4234-ace1-5cc9cc530d79" class="bulleted-list"><li style="list-style-type:disc">关于<code><strong>Function</strong></code><strong> </strong>引用类型，参考<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">MDN</a>的介绍：<figure id="fbf1244f-6ffb-419a-b669-034d6a398e21" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89.html"><span class="icon">🔧</span>函数（Function）</a></figure></li></ul><h1 id="dfd5336e-c281-4c84-ae2b-a12249b97f5b" class="">1. 箭头函数</h1><figure id="4faae48e-1491-4282-955d-2bfd4e6283cf" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/1%20%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%EF%BC%88Arrow%20Functions%EF%BC%89.html"><span class="icon">🏛️</span>1. 箭头函数（Arrow Functions）</a></figure><h1 id="5b9e1c7f-e0b0-41f0-a103-f87e52b6bb92" class="">2. 函数名</h1><figure id="e77a183b-e8ec-4b02-9cba-733b8895e5c9" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/2%20%E5%87%BD%E6%95%B0%E5%90%8D%EF%BC%88Function%20Names%EF%BC%89.html"><span class="icon">🧱</span>2. 函数名（Function Names）</a></figure><h1 id="0b4959f8-3a7a-404c-b1ee-3018c23ad372" class="">3. 理解参数</h1><figure id="a221536d-0f1c-4a04-9871-e913b8e28708" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/3%20%E7%90%86%E8%A7%A3%E5%8F%82%E6%95%B0%EF%BC%88understanding%20arguments%EF%BC%89.html"><span class="icon">🎆</span>3. 理解参数（understanding arguments）</a></figure><h1 id="bdea5105-dde1-436d-a358-e653b7df9d80" class="">4. 没有重载</h1><figure id="d181f731-636a-46bf-a36d-12ce4c917ce4" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/4%20%E6%B2%A1%E6%9C%89%E9%87%8D%E8%BD%BD(%20No%20Overloading).html"><span class="icon">🌌</span>4. 没有重载( No Overloading)</a></figure><h1 id="79e572cc-4973-49ab-8eec-31ce66581c03" class="">5. 默认参数值</h1><figure id="4ed7edf0-f7de-4413-ac9f-1f51752b8f29" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/5%20%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E5%80%BC(Default%20Parameter%20Values).html"><span class="icon">📪</span>5. 默认参数值(Default Parameter Values)</a></figure><h1 id="a4834ada-223e-402e-b8ec-0e86fb18b900" class="">6. 参数扩展与收集</h1><figure id="63b84c06-8cfa-4dd4-a89f-e1de170defd4" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/6%20%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95%E4%B8%8E%E6%94%B6%E9%9B%86%EF%BC%88Spread%20Arguments%20and%20Rest%20Parameters%EF%BC%89.html"><span class="icon">🏅</span>6. 参数扩展与收集（Spread Arguments and Rest Parameters）</a></figure><h1 id="af951e27-6488-444f-82bc-26bab3f982ea" class="">7. 函数声明与函数表达式</h1><figure id="bd391df6-d398-4420-bda4-134a832df8a9" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/7%20%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8EVS%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%88Function%20Declarations%20versus%20Functio.html"><span class="icon">📞</span>7. 函数声明VS函数表达式（Function Declarations versus Function Expression）</a></figure><h1 id="b16e747c-4c57-45cc-8bc6-f938108a3d16" class="">8. 函数作为值</h1><figure id="e36c027e-b9b1-4a5b-83c9-a6ead4cb2441" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/8%20%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%80%BC%EF%BC%88Functions%20as%20Values%EF%BC%89.html"><span class="icon">🧨</span>8. 函数作为值（Functions as Values）</a></figure><h1 id="2b19c76a-edef-464b-b039-ffb3c31c2642" class="">9. 函数内部</h1><figure id="6e2d474e-3a57-4935-9cf6-9f2a0a7c186d" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/9%20%E5%87%BD%E6%95%B0%E5%86%85%E9%83%A8%EF%BC%88Function%20Internals%EF%BC%89.html"><span class="icon">🪑</span>9. 函数内部（Function Internals）</a></figure><h1 id="0ac9c4c0-0489-4292-8094-e4660fb43ee5" class="">10. 函数属性与方法</h1><figure id="5d340af1-05d0-47d0-a0b3-8963ad9664bf" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/10%20%E5%87%BD%E6%95%B0%E5%B1%9E%E6%80%A7%E4%B8%8E%E6%96%B9%E6%B3%95(Function%20Property%20and%20Method).html"><span class="icon">🖨️</span>10. 函数属性与方法(Function Property and Method)</a></figure><h1 id="2fb222a1-1f44-4d8f-ba50-603bd61157e3" class="">11. 函数表达式</h1><figure id="cec9a333-88a6-42e1-9afb-e29bae6f24fc" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/11%20%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%88Function%20Expressions%EF%BC%89.html"><span class="icon">🏎️</span>11. 函数表达式（Function Expressions）</a></figure><h1 id="08eaf093-5088-41b3-9e7d-ddd7edbc66d8" class="">12. 递归函数</h1><figure id="e06c722b-9dcf-4861-9fe0-e5655f516b92" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/12%20%E9%80%92%E5%BD%92%EF%BC%88RECURSION%EF%BC%89.html"><span class="icon">🎄</span>12. 递归（RECURSION）</a></figure><h1 id="1fc28654-fe27-48c7-989b-d324c15a9514" class="">13. 尾调用优化</h1><figure id="e1adb2ab-032a-43ea-9cf7-e364cb8c6e55" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/13%20%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96%EF%BC%88Tail%20Call%20Optimization%EF%BC%89.html"><span class="icon">🎴</span>13. 尾调用优化（Tail Call Optimization）</a></figure><h1 id="31594ffe-3eb7-4bfb-b30c-371b91e0775d" class="">14. 闭包</h1><figure id="a563a90e-7f4c-48aa-8398-9fb20044d690" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/14%20%E9%97%AD%E5%8C%85%EF%BC%88Closures%EF%BC%89.html"><span class="icon">🚔</span>14. 闭包（Closures）</a></figure><h1 id="9664b362-5bda-4ce2-8f63-b159f300470a" class="">15. 立即调用的函数表达式</h1><figure id="f2563e99-02e0-4176-b1f4-7b95d498e85a" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/15%20%E7%AB%8B%E5%8D%B3%E8%B0%83%E7%94%A8%E7%9A%84%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%88Immediately%20Invoked%20Function%20Express.html"><span class="icon">🚟</span>15. 立即调用的函数表达式（Immediately Invoked Function Expressions）</a></figure><h1 id="aa06b76a-e52c-4bb6-9b9c-17ed1bd49ce2" class="">16. 私有变量</h1><figure id="1d5ebd72-a1ed-4412-a908-22af901ef361" class="link-to-page"><a href="10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89/16%20%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F%EF%BC%88Private%20Variables%EF%BC%89.html"><span class="icon">🏜️</span>16. 私有变量（Private Variables）</a></figure><h1 id="6c18e801-7ba2-4eb1-807a-eb62540a5bcc" class="">17. 小结</h1><p id="6c0ff13f-f551-499e-a8df-b4f7a70743ae" class="">函数是JavaScript编程中最有用也最通用的工具。ECMAScript6 新增了更加强大的语法特性，从而让开发者可以更有效的使用函数</p><ul id="374e871e-7a8e-4d2d-b96c-cbeb0db7acbf" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">函数声明和函数表达式不一样，函数声明要求写出函数名称，而函数表达式名称可选，没有名称的函数表达式创建的函数被称为匿名函数</span></li></ul><ul id="60a5e150-319d-4acb-85a6-95b0ea565269" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ES6新增了类似于函数表达式的箭头函数语法，箭头函数相加于标准函数有重要区别</span><ol type="1" id="05e5188f-0b51-4c18-836b-ff9a40ba0499" class="numbered-list" start="1"><li>箭头函数没有自己的<code>arguments</code>和<code>this</code>对象</li></ol><ol type="1" id="39a3fc23-1084-4504-a034-e1002afcc756" class="numbered-list" start="2"><li>箭头函数的this在定义时绑定最近上下文中的作用域中的<code>this</code></li></ol></li></ul><ul id="b2484791-4882-47c8-adac-1dd4d265be13" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">JavaScript中函数定义于调用时的参数极其灵活：JavaScript的函数不存在函数签名，以下实现让JavaScript函数的<strong>定义和调用完全动态化</strong>（<strong>dynamic definition and invocation</strong>）</span><ol type="1" id="fd65419f-fabe-4797-bae4-c3f55577cea1" class="numbered-list" start="1"><li><code>arguments</code>对象</li></ol><ol type="1" id="b313dcb2-9403-45ab-b931-d4710370f1da" class="numbered-list" start="2"><li>ES6新增的扩展操作符</li></ol></li></ul><ul id="ea095eb9-e8c2-45e6-90a3-64d6aaa62306" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">函数内部也<strong>暴露</strong>（<strong>expose</strong>）了很多对象和引用指示函数被调用时的一些信息：</span><ol type="1" id="7b84418e-dc35-4985-89d2-212a9d4fa7c5" class="numbered-list" start="1"><li>函数如何被调用的：<code>this</code> </li></ol><ol type="1" id="796bfbe5-fbf0-43b9-9358-6566198d8304" class="numbered-list" start="2"><li>函数在哪里被调用的：<code>arguments.callee.caller</code> </li></ol><ol type="1" id="44b3f04c-9da2-4ae9-a8e5-0ae0c2163db4" class="numbered-list" start="3"><li>函数调用时原始的参数传递：<code>arguments</code></li></ol></li></ul><ul id="edb9c707-2ac5-4e2b-9bef-bad495b003b1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">JavaScript引擎可以优化符合尾调用（ optimize function with tail call）条件的函数，以节省（<strong>preserve</strong>）栈空间</span></li></ul><ul id="889339db-8fe3-447c-8105-5978b2466194" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">闭包的作用域链中包含自己的一个变量对象，然后是包含函数的变量对象，直到全局上下文的变量对象</span></li></ul><ul id="cc3c2c72-19ec-4318-b14d-90238be63e7e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">通常，函数作用域及其中的所有变量在函数执行完毕后都会被销毁</span><ul id="808ca01b-da19-45e2-a45a-614f1620e0ca" class="bulleted-list"><li style="list-style-type:disc">闭包因为引用包含函数的变量对象会导致包含函数的作用域会一直保存在内存中，直到闭包被销毁</li></ul><ul id="48cd18a4-04b1-413f-82b3-9b17b6956ea5" class="bulleted-list"><li style="list-style-type:disc">所以闭包容易造成内存泄漏，不推荐使用</li></ul></li></ul><ul id="261f290a-2058-4790-8d96-15c55488209e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">函数可以在创建后被立即调用，执行其中的代码之后却不留下对函数的引用</span><ul id="0bb114b0-efa0-47d7-8d04-a09617e3d0f9" class="bulleted-list"><li style="list-style-type:disc">英文缩写：IIFE ,Immediately Involved Function Expression</li></ul><ul id="24d5e282-ca36-4244-8474-7e741249ca80" class="bulleted-list"><li style="list-style-type:disc">ES5.1及之前常用于模拟块级作用域</li></ul><ul id="f039a881-fe13-4806-94a1-476b240e674b" class="bulleted-list"><li style="list-style-type:disc">如果不在包含作用域（containing scope）中将返回值赋给一个变量，其包含的所有变量都会被销毁</li></ul></li></ul><ul id="69125857-5489-46ad-b1f9-2b247f047c18" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">虽然JavaScript没有私有对象属性（private objects properties）的概念，但可以使用闭包实现公共方法（特权方法），访问位于包含作用域中定义的变量</span><ul id="59a0f856-efab-4e0e-a712-f25825a262ee" class="bulleted-list"><li style="list-style-type:disc">可以访问私有变量的公共方法叫做特权方法</li></ul><ul id="fac630f6-2316-4c7d-bc9f-5975c7762bde" class="bulleted-list"><li style="list-style-type:disc">特权方法可以使用构造函数或原型模式（静态私有变量）通过自定义类型中实现</li></ul><ul id="607ae913-5cc6-499e-b991-2c9a95164d80" class="bulleted-list"><li style="list-style-type:disc">特权方法也可以使用模块模式或模块增强模式在单例对象上实现</li></ul></li></ul><p id="a6c4a5c3-98ab-4bb3-ae08-f8c6af2d3c7c" class="">
+</p></div></article></body></html>

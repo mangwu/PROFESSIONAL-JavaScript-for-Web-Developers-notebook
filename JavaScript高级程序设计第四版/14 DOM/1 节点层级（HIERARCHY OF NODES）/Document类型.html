@@ -1,0 +1,848 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Document类型</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="bde94900-852d-418b-a9c7-fbb57c0f68cd" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/gradients_11.jpg" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🎡</span></div><h1 class="page-title">Document类型</h1></header><div class="page-body"><ul id="9133c1f6-0778-4cf9-a2b8-3c9b3eee5c46" class="bulleted-list"><li style="list-style-type:disc">Document类型是JavaScript中表示文档节点的类型，Node接口定义的<code>DOCUMENT_NODE</code> （9）就是Document类型</li></ul><ul id="f79836b6-f48b-498f-820a-c82bcb6fbf3c" class="bulleted-list"><li style="list-style-type:disc">在浏览器中，文档对象<code>document</code> 就是Document类型，它是HTMLDocument的实例（HTMLDocument继承Document），表示整个HTML页面，document是window对象的属性，因此是一个全局对象，Document类型的节点有如下特征<ul id="f3432e85-9c63-4567-b06d-81de2ca98d1d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeType等于<code>Node.DOCUMENT_NODE</code> (9)</span></li></ul><ul id="471824a5-80ab-492d-8f54-9809d80755f0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeName值为”#document”</span></li></ul><ul id="e3309c03-ae49-4fe9-81b1-a8a972213007" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeValue值为null</span></li></ul><ul id="58d74e8c-d01f-4e94-b548-0a85308afc78" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">parentNode值为null</span></li></ul><ul id="14684990-9a7d-448c-ad7a-ccfaecad5cc7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ownerDocument值为null</span></li></ul><ul id="7f015283-0d6f-4154-8ee4-ec3222c23d8a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">子节点可以是DocumentType（最多一个），Element（最多一个）、ProcessingInstruction或Comment类型</span></li></ul></li></ul><ul id="d5bca9b0-5bd1-4b5b-a570-bef70044610b" class="bulleted-list"><li style="list-style-type:disc">Document类型可以表示HTML页面或其它XML文档，但最常用的还是通过HTMLDocument的实例获取<code>document</code>对象，<code>document</code>对象可用于获取关于页面的信息以及操作其外观和底层结构</li></ul><h2 id="876dbbdf-60c9-4cbc-aa5e-090d300be6cb" class="">1.2.1 HTMLDocument接口规范</h2><ul id="0a3fe0a7-6451-4779-8263-b59075cd14c3" class="bulleted-list"><li style="list-style-type:disc"><code>HTMLDocument</code> 是DOM的一个抽象接口，它提供了XML文档里没有出现的特殊属性和方法<ul id="2015ca51-c89e-49b1-b6b2-ca0f760d2337" class="bulleted-list"><li style="list-style-type:circle">它的属性和方法包含在<code>Document</code> 接口页面中</li></ul><ul id="e1a5184c-ec8c-417c-b913-55b4d81b1fb7" class="bulleted-list"><li style="list-style-type:circle"><code>HTMLDocument</code> 对象继承了<code>Document</code>接口和<code>HTMLDocument</code> 接口，因此它有比<code>Document</code> 更多的属性，并且与<code>XMLDocument</code>不同的是，<code>HTMLDocument</code> 是具有外观的，并且要管理它后代的<code>HTMLElement</code> </li></ul></li></ul><ul id="799fd439-238b-4357-b974-45628b2bb43e" class="bulleted-list"><li style="list-style-type:disc">W3C DOM-Level-2规范了<a href="https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-26809268">HTMLDocument接口</a><pre id="90a0f01a-1842-44c0-ad85-11ffc7d60c15" class="code code-wrap"><code>interface HTMLDocument : Document {
+           attribute DOMString       title;
+  readonly attribute DOMString       referrer;
+  readonly attribute DOMString       domain;
+  readonly attribute DOMString       URL;
+           attribute HTMLElement     body;
+  readonly attribute HTMLCollection  images;
+  readonly attribute HTMLCollection  applets;
+  readonly attribute HTMLCollection  links;
+  readonly attribute HTMLCollection  forms;
+  readonly attribute HTMLCollection  anchors;
+           attribute DOMString       cookie;
+                                        // raises(DOMException) on setting
+
+  void               open();
+  void               close();
+  void               write(in DOMString text);
+  void               writeln(in DOMString text);
+  NodeList           getElementsByName(in DOMString elementName);
+};</code></pre><ul id="9fe1f87c-dde8-4f29-9e0d-20bdf37f7934" class="bulleted-list"><li style="list-style-type:circle">可以看出<code>HTMLDocument</code> 继承于<code>Document</code>接口，<code>document</code> 对象的是<code>HTMLDocument</code> 的直接实例<pre id="d43f64f4-1e3d-41f9-af82-cac4a4249f69" class="code code-wrap"><code>document.__proto__ === HTMLDocument.prototype; // true
+HTMLDocument.prototype instanceof Document; // true
+HTMLDocument.__proto__ === Document; // true</code></pre></li></ul></li></ul><ul id="1cb2ffbc-2f59-4f97-af4e-03083f15fe43" class="bulleted-list"><li style="list-style-type:disc">DOM Standard规范了<a href="https://dom.spec.whatwg.org/#document">Document的接口</a><pre id="f884fef5-1779-424d-b1e8-4013b746cf9d" class="code code-wrap"><code>[Exposed=Window]
+interface Document : Node {
+  constructor();
+
+  [SameObject] readonly attribute DOMImplementation implementation;
+  readonly attribute USVString URL;
+  readonly attribute USVString documentURI;
+  readonly attribute DOMString compatMode;
+  readonly attribute DOMString characterSet;
+  readonly attribute DOMString charset; // legacy alias of .characterSet
+  readonly attribute DOMString inputEncoding; // legacy alias of .characterSet
+  readonly attribute DOMString contentType;
+
+  readonly attribute DocumentType? doctype;
+  readonly attribute Element? documentElement;
+  HTMLCollection getElementsByTagName(DOMString qualifiedName);
+  HTMLCollection getElementsByTagNameNS(DOMString? namespace, DOMString localName);
+  HTMLCollection getElementsByClassName(DOMString classNames);
+
+  [CEReactions, NewObject] Element createElement(DOMString localName, optional (DOMString or ElementCreationOptions) options = {});
+  [CEReactions, NewObject] Element createElementNS(DOMString? namespace, DOMString qualifiedName, optional (DOMString or ElementCreationOptions) options = {});
+  [NewObject] DocumentFragment createDocumentFragment();
+  [NewObject] Text createTextNode(DOMString data);
+  [NewObject] CDATASection createCDATASection(DOMString data);
+  [NewObject] Comment createComment(DOMString data);
+  [NewObject] ProcessingInstruction createProcessingInstruction(DOMString target, DOMString data);
+
+  [CEReactions, NewObject] Node importNode(Node node, optional boolean deep = false);
+  [CEReactions] Node adoptNode(Node node);
+
+  [NewObject] Attr createAttribute(DOMString localName);
+  [NewObject] Attr createAttributeNS(DOMString? namespace, DOMString qualifiedName);
+
+  [NewObject] Event createEvent(DOMString interface); // legacy
+
+  [NewObject] Range createRange();
+
+  // NodeFilter.SHOW_ALL = 0xFFFFFFFF
+  [NewObject] NodeIterator createNodeIterator(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null);
+  [NewObject] TreeWalker createTreeWalker(Node root, optional unsigned long whatToShow = 0xFFFFFFFF, optional NodeFilter? filter = null);
+};
+
+[Exposed=Window]
+interface XMLDocument : Document {};
+
+dictionary ElementCreationOptions {
+  DOMString is;
+};</code></pre><ul id="a3cfa811-f489-4749-b7f7-ce99434f2b6e" class="bulleted-list"><li style="list-style-type:circle"><code>Document</code>接口定义了很多常用的方法和属性，它继承自<code>Node</code> ，所以<code>document</code> 本质上也可以看作一个节点，是一个文档节点<pre id="6581caad-c31f-4d15-b577-c5cb257a5396" class="code code-wrap"><code>Document.__proto__ === Node; // true
+Node.__proto__ === EventTarget; // true</code></pre></li></ul></li></ul><ul id="a1626c3b-97ca-4d10-afda-7d0b36ce409b" class="bulleted-list"><li style="list-style-type:disc"><code>EventTarget</code> ，<code>Node</code> ，<code>Document</code> ，<code>HTMLDocument</code> 之间的原型关系图如下<figure id="566c2ba9-6eb2-4c7c-b8ed-c89d1e8187bc" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/%25E5%2586%2585%25E7%25BD%25AE%25E6%259E%2584%25E9%2580%25A0%25E5%2587%25BD%25E6%2595%25B0%25E7%259A%2584%25E7%25BB%25A7%25E6%2589%25BF%25E5%2585%25B3%25E7%25B3%25BB.png"><img style="width:2915px" src="Document%E7%B1%BB%E5%9E%8B/%25E5%2586%2585%25E7%25BD%25AE%25E6%259E%2584%25E9%2580%25A0%25E5%2587%25BD%25E6%2595%25B0%25E7%259A%2584%25E7%25BB%25A7%25E6%2589%25BF%25E5%2585%25B3%25E7%25B3%25BB.png"/></a></figure></li></ul><ul id="36344c0d-277e-4683-99cc-9eb429670955" class="bulleted-list"><li style="list-style-type:disc">为了继承静态的方法和属性，<code>HTMLDocument</code> 等接口直接是要[[Prototype]]继承了对应的<code>Document</code> 构造函数对象</li></ul><h2 id="4a9f3388-bcb4-41cb-8ca6-2ef4d2e3fa85" class="">1.2.2 文档子节点（Document Children）</h2><ul id="3be4c24f-f914-4333-be58-a262dd4e15fe" class="bulleted-list"><li style="list-style-type:disc"><code>Document</code> 节点的子节点可以是DocumentType、Element、ProcessingInstruction或Comment，但是也提供了直接访问子结点的快捷方式（属性）<ul id="6594cff0-07e4-4057-b7fb-4e7d740258f3" class="bulleted-list"><li style="list-style-type:circle"><code>documentElement</code> 属性始终指向HTML页面的&lt;html&gt;元素，虽然<code>document.childNodes</code>中 始终存在&lt;html&gt;元素，但是使用<code>documentElement</code> 属性可以更快速方便的访问元素<figure id="fbac8f2f-9b4d-471d-8239-01af62a1de5c" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/documentElement.png"><img style="width:574px" src="Document%E7%B1%BB%E5%9E%8B/documentElement.png"/></a></figure></li></ul><ul id="ff101294-32a2-4636-a751-917da191c765" class="bulleted-list"><li style="list-style-type:circle"><code>body</code> 属性始终指向HTML页面中的&lt;body&gt;元素，因为整个元素是开发者使用最多的元素，所以JavaScript代码中经常可以看到<code>document.body</code> <pre id="bcef0c1f-0c25-4361-93e4-a500a1aecc4f" class="code"><code>console.log(document.body === document.documentElement.lastChild); // true</code></pre><ul id="d750dbba-c096-4b3a-8035-93f49cc9d8d9" class="bulleted-list"><li style="list-style-type:square">一般而言&lt;html&gt;元素的最后一个子节点就是&lt;body&gt;元素</li></ul></li></ul><ul id="99a414bb-e1e0-40f3-8c8e-0a498d7413ad" class="bulleted-list"><li style="list-style-type:circle"><code>Document</code> 类型另一种可能的节点是<code>DocumentType</code> ，<code>DocumentType</code> 类型继承自<code>Node</code> ，它特指HTML中的<strong>doctypes，</strong>即HTML文档开头的文档类型说明，一般为&lt;!doctype html&gt;标签，在<code>document</code>对象上可以通过<code>doctype</code> 属性访问文档类型节点，它是文档中独立的部分<pre id="6db76d57-c89a-45a2-9f81-f0df0aa7af87" class="code"><code>document.doctype === document.firstChild; // true</code></pre><ul id="768f3245-7deb-425c-a7e2-714260bdbfd5" class="bulleted-list"><li style="list-style-type:square">一般而言文档节点的第一个子节点就是文档类型节点</li></ul></li></ul></li></ul><ul id="c66b2576-dd9e-47a4-9a75-a6866aa7fcf7" class="bulleted-list"><li style="list-style-type:disc">严格来讲，出现在&lt;html&gt;元素外部的注释也是文档的子节点，它们的类型是Comment，不过由于浏览器的实现不同，这些注释不一定能被识别，或者表现可能不一样，如下<pre id="f36e1e8b-7b0e-4c0a-9429-da4d0a5f8e7d" class="code"><code>&lt;!DOCTYPE html&gt;
+&lt;!-- 第一条注释 --&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;文档注释&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    文档注释
+  &lt;/body&gt;
+&lt;/html&gt;
+&lt;!-- 第二条注释 --&gt;</code></pre><ul id="f39c472c-9234-4797-80e9-3452f78baab2" class="bulleted-list"><li style="list-style-type:circle">整个文档节点的直接子节点有四个：文档类型节点、注释节点、html元素节点、注释节点，如下<figure id="4ae14360-4dc6-4847-a8dd-4bca24b679c5" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/%25E6%25B3%25A8%25E9%2587%258A%25E8%258A%2582%25E7%2582%25B9.png"><img style="width:720px" src="Document%E7%B1%BB%E5%9E%8B/%25E6%25B3%25A8%25E9%2587%258A%25E8%258A%2582%25E7%2582%25B9.png"/></a></figure></li></ul></li></ul><ul id="b09556e0-5b67-450d-bff4-f19669b9c149" class="bulleted-list"><li style="list-style-type:disc">一般而言，<code>appendChild()</code> ，<code>removeChild()</code> ，<code>replaceChild()</code> 操作节点的方法不会应用在<code>document</code> 对象上，这是因为文档类型（如果存在）是只读的，而且只能有一个Element类型的子节点（即&lt;html&gt;），也就是说，文档节点的结构相对固定，而在书写HTML文档时也会固定写上这些结构，没必要为文档节点添加其他节点类型</li></ul><h2 id="19f821f7-fa25-4146-8db5-f558111aeaa2" class="">1.2.3 文档信息</h2><ul id="e68dab63-7ab8-4e24-9020-a252c5438876" class="bulleted-list"><li style="list-style-type:disc"><code>document</code> 作为<code>HTMLDocument</code> 的实例，还有一些<a href="../1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89.html">标准</a><a href="../1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89.html"><code>Document</code></a><a href="../1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89.html"> 对象上没有的属性</a> 这些属性提供了浏览器所加载网页的信息<ul id="26586488-3d46-4a35-bc2e-9ddae7d35c14" class="bulleted-list"><li style="list-style-type:circle"><code>title</code>属性，包含&lt;title&gt;元素中的文本，通常显示在浏览器窗口或标签页的标题栏，通过这个属性可以<strong>读写</strong>页面的标题，修改后的标题也会反映在浏览器标题栏上，但是修改<code>title</code> 属性并不会改变&lt;title&gt;元素（即只是修改了title元素内的文本值）<pre id="8ab40eba-75ac-4043-a445-7a043b4c50f7" class="code"><code>&lt;input type=&quot;text&quot; /&gt;&lt;button&gt;点击修改标题&lt;/button&gt;
+&lt;script&gt;
+  const input = document.querySelector(&quot;input&quot;);
+  const btn = document.querySelector(&quot;button&quot;);
+  btn.addEventListener(&quot;click&quot;, () =&gt; {
+    if (input.value) {
+      document.title = input.value;
+      input.value = &quot;&quot;;
+    } else {
+      alert(&quot;请输入标题&quot;);
+    }
+  });
+&lt;/script&gt;</code></pre><figure id="19895774-416d-4a53-9029-7fb95894a0cc" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/document.title.gif"><img style="width:624px" src="Document%E7%B1%BB%E5%9E%8B/document.title.gif"/></a></figure></li></ul><ul id="83aedb28-be6d-4e79-8080-a23782b2905c" class="bulleted-list"><li style="list-style-type:circle"><code>URL</code> 属性，包含当前页面的完整URL（地址栏中的URL）<figure id="7fbc42c8-4dbc-42b0-a382-1e798ab52b73" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/document.URL.png"><img style="width:768px" src="Document%E7%B1%BB%E5%9E%8B/document.URL.png"/></a></figure></li></ul><ul id="b65362cf-b880-441c-b92d-8a8b6831f5cc" class="bulleted-list"><li style="list-style-type:circle"><code>domain</code>属性，包含页面的域名，如果是本地文件就会返回空字符串，本地服务器就会返回”localhost”<figure id="12233500-948e-41ec-abc5-91b13a407d0b" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/document.domain.png"><img style="width:384px" src="Document%E7%B1%BB%E5%9E%8B/document.domain.png"/></a></figure></li></ul><ul id="df6d5019-2c4b-4564-9f53-0dad2463bee0" class="bulleted-list"><li style="list-style-type:circle"><code>referrer</code> 属性，包含链接到当前页面的那个页面的URL，如果当前页面没有来源，则<code>referrer</code> 属性返回空字符串<figure id="8060234c-d2de-4ca6-82ac-a33056b68026" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/referrer.png"><img style="width:432px" src="Document%E7%B1%BB%E5%9E%8B/referrer.png"/></a></figure></li></ul></li></ul><ul id="421aa160-997f-4d1b-a8a1-b8a2ae025783" class="bulleted-list"><li style="list-style-type:disc">实际上，上述的<code>URL</code>、<code>domain</code>、<code>referrer</code>所有的这些信息都可以在请求的HTTP头部信息中获取，只是在JavaScript中通过这几个属性暴露出来而已<ul id="72023f70-8be4-41aa-bcd0-5e95df74cc0b" class="bulleted-list"><li style="list-style-type:circle">URL跟域名是有关系的，如上面例子中的<code>dom.spec.whatwg.org</code>就是<code>document.URL</code> 字符串中的一部分</li></ul><ul id="3de6bd77-9ef3-4e28-9e93-ceacb08491de" class="bulleted-list"><li style="list-style-type:circle">在这些属性中，<code>domain</code> 是可以设置的，出于安全考虑，给<code>domain</code> 属性设置的值是有限制的，比如完整域名是<code>dom.spec.whatwg.org</code> ，可以将<code>domain</code> 设置成”spec.whatwg.org”，和”whatwg.org”，但不能给<code>domain</code> 属性设置成URL中不包含的值<figure id="18dc9226-c3c6-4b3d-8830-19a75a0e699c" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/%25E8%25AE%25BE%25E7%25BD%25AE%25E5%259F%259F%25E5%2590%258D.png"><img style="width:624px" src="Document%E7%B1%BB%E5%9E%8B/%25E8%25AE%25BE%25E7%25BD%25AE%25E5%259F%259F%25E5%2590%258D.png"/></a></figure></li></ul><ul id="05927669-9a27-4052-a603-e1560b6ed1e7" class="bulleted-list"><li style="list-style-type:circle">除此之外，当页面中包含来自某个不同子域的窗格（&lt;frame&gt;）或内嵌窗格（&lt;iframe&gt;）时，设置<code>document.domain</code> 是有用的<ul id="7629f9ac-965c-40d2-a7ef-e31131d355f2" class="bulleted-list"><li style="list-style-type:square">因为跨域通信存在安全隐患，所以不同子域的页面间无法通过JavaScript通信</li></ul><ul id="ae0da271-2ddb-4b59-bc53-b6de7b80d946" class="bulleted-list"><li style="list-style-type:square">此时在每个页面上把<code>document.domain</code> 设置成相同的值，这些页面就可以访问对方的JavaScript对象了</li></ul><ul id="84d5a716-f345-4cf2-a290-974d16170943" class="bulleted-list"><li style="list-style-type:square">例如一个加载<a href="https://developer.mozilla.org/">https://developer.mozilla.org/</a>的页面包含一个内嵌窗格，其中页面加载来之<a href="https://interactive-examples.mdn.mozilla.net/pages/css/animation.html">https://interactive-examples.mdn.mozilla.org/pages/css/animation.html</a>，这两个页面的<code>document.domain</code> 中包含不同的字符串，内外部不能访问对方的JavaScript对象，如果把两个页面的<code>document.domain</code> 设置成<code>mozilla.org</code> ，那么就能通信了</li></ul></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="c9318339-3a2b-4173-a2c5-abc6eb7ef20e"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：浏览器对<code>domain</code> 属性还有一个限制，即这个属性一旦放松就不能再收紧，比如把<code>document.domain</code> 设置成<code>mozilla.org</code> 之后，就不能再设置回<code>developer.mozilla.org</code> 了，回导致报错</div></figure></li></ul><h2 id="5851ef2b-bbe6-4556-ad52-efa28fb31b37" class="">1.2.4 定位元素（Locating Element）</h2><ul id="edbc17ca-faaf-4c7b-a478-d16476414b41" class="bulleted-list"><li style="list-style-type:disc">定位元素就是获取某个或某组元素的引用，然后对它们执行一些操作</li></ul><ul id="2647d0a7-6493-4f1c-9047-f0439833d92e" class="bulleted-list"><li style="list-style-type:disc"><code>document</code> 对象上暴露了一些方法可以实现获取元素节点的操作</li></ul><h3 id="b2422fa2-c2e2-489a-97db-19c07cae58d1" class="">1.2.4.1 document.getElementById()</h3><ul id="7e2c30cd-e799-436b-983d-1af15b41f7b3" class="bulleted-list"><li style="list-style-type:disc"><code>getElementById()</code> 接收一个参数，即要获取元素的id，如果找到了这个元素则返回其引用，如果没有找到就返回<code>null</code> </li></ul><ul id="0ed679c4-a483-478b-9941-552d5720aeb2" class="bulleted-list"><li style="list-style-type:disc">参数ID必须跟元素在页面中的id属性值完全匹配，包括大小写，例如<pre id="b6c49998-1906-4a47-bdea-962e9556cdd5" class="code"><code>&lt;div id=&quot;mydiv&quot;&gt;定位元素&lt;/div&gt;
+&lt;script&gt;
+  const mydiv = document.getElementById(&quot;mydiv&quot;);
+  console.log(mydiv)
+&lt;/script&gt;</code></pre><figure id="c8a62ca3-c80f-4712-a655-dabc5d340e31" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/%25E5%25AE%259A%25E4%25BD%258D%25E5%2585%2583%25E7%25B4%25A0.png"><img style="width:576px" src="Document%E7%B1%BB%E5%9E%8B/%25E5%25AE%259A%25E4%25BD%258D%25E5%2585%2583%25E7%25B4%25A0.png"/></a></figure></li></ul><ul id="6f3a4857-5cfe-4acf-ac71-a2327cb67c5c" class="bulleted-list"><li style="list-style-type:disc">如果页面中存在多个具有相同ID的元素，则<code>getElementById()</code> 会返回在文档中出现的第一个元素</li></ul><h3 id="f9f38f8a-2aa6-43e3-a44c-1f2a6e5c1022" class="">1.2.4.2 document.getElementsByTagName()</h3><ul id="02bc1eb2-b0cc-4fee-9e51-e47396856e9e" class="bulleted-list"><li style="list-style-type:disc"><code>getElementsByTagName()</code> 是另一个常用来获取元素引用的方法，这个方法接收一个参数，即要获取元素的标签名，返回包含零个或多个元素的<code>NodeList</code> </li></ul><ul id="21248657-4bc8-4875-9916-eed568ce99b6" class="bulleted-list"><li style="list-style-type:disc">在HTML文档中，这个方法返回一个<code>HTMLCollection</code>对象，考虑到二者都是”实时“列表，<code>HTMLCollection</code> 和NodeList是相似的<pre id="5414aadf-3305-4971-a14a-38559b23a507" class="code"><code>&lt;p name=&quot;p1&quot;&gt;1&lt;/p&gt;
+&lt;p name=&quot;p2&quot;&gt;2&lt;/p&gt;
+&lt;p name=&quot;p3&quot;&gt;3&lt;/p&gt;
+
+const ps = document.getElementsByTagName(&quot;p&quot;);
+console.log(ps);</code></pre><figure id="1f0a8eea-a427-4087-ab9d-28d4f8b7f103" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/getElementByTagName.png"><img style="width:432px" src="Document%E7%B1%BB%E5%9E%8B/getElementByTagName.png"/></a></figure></li></ul><ul id="4daf5584-5bc8-4648-b710-e3e3b850004a" class="bulleted-list"><li style="list-style-type:disc">根据DOM-Standard的<a href="https://dom.spec.whatwg.org/#interface-htmlcollection">HTMLCollection规范</a>，<code>HTMLCollection</code> 接口实现如下<pre id="d641c1a2-8193-4018-913c-c3229ad4eb4f" class="code"><code>[Exposed=Window, LegacyUnenumerableNamedProperties]
+interface HTMLCollection {
+  readonly attribute unsigned long length;
+  getter Element? item(unsigned long index);
+  getter Element? namedItem(DOMString name);
+};</code></pre><ul id="41800c76-59dd-4f22-8c63-da0a2774b780" class="bulleted-list"><li style="list-style-type:circle"><code>[LegacyUnenumerableNamedProperties]</code>：在web IDL中，像<code>item</code>这样可以通过<code>index</code>属性来访问的<code>getter</code>方法称为<code>index properties</code>；像<code>nameItem</code>这样可以通过<code>name</code>属性访问的<code>getter</code>方法称之为<code>name properties</code>；<code>[LegacyUnenumerableNamedProperties] </code>则表明这个接口中的<code>name properties</code>是不可枚举的，所以使用<code>Object.getOwnPropertyDescriptor</code>查看<code>nameItem</code>对应的集合时，<code>enumerable</code>的值是<code>false</code></li></ul></li></ul><ul id="b52199f9-56a0-43e3-b7af-7640a8176456" class="bulleted-list"><li style="list-style-type:disc">所以访问HTMLCollection对象中的节点元素有如下几种方式<ul id="9dbfa8d6-89eb-411f-ae41-b92e700e2853" class="bulleted-list"><li style="list-style-type:circle">和<code>NodeList</code>对象一样，通过中括号或<code>item()</code> 方法从HTMLCollection取得特定的元素<figure id="9e571b6c-a76a-4633-8c7d-46384e6498b1" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/item(1).png"><img style="width:432px" src="Document%E7%B1%BB%E5%9E%8B/item(1).png"/></a></figure></li></ul><ul id="6cc675e0-96f3-4dd3-822b-e233f59e1b64" class="bulleted-list"><li style="list-style-type:circle">因为HTMLCollection对象还有一个额外的方法<code>namedItem</code> ，可以通过标签的<code><strong>name</strong></code><strong> 属性</strong>获取某一项的引用，所以可以直接通过句点语法或中括号属性名称的方式获取引用<figure id="f7f7a5eb-a7bd-426b-bc36-e15c9af032f4" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/namedItem.png"><img style="width:480px" src="Document%E7%B1%BB%E5%9E%8B/namedItem.png"/></a></figure></li></ul><hr id="a383accd-1420-422b-af1e-58b49771f50d"/><ul id="d343b57c-903c-4c79-94e4-d687bcf7e012" class="bulleted-list"><li style="list-style-type:circle">在后台，数组索引会调用item()，而字符串索引会调用namedItem()</li></ul></li></ul><ul id="f7a43d39-1c8e-44c6-abca-fa74a800e066" class="bulleted-list"><li style="list-style-type:disc">要获取文档的所有元素，可以给<code>getElementsByTagName()</code> 传入*，在JavaScript和CSS中，*被认为是匹配一切的字符<pre id="064018f2-9e53-4448-ae99-93c0881b5a9e" class="code"><code>let allElements = document.getElementsByTagName(&quot;*&quot;);</code></pre><ul id="1c9a4815-fbf1-4d57-a19a-8eaeb1463fb4" class="bulleted-list"><li style="list-style-type:circle">这条语句获取文档中的所有节点并<strong>按它们在页面中的出现顺序</strong>构成一个包含所有元素的<code>HTMLCollection</code> 对象返回</li></ul><ul id="d61ace2b-7b96-432d-80c3-d92233cea241" class="bulleted-list"><li style="list-style-type:circle">因此第一项是&lt;html&gt;元素，第二项是&lt;head&gt;元素（不包括文档类型节点是一个继承<code>Node</code>的<code>DocumentType</code> 对象，而不是一个<code>Element</code>对象）<figure id="5def4291-5da9-45c9-a73c-12c09beaabe9" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/allElements.png"><img style="width:672px" src="Document%E7%B1%BB%E5%9E%8B/allElements.png"/></a></figure></li></ul></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="6455582e-02e0-43fa-a176-8103ea350a04"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：<code>document.getElementsByTagName()</code> 方法，虽然规范要求区分标签的大小写，但为了最大限度兼容原有HTML页面，实际上是不区分大小写的。如果是在XML页面（如XHTML）中使用，那么<code>document.getElementsByTagName()</code> 就是区分大小写的</div></figure><h3 id="6a6c27b2-89e3-44b7-8f95-b6ed01c6b993" class="">1.2.4.3 document.getElementsByName()</h3><ul id="365e73b1-ed05-426e-b11d-95cf8c04b10c" class="bulleted-list"><li style="list-style-type:disc">顾名思义，这个方法会返回具有给定<code>name</code> 属性的所有元素（一个NodeList对象），它常用于单选按钮，因为同一字段的单选按钮必须具有相同的<code>name</code> 属性才能确保把正确的值发送给服务器，如下<pre id="e2edf70b-13d1-4345-9872-d6423f88ef90" class="code"><code>&lt;fieldset&gt;
+  &lt;legend&gt;Which color do you perfer?&lt;/legend&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;input type=&quot;radio&quot; name=&quot;color&quot; id=&quot;red&quot; value=&quot;red&quot; /&gt;
+      &lt;label for=&quot;red&quot;&gt;Red&lt;/label&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;input type=&quot;radio&quot; name=&quot;color&quot; id=&quot;green&quot; value=&quot;green&quot; /&gt;
+      &lt;label for=&quot;green&quot;&gt;Green&lt;/label&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;input type=&quot;radio&quot; name=&quot;color&quot; id=&quot;blue&quot; value=&quot;blue&quot; /&gt;
+      &lt;label for=&quot;blue&quot;&gt;Blue&lt;/label&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/fieldset&gt;
+
+const radio = document.getElementsByName(&quot;color&quot;);
+console.log(radio);</code></pre><figure id="674bb132-4759-4dc9-940b-eb52f7125480" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/radio.png"><img style="width:624px" src="Document%E7%B1%BB%E5%9E%8B/radio.png"/></a></figure><figure id="5123f71c-688c-4e51-9e54-091ceff1b77d" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/radio2.png"><img style="width:576px" src="Document%E7%B1%BB%E5%9E%8B/radio2.png"/></a></figure><ul id="38cb9a62-c020-455f-b1ee-198c82faffaa" class="bulleted-list"><li style="list-style-type:circle">这里所有的单选按钮都有名为”color”的name属性，但它们的ID都不一样，这是因为ID是为了匹配&lt;label&gt;元素，而name相同是为了保证只将三个中的一个值发送给服务器，然后就可以通过name属性值来获取所有的但单选项节点元素</li></ul></li></ul><ul id="8debeb9b-7fac-4d97-97fc-12dd5ad4522a" class="bulleted-list"><li style="list-style-type:disc">注意，在《JavaScript高级程序设计（第4版）》中原话：<blockquote id="2c5fbe96-a29c-4a3b-856d-7bab721ce679" class="">与getElementsByTagName()一样，getElementsByName()方法也返回HTMLCollection。</blockquote><ul id="dd18cddc-641c-4657-bd97-54c02edecad4" class="bulleted-list"><li style="list-style-type:circle">经过测试并非如此，根据W3C的<a href="../1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89.html">DOM Level 2的HTMLDocument规范</a>和<a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByName">MDN-geElementsByName</a> 的提示，这个方法返回的应该<strong>是一个</strong><strong><code>NodeList</code></strong><strong> 对象</strong>，而不是HTMLCollection，只不过IE10浏览器和原始Edge浏览器会返回一个HTMLCollection对象</li></ul></li></ul><h2 id="6964a519-61ad-49ca-a220-b6702fd2215d" class="">1.2.5 特殊集合（Special <strong>Collections</strong>）</h2><ul id="e80e1218-490a-4f93-9d13-11ec76b25273" class="bulleted-list"><li style="list-style-type:disc"><code>document</code> 对象上还暴露（在HTMLDocument接口上定义）了几个特殊集合，这些集合也都是HTMLCollection的实例，它们是访问文档公共部分的快捷方式<ul id="7c613063-6254-4b77-a720-3983e20b008f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>document.anchors</code> 包含文档中所有带<code>name</code> 属性的&lt;a&gt;元素，anchor有锚的意思，因为&lt;a&gt;元素的<code>name</code> 属性已不被推荐使用，所以<code>document.anchors</code> 也被废弃了，仅为兼容性存在</span></li></ul><ul id="cd528f88-948a-4a9c-ab48-a421cd410712" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>document.applets</code> 包含文档中所有&lt;applet&gt;元素（因为&lt;applet&gt;元素已经不建议使用，所以这个集合已经被废弃）</span></li></ul><ul id="ecbc0d87-df81-4d96-a540-067b9bac02e4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>document.forms</code> 包含文档中所有&lt;form&gt;元素（与document.getElementsByTagName(”form”)的返回结果相同）</span></li></ul><ul id="1f5b70a6-a75b-4c8b-8766-9bca3ca0057f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>document.images</code> 包含文档中所有&lt;img&gt;元素（与document.getElementsByTagName(”img”)的返回结果相同）</span></li></ul><ul id="7952ef97-f9dc-46ce-9e45-7230cc4dd83c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>document.links</code> 包含文档中所有带<code>href</code> 属性的&lt;a&gt;元素</span></li></ul></li></ul><ul id="e22c4c72-53de-49a3-9906-660be5202af8" class="bulleted-list"><li style="list-style-type:disc">这些特殊集合始终存在于HTMLDocument对象上，而且与所有HTMLCollection对象一样，其内容也会实时更新以符合当前文档的内容<pre id="926ed3df-0349-4699-accd-e11cd4ff470e" class="code code-wrap"><code>&lt;img src=&quot;https://joeschmoe.io/api/v1/random&quot; alt=&quot;&quot; /&gt;
+&lt;img
+  src=&quot;https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg&quot;
+  alt=&quot;&quot;
+/&gt;
+&lt;form action=&quot;&quot;&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;用户名密码&lt;/legend&gt;
+    &lt;label for=&quot;username&quot;&gt;用户名&lt;/label&gt;
+    &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;
+    &lt;label for=&quot;password&quot;&gt;密码&lt;/label&gt;
+    &lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;
+&lt;a href=&quot;http://baidu.com&quot;&gt;百度&lt;/a&gt;
+&lt;a href=&quot;http://ant.design&quot;&gt;antd&lt;/a&gt;
+&lt;a href=&quot;#你好&quot;&gt;你好&lt;/a&gt;
+&lt;h2 name=&quot;你好&quot;&gt;你好&lt;/h2&gt;</code></pre><figure id="e52cd571-ece7-4308-9ebd-e63ed0fea4fc" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/document_collection.png"><img style="width:432px" src="Document%E7%B1%BB%E5%9E%8B/document_collection.png"/></a></figure></li></ul><h2 id="32280d11-2371-4462-82ac-0207644512b7" class="">1.2.6 DOM兼容性检测（DOM <strong>Conformance Detection</strong>）</h2><ul id="440f086c-aaf9-4019-8da7-2feb0149b214" class="bulleted-list"><li style="list-style-type:disc">DOM有多个Level和多个部分，因此确定浏览器实现了DOM的哪些部分是很有必要的</li></ul><ul id="946237f7-be36-47dc-875e-284bac183425" class="bulleted-list"><li style="list-style-type:disc"><code>document.implementation</code> 属性是一个对象，其中提供了与浏览器DOM实现相关的信息和能力<ul id="4a0c95c1-1cfd-4ca5-874c-523eeefee0e6" class="bulleted-list"><li style="list-style-type:circle">DOM Level 1在<code>document.implementation</code> 上只定义了一个方法，即<code>hasFeature()</code> <ul id="85b13dcf-ea69-43e5-a672-91c1a0d71ba8" class="bulleted-list"><li style="list-style-type:square">这个方法接收两个参数：特性名称和DOM版本</li></ul><ul id="d679fa98-401a-466f-bc9a-c3991418e1d9" class="bulleted-list"><li style="list-style-type:square">如果浏览器支持指定的特性和版本，则<code>hasFeature()</code> 方法返回true</li></ul></li></ul></li></ul><ul id="5ee03434-758c-4839-a908-f995d1d0aa9b" class="bulleted-list"><li style="list-style-type:disc">根据现在的HTML Standard <a href="https://dom.spec.whatwg.org/#domimplementation">DOMImplementation</a> 规范，<code>DOMImplementation</code> 接口实现如下<pre id="2df8c20e-36b0-4760-bfa0-9f35db88cb12" class="code code-wrap"><code>[Exposed=Window]
+interface DOMImplementation {
+  [NewObject] DocumentType createDocumentType(DOMString qualifiedName, DOMString publicId, DOMString systemId);
+  [NewObject] XMLDocument createDocument(DOMString? namespace, [LegacyNullToEmptyString] DOMString qualifiedName, optional DocumentType? doctype = null);
+  [NewObject] Document createHTMLDocument(optional DOMString title);
+
+  boolean hasFeature(); // useless; always returns true
+};</code></pre><ul id="767eb63e-deb4-41eb-b2db-279a73bbe1c6" class="bulleted-list"><li style="list-style-type:circle">从定义中可以看出<code>DOMImplementation</code> 接口的<mark class="highlight-red"><strong><code>hasFeature()</code></strong></mark><strong><mark class="highlight-red"> 的功能已经被废弃</mark></strong>，《JavaScript高级程序设计（第4版）》中的<del>表述是错误的</del>，以下是HTML Standard <a href="https://dom.spec.whatwg.org/#domimplementation">DOMImplementation</a>规范的原话</li></ul><blockquote id="59e6ec4a-bcb0-402f-951c-bd1b5609a84c" class="">hasFeature()原本会报告用户代理是否声称支持给定的DOM特性，但经验证明，它远不如简单地检查所需对象、属性或方法是否存在那么可靠和细致。因此，这个方法不再使用，而是继续存在（只是返回true）以兼容以前的旧页面</blockquote></li></ul><ul id="d9101dd5-9b37-4e54-9ed3-cbf3d0221412" class="bulleted-list"><li style="list-style-type:disc">但是DOM特性的版本仍然值得说明<table id="de71a2f5-dbe1-47f2-95eb-00f319512242" class="simple-table"><tbody><tr id="21a7c4e1-c872-41e0-b474-4d536ecbd3fc"><td id="Q\o\" class="">特性</td><td id="eY]x" class="">支持的版本</td><td id="kFxr" class="" style="width:454px">说明</td></tr><tr id="db701c3f-ae7a-46f0-9d2a-7f76ba138ba2"><td id="Q\o\" class="">Core</td><td id="eY]x" class="">1.0、2.0、3.0</td><td id="kFxr" class="" style="width:454px">定义树形文档结构的基本DOM</td></tr><tr id="d9f27c2f-ddb7-47f6-b3e9-070b48e1c49e"><td id="Q\o\" class="">XML</td><td id="eY]x" class="">1.0、2.0、3.0</td><td id="kFxr" class="" style="width:454px">Core的XML扩展、增加对CDATA区块、处理指令和实体的支持</td></tr><tr id="d495021b-df19-4645-85e6-0aebae252770"><td id="Q\o\" class="">HTML</td><td id="eY]x" class="">1.0、2.0</td><td id="kFxr" class="" style="width:454px">XML的HTML扩展、增加了HTML特定的元素和实体</td></tr><tr id="a240fd49-c993-4d3b-9bb6-6f3236553307"><td id="Q\o\" class="">Views</td><td id="eY]x" class="">2.0</td><td id="kFxr" class="" style="width:454px">文档基于某些样式的实现格式</td></tr><tr id="5e7b1279-f2cd-4bb6-a8ed-42e6418fdf07"><td id="Q\o\" class="">StyleSheets</td><td id="eY]x" class="">2.0</td><td id="kFxr" class="" style="width:454px">文档的相关样式表</td></tr><tr id="3a8b3712-12c4-48cf-82af-944ede895f82"><td id="Q\o\" class="">CSS</td><td id="eY]x" class="">2.0</td><td id="kFxr" class="" style="width:454px">Cascading Style Sheets Level 1</td></tr><tr id="bf6c4a8e-9354-43a7-ad56-2869f7343bdc"><td id="Q\o\" class="">CSS2</td><td id="eY]x" class="">2.0 </td><td id="kFxr" class="" style="width:454px">Cascading Style Sheets Level 2</td></tr><tr id="944fbdf3-c253-4068-9d42-0c0b87b3a3f1"><td id="Q\o\" class="">Events</td><td id="eY]x" class="">2.0、3.0</td><td id="kFxr" class="" style="width:454px">通用DOM事件</td></tr><tr id="11d91322-e582-4d20-8514-daadb2fae92a"><td id="Q\o\" class="">UIEvents</td><td id="eY]x" class="">2.0、3.0</td><td id="kFxr" class="" style="width:454px">用户界面事件</td></tr><tr id="ca0fb958-f57c-4e73-bd8c-2c0a2cf9e34d"><td id="Q\o\" class="">TextEvents</td><td id="eY]x" class="">3.0</td><td id="kFxr" class="" style="width:454px">文本输入设备触发的事件</td></tr><tr id="a8f2cc06-1d04-417e-b791-6a71c0cb1b71"><td id="Q\o\" class="">MouseEvents</td><td id="eY]x" class="">2.0、3.0</td><td id="kFxr" class="" style="width:454px">鼠标导致的事件（单机、悬停等）</td></tr><tr id="aa639eb3-2eee-4067-9cd2-972618648bda"><td id="Q\o\" class="">MutationEvents</td><td id="eY]x" class="">2.0、3.0</td><td id="kFxr" class="" style="width:454px">DOM树变化时触发的事件</td></tr><tr id="658c18b2-b183-49ac-a72e-fd510e2e1387"><td id="Q\o\" class="">MutationNameEvents</td><td id="eY]x" class="">3.0</td><td id="kFxr" class="" style="width:454px">DOM元素或元素属性被重命名时触发的事件</td></tr><tr id="7b718788-b189-4c77-8e55-9db72c273b60"><td id="Q\o\" class="">HTMLEvents</td><td id="eY]x" class="">2.0</td><td id="kFxr" class="" style="width:454px">HTML4.01事件</td></tr><tr id="84cd837a-fedd-4e83-9674-da5d9db062ad"><td id="Q\o\" class="">Range</td><td id="eY]x" class="">2.0</td><td id="kFxr" class="" style="width:454px">在DOM树种操作一定范围的对象和方法</td></tr><tr id="e5ee93ee-5fb1-4e5a-a9a4-dcfd333a64a1"><td id="Q\o\" class="">Traversal</td><td id="eY]x" class="">2.0</td><td id="kFxr" class="" style="width:454px">遍历DOM树的方法</td></tr><tr id="2322e022-93fb-45cd-a290-0e73f68ad1a1"><td id="Q\o\" class="">LS</td><td id="eY]x" class="">3.0</td><td id="kFxr" class="" style="width:454px">文件与DOM树之间的同步加载与保存</td></tr><tr id="2a0fcca8-70a8-40d4-836d-051e91e9c979"><td id="Q\o\" class="">LS-Async</td><td id="eY]x" class="">3.0</td><td id="kFxr" class="" style="width:454px">文件与DOM树之间的异步加载与保存</td></tr><tr id="5117f396-804d-4359-9bcf-c10551cb5ed0"><td id="Q\o\" class="">Validation</td><td id="eY]x" class="">3.0</td><td id="kFxr" class="" style="width:454px">修改DOM树并保证其继续有效的方法</td></tr><tr id="bf0526c9-1b16-4c5d-96f1-33eb83bb4594"><td id="Q\o\" class="">XPath</td><td id="eY]x" class="">3.0</td><td id="kFxr" class="" style="width:454px">访问XML文档不同部分的语言</td></tr></tbody></table></li></ul><h2 id="758dc0ce-7ddd-49b6-bfdd-e5669c5b916c" class="">1.2.7 文档写入（<strong>Document Writing</strong>）</h2><ul id="7ece6ed9-cd30-407c-99f2-71b5f414b5d8" class="bulleted-list"><li style="list-style-type:disc"><code>HTMLDocument</code> 接口还定义了<strong>向网页输出流中写入内容</strong>的方法，这个古老能力对应四个方法<ul id="e672755f-244e-4195-96dc-ec49639a79da" class="bulleted-list"><li style="list-style-type:circle"><code>document.write()</code></li></ul><ul id="ad764ca7-0d13-46d4-9e03-8a44cf78f5a3" class="bulleted-list"><li style="list-style-type:circle"><code>document.writeln()</code></li></ul><ul id="f59448d5-c658-46ea-b078-af8cc56f59c3" class="bulleted-list"><li style="list-style-type:circle"><code>document.open()</code></li></ul><ul id="fc5c845e-ca82-4985-8cf6-b4b1de3bca18" class="bulleted-list"><li style="list-style-type:circle"><code>document.close()</code> </li></ul></li></ul><ul id="000c7001-7410-4762-973e-825b4e1dfa3b" class="bulleted-list"><li style="list-style-type:disc">其中write()和writeln()方法都接收一个字符串参数，可以将这个字符串写入网页中，<code>write()</code>只是简单的写入文本，而<code>writeln()</code> 还会在字符串末尾追加一个换行符(\n)，这两个方法可以用来在页面加载期间向页面中动态添加内容<pre id="6638ad4b-733a-4a46-a248-d1f524257446" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;
+    The Current date and time is:
+    &lt;script&gt;
+      document.write(&quot;&lt;strong&gt;&quot; + new Date().toString() + &quot;&lt;/strong&gt;&quot;);
+    &lt;/script&gt;
+  &lt;/p&gt;
+&lt;/body&gt;</code></pre><figure id="0fa1b00c-4eb2-4e07-82c4-0024b2ab75a9" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/document.write.png"><img style="width:768px" src="Document%E7%B1%BB%E5%9E%8B/document.write.png"/></a></figure><ul id="74bd9f03-bed4-475e-8980-3fbbf6ed8040" class="bulleted-list"><li style="list-style-type:circle">这个例子会在页面加载过程中输出当前日期和时间</li></ul><ul id="23044c4a-1e6a-41d1-8831-71ae3fc37a65" class="bulleted-list"><li style="list-style-type:circle">日期放在&lt;strong&gt;元素中，如同它们之前就包含在HTML页面中一样，这意味着会创建一个DOM元素，以后也可以访问</li></ul><ul id="8b83f346-4548-4848-b820-7cbfd3978a12" class="bulleted-list"><li style="list-style-type:circle">通过write()和writln()输出的任何HTML都会以这种方式来处理（<del>和JSX有类似之处</del>）</li></ul></li></ul><ul id="a6076e67-4ba3-43fb-af87-a5ef9eb3574f" class="bulleted-list"><li style="list-style-type:disc">write()和writeln()经常用于动态包含外部资源，如JavaScript文件，包含JavaScript文件时，不能直接包含字符串”&lt;/script&gt;”，因为这个字符串会被解释为脚本块的结尾，导致后续的代码不能执行，使用转义字符即可，如下<pre id="25c01abc-e2d8-423d-830b-5f6e61cb139a" class="code code-wrap"><code>&lt;script&gt;
+  document.write(
+    &#x27;&lt;script type=&quot;text/javascript&quot; src=&quot;./14.1.2.6 script.js&quot;&gt;&#x27; +
+      &quot;&lt;\/script&gt;&quot;
+  );
+&lt;/script&gt;</code></pre><ul id="da1bf95a-61e9-4e42-82a0-75313f1366f6" class="bulleted-list"><li style="list-style-type:circle">为了防止字符串&quot;&lt;/script&gt;&quot;匹配到外层的&lt;script&gt;标签，加入了”\”进行转义</li></ul></li></ul><ul id="380b081b-33d4-4ee1-950f-2fbe18bd04ce" class="bulleted-list"><li style="list-style-type:disc">前面的例子都是在页面渲染期间通过document.write()向文档中输出内容的，如果在<strong>页面加载完</strong>之后再调用<code>document.write()</code>，则输出的内容会重写整个页面，如下<pre id="a105ee3a-62ea-43e5-bfd7-c70b843b52a6" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;重写页面&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;页面会被重写&lt;/p&gt;
+    &lt;script&gt;
+      window.addEventListener(&quot;load&quot;, () =&gt; {
+        document.write(&quot;Hello, world!&quot;);
+      });
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><figure id="9a8d67d4-b3e5-49b0-8282-d145dd9566c3" class="image"><a href="Document%E7%B1%BB%E5%9E%8B/write_after_onload.png"><img style="width:377px" src="Document%E7%B1%BB%E5%9E%8B/write_after_onload.png"/></a></figure><ul id="6293360d-0142-4758-a5d1-96081d8e7f1a" class="bulleted-list"><li style="list-style-type:circle">最终页面变成上图所示</li></ul></li></ul><ul id="c05c42df-3ac4-4dff-be89-73acfea57bfd" class="bulleted-list"><li style="list-style-type:disc"><code>document.open()</code>和<code>document.close()</code> 方法分别用于打开和关闭网页输出流，在调用write()和writeln()时，这两个方法都不是必需的</li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="3f0ca87d-deaa-4ee4-9a67-a553181cd3fa"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意，严格的XHTML文档不支持文档写入。对于内容类型为application/xml+xhtml的页面，这些方法不起作用</div></figure></div></article></body></html>

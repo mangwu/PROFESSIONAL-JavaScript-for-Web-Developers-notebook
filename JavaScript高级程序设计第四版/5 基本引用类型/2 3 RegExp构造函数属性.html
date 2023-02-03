@@ -1,0 +1,695 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2.3 RegExp构造函数属性</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="867ad93c-0a0e-4ea0-842a-6f17b56789e8" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_canaletto_1720.jpg" style="object-position:center 100%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🥊</span></div><h1 class="page-title">2.3 RegExp构造函数属性</h1></header><div class="page-body"><p id="e500ca06-dfef-42cf-bbc8-9ba01c3e5b9e" class="">RegExp构造函数本身的属性在其他语言中称为静态属性</p><h1 id="20ebb57a-2443-4ac4-a6ee-6d8b35cb67ac" class="">描述</h1><ul id="8155e4da-feea-45ad-a75c-9509a0bf0b7c" class="bulleted-list"><li style="list-style-type:disc">RegExp构造函数的属性可以直接通过RegExp句点调用访问</li></ul><ul id="3ba60cca-89e7-46dd-97ef-6cd60d2b67d0" class="bulleted-list"><li style="list-style-type:disc"><strong>这些属性不属于任何实例，但是适用于作用域中的所有正则表达式，而且会根据最后执行的正则表达式操作而变化</strong></li></ul><ul id="1aa26d4b-61fc-4c37-bb40-46db18d6b33b" class="bulleted-list"><li style="list-style-type:disc">在捕获组的JavaScript程序引用中，就说明了可以通过<code>RegExp.$number</code>编号的形式<a href="2%203%20RegExp%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95/%E6%8D%95%E8%8E%B7%E7%BB%84.html">获取捕获组匹配到的值</a></li></ul><h1 id="0e6628b2-664e-4bbd-b95e-ac6dfad061b7" class="">有效构造函数属性</h1><ul id="849463ef-2aae-4e43-a3b9-78fc3ddca26f" class="bulleted-list"><li style="list-style-type:disc">RegExp的构造函数属性有一个特点，就是可以通过全称和简写的方式访问它们</li></ul><ul id="15db5661-36e6-4ee4-a076-97ea5317d72b" class="bulleted-list"><li style="list-style-type:disc">每个属性都有一个全名和简写，下表是RegExp构造函数的属性<table id="33387179-dc0d-4d35-9b27-67c6465bc70b" class="simple-table"><tbody><tr id="fa775a10-952b-4171-8d13-0ba871d31233"><td id="TdTS" class="">全名</td><td id="{\UM" class="">简写</td><td id="kI}I" class="" style="width:316.9090576171875px">说明</td><td id="Gho]" class="">备注</td></tr><tr id="902afeec-66bd-4e72-97af-b859b1edd893"><td id="TdTS" class="">input</td><td id="{\UM" class="">$_</td><td id="kI}I" class="" style="width:316.9090576171875px">最后搜索的字符串</td><td id="Gho]" class="">非标准特性</td></tr><tr id="986bf3fb-3458-4fbb-bb10-9892aaa57ae1"><td id="TdTS" class="">lastMatch</td><td id="{\UM" class="">$&amp;</td><td id="kI}I" class="" style="width:316.9090576171875px">最后匹配的文本</td><td id="Gho]" class=""></td></tr><tr id="ee500494-57ed-4238-8dd6-3b2be96fd7fe"><td id="TdTS" class="">lastParen</td><td id="{\UM" class="">$+</td><td id="kI}I" class="" style="width:316.9090576171875px">最后匹配的捕获组</td><td id="Gho]" class="">非标准特性</td></tr><tr id="998aa568-672a-4e92-8775-1292ea73e6fe"><td id="TdTS" class="">leftContext</td><td id="{\UM" class="">$`</td><td id="kI}I" class="" style="width:316.9090576171875px">input字符串中，出现在lastMatch前面的文本</td><td id="Gho]" class=""></td></tr><tr id="5760468a-c170-43fc-8eae-67bd7acdc2c2"><td id="TdTS" class="">rightContext</td><td id="{\UM" class="">$’</td><td id="kI}I" class="" style="width:316.9090576171875px">input字符串中，出现在lastMatch后面的文本</td><td id="Gho]" class=""></td></tr></tbody></table></li></ul><ul id="7ff9582f-0adc-48c9-9b79-53b0b2aaca3c" class="bulleted-list"><li style="list-style-type:disc">根据<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp#%E9%9D%99%E6%80%81%E5%B1%9E%E6%80%A7">MDN的标准</a>，上述的所有构造函数的属性都是非标准特性</li></ul><ul id="465b4fb2-8a50-4be6-9f75-050baca9c7c3" class="bulleted-list"><li style="list-style-type:disc">只有<strong>RegExp[Symbol.species]</strong>符号属性（返回构造器本身）是标准特性</li></ul><h2 id="f7ad1bc1-73f8-425e-962e-4d0c982a417e" class="">例子</h2><pre id="a49cfaad-1325-4b01-8b6b-4a8e90e549c8" class="code"><code>const pattern = /([\w\d]+)@([\w\d]+).com/g;
+let a =
+  &quot;1185956753@qq.com, wangzhihao@inspur.com, 13451142805@163.com, invalidEmail@com&quot;;
+
+pattern.exec(a);
+pattern.exec(a);
+
+console.log(RegExp.input, 1);
+console.log(RegExp.lastMatch, 2);
+console.log(RegExp.lastParen, 3);
+console.log(RegExp.leftContext, 4);
+console.log(RegExp.rightContext, 5);</code></pre><ul id="52cd8e87-f391-4b39-820d-b9674f38d785" class="bulleted-list"><li style="list-style-type:disc">打印结果<pre id="9e98e56c-3201-4a69-8ec9-412705cc0540" class="code"><code>1185956753@qq.com, wangzhihao@inspur.com, 13451142805@163.com, invalidEmail@com 1
+wangzhihao@inspur.com 2
+inspur 3
+1185956753@qq.com,  4
+, 13451142805@163.com, invalidEmail@com 5</code></pre><ul id="37bcb6ff-62ec-4e36-9973-71b4a2eec745" class="bulleted-list"><li style="list-style-type:circle">正则表达式有g标志，为全局搜索，所以进行两次exec()匹配，分别匹配第一个邮箱和第二个邮箱</li></ul></li></ul><ul id="c1490f3f-f23d-4001-9b40-79b5e1cc6fde" class="bulleted-list"><li style="list-style-type:disc">最后一次匹配的结果lastMatch为第二个邮箱</li></ul><ul id="1acfafcb-3af5-4461-ae07-8a310186a4f5" class="bulleted-list"><li style="list-style-type:disc">最后一次捕获组匹配的结果lastParen为第二个邮箱的后缀</li></ul><ul id="093e4ae1-cd13-4e76-8b36-58c721d0cd34" class="bulleted-list"><li style="list-style-type:disc">左边上下文是第一个邮箱加上逗号控股</li></ul><ul id="4f677837-6d4f-42a0-95b7-a299bcfea69a" class="bulleted-list"><li style="list-style-type:disc">右边上下文是第三个邮箱和一个非法邮箱</li></ul><hr id="a3f78c0b-42ef-4b33-b10c-50ab15f455c1"/><ul id="25a9f77f-9b72-4ac3-81a1-ac2ea70377ce" class="bulleted-list"><li style="list-style-type:disc">如果不使用全称，而使用简称来访问，大部分需要使用中括号语法来访问，如下<pre id="e7ce5d79-9c47-46f7-818f-3964116576b0" class="code"><code>console.log(RegExp.$_, 1);
+console.log(RegExp[&quot;$&amp;&quot;], 2);
+console.log(RegExp[&quot;$+&quot;], 3);
+console.log(RegExp[&quot;$`&quot;], 4);
+console.log(RegExp[&quot;$&#x27;&quot;], 5);</code></pre></li></ul><h1 id="d943af03-fe50-4a51-a77c-9591d076465a" class="">捕获组相关的构造函数属性</h1><ul id="5a6c103f-155c-4cec-926f-472dde9188ac" class="bulleted-list"><li style="list-style-type:disc">使用RegExp$1 ~ RegExp$9 来<a href="2%203%20RegExp%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95/%E6%8D%95%E8%8E%B7%E7%BB%84.html">获取捕获组匹配到的值</a></li></ul><ul id="c4825a8b-ab6c-433e-984f-c98022802905" class="bulleted-list"><li style="list-style-type:disc">1 - 9是捕获组的编号，调用exec()和test() 实例方法时会被填充<pre id="15df982f-b58c-4021-aec1-92121839bc76" class="code"><code>const pattern8 = /(\d{4})-((?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2}))/;
+console.log(
+  pattern8.test(&quot;2012-07-04&quot;),
+  RegExp.$1,
+  RegExp.$2,
+  RegExp.$3,
+  RegExp.$4
+);</code></pre><ul id="2dfd86da-e522-47b8-9116-9fa336b4d249" class="bulleted-list"><li style="list-style-type:circle">打印结果 <code>true 2012 07-04 07 04</code> </li></ul></li></ul><ul id="2dfd2293-e5cd-4237-a0ab-a98e1e0ee0d2" class="bulleted-list"><li style="list-style-type:disc">捕获组有关的RegExp构造函数属性也不是标准特性</li></ul><h1 id="8b6e2799-214c-4ede-b4a6-449c82323135" class="">注意</h1><ul id="255fd8cc-b293-444f-8a10-b16cccd9b9c0" class="bulleted-list"><li style="list-style-type:disc">上面的构造函数的属性都是非标准特性，但是大部分环境都实现了</li></ul><ul id="29340701-8a9d-4f12-9cef-a457fe9afb7f" class="bulleted-list"><li style="list-style-type:disc">虽然如此，也<strong>不要在生产环境下使用它们</strong>，它们在浏览器环境下都是非法的</li></ul></div></article></body></html>

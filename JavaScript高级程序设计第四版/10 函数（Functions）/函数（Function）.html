@@ -1,0 +1,1011 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>函数（Function）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fbf1244f-6ffb-419a-b669-034d6a398e21" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_silk_kashan_carpet.jpg" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🔧</span></div><h1 class="page-title">函数（Function）</h1></header><div class="page-body"><p id="56566812-c046-418c-8898-b060daedb66e" class="">每个JavaScript函数实际上是一个<code>Function</code> 对象，通过代码<code>(function(){}).constructor === Function</code> 返回<code>true</code> 可以验证这一事实</p><div id="c3466021-2b2b-4daf-9849-fcdddc52ec32" class="column-list"><div id="3ad8eab9-af6c-409a-8479-cee7b7942c83" style="width:18.75%" class="column"><nav id="2e91b7f4-8f2b-4f29-b138-5a595e3c41a7" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3a761969-e7e9-41fe-95e0-72df721e1261">1. 构造函数（Constructor）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9373f8a1-2276-4e5a-a719-405787ffeb26">1.2 定义</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#588f9889-1405-4541-b806-84f83150f5c6">1.3 语法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#893dc527-2ab1-4f05-ad29-0a31300fd1fd">1.4 理解Function构造函数</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c54aadda-d449-4629-8663-8cb66b6cf0ce">1.4.1 性能问题</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#86bf4f25-b2fb-4e08-98be-0e8d053c44f6">1.4.2 动态编译</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#86fe2428-72bd-447b-a5fa-45992d52a856">1.4.3 函数标识符</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e1385dd0-d3c9-45b1-aaac-8f2c828f5819">1.4.4 构造函数与函数声明的不同</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f6b18641-686c-421a-a824-1c347e726dc9">1.5 例子</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#10c61aae-5ae8-4fb5-ad13-da4f8ba8c4a5">1.5.1 例子的运行问题</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#52058919-692a-4662-aa8c-700c8c2c557e">1.5.2 通过在functionBody中进行函数声明和函数表达式创建函数对象</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c714bae9-be50-498e-8c16-0789953091e3">2. 实例属性(<strong>Instance properties</strong>)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d072aa4c-6e5c-4bf9-8574-879f9db1cccb">3. 实例方法（instance methods）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#815b3b84-20db-43e5-b697-562be19ef408">3.1 <code>Function.prototype.apply()</code></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7dab1d2f-9064-4e0c-b79d-19a043256a1f">3.1.1 语法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#fb4d87a8-4692-4e5c-bb8b-f5d667c9859f">3.1.2 理解<code>apply()</code></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f90d8611-bb8b-4e88-b642-b996cf40cd2e">3.1.3 例子</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c14e3134-cc79-430e-907d-b97f813f143d">3.2 <code><strong>Function.prototype.call()</strong></code></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#76eaa591-9ef7-4747-af1e-201a28a4ab27">3.2.1 语法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#06e1b906-52ce-45c1-a4a7-00daf32125c5">3.2.2 理解call()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3e2ffbec-a808-466f-a3f8-fbe27dbf86fa">3.2.3 例子</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7e37cecc-5cde-4f38-aa7a-b9f30973484a">3.3 <code>Function.prototype.bind()</code></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#9c82d226-91fe-499b-9114-7efc02e58cbf">3.3.1 语法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3e9cd70c-946e-4ebd-b5a5-ae72dd92ffc6">3.3.2 理解<code>bind()</code></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e77ec659-b99f-4701-ad75-876e0da499dd">3.3.3 例子</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bdf99ad0-e725-42d4-8c67-c708d142110f">3.4 <code>Function.prototype.toString()</code></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#27aab9ec-c78b-4fc0-8f6b-ce5883861ca9">3.4.1 语法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b8b35954-e268-4207-a201-6dc96aac240e">3.4.2 理解<code>toString()</code></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#73d5f29b-c0ac-4d46-9a5b-3d9762366283">3.4.3 例子</a></div></nav><p id="8f061efc-791b-483d-bcc0-20669368d0ea" class="">
+</p></div><div id="f3f7dfdf-22d8-4cc9-b88e-3bd27672c374" style="width:81.25%" class="column"><h1 id="3a761969-e7e9-41fe-95e0-72df721e1261" class="">1. 构造函数（Constructor）</h1><p id="ef344ddd-2075-45c3-847f-0eb355d34d04" class=""><code>Function()</code>constructor</p><h2 id="9373f8a1-2276-4e5a-a719-405787ffeb26" class="">1.2 定义</h2><ul id="c389a860-828c-40c1-b4b0-7a9850812373" class="bulleted-list"><li style="list-style-type:disc">构造函数<code>Function()</code> 会创建一个新的<code>Function</code> 对象</li></ul><ul id="479f9227-8b83-4c1e-8780-139cf86e96e6" class="bulleted-list"><li style="list-style-type:disc">直接调用<code>Function()</code> 构造函数能<strong>动态（dynamically）</strong>构造函数（functions），但是会有安全问题和<code>eval()</code>类似的<a href="../10%20%E5%87%BD%E6%95%B0%EF%BC%88Functions%EF%BC%89.html">性能问题</a>（没那么严重）</li></ul><ul id="813a13e9-6e46-4390-aa9d-2b33c296304a" class="bulleted-list"><li style="list-style-type:disc">和<code>eval()</code> （可以访问局部作用域）不同，<code>Function</code> 构造函数只创建<strong>在全局作用域中执行的函数</strong></li></ul><h2 id="588f9889-1405-4541-b806-84f83150f5c6" class="">1.3 语法</h2><pre id="39632116-cbc0-42e1-ac62-b9ffc3050a10" class="code code-wrap"><code>new Function(functionBody);
+new Function(arg0, arg1,..., argN, functionBody);
+
+Function(functionBody);
+Function(arg0, arg1, ..., argN, functionBody);</code></pre><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="a7138420-5d16-4209-9c26-4598995c0998"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意:<code>Function()</code> 能直接被调用而不使用<code>new</code> 操作符，两种方式都能创建<code>Function</code>实例</div></figure><p id="cd9fb506-8529-4bf1-81d2-e6502e2f1da3" class=""><strong>参数</strong></p><ul id="3e39215a-72f3-4ad0-a6d4-85a4d1b207e4" class="bulleted-list"><li style="list-style-type:disc"><code>argN</code> 可选参数<p id="de3bb074-4286-4c46-ae95-01da911b1426" class="">作为新创建函数的正式参数的名称。每个<code>argi</code> 都是字符串形式，对应JavaScript有效的参数【普通标识符（plain identifier），<code>rest</code>参数，解构参数（destructured parameter），带有默认值（default）的可选（optionally）参数】，或使用逗号分隔构成一个参数列表。几种有效参数如下</p><pre id="4a69dd7c-2e35-433b-87e5-29ba2af3108f" class="code code-wrap"><code>&quot;num1&quot;
+&quot;...rest&quot;
+&quot;{a, b}&quot;
+&quot;num2 = 3&quot;
+&quot;num1, num2&quot;</code></pre><p id="0650ae9c-e452-402c-8dae-f2a29c879b08" class="">因为参数的解析（parsed）方式和函数表达式相同，允许空格（whitespace）和注释（comments）的存在。一些例子</p><pre id="fe958b02-7df3-4200-8cec-cf03a985155d" class="code code-wrap"><code>&quot;[a,  b] /* numbers */&quot;
+&quot;x, theValue = 42 /* defaultValue */&quot;</code></pre><p id="49d750d3-fdaf-433f-b492-8d033bae8469" class="">尽管可读性很差，但这些都是正确的参数</p></li></ul><h2 id="893dc527-2ab1-4f05-ad29-0a31300fd1fd" class="">1.4 理解Function构造函数</h2><h3 id="c54aadda-d449-4629-8663-8cb66b6cf0ce" class="">1.4.1 性能问题</h3><ul id="f7a9bf0a-bb7d-47d8-874e-9ef0262703ff" class="bulleted-list"><li style="list-style-type:disc">使用<code>Function()</code> 创建函数对象比使用函数表达式和函数声明语法创建函数对象的<strong>效率更低，</strong>同时调用石头<code>Function()</code> 创建的函数对象的效率也更低，因为<ul id="c48fd370-162f-4572-b476-4321942acad6" class="bulleted-list"><li style="list-style-type:circle">在创建时，代码被<strong>解释</strong>（<strong>interpretation</strong>）两次（一次是常规的创建语法，一次是<code>argi</code> 参数的解析（parsed））</li></ul><ul id="83778917-e54d-495b-a945-d4f08d257142" class="bulleted-list"><li style="list-style-type:circle">而在调用时，会解析<code>functionBody</code> 参数</li></ul></li></ul><h3 id="86bf4f25-b2fb-4e08-98be-0e8d053c44f6" class="">1.4.2 动态编译</h3><ul id="a2229c60-2198-475b-a9a4-6605d2872ab9" class="bulleted-list"><li style="list-style-type:disc">除了最后一个参数外，其它字符串参数（<code>argi</code>）都作为新函数的参数标识（identifiers）被按照顺序传递。新函数会被<strong>动态编译</strong>（<strong>dynamically compiled</strong>）为函数表达式，并以一下方式组装（assembled）成函数表达式的源代码<pre id="4a4b8305-4fff-43a7-a1a0-00a485bc8d6d" class="code code-wrap"><code>`function anonymous(${args.join(&quot;,&quot;)}
+) {
+	${functionBody}
+}</code></pre><ul id="fa079b9e-ce82-4c79-934c-240167b67407" class="bulleted-list"><li style="list-style-type:circle">这种模式可以通过调用函数对象的<code>toString()</code> 方法被观察到：<pre id="83ff6bf4-09b1-48b2-a0ca-1fdd57a7e7a6" class="code code-wrap"><code>const sum = new Function(&quot;num1,num2&quot;, &quot;return num1 + num2&quot;);
+
+console.log(sum);
+console.log(sum(1, 2));
+
+console.log(sum.toString());
+// 打印
+</code></pre></li></ul><ul id="043ff15c-c8df-41e6-b833-b568884aa58c" class="bulleted-list"><li style="list-style-type:circle"><code>anoymous</code> 是匿名的意思</li></ul></li></ul><ul id="14f57183-bc2a-4c72-bd08-62bb5e316b86" class="bulleted-list"><li style="list-style-type:disc">注意<strong>组装</strong>（<strong>assembled</strong>）函数表达式源代码的两个部分——<code>args.join(&quot;,&quot;)</code> 和<code>${functionBody}</code> 会被分别解析（parsed），确保它们在语法上是有效的，这样可以防止<strong>类似注入</strong>（<strong>injection-like</strong>）的尝试</li></ul><h3 id="86fe2428-72bd-447b-a5fa-45992d52a856" class="">1.4.3 函数标识符</h3><ul id="6e591058-353d-4493-9d44-ff932ef867ad" class="bulleted-list"><li style="list-style-type:disc">与普通的函数表达式不同的是，<code>anonymous</code> 不会加入到<code>functionBody</code> 的域（<code>scope</code>）中，因为<code>functionBody</code> 只能访问全局域（<code>global scope</code>）；这句话是<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/Function">MDN</a>中的原文，可能很难理解，下面是一些解释<ul id="b65301b7-6ca9-4fde-8f45-d904e3dbbf4f" class="bulleted-list"><li style="list-style-type:circle">实际上，这个<code>anonymous</code> 还有一个作用，就是可以在函数内部作为函数对象本身被使用，而匿名的函数没有声明名称，因此名称是被赋值变量的标识符名称，所以可以直接使用初次被赋值的变量名称标识符（前提是不改变变量）<pre id="bc9aa631-0ef8-40bf-8b36-492b3ff34e1f" class="code code-wrap"><code>let sum3 = function anonymous(num1, num2) {
+  console.log(sum3);
+  return num1 + num2;
+};
+sum3(1, 2); // [Function: anonymous]
+
+let sum4 = function (num1, num2) {
+  console.log(sum4);
+  return num1 + num2;
+};
+sum4(1, 2);  // [Function: sum4]
+let sum5 = sum4;
+sum4 = &quot;sum4&quot;;
+sum5(1, 2); // sum4</code></pre><ul id="e7552edf-e2db-412d-9749-9163792455e9" class="bulleted-list"><li style="list-style-type:square">可以发现，<code>sum4</code> 变量被修改后，匿名函数的打印就发送了变化，这表明在函数表达式中尽量声明函数名称的好处，可以直接在函数体内部获取函数对象本身</li></ul></li></ul><ul id="3d4544ec-a56c-475f-bc60-5921637ff307" class="bulleted-list"><li style="list-style-type:circle">但是使用<code>Function</code> 构造函数创建的函数对象虽然按照<code>sum3</code> 的形式进行了<strong><a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89.html">动态编译</a></strong><strong> </strong>但是<code>anonymous</code> 并不能在函数体内被使用（这就是<a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89.html">上面这段话</a>的意思），如下，直接使用<code>anonymous</code> 会报错，尽管函数名称是<code>anonymous</code> <pre id="7e4e9a67-ba69-48e0-aa11-890b7964d3e8" class="code code-wrap"><code>let sum = new Function(
+  &quot;num1,num2&quot;,
+  `try {
+    console.log(anonymous)
+  } catch(error) {
+    console.log(error.toString())
+  }
+  return num1 + num2`
+);
+
+console.log(sum); // [Function: anonymous]
+console.log(sum(1, 2)); // ReferenceError: anoymous is not defined</code></pre><figure id="22f6c9ec-9ff4-413f-adca-da372e3e71cc" class="image"><a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89/Untitled.png"><img style="width:432px" src="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89/Untitled.png"/></a></figure></li></ul><ul id="228d5d47-f26f-4102-88bd-fc94d0a4dff8" class="bulleted-list"><li style="list-style-type:circle">这种问题的成因在于<code>functionBody</code> 只能访问全局作用域，而声明后全局作用域中是不存在<code>anoymous</code> 的，显然也不能通过访问<code>sum</code> 访问函数对象本身，因为<code>sum</code> 作为变量是可以被改变的</li></ul></li></ul><p id="d8ffc40e-b433-4f3f-83da-ee00dedb101e" class=""><strong>解决方案</strong></p><ul id="b9c4fe36-4a6a-40d3-8d55-fae5f6e287f2" class="bulleted-list"><li style="list-style-type:disc">如果<code>functionBody</code> 没有处于严格模式下（方法体本身不是严格模式的，因为它不会从上下文继承严格模式，如果外部是严格模式，就需要在方法体中声明<code>&quot;use strict&quot;</code>指令）,可以使用<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/callee"><code>arguments.callee</code></a> 引用方法本身<pre id="c5621381-cf36-4f75-8776-54acba5e1b4c" class="code code-wrap"><code>const sum6 = new Function(
+  &quot;num1,num2&quot;,
+  `
+  console.log(arguments.callee)
+  return num1 + num2
+  `
+);
+sum6(1, 2); // [Function: anonymous]</code></pre></li></ul><ul id="9af9cb3b-adac-4c13-9d17-e2385976cd0e" class="bulleted-list"><li style="list-style-type:disc">另外，使用<strong>闭包</strong>也能解决这个问题<pre id="e515fcdc-e89b-46f2-9458-4a163e777f42" class="code code-wrap"><code>const sum7 = new Function(
+  &quot;num1,num2&quot;,
+  `
+return (function anonymous(num1,num2) {
+  console.log(anonymous);
+  return num1 + num2
+})(num1, num2);
+`
+);
+sum7(3); // 打印[Function: anonymous]</code></pre><ul id="731722f8-d8ed-4864-9d83-bf3a2d2baff7" class="bulleted-list"><li style="list-style-type:circle">但是<code>anonymous</code> 并非动态编译产生的匿名函数使用的名称，而是临时声明的函数</li></ul></li></ul><p id="ee2c13d2-cd93-459a-a889-29586387e625" class=""><strong>使用场景</strong></p><ul id="d7589920-25fb-4a7a-a4a5-df7c644ff37c" class="bulleted-list"><li style="list-style-type:disc">因为<strong>递归（recursive）</strong>需要调用函数自身，所以在使用递归时，可以使用闭包解决<code>Function</code> 构造函数不能使用函数对象本身的情况，如求斐波那契数列的第n位<pre id="abad91c7-15fd-49b6-9751-d7ce012e7a8d" class="code code-wrap"><code>const fibonacci = new Function(
+  &quot;n&quot;,
+  `
+  return (function fibonacci(n) {
+    if(n == 1 || n == 2) {
+      return 1;
+    };
+    return fibonacci(n-1) + fibonacci(n-2);
+  })(n);
+`
+);
+
+console.log(fibonacci(30)); // 832040</code></pre></li></ul><h3 id="e1385dd0-d3c9-45b1-aaac-8f2c828f5819" class="">1.4.4 构造函数与函数声明的不同</h3><ul id="aa660980-6bbe-4546-8e59-737098ec7043" class="bulleted-list"><li style="list-style-type:disc"><code>Function</code> 构造函数<strong>不能</strong>通过<strong>创建上下文</strong>（<strong>creation contexts</strong>）<strong>创建闭包</strong>（<strong>create closures</strong>），因为（通过<code>Function</code> 创建的）函数对象只能在<strong>全局作用域</strong>（<strong>global scope</strong>）下创建</li></ul><ul id="ec0e3fdb-adea-485d-a801-5eb1c7f9bc46" class="bulleted-list"><li style="list-style-type:disc">当调用<code>Function</code> 构造函数创建的函数对象时，它们只能访问自己的<strong>局部作用域</strong>（<strong>local scope</strong>）和全局作用域的变量，而不能访问<code>Function</code> 构造函数所在作用域中的变量(即不能创建闭包)，如下<pre id="41d13411-bda0-4f6f-8389-f6259a597348" class="code code-wrap"><code>globalThis.x = &quot;global x&quot;;
+
+function createFunc(type = &quot;standard&quot;) {
+  const x = &quot;createFunc scope x&quot;;
+  if (type == &quot;constructor&quot;) {
+    // 通过构造函数创建
+    return new Function(&quot;return x;&quot;); // 引用全局作用域中的x
+  } else {
+    return function () {
+      return x;
+    }; // 引用当前作用域中的x，是一个闭包
+  }
+}
+
+console.log(createFunc()()); // createFunc scope x
+console.log(createFunc(&quot;constructor&quot;)()); // global x</code></pre></li></ul><h2 id="f6b18641-686c-421a-a824-1c347e726dc9" class="">1.5 例子</h2><h3 id="10c61aae-5ae8-4fb5-ad13-da4f8ba8c4a5" class="">1.5.1 例子的运行问题</h3><p id="1dd1fcd1-4005-4677-9095-86356aa02f18" class=""><strong>运行环境</strong></p><ul id="d0b5846f-5e54-45f0-bdcd-b6e77904c9a8" class="bulleted-list"><li style="list-style-type:disc">如果想要在浏览器的控制台运行有关<code>Function()</code> 或<code>eval()</code> 这种包含动态编译内容的代码，大概率会报如下错误<figure id="bcfff9a5-f142-4c87-8c8c-969d67d0860a" class="image"><a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89/Untitled%201.png"><img style="width:979px" src="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89/Untitled%201.png"/></a></figure><ul id="138be581-fe1d-4843-acae-f95dd841a441" class="bulleted-list"><li style="list-style-type:circle">大概意思就是拒绝将字符串评估（解析）为JavaScript代码，因此在以下内容安全策略（Content Security Policy）指令中，”unsafe-eval”不是一个允许运行的脚本源</li></ul></li></ul><ul id="068c101f-b62e-4210-9744-2b11b8272e5c" class="bulleted-list"><li style="list-style-type:disc">这个和当前页面的内容安全策略有关</li></ul><p id="330bfd3e-a613-46ab-82bf-f57345d23818" class=""><strong>问题分析</strong></p><ol type="1" id="105185be-4539-4eba-8ae7-f3f1b4a4da7e" class="numbered-list" start="1"><li><strong>内容安全策略，CSP，Content Security Policy，</strong>是一个额外的安全层，用于检测并削弱某些特定类型的攻击<p id="7f941edd-7691-4cbd-85f6-e9e0c6c711e9" class="">CSP的主要目标是减少<strong>跨站脚本（Cross-Site Scripting XSS）</strong>的攻击，XSS攻击利用了浏览器对于从服务器所获取的内容的信任，即使有些时候这些脚本并非来自于它本该来的地方，由于浏览器信任其内容来源，使得恶意脚本在受害者的浏览器中得以运行</p></li></ol><ol type="1" id="44459458-ba14-4aac-a25e-d3b9306c5a3b" class="numbered-list" start="2"><li>配置内容安全策略，有些网站为了抵挡XSS攻击，会配置内容安全策略<p id="419e35b4-3641-40ca-ad35-3017285c3818" class="">一个策略由一系列策略指令所组成，每个策略指令都描述了一个<strong>特定资源类型</strong>以及<strong>生效范围</strong>（信任的来源）</p><p id="2b23052f-2470-4411-a692-0bf76275d317" class="">HTML中在<code>head</code>元素内中使用<code>&lt;meta&gt;</code> 元素来配置安全策略</p><pre id="58b99b30-edc5-492d-9dbf-7f75e3bfef37" class="code code-wrap"><code>&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;self&#x27;; img-src https://*; child-src &#x27;none&#x27;;&quot;&gt;</code></pre><ul id="134ed89a-159d-448b-b4ac-faddfcc72aec" class="bulleted-list"><li style="list-style-type:disc"><code>http-equiv</code> 设置为<code>Content-Security-Policy</code> 表示此条<code>&lt;meta&gt;</code> 用于配置CSP</li></ul><ul id="08df63d6-c09b-4e74-84bb-39b20ea82f5b" class="bulleted-list"><li style="list-style-type:disc"><code>content</code>属性的内容格式：多个资源类型用英文分号分隔，类型和来源、多个来源之间用空格分隔，来源加英文单引号<pre id="a3d7149e-5a11-40f5-8452-4d3d4019f6e7" class="code code-wrap"><code>&quot;srcTypeA &#x27;src1&#x27; &#x27;src2&#x27;...; srcTypeB &#x27;src1&#x27; &#x27;src2&#x27;...; ...&quot;</code></pre></li></ul></li></ol><ol type="1" id="8d910d71-9c7e-481d-988a-fa5946c64537" class="numbered-list" start="3"><li>内容安全策略指令，上述的&lt;<strong>资源类型 ‘来源1’ ‘来源2’&gt; </strong>就构成一条指令，表示此资源类型的如下来源是安全的，常见的资源类型有<p id="bfaba559-f145-4df6-9040-77d173381d61" class=""><code>default-src</code> ： 资源类型不确定时，默认使用<code>default-src</code> 的值作为生效范围</p><p id="7129cf50-9b6a-48d3-a2a3-ae80b8b6df3d" class=""><code><strong>script-src</strong></code><strong> ： </strong>表示资源类型为脚本文件时，安全来源为（可以如下添加）</p><ul id="353d9e16-5d69-4734-b2ee-2d68cd20343a" class="bulleted-list"><li style="list-style-type:disc"><code>self</code> ：表示允许脚本来源于当前网站（域名）</li></ul><ul id="50baecbe-51df-4352-a2ad-24df569a3ae8" class="bulleted-list"><li style="list-style-type:disc"><code>unsafe-inline</code> : 表示允许脚本来源于&lt;script&gt;&lt;/script&gt;标签 </li></ul><ul id="3ed1825e-6d0d-4e00-a80d-e7be844f2a47" class="bulleted-list"><li style="list-style-type:disc"><code>unsafe-eval</code>: 表示允许脚本来源于字符串</li></ul><p id="318c694f-b4d1-4019-80b8-3db16b801e0f" class="">更多的资源类型可以查看<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#directives"><strong>MDN-Content-Security-Policy</strong></a></p></li></ol><p id="27d907e5-b002-46b5-adb6-1f259d679897" class=""><strong>问题解决</strong></p><ul id="e9cdf95b-2504-454b-a12e-6d915c29ffc2" class="bulleted-list"><li style="list-style-type:disc"><code>eval()</code>、<code>Function()</code> 等函数会从字符串中解析脚本代码，必须在内容安全策略中添加信任字符串来源的脚本的策略指令，该来源的脚本才可以正常运行<pre id="f3bab9cd-d899-421e-b645-fcf199599e41" class="code code-wrap"><code>&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;self&#x27;; script-src self unsafe-eval; child-src &#x27;none&#x27;;&quot;/&gt;
+&lt;/head&gt;
+&lt;/html&gt;</code></pre></li></ul><ul id="0624c271-3d14-420e-af15-d673e44e2fac" class="bulleted-list"><li style="list-style-type:disc">如果是开发谷歌插件，可以配置manifest.json里的content_security_policy属性，添加策略的规则相同</li></ul><ul id="75deafa5-8656-4b1c-94cc-ca91633951fb" class="bulleted-list"><li style="list-style-type:disc">如果只是随便打开一个网页，F12进入控制台然后在输入JavaScript代码进行简单测试，使用eval()等方法有可能产生错误<ul id="5e0b0f80-434e-4d8b-ab16-91cda2bc949d" class="bulleted-list"><li style="list-style-type:circle">尝试修改网页上的<code>meta</code> 元素或添加自定义配置内容安全策略的<code>meta</code>  元素都是行不通的，如果这样可以那么就可以随意攻击别人的网站了</li></ul><ul id="bdf0b950-a0e6-443e-82f2-66df7c06b3ea" class="bulleted-list"><li style="list-style-type:circle">解决方案是自己创建一个空白网页进行测试</li></ul></li></ul><h3 id="52058919-692a-4662-aa8c-700c8c2c557e" class="">1.5.2 通过在functionBody中进行函数声明和函数表达式创建函数对象</h3><ul id="e912da23-b82e-47e7-b095-54375ddb7780" class="bulleted-list"><li style="list-style-type:disc"><code>Function()</code> 构造函数的立即调用返回函数<pre id="e5ba8469-db7f-4de1-bfbe-d5830aa75eb3" class="code code-wrap"><code>const sumOfArr = new Function(`
+  const sumArray = (arr) =&gt; arr.reduce((pre, cur) =&gt; pre + cur);
+  return sumArray
+`)();
+console.log(sumOfArr([1, 2, -5, 8, 6, 2, 4, -3, -2])); // 13</code></pre><ul id="5c34f0f8-bbd7-48c5-87dd-368eeb045449" class="bulleted-list"><li style="list-style-type:circle">这个方法的特别之处在于，直接将<code>Function</code> 中的<code>functionBody</code> 参数作为字符串形式的语句直接调用执行，然后立刻返回<code>sumArray</code> 函数给<code>sumOfArr</code>变量， <code>new Function()</code> 只是作为产生目标函数的跳板，这个和如下使用<code>eval()</code> 的语句具有相同的作用</li></ul><pre id="2834f1f8-86de-401e-b369-ab053dfde89f" class="code code-wrap"><code>const sumOfArr2 = eval(`
+  const sumArray = (arr) =&gt; arr.reduce((pre, cur) =&gt; pre + cur);
+  sumArray
+`);
+console.log(sumOfArr2([1, 2, -5, 8, 6, 2, 4, -3, -2])); // 13</code></pre></li></ul><ul id="36a09691-ccc3-4e67-aa37-22ae07644a02" class="bulleted-list"><li style="list-style-type:disc"><code>Function()</code> 构造函数不立即调用，目标函数不需要被立即创建，仅在需要的时候通过<code>call()</code> 仅创建后再调用<pre id="d95dd810-e2e5-4288-a736-62c6c44f00be" class="code code-wrap"><code>const largestNumOfArr = new Function(`
+  function largestNumOfArr(arr) {
+    return Math.max(...arr);
+  }
+  return largestNumOfArr;
+`);
+console.log(
+  largestNumOfArr
+    .call({})
+    .call({}, [78, 25, 36, 87, 41, 25, 96, 34, 54, 24, 13, 39, 64])
+); // 96</code></pre><ul id="89d93d29-4611-42ba-8dc2-e0e73553c2bd" class="bulleted-list"><li style="list-style-type:circle"><code>largestNumOfArr</code> 保存的是<code>new Function()</code> 创建的中间函数，通过调用这个中间函数会或获得通过字符串形式定义的<code>largestNumOfArr</code> 函数，然后再调用它即可查找数组中最大值</li></ul></li></ul><h1 id="c714bae9-be50-498e-8c16-0789953091e3" class="">2. 实例属性(<strong>Instance properties</strong>)</h1><p id="df03fa32-d165-41d6-b5b5-ed87e661cb62" class=""><del>实际上是</del><del><code>Function</code></del><del> 引用类型上的</del><del><strong>原型属性</strong></del></p><ul id="322c1100-3660-48da-b82c-1b685efc070a" class="bulleted-list"><li style="list-style-type:disc">一个函数对象的<strong>自有属性</strong>从各个环境来看包括如下五个<ul id="5aec1d37-74c1-4cec-83a6-372bbd1f21c0" class="bulleted-list"><li style="list-style-type:circle"><code>length</code>  必有</li></ul><ul id="5e5b993d-de5f-4e34-a196-ecbdb2ab7dba" class="bulleted-list"><li style="list-style-type:circle"><code>name</code> 必有</li></ul><ul id="8a80050a-5dc3-415c-9e2d-779fe14aaa85" class="bulleted-list"><li style="list-style-type:circle"><code>caller</code> 可能没有（箭头函数）</li></ul><ul id="cf98f607-ed62-4172-96b9-31e24cc518b2" class="bulleted-list"><li style="list-style-type:circle"><code>arguments</code> 可能没有（箭头函数）</li></ul><ul id="751ef3bb-4d2b-496b-a183-5e74cbec556b" class="bulleted-list"><li style="list-style-type:circle"><code>prototype</code> 可能没有（箭头函数）</li></ul></li></ul><ul id="218296a6-dc08-446c-a6c1-937c6f7fb64d" class="bulleted-list"><li style="list-style-type:disc">而下述描述的都是原型属性（参考MDN），因为<strong>MDN</strong>在解释<code>Function</code><strong>内置对象</strong>时需要介绍实例的原型属性<ul id="2bbf30e4-7579-44a7-800d-24b2681f7a81" class="bulleted-list"><li style="list-style-type:circle"><code>Function</code> 引用类型的<code>prototype</code> 属性本身就是一个函数对象，所以它具有<a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89.html">上述</a>的属性很正常</li></ul><ul id="bbf701a7-d42d-4381-9b5c-31f731871e30" class="bulleted-list"><li style="list-style-type:circle">由任何对象的[[Prototype]]都是由其对应的构造函数的<code>prototype</code> 继承而来可知，<code>Function</code> 引用类型本身就是一个函数对象，所以其[[Prototype]]来源于它自身的<code>prototype</code>属性,即<code>Function.prototype === Function.__proto__</code> </li></ul><ul id="61a258e0-442f-4b41-a7aa-929d03414a09" class="bulleted-list"><li style="list-style-type:circle">还需要注意的是<code>caller</code> ， <code>arguments</code> 这些属性在<code>Function</code> <code>Function.prototype</code> <code>Function.__proto__</code> <code>function.__proto__</code> 这些函数对象上访问时会抛出异常【<strong>毒丸访问器（poison pill accessor</strong>）】，由此，这些函数对象也不能使用<code>new</code> 操作符进行调用，普通调用没有任何效果（返回<code>undefined</code>）</li></ul><ul id="db9a4a93-013a-4f86-aa6f-a6ba665fd9bd" class="bulleted-list"><li style="list-style-type:circle">普通函数对象的<code>prototype</code> 属性不是函数对象，而是一个普通对象，拥有<code>constructor</code> 属性引用函数本身，以及来源于<code>Object.prototype</code> 的[[Prototype]]属性</li></ul><ul id="469bccf2-0651-49c1-ab3a-9524f574ef2c" class="bulleted-list"><li style="list-style-type:circle"><code>Object</code> 本身是一个构造函数对象，所以其[[Prototype]]属性就是<code>Function.prototype</code> </li></ul></li></ul><figure id="58bc3207-a9ff-4d27-93e3-ab739b5a5adb" class="link-to-page"><a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89/2%20Function%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7.html"><span class="icon">🥏</span>2. Function对象的属性</a></figure><h1 id="d072aa4c-6e5c-4bf9-8574-879f9db1cccb" class="">3. 实例方法（instance methods）</h1><ul id="601b6859-4bfb-46ab-a94d-f570fbf24faf" class="bulleted-list"><li style="list-style-type:disc">这里的实例方法就是定义在<code>Function.prototype</code> 上真正能在函数对象的原型（[[Prototype]]）上获取到的公共方法</li></ul><h2 id="815b3b84-20db-43e5-b697-562be19ef408" class="">3.1 <code>Function.prototype.apply()</code></h2><ul id="22abb920-d39e-4b86-893e-112a0f1b6eda" class="bulleted-list"><li style="list-style-type:disc">函数的<code>apply()</code> 方法使用<strong>给定</strong>（<strong>given</strong>）的<code>this</code> 值和<strong>类数组对象</strong>（<strong>array-like object</strong>）的<code>arguments</code> （参数）调用<strong>指定</strong>（<strong>specified</strong>）的函数</li></ul><h3 id="7dab1d2f-9064-4e0c-b79d-19a043256a1f" class="">3.1.1 语法</h3><pre id="717b70cd-5369-4850-9231-c0e033c4ac73" class="code code-wrap"><code>apply(thisArg);
+apply(thisArg, argsArray);</code></pre><ul id="6ac0d047-5672-4461-9ddc-d314fc0cccff" class="bulleted-list"><li style="list-style-type:disc">参数<ul id="a93c4e80-53ef-40f4-a83b-21ea1e142faf" class="bulleted-list"><li style="list-style-type:circle"><code>thisArg</code> ：提供给被调用函数的<code>this</code> 值，可以使用<code>null</code>或者<code>undefined</code> ；如果方法不是严格模式，<code>null</code> 和<code>undefined</code> 会被全局对象替代（这一点在<code>this</code> 操作符中<a href="https://www.notion.so/this-cb80ad0de9a74f5c999237ed645d9ef1">函数上下文</a>中介绍了），原始值也会被转换为对应的包装对象</li></ul><ul id="a89b0cb5-28f7-4ef7-b567-ddb7786f5650" class="bulleted-list"><li style="list-style-type:circle"><code>argsArray</code> ：可选参数，类数组对象，<strong>指定</strong>（<strong>specifying</strong>）被调用函数的参数</li></ul></li></ul><ul id="5e358e00-098c-4669-820a-78064cba0faf" class="bulleted-list"><li style="list-style-type:disc">返回值，被指定<code>this</code> 和<code>arguments</code> 的被调用函数的执行的返回值</li></ul><h3 id="fb4d87a8-4692-4e5c-bb8b-f5d667c9859f" class="">3.1.2 理解<code>apply()</code></h3><div><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="3eb8ed34-6e8f-446c-9b16-2d4b0847492c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：此函数和<code>Function.prototype.call()</code> <strong>几乎相同</strong>（<strong>is almost identical to</strong>），除了在接受<strong>参数列表</strong>（<strong>argument list</strong>）时不同：<code>apply()</code> 接受<strong>单个参数数组</strong>（<strong>single array of arguments</strong>），而<code>call()</code> 接受离散的多个参数；例如，<code>func.apply(this, [&quot;arg1&quot;, &quot;arg2&quot;])</code> 和<code>func.call(this, &quot;arg1&quot;, &quot;arg2&quot;)</code> 等价</div></figure></div><ul id="e7769ff0-964a-4386-b1c4-75f537e6a119" class="bulleted-list"><li style="list-style-type:disc">一般而言，<code>fn.apply(null, args)</code> 等价于<code>fn(…args)</code> ，就是使用扩展操作符的<strong>收集参数</strong>（<strong>rest parameter</strong>）写法</li></ul><ul id="8246b221-b3d8-4edf-af68-103659d57fa3" class="bulleted-list"><li style="list-style-type:disc">如果被调用的函数<code>this</code> 值是固定的，那么可以将其包装一下，使用最简单的调用方法进行调用如下<pre id="55a7da23-b582-4cba-a6fd-b9a5f802f4af" class="code code-wrap"><code>function wrapper() {
+	return fn.apply(null, arguments);
+}</code></pre><ul id="82e056d8-09d8-4db4-96c2-0e96e67d817e" class="bulleted-list"><li style="list-style-type:circle">传递给<code>wrapper()</code> 函数的参数就是被调用函数<code>fn</code> 的参数</li></ul><ul id="182f76b8-bb01-44e9-b41a-a107d0331a68" class="bulleted-list"><li style="list-style-type:circle"><code>arguments</code> 属于类数组对象</li></ul></li></ul><ul id="6d290ebf-4241-487f-948e-9bf613fe5f06" class="bulleted-list"><li style="list-style-type:disc"><code>apply()</code> 最主要的作用仍然是指定函数执行时的<code>this</code> 值</li></ul><h3 id="f90d8611-bb8b-4e88-b642-b996cf40cd2e" class="">3.1.3 例子</h3><p id="45705269-54d7-43c2-adc1-0ca1fe2a0259" class=""><strong>扩展数组</strong></p><ul id="96f4ab3d-b3cd-4817-95d4-838d95c8ab7d" class="bulleted-list"><li style="list-style-type:disc"><code>Array.prototype.push()</code> 方法能在数组尾部扩展（<strong>append</strong>）元素，同时<code>push()</code> 能接受多个离散的参数，一次性为数组添加多个元素</li></ul><ul id="ca7c013e-3046-4413-85c2-abd732ff1247" class="bulleted-list"><li style="list-style-type:disc">但是在需要将一个数组中的所有元素”push“入目标数组尾部时，就需要遍历源数组一个个调用<code>push()</code> ，这是因为直接将源数组作为<code>push()</code> 的参数会将这个数组仅作为一个元素“push”进目标数组尾部【实际上可以使用扩展（spread）操作符将源数组离散后传入<code>push()</code> 函数中，入<code>targetArr.push(…srcArr)</code>】</li></ul><ul id="68460b8f-21c3-4208-a420-7cdd2dc61c08" class="bulleted-list"><li style="list-style-type:disc">虽然<code>Array.prototype.concat()</code> 可以将两个数组合并，但是它不是在目标数组上操作，而是创建了一个新数组按顺序保存两个数组中的所有元素</li></ul><ul id="be495515-901d-4fd4-af62-f014fde55049" class="bulleted-list"><li style="list-style-type:disc">使用<code>apply()</code> 可以<strong>隐式地</strong>（<strong>implicitly</strong>）将数组”展开（spread）“为一系列的参数传入<pre id="77b74a9b-61bd-4594-a57e-76f79a448a99" class="code code-wrap"><code>const arr = [1, 2];
+const eles = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
+
+arr.push.apply(arr, eles);
+console.log(arr); // [ 1, 2, &#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27; ]</code></pre></li></ul><ul id="c3fa04d0-a129-42ff-9607-99951fc05f77" class="bulleted-list"><li style="list-style-type:disc">使用扩展操作符可以达成同样的效果<pre id="919696d9-70a4-4030-9be3-7877c42f9b27" class="code code-wrap"><code>const arr2 = [1, 2];
+const eles2 = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
+
+arr2.push(...eles2);
+console.log(arr2); // [ 1, 2, &#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27; ]</code></pre></li></ul><p id="38c46a3f-1467-48fe-8207-23bb2e9055e2" class=""><strong>对内置函数使用apply</strong></p><ul id="ff3d8fd1-32f2-47f6-8c64-85767f494510" class="bulleted-list"><li style="list-style-type:disc">有些内置函数接受任意多个参数，聪明地应用<code>apply()</code> 方法在处理一些任务时会很有用，否则需要通过遍历数组值（参数集合）来实现任务</li></ul><ul id="0af1c6e9-83eb-4220-b042-02af4dc139c3" class="bulleted-list"><li style="list-style-type:disc">例如，<code>Math.max()/Math.min()</code> 返回给定参数中的最大值或最小值，如果不使用<code>apply()</code> ，找出数组中的最大值或最小值就需要遍历一遍数组；而是要<code>apply()</code> 就可以直接将数组作为<code>apply()</code> 的参数隐式的将数组展开为一系列参数传入<code>Math.max()</code>和<code>Math.min()</code> 中，快速获取最大值或最小值<pre id="717e7b70-dd74-4494-bac2-acb2923f6576" class="code code-wrap"><code>const nums = [
+  2, 8, 5, 4, 2, 3, 6, 9, 7, 4, 5, 21, 23, 41, 21, 23, 53, 24, 63, 21, 2, 0, 7,
+  -2, -6, 9, 5, 4, 42,
+];
+// 不使用apply
+let max = -Infinity;
+let min = Infinity;
+for (const num of nums) {
+  max = Math.max(max, num);
+  min = Math.min(min, num);
+}
+console.log(max, min); // 63 -6
+// 使用apply
+max = -Infinity;
+min = Infinity;
+
+max = Math.max.apply(null, nums);
+min = Math.min.apply(null, nums);
+console.log(max, min); // 63 -6</code></pre></li></ul><ul id="0511ef64-b663-4f05-9c84-56c3660a28f3" class="bulleted-list"><li style="list-style-type:disc">但是需要注意的是，以这种方式使用<code>apply()</code> ，就会有超过（<strong>exceeding</strong>）JavaScript引擎<strong>参数长度限制</strong>（<strong>argument length limit</strong>）的风险。不同引擎的参数长度限制大小不同，但是有一个阈值表示最大的参数个数（JavaScriptCore引擎的硬编码（hard-coded）<a href="https://bugs.webkit.org/show_bug.cgi?id=80797">参数限制为65536</a>）<pre id="121f41af-a9e4-4364-93a7-701bbde20208" class="code code-wrap"><code>const nums2 = new Array(100000)
+  .fill(0)
+  .map(() =&gt; Math.floor(Math.random() * 10000000));
+console.log(Math.min.apply(null, nums2)); // 27   具有随机性
+console.log(Math.max.apply(null, nums2)); // 9999903 具有随机性</code></pre><ul id="720293ed-d4c4-48bb-8ad0-7f6c682f531a" class="bulleted-list"><li style="list-style-type:circle">上述的代码现代浏览器和node环境下都不会报错</li></ul><ul id="6ea33f99-3f83-4ab3-8ed8-379cc026f2dc" class="bulleted-list"><li style="list-style-type:circle">因为现代设备性能提升，JavaScript引擎的参数长度限制已被提升到125568（不包括125568），其二进制为&#x27;11110101010000000’（2022.10.17测试）</li></ul><ul id="3d20903a-0f2e-4974-8577-6c450923cc2e" class="bulleted-list"><li style="list-style-type:circle">超出参数长度限制会抛出<code>RangeError: Maximum call stack size exceeded</code> 异常（范围错误）</li></ul></li></ul><ul id="a8b0dba2-ef7c-416a-9af3-cd6891f43ba0" class="bulleted-list"><li style="list-style-type:disc">这种参数长度限制是任何<strong>过分大堆栈</strong>（<strong>excessively-large-stack</strong>）行为的<strong>本质</strong>（<strong>nature</strong>）；如果你的数组长度可能是成千上万的，使用<strong>混合策略</strong>（<strong>hybrid strategy</strong>），将数组进行分<strong>块</strong>（<strong>chunks</strong>），块作为<code>apply()</code> 的参数调用函数解决每个块的问题，然后将块的结果再应用函数以解决整个问题，如下<pre id="ef2b0c5c-3039-479d-9af3-8ca23b6e63b7" class="code code-wrap"><code>const nums3 = new Array(1000000)
+  .fill(0)
+  .map(() =&gt; Math.floor(Math.random() * 1000000000));
+
+function minOfArray(arr) {
+  let min = Infinity;
+  // 量子块
+  const QUANTUM = 32768;
+  for (let i = 0; i &lt; arr.length; i += QUANTUM) {
+    // 每次计算QUANTUM大小的参数，最后一个块可能长度不够，所以需要取小值
+    const subMin = Math.min.apply(
+      null,
+      arr.slice(i, Math.min(i + QUANTUM, arr.length))
+    );
+    min = Math.min(subMin, min);
+  }
+  return min;
+}
+console.log(minOfArray(nums3)); // 197 具有随机性</code></pre></li></ul><h2 id="c14e3134-cc79-430e-907d-b97f813f143d" class="">3.2 <code><strong>Function.prototype.call()</strong></code></h2><ul id="aa41af87-03c4-4c54-8e7e-c6ec937f7e12" class="bulleted-list"><li style="list-style-type:disc">函数的<code>call()</code> 方法使用<strong>给定</strong>（<strong>given</strong>）的<code>this</code> 值和<strong>离散</strong>的<code>arguments</code> （参数）调用<strong>指定</strong>（<strong>specified</strong>）的函数</li></ul><h3 id="76eaa591-9ef7-4747-af1e-201a28a4ab27" class="">3.2.1 语法</h3><pre id="19df42dc-5b6c-4126-859a-178f9ad3ef3b" class="code code-wrap"><code>call()
+call(thisArg)
+call(thisArg, arg1, /*...*/, argN)</code></pre><ul id="4a0f23f5-b20a-4ba7-905f-b28b572cdfb5" class="bulleted-list"><li style="list-style-type:disc">参数：<ul id="9c71a46d-265b-4acb-ade3-8eed94e438c5" class="bulleted-list"><li style="list-style-type:circle"><code>thisArg</code> ： 被调用函数的<code>func</code> 执行时使用的<code>this</code> 值；如果函数不在严格模式下，<code>this</code> 值指定为<code>null</code> 或<code>undefined</code> 会被替换为全局对象，原始值也会被转换为对应的包装对象</li></ul><ul id="1254431f-91b6-4e79-94e4-b16868f01647" class="bulleted-list"><li style="list-style-type:circle"><code>arg1, /*...*/, argN</code> ： 可选参数，被调用函数的参数</li></ul></li></ul><ul id="85eda78c-29ea-4003-8e46-5420420b1109" class="bulleted-list"><li style="list-style-type:disc">返回值：被调用函数在给定<code>this</code>和给定参数执行后的返回值</li></ul><h3 id="06e1b906-52ce-45c1-a4a7-00daf32125c5" class="">3.2.2 理解call()</h3><div><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="3eb8ed34-6e8f-446c-9b16-2d4b0847492c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：此函数和<code>Function.prototype.call()</code> <strong>几乎相同</strong>（<strong>is almost identical to</strong>），除了在接受<strong>参数列表</strong>（<strong>argument list</strong>）时不同：<code>apply()</code> 接受<strong>单个参数数组</strong>（<strong>single array of arguments</strong>），而<code>call()</code> 接受离散的多个参数；例如，<code>func.apply(this, [&quot;arg1&quot;, &quot;arg2&quot;])</code> 和<code>func.call(this, &quot;arg1&quot;, &quot;arg2&quot;)</code> 等价</div></figure></div><ul id="c8875b1f-6ec3-4db1-b751-f0a7e6c34072" class="bulleted-list"><li style="list-style-type:disc"><code>call()</code> 的使用场景与<code>apply()</code> 不太同（<code>call()</code> 不适用扩展数组和过大参数个数调用），使用<code>call()</code> 可以编写一次方法，然后在一个新对象中继承（<strong>inherit</strong>）它，而不必为新对象重写方法，因为<code>call()</code> 函数允许为属于一个对象的函数/方法被另外一个对象调用（指定<code>this</code>）</li></ul><h3 id="3e2ffbec-a808-466f-a3f8-fbe27dbf86fa" class="">3.2.3 例子</h3><ul id="f91c4005-0eba-45de-a739-cc46d8b933eb" class="bulleted-list"><li style="list-style-type:disc">下述例子<code>call()</code>和<code>apply()</code> 通用</li></ul><p id="006194cc-84a4-4b5c-8a8a-e6240106075d" class=""><strong>盗用构造函数</strong></p><ul id="0e802d24-d308-467d-807d-b9f6de40aa8e" class="bulleted-list"><li style="list-style-type:disc">在实现构造函数的继承时，可以在子类构造函数中通过<code>call()</code>调用父类以继承父类的实例属性<pre id="4a6eca31-da67-4c6a-982f-a44b187733d2" class="code code-wrap"><code>function Product(name, price) {
+  this.name = name;
+  this.price = price;
+}
+
+function Food(name, price) {
+  Product.call(this, name, price);
+  this.category = &quot;food&quot;;
+}
+const food = new Food(&quot;辣条&quot;, &quot;五毛&quot;);
+console.log(food); // Food { name: &#x27;辣条&#x27;, price: &#x27;五毛&#x27;, category: &#x27;food&#x27; }</code></pre></li></ul><h2 id="7e37cecc-5cde-4f38-aa7a-b9f30973484a" class="">3.3 <code>Function.prototype.bind()</code></h2><ul id="65133f64-7c57-4e0a-9216-c7265f36637d" class="bulleted-list"><li style="list-style-type:disc"><code>bind()</code> 方法能创建出一个函数对象，这个函数对象被调用时，使用<code>bind()</code> 方法的第一个参数作为的<code>this</code> 值，而其余参数将作为新函数的参数</li></ul><h3 id="9c82d226-91fe-499b-9114-7efc02e58cbf" class="">3.3.1 语法</h3><pre id="77268a84-bbd0-48c7-98d5-2393fb034a6f" class="code code-wrap"><code>bind(thisArg)
+bind(thisArg, arg1);
+bind(thisArg, arg1, arg2);
+bind(thisArg, arg1, arg2, /*..., */ argN);</code></pre><ul id="98759cfa-e176-4075-b20f-95cf17537f18" class="bulleted-list"><li style="list-style-type:disc">参数<ul id="998ff2dd-d53b-46d1-aebf-a374ab50c1d4" class="bulleted-list"><li style="list-style-type:circle"><code>thisArg</code> : 创建的新函数对象绑定的<code>this</code> ，如果函数不是在严格模式下执行，传递<code>null</code>和<code>undefined</code> 会被替换为全局对象，原始值会被转换为包装类型；<a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89.html">如果使用</a><a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89.html"><code>new</code></a><a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89.html"> 操作符调用绑定函数，这个</a><a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89.html"><code>this</code></a><a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89.html"> 会被忽略</a></li></ul><ul id="463e8346-522f-42f6-a29e-6fd6d57a77d8" class="bulleted-list"><li style="list-style-type:circle"><code>arg1, arg2, /*..., */ argN</code> :可选参数，当绑定函数被调用时，预留给绑定函数的参数（<strong>arguments</strong>）</li></ul></li></ul><ul id="b44750a0-9e93-49eb-812c-c27a68b7b1a0" class="bulleted-list"><li style="list-style-type:disc">返回值：绑定了<code>this</code>和初始化参数的<strong>绑定函数</strong>（<strong>bound function</strong>）</li></ul><h3 id="3e9cd70c-946e-4ebd-b5a5-ae72dd92ffc6" class="">3.3.2 理解<code>bind()</code></h3><ul id="f6a08587-757b-4c0e-b7d4-1463253c7024" class="bulleted-list"><li style="list-style-type:disc"><code>bind()</code> 创建的函数对象叫做<strong>绑定函数</strong>（<strong>bound function</strong>），而调用<code>bind()</code> 生成绑定函数的函数叫做<strong>目标函数</strong>（<strong>target function</strong>）；绑定函数本质上包装了目标函数，在调用绑定函数时实际上是在调用它<strong>包装</strong>（<strong>wrap</strong>）的目标函数</li></ul><ul id="c622af25-3c42-4b47-97b8-9c2ba8a9f3ca" class="bulleted-list"><li style="list-style-type:disc">绑定函数没有<code>prototype</code> ，<code>caller</code>， <code>arguments</code> 属性，它存储（store）着传递给<code>bind()</code> 的参数，包括<code>this</code> 和前几个<code>arguments</code> （first few arguments） 作为<strong>内部状态</strong>（<strong>internal state</strong>）；这些值提前存储而不是在调用时传递，它的逻辑相当于一个箭头函数，函数体中通过<code>call()</code>或<code>apply()</code> 调用目标函数，如下<pre id="1861658c-f112-429f-96d4-c9dbd17056e8" class="code code-wrap"><code>const boundFn = fn.bind(thisArg, arg1, arg2)
+// 逻辑上等价于
+const boundFn = (...restArgs) =&gt; {
+	fn.call(thisArg, arg1, arg2, ...restArgs)
+}</code></pre></li></ul><hr id="2cb58242-d818-4b89-9c2e-5b7c7b59f08e"/><ul id="dc572be9-540c-46c2-be76-21c319b73987" class="bulleted-list"><li style="list-style-type:disc">绑定函数可以通过<code>boundFunc.bind(thisArg, /* more args */)</code><strong>被进一步绑定</strong>（<strong>be further bound</strong>）,从而创建另外一个绑定函数<code>boundFunc2</code> 。基于绑定函数的新的绑定函数使用的<code>this</code> 仍然是原始绑定函数的<code>this</code> （忽略传递的<code>thisArg</code>），因为<code>boundFunc2</code> 的目标函数<code>boundFunc</code> 已经绑定了<code>this</code> 。当调用<code>boundFunc2</code> 时，相当于调用<code>boundFunc</code> ，也就相当于调用<code>fn</code> (<code>boundFunc</code> 的目标函数)。<code>fn</code> <strong>最终</strong>（<strong>ultimately</strong>）接受到的参数，按顺序是：<code>boundFunc</code> 绑定的参数，<code>boundFunc2</code> 绑定的参数，<code>boundFunc2</code> 接受到的参数<pre id="2b746268-bae3-4423-b303-f38ddbdb52d1" class="code"><code>// 进一步绑定
+function fn() {
+  console.log(this, ...arguments);
+}
+
+const boundFnc1 = fn.bind(&quot;this value&quot;, 2, 8);
+const boundFnc2 = boundFnc1.bind(&quot;new this value&quot;, 4, 1);
+boundFnc2.call(&quot;another this value&quot;, 3, 7); // [String: &#x27;this value&#x27;] 2 8 4 1 3 7</code></pre></li></ul><hr id="e0d2c278-6217-4aeb-9855-01d4b686f993"/><ul id="54575184-1727-4c1f-a0e1-a024e19dcd72" class="bulleted-list"><li style="list-style-type:disc">如果绑定函数的目标函数是<strong>可构造的</strong>（<strong>constructable</strong>），那么绑定函数也可以使用<code>new</code> 操作符进行调用（即使没有<code>prototype</code> 属性），这和使用目标函数构造一样（新实例的原型使用的也是目标函数的<code>prototype</code>）</li></ul><ul id="9cebefe1-ff65-4fd2-bcf7-4e9255a871f8" class="bulleted-list"><li style="list-style-type:disc">同理，在使用<code>new</code> 操作符调用时，也会传入预先保存的参数（arguments），但是<code>this</code> 就会被忽略（因为构造器会准备它自己的<code>this</code> ，就像<a href="../9%20%E4%BB%A3%E7%90%86%E5%92%8C%E5%8F%8D%E5%B0%84(Proxy%20and%20Reflect)/1%20%E4%BB%A3%E7%90%86%E5%9F%BA%E7%A1%80/Reflect.html"><strong>Reflect.construct()</strong></a><strong> </strong>的参数）</li></ul><ul id="656f0ade-d8df-4f58-8393-a93a77531b7f" class="bulleted-list"><li style="list-style-type:disc">使用绑定函数直接进行构造，那么<code>new.target</code> 就是目标函数本身（而不是绑定函数），也就是说，绑定函数对<code>new.target</code> 操作符而言是<strong>透明的</strong>(<strong>transparent</strong>)<pre id="a6c33fe3-7446-43ad-8ddd-97086d9a3da8" class="code"><code>// 使用绑定函数作为构造函数
+function Base() {
+  console.log(...arguments);
+  console.log(new.target === Base);
+  console.log(arguments.callee);
+}
+
+const BoundBase = Base.bind(null, 1, 2);
+new BoundBase(3, 4); 
+// 打印结果
+1 2 3 4
+true
+[Function: Base]</code></pre></li></ul><ul id="95bc4a4f-387c-465f-b525-d6a5963da47d" class="bulleted-list"><li style="list-style-type:disc">虽然绑定函数可以作为构造函数使用，但因为它没有<code>prototype</code> 属性，所以它不能被用作<code>extends</code> 指定的基类<figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="5c1b4c8f-7353-4fbd-a99c-bc541b060980"><div style="font-size:1.5em"><span class="icon">🚫</span></div><div style="width:100%">try {
+  class Derived extends BoundBase {}
+} catch (error) {
+  console.log(error.toString()); 
+	// TypeError: Class extends value does not have valid prototype property undefined
+}</div></figure></li></ul><hr id="27b0aa58-eee0-4858-8905-5572a37a8952"/><ul id="41aabcd2-a7b3-4b3e-a731-2f0770cce7ea" class="bulleted-list"><li style="list-style-type:disc">当绑定函数作为<code>instanceof</code> 操作符的右侧操作数时，相当于使用绑定函数的目标函数作为右侧操作数（即绑定函数内部存储的就是目标函数）；<code>instanceof</code> 读取<code>prototype</code> 属性时就会使用目标函数的<code>prototype</code><pre id="bd8e994a-3dd6-407c-bd7c-b2a17e2dc4c7" class="code"><code>class A {}
+const B = A.bind(null, 1, 2);
+const C = B.bind(null, 3, 4);
+const a = new A();
+const b = new B();
+console.log(a instanceof B); // true
+console.log(a instanceof C); // true
+console.log(b instanceof A); // true
+console.log(b instanceof C); // true</code></pre><ul id="5d05f1c6-8131-4d49-bf7e-86c7e18ef683" class="bulleted-list"><li style="list-style-type:circle">本质上，a和b就是A的实例，而<code>instanceof</code>操作符右侧的操作数的绑定函数会被看作最终的目标函数</li></ul></li></ul><hr id="22d2f292-e699-465f-a724-f4ddd67c36b0"/><ul id="f69345a7-c3dc-4d38-a495-ef012035c38d" class="bulleted-list"><li style="list-style-type:disc">绑定函数的自有属性只有<code>length</code>和<code>name</code>  <ul id="d5a98cfd-111b-4622-bacf-d1b09e6fe5a5" class="bulleted-list"><li style="list-style-type:circle"><code>length</code> : 目标函数的<code>length</code> 减去绑定的参数个数（不包含<code>thisArg</code>）,最小值为0</li></ul><ul id="1ad09b7c-f69b-44da-89f4-a15a2d53784b" class="bulleted-list"><li style="list-style-type:circle"><code>name</code> ： 目标函数的<code>name</code> 加上”bound ”<strong>前缀</strong>（<strong>prefix</strong>）</li></ul></li></ul><ul id="54dfc3cb-a10d-4b92-baa5-082e0f2d94f4" class="bulleted-list"><li style="list-style-type:disc">而它的[[Prototype]]属性继承自目标函数的[[Prototype]]，所以绑定函数没有目标函数的自有属性（例如构造函数的静态属性），但是可以有目标函数原型上的属性<pre id="211b5163-0adc-4c02-b33c-ae3a8d22969e" class="code"><code>// 绑定函数的属性
+class D {
+  constructor(a, b, c, d) {}
+  static {
+    this.x = 1;
+    this.y = 2;
+  }
+}
+class E extends D {}
+const BoundD = D.bind(null, 2);
+const BoundE = E.bind(null, 2);
+console.log(BoundE.__proto__ === E.__proto__); // true
+console.log(BoundE.__proto__ === D); // true
+console.log(BoundD.__proto__ === Function.prototype); // true
+console.log(D.length); // 4
+console.log(BoundD.length); // 3
+console.log(BoundD.x); // undefined
+console.log(BoundE.x); // 1</code></pre><ul id="0b755999-d684-4023-a03b-17f9a061e90e" class="bulleted-list"><li style="list-style-type:circle">E继承于D，所以E的[[Prototype]]就是D</li></ul><ul id="cc148bde-e379-47fc-a6c4-2ff687fe0868" class="bulleted-list"><li style="list-style-type:circle">而BoundE的[[Prototype]]继承于E，所以BoundE可以通过原型访问到D的x属性</li></ul></li></ul><h3 id="e77ec659-b99f-4701-ad75-876e0da499dd" class="">3.3.3 例子</h3><p id="2b17be02-abde-473c-9ed9-3c1c96095440" class=""><strong>偏函数（</strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#partially_applied_functions"><strong>Partially applied functions</strong></a><strong>）</strong></p><ul id="45cd12ee-6c9f-4fe8-81a6-7cee1b94d280" class="bulleted-list"><li style="list-style-type:disc">偏函数本质上就是预存了初始参数的绑定函数</li></ul><ul id="bf44dd5d-64fb-4e0e-8b00-dc81a5e4a82c" class="bulleted-list"><li style="list-style-type:disc">预设的参数作为<code>bind()</code> 的参数写在<code>this</code> 后面，当绑定函数调用时，这些参数会被插入到目标函数的参数列表的开始位置，传递给绑定函数的参数会跟在它们后面<pre id="8982395f-3283-4db6-8171-ea134f19b21d" class="code"><code>function list(...args) {
+  return args;
+}
+console.log(list(1, 2, 3)); // [1, 2, 3]
+const leading37List = list.bind(null, 37);
+console.log(leading37List(1, 2, 3)); // [37,1,2,3]</code></pre></li></ul><p id="231f6673-00bf-4a00-bf76-970acbdf5ff1" class=""><strong>配合</strong><code><strong>setTimeout</strong></code></p><ul id="56d1d193-80fb-4058-b187-0ae94aaea889" class="bulleted-list"><li style="list-style-type:disc"><code>setTimeout</code> 函数的第一个参数是回调函数，它在一段时间后被调用，但是回调函数的<code>this</code> 关键字会指向全局对象</li></ul><ul id="3a647979-638a-4a93-adcd-bd2aac153fa4" class="bulleted-list"><li style="list-style-type:disc">当一个类或构造函数中使用<code>setTimeout</code> 时，需要回调函数的<code>this</code> 保证为实例，这个时候就可以使用<code>bind()</code> 构造一个包装回调函数并指定<code>this</code> 的值(使用箭头函数也可以解决)<pre id="7ab7acee-c335-4d27-9037-5688dab671b1" class="code"><code>function LateBloomer() {
+  this.petalCount = Math.ceil(Math.random() * 12) + 1;
+}
+LateBloomer.prototype.bloom = function () {
+  // 1秒后执行decalre
+  setTimeout(this.declare.bind(this), 1000);
+};
+LateBloomer.prototype.declare = function () {
+  console.log(`我是有${this.petalCount}朵花瓣的鲜花`);
+};
+const flower = new LateBloomer();
+flower.bloom(); // 我是有10朵花瓣的鲜花  (数量具有随机性)</code></pre><ul id="db9e9c22-4f90-450e-8bcd-0354b5720174" class="bulleted-list"><li style="list-style-type:circle">如果<code>setTimeout(this.declare.bind(this), 1000);</code> 不使用绑定函数绑定当前上下文<code>this</code> ，后续回调执行会使用全局对象导致<code>this.petalCount</code> 属性为<code>undefined</code> 而打印出”我是有undefined朵花瓣的鲜花“</li></ul></li></ul><p id="d51bbe31-6fef-4168-a901-52a3f6f5c290" class=""><strong>使用绑定函数作为构造函数的优劣</strong></p><ul id="07f1debe-2a69-4cdc-b739-f6070e6c30ca" class="bulleted-list"><li style="list-style-type:disc">绑定函数可以作为构造函数使用，使用<code>new</code> 调用绑定函数创建的实例相当于使用<code>new</code> 调用目标函数</li></ul><ul id="92d0674a-a05e-4963-837a-b21cc8366b85" class="bulleted-list"><li style="list-style-type:disc">使用绑定函数的优劣是<ul id="8aa09d65-5deb-4d8e-a4c5-fc44e9e2dd6b" class="bulleted-list"><li style="list-style-type:circle">好处：可以预留参数，使得绑定函数可以方便创建的特殊实例；并且<code>new</code> ，<code>new.target</code> ，<code>instanceof</code> ,<code>this</code> 等操作符都能按照预期使用</li></ul><ul id="cb851c05-ec01-47b8-baee-47508294b712" class="bulleted-list"><li style="list-style-type:circle">坏处：不能使用<code>extends</code> 继承绑定函数</li></ul><pre id="1fa7fd16-36e7-4689-8114-c6f1863a1bbf" class="code"><code>class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+Point.prototype.toString = function () {
+  return `${this.x},${this.y}`;
+};
+
+const YAxisPoint = Point.bind(null, 0);
+const p = new Point(2, 5);
+const p2 = new YAxisPoint(3);
+console.log(p.toString()); // 2,5
+console.log(p2.toString()); // 0,3</code></pre><ul id="097c4791-3e63-44b7-bdc0-ceb8482f1048" class="bulleted-list"><li style="list-style-type:circle">YAxisPoint 绑定函数只能创建在Y轴上的点（方便创建特殊实例）</li></ul></li></ul><p id="8ba03363-4915-433c-9abe-dc7a1de2eea1" class=""><strong>快捷调用（</strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#transforming_methods_to_utility_functions"><strong>Transforming methods to utility functions</strong></a><strong>）</strong></p><ul id="e2ab0265-6ac7-4ce5-902e-e98fb3515489" class="bulleted-list"><li style="list-style-type:disc"><code>bind()</code> 方法可以很好的将需要指定<code>this</code> 的对象方法转换为一个<strong>普通的实用函数</strong>（<strong>plain utility function</strong>）</li></ul><ul id="c10f2250-e361-4c82-95fd-3dba9a158ac7" class="bulleted-list"><li style="list-style-type:disc">一般而言，可以使用一个变量保存对象的方法，这个变量需要指定<code>this</code> 进行调用，因此需要通过<code>call()</code>或<code>apply()</code> 间接调用，例如<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice"><code>Array.prototype.slice()</code></a> 方法可以指定类数组对象为<code>this</code> 从而创建对应的数组形式，如下<pre id="47359c3f-6ed8-44be-9eee-575852a2ee36" class="code"><code>const slice = Array.prototype.slice;
+const arrLikeObj = {
+  1: 0,
+  2: 5,
+  0: 2,
+  3: 7,
+  length: 4,
+};
+console.log(slice.apply(arrLikeObj)); // [ 2, 0, 5, 7 ]</code></pre><ul id="e7054a90-1d0c-469d-9a15-4dcae81d5568" class="bulleted-list"><li style="list-style-type:circle">这里相当于<code>arrLikeObj</code> 调用<code>slice()</code> 获得了对应的数组</li></ul></li></ul><ul id="ad94723e-d4c2-4037-94df-96729c4fa4d1" class="bulleted-list"><li style="list-style-type:disc">每次调用都需要使用<code>apply()</code> 或<code>call()</code> 间接调用，既然每次都是通过调用<code>slice</code> 的<code>apply()</code> 方法（即<code>apply()</code> 方法的<code>this</code> 值一直是<code>slice</code>函数对象），所以可以为<code>apply()</code> 创建一个绑定了<code>slice</code> 的绑定函数，这样就可以只传递<code>this</code> 值（类数组对象）就能获取对应的数组了，如下<pre id="65a5bf39-a99d-44b7-a3fb-0a293f3b0f7e" class="code"><code>const slice2 = Function.prototype.apply.bind(Array.prototype.slice);
+console.log(slice2(arrLikeObj)); // [ 2, 0, 5, 7 ]</code></pre><ul id="3ff83ee9-f98b-4803-92da-a5ff70d92bed" class="bulleted-list"><li style="list-style-type:circle"><code><strong>Function.prototype.apply.bind(Array.prototype.slice);</strong></code><strong> </strong>创建了一个<code>apply()</code> 的绑定函数，执行这个绑定函数相当于执行给定了<code>this</code> 值的<code>apply()</code> 函数，而<code>apply()</code> 函数本身的功能就是执行<code>this</code> 函数对象（调用apply函数的函数对象，而不是传递给<code>this</code> 函数对象的<code>thisArg</code>），所以就相当于执行<code>this</code> 函数对象（即<code><strong>Array.prototype.slice</strong></code>）；而传递给绑定函数的第一个参数，就是调用目标函时传递给<code>apply()</code> 函数的第一个参数，这个参数就是<code>thisArg</code> ，即执行<code><strong>Array.prototype.slice</strong></code><strong> </strong>时指定的<code>thisArg</code></li></ul></li></ul><h2 id="bdf99ad0-e725-42d4-8c67-c708d142110f" class="">3.4 <code>Function.prototype.toString()</code></h2><ul id="da3b7e2d-560e-4fab-9761-015b4f7390ca" class="bulleted-list"><li style="list-style-type:disc">返回表示函数对象源代码的字符串，每个引擎的返回值可能有所区别</li></ul><h3 id="27aab9ec-c78b-4fc0-8f6b-ce5883861ca9" class="">3.4.1 语法</h3><pre id="c992bb22-e867-42d7-964f-e0f44ccd6b04" class="code code-wrap"><code>toString()</code></pre><ul id="f23e7f22-9567-4c08-8290-8b10d9988802" class="bulleted-list"><li style="list-style-type:disc">返回值：表示（<strong>representing</strong>）函数对象的<strong>源代码</strong>（<strong>source code</strong>）的字符串</li></ul><h3 id="b8b35954-e268-4207-a201-6dc96aac240e" class="">3.4.2 理解<code>toString()</code></h3><ul id="b969840c-7b68-4cfe-8a35-5924910f9d8b" class="bulleted-list"><li style="list-style-type:disc"><code>Function</code> 在原型（prototype）上<strong>重写</strong>（<strong>overrides</strong>）了继承自<code>Object</code> 原型（<code>prototype</code> ）上的<code>toString()</code> 方法，对于开发者定义的函数而言，调用函数对象的<code>toString()</code> 方法会返回定义函数时在函数体中编写的<strong>源文本段</strong>（<strong>source text segment</strong>）</li></ul><ul id="560029e7-dcfd-4dcd-8322-76fe409f0386" class="bulleted-list"><li style="list-style-type:disc">当函数对象期望作为一个文本值时，会自动（automatically）调用<code>toString()</code> 进行转换，例如使用加法操作符连接函数对象和字符串时</li></ul><ul id="828b363a-071a-4e70-a403-b2cf050031a3" class="bulleted-list"><li style="list-style-type:disc">利用<code>apply()</code> 或<code>call()</code> 等方法 在<strong>不兼容</strong>（<strong>incompatible</strong>）的对象上调用函数的<code>toString()</code> 方法会抛出<code>TypeError</code>异常（即<code>toString()</code>方法的<code>this</code> 必须是一个函数对象）<figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="6e1e38b2-f13b-45ca-ae5a-2873d4e46e8b"><div style="font-size:1.5em"><span class="icon">🚫</span></div><div style="width:100%">Function.prototype.toString.call(&quot;foo&quot;); // TypeError: Function.prototype.toString requires that &#x27;this&#x27; be a Function</div></figure></li></ul><hr id="5cbbb318-61b3-440e-a88a-ff251bb23cf3"/><ul id="595d7ff1-9938-491b-8354-cbaa66f47686" class="bulleted-list"><li style="list-style-type:disc">调用内置函数对象、绑定函数、非JavaScript函数对象的<code>toString()</code> 的方法，<code>toString()</code> 会返回<strong>原生函数代码字符串（</strong><strong><em>native function string</em></strong><strong>），</strong>如下<pre id="46aea518-dbd3-4414-b97c-f88def96274a" class="code code-wrap"><code>&quot;function someName() { [native code] }&quot;</code></pre><pre id="6a23d92b-c1ff-4162-b207-cc014acd028f" class="code code-wrap"><code>console.log(Math.pow.toString()); // function pow() { [native code] }
+console.log(Array.prototype.slice.toString()); // function slice() { [native code] }</code></pre><pre id="a63ab90e-817c-4f51-b053-6765bb0fb231" class="code code-wrap"><code>function func() {
+  return false;
+}
+const boundFunc = func.bind(null, 1);
+console.log(boundFunc.toString()); // function () { [native code] }</code></pre><ul id="1b53d827-d187-4e52-9cc9-c9ef152d1a03" class="bulleted-list"><li style="list-style-type:circle">所有绑定函数调用<code>toString()</code> 都没有<code>someName</code> </li></ul></li></ul><hr id="56ecc546-a07e-4b4d-a810-61033e4682ec"/><ul id="50e6072a-2dab-46ba-a191-5ac9e69a1ae3" class="bulleted-list"><li style="list-style-type:disc">对于<strong>内部</strong>（<strong>intrinsic</strong>）对象方法和函数，<code>someName</code> 是函数的初始名称；否则就是<strong>实现定义</strong>（<strong>implementation-defined</strong>）的名称，但是始终以属性名称语法呈现，如<code>[1+1]</code> 、1<pre id="e6433195-98ef-41fe-9f83-2cf51f057f38" class="code code-wrap"><code>// 内部(intrinsic)对象
+const obj = {
+  [1 + 2]() {
+    return false;
+  },
+  [Symbol.hasInstance]: function Name() {
+    return false;
+  },
+};
+console.log(obj[3].toString()); //
+[1 + 2]() {
+    return false;
+  }
+console.log(obj[Symbol.hasInstance].toString());
+function Name() {
+    return false;
+  }</code></pre><ul id="f4876f72-5fbe-4401-a659-8c30401c8b04" class="bulleted-list"><li style="list-style-type:circle">注意打印出来的字符串<strong>缩进</strong>和<strong>换行</strong>是完全按照编写代码时的缩减和换行确定的</li></ul><ul id="089d089e-144e-4bf1-9361-353b67515e75" class="bulleted-list"><li style="list-style-type:circle">打印出来的函数对象的名称也按照定义方法的模式</li></ul></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="8c9fef76-a1ee-4214-83e1-e545a2dc5d7e"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：这意味着对原生函数的字符串调用<code>eval()</code> 将始终产生语法错误（即将内部对象方法和函数的<code>toString()</code> 结果作为<code>eval()</code> 的参数进行函数声明编码，会因为语法错误抛出异常）</div></figure><hr id="56ea3977-ad51-4bf7-84f3-b010979b488b"/><ul id="eb366f1c-f0b9-4b28-a4c2-fce95bc80e50" class="bulleted-list"><li style="list-style-type:disc">使用<code>Function</code> 构造函数创建的函数对象调用<code>toString()</code> 会返回创建后的函数源码，包含形参和函数体，函数名称为“anonymous”（匿名）<pre id="009f9d3d-0d4f-493d-bf89-bf7f694a287e" class="code code-wrap"><code>// 构造函数创建的函数对象
+const sum = new Function(&quot;num1&quot;, &quot;num2&quot;, &quot;return num1 + num2&quot;);
+console.log(sum.toString());
+// 打印结果
+function anonymous(num1,num2
+) {
+return num1 + num2
+}</code></pre></li></ul><ul id="d3870618-8f08-4062-8f40-9a2b258a0116" class="bulleted-list"><li style="list-style-type:disc">关于<code>Function</code>构造函数创建的函数对象，可以查看上面的<a href="%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89.html">动态编译</a></li></ul><hr id="b59d2429-2c18-4df4-99dc-2c631e9bd223"/><ul id="8cea12df-17fb-432b-b81d-07ce565b22b5" class="bulleted-list"><li style="list-style-type:disc">从ES2018开始规范要求<code>toString()</code> 的返回值与声明的<strong>源代码完全相同</strong>（<strong>exact same source code</strong>），包括任何的空格，换行和<strong>注释</strong>（<strong>comments</strong>）；如果因为某种原因主机（<strong>host</strong>）没有源代码，则要求返回一个<strong>原生函数代码字符串（</strong><strong><em>native function string</em></strong><strong>）</strong></li></ul><ul id="99023bd8-f12f-4cdb-9128-48e63ad5aca0" class="bulleted-list"><li style="list-style-type:disc">关于这一行为(<strong>Implements </strong><code><strong>Function.prototype.toString</strong></code><strong> revision, toString实现修订</strong>)支持的情况可以查看MDN上的<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/toString#browser_compatibility">浏览器兼容性</a> （2022/10/19显示Node，Deno和Safari不支持这一行为）</li></ul><h3 id="73d5f29b-c0ac-4d46-9a5b-3d9762366283" class="">3.4.3 例子</h3><p id="2fab5f72-a6b3-484c-95fc-b858aac4349c" class="">通过<strong>模板字符串</strong>（<strong>template literal</strong>）获取函数对象的<strong>源文本</strong>（<strong>source text</strong>），使用<code>${}</code> 语法会把函数对象强制转换为对应的字符串</p><pre id="f0448901-ebcc-421a-8122-f70f5ceea5bd" class="code code-wrap"><code>function foo() {
+  /* 我是注释 */
+  return &quot;bar&quot;;
+}
+console.log(`${foo}`);
+// 打印结果
+`function foo() {
+  /* 我是注释 */
+  return &quot;bar&quot;;
+}`</code></pre><p id="9d20ba6d-564a-4fdc-90e8-71e3095d4cc8" class="">实际源代码与<code>toString()</code> 结果</p><ul id="ce43d16e-d22e-4ef5-b0d3-cfeadc50620e" class="bulleted-list"><li style="list-style-type:disc">在<code>Function.prototype.toString()</code> 行为变更（ES2018的<strong>Implements </strong><code><strong>Function.prototype.toString</strong></code><strong> revision</strong>）后，在调用<code>toString()</code> 时，该方法的实现不允许在函数对象不是<strong>原生函数</strong>（<strong>native function</strong>）时<strong>合成</strong>（<strong>synthesize</strong>）函数的源码（意思就是说原生函数可以使用<strong>原生函数代码字符串</strong>合成函数源码返回，而自定义的函数必须返回定义时确切的源代码）</li></ul><ul id="a8985569-5491-4401-b17a-47091f55a593" class="bulleted-list"><li style="list-style-type:disc">方法始终返回创建函数时使用的<strong>确切的源代码（exact source code），</strong>适用于setter个getter，而<code>Function</code>构造函数本身具有合成函数源代码的能力<pre id="00b20514-cbe2-4eaa-bcf1-c2e86aed67f8" class="code code-wrap"><code>// 实际源代码与toString()结果
+function test(fn) {
+  console.log(fn.toString());
+}
+
+test(function f() {}); // function f() {}
+test(function* g() {}); // function* g() {}
+test(class A {}); // class A {}
+
+test((a, ...args) =&gt; console.log(a, args)); // (a, ...args) =&gt; console.log(a, args)
+
+test({ [0]() {} }[0]); // [0]() {}
+test({ [0]: function () {} }[0]); // function () {}
+
+test(Object.getOwnPropertyDescriptor({ get a() {} }, &quot;a&quot;).get); // get a() {}
+test(
+  Object.getOwnPropertyDescriptor(
+    {
+      /**
+       * @param {any} _val
+       */
+      set a(_val) {},
+    },
+    &quot;a&quot;
+  ).set
+); // set a(_val) {}
+
+test(Function.prototype.toString); // function toString() { [native code] }
+
+test(function f() {}.bind(null)); // function () { [native code] }
+
+test(Function(&quot;a&quot;, &quot;b&quot;));
+
+// function anonymous(a
+// ) {
+// b
+// }</code></pre></li></ul><p id="a4e9f7c6-1e6d-4fc5-babd-02884f2afcab" class="">
+</p></div></div><p id="8852ea90-1c62-41a7-a6c8-170beae6b615" class="">
+</p></div></article></body></html>

@@ -1,0 +1,732 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Using XML（使用XML）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="248e61b0-b6af-4114-a715-e6ae35664a4d" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/gradients_5.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🚞</span></div><h1 class="page-title"><strong><strong>Using XML（使用XML）</strong></strong></h1></header><div class="page-body"><p id="cbe76717-6e74-4458-8aae-502718513fea" class="">by <a href="https://alistapart.com/author/j-davideisenberg/"><strong>J. David Eisenberg</strong></a><strong> </strong><time>@July 19, 2002 4:00 PM</time></p><p id="1cfdceff-6d82-483b-9383-c3c9c811516b" class="">Published in <a href="https://alistapart.com/blog/topic/html/">HTML</a></p><div id="365398c2-2a48-4773-91d3-49a85ee90f2d" class="column-list"><div id="a8b0e79c-feed-4b1a-8bff-8290d6ec7cb8" style="width:18.75%" class="column"><nav id="91d8b777-a540-4e65-9c5e-b5db9a07a780" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#52229700-a58d-437d-9ca7-2f66fc02000d">1. 问题引入</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#368eadcc-b8b9-48de-b7b4-274a2ec56e0a">2. 创建一个新的标记语言（New Markup Language）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#32c237df-9b0b-41ac-8676-6bd07d54347e">3. 直接的好处</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f4867869-e967-4100-a7f8-648534dfe30b">4. 验证文档（Validating the Document）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#791b3e75-80ec-4d95-955f-9765d411451e">5. 进行文档检查</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#92fcef4c-5f9f-44d7-a568-5c3473d28493">6. 展示XML</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#75e777b2-143f-4f1a-b377-af6eced95359">7. 更好的方案——转换（<strong><strong>Transformation—A Better Way</strong></strong>）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c23e4bcf-9daf-4ac5-afd3-458c530a0548">8. 转换成HTML</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c439a9e4-c118-475b-9aa6-572355648ad6">9. 有趣的转换</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6be17c0b-987e-4f81-8711-4ed6809856a1">10. 非HTML转换</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#81cff238-b319-43e7-91af-0d0962da2ad3">11. 转换为打印</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a2a083f3-b693-4510-a7f2-4bd9e935a545">12. 生成图形（<strong><strong>Graphics</strong></strong>）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#988528fa-f430-4bd7-939c-fd16062fd29b">13. 使用XML工具的其他方法</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#202bc792-e4ef-4af5-988c-7df377eaf7bf">14. 计时（Timing）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b8abdace-b130-4ce9-a21f-2c597bddcd58">15. 性能（<strong><strong>Performance</strong></strong>）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4f23daa9-858a-4852-a6fe-dceec9564bca">16. 小结</a></div></nav><p id="3ad4b50d-7e17-4634-b94e-3a10436ba6a7" class="">
+</p></div><div id="41e108c6-e877-42c5-ade8-dc4211978b3a" style="width:81.25%" class="column"><h1 id="52229700-a58d-437d-9ca7-2f66fc02000d" class="">1. 问题引入</h1><ul id="518e12e9-9eca-461f-b699-8ca28a15dee7" class="bulleted-list"><li style="list-style-type:disc">为每一个内容输入特定的标签效率不是很低下吗？</li></ul><ul id="066c92a0-c6ad-43e0-9791-df6d21e550fc" class="bulleted-list"><li style="list-style-type:disc">如何处理拥有标签的XML文件？</li></ul><ul id="be9c4ccc-b0d4-43d9-955a-cefc1d91053b" class="bulleted-list"><li style="list-style-type:disc">如何把XML放在一个网页上？</li></ul><hr id="53f92ce2-0f55-433e-8f2c-41f7eeb88747"/><p id="3e44c79c-5f7d-4f88-b5d9-9594c6ac1fc6" class="">使用XML并不是为了某一个特定的应用程序，XML不仅仅拥有规范好写法的漂亮面孔（pretty face），也与计算机世界的其它东西隔离开来了</p><p id="325d071a-4f4e-4bdc-a8b1-0749c2912016" class="">XML不仅仅是生成自定义标记语言的工具书（rulebook），它也是一系列技术的一部分（a family of）</p><ul id="b42b6c3f-58d8-4f05-b345-2fa0658da1c9" class="bulleted-list"><li style="list-style-type:disc">使您基于XML的文档非常有用</li></ul><p id="f23c363e-2906-40a7-b067-1b856207499b" class="">为了证明这一点，我（作者）决定从头开始创建一个新的基于XML的标记语言，并展示你可以用新创建的标记语言写好的文档做些什么</p><h1 id="368eadcc-b8b9-48de-b7b4-274a2ec56e0a" class="">2. 创建一个新的标记语言（New Markup Language）</h1><ul id="88c3f0f1-1240-42b8-b500-12cd4ba9e1d2" class="bulleted-list"><li style="list-style-type:disc">我要创建的标记语言可以存储美国食品标签上的<strong>营养信息</strong><ul id="782f82cc-f667-4989-9fd4-2a6b8caec1c0" class="bulleted-list"><li style="list-style-type:circle">关于普通视频的营养信息可以去<a href="http://yycx.yybq.net/">食物成分查询平台</a> 去查询，</li></ul><ul id="7d7cc9d5-e176-4574-9494-714e1fb9f73c" class="bulleted-list"><li style="list-style-type:circle">营养信息通常包含<ul id="cd9b0832-a957-4094-9cc1-46e3ba266220" class="bulleted-list"><li style="list-style-type:square">能量相关的成分，如碳水化合物，蛋白质，脂肪等</li></ul><ul id="fd9f9fae-2750-48e4-8fdc-8c488c5181bb" class="bulleted-list"><li style="list-style-type:square">维生素，如胡萝卜素，维生素B等</li></ul><ul id="4cea5031-5ea7-40d9-8bca-188fcfdb5a1d" class="bulleted-list"><li style="list-style-type:square">矿物质，如钙，钠，碘等<figure id="8abb8048-7d6d-4509-a687-30021793ca6e" class="image"><a href="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/%25E8%25A5%25BF%25E7%2593%259C%25E8%2590%25A5%25E5%2585%25BB%25E6%2588%2590%25E5%2588%2586%25E6%259F%25A5%25E8%25AF%25A2.png"><img style="width:384px" src="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/%25E8%25A5%25BF%25E7%2593%259C%25E8%2590%25A5%25E5%2585%25BB%25E6%2588%2590%25E5%2588%2586%25E6%259F%25A5%25E8%25AF%25A2.png"/></a></figure></li></ul></li></ul></li></ul><ul id="62693d15-7d7c-4f3d-b976-9709492f1214" class="bulleted-list"><li style="list-style-type:disc">首先该文档需要一个根标签，因为是营养信息，可以<code>&lt;nutrition&gt;</code> 开头</li></ul><ul id="f15e6bf5-d28f-4136-a5fb-5c82c51977ae" class="bulleted-list"><li style="list-style-type:disc">接下来就是日摄入量，定义<code>&lt;daily-values&gt;</code> 元素，给出了每天2000卡路里饮食中的脂肪、钠等的最大摄入量，并配上测量单位</li></ul><ul id="587b265a-09a8-4d3f-abf9-fb1ab8e3c9e0" class="bulleted-list"><li style="list-style-type:disc">每日摄入量后面就是一系列的<code>&lt;food&gt;</code>元素，每个元素提供了关于特定元素及其营养类别的信息<ul id="fceaacb6-a341-4283-801e-f7974b7f8041" class="bulleted-list"><li style="list-style-type:circle">因为&lt;daily-value&gt;已经定义了每个类别的测量单位，就不需要为食物重复它们</li></ul><ul id="45d13e72-1fa0-4bde-a709-326c526d510d" class="bulleted-list"><li style="list-style-type:circle">只需要输入特定食物的总脂肪，总钠含量即可</li></ul></li></ul><ul id="29294111-8065-4c6e-acae-8a4540050a16" class="bulleted-list"><li style="list-style-type:disc">最后一个食物之后，使用&lt;/nutrition&gt;标记结束文档<pre id="143c7aa9-9839-42a0-ac30-56739fedb2d0" class="code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;nutrition&gt;  &lt;!-- 建立日均摄取量 --&gt;
+  &lt;daily-values&gt;
+    &lt;total-fat units=&quot;g&quot;&gt; 65 &lt;/total-fat&gt;    &lt;!--脂肪总量--&gt;
+    &lt;saturated-fat units=&quot;g&quot;&gt; 20 &lt;/saturated-fat&gt;    &lt;!--饱和脂肪--&gt;
+    &lt;cholesterol units=&quot;mg&quot;&gt; 300 &lt;/cholesterol&gt;    &lt;!--胆固醇--&gt;
+    &lt;sodium units=&quot;mg&quot;&gt; 2400 &lt;/sodium&gt;    &lt;!--钠--&gt;
+    &lt;carb units=&quot;g&quot;&gt; 300 &lt;/carb&gt;    &lt;!--碳水化合物--&gt;
+    &lt;fiber units=&quot;g&quot;&gt; 25 &lt;/fiber&gt;    &lt;!--纤维素--&gt;
+    &lt;protein units=&quot;g&quot;&gt; 50 &lt;/protein&gt;    &lt;!--蛋白质--&gt;
+  &lt;/daily-values&gt;
+  &lt;!-- Now list the individual foods --&gt;
+  &lt;food&gt;
+    &lt;name&gt;Avocado Dip&lt;/name&gt;    &lt;!--蘸酱--&gt;
+    &lt;mfr&gt;Sunnydale&lt;/mfr&gt;    &lt;!--mfr表示生产商，其中内容为生产商名称--&gt;
+    &lt;serving units=&quot;g&quot;&gt; 29 &lt;/serving&gt;    &lt;!--提供的含量--&gt;
+    &lt;calorie total=&quot;110&quot; fat=&quot;100&quot;/&gt;
+    &lt;!--卡路里--&gt;
+    &lt;total-fat&gt; 11 &lt;/total-fat&gt;    &lt;!--脂肪总量--&gt;
+    &lt;saturated-fat&gt; 3 &lt;/saturated-fat&gt;    &lt;!--饱和脂肪--&gt;
+    &lt;cholesterol&gt; 5 &lt;/cholesterol&gt;    &lt;!--胆固醇--&gt;
+    &lt;sodium&gt; 210 &lt;/sodium&gt;    &lt;!--钠--&gt;
+    &lt;carb&gt; 2 &lt;/carb&gt;    &lt;!--碳水化合物--&gt;
+    &lt;fiber&gt; 0 &lt;/fiber&gt;    &lt;!--纤维素--&gt;
+    &lt;protein&gt; 1 &lt;/protein&gt;    &lt;!--蛋白质--&gt;
+    &lt;vitamins&gt;      &lt;!--维生素--&gt;
+      &lt;a&gt; 0 &lt;/a&gt;        &lt;!--维生素a--&gt;
+      &lt;c&gt; 0 &lt;/c&gt;      &lt;!--维生素c--&gt;
+    &lt;/vitamins&gt;
+    &lt;minerals&gt;      &lt;!--矿物质--&gt;
+      &lt;ca&gt; 0 &lt;/ca&gt;      &lt;!--钙--&gt;
+      &lt;fe&gt; 0 &lt;/fe&gt;      &lt;!--铁--&gt;
+    &lt;/minerals&gt;
+  &lt;/food&gt;
+
+	&lt;!-- etc. --&gt;
+
+&lt;/nutrition&gt;</code></pre><ul id="8012ef90-5672-456b-b3ce-72f5e3413672" class="bulleted-list"><li style="list-style-type:circle">完整XML文档可以查看<a href="https://alistapart.github.io/code-samples/usingxml/xml_uses_a.html">see the entire document</a> ：此文档中的数据（碳水化合物，脂肪等）都是真实的，只有制造商的名字被更改</li></ul><ul id="cbb6a93c-7fe6-4d15-8a04-d37e3843a144" class="bulleted-list"><li style="list-style-type:circle">简单说明一下：维生素和矿物质是以百分比计算的，而不是克或毫克。这就是为什么我们不需要在元素中为它们建立任何单位或最大值。</li></ul></li></ul><ul id="5a94f349-7ec3-4f92-8261-08e80f6cdfa7" class="bulleted-list"><li style="list-style-type:disc">我在Linux系统上用编辑程序（作者用的<code>nedit</code> ，一款文本编辑器 ）手动输入数据。我可以使用任何允许我将文件保存为纯ASCII文本的编辑器；Windows上的记事本或Linux上的vi也可以。为了使数据输入更容易，我为食物元素（&lt;food&gt;）创建了一个空“模板”，你可以文件的底部看见它。我复制粘贴了每一种新的食物，这样我就不会不得不一遍又一遍的打标签。</li></ul><h1 id="32c237df-9b0b-41ac-8676-6bd07d54347e" class="">3. 直接的好处</h1><ul id="f62ddec8-cfe6-4144-a0bf-cdda666b95bf" class="bulleted-list"><li style="list-style-type:disc">通过在文本编辑器中创建XML文件，而不是创建HTML文档或保存在电子表格或数据库，我们得到了什么？<ul id="cb940501-51a9-4e80-bb95-006b2c52223c" class="bulleted-list"><li style="list-style-type:circle">首选，数据是格式化的（structured）；它不是HTML表格中的大量数字，也不是仅由制表符分隔的值组成的文本文件</li></ul><ul id="e19565cb-a2f8-4f2e-a9a2-e9378e255ba1" class="bulleted-list"><li style="list-style-type:circle">因为有了一些自定义的标签，所以人类是可以阅读何理解的</li></ul><ul id="70d6fa7c-4447-4382-ba7f-0ac14885e101" class="bulleted-list"><li style="list-style-type:circle">它也是开放的（跨平台），不需要专有软件来读取提取信息，作为一种传输媒介，XML已经很好的为我们服务了</li></ul></li></ul><h1 id="f4867869-e967-4100-a7f8-648534dfe30b" class="">4. 验证文档（Validating the Document）</h1><ul id="bbdc36e4-765b-41c6-aebb-a8502722b64f" class="bulleted-list"><li style="list-style-type:disc">XML很重要的一点就是要保证XML格式正确，数据正确<ul id="32a6bb2b-7bbe-400b-a560-73a75d9b31bb" class="bulleted-list"><li style="list-style-type:circle">即使您是唯一一个在文档中输入数据的人，您也希望能够检查出您没有遗漏任何信息或添加额外的标签。</li></ul><ul id="641d68a4-6c5c-453a-b135-7a2079734a6a" class="bulleted-list"><li style="list-style-type:circle">此外，您希望确保您的百分比都在0到100之间。</li></ul></li></ul><ul id="3359c41b-e2fc-4d99-bca7-820f840c6082" class="bulleted-list"><li style="list-style-type:disc">如果有很多人输入数据，<strong>文档的验证</strong>就变得更加重要<ul id="966b9989-5be3-4cad-ac71-4e2659dc44d3" class="bulleted-list"><li style="list-style-type:circle">即使你告诉其他人正确的格式，他们可能会忽略它或犯错误</li></ul><ul id="eb9b4599-ed45-4b06-8cf4-58880edeb330" class="bulleted-list"><li style="list-style-type:circle">简而言之，您希望计算机帮助您确定文件中的数据是否有效</li></ul></li></ul><ul id="b27c3cc2-f56c-4738-b052-8455a02862dc" class="bulleted-list"><li style="list-style-type:disc">为此，您可以创建一个机器可读的语法<ul id="800caaa2-cae9-475e-a3c6-9658270455f7" class="bulleted-list"><li style="list-style-type:circle">该语法指定哪些标记和属性是有效的，以何种组合，以及标记和属性可能包含哪些值</li></ul><ul id="f59498e8-2087-4b11-909d-1dfc5d05c3df" class="bulleted-list"><li style="list-style-type:circle">然后将文档和语法交给一个名为验证器的程序，该程序检查文档是否符合您的规范。</li></ul></li></ul><ul id="e29aad07-832b-4525-884b-ca07e52f1275" class="bulleted-list"><li style="list-style-type:disc">指定这种语法的一种机器可读的形式是Relax NG符号（REgular LAnguage for XML Next Generation，基于语法的可扩展标记语言模式语言）<ul id="0dfde03d-d370-46a7-b17c-c5a6110d40e9" class="bulleted-list"><li style="list-style-type:circle">Relax NG本身是一种基于XML的标记语言</li></ul><ul id="5a5f727d-2f80-4925-9737-b70337c3c1f9" class="bulleted-list"><li style="list-style-type:circle">它的可以用来指定其他标记语言中什么是有效的</li></ul><ul id="d5e05977-0686-4ebb-85b9-4d90dbf48519" class="bulleted-list"><li style="list-style-type:circle">这并不像听起来那么疯狂或不可能，毕竟，告诉你如何正确使用英语语法的书也是用英语写的。</li></ul></li></ul><ul id="88b92154-a433-4d2c-98fd-b33d0a6d2f74" class="bulleted-list"><li style="list-style-type:disc">例如，我们的营养标记语言的规范之一是<code>&lt;calories&gt;</code>元素是一个空元素，它有两个属性，<code>total</code>属性和<code>fat</code>属性。这些必须都有小数。我们可以在Relax NG中这样说：<pre id="755f4a7f-5e6c-4603-8aca-09d71f17ca5e" class="code"><code>&lt;element name=&quot;calories&quot;&gt;
+  &lt;empty/&gt;
+  &lt;attribute name=&quot;total&quot;&gt;
+    &lt;data type=&quot;decimal&quot;/&gt;
+  &lt;/attribute&gt;
+  &lt;attribute name=&quot;fat&quot;&gt;
+    &lt;data type=&quot;decimal&quot;/&gt;
+  &lt;/attribute&gt;
+&lt;/element&gt;</code></pre><ul id="40685582-8ef8-4e6c-a4d0-23dabb988cb2" class="bulleted-list"><li style="list-style-type:circle">这个Relax NG文件的语义清晰，就是告诉我们这个营养标记语义有一个元素名称为<code>calories</code> 的元素，空元素，拥有两个属性，且属性值都是小数</li></ul><ul id="b1b79359-81a4-420f-bd1d-043b550b5684" class="bulleted-list"><li style="list-style-type:circle">如果把包含如下XML语句的营养标记文件测试通过验证器时，验证器将告诉我们下面的第一个标签是正确的，但第二个标签是错误的。<pre id="df351b6a-c51b-4a0e-a850-34db52d1fed7" class="code"><code>&lt;calories total=&quot;100&quot; fat=&quot;10&quot;/&gt;
+&lt;calories total=&quot;217&quot; fat=&quot;don&#x27;t ask!&quot;/&gt;</code></pre></li></ul><ul id="013bed6a-6b57-4eeb-b4fa-426895338809" class="bulleted-list"><li style="list-style-type:circle">完整的检查Relax NG文件可以查看<a href="https://alistapart.github.io/code-samples/usingxml/xml_uses_b.html">营养标记的完整语法规范</a></li></ul></li></ul><ul id="6652c1e0-7add-48a9-9836-0b4a5c408c07" class="bulleted-list"><li style="list-style-type:disc">如果您想校验指定语法，Relax NG并不是唯一的选择<ul id="b95571cf-e29c-4f95-a12b-44eb93a254d9" class="bulleted-list"><li style="list-style-type:circle">你可以使用<em>DTD</em>(文档类型定义)，但它可能没有Relax NG那么强大</li></ul><ul id="049300d8-267f-46b7-9e89-222fc7d2cade" class="bulleted-list"><li style="list-style-type:circle">或者您可以使用<em>XML Schema</em>，它与Relax NG一样强大，但是学习起来要复杂得多</li></ul></li></ul><h1 id="791b3e75-80ec-4d95-955f-9765d411451e" class="">5. 进行文档检查</h1><ul id="5098d23c-5e1f-465c-be5d-91a0aa1612f5" class="bulleted-list"><li style="list-style-type:disc">想要进行文档检查，您将需要一些XML工具<ul id="918f46fa-5679-4a3a-87c1-61a160eaccb4" class="bulleted-list"><li style="list-style-type:circle"><a href="https://alistapart.github.io/code-samples/usingxml/windows_setup.html">这里</a>是如何为Windows设置工具</li></ul><ul id="08204844-a409-402b-9ebe-ac317c7414ea" class="bulleted-list"><li style="list-style-type:circle"><a href="https://alistapart.github.io/code-samples/usingxml/linux_setup.html">这里</a>是为Linux设置工具</li></ul></li></ul><ul id="0c8e6fcf-82d4-43b2-bdbf-b4b09b8d7bb2" class="bulleted-list"><li style="list-style-type:disc">要验证文件<ul id="1960a19e-5da4-484a-b5b3-9f763d0c1113" class="bulleted-list"><li style="list-style-type:circle">如果您使用的是Windows，请转到命令提示符</li></ul><ul id="3d896dee-6c34-4c58-8ed6-8a7788a3636f" class="bulleted-list"><li style="list-style-type:circle">如果使用的是Linux，则转到控制台窗口并获得shell提示符</li></ul><ul id="0069b68c-88fa-4580-8da7-8687a64bbff5" class="bulleted-list"><li style="list-style-type:circle">然后使用设置说明中描述的batch/shell文件来调用Multi-Schema Validator:<pre id="d566c212-e625-46b4-b6c8-e96bd1e941e4" class="code code-wrap"><code>msvalidate nutrition.rng nutrition.xml</code></pre></li></ul></li></ul><h1 id="92fcef4c-5f9f-44d7-a568-5c3473d28493" class="">6. 展示XML</h1><ul id="47225545-11dd-4d56-baed-9edabf160254" class="bulleted-list"><li style="list-style-type:disc">虽然我们可以输入可读数据并检查它是否正确，但我们仍然不能对它做任何事情。<ul id="8cbfccc9-580e-4377-8263-c10c8b4c5087" class="bulleted-list"><li style="list-style-type:circle">如果我们在浏览器中显示它，我们只能看到压缩在一起的文本</li></ul><ul id="ee47fa26-ad20-4694-b6aa-e6d28f697f24" class="bulleted-list"><li style="list-style-type:circle">这是因为浏览器不知道如何显示<code>&lt;food&gt;</code>或<code>&lt;vitamins&gt;</code>标签</li></ul></li></ul><ul id="f9d72ebb-ca40-42d7-8e2d-3686624bf82e" class="bulleted-list"><li style="list-style-type:disc">想要显示XML，可以将<strong>样式表</strong>附加到XML文件。在本例中，我们将这一行放在nutrition.xml文件的顶部<pre id="200726b5-bcee-407c-80d7-9e1c1a9ea45c" class="code code-wrap"><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml-stylesheet type=&quot;text/css&quot; 
+ href=&quot;nutrition.css&quot;?&gt;
+&lt;nutrition&gt;&lt;/nutrition&gt;</code></pre></li></ul><ul id="89735c08-7a9a-4104-8a60-cbb276157f5e" class="bulleted-list"><li style="list-style-type:disc">我们为file nutrition.css编写的样式表与HTML文件中使用的样式表非常相似。不同之处在于，我们将样式分配给了新的营养标签，而不是标准的HTML标签。例如，食品生产商应该用16号斜体字显示，而不需要新的一行，你可以这样写:<pre id="3069f2b1-b25b-4692-ac81-f0b1ea738283" class="code code-wrap"><code>mfr {
+  display: inline;
+  font-size: 16pt;
+  font-style: italic;
+}</code></pre><p id="27dbde7b-dc57-4b1b-b5e3-f47bd39371b2" class="">在与XML文件相同的目录中创建了<a href="https://alistapart.github.io/code-samples/usingxml/xml_uses_c.html">整个样式表</a>之后，就可以在Mozilla等现代浏览器中打开XML文件，它将显示信息</p><figure id="ec7eed7b-626d-4afb-9438-c6e20e4af67c" class="image"><a href="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/XML_STYLES.png"><img style="width:624px" src="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/XML_STYLES.png"/></a></figure></li></ul><h1 id="75e777b2-143f-4f1a-b377-af6eced95359" class="">7. 更好的方案——转换（<strong><strong>Transformation—A Better Way</strong></strong>）</h1><ul id="1e9cd858-079f-42eb-8e22-a0e7b7c06053" class="bulleted-list"><li style="list-style-type:disc">样式表的问题是:<ul id="917ea327-440d-466e-b2d3-4b9622bc22be" class="bulleted-list"><li style="list-style-type:circle"><del>它只适用于处理级联样式表级别2（CSS2）的最新浏览器</del>。（作者是在2002年的语境下说的这句话）</li></ul><ul id="c8d94ccc-088c-460c-b456-03bade69a991" class="bulleted-list"><li style="list-style-type:circle">它不能提取所有信息(例如，单元不会显示在输出文档中，因为它们“隐藏”在属性值中</li></ul><ul id="b0d0d588-3022-4ae1-8971-4ce3027afb33" class="bulleted-list"><li style="list-style-type:circle">它不能计算百分比</li></ul></li></ul><ul id="d1100200-66a6-48d9-903e-e539ab8ecdf5" class="bulleted-list"><li style="list-style-type:disc">此外，我们在这里发明的标记语言是<strong>面向数据（data-oriented）</strong>的<ul id="2c5b5b3c-5589-4bb2-9401-933d05b9515b" class="bulleted-list"><li style="list-style-type:circle">它被设计用来描述要存储或要传输到其他程序的数据</li></ul><ul id="c8c4b9ab-f8b2-41fb-bc3d-54c118ac22bf" class="bulleted-list"><li style="list-style-type:circle">在这些文档中，元素的顺序和每个元素中的数据类型是相当严格的</li></ul><ul id="6ce90a84-e14e-4456-92ec-90b0ca59b568" class="bulleted-list"><li style="list-style-type:circle">样式表与<strong>面向叙述</strong>（<strong>narrative-oriented</strong>）的标记文档一起使用效果更好，这些文档通常是供人类阅读的，并且比面向数据的文档更“自由”</li></ul><ul id="101c376d-5dd7-49d5-9d37-210940fe9c90" class="bulleted-list"><li style="list-style-type:circle">面向叙述的标记的例子有XHTML、DocBook(用于编写书籍和文章的标记)和NewsML(用于编写新闻报道)。</li></ul></li></ul><ul id="1e54912e-96ba-4eaa-9bf6-21986f2ad0b8" class="bulleted-list"><li style="list-style-type:disc">为了解决这些问题，我们可以使用XSLT(<strong>可扩展样式表转换语言</strong>，<strong>Extensible Stylesheet Language Transformations</strong>)将营养文件转换为其他形式<ul id="9cdc1a93-cb38-44d1-9e5a-e42791a18d53" class="bulleted-list"><li style="list-style-type:circle">XSLT也是另一种基于xml的标记语言，是一种样式转换标记语言，可以将XML数据文档转换为另外的XML或其它格式，如HTML网页，纯文字</li></ul><ul id="edf9b504-6fd5-4d98-b7ba-73db963713e3" class="bulleted-list"><li style="list-style-type:circle">它的目的是描述如何从一个XML文件(“源文档”)获取输入并将其输出成结果文档</li></ul><ul id="d3b20ae2-9dd3-47ee-9e25-46e901f455ef" class="bulleted-list"><li style="list-style-type:circle">XSLT可以灵活地从属性和元素内容中提取数据，并且可以对源文档中的数据进行计算和排序。</li></ul></li></ul><ul id="eeca8654-ca3a-432c-a0da-942c52c80ca8" class="bulleted-list"><li style="list-style-type:disc">XSLT的这种功能使XSLT成为XML技术家族中的关键技术。想要一个好的介绍，请阅读<ul id="55731f3d-ad7e-435e-9a58-3f437e17c78f" class="bulleted-list"><li style="list-style-type:circle"><a href="http://www.nwalsh.com/docs/tutorials/xsl/xsl/frames.html">Norman Walsh’s excellent presentation on the subject</a></li></ul><ul id="877ca649-eb9b-4eca-829a-fdbd72b32199" class="bulleted-list"><li style="list-style-type:circle"><a href="http://www.ibm.com/developerworks/xml/library/x-hands-on-xsl/">hands-on tutorial</a> </li></ul></li></ul><h1 id="c23e4bcf-9daf-4ac5-afd3-458c530a0548" class="">8. 转换成HTML</h1><ul id="4b686ee0-c097-4db9-8c5f-d532bcb1b9ab" class="bulleted-list"><li style="list-style-type:disc">第一个XSLT文件(<a href="https://alistapart.github.io/code-samples/usingxml/xml_uses_d.html">您可以在这里看到</a>)将营养文档转换为非常简单的HTML文件，适合在桌面或PDA的任何浏览器上显示。要进行转换，您可以键入以下命令：<pre id="839aaade-2e9e-478b-959d-e9a4d69698eb" class="code code-wrap"><code>transform nutrition.xml 
+nutrition_plain.xslt nutrition_plain.html</code></pre><ul id="ec20691a-a0ce-437d-b25e-05bbb3facbb4" class="bulleted-list"><li style="list-style-type:circle">转换的结果是一个名为nutrition_plain.html的HTML文件，您可以在任何喜欢的浏览器中打开该文件。</li></ul><ul id="6cd1f806-a4ce-4a63-b6fa-c44c827b1ce7" class="bulleted-list"><li style="list-style-type:circle">即使是这个简单的转换也完成了两件我们在CSS中无法完成的事情：<ul id="b6ed14c9-ee9b-4160-84c8-4af002872a58" class="bulleted-list"><li style="list-style-type:square">它使用属性中的信息来显示每种营养类别的单位</li></ul><ul id="55e85fca-c6db-4bbe-bf3d-a38fe96fdefa" class="bulleted-list"><li style="list-style-type:square">并计算每日摄入量的百分比。</li></ul></li></ul></li></ul><ul id="9e807b53-1c25-47be-b357-f84b7d4bbd42" class="bulleted-list"><li style="list-style-type:disc">转换成的HTML的网页展示可以查看<a href="https://alistapart.github.io/code-samples/usingxml/nutrition_plain.html"><strong>Nutrition Facts Summary</strong></a><figure id="7b7f6517-d882-435c-a884-4e964a0510bf" class="image"><a href="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/transform_to_html.png"><img style="width:624px" src="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/transform_to_html.png"/></a></figure></li></ul><h1 id="c439a9e4-c118-475b-9aa6-572355648ad6" class="">9. 有趣的转换</h1><ul id="25ed2370-6925-40c2-b148-312d922c3837" class="bulleted-list"><li style="list-style-type:disc">好吧，也许你想要一些更花哨的东西。这里有一个更复杂的转换，它根据每份脂肪卡路里与总卡路里的比例对数据进行排序;一种“健康”
+指数。”</li></ul><ul id="885d55f5-401e-4484-b265-6b0d251770fd" class="bulleted-list"><li style="list-style-type:disc">如果您将XSLT保存在一个名为<a href="https://alistapart.github.io/code-samples/usingxml/xml_uses_e.html">nutrition_fancy.xslt</a>的文件中。XSLT您可以键入以下命令：<pre id="2c39819f-b29d-444b-aa42-dcfad586801d" class="code code-wrap"><code>transform nutrition.xml 
+nutrition_fancy.xslt nutrition_fancy.html</code></pre><ul id="5734914f-8fc9-45dc-8deb-1235c218e343" class="bulleted-list"><li style="list-style-type:circle">这将生成一个名为nutrition_fancy.html的文件</li></ul><ul id="88cc810e-7cec-4ea2-a591-07664863a752" class="bulleted-list"><li style="list-style-type:circle">它看起来与普通版本有很大不同</li></ul><ul id="e39635be-6b18-43b4-8077-b454fe7c829f" class="bulleted-list"><li style="list-style-type:circle">它使用级联样式表来生成小条形图；需要一个现代的浏览器，如Internet Explorer 5+或Mozilla/Netscape 6才能看到效果</li></ul><ul id="752c31f4-3508-4d96-a18f-b4c8e82e6aaf" class="bulleted-list"><li style="list-style-type:circle">注意，XSLT允许您选择想要显示的数据；关于碳水化合物、纤维、维生素和矿物质的信息在花哨的版本中被省略了。(当然，可以通过更改XSLT文件来添加它们。)</li></ul></li></ul><ul id="aa9b1948-a4a5-4d92-bb10-ee1e31671189" class="bulleted-list"><li style="list-style-type:disc">我们使用XSLT获取源XML文件并将其转换为两个不同的HTML文件<ul id="e409b073-1524-486e-8184-176698da4789" class="bulleted-list"><li style="list-style-type:circle">一个简单的版本适合在老式浏览器和pda上显示</li></ul><ul id="b8e709e2-a888-4b24-916f-8bda5beed497" class="bulleted-list"><li style="list-style-type:circle">另一个花哨的版本适合在台式电脑和现代浏览器上使用。</li></ul></li></ul><ul id="272e7f27-2392-4a56-8ea7-15bc2a56f599" class="bulleted-list"><li style="list-style-type:disc">花哨版本的网址可以查看<a href="https://alistapart.github.io/code-samples/usingxml/nutrition_fancy.html"><strong>How Healthy Is It?</strong></a><figure id="2eeb3aed-b759-47d7-a565-7e0ea3b3ee2d" class="image"><a href="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/transform_to_html_fancy.png"><img style="width:720px" src="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/transform_to_html_fancy.png"/></a></figure></li></ul><h1 id="6be17c0b-987e-4f81-8711-4ed6809856a1" class="">10. 非HTML转换</h1><ul id="6b3d977a-52e1-4a28-91ba-2e5c7ba4280a" class="bulleted-list"><li style="list-style-type:disc">但是等等，也许你不需要HTML；<ul id="48421ae1-4ba9-434c-8dfa-352f25f6f6b8" class="bulleted-list"><li style="list-style-type:circle">你知道，世界上不只有浏览器</li></ul><ul id="4e4593e2-8472-4e2e-ac82-de7ca2ace34b" class="bulleted-list"><li style="list-style-type:circle">您可能想要获取数据并将其转换为一个由制表符分隔的值组成的文本文件，以便导入电子表格或数据库程序</li></ul></li></ul><ul id="c71a19c9-886d-426f-b9fb-76cf575ea72e" class="bulleted-list"><li style="list-style-type:disc">转换文件也可以用xslt写，完整转换文件地址为<a href="https://alistapart.github.io/code-samples/usingxml/xml_uses_f.html">nutrition_csv.xslt</a>，使用这个命令：<pre id="55146271-0844-4353-be9e-82de44b0342a" class="code code-wrap"><code>transform nutrition.xml nutrition_csv.xslt nutrition.csv</code></pre></li></ul><ul id="6948ed5a-72e4-4172-a29d-2b95fa5637bf" class="bulleted-list"><li style="list-style-type:disc">最终结果是一个<a href="https://alistapart.com/wp-content/uploads/2012/07/nutrition_csv.txt">nutrition_csv.txt</a><figure id="abca7ef9-91d1-4d3f-bb92-f1165d611283" class="image"><a href="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/nutrition_csv.txt.png"><img style="width:720px" src="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/nutrition_csv.txt.png"/></a></figure></li></ul><h1 id="81cff238-b319-43e7-91af-0d0962da2ad3" class="">11. 转换为打印</h1><ul id="6fa1d452-8e29-42cc-bfeb-804d95b5cb67" class="bulleted-list"><li style="list-style-type:disc">假设您想要从XML创建一个PDF文件<ul id="88c0497b-50d9-46b0-9dae-c491f8b55edf" class="bulleted-list"><li style="list-style-type:circle">这可以通过使用转换将XML更改为另一种标记语言：<em>XSL-FO</em>(<strong>XSL Formatting Objects，用于文档格式的XML 置标语言</strong>)来实现<ul id="7a23442b-4978-417a-af05-ab7a590aa0e4" class="bulleted-list"><li style="list-style-type:square">这是一种页面布局语言</li></ul><ul id="96e7e41a-1eb6-483b-b954-8af2e61270ac" class="bulleted-list"><li style="list-style-type:square">一种名为<em>FOP</em>(Formatting Objects to PDF，将对象格式化为PDF)的工具使用该标记并为您创建PDF文件。</li></ul><blockquote id="6b76ba87-2641-4252-b5ce-b34132dcf4f4" class="">FOP 是由 James Tauber 发起的一个开源项目，原先的版本是利用 xsl-fo 将 xml 文件转换成 pdf 文件。但最新的版本它可以将 xml 文件转换成 pdf，mif，pcl，txt 等多种格式以及直接输出到打印机，并且支持使用 SVG 描述图形。</blockquote></li></ul></li></ul><ul id="da03c504-ae4c-4a72-a529-35d7dfe5e17c" class="bulleted-list"><li style="list-style-type:disc">转换文件也可以用xslt写，完整转换文件地址为<a href="https://alistapart.github.io/code-samples/usingxml/xml_uses_g.html"><code>nutrition_fo.xslt</code></a>，它获取营养数据并将其转换为格式化对象，使用FOP最终转换为PDF，执行如下命令：<pre id="55d68d0a-d6e6-405e-b00f-f484c53cfd64" class="code code-wrap"><code>fop -xml nutrition.xml -xsl nutrition_fo.xslt -pdf nutrition.pdf</code></pre></li></ul><ul id="22136750-f0a0-4784-9807-29e5a219f796" class="bulleted-list"><li style="list-style-type:disc">最终结果是一个<a href="https://alistapart.com/wp-content/uploads/2012/07/nutrition.pdf">nutrition.pdf</a><figure id="7b2a3c4e-b52c-4cd3-86b4-94c59a796c89" class="image"><a href="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/nutrition.pdf.png"><img style="width:432px" src="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/nutrition.pdf.png"/></a></figure></li></ul><h1 id="a2a083f3-b693-4510-a7f2-4bd9e935a545" class="">12. 生成图形（<strong><strong>Graphics</strong></strong>）</h1><ul id="4d924c5f-d5d1-4966-bed8-5889865be9ed" class="bulleted-list"><li style="list-style-type:disc">最后，您可能希望创建数据的交互式图形版本<ul id="f9061159-e60a-43af-bba4-ff4b4e3cbfdc" class="bulleted-list"><li style="list-style-type:circle">另一个基于xml的标记SVG-Scalable Vector Graphics为您提供了这种功能</li></ul><ul id="0ea26444-a41d-4521-b586-7617dfc6400d" class="bulleted-list"><li style="list-style-type:circle">SVG有如下元素，它们画了一条黑色的对角线和一个黄色的圆，有绿色的轮廓:<pre id="9b5dcd9d-d97a-4fc9-9eaa-9b4c44a359dc" class="code code-wrap"><code>&lt;line x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;50&quot; y2=&quot;50&quot; /&gt;
+&lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;30&quot; /&gt;</code></pre></li></ul></li></ul><ul id="4792384a-1b4f-449d-b105-9865a52380b9" class="bulleted-list"><li style="list-style-type:disc">通过使用生成SVG的转换文件—<a href="https://alistapart.github.io/code-samples/usingxml/xml_uses_h.html">nutrition_svg.xslt</a>，我们可以构造一个图形，该图形显示您单击名称的食物的柱状图。下面是执行命名:<pre id="dc62a765-0d6c-4526-b755-220983a7dad6" class="code code-wrap"><code>transform nutrition.xml nutrition_svg.xslt nutrition.svg</code></pre></li></ul><ul id="a42aec0b-3133-4eed-ac5b-23be8494f99c" class="bulleted-list"><li style="list-style-type:disc">您可以使用作为Batik工具包一部分的SVG浏览器显示结果（现在SVG的显示可以用浏览器，没必要使用额外工具）<ul id="1cbb2225-6ad3-48e9-97b2-cda17c63620e" class="bulleted-list"><li style="list-style-type:circle">如果你已经按照Linux或Windows的说明安装了Batik，输入<code>batikï¿½nutrition.svg</code></li></ul><ul id="7c5fe667-696b-4e4e-9293-e21003d6a147" class="bulleted-list"><li style="list-style-type:circle">我没有使用最新版本的<a href="http://www.adobe.com/svg/">Adobe SVG Viewer</a>测试该文件，但它应该可以很好地工作。这是一个截图;点击查看完整尺寸。</li></ul><figure id="3df54de7-7f8e-4d54-b06c-bbbfa489f857" class="image"><a href="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/barchart.webp"><img style="width:562px" src="Using%20XML%EF%BC%88%E4%BD%BF%E7%94%A8XML%EF%BC%89/barchart.webp"/></a></figure></li></ul><h1 id="988528fa-f430-4bd7-939c-fd16062fd29b" class="">13. 使用XML工具的其他方法</h1><ul id="06168022-fee9-408e-83f8-592e4aafcd14" class="bulleted-list"><li style="list-style-type:disc">在本文中，我们从命令提示符中使用了Multi-Schema Validator、Xalan Transformer、FOP转换器和Batik查看器。这是最快、最简单的工作方式，这样您就可以体验XML的功能。</li></ul><ul id="52631589-a361-44c2-aa34-69a464f3efad" class="bulleted-list"><li style="list-style-type:disc">batch或shell文件方法适用于生产环境，<ul id="f137f10f-4b13-43d1-b620-07605612bf83" class="bulleted-list"><li style="list-style-type:circle">在这种环境中，您可以定期从一个或多个XML文件生成整个网站的HTML文件</li></ul><ul id="626b60ba-bf2b-4035-90f6-482e8c9a9d5a" class="bulleted-list"><li style="list-style-type:circle">您只需设置一个批作业，在预定的时间运行(Unix术语为cron作业)，以生成所需的文件。</li></ul></li></ul><ul id="f54dbec6-b421-4092-913f-a714f511752f" class="bulleted-list"><li style="list-style-type:disc">如果需要动态生成HTML页面或PDF文件以响应用户请求，该怎么办?<ul id="cee21c01-16bc-40a9-bbce-eb56970c2e30" class="bulleted-list"><li style="list-style-type:circle">显然，您不希望每次有请求时都启动Java进程的开销，而静态批处理文件肯定不能达到这个目的</li></ul><ul id="4081bc9f-d78c-4979-8a11-209cd725c988" class="bulleted-list"><li style="list-style-type:circle">Multi-Schema Validator和Xalan都有一个API(应用程序程序接口)，因此可以成为运行在服务器上的Java servlet的一部分，并处理动态用户请求</li></ul><ul id="c5f05008-d9b0-4491-8431-3b218e5a258e" class="bulleted-list"><li style="list-style-type:circle">一旦加载了servlet，它就保存在内存中，因此没有后续使用转换的额外开销</li></ul></li></ul><ul id="9cd07a44-b6ae-4340-8558-30034a70220d" class="bulleted-list"><li style="list-style-type:disc">如果您对运行servlet感兴趣，一种选择是使用Jakarta Tomcat servlet容器。它可以作为独立的服务器进行测试，也可以作为Apache或Microsoft IIS的模块运行。</li></ul><h1 id="202bc792-e4ef-4af5-988c-7df377eaf7bf" class="">14. 计时（Timing）</h1><ul id="b3fd1bf6-09d7-4917-a226-832df8ab4bce" class="bulleted-list"><li style="list-style-type:disc">计时有两个方面：编写语法和转换需要多长时间，以及它们运行的速度有多快。<ul id="f539d32e-14df-4f1b-aa8c-fe5782c250cf" class="bulleted-list"><li style="list-style-type:circle">设计标记语言花了我大约25分钟</li></ul><ul id="48662419-101b-4e84-a68f-22b056a2966e" class="bulleted-list"><li style="list-style-type:circle">输入数据又花了我25分钟，有些时间我跑到厨房去从架子上或冰箱里拿东西</li></ul><ul id="78cee660-6e40-4b6c-a906-41b030d6a72b" class="bulleted-list"><li style="list-style-type:circle">编写和测试Relax NG语法需要30分钟。</li></ul><ul id="dec93390-e5aa-4900-a042-df2febdb015f" class="bulleted-list"><li style="list-style-type:circle">在Mozilla中直接显示XML的级联样式表的编写总共花费了15分钟</li></ul><ul id="67f4ca7e-4a84-4b66-bf83-1a7b9cab74e5" class="bulleted-list"><li style="list-style-type:circle">“纯HTML”转换大约花了50分钟，其中包括查找一些XSLT结构和做一些实验的时间</li></ul><ul id="ae6659e0-9a00-462c-87ce-8c6e5269add6" class="bulleted-list"><li style="list-style-type:circle">这个“花哨”的转变花了45分钟</li></ul><ul id="f9b60099-b527-4be4-a99b-da3646904af5" class="bulleted-list"><li style="list-style-type:circle">我需要20分钟来弄清楚如何使用样式表来制作柱状图，我又用了5分钟来进行轻微的美学调整</li></ul><ul id="5419e348-1f13-4ac9-910d-a60c8951217d" class="bulleted-list"><li style="list-style-type:circle">转换为制表符分隔值的文件需要15分钟</li></ul><ul id="7c945f5a-462d-4eb5-afef-99fcfde959a8" class="bulleted-list"><li style="list-style-type:circle">转换为PDF花了一个小时，第一次通过时，我把它设计成一张光盘插入大小的纸。我想了想，决定把它缩小到衬衫口袋那么大。这又花了30到45分钟的时间来调整，让字体大小达到我想要的样子。我还必须做一些更改，以避免使用FOP尚未实现的XSL格式化对象的部分</li></ul><ul id="4f89f29e-1395-4f82-909e-7de5163ad4fb" class="bulleted-list"><li style="list-style-type:circle">最后，编写SVG转换花费了一个半小时。大约有一半的时间是在尝试将所有东西都放置在合适的位置上，并使ECMA Script交互正常工作。</li></ul></li></ul><ul id="29309408-21c1-4732-841c-237cd03eee90" class="bulleted-list"><li style="list-style-type:disc">您不必是Relax NG、XSLT、XSL格式化对象或SVG方面的专家，也可以做到这一点<ul id="b3062614-1c23-4da4-be31-cf02272c3e60" class="bulleted-list"><li style="list-style-type:circle">我没有在日常生活中使用这些技术</li></ul><ul id="cf92a924-fd42-4d92-b58c-6bd54a8a54e9" class="bulleted-list"><li style="list-style-type:circle">我对他们每个人的了解足以让事情顺利进行</li></ul><ul id="ca2cb9ed-42be-4762-b493-9ff518f7635e" class="bulleted-list"><li style="list-style-type:circle">在这种情况下，我的哲学是“你认为有效的第一种方式就是正确的方式</li></ul><ul id="4a9405ed-7c74-40f8-a491-5a00cdb90d25" class="bulleted-list"><li style="list-style-type:circle">”这就是为什么XSLT专家在普通HTML转换文件中看到这样低效的构造时会感到震惊。</li></ul></li></ul><ul id="ce7fadfc-f083-4e2c-aa0b-237181b3284d" class="bulleted-list"><li style="list-style-type:disc">这并不是说这里不涉及学习<ul id="96a987a2-102c-4040-9d06-919096a9d36f" class="bulleted-list"><li style="list-style-type:circle">你需要在这方面花些时间</li></ul><ul id="de9ad5b0-13d1-4465-8c0c-58fbcf64373c" class="bulleted-list"><li style="list-style-type:circle">不过，你不需要花一辈子的时间在这上面</li></ul><ul id="55eb974f-8e01-45ef-b688-98715ede2a8d" class="bulleted-list"><li style="list-style-type:circle">在短时间内充分了解这些技术并有效地使用它们是完全有可能的</li></ul></li></ul><h1 id="b8abdace-b130-4ce9-a21f-2c597bddcd58" class="">15. 性能（<strong><strong>Performance</strong></strong>）</h1><ul id="ac218fcc-d7fb-42c9-b590-f6ec9e4737cc" class="bulleted-list"><li style="list-style-type:disc">我在运行SuSE Linux 7.2的400MHz AMD K-6和128Mb内存上测试了所有这些文件。对于转换，我修改了Xalan附带的SimpleTransform.java示例程序。该程序记录生成输出的总时间以及解析XSLT文件后转换所涉及的时间。如果在服务器上运行转换，则可以缓存解析后的XSLT文件，因此解析的开销只发生一次。<table id="9c4bd513-2ad1-467b-8b40-e1c6aaa5c290" class="simple-table"><tbody><tr id="16432bd0-313f-4626-ab96-98b9fda3bb55"><td id="ypnc" class="">转换类型（Transformation）</td><td id="{r`{" class="">总耗时（Total，以秒计算）</td><td id="e[vZ" class="">转换时间（Transform，以秒计算）</td></tr><tr id="c4f3b9b0-7628-498d-99e0-2ef2e8f7d418"><td id="ypnc" class="">转换为普通HTML</td><td id="{r`{" class="">3.691</td><td id="e[vZ" class="">1.018</td></tr><tr id="1645cddb-7f50-45ab-9d99-582aeb42bfd7"><td id="ypnc" class="">转换为有趣的HTML</td><td id="{r`{" class="">4.057</td><td id="e[vZ" class="">1.409</td></tr><tr id="2c56824d-0622-4aea-be9e-d6e2b3cdf960"><td id="ypnc" class="">转换为制表符分隔的值（txt，csv）</td><td id="{r`{" class="">3.057</td><td id="e[vZ" class="">0.548</td></tr><tr id="b5d1dec7-490b-4dfd-b36d-5d834fa7f68a"><td id="ypnc" class="">转换为SVG</td><td id="{r`{" class="">3.386</td><td id="e[vZ" class="">0.689</td></tr></tbody></table></li></ul><ul id="7fd9d466-eb99-4dc9-ac6f-6f2a38ad947a" class="bulleted-list"><li style="list-style-type:disc">我用Linux time命令测量了PDF转换的时间。生成文件的实时时间为15.115秒，用户CPU时间为10.920秒。</li></ul><ul id="5d8d5518-f9e8-448c-a0ab-dc171f1fa45c" class="bulleted-list"><li style="list-style-type:disc">当然，这些并不是唯一可用的工具<ul id="e2323cc0-be1c-4ea3-9bb0-ec0e260772a6" class="bulleted-list"><li style="list-style-type:circle">还有其他XSLT处理器和程序用于将XSL格式化对象转换为PDF</li></ul><ul id="3417049b-1190-4fb8-b42a-6c6cc6395505" class="bulleted-list"><li style="list-style-type:circle">我选择MSV, Xalan, Fop和Batik，因为它们是免费的，易于使用，而且我已经熟悉它们了</li></ul></li></ul><h1 id="4f23daa9-858a-4852-a6fe-dceec9564bca" class="">16. 小结</h1><ul id="2e234fda-eddf-4d86-a09f-4f502a04c5c5" class="bulleted-list"><li style="list-style-type:disc">使用基于xml的标记可以提供文档结构，并使其具有可读性和开放性。
+</li></ul><ul id="c3405fba-4fa5-4d36-b235-5c43419924fa" class="bulleted-list"><li style="list-style-type:disc">XML是一系列技术的一部分。
+</li></ul><ul id="4ae73bd3-baa5-4d22-b164-4a3d47fc6676" class="bulleted-list"><li style="list-style-type:disc">您可以使用Relax NG或XML Schema等语法标记语言来验证文档。
+</li></ul><ul id="d415a699-b5ae-4d09-ac8f-50caa98e722f" class="bulleted-list"><li style="list-style-type:disc">您可以使用XSLT转换来重新定义文档的用途。单个文档可以作为XHTML、纯文本、PDF或其他XML标记语言(如SVG)的源。
+</li></ul><ul id="89c8a247-90d9-4481-bce7-cd713f8e9121" class="bulleted-list"><li style="list-style-type:disc">进行验证和转换的程序是免费的，而且很容易使用。</li></ul><p id="1cb92eb2-48d8-4793-bcdb-e3d378bba206" class="">这些功能现在就存在，而且很容易学习和利用。这就是XML的优点所在，也是人们一旦开始使用它就对它如此兴奋的原因。</p></div></div><p id="bc2d1511-6ef8-42cc-ab36-76420420da8e" class="">
+</p></div></article></body></html>

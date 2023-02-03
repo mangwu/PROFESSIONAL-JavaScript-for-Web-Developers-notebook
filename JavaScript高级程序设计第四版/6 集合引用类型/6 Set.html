@@ -1,0 +1,906 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>6. Set</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="eb561ed9-e1f4-44c7-8d4f-e6854fc27284" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_fingerprints_of_water_on_the_sand.jpg" style="object-position:center 60%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🚚</span></div><h1 class="page-title">6. Set</h1></header><div class="page-body"><h1 id="cc94853b-1a9c-4199-9afb-54b34278b2cf" class="">6.1 基本API</h1><ul id="1d998b5f-663a-45bf-a376-a26fd1b99346" class="bulleted-list"><li style="list-style-type:disc"><code>Set</code>和<code>Map</code>类似，新增，删除，清除的方法名称类似，甚至创建的方式也类似</li></ul><ul id="8e802d08-939f-46ae-8c94-3ae3b45a5a45" class="bulleted-list"><li style="list-style-type:disc">因为<code>Set</code> 就是创建一个具有不同重复值的集合，相当于<code>Map</code> 只有键的情况</li></ul><h2 id="7bfdceba-34ca-4740-b994-b08521c9fefe" class="">6.1.1 创建</h2><ul id="82a4215d-4adf-4d38-9e8e-81fff87241c8" class="bulleted-list"><li style="list-style-type:disc">和<code>Map</code> 一样，可以创建一个空集合，也可以传递可迭代的对象初始化集合</li></ul><ul id="4d366f44-c030-4f1d-ac03-0c00b56030ce" class="bulleted-list"><li style="list-style-type:disc">和<code>Map</code> 一样，使用<strong>同值零比较,</strong>不区分+0，-0 和NaN，如果可迭代对象有重复值会自动去重<pre id="d5d4b80b-018f-47c1-a57d-95ff771de5af" class="code"><code>const set = new Set([+0, -0, NaN, NaN]);
+console.log(set);
+// Set(2) { 0, NaN }</code></pre></li></ul><h2 id="122ebae0-db59-4a52-990d-fff020ffcdb2" class="">6.1.2 API</h2><ul id="78e36ec0-2943-4804-bd2a-769e639c4b7b" class="bulleted-list"><li style="list-style-type:disc">基本API和<code>Map</code> 一致，只是将<code>set</code> 方法改为了<code>add</code></li></ul><ol type="1" id="c8e107e2-d003-44eb-a5bf-712f2593c6d1" class="numbered-list" start="1"><li><code>Set.prototype.has()</code> 判断<code>Set</code> 实例中是否包含某个值</li></ol><ol type="1" id="a7909356-4ad8-4672-b817-c2c14e8f35ee" class="numbered-list" start="2"><li><code>Set.prototype.add()</code> 增加集合中的元素，如果有重复就不会增加<ul id="7d4c8cb7-0d04-4ae3-a25e-c1ffb9a82b5a" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="51890b2c-6404-4c39-8757-e12f09279f9e" class="code"><code>set.add(val)</code></pre><ul id="0acf5a9c-fff9-47a4-9805-f616092e726a" class="bulleted-list"><li style="list-style-type:circle">参数 val：增加的值</li></ul><ul id="276f31f7-7409-470b-829c-8963173822d8" class="bulleted-list"><li style="list-style-type:circle">返回值：调用的对象</li></ul></li></ul></li></ol><ol type="1" id="f857137f-55ad-4c16-b7ed-9aaab51efc20" class="numbered-list" start="3"><li><code>Set.prototype.delete()</code> 删除集合中的某个元素，有就删除并返回<code>true</code>，否则不做任何操作返回<code>false</code></li></ol><ol type="1" id="8fb2e9ad-3f46-479d-91e0-8e5ef8d8705a" class="numbered-list" start="4"><li><code>Set.prototype.clear()</code> 清除集合中的所有元素</li></ol><ol type="1" id="f4008438-a046-44e8-b002-06ffe75ac543" class="numbered-list" start="5"><li><code>Set.prototype.size</code> 返回<code>Set</code> 实例中元素的个数</li></ol><ul id="a4ac4ab2-4dc9-4fbb-a01c-99eaed571d3d" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="dad24382-75db-4774-923d-6b6b5bd2f52b" class="code"><code>const set = new Set().add(0).add(-0).add(NaN).add(&quot;1&quot;);
+console.log(set);
+console.log(set.has(NaN));
+console.log(set.delete(NaN));
+console.log(set.size);
+set.clear();
+console.log(set);
+// 打印
+Set(3) { 0, NaN, &#x27;1&#x27; }
+true
+true
+2
+Set(0) {}</code></pre></li></ul><h1 id="a217cacc-1966-439e-b0f3-01bccd7a96b2" class="">6.2 顺序与迭代</h1><h2 id="4bebb087-90a6-4408-92e2-786c73cad652" class="">6.2.1 顺序</h2><ul id="75929c9d-cab0-4c29-84f4-d12986be139b" class="bulleted-list"><li style="list-style-type:disc">与<code>Map</code> 一样，按照插入时的顺序迭代</li></ul><ul id="ff0799d2-d4c4-40ed-8ca2-053b90351c24" class="bulleted-list"><li style="list-style-type:disc"><code>delete()</code> 后再重新添加值会更新插入顺序</li></ul><h2 id="342ec229-ba63-4fea-8ddb-20e10c44b810" class="">6.2.2 迭代</h2><ul id="0251fc77-8c0b-4d52-8028-5bff420bcdcd" class="bulleted-list"><li style="list-style-type:disc">与<code>Map</code>一样有三个迭代器和一个迭代符号属性</li></ul><ul id="f10fe809-4d5b-40d8-bb6e-a188a4b41c5b" class="bulleted-list"><li style="list-style-type:disc">其中<code>values()</code> 和<code>keys()</code> 生成功能一样的迭代器对象，是默认迭代器，即<code>Set</code> 的迭代器属性也是同样的迭代生成器</li></ul><ol type="1" id="73f6b8b2-3753-478f-a222-db02d8d0ba0b" class="numbered-list" start="1"><li><code>Set.prototype.values()/keys()</code> 返回集合中所有元素的迭代器，迭代顺序为插入顺序</li></ol><ol type="1" id="a5170ad5-a3c4-48c6-896f-33b2d85d1cc3" class="numbered-list" start="2"><li><code>Set.prototype[Symbol.iterator]()</code> 同上</li></ol><ol type="1" id="747bb74c-8460-42d5-b91e-a95f509b4934" class="numbered-list" start="3"><li><code>Set.prototype.entries()</code> 返回的迭代器中包含两个元素的数组，这两个元素是集合中每个值的重复出现</li></ol><ol type="1" id="6477310f-1568-4ffd-a4bd-8066bf1a09e7" class="numbered-list" start="4"><li><code>Set.prototype.forEach()</code> 使用回调函数的迭代方法，回调函数格式为<code>(val, subval, set) ⇒ {}</code> val和subval是一样的</li></ol><ul id="85493a91-90f2-4411-9a7c-2ca4a25c322e" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="85d9d07c-f998-45c6-8ee5-462aba557667" class="code"><code>// 迭代
+// 顺序为插入顺序
+const set = new Set().add(0).add(1).add(2);
+// 使用keys()一样
+for (const val of set.values()) {
+  console.log(val); // 0 1 2
+}
+// 删除后添加会更新顺序
+set.delete(1);
+set.add(1);
+for (const [val, subval] of set.entries()) {
+  console.log(val, subval); // 相同的值
+	// 0 0  2 2  1 1
+}
+// 使用回调的迭代方法
+set.forEach((val, subval, _set) =&gt; {
+  console.log(val, subval);
+	// 0 0  2 2  1 1
+});</code></pre></li></ul><h2 id="abe63ecf-84af-41ac-ac73-c11b7c2bf914" class="">6.2.3 技巧</h2><ul id="0839f7ea-70a0-4249-96bf-e9ecdb67cc9c" class="bulleted-list"><li style="list-style-type:disc"><code>Set</code> 是可迭代的，可以使用扩展操作符转换为数组</li></ul><ul id="03136853-3c13-4222-9382-1ed7f0b66562" class="bulleted-list"><li style="list-style-type:disc">值如果是对象，修改对象属性不会影响其作为集合值的身份</li></ul><h1 id="620f752d-e44c-48d7-97a5-9743cc624adf" class="">6.3 定义正式集合操作</h1><ul id="c6f13af8-a80e-4a4b-a863-a9c9360f1622" class="bulleted-list"><li style="list-style-type:disc"><code>Set</code>和<code>Map</code> 很相似，很多开发者都喜欢使用<code>Set</code> ，简单，不重复，可快速查找添加</li></ul><ul id="40abcd45-5529-44f9-84ca-22eea8c3f845" class="bulleted-list"><li style="list-style-type:disc">但是<code>Set</code> 的缺点也很明显，单个集合只能针对自身元素进行操作，对于多个集合之间的关系做不到很好的处理，例如合并两个或多个集合，求两个或多个集合的交集，差集等</li></ul><ul id="a642c1eb-2a27-4933-82db-a27d6d890697" class="bulleted-list"><li style="list-style-type:disc">显然，可以通过集合自有的<code>has()</code> ，<code>add()</code> 和相应的迭代方法求出新的交集，并集等，当每次都需要写迭代代码，这很不方便</li></ul><ul id="4beab598-ec93-4fc6-9edc-2e3f5d71db93" class="bulleted-list"><li style="list-style-type:disc">所以可以子类化<code>Set</code>，或者定义一个实用的函数库；直接适用包装好的方法即可</li></ul><ul id="81217ac4-e055-4e9b-aa54-ce8f7bcdafb8" class="bulleted-list"><li style="list-style-type:disc">假设需要定义一个<code>XSet</code> 继承于<code>Set</code> 但是有自己的合并，交集等方法</li></ul><h2 id="46aa7960-dfbf-40aa-8d9a-9cbe1c0325fa" class="">6.3.1 XSet基本定义</h2><ul id="401cecdd-0b39-47aa-9035-a2033932eefe" class="bulleted-list"><li style="list-style-type:disc">继承于<code>Set</code> 就能获得<code>Set</code>的构造和实例方法，属性<pre id="d9834914-5c3e-4c72-90b5-3fc6c6ad9e29" class="code code-wrap"><code>class XSet extends Set {
+
+}</code></pre></li></ul><h2 id="35830a55-9de0-4b54-b8c2-84d7c15ac6f7" class="">6.3.2 求并集</h2><ul id="f8dacc84-dce0-49f2-b368-48787933ee49" class="bulleted-list"><li style="list-style-type:disc">语法应该如下<pre id="0499e4bf-9ade-479e-9f2e-094051bce6af" class="code code-wrap"><code>const newxset = xseta.union(xset1, xset2, ..., xsetn);</code></pre><ul id="fca0cd23-2745-4334-9324-cc1845caef26" class="bulleted-list"><li style="list-style-type:circle">参数<code>xsetn</code> : 可选参数，表示需要合并的所有集合</li></ul><ul id="ae50c06d-c0e2-4e6e-a9a2-98708460ec8c" class="bulleted-list"><li style="list-style-type:circle">返回值：一个新的<code>Xset</code> 实例，原参与合并的集合都不会被修改</li></ul></li></ul><ul id="7b3ad784-a9a3-4408-b02b-6c6c28f1969c" class="bulleted-list"><li style="list-style-type:disc">对于参数个数为n个的情况，在实现时需要使用扩展操作符替代多个参数，例如可以使用<code>…sets</code>代替所有的<code>XSet</code>实例</li></ul><ul id="d09fd88a-4016-4f66-b888-feb69e8dc253" class="bulleted-list"><li style="list-style-type:disc">由于合并包括调用者本身，故而调用者本身也需要被计入，可以写一个<strong>静态方法，</strong>表示两个或多个集合合并的情况，如下<pre id="76b84ec9-5a86-40af-80fb-bff711a9b353" class="code code-wrap"><code>const newxset = XSet.union(xseta, ...xsets);</code></pre><ul id="a6ebdb17-2c0e-443f-96f9-4eb4c0102cb4" class="bulleted-list"><li style="list-style-type:circle">参数<ul id="323814be-cd93-46a9-9761-be4b922be2f9" class="bulleted-list"><li style="list-style-type:square"><code>xseta</code> ：调用的集合</li></ul><ul id="84cf60bf-4d1f-46c2-ab97-59918d23d910" class="bulleted-list"><li style="list-style-type:square"><code>xsets</code>：合入的所有集合</li></ul></li></ul><ul id="a1945693-1e22-4505-ac08-db921bb0dca6" class="bulleted-list"><li style="list-style-type:circle">返回：一个新的合并的集合</li></ul></li></ul><ul id="c60d2152-f0df-4cc3-b32a-118c5149e074" class="bulleted-list"><li style="list-style-type:disc">新建一个空集合，初始化为xseta，然后遍历xsets和其中的元素，加入到答案集合中就能得到结果<pre id="d97c229e-464c-4fa5-b8ff-0db562bdd5b7" class="code code-wrap"><code>class XSet extends Set {
+  static union(xseta, ...xsets) {
+    const ans = new XSet(xseta);
+    for (const xset of xsets) {
+      for (const val of xset) {
+        ans.add(val);
+      }
+    }
+    return ans;
+  }
+  union(...xsets) {
+    return XSet.union(this, ...xsets);
+  }
+}</code></pre></li></ul><h2 id="89dd30cf-b871-4101-8424-2c1a4a76af8d" class="">6.3.3 求交集</h2><ul id="c7fa1ae3-b330-4ef5-b700-69476fcbf4d1" class="bulleted-list"><li style="list-style-type:disc">两个或以上集合求交集的思路<ul id="51504b7f-e337-4d07-b8f0-84be31f21332" class="bulleted-list"><li style="list-style-type:circle">以调用集合为基础，遍历调用集合的每个元素</li></ul><ul id="7d35596c-5165-4b51-bd60-9e34077680d3" class="bulleted-list"><li style="list-style-type:circle">然后遍历需要相交的所有集合，判断集合中是否包含调用集合中的元素</li></ul><ul id="8ab9b159-a1a3-4cbb-93fc-02625c485eaf" class="bulleted-list"><li style="list-style-type:circle">如果有一个不包含，就可以删除该元素</li></ul></li></ul><ul id="ee994428-86d0-4a6b-a99f-fc79aa8c55db" class="bulleted-list"><li style="list-style-type:disc">同样的使用静态方法，实例方法调用静态方法实现</li></ul><ul id="7ebd90eb-8351-45ce-a089-18501404ea7f" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="6798155e-855e-41d8-a4af-2c73a604b290" class="code code-wrap"><code>// 实例方法
+const newxset = xseta.intersection(xset1, xset2, ... xset3);
+// 静态方法
+Xset.intersection(xseta, ...xsets);</code></pre></li></ul><ul id="ddbea679-1d8c-4e15-affd-224d9ec5d474" class="bulleted-list"><li style="list-style-type:disc">实现<pre id="3017409a-ce37-402d-b3f3-27cd84c9b1f0" class="code code-wrap"><code>class XSet extends Set {
+  static intersection(xseta, ...xsets) {
+    const ans = new XSet(xseta);
+    for (const val of ans) {
+      for (const xset of xsets) {
+        if (!xset.has(val)) {
+          ans.delete(val);
+        }
+      }
+    }
+    return ans;
+  }
+  intersection(...xsets) {
+    return XSet.intersection(this, ...xsets);
+  }
+}</code></pre></li></ul><h2 id="c1635b92-c00e-4072-a764-35c76f7be648" class="">6.3.4 求差集</h2><ul id="d8c0d9ad-f303-40f9-872f-2bae488b600a" class="bulleted-list"><li style="list-style-type:disc">差集就是存在于集合A中，但不存在于B集合中的元素，如图所示<figure id="8fbaac73-5e02-4d1a-922e-29ac8d9314ef" class="image"><a href="6%20Set/%25E9%259B%2586%25E5%2590%2588%25E5%25B7%25AE%25E5%2580%25BC.png"><img style="width:672px" src="6%20Set/%25E9%259B%2586%25E5%2590%2588%25E5%25B7%25AE%25E5%2580%25BC.png"/></a></figure></li></ul><ul id="010bb699-da3e-4123-adbe-8083a286e6ae" class="bulleted-list"><li style="list-style-type:disc">所以两个或两以上求差集合的思路就是<ul id="96ef0407-8f37-4bd9-a19d-4d31ff19dda3" class="bulleted-list"><li style="list-style-type:circle">以调用的集合作为基准，遍历它的值val</li></ul><ul id="6384c542-6a2e-459e-a25b-006824ea3c45" class="bulleted-list"><li style="list-style-type:circle">然后遍历其它集合</li></ul><ul id="1dd7c2f8-01d2-4af7-bd2b-116adeaa7f60" class="bulleted-list"><li style="list-style-type:circle">如果其它集合包含val，说明val是交集需要被删除</li></ul></li></ul><ul id="7a5c1174-ac82-4134-b1f7-7bda80ac399c" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="f232683c-abd4-4b54-bb1e-90faced733f1" class="code code-wrap"><code>// 实例方法
+const newxset = xseta.difference(xset1, xset2, ...xsetn);
+// 静态方法
+XSet.difference(xseta, ...xsets);</code></pre></li></ul><ul id="1060fcc6-10d5-4ea2-bb70-49bbe03485cd" class="bulleted-list"><li style="list-style-type:disc">实现<pre id="ceeb7f71-48ab-40b1-b492-c39e159dd033" class="code code-wrap"><code>class XSet extends Set {
+  static difference(xseta, ...xsets) {
+    const ans = new XSet(xseta);
+    for (const val of ans) {
+      for (const xset of xsets) {
+        if (xset.has(val)) {
+          ans.delete(val);
+          break;
+        }
+      }
+    }
+    return ans;
+  }
+  difference(...xsets) {
+    return XSet.difference(this, ...xsets);
+  }
+}</code></pre></li></ul><h2 id="d3cfba0e-b38d-401e-bd38-ef1430d9bc37" class="">6.3.5 求对称差集</h2><ul id="c2f07d4e-aa27-4cd6-bdaa-b6e1f6af862e" class="bulleted-list"><li style="list-style-type:disc">实际上对称差集就是只属于两个集合中其中一个的元素组成的集合，如图<figure id="2ee59ef0-840c-4173-bcf7-033dba6331bc" class="image"><a href="6%20Set/%25E5%25AF%25B9%25E7%25A7%25B0%25E5%25B7%25AE%25E9%259B%2586.png"><img style="width:974px" src="6%20Set/%25E5%25AF%25B9%25E7%25A7%25B0%25E5%25B7%25AE%25E9%259B%2586.png"/></a></figure></li></ul><ul id="6932c38e-6b42-4e7b-ac9d-af5981336bbd" class="bulleted-list"><li style="list-style-type:disc">对称差集只针对两个集合，所以静态方法应该只有两个参数</li></ul><ul id="2434ca2d-c229-4b87-b3a9-5ec3c799d185" class="bulleted-list"><li style="list-style-type:disc">根据数学公式可知：<p id="f37c4ff1-8bd5-4659-b9c0-434d636c62f9" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi mathvariant="normal">Δ</mi><mi>B</mi><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo stretchy="false">)</mo><mo>−</mo><mo stretchy="false">(</mo><mi>A</mi><mo>∩</mo><mi>B</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">AΔB = (A∪B)-(A∩B)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">A</span><span class="mord">Δ</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∪</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∩</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span>.</p></li></ul><ul id="24f493aa-edb5-409b-a284-c413e2359680" class="bulleted-list"><li style="list-style-type:disc">所以可以利用并集，交集和差集方法就能求出对称差集无需再次遍历</li></ul><ul id="df073dc0-b26b-472c-b0ff-e34176f5c3f0" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="d045d5cc-fef0-4a7c-8a0d-8ad00e29c62e" class="code code-wrap"><code>// 实例方法
+const newxset = xseta.symmetricDifference(xsetb);
+// 静态方法
+XSet.symmertricDifference(xseta, xsetb);</code></pre></li></ul><ul id="aa20f3a3-d358-4388-a015-e1eb497f381f" class="bulleted-list"><li style="list-style-type:disc">实现<pre id="9e63e15b-abb4-4be7-8b24-90888784f4f1" class="code code-wrap"><code>class XSet extends Set {
+  static symmetricDifference(seta, setb) {
+    return seta.union(setb).difference(seta.intersection(setb));
+  }
+  symmetricDifference(setb) {
+    return XSet.symmetricDifference(this, setb);
+  }
+}</code></pre></li></ul><h2 id="7d1b2b5a-0fc5-43a1-b296-9198a3788021" class="">6.3.6 求笛卡尔积</h2><ul id="27a28b2c-7836-4b4d-995e-846a7b79ff3b" class="bulleted-list"><li style="list-style-type:disc">笛卡尔积就是若干个集合中，每个集合选择一个元素，这些元素组成一个组合，所有的组合就是笛卡尔积</li></ul><ul id="81825fd6-8d1e-4507-98fe-befab6b6e1db" class="bulleted-list"><li style="list-style-type:disc">例如<code>Set{1,2,5}</code>和<code>Set{2,3}</code> 的笛卡尔积就是 <code>(1,2), (1,3), (2,2),(2,3),(5,2),(5,3)</code> </li></ul><ul id="986e33c4-d48e-4f14-8d30-8126c5f46cc7" class="bulleted-list"><li style="list-style-type:disc">因为笛卡尔积中组合的个数为每个集合元素个数的乘积，所以已被只需要求出两个集合的笛卡尔积</li></ul><ul id="3bb9f8a8-bcb3-499f-9203-0c556488dcd5" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="df87d17c-c5f0-4846-91dc-ae6aaf4bb425" class="code code-wrap"><code>const cp = xseta.cartesianProduct(xsetb);
+XSet.cartesianProduct(xseta, xsetb);</code></pre></li></ul><ul id="7818806a-bb16-491c-9ef5-e4c39e86e2da" class="bulleted-list"><li style="list-style-type:disc">实现<pre id="53ed1537-a01b-446d-8aca-074a41b0481b" class="code"><code>class XSet extends Set {
+  static cartesianProduct(seta, setb) {
+    const cb = [];
+    for (const vala of seta) {
+      for (const valb of setb) {
+        cb.push([vala, valb]);
+      }
+    }
+  }
+  cartesianProduct(setb) {
+    return XSet.cartesianProduct(this, setb);
+  }
+}</code></pre></li></ul><h2 id="0a0a6bcb-69e2-48c3-9805-1d99b3112cda" class="">6.3.7 集合的幂集</h2><ul id="cdeaeffc-b9d7-4402-b353-454a33c542d7" class="bulleted-list"><li style="list-style-type:disc">幂集就是原集合中所有的子集，构成的集族，例如<code>{1,2,3}</code> 的幂集为 <code>{∅, {1}, {2}, {3},{1,2},{2,3},{1,3},{1,3}}</code></li></ul><ul id="14eb4f36-3660-4045-a056-6f2dd3107530" class="bulleted-list"><li style="list-style-type:disc">假设原集合的元素个数为<code>n</code>，则幂集中子集的个数为<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> 个</li></ul><ul id="84339174-3028-4d80-8e38-9b4d1f268e58" class="bulleted-list"><li style="list-style-type:disc">集合求幂集的思路<ul id="6f38fa8a-bcae-456b-a036-d85094432892" class="bulleted-list"><li style="list-style-type:circle">初始时幂集默认有空集</li></ul><ul id="b8a89f7c-0436-4a4c-889e-c59dd49efb9f" class="bulleted-list"><li style="list-style-type:circle">遍历原集合，每次增加的集合为幂集中增加当前值的子集</li></ul><ul id="7d2344ae-54a1-4d1a-bd6d-3ecc7e21f308" class="bulleted-list"><li style="list-style-type:circle">这样就能保证总数为<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>. 每次增加的都是子集</li></ul></li></ul><ul id="0f57c879-46e4-406e-b8a5-152dc252fc58" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="7370feba-eee5-4e72-be8d-28f3e2c63889" class="code"><code>// 实例方法
+const powerSet = xset.powerSet();
+// 静态方法
+XSet.powerSet(xset);</code></pre></li></ul><ul id="d19f1155-1e44-430a-9159-66203e0a2bc1" class="bulleted-list"><li style="list-style-type:disc">实现<pre id="f4ea73e5-0e7c-4b58-8147-a6b98422db68" class="code"><code>cartesianProduct(setb) {
+    return XSet.cartesianProduct(this, setb);
+  }
+  static powerSet(set) {
+    // 初始保存空集
+    const powerSet = new XSet().add(new XSet());
+    for (const addVal of set) {
+      for (const addSet of new XSet(powerSet)) {
+        powerSet.add(new XSet(addSet).add(addVal));
+      }
+    }
+    return powerSet;
+  }</code></pre></li></ul><h2 id="68c464b0-05ae-4378-9cf6-89c5312cbb1a" class="">6.3.8 例子</h2><pre id="c93f753b-20c4-43d7-9753-b9cdcfcae70d" class="code"><code>class XSet extends Set {
+  static union(xseta, ...xsets) {
+    const ans = new XSet(xseta);
+    for (const xset of xsets) {
+      for (const val of xset) {
+        ans.add(val);
+      }
+    }
+    return ans;
+  }
+  union(...xsets) {
+    return XSet.union(this, ...xsets);
+  }
+  static intersection(xseta, ...xsets) {
+    const ans = new XSet(xseta);
+    for (const val of ans) {
+      for (const xset of xsets) {
+        if (!xset.has(val)) {
+          ans.delete(val);
+          break;
+        }
+      }
+    }
+    return ans;
+  }
+  intersection(...xsets) {
+    return XSet.intersection(this, ...xsets);
+  }
+  static difference(xseta, ...xsets) {
+    const ans = new XSet(xseta);
+    for (const val of ans) {
+      for (const xset of xsets) {
+        if (xset.has(val)) {
+          ans.delete(val);
+          break;
+        }
+      }
+    }
+    return ans;
+  }
+  difference(...xsets) {
+    return XSet.difference(this, ...xsets);
+  }
+  static symmetricDifference(seta, setb) {
+    return seta.union(setb).difference(seta.intersection(setb));
+  }
+  symmetricDifference(setb) {
+    return XSet.symmetricDifference(this, setb);
+  }
+  static cartesianProduct(seta, setb) {
+    const cb = [];
+    for (const vala of seta) {
+      for (const valb of setb) {
+        cb.push([vala, valb]);
+      }
+    }
+    return cb;
+  }
+  cartesianProduct(setb) {
+    return XSet.cartesianProduct(this, setb);
+  }
+  static powerSet(set) {
+    // 初始保存空集
+    const powerSet = new XSet().add(new XSet());
+    for (const addVal of set) {
+      for (const addSet of new XSet(powerSet)) {
+        powerSet.add(new XSet(addSet).add(addVal));
+      }
+    }
+    return powerSet;
+  }
+  powerSet() {
+    return XSet.powerSet(this);
+  }
+}
+
+const xseta = new XSet([1, 3, 5, 7]);
+const xsetb = new XSet([3, 4, 7]);
+console.log(xseta.union(xsetb)); // 并集
+console.log(xseta.intersection(xsetb)); // 交集
+console.log(xseta.difference(xsetb)); // 差集
+console.log(xseta.symmetricDifference(xsetb)); // 对称差集
+console.log(xseta.cartesianProduct(xsetb)); // 笛卡尔积
+console.log(xseta.powerSet()); // 幂集
+// 打印
+XSet(5) [Set] { 1, 3, 5, 7, 4 }
+XSet(2) [Set] { 3, 7 }
+XSet(2) [Set] { 1, 5 }
+XSet(3) [Set] { 1, 5, 4 }
+[
+  [ 1, 3 ], [ 1, 4 ],
+  [ 1, 7 ], [ 3, 3 ],
+  [ 3, 4 ], [ 3, 7 ],
+  [ 5, 3 ], [ 5, 4 ],
+  [ 5, 7 ], [ 7, 3 ],
+  [ 7, 4 ], [ 7, 7 ]
+]
+XSet(16) [Set] {
+  XSet(0) [Set] {},
+  XSet(1) [Set] { 1 },
+  XSet(1) [Set] { 3 },
+  XSet(2) [Set] { 1, 3 },
+  XSet(1) [Set] { 5 },
+  XSet(2) [Set] { 1, 5 },
+  XSet(2) [Set] { 3, 5 },
+  XSet(3) [Set] { 1, 3, 5 },
+  XSet(1) [Set] { 7 },
+  XSet(2) [Set] { 1, 7 },
+  XSet(2) [Set] { 3, 7 },
+  XSet(3) [Set] { 1, 3, 7 },
+  XSet(2) [Set] { 5, 7 },
+  XSet(3) [Set] { 1, 5, 7 },
+  XSet(3) [Set] { 3, 5, 7 },
+  XSet(4) [Set] { 1, 3, 5, 7 }
+}</code></pre><p id="f389c188-cba7-4e70-abd4-ee6bc777bb46" class="">
+</p></div></article></body></html>

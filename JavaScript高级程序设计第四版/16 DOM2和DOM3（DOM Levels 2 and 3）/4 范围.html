@@ -1,0 +1,944 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>4. 范围</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fbe83bee-23a1-4854-b56c-5bb653249197" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_fingerprints_of_water_on_the_sand.jpg" style="object-position:center 60%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">📂</span></div><h1 class="page-title">4. 范围</h1></header><div class="page-body"><p id="08c84a65-2e0c-4de1-8f3e-323be84cf7b5" class="">为了支持对页面更精细的控制，DOM2 Traversal and Range模块定义了范围（Range）接口</p><ul id="d329fc09-9f97-41b8-97b2-1d1c05973bd4" class="bulleted-list"><li style="list-style-type:disc">用于在文档中<strong>选择内容</strong>，而不用考虑节点之间的界限</li></ul><ul id="7d4705cf-1dd6-4e1d-83a8-9864db193418" class="bulleted-list"><li style="list-style-type:disc">范围选择在后台发生，用户不可见</li></ul><p id="ebe7573a-17bf-40fa-a424-3138e71f3431" class="">范围在常规DOM操作的粒度不够时可以发挥作用</p><p id="9b684868-dde1-4b69-9d1b-76cb9a7b8468" class="">有关范围（Range）的规范，可以参考<strong>DOM规范第5.5. Interface </strong><strong><a href="https://dom.spec.whatwg.org/#range"><code>Range</code></a></strong><strong>、DOM Parsing and Serialization 第2.5 Extensions to the </strong><a href="https://w3c.github.io/DOM-Parsing/#dom-range"><code><strong>Range</strong></code></a><strong> interface、CSSOM View Module 第9. Extensions to the </strong><a href="https://dom.spec.whatwg.org/#range"><code><strong>Range</strong></code></a><strong> Interface</strong></p><div id="293ccaff-9e84-4bb8-b224-f8297e43f068" class="column-list"><div id="921c22b2-c94c-497f-8af1-ca91ee3b7da6" style="width:18.75%" class="column"><nav id="9fdefa3c-70f8-4a01-8b03-0330ca601c92" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b2ae9ebf-9b26-43fc-84dc-576e3db22b9e">4.1 DOM范围（Ranges in the DOM）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bc6ea2b9-5902-42a2-b116-0d9c2ee52488">4.1.0 补充（纯个人理解，可能有不对的地方）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#eaf47642-bbfd-4271-b077-9866e52fb1d8">4.1.0.1 为什么有Range</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#69a1182e-0011-424f-af8c-cbf63d235049">4.1.0.2 选择内容</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#70f4c943-7296-42f9-b255-5da761a1f549">4.1.0.3 确定选择内容的方法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#31b95cdb-13af-4ee2-8153-cc3501b15d47">4.1.0.4 操作范围和选择内容</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#052188cc-45da-4c18-b70a-e328f5d1cd40">4.1.0.5 范围的关系</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9a30abbe-2cea-4664-ba6d-69ad838bef3e">4.2 简单选择（Simple Selection in DOM Ranges）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a7ca2718-6756-46b9-81f7-0c5b0697d9c8">4.3 复杂选择（Complex Selection in DOM Ranges）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2d70870a-2a35-41b3-8e9a-b80073843899">4.4 操作范围（Interacting with DOM Range Content）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8ab4d410-5a73-4664-b634-5a0f82692b34">4.4.1 <code>deleteContents()</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2fa2bed1-715b-42ef-8c32-0c4580f003cc">4.4.2 <code>extractContents()</code> </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#923f9125-a94d-49cb-971d-ff82103ef573">4.4.3 <code>cloneContents()</code> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c0e3d511-c608-418e-9b70-d8b7fdc9d610">4.5 范围插入（Inserting DOM Range Content）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#770e6e16-ed1c-4bf8-a061-06cfe1407828">4.5.1 <code>insertNode()</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5dba2bc2-2960-4be1-a3ed-817791224a11">4.5.2 <code>surroundContents()</code> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#647e74c7-391e-4745-b90b-243a41566b83">4.6 范围折叠(Collapsing a DOM Range)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6536b907-435f-4b5b-bc9e-47039fd99cfb">4.7 范围比较(Comparing DOM Ranges)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#19045a7a-72e7-4e15-bcd2-fe7dacbe2eaa">4.8 复制范围(Cloning DOM Ranges)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#29167558-e292-4ece-a65e-e25f308d6132">🚫4.9 清理(Cleanup)</a></div></nav><p id="ca8f2dab-d7d6-4587-be05-081e13d8258b" class="">
+</p></div><div id="973fd8a7-2024-4717-903f-b35dcec55a05" style="width:81.25%" class="column"><h1 id="b2ae9ebf-9b26-43fc-84dc-576e3db22b9e" class="">4.1 DOM范围（Ranges in the DOM）</h1><ul id="f901fcf3-be26-4978-a692-796188d306ef" class="bulleted-list"><li style="list-style-type:disc">DOM2在Document类型上定义了一个<code>createRange()</code> 方法，暴露在<code>document</code> 对象上，使用整个方法可以创建一个DOM范围对象，在DOM规范的<strong><strong>4.5. Interface </strong></strong><a href="https://dom.spec.whatwg.org/#document"><code><strong><strong>Document</strong></strong></code></a><strong><strong> </strong></strong>中定义如下<pre id="53bb2a98-e4e3-4ab5-8831-253f3a0ad42f" class="code code-wrap"><code>[Exposed=Window]
+interface Document : Node {
+  constructor();
+	...
+	[NewObject] Range createRange();
+	...
+}</code></pre></li></ul><ul id="fd56f432-a615-4d4e-9124-30759af85093" class="bulleted-list"><li style="list-style-type:disc">使用这个<code>createRange()</code>方法可以创建一个DOM范围对象，如下所示<pre id="6d50fd74-ec34-488e-94aa-b6f72ebaea4c" class="code code-wrap"><code>let range = document.createRange();</code></pre><ul id="3a5abafa-34af-4d33-80b5-c63d3175fc23" class="bulleted-list"><li style="list-style-type:circle">与节点类似，这个新创建的范围对象与创建它的文档关联，不能在其它文档中使用</li></ul><ul id="5ffbe25d-a666-4bde-be71-4ad0c6774d50" class="bulleted-list"><li style="list-style-type:circle">创建过程不需要传递任何参数，得到范围对象后在使用它在后台选择文档特定部分即可</li></ul><ul id="c8701a1f-1d0d-4ee8-a726-c4d8b6c2b7ee" class="bulleted-list"><li style="list-style-type:circle">在范围对象指定位置后，可以对范围的内容执行一些操作，从而实现对底层DOM树更精细的控制</li></ul></li></ul><ul id="10346398-1523-4fcf-a8ac-20649bcd309e" class="bulleted-list"><li style="list-style-type:disc">每个范围对象都是<code>Range</code> 类型的实例，拥有相应的属性和方法，<code>Range</code> 接口的基本定义在<a href="https://dom.spec.whatwg.org/#range">DOM规范</a>中，如下<pre id="55e5b569-50d7-41d8-b82c-b70a7103c9e6" class="code code-wrap"><code>[Exposed=Window]
+interface AbstractRange {
+  readonly attribute Node startContainer;
+  readonly attribute unsigned long startOffset;
+  readonly attribute Node endContainer;
+  readonly attribute unsigned long endOffset;
+  readonly attribute boolean collapsed;
+};
+
+[Exposed=Window]
+interface Range : AbstractRange {
+  constructor();
+
+  readonly attribute Node commonAncestorContainer;
+
+  undefined setStart(Node node, unsigned long offset);
+  undefined setEnd(Node node, unsigned long offset);
+  undefined setStartBefore(Node node);
+  undefined setStartAfter(Node node);
+  undefined setEndBefore(Node node);
+  undefined setEndAfter(Node node);
+  undefined collapse(optional boolean toStart = false);
+  undefined selectNode(Node node);
+  undefined selectNodeContents(Node node);
+
+  const unsigned short START_TO_START = 0;
+  const unsigned short START_TO_END = 1;
+  const unsigned short END_TO_END = 2;
+  const unsigned short END_TO_START = 3;
+  short compareBoundaryPoints(unsigned short how, Range sourceRange);
+
+  [CEReactions] undefined deleteContents();
+  [CEReactions, NewObject] DocumentFragment extractContents();
+  [CEReactions, NewObject] DocumentFragment cloneContents();
+  [CEReactions] undefined insertNode(Node node);
+  [CEReactions] undefined surroundContents(Node newParent);
+
+  [NewObject] Range cloneRange();
+  undefined detach();
+
+  boolean isPointInRange(Node node, unsigned long offset);
+  short comparePoint(Node node, unsigned long offset);
+
+  boolean intersectsNode(Node node);
+
+  stringifier;
+};</code></pre><ul id="ed7769cd-f691-4941-b0c6-78f410665831" class="bulleted-list"><li style="list-style-type:circle"><code>stringifier</code> 表示<code>Range</code> 对象具有字符串化的行为，参考<a href="https://dom.spec.whatwg.org/#dom-range-stringifier"><strong>DOM规范dom-range-stringifier</strong></a></li></ul><p id="71e30250-b08f-4f4c-a666-43b60880e624" class=""><strong>继承自</strong><strong><code>AbstractRange</code></strong><strong> 的属性如下</strong></p><ul id="7a1584a4-a8bf-405f-8068-4b756752cc63" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>startContainer</code>  ，范围起点所在的节点（选区中第一个子节点的父节点）</span></li></ul><ul id="66038772-f11a-42d5-b436-4055f5ab9ae2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>endContainer</code> ,范围终点所在的节点（选区中最后一个子节点的父节点）</span></li></ul><ul id="e8a51ac6-fb3d-434d-b149-ec751899f5d1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>startOffset</code> ，范围起点在<code>startContainer</code> 中的偏移量，如果<code>startContainer</code> 是文本节点、注释节点或CData区块节点，则<code>startOffset</code> 指范围起点之前跳过的字符数；否则，表示范围中第一个节点的索引</span></li></ul><ul id="be814432-2dac-47f4-8df7-8fab3e013bef" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>endOffset</code> ，范围起点<code>startContainer</code> 中的偏移量（与startOffset中偏移量的含义相同）</span></li></ul><ul id="49769d26-46e8-4163-b928-e3bbc58d09e9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>collapsed</code> ，布尔值，表示范围的起始点和结束点是否为同一个位置；collapsed在英语中有收缩之意，如果为<code>true</code> ，则<code>Range</code> 范围是收缩的，折叠的，不包含内容的，表示DOM树中的一个点</span></li></ul><p id="f5881836-2255-49e4-8600-bc5e559ca1fa" class=""><strong><code>Range</code></strong><strong> 接口定义的属性和方法</strong></p><ul id="a77e50a9-cd3a-4883-bd5c-3f64a3238fc9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>commonAncestorContainer</code> ，文档中以<code>startContainer</code>和<code>endContainer</code> 为后代的最深的节点（就是最近公共父节点）</span><hr id="6852a91c-b8ee-4ded-a29f-42b720311a62"/></li></ul><ul id="893ee4f3-e01a-444b-8ad1-a23bfae8f454" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>setStart(node, offset)</code> ，用于设置范围的开始位置（即<code>startContainer</code>）,除了传递范围起始点所在节点外，还需要传递范围起点在容器节点中的偏移量，如果传递的起始点所在节点是文本几点、注释节点、CData区块节点，那么<code>offset</code> 就应该是从起始点所在节点算起字符的偏移量，否则就是从起始点所在节点开始算起<strong>子节点</strong>的偏移量；如果设置的起始点在结束点之下（在HTML文档中的位置），将会导致选区折叠，起始点和结束点都会被设置为指定的起始位置</span></li></ul><ul id="3702fe49-32c9-4582-b88d-fca3a60350a3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>setStartAfter(refNode)</code> ，用于设置范围相对于<code>refNode</code> 节点的开始位置，范围的开始位置的节点的父节点将与<code>refNode</code> 的父节点相同</span></li></ul><ul id="9f593776-dccc-435e-9f00-09ab1b54f8dd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>setStartBefore(refNode)</code> ，用于设置范围相对于另一个<code>Node</code> 的开始位置，范围的开始位置的节点（<strong>focusNode</strong>）的父节点将与<code>refNode</code> 的父节点相同</span><p id="6a18d624-df81-4d93-8f28-75fcb382c13c" class=""><em>注：</em><code><em>setStartAfter</em></code><em>和</em><code><em>setStartBefore</em></code><em> 功能类似，都是为了设置一个具体的起始位置而对文档节点进行参照的方法，只是参照具体的文档节点时，参照方向不一样；参照的文档节点并非</em><code><em>startContainer</em></code><em> ，而是其中的子节点</em></p></li></ul><ul id="8779601f-d6d0-4e1b-8c3c-133af078d296" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>setEnd(node, offset)</code> ，用于设置范围的结束位置（即<code>startContainer</code>）,除了传递范围终点所在节点外，还需要传递范围终点所在容器节点中的偏移量；关于<code>node</code> 的节点类型和<code>offset</code> 的单位的关系以及结束点和起始点的位置关系可以查看上面<code>setStart()</code> 的方法介绍</span></li></ul><ul id="b902c7fc-ebd7-4102-b52c-112b7c9e38b1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>setEndAfter(refNode)</code> ，用于设置范围相对于<code>refNode</code> 节点的结束位置，范围的结束位置的节点的父节点将与<code>refNode</code> 的父节点相同</span></li></ul><ul id="d82b6df4-f9cb-40b1-a4a0-e8728c2184ed" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>setEndBefore(refNode)</code> ，用于设置范围相对于另一个<code>Node</code> 的结束位置，范围的结束位置的节点（<strong>focusNode</strong>）的父节点将与<code>refNode</code> 的父节点相同</span></li></ul><ul id="ced41d82-c800-4037-8925-3f0f2083b991" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>collapse([toStart])</code> ，向边界点折叠范围，折叠后范围为空，不包含任何内容，<code>toStart</code> 是一个布尔值，表示折叠后起始点和终点重合的位置，<code>true</code> 则折叠到<code>start</code> 节点，<code>false</code> 则折叠到<code>end</code>节点，省略，默认为<code>false</code> </span></li></ul><ul id="4da06c34-39a7-45fd-bf4d-2c7d2063aaa1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>selectNode(refNode)</code> ，<code>refNode</code> 是范围要包含的节点，用于设置范围应该包含的整个<code>refNode</code> 及其内容，范围的起始节点和结束节点的父节点与<code>refNode</code> 的父节点相同</span></li></ul><ul id="45f56ddb-98c1-4b8d-8dfc-60c033b42587" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>selectNodeContents(refNode)</code> ，用于设置范围，使其包含一个<code>Node</code>内容，同时会设置范围的起始容器节点（<code>startContainer</code>）和结束容器节点（<code>endContainer</code>）为<code>refNode</code> 的父节点,<code>startOffset</code> 为0，<code>endOffset</code> 则是引用节点包含的字符数或子节点个数</span><hr id="f39b0505-7d41-43e1-bfcb-25b5d36f456d"/></li></ul><ul id="575b3c7f-3d4f-42a2-8a7d-61e248b8625b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>compareBoundaryPoints(how, sourceRange)</code> 用于将一个范围的边界点和另一个范围的边界点进行比较 </span><ul id="30f74f7c-b4b4-4025-9f0e-a1cc93d5c240" class="bulleted-list"><li style="list-style-type:disc"><code>how</code> ：一个常量，表示两个范围的比较方式，也可以理解成<code>Range</code> 留下的几种<strong>comparison method（比较方法）</strong>的选择，Range中定义了如下4种常量用于选择4种不同的比较方式<table id="0c9cb0d5-338c-4ba2-b52f-3d696b260463" class="simple-table"><tbody><tr id="7bc282b3-04b4-4e03-824e-d8e1a50d7b39"><td id="kRNM" class="">属性常量名</td><td id="w}Gi" class="">值</td><td id="vlHI" class="" style="width:309px">描述</td></tr><tr id="86e6fd1d-3392-4fc4-acf7-b6bcfb3b507a"><td id="kRNM" class=""><code>Range.START_TO_START</code></td><td id="w}Gi" class="">0</td><td id="vlHI" class="" style="width:309px">将<code>sourceRange</code>的开始边界点与调用者（<code>Range</code> 范围） 的开始边界点进行比较</td></tr><tr id="10f69e41-fd8a-4d90-a977-fc7d0b497107"><td id="kRNM" class=""><code>Range.START_TO_END</code></td><td id="w}Gi" class="">1</td><td id="vlHI" class="" style="width:309px">将<code>sourceRange</code>的开始边界点与调用者（<code>Range</code> 范围） 的结束边界点进行比较</td></tr><tr id="e1513fc1-60e9-419e-be49-b26a464d5f3d"><td id="kRNM" class=""><code>Range.END_TO_START</code></td><td id="w}Gi" class="">2</td><td id="vlHI" class="" style="width:309px">将<code>sourceRange</code>的结束边界点与调用者（<code>Range</code> 范围） 的开始边界点进行比较</td></tr><tr id="c09fb72f-55a5-4b09-97a6-24b49530a973"><td id="kRNM" class=""><code>Range.END_TO_END</code></td><td id="w}Gi" class="">3</td><td id="vlHI" class="" style="width:309px">将<code>sourceRange</code>的结束边界点与调用者（<code>Range</code> 范围） 的结束边界点进行比较</td></tr></tbody></table></li></ul><ul id="1cc564eb-a13c-46b3-ad54-c5d7ab5b4219" class="bulleted-list"><li style="list-style-type:disc"><code>sourceRange</code> ：和调用者（<code>Range</code>对象）进行比较的其它<code>Range</code> 对象</li></ul><ul id="2de13e85-8a20-4bf1-bc88-520f3056ec72" class="bulleted-list"><li style="list-style-type:disc">返回值，数字，表示调用者（<code>Range</code>对象）的相应边界点分别在<code>sourceRange</code>的相应边界点之前、等于或之后<ul id="c625ff51-bda7-4938-86f9-f255385e0be0" class="bulleted-list"><li style="list-style-type:circle"><code>-1</code> ： 第一个范围（调用者）的边界点位于第二个范围（<code>sourceRange</code>）的边界点之前</li></ul><ul id="6e77657c-56f7-4077-a6e2-d9ccb092cc7b" class="bulleted-list"><li style="list-style-type:circle"><code>0</code> ： 第一个范围（调用者）的边界点等于第二个范围（<code>sourceRange</code>）的边界点</li></ul><ul id="e35e540f-6cb2-4321-bc92-e7f9d58e8330" class="bulleted-list"><li style="list-style-type:circle"><code>1</code> ： 第一个范围（调用者）的边界点位于第二个范围（<code>sourceRange</code>）的边界点之后</li></ul></li></ul><hr id="739a4664-1e15-4afe-8653-fb45d4a95f8c"/></li></ul><ul id="486aedbf-cc9d-4bed-86d1-aa77b8311cf5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>cloneContents()</code> ，返回一个<code>DocumentFragment</code> 对象，它是一个<code>Range</code> 中所有的Node对象的<strong>副本</strong></span><ul id="a10633cb-0b0d-4613-8a53-3204c5b0fcc8" class="bulleted-list"><li style="list-style-type:disc">使用DOM事件添加到的事件监听器（<a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener"><code>addEventListener()</code></a>）在克隆过程中不会被复制</li></ul><ul id="f8daf887-0bfc-4a8a-bba7-eb9b9d294415" class="bulleted-list"><li style="list-style-type:disc">HTML属性事件与使用DOM Core 的<code>Node.cloneNode</code> 方法时一样，也会被复制</li></ul><ul id="e65a9f90-1ee2-44be-a995-4ce11f863636" class="bulleted-list"><li style="list-style-type:disc">HTML id 属性也会被克隆，这可能导致通过克隆生成无效的文档</li></ul></li></ul><ul id="50b1c0f0-dad2-49e0-9258-ea984f53c563" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>extractContents()</code> ，返回一个<code>DocumentFragment</code> 对象，它将范围的内容从文档树移到文档对象变量中，范围中的内容将从文档树中移除</span></li></ul><ul id="0393758f-ab0d-4f6d-97e7-d33593832c4a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>deleteContents()</code> ，从文档中移除<code>Range</code> 对象选取的内容，不像<code>extractContents()</code> ，本方法不返回被移除的文本片段</span></li></ul><ul id="e91a6ccb-3866-4157-b678-b4a4147c8ec5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>insertNode(node)</code> ，在范围的起始位置插入节点，如果新节点添加到是一个文本节点（<code>Range</code> 对象选取的内容是文本节点的一部分），则该节点在插入点处被拆分，插入发生在两个文本节点之间；如果新节点是一个文档片段，则插入文档片段的所有子节点</span></li></ul><ul id="a5695945-9267-41aa-b299-597c7db58157" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>surroundContents(newParent)</code> ，将<code>Range</code> 对象选取的内容移动到一个新的节点上，并将这个新节点放到这个范围的起始处；这个方法可以等价于<code>newNode.appendChild(range.extractContents()); range.insertNode(newNode);</code> 应用以后<code>newNode</code> 包含在范围的边界点中</span><hr id="dce06201-c46f-4c57-91b5-ea0a8aaa1f76"/></li></ul><ul id="007d9abe-8e70-4049-8aae-1d77ce763ae3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>cloneRange()</code> ，返回一个<code>range</code>对象，新的范围与源范围的边界点，起始容器和终点容器，偏移量等都相同，除了修改具体的DOM结构，这两个范围对象互不影响</span></li></ul><ul id="2448d9fa-c4a9-478b-8dd3-649244df2417" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>detach()</code> ，<code>detach</code> 有分离，脱离之意，原本是用来无效化范围的，现在已经移除这个方法的功能，<strong>仅为了保存兼容性而留存</strong>，调用它不会执行任何操作</span><hr id="a0fe6a43-acf2-44b0-9dd3-e15129198c74"/></li></ul><ul id="46fec72f-ab34-40b3-bba8-496a456adf44" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>isPointInRange(refNode, offset)</code> ，返回一个布尔值，指示<strong>给定点</strong>（<strong>given point</strong>）是否在范围内，如果<code>refNode</code> 内<code>offset</code> 处的点（游标位置，cursor position）在范围中就返回<code>true</code> </span></li></ul><ul id="6939c177-4165-48e6-9abe-a97954e50c99" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>comparePoint(refNode, offset)</code> ，返回一个数字，表示<code>refNode</code> 内<code>offset</code> 处的点是在范围之前（-1），之中（0）还是之后（1）；如果引用节点是Text、Comment或CDATASection类型的节点，则offset是从引用节点开始的字符数。对于其他节点类型，偏移量是参考节点（refNode）开始之间的子节点数</span><hr id="514f102c-38c6-4cac-bf45-99970468f2eb"/></li></ul><ul id="47c850da-7e47-4adb-9bd9-6e8922c1fb76" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>intersectsNode(refNode)</code> ，返回一个布尔值，指示给定的<code>refNode</code> 是否与范围<strong>相交</strong>（<strong>intersects</strong>）</span><hr id="9361f410-b70d-4faa-a68a-65eaa14de295"/></li></ul><ul id="0fc9a14a-09da-42ee-a5f1-90f2f7fde8cd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>stringifier</code> ：范围的<code>toString()</code> 方法继承重写了，它会返回范围内的字符串内容</span></li></ul></li></ul><h2 id="bc6ea2b9-5902-42a2-b116-0d9c2ee52488" class="">4.1.0 补充（纯个人理解，可能有不对的地方）</h2><ul id="82f9d30c-5126-4865-ae42-f1ca302db1ff" class="bulleted-list"><li style="list-style-type:disc">上面大部分的介绍都基于DOM规范和MDN文档，并非《JavaScript高级程序设计（第4版）》</li></ul><ul id="8d31ca3a-5651-41e6-aae1-edab2e0a7cbb" class="bulleted-list"><li style="list-style-type:disc">要理解<code>Range</code> （或者说范围）是什么，就要理解它如何在文档中<strong>选择内容</strong>，<code>Range</code>的所有方法和属性都围绕这个<strong>选择内容</strong>进行展开的</li></ul><h3 id="eaf47642-bbfd-4271-b077-9866e52fb1d8" class="">4.1.0.1 为什么有Range</h3><ul id="bb068612-9b7c-4ba9-b574-44effcc64a76" class="bulleted-list"><li style="list-style-type:disc">DOM是前端渲染显示内容的基础，它提供了基本的API和结构让开发者进行操作，以到达在网络浏览器上显示想要内容的目的</li></ul><ul id="2caa1a79-4e96-400b-b8df-c387e082bf99" class="bulleted-list"><li style="list-style-type:disc">可以把DOM想象成一个<strong>规定好结构</strong>的<strong>可交互</strong>一种文档定义模式：<ul id="f031a37b-512f-4d0c-8b2e-aba72be6064e" class="bulleted-list"><li style="list-style-type:circle">在第14章我们介绍了这个模式的基础构造（DOM Core），即DOM的结构树，层级结构，结构变化监听API等</li></ul><ul id="e6fe247f-eb1a-43c2-912a-9cd7f5892853" class="bulleted-list"><li style="list-style-type:circle">在第15章我们需要了解DOM的扩展，即需要有更好的方法获取DOM结构树中的节点，如何遍历结构树，对结构树的修改，以及现代的HTML5对与DOM相关的渲染，操作新增的一些方法</li></ul><ul id="13d3f293-48f9-4885-a1d3-1281291337ad" class="bulleted-list"><li style="list-style-type:circle">在第16章我们要了解DOM的演进，因为DOM的相关API不是一蹴而就的，而是一步步发展的，为此分为样式、遍历、范围三个部分进行介绍</li></ul></li></ul><ul id="43746cbe-ec22-40f8-ac20-313bde28be55" class="bulleted-list"><li style="list-style-type:disc">了解过DOM结构之后，知道DOM结构树的基本单元就是<strong>节点（Node）</strong>，节点有多种类型，对它们的操作、渲染、修改都需要大量的API<ul id="046888ce-51c2-4761-af56-fd9692d58fb4" class="bulleted-list"><li style="list-style-type:circle">但是<strong>节点之间是有界限</strong>的</li></ul><ul id="ea132f54-22a6-4578-b8ac-7c5a29b72a4b" class="bulleted-list"><li style="list-style-type:circle">每个节点虽然可能有父子关系，同胞关系或没有关系，但是每次操作都是对一个节点进行单独的操作</li></ul><ul id="92381532-38ae-4fa7-8dca-c7a01b09077e" class="bulleted-list"><li style="list-style-type:circle">为了支持对<strong>页面更精细的控制</strong>，DOM引入了<code>Range</code> 这个概念，范围就是文档任意一部分的选择，这一部分可以是一些节点，也可以是是一个节点中的部分内容</li></ul></li></ul><h3 id="69a1182e-0011-424f-af8c-cbf63d235049" class="">4.1.0.2 选择内容</h3><ul id="9825a148-00d3-42cb-8f42-1a09446cc596" class="bulleted-list"><li style="list-style-type:disc">理解了选择内容，就能很好理解<strong><code>AbstractRange</code></strong><strong> </strong>定义的属性</li></ul><ul id="6cffdc7a-5b94-4762-b491-0bd05c8aad4e" class="bulleted-list"><li style="list-style-type:disc">假设有如下文档<pre id="818b290c-560e-4e93-ae47-7cec6421b5a6" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;DOM Content&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;h2&gt;Hello, world&lt;/h2&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      &lt;article&gt;
+        &lt;h4&gt;Range&lt;/h4&gt;
+        &lt;div class=&quot;section-content&quot;&gt;
+          &lt;p&gt;
+            &lt;strong&gt;&lt;code&gt;Range&lt;/code&gt;&lt;/strong&gt;
+            接口表示一个包含节点与文本节点的一部分的文档片段。
+          &lt;/p&gt;
+          &lt;p&gt;
+            可以使用
+            &lt;a href=&quot;/zh-CN/docs/Web/API/Document/createRange&quot;
+              &gt;&lt;code&gt;Document.createRange&lt;/code&gt;&lt;/a
+            &gt;
+            方法创建 Range。也可以用
+            &lt;a href=&quot;/zh-CN/docs/Web/API/Selection&quot;&gt;&lt;code&gt;Selection&lt;/code&gt;&lt;/a&gt;
+            对象的
+            &lt;a
+              href=&quot;/zh-CN/docs/Web/API/Selection/getRangeAt&quot;
+              title=&quot;getRangeAt()&quot;
+              &gt;&lt;code&gt;getRangeAt()&lt;/code&gt;&lt;/a
+            &gt;
+            方法或者
+            &lt;a href=&quot;/zh-CN/docs/Web/API/Document&quot;&gt;&lt;code&gt;Document&lt;/code&gt;&lt;/a&gt;
+            对象的
+            &lt;a
+              href=&quot;/zh-CN/docs/Web/API/Document/caretRangeFromPoint&quot;
+              title=&quot;caretRangeFromPoint()&quot;
+              &gt;&lt;code&gt;caretRangeFromPoint()&lt;/code&gt;&lt;/a
+            &gt;
+            方法获取 Range 对象。
+          &lt;/p&gt;
+          &lt;p&gt;
+            还可以用
+            &lt;a href=&quot;/zh-CN/docs/Web/API/Range/Range&quot; title=&quot;Range()&quot;
+              &gt;&lt;code&gt;Range()&lt;/code&gt;&lt;/a
+            &gt;
+            构造函数。
+          &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;@mangwu&lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></li></ul><ul id="9f6b8a56-644b-4c37-88eb-044e6001a5b2" class="bulleted-list"><li style="list-style-type:disc">这个文档来源于MDN，是对<code>Range</code> 接口的基本介绍，因为分段和超链接的原因，一篇文章（&lt;article&gt;）里有许多相似的标签，构成多个节点，每个节点完成自己的功能，最终渲染如下<figure id="96ddcf45-ce6c-4a81-93b5-78debe97b40f" class="image"><a href="4%20%E8%8C%83%E5%9B%B4/range.png"><img style="width:1064px" src="4%20%E8%8C%83%E5%9B%B4/range.png"/></a></figure></li></ul><ul id="a01d7022-8440-416a-a7b9-e404bd869156" class="bulleted-list"><li style="list-style-type:disc">现在开发者想要修改其中某一小段话的样式，“ <a href="http://localhost:8000/zh-CN/docs/Web/API/Selection"><code>Selection</code></a> 对象的 <a href="http://localhost:8000/zh-CN/docs/Web/API/Selection/getRangeAt"><code>getRangeAt()</code></a> 方法或者 <a href="http://localhost:8000/zh-CN/docs/Web/API/Document"><code>Document</code></a> 对象的 <a href="http://localhost:8000/zh-CN/docs/Web/API/Document/caretRangeFromPoint"><code>caretRangeFromPoint()</code></a>方法”，有如下几种方式<ul id="bc435ec1-3cd7-485c-a4ee-ed1d99308131" class="bulleted-list"><li style="list-style-type:circle">直接修改HTML文档，这种方式是可行的，但是如果想要动态变化这段话的样式，就难以实现了</li></ul><ul id="8f06d8a7-ecc0-4229-b483-9b4e85626dcd" class="bulleted-list"><li style="list-style-type:circle">使用DOM提供的获取节点的API，以及节点的属性，一个个的进行查增删改，比较繁琐，但是也能完成</li></ul><ul id="d280782d-91e4-4d1e-a055-30bfb45204e9" class="bulleted-list"><li style="list-style-type:circle">最后一种方式就是使用Range</li></ul></li></ul><ul id="f92ece99-43e5-4c08-a26d-f0d24361b22a" class="bulleted-list"><li style="list-style-type:disc">首先，把选择内容标识出来，如下<pre id="491f301f-8d2e-436d-9ed3-8f18da8192c5" class="code code-wrap"><code>&lt;p&gt;
+  可以使用
+  &lt;a href=&quot;/zh-CN/docs/Web/API/Document/createRange&quot;
+    &gt;&lt;code&gt;Document.createRange&lt;/code&gt;&lt;/a
+  &gt;
+  方法创建 Range。也可以用
+  &lt;a href=&quot;/zh-CN/docs/Web/API/Selection&quot;&gt;&lt;code&gt;Selection&lt;/code&gt;&lt;/a&gt;
+  对象的
+  &lt;a
+    href=&quot;/zh-CN/docs/Web/API/Selection/getRangeAt&quot;
+    title=&quot;getRangeAt()&quot;
+    &gt;&lt;code&gt;getRangeAt()&lt;/code&gt;&lt;/a
+  &gt;
+  方法或者
+  &lt;a href=&quot;/zh-CN/docs/Web/API/Document&quot;&gt;&lt;code&gt;Document&lt;/code&gt;&lt;/a&gt;
+  对象的
+  &lt;a
+    href=&quot;/zh-CN/docs/Web/API/Document/caretRangeFromPoint&quot;
+    title=&quot;caretRangeFromPoint()&quot;
+    &gt;&lt;code&gt;caretRangeFromPoint()&lt;/code&gt;&lt;/a
+  &gt;
+  方法获取 Range 对象。
+&lt;/p&gt;</code></pre></li></ul><ul id="d55fd9e7-8499-4ec9-a06b-73aa3950a491" class="bulleted-list"><li style="list-style-type:disc">然后创建一个范围，它表示上面<strong>加粗蓝低的文档内容</strong></li></ul><ul id="8c023cf3-ab42-47fd-85b2-35978d24f77e" class="bulleted-list"><li style="list-style-type:disc">而<strong>选择内容</strong>抽象表示就是<strong><code>AbstractRange</code></strong><strong> </strong>的主要任务<ol type="1" id="88812811-b009-4241-99a8-a7b5ece9e58f" class="numbered-list" start="1"><li>确定<strong>选择内容</strong>所在的公共祖先节点，一般而言，选择内容都是<code>document.body</code> 上的，如果不加以设置，默认就是&lt;body&gt;，在上面这段选择内容中，我们可以选择外层最近的&lt;p&gt;作为公共祖先节点<ul id="bab782f9-e313-40bf-a159-a6c308ab2cc3" class="bulleted-list"><li style="list-style-type:disc"><code>startContainer</code> 和<code>endContainer</code> 就是根据公共祖先节点确定的，它们可以是大的祖先节点，也可以是小的祖先节点，只是分成了两个部分</li></ul><ul id="88312ab3-bcdc-4d19-b928-3414a67d950b" class="bulleted-list"><li style="list-style-type:disc">分成两个部分是为了<strong>更精细地表示选择内容所在的节点位置</strong><ul id="8763f94f-4184-44ca-b7e8-3eeb2ea7e8cb" class="bulleted-list"><li style="list-style-type:circle"><code>startContainer</code> 就是选择内容起始点（蓝底&lt;a&gt;标签开头）所在容器节点，其父节点就是外层的&lt;p&gt;</li></ul><ul id="bea9286e-1ab3-4c29-a066-8646f0eceaf5" class="bulleted-list"><li style="list-style-type:circle">类似的<code>endContainer</code> 就是选择内容结束点（蓝底文本）所在的容器节点，其父节点是<mark class="highlight-blue_background"><strong> </strong></mark>” 方法获取 Range 对象。“这个<strong>文本节点</strong></li></ul></li></ul><ul id="3714196e-7488-4e6e-9646-e7b31bc1176a" class="bulleted-list"><li style="list-style-type:disc">这两个属性都是只读属性，所以需要<code>Range</code> 接口中定义方法设置</li></ul></li></ol><ol type="1" id="ba346fa0-d9ec-482d-bfc9-d8524c8db6b9" class="numbered-list" start="2"><li>确定<strong>偏移量</strong>，所谓偏移量就是选择内容在容器节点中的<strong>位置确定</strong><ul id="1421fb89-f73c-4bf7-97b0-44e34a88bdef" class="bulleted-list"><li style="list-style-type:disc">因为选择内容所在的容器节点被分为来起始点和结束点，所以<strong>偏移量</strong>就有了起始点偏移量和结束点偏移量</li></ul><ul id="76369318-9b57-4f2c-b4ba-637cf4a92ce2" class="bulleted-list"><li style="list-style-type:disc"><code>startOffset</code> 就是选择内容的起始点在起始点容器中的<strong>偏移量</strong>，偏移量的单位要看容器节点的类型，如果容器类型是元素节点，如<code>startContainer</code> ，只需要确定元素节点的子节点（<code>childNodes</code>）从第几个子节点开始即可，要考虑到HTML文档书写时的空白文本子节点，<code>startOffset</code> 应该是3，如下<figure id="89b29edd-51d1-4149-8d72-e099fbca358c" class="image"><a href="4%20%E8%8C%83%E5%9B%B4/startOffset.png"><img style="width:1134px" src="4%20%E8%8C%83%E5%9B%B4/startOffset.png"/></a></figure></li></ul><ul id="c4be3829-c27b-4196-8288-978c43d8d0c9" class="bulleted-list"><li style="list-style-type:disc"><code>endOffset</code> 就是选择内容的结束点在结束点容器中的偏移量，如果容器类型是文本节点（注释节点，CData区块节点），如<code>endContainer</code> ，需要确定文本节点内容中在哪一个字符结束即可，考虑到HTML文档书写时的空白字符，<code>endOffset</code> 应该是15，如下<figure id="ae18a2a9-81ba-472e-be48-ae8c9c67b602" class="image"><a href="4%20%E8%8C%83%E5%9B%B4/endOffset.png"><img style="width:414px" src="4%20%E8%8C%83%E5%9B%B4/endOffset.png"/></a></figure></li></ul></li></ol><ol type="1" id="13f46fb1-c23a-4d24-bd96-9cc254bbdd32" class="numbered-list" start="3"><li>考虑<strong>特殊情况</strong>，选择内容的特殊情况就是起始点和结束点重合，即选择内容是“<strong>折叠的</strong>”，需要一个属性来反映这种特殊情况，所以实现了<code>collapsed</code> </li></ol></li></ul><h3 id="70f4c943-7296-42f9-b255-5da761a1f549" class="">4.1.0.3 确定选择内容的方法</h3><ul id="000f37da-e011-4e76-b110-66152c1a5722" class="bulleted-list"><li style="list-style-type:disc">上面我们定义了选择内容的5个属性，它定义在<strong>抽象范围</strong>（<strong>AbstractRange</strong>）</li></ul><ul id="8289c624-a540-424e-b362-22728e587dcb" class="bulleted-list"><li style="list-style-type:disc">因为这些确定选择内容位置或者说范围位置的属性都是只读的，所以需要方法来设置这些属性值</li></ul><ul id="627333f3-eb3a-408a-a699-357e6da6bd57" class="bulleted-list"><li style="list-style-type:disc">于是就有了<code>Range</code> 接口中定义的三套设置起点，终点相关信息的方法<ol type="1" id="91e3d2cd-0b9a-4210-9650-9b2f188adda3" class="numbered-list" start="1"><li><strong>直接设置</strong>：直接给<code>start/endContainer</code> ，<code>start/endOffset</code> 属性赋值是最简单也最直接的设置方式，所以<code>Range</code> 给出了<code>setStart(node, offset)</code> 和<code>setEnd(node, offset)</code> 这两个方法用于确定选择内容；上面的例子中我们已经得出了具体的容器节点和偏移量，所以可以直接使用这两个方法确定选择内容<pre id="e1d52111-a483-40e9-9134-8ef6f9c605b9" class="code code-wrap"><code>const range = document.createRange();
+const articleContent = document.querySelector(&quot;.section-content&quot;);
+const p = articleContent.children[1];
+range.setStart(p, 3);
+range.setEnd(p.childNodes[10], 15);</code></pre></li></ol><ol type="1" id="9cf23416-a0bd-440b-a657-0c2b83c58a97" class="numbered-list" start="2"><li><strong>间接设置</strong>：虽然通过观察，确定选择内容的节点容易，但是确定选择内容的偏移量并不是一件容易的事情；这个时候就需要依靠<strong>选择内容边界相关的节点</strong>来确定选择内容的位置了<ul id="28925802-89f3-4457-a357-23938de8868a" class="bulleted-list"><li style="list-style-type:disc">选择内容有2个边界，边界有左右之分，所以理论上应该有四个可以参照的节点</li></ul><ul id="e282cf53-033e-4c54-9ed0-4d4de14bc056" class="bulleted-list"><li style="list-style-type:disc">这4个参照的节点与起始点或结束点有一个位置关系，即起始点/结束点之前或之后</li></ul><ul id="24f80702-31bc-4def-ab5d-49c8cb3837c1" class="bulleted-list"><li style="list-style-type:disc">所以可以定义<code>setStartAfter(node)</code> ，<code>setStartBefore(node)</code> ，<code>setEndAfter(node)</code> ,<code>setEndBefore(node)</code> 这四个方法</li></ul><ul id="b8b4164c-122a-4385-9a03-be11d3a1e0b3" class="bulleted-list"><li style="list-style-type:disc">这些个方法<strong>适用于起始点和结束点恰好在节点的边界位置的情况</strong>，如果起始点和结束点在分割节点的位置，还是使用<code>setStart/End</code> 更精细</li></ul></li></ol><ol type="1" id="fcae8d49-82cd-419d-a3dd-cd21f4458fc7" class="numbered-list" start="3"><li><strong>设置内容：</strong>前面两套方式都是通过<strong>设置边界</strong>来确定，如果相对于边界，选择内容内的节点更好确定，那直接设置选择内容的节点是一个更好的方案；不过情况也分为两种<ul id="514e1042-7ce8-43cd-94dc-7cfe352437ea" class="bulleted-list"><li style="list-style-type:disc"><strong>设置的内容就是节点本身</strong>，即范围的起始点和结束点就是节点的边界，那么<code>selectNode(refNode)</code> 就实现了这个方案，其中起点和结束点的容器就是<code>refNode</code> 的父节点</li></ul><ul id="65355ede-7825-4baf-b6f1-b9a6e5c42e7f" class="bulleted-list"><li style="list-style-type:disc"><strong>设置的内容是节点的内容</strong>，即节点标签不包括在选择内容中，使用<code>selectNodeContents(refNode)</code> ；范围的起始点是节点开始标签的结束处，范围的结束点就是节点结束标签的开始处，起点和结束点的就是<code>refNode</code> ，这种情况下<code>startOffset</code> 通常是0</li></ul></li></ol><ol type="1" id="81cf3d5d-603c-45ce-8504-473d9caea29b" class="numbered-list" start="4"><li><strong>特殊情况</strong>：一样的，选择内容的特殊情况就是起始点和结束点重合，为此需要一个方法设置<code>collapsed</code> 属性值，一般而言，将选择内容进行<strong>折叠</strong>应该是不可逆的，所以<code>Range</code> 定义了一个<code>collapse([toStart])</code> 方法，其中<code>toStart</code> 是布尔值参数，用于确定折叠后位置是在起始点还是结束点</li></ol></li></ul><h3 id="31b95cdb-13af-4ee2-8153-cc3501b15d47" class="">4.1.0.4 操作范围和选择内容</h3><ul id="2a5c0db1-32d6-4b01-aab6-1e52ef8679bc" class="bulleted-list"><li style="list-style-type:disc">定义好范围的选择内容和确定选择内容的方法后，就可以对范围的选择内容进行操作了，因为<code>Range</code>就是在常规DOM操作的粒度不够时发挥作用的接口</li></ul><ul id="b02efdba-54b3-41dc-9f1b-09e8b119c4a0" class="bulleted-list"><li style="list-style-type:disc">和节点类似，操作范围应该也有增加，删除，修改，复制等功能<ol type="1" id="e9070dde-f44a-4cd0-bccf-6f5abdd691ef" class="numbered-list" start="1"><li>增加：范围增加的位置要么是起始点后，要么是结束点前，因为这两个位置是范围明确的，<code>insertNode(node)</code> 用于在范围起始点后增加节点</li></ol><ol type="1" id="e459fc32-28fc-4014-88ed-be2c45f985f2" class="numbered-list" start="2"><li>删除：删除应该是对DOM文档进行的操作，所以删除的应该是范围中的内容，而非范围本身，删除后范围应该仍然存在，只是它的状态应该就是被折叠（<code>collapsed</code> ）的状态，并且折叠后的位置应该是在起始点<ul id="9d1ca60a-a55a-4924-8c9c-1d5e2c51e230" class="bulleted-list"><li style="list-style-type:disc"><code>Range</code> 定义了两种删除，一种是直接从DOM结构移除选择内容，即<code>deleteRangeContents()</code> </li></ul><ul id="d7dd6e0b-b004-42a5-b1af-117e16f4b060" class="bulleted-list"><li style="list-style-type:disc">还有一种会返回从DOM结构移除的选择内容，返回的范围内容使用<code>DocumentFragment</code> 包装，即<code>extractContents()</code></li></ul></li></ol><ol type="1" id="982604fb-1502-4db8-84ef-f192268d1d85" class="numbered-list" start="3"><li>修改：对范围中的节点而言，不需要额外添加很多方法来修改，因为如果要修改节点直接使用节点的API即可，所以更多的是对选择范围的一种整体修改，<code>surroundContents(newParent)</code> 用于在内容外包裹一个新节点，这个新节点可以作用于范围内容（例如包裹一层修改样式的节点）</li></ol><ol type="1" id="530d0a7a-a822-4e7b-91be-3163092dd5fa" class="numbered-list" start="4"><li>复制：复制也就是克隆，分为两种<ul id="3e9e6ecf-5198-48b4-9de3-90deb135255d" class="bulleted-list"><li style="list-style-type:disc">一种是对范围选择的内容（DOM结构）进行的复制，定义了<code>cloneContents()</code> 方法，它会返回包含选择的内容的<code>DocumentFragment</code> 节点对象</li></ul><ul id="e0c3f72b-aabd-4949-a1de-9659f42b6de6" class="bulleted-list"><li style="list-style-type:disc">一种是对范围对象本身的复制，定义了<code>cloneRange()</code> 方法，它会复制一个容器，偏移量都相同的新范围对象，二者相互独立</li></ul></li></ol></li></ul><h3 id="052188cc-45da-4c18-b70a-e328f5d1cd40" class="">4.1.0.5 范围的关系</h3><ul id="98415ae6-1b5d-4c2a-a954-141c32e80cf3" class="bulleted-list"><li style="list-style-type:disc">范围之间，范围的选择内容与DOM节点之间，以及位置与范围选择的内容之间都会有位置相关的</li></ul><ul id="ff7c8e13-eb6b-4aaf-8f8f-4d76cf4f5701" class="bulleted-list"><li style="list-style-type:disc">这个部分可以直接查看<a href="4%20%E8%8C%83%E5%9B%B4.html">上面的方法介绍</a></li></ul><h1 id="9a30abbe-2cea-4664-ba6d-69ad838bef3e" class="">4.2 简单选择（Simple Selection in DOM Ranges）</h1><ul id="60f95ab1-d65c-414d-874d-2bad4a721434" class="bulleted-list"><li style="list-style-type:disc">使用<a href="4%20%E8%8C%83%E5%9B%B4.html"><code>selectNode(node)</code></a> 和<a href="4%20%E8%8C%83%E5%9B%B4.html"><code>selectNodeContents(node)</code></a> 方法<ul id="3afaa96c-b574-474a-a013-b52b37ca325a" class="bulleted-list"><li style="list-style-type:circle">这两个方法都接收一个节点作为参数，并将改节点的信息添加到调用它的范围</li></ul><ul id="560a851a-b1f9-4a91-af58-497a3d5edbdf" class="bulleted-list"><li style="list-style-type:circle">区别在于前者选择整个节点，作为范围的选择内容，后者只选择节点的所有子节点作为访问的选择内容</li></ul></li></ul><ul id="e1f3b20b-0bc7-447a-ab76-0b1687a30947" class="bulleted-list"><li style="list-style-type:disc">一个展示区别的例子<pre id="2f3b6d6c-fdfd-49e8-a341-b59aab969e42" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt; world!&lt;/p&gt;
+  &lt;script&gt;
+    const range1 = document.createRange();
+    const range2 = document.createRange();
+    const p = document.querySelector(&quot;p&quot;);
+    range1.selectNode(p);
+    range2.selectNodeContents(p);
+    console.log(range1);
+    console.log(range2);
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><figure id="bcd16604-0d62-4688-8bd2-ba2aaafa0976" class="image"><a href="4%20%E8%8C%83%E5%9B%B4/range_selectNode_selectNodeContents.png"><img style="width:553px" src="4%20%E8%8C%83%E5%9B%B4/range_selectNode_selectNodeContents.png"/></a></figure><ul id="3526855e-3a60-4593-a1f2-9cb52606088b" class="bulleted-list"><li style="list-style-type:circle"><code>range1</code> 调用<code>selectNode</code> 将整个<code>p</code> 节点加入选择内容中，开始点和结束点就是<code>p</code> 的边界，它们的父节点都是&lt;body&gt;所以<code>start/endContainer</code> 就是<code>body</code> ，考虑到标签间的空白文本节点，<code>startOffset</code> 为1指的就是<code>body</code> 的<code>p</code> 节点，<code>endOffset</code> 为2指的就是<code>body</code> 的第二个空白文本子节点，它们两个的开始边界之间正好就是选择内容</li></ul><ul id="463bbbfd-2099-4e33-a1e5-910c87f80072" class="bulleted-list"><li style="list-style-type:circle"><code>range2</code> 调用<code>selectNodeContents</code> 将<code>p</code> 节点的所有子节点加入到选择内容中，开始点是<code>p</code> 的第一个子节点的开始边界，结束点是<code>p</code> 的最后一个子节点的结束边界，所以开始和结束点所在容器就是就是<code>p</code> ；<code>startOffset</code> 为0指的就是<code>p</code> 的第一个节点，开始点就是第一个节点的开始边界，<code>endOffset</code> 为2指的就是<code>p</code> 的第三个节点，不存在第三个节点，也就是第二个节点的结束边界</li></ul><ul id="1307b378-94d9-4899-ae40-2bdc8d9d59fe" class="bulleted-list"><li style="list-style-type:circle">使用图示的方式形象显示范围如下<figure id="1ae0eb26-c6f6-47cc-b181-5679c8c4ce79" class="image"><a href="4%20%E8%8C%83%E5%9B%B4/range.selectNode_selectNodeContents.png"><img style="width:720px" src="4%20%E8%8C%83%E5%9B%B4/range.selectNode_selectNodeContents.png"/></a></figure></li></ul></li></ul><ul id="36653244-0015-4f1c-a2da-795b6cac5b94" class="bulleted-list"><li style="list-style-type:disc">在向上面这样选定节点或节点后代后，还可以在范围上调用相应的方法，实现对范围中选区的更精细控制：<ul id="a64a5405-7a24-41c8-9783-2226af136192" class="bulleted-list"><li style="list-style-type:circle"><code>setStartBefore(refNode)</code> ，把范围的起点设置到<code>refNode</code> 之前，从而让<code>refNode</code> 称为选区的第一个子节点。<code>startContainer</code> 属性被设置成<code>refNode.parentNode</code> ，而<code>startOffset</code> 属性被设置成<code>refNode</code> 在其父节点<code>childNodes</code> 集合中的索引</li></ul><ul id="870ae401-6a97-4dd2-a623-ed3071c776c3" class="bulleted-list"><li style="list-style-type:circle"><code>setStartAfter(refNode)</code> ，把范围的起点设置到<code>refNode</code> 之后，从而让<code>refNode</code> 排除在选区之外，让其下一个同胞节点成为选区的第一个子节点。<code>startContainer</code> 属性被设置成<code>refNode.parentNode</code> ，而<code>startOffset</code> 属性被设置成<code>refNode</code> 在其父节点<code>childNodes</code> 集合中的索引加1</li></ul><ul id="42120167-3116-4b52-9ec0-e1ae8a6a5760" class="bulleted-list"><li style="list-style-type:circle"><code>setEndBefore(refNode)</code> ，把范围的终点设置到<code>refNode</code> 之前，从而让<code>refNode</code> 排除在选区之外，让其上一个同胞节点成为选区的最后一个子节点。<code>endContainer</code> 属性被设置成<code>refNode.parentNode</code> ，而<code>endOffset</code> 属性被设置成<code>refNode</code> 在其父节点<code>childNodes</code> 集合中的索引</li></ul><ul id="a00afcda-4837-4fd2-9b38-bb77f767b903" class="bulleted-list"><li style="list-style-type:circle"><code>setEndAfter(refNode)</code> ，把范围的终点设置到<code>refNode</code> 之后，从而让<code>refNode</code> 称为选区的第一个子节点。<code>endContainer</code> 属性被设置成<code>refNode.parentNode</code> ，而<code>endOffset</code> 属性被设置成<code>refNode</code> 在其父节点<code>childNodes</code> 集合中的索引加1</li></ul><hr id="e7270706-74dc-4401-a6e7-e450a1ad96c6"/><ul id="dba6914a-0b52-45dc-9da8-fb57ee6e7648" class="bulleted-list"><li style="list-style-type:circle">调用上面的方法，所有属性都会自动重写赋值</li></ul></li></ul><h1 id="a7ca2718-6756-46b9-81f7-0c5b0697d9c8" class="">4.3 复杂选择（Complex Selection in DOM Ranges）</h1><ul id="a61f2279-45ea-417b-afd1-a1404e4efa69" class="bulleted-list"><li style="list-style-type:disc">为了实现复杂的选区，可以通过<code>setStart/End</code> 方法直接设置容器节点和偏移量<ul id="016095d4-f62c-488f-a36c-9707900b3928" class="bulleted-list"><li style="list-style-type:circle">容器就节点会成为<code>start/endContainer</code></li></ul><ul id="1b7a6139-ccc5-488b-9e7f-532d4d46e882" class="bulleted-list"><li style="list-style-type:circle">偏移量会成为<code>start/endOffset</code> </li></ul></li></ul><ul id="e9d24fa8-9fba-4514-8f02-00339c6fe27b" class="bulleted-list"><li style="list-style-type:disc">使用这两个方法模拟上面使用<code>selectNode[Contents]</code> 方法的例子<pre id="15fabd60-634a-46a4-8d05-0aa914363c21" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt; world!&lt;/p&gt;
+  &lt;script&gt;
+    const range1 = document.createRange();
+    const range2 = document.createRange();
+    const p = document.querySelector(&quot;p&quot;);
+    range1.setStart(document.body, 1);
+    range1.setEnd(document.body, 2);
+    range2.setStart(p, 0);
+    range2.setEnd(p, p.childNodes.length);
+    console.log(range1);
+    console.log(range2);
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><ul id="0f2bdee7-efe4-40c7-a3ec-876401e27972" class="bulleted-list"><li style="list-style-type:circle">在<a href="4%20%E8%8C%83%E5%9B%B4.html">同样的例子</a>中已经分析过容器节点和偏移量了，所以可以直接赋值，打印结果是一样的</li></ul></li></ul><ul id="0d772d54-d76a-493b-9f12-38fd9f6edda2" class="bulleted-list"><li style="list-style-type:disc">如果想要选择文本节点的一部分，例如选择”llo&lt;/b&gt; wo“,则需要重新确定起始点的容器和偏移量，如下<pre id="618acb11-a366-45f3-97f3-8fe515bace44" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt; world!&lt;/p&gt;
+  &lt;script&gt;
+    const range = document.createRange();
+    const p = document.querySelector(&quot;p&quot;);
+    range.setStart(p.firstElementChild.firstChild, 2);
+    range.setEnd(p.lastChild, 3);
+    console.log(range, range.toString());
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><ul id="4e7b37f9-26d7-478a-98a3-fb7f5a01d845" class="bulleted-list"><li style="list-style-type:circle"><code><strong>p.firstElementChild.firstChild</strong></code><strong> </strong>就是&lt;b&gt;元素下的文本节点，要选择这个文本节点的”llo”部分，偏移量应该是前面字符串的个数，即2</li></ul><ul id="25617d63-13cc-400e-9946-ea1312fcb29b" class="bulleted-list"><li style="list-style-type:circle"><code><strong>p.lastChild</strong></code><strong> </strong>就是<code>p</code>的最后一个文本子节点，要选择” world!”中的” wo”部分，偏移量应该是选择部分的数量，即3</li></ul><ul id="5b912b90-9ebf-4c7e-aa6c-56978db5bb15" class="bulleted-list"><li style="list-style-type:circle"><code>commonAncestorContainer</code> 会被赋值为<code>p</code> ，即两个文本节点的最近公共祖先节点</li></ul><ul id="b029d2c9-5079-4237-850c-92c119966629" class="bulleted-list"><li style="list-style-type:circle">上面的范围选择内容形象图如下<figure id="c7bc41a4-396a-4d93-901a-cfbf4f533a71" class="image"><a href="4%20%E8%8C%83%E5%9B%B4/range.setStart_End.png"><img style="width:900px" src="4%20%E8%8C%83%E5%9B%B4/range.setStart_End.png"/></a></figure></li></ul></li></ul><h1 id="2d70870a-2a35-41b3-8e9a-b80073843899" class="">4.4 操作范围（Interacting with DOM Range Content）</h1><ul id="f99bccf6-0c28-4e5b-a817-28775789d890" class="bulleted-list"><li style="list-style-type:disc">创建范围之后，浏览器会<strong>在内部创建一个文档片段节点</strong>，用于包含范围选区中的节点，为了操作范围中的内容<ul id="549b0bdf-f956-4dad-986a-415949289ed3" class="bulleted-list"><li style="list-style-type:circle">选区中内容必须格式良好，所谓的格式良好就是HTML中的标签成对或是单独的标签</li></ul><ul id="95050da5-c32a-4860-baa5-c7b494570b32" class="bulleted-list"><li style="list-style-type:circle"><a href="4%20%E8%8C%83%E5%9B%B4.html">上面的例子</a>并不是完好的DOM结构（”llo&lt;/b&gt; wo“），无法在DOM中表示</li></ul><ul id="739b1e75-9f8a-4395-ab92-fe19966442fd" class="bulleted-list"><li style="list-style-type:circle">但是<strong>范围能够确定缺失的开始和结束标签</strong>，从而可以重构出有效的DOM结构</li></ul></li></ul><ul id="762d87db-7572-403c-9f93-ff85cbee320d" class="bulleted-list"><li style="list-style-type:disc">仍然以上面的例子来说，范围中发现选区中少一个开始的&lt;b&gt;标签，于是会在后台动态补上这个标签，同时还要补上封闭的”He”的结束标签&lt;/b&gt;，结果会把DOM修改成如下的样子<pre id="fce7387c-cdd2-4d40-ba37-e8b3f0f8add0" class="code code-wrap"><code>&lt;p&gt;&lt;b&gt;He&lt;/b&gt;&lt;b&gt;llo&lt;/b&gt; world!&lt;/p&gt;</code></pre><ul id="6db93ff6-003c-49f9-a5ea-a5735aa19067" class="bulleted-list"><li style="list-style-type:circle">这样<code>Hello</code> 这个文本节点就会被拆分成两个文本节点</li></ul><ul id="30ea1652-f3d8-4756-aef4-0d57f3e484ea" class="bulleted-list"><li style="list-style-type:circle">最终的DOM树和对应的范围如下<figure id="f13155ef-b480-4b3c-83fd-7c5145330eed" class="image"><a href="4%20%E8%8C%83%E5%9B%B4/Document_and_Range.png"><img style="width:1639px" src="4%20%E8%8C%83%E5%9B%B4/Document_and_Range.png"/></a></figure></li></ul></li></ul><ul id="c5aa64fe-4913-4a69-a168-345a10c99c72" class="bulleted-list"><li style="list-style-type:disc">知道了范围内的DOM结构之后，就可以使用很多方法来操作范围的内容了</li></ul><h2 id="8ab4d410-5a73-4664-b634-5a0f82692b34" class="">4.4.1 <code>deleteContents()</code></h2><ul id="9e115cdb-59ac-485b-b668-f6798baa1f75" class="bulleted-list"><li style="list-style-type:disc">容易理解和使用的方法，从文档中删除范围包含的节点</li></ul><ul id="742ec25e-33a5-4f15-a3c5-09605a86397f" class="bulleted-list"><li style="list-style-type:disc">正好可以用这个方法测试<a href="4%20%E8%8C%83%E5%9B%B4.html">但是范围能够确定缺失的开始和结束标签，从而可以重构出有效的DOM结构</a> <pre id="11e53873-bdf9-48ef-a81d-3fc60f6442d0" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt; world!&lt;/p&gt;
+  &lt;script&gt;
+    const range = document.createRange();
+    const p = document.querySelector(&quot;p&quot;);
+    range.setStart(p.firstElementChild.firstChild, 2);
+    range.setEnd(p.lastChild, 3);
+    console.log(range, range.toString());
+    range.deleteContents();
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><figure id="ca44cf94-93e8-45cf-b128-8e75d9438c9d" class="image"><a href="4%20%E8%8C%83%E5%9B%B4/deleteContents.png"><img style="width:227px" src="4%20%E8%8C%83%E5%9B%B4/deleteContents.png"/></a></figure></li></ul><h2 id="2fa2bed1-715b-42ef-8c32-0c4580f003cc" class="">4.4.2 <code>extractContents()</code> </h2><ul id="7276217e-ebc2-4919-85d6-605a453578d1" class="bulleted-list"><li style="list-style-type:disc">和<code>deleteContents()</code> 类似，也会从文档中移除范围中选择的内容，但是会将范围选择的内容返回对应的文档片段<ul id="6b958c55-8e37-47ac-828f-2a54b5fee3e4" class="bulleted-list"><li style="list-style-type:circle">这样就可以把范围中的内容插入到文档中的其它地方</li></ul><ul id="cdd29970-c551-41e3-b15f-e0b52b53a134" class="bulleted-list"><li style="list-style-type:circle">使用后范围的起始点和结束点就会重合到新起始点的位置（即重叠）</li></ul></li></ul><ul id="8dee71e8-f835-4703-9755-787287af3cc7" class="bulleted-list"><li style="list-style-type:disc">一个例子<pre id="821cf66f-13de-4bb2-9e86-279ed3724399" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt; world!&lt;/p&gt;
+  &lt;script&gt;
+    const range = document.createRange();
+    const p = document.querySelector(&quot;p&quot;);
+    range.setStart(p.firstElementChild.firstChild, 2);
+    range.setEnd(p.lastChild, 3);
+    const rangeContents = range.extractContents();
+    console.log(range, range.toString());
+    document.body.appendChild(rangeContents);
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><ul id="cff6bc62-8459-46ed-bf52-edbca86f1b79" class="bulleted-list"><li style="list-style-type:circle">将<code>range</code> 对象中的内容移除，获得对应的文档片段，然后将其添加到&lt;body&gt;中，最终的DOM结构如下<pre id="ae27dd13-e666-40fb-a051-5e3801ce5466" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;&lt;b&gt;He&lt;/b&gt;rld!&lt;/p&gt;
+  &lt;script&gt;...&lt;/script&gt;
+	&lt;b&gt;llo&lt;/b&gt; wo
+&lt;/body&gt;</code></pre></li></ul></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="9955b141-4cf4-4678-a6d4-24deede28165"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：为了<a href="4%20%E8%8C%83%E5%9B%B4.html"><strong>保持DOM结构完好而拆分节点的操作</strong></a>，对于范围而言，<strong>能够确定缺失的开始和结束标签</strong>只有在<strong>调用上述两个方法</strong>时才会发生，在DOM修改前，原始HTML会保持不变</div></figure><h2 id="923f9125-a94d-49cb-971d-ff82103ef573" class="">4.4.3 <code>cloneContents()</code> </h2><ul id="935bb58a-df48-4021-8910-09bc9b308eff" class="bulleted-list"><li style="list-style-type:disc">创建范围中的内容的一个副本，这个副本也是一个文档片段，拥有合范围中内容一样的DOM结构，它和<code>extractContents()</code> 的区别在于返回的文档片段并非实际的节点，而是复制的副本</li></ul><ul id="ab57ec92-3c01-42da-a03f-c3279c7a6d6f" class="bulleted-list"><li style="list-style-type:disc">一个例子<pre id="267cc91f-e962-480f-9ff1-d9ed4060b38e" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt; world!&lt;/p&gt;
+  &lt;script&gt;
+    const range = document.createRange();
+    const p = document.querySelector(&quot;p&quot;);
+    range.setStart(p.firstElementChild.firstChild, 2);
+    range.setEnd(p.lastChild, 3);
+    const rangeContents = range.cloneContents();
+    console.log(range, range.toString());
+    document.body.appendChild(rangeContents);
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><ul id="4a83effb-8b40-4d91-92b9-eb5634c1b931" class="bulleted-list"><li style="list-style-type:circle">范围中内容的原始的DOM结构没有改变，只是body中新增了和范围中内容一样的DOM结构，最终DOM结构如下<pre id="e9a671f1-7b5c-4602-9d12-e9a9a8d3658d" class="code code-wrap"><code>&lt;body&gt;
+    &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt; world!&lt;/p&gt;
+    &lt;script&gt;...&lt;/script&gt;
+		&lt;b&gt;llo&lt;/b&gt; wo
+&lt;/body&gt;</code></pre></li></ul></li></ul><h1 id="c0e3d511-c608-418e-9b70-d8b7fdc9d610" class="">4.5 范围插入（Inserting DOM Range Content）</h1><h2 id="770e6e16-ed1c-4bf8-a061-06cfe1407828" class="">4.5.1 <code>insertNode()</code></h2><ul id="7d1c8c9b-43cc-4f41-a743-82c2e588dd9c" class="bulleted-list"><li style="list-style-type:disc">使用<code>Range.insertNode(node)</code> 方法可以在范围选区的开始位置插入一个节点，继续扩展上面的例子<pre id="658fd709-ed26-4ecc-a0d3-74b55116ee6d" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt; world!&lt;/p&gt;
+  &lt;script&gt;
+    const range = document.createRange();
+    const p = document.querySelector(&quot;p&quot;);
+    range.setStart(p.firstElementChild.firstChild, 2);
+    range.setEnd(p.lastChild, 3);
+    const span = document.createElement(&quot;span&quot;);
+    span.style.color = &quot;red&quot;;
+    span.textContent = &quot;Inserted text&quot;;
+    range.insertNode(span);
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><ul id="3aa617e6-b642-47b7-8099-caaa6000eff8" class="bulleted-list"><li style="list-style-type:circle"><code>span</code> 真好插入到”Hello”中的”llo”之前，也就是范围选区的起始点</li></ul><ul id="a96bdacb-5597-4505-aadd-913f729683f6" class="bulleted-list"><li style="list-style-type:circle">同时元素的HTML并没有添加或删除&lt;b&gt;元素，因为没有使用<a href="4%20%E8%8C%83%E5%9B%B4.html">之前提到的方法</a></li></ul><ul id="88165a2f-3a46-4ce8-9793-e16475f29d28" class="bulleted-list"><li style="list-style-type:circle">最终的DOM结构如下<pre id="bc18d06f-1d3e-422c-b4ab-e504d35f7ace" class="code code-wrap"><code>&lt;body&gt;
+    &lt;p&gt;&lt;b&gt;He&lt;span style=&quot;color: red;&quot;&gt;Inserted text&lt;/span&gt;llo&lt;/b&gt; world!&lt;/p&gt;
+    &lt;script&gt;...&lt;/script&gt;
+&lt;/body&gt;</code></pre></li></ul></li></ul><ul id="76060235-d069-45a8-8500-54506321c04a" class="bulleted-list"><li style="list-style-type:disc">这个方法的应用场景为在外部链接旁边插入一个小图标<figure id="b002ecc6-9698-4b57-905d-325d86dc7bfd" class="image"><a href="4%20%E8%8C%83%E5%9B%B4/Untitled.jpeg"><img style="width:432px" src="4%20%E8%8C%83%E5%9B%B4/Untitled.jpeg"/></a></figure></li></ul><p id="d13a4b1e-b657-493a-8220-642d7d10413f" class="">
+</p><h2 id="5dba2bc2-2960-4be1-a3ed-817791224a11" class="">4.5.2 <code>surroundContents()</code> </h2><ul id="bd3f6438-9717-43ff-b5da-d91d34f6c9ad" class="bulleted-list"><li style="list-style-type:disc"><code>Range.surroundContents(newParent)</code> 将<code>Range</code> 对象选取的内容移动到一个新的节点<code>newParent</code>上，并将这个新节点放到这个范围的起始处，调用这个方法，执行如下操作<ol type="1" id="0bca8749-609b-45c5-9283-7633b674d438" class="numbered-list" start="1"><li>提出范围中的内容</li></ol><ol type="1" id="8661c596-34c3-4c67-8d7a-1a3cd6453a37" class="numbered-list" start="2"><li>在原始文档中范围之前所在的位置插入给定的节点</li></ol><ol type="1" id="5d2ecd24-9ea4-4db8-8973-6f51a6412ca3" class="numbered-list" start="3"><li>将范围对应文档片段的内容添加到给定节点</li></ol></li></ul><ul id="15c483c5-4957-4883-a56d-ef7bb03eedbc" class="bulleted-list"><li style="list-style-type:disc">这个方法适用于在网页上高亮显示某些关键词，如下<pre id="c074dbe7-5e02-4858-ad8b-3c84fd1745f8" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt; world!&lt;/p&gt;
+  &lt;script&gt;
+    const range = document.createRange();
+    const p = document.querySelector(&quot;p&quot;);
+    range.selectNodeContents(p.firstChild);
+    const span = document.createElement(&quot;span&quot;);
+    span.style.background = &quot;yellow&quot;;
+    range.surroundContents(span);
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><ul id="ebd11640-43d0-4abd-8338-a4d51494164d" class="bulleted-list"><li style="list-style-type:circle">DOM结构如下<pre id="69971081-2524-46fc-bcc3-6bd3479c6b0d" class="code code-wrap"><code>&lt;p&gt;&lt;b&gt;&lt;span style=&quot;background: yellow;&quot;&gt;Hello&lt;/span&gt;&lt;/b&gt; world!&lt;/p&gt;</code></pre></li></ul><ul id="46007e43-100f-4ea5-bb09-1b3230ee7a0c" class="bulleted-list"><li style="list-style-type:circle">为了插入&lt;span&gt;元素，范围中必须包含<strong>完整的DOM结构</strong>，如果范围中包含部分选择的非文本节点，这个操作会失败并报错</li></ul></li></ul><h1 id="647e74c7-391e-4745-b90b-243a41566b83" class="">4.6 范围折叠(Collapsing a DOM Range)</h1><ul id="f06d5c13-35eb-41b3-b846-5244e3baa356" class="bulleted-list"><li style="list-style-type:disc">如果范围中没有选择文档的任何部分，则称为<strong>折叠（collapsed）</strong><ul id="ac65f904-05d6-491c-81e7-9f4aa3820167" class="bulleted-list"><li style="list-style-type:circle"><code>AbstractRange</code> 接口定义了一个<code>collapsed</code> 属性表示范围是否折叠</li></ul><ul id="3b92bfce-0e2e-4d5f-94b5-7d0da29a55df" class="bulleted-list"><li style="list-style-type:circle">对范围而言，折叠后的起始和结束位置即可以落在起始点，也可以落在结束点，如下<figure id="0600d331-78f9-44fe-ae73-15d9420abab0" class="image"><a href="4%20%E8%8C%83%E5%9B%B4/Collapsed.png"><img style="width:720px" src="4%20%E8%8C%83%E5%9B%B4/Collapsed.png"/></a></figure></li></ul></li></ul><ul id="cd80d3e6-b03d-414e-8d6d-01029b6ff75d" class="bulleted-list"><li style="list-style-type:disc">折叠范围使用<code>collapse()</code> 方法，这个方法接收一个参数：布尔值，表示折叠到范围的哪一端<ul id="45b02110-1e1c-448d-80df-b1c649a70cf5" class="bulleted-list"><li style="list-style-type:circle"><code>true</code> 表示折叠到起点</li></ul><ul id="03fcb3ce-0235-4ac0-9c42-ca5bb69c1935" class="bulleted-list"><li style="list-style-type:circle"><code>false</code> 表示折叠到终点</li></ul><pre id="4c67d809-62e1-4d8a-b0dc-63a22c04417f" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt; world!&lt;/p&gt;
+  &lt;script&gt;
+    const range = document.createRange();
+    const p = document.querySelector(&quot;p&quot;);
+    range.setStart(p.firstElementChild.firstChild, 2);
+    range.setEnd(p.lastChild, 3);
+    console.log(range.collapsed); // false
+    console.log(range.collapse()); // undefined
+    console.log(range.collapsed); // true
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre></li></ul><ul id="b9d7a860-dd83-4b75-8684-08f6b9a42e33" class="bulleted-list"><li style="list-style-type:disc"><code>collapsed</code> 属性除了可以表明范围是否被折叠外，还可以结合范围的边界关系判断两个节点是否是邻居节点<ul id="6339ec31-a065-479f-b9bf-cbb35e32dba1" class="bulleted-list"><li style="list-style-type:circle">具体操作就是获取两个节点的左右边界，两个节点的相对的左右边界作为范围的起始和结束点，如果其中一个范围是折叠的，那么这两个节点为邻居节点</li></ul><pre id="cc26712c-06ea-45dc-a23a-2272ac002dc7" class="code code-wrap"><code>&lt;body&gt;
+    &lt;p id=&quot;p1&quot;&gt;Hello&lt;/p&gt;&lt;p id=&quot;p2&quot;&gt;world&lt;/p&gt;
+&lt;/body&gt;
+&lt;script&gt;
+  const p1 = document.querySelector(&quot;#p1&quot;);
+  const p2 = document.querySelector(&quot;#p2&quot;);
+  const range1 = document.createRange();
+  const range2 = document.createRange();
+  range1.setStartAfter(p1);
+  range1.setEndBefore(p2);
+	range2.setStartBefore(p1);
+  range2.setEndAfter(p2);
+  if (range1.collapsed || range2.collapsed) {
+    console.log(&quot;p1和p2相邻&quot;); // p1和p2相邻
+  }
+&lt;/script&gt;</code></pre></li></ul><h1 id="6536b907-435f-4b5b-bc9e-47039fd99cfb" class="">4.7 范围比较(Comparing DOM Ranges)</h1><ul id="572fc0c9-7e2f-4163-ac44-67cf2e376daa" class="bulleted-list"><li style="list-style-type:disc">比较范围之间是否存在公共的边界（起点或终点）可以使用<code>compareBoundaryPoints(how, sourceRange)</code> 方法，它接收两个参数<ul id="10362150-2e99-4d8b-af0f-1fe5cce06888" class="bulleted-list"><li style="list-style-type:circle"><code>how</code> ：比较的方式，是一个常量值，<code>Range</code> 接口定义了种常量值对应4种比较方式<ul id="2c09aa04-4c45-4a27-b35b-d28e1b17549b" class="bulleted-list"><li style="list-style-type:square"><code>Range.START_TO_START</code> : 0，比较两个范围（调用者和<code>sourceRange</code>）的起始点</li></ul><ul id="435bb3c6-957a-4d75-887d-4c565987066b" class="bulleted-list"><li style="list-style-type:square"><code>Range.START_TO_END</code> : 1，比较<code>sourceRange</code> 的起始点和调用者的结束点</li></ul><ul id="0e3793d9-8877-4ae8-91f8-ee48bd5511f5" class="bulleted-list"><li style="list-style-type:square"><code>Range.END_TO_END</code> : 2，比较两个范围（调用者和<code>sourceRange</code>）的结束点</li></ul><ul id="d979513a-02c4-4d98-8174-5a7a35fa5454" class="bulleted-list"><li style="list-style-type:square"><code>Range.END_TO_START</code> : 3，比较<code>sourceRange</code> 的结束点和调用者的起始点</li></ul></li></ul><ul id="13081eb3-01bc-41c5-8d80-1b8e8de409f8" class="bulleted-list"><li style="list-style-type:circle"><code>sourceRange</code> ：被比较的范围</li></ul><ul id="a4e6dc38-36d5-4126-8630-b9bf41b07219" class="bulleted-list"><li style="list-style-type:circle">返回值，一个数字，可以是-1，0，1分别表示之前，等于，之后<ul id="fef1de8e-c99c-47cd-bc3a-c5e80b2f00f4" class="bulleted-list"><li style="list-style-type:square">-1：调用者的边界在<code>sourceRange</code> 之前</li></ul><ul id="8b9ed669-9d68-4777-9ac0-7ba3bbfac466" class="bulleted-list"><li style="list-style-type:square">0：调用者的边界和<code>sourceRange</code> 相同</li></ul><ul id="a4b5e63c-6f99-4a74-886a-264fddf2e71d" class="bulleted-list"><li style="list-style-type:square">1：调用者的边界在<code>sourceRange</code> 之后</li></ul></li></ul></li></ul><ul id="30556901-0d03-422c-8625-ad226d732657" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="34474dbe-1e40-49ce-a940-116da0b2e7b2" class="code code-wrap"><code>&lt;body&gt;
+  &lt;p&gt;&lt;b&gt;Hello&lt;/b&gt; world!&lt;/p&gt;
+  &lt;script&gt;
+    const range1 = document.createRange();
+    const range2 = document.createRange();
+    const p = document.querySelector(&quot;p&quot;);
+    range1.selectNodeContents(p);
+    range2.selectNode(p.firstElementChild);
+    console.log(range1.compareBoundaryPoints(Range.START_TO_START, range2)); // 0
+    console.log(range1.compareBoundaryPoints(Range.END_TO_END, range2)); // 1
+    console.log(range1.compareBoundaryPoints(Range.END_TO_START, range2)); // -1 
+		// range2的end和range1的start比
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><figure id="08d2b057-05d4-4a9a-98f7-a770a8a93317" class="image"><a href="4%20%E8%8C%83%E5%9B%B4/Range.compareBoundaryPoints.png"><img style="width:900px" src="4%20%E8%8C%83%E5%9B%B4/Range.compareBoundaryPoints.png"/></a></figure></li></ul><h1 id="19045a7a-72e7-4e15-bcd2-fe7dacbe2eaa" class="">4.8 复制范围(Cloning DOM Ranges)</h1><ul id="87fb7f21-8ca4-414e-86e7-122ed1451ebc" class="bulleted-list"><li style="list-style-type:disc">调用范围的<code>cloneRange()</code>方法可以复制范围，这个方法会创建调用它的范围的副本<pre id="9ab2339a-0ee1-44e0-a1a7-d8e8c2ca9cd3" class="code code-wrap"><code>let rangeCopy = range.cloneRange();</code></pre></li></ul><ul id="03217ab2-c899-42e5-b648-cc887a98722d" class="bulleted-list"><li style="list-style-type:disc">新范围包含与原始范围一样的属性，修改其边界点不会影响原始范围</li></ul><h1 id="29167558-e292-4ece-a65e-e25f308d6132" class="">🚫4.9 清理(Cleanup)</h1><ul id="f57cee08-262a-4d75-952d-76cc3d051b8d" class="bulleted-list"><li style="list-style-type:disc">在使用完范围后，最好调用<code>detach()</code> 方法把范围从创建它的文档剥离，调用完<code>detach()</code> 后，就可以放解除对范围的引用，以便垃圾回收程序释放它所占用的内存，如下<pre id="3729da49-9868-44ae-b293-74c66d1e2389" class="code code-wrap"><code>range.detach();
+range = null;</code></pre></li></ul><ul id="d88e44d4-55c3-4bd2-a266-ecab6d5ebb83" class="bulleted-list"><li style="list-style-type:disc">注意，在过去的语境中<code>detach()</code> 还是有用的，所以《JavaScript高级程序设计（第4版）》会有如上的说法，但是目前（2023年2月3日），执行改方法<a href="https://dom.spec.whatwg.org/#dom-range-detach">不会执行任何操作</a><p id="55975165-6e4a-49a0-bf63-501fd8c7e3e3" class=""><a href="4%20%E8%8C%83%E5%9B%B4.html">detach() ，detach 有分离，脱离之意，原本是用来无效化范围的，现在已经移除这个方法的功能，仅为了保存兼容性而留存，调用它不会执行任何操作</a> </p></li></ul><p id="557c90af-eef8-4916-915b-87acda0b58b7" class="">
+</p></div></div><p id="33b8d485-1bcc-4957-9599-16e6b01f0c37" class="">
+</p></div></article></body></html>

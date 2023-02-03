@@ -1,0 +1,857 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>4. Map</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1e4990a5-c2b8-4862-b69b-aefd21c7d701" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/gradients_10.jpg" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🔮</span></div><h1 class="page-title">4. Map</h1></header><div class="page-body"><div id="da2bb825-def3-4c5a-975d-2b13875cfc02" class="column-list"><div id="716d9781-9a0f-4295-a67a-94ef2e9deed8" style="width:18.75%" class="column"><nav id="08de94d1-23b9-4996-ba72-fd62bfa737ba" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#25c5bcd3-c6bf-403c-967f-0af99a3fe5af">4.1 Map类型的基本API</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#90384dcd-e083-47ef-bb4f-0061901f8186">4.1.1 创建映射</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#cfafd816-fdcf-42cf-a0d1-91df5a6ee6ab">4.1.2 <code>Map.prototype.set()</code> </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a8ac5bf8-64d5-4fdc-9d50-895936064419">4.1.3 <code>Map.prototype.has()</code> </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e9fc6a0d-2fde-476c-a652-b24fab2f0473">4.1.4 <code>Map.prototype.get()</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f188e6f8-9d31-4346-8abf-1f838f5b370e">4.1.5 删除API</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ba284027-460f-4726-afe6-7309a0a10589">4.1.5.1 <code>Map.prototype.delete()</code></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#499d4b05-28ef-48b8-b4db-2be230364e05">4.1.5.2 <code>Map.prototype.clear()</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2942911d-5556-4f70-9054-afe9032fc219">4.1.6 <code>Map.prototype.size</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a9c2aac7-5d76-4801-b956-72e8502a26ae">4.1.7 技巧</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b4e7a1b6-ad83-4814-97be-69bad2d989fc">4.2 顺序与迭代</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c8eb6a7f-2c71-49bf-a463-2d02811e0772">4.2.1 迭代顺序</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d865dc02-d765-4098-8f3a-0d6dc168f7d1">4.2.2 <code>Map.prototype.entries()</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#165e6dce-6d01-4960-a650-ef0beeb41607">4.2.3 <code>Map.prototype.keys()/Map.prototype.values()</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#768807ce-980e-41b0-8ba5-3b758674db21">4.2.4 <code>Map.prototype.forEach()</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a1c8f24a-4b89-49f7-875e-8cba62411aab">4.2.5 技巧</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7e3dddfc-c1f3-407a-b641-1cdd36acc99e">4.3 Object和Map比较</a></div></nav><p id="e0245b14-62b4-4c7d-84d7-73834988e1c4" class="">
+</p></div><div id="7ddf1a45-d8b4-43d0-bfe0-5dfbd8d5fce8" style="width:81.25%" class="column"><h1 id="25c5bcd3-c6bf-403c-967f-0af99a3fe5af" class="">4.1 Map类型的基本API</h1><h2 id="90384dcd-e083-47ef-bb4f-0061901f8186" class="">4.1.1 创建映射</h2><ul id="80952881-ed67-48a6-8873-e61de1bc46ed" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="02ccfce0-f958-4328-8452-bb5fb7040fa7" class="code code-wrap"><code>const m = new Map([iterator])</code></pre></li></ul><ul id="f88bc7e1-ce1e-4457-8248-337bb99a2b23" class="bulleted-list"><li style="list-style-type:disc">参数<ul id="46f89d73-2843-4ab1-b11b-6cf30d7523d8" class="bulleted-list"><li style="list-style-type:circle">iterator：可选，是一个可迭代对象；如果不传入，就创建一个空映射；如果传入，就是在创建时同时初始化映射实例；可迭代对象包含<strong>键值对数组</strong></li></ul></li></ul><ul id="ce4db8af-c9c7-45d0-874a-97ed3c51220f" class="bulleted-list"><li style="list-style-type:disc">返回值<ul id="7e102fa3-7268-4453-ac0f-1d043c14715e" class="bulleted-list"><li style="list-style-type:circle">一个键值对映射对象</li></ul></li></ul><ul id="f732cf9d-381c-48aa-842a-f528cc57295c" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="137e0880-7e8d-4c78-b8a4-d40a43bba95a" class="code code-wrap"><code>const m0 = new Map();
+const m1 = new Map([
+  [&quot;key1&quot;, &quot;value1&quot;],
+  [&quot;key2&quot;, &quot;value2&quot;],
+]);
+const m2 = new Map({
+  [Symbol.iterator]: function* () {
+    yield [&quot;k1&quot;, &quot;v1&quot;];
+    yield [&quot;k2&quot;, &quot;v2&quot;];
+    yield [&quot;k3&quot;, &quot;v3&quot;];
+  },
+});
+console.log(m0);
+console.log(m1);
+console.log(m2);
+// 打印结果
+Map(0) {}
+Map(2) { &#x27;key1&#x27; =&gt; &#x27;value1&#x27;, &#x27;key2&#x27; =&gt; &#x27;value2&#x27; }
+Map(3) { &#x27;k1&#x27; =&gt; &#x27;v1&#x27;, &#x27;k2&#x27; =&gt; &#x27;v2&#x27;, &#x27;k3&#x27; =&gt; &#x27;v3&#x27; }</code></pre><ul id="1051601d-544a-4713-ac10-3bdb67724804" class="bulleted-list"><li style="list-style-type:circle">如果传入的可迭代对象的迭代不是<strong>键值对数组形式</strong>，会因此报错<ul id="f34f6003-5b18-43a9-b175-1f483738849f" class="bulleted-list"><li style="list-style-type:square">只要保证迭代对象产生的是数组即可，不用强制要求是长度为2的数组</li></ul></li></ul><ul id="d8cacd1c-8968-4920-aa58-20f1696dee01" class="bulleted-list"><li style="list-style-type:circle">一些非寻常的但不会报错的构造方式如下<pre id="f46a6f76-11bf-4979-b7ae-a96d264a379f" class="code code-wrap"><code>const m3 = new Map([
+  [&quot;key1&quot;, &quot;value1&quot;, 2],
+  [&quot;key2&quot;, &quot;value2&quot;, 1],
+]);
+console.log(m3);
+
+const m4 = new Map([[&quot;key1&quot;], [&quot;key2&quot;]]);
+console.log(m4);
+
+const m5 = new Map([[,], []]);
+console.log(m5);
+// 打印
+Map(2) { &#x27;key1&#x27; =&gt; &#x27;value1&#x27;, &#x27;key2&#x27; =&gt; &#x27;value2&#x27; }
+Map(2) { &#x27;key1&#x27; =&gt; undefined, &#x27;key2&#x27; =&gt; undefined }
+Map(1) { undefined =&gt; undefined }</code></pre><ul id="f91f6218-f8d4-4d6a-981a-eec9149a702c" class="bulleted-list"><li style="list-style-type:square">这说明键值对可以是空数组，且参数容许有重复键值对（但构造时只会保留一个）</li></ul></li></ul></li></ul><h2 id="cfafd816-fdcf-42cf-a0d1-91df5a6ee6ab" class="">4.1.2 <code>Map.prototype.set()</code> </h2><ul id="6d6d3061-01e2-4564-90d9-a43979a93b78" class="bulleted-list"><li style="list-style-type:disc">在初始化后，可以使用<code>set()</code> 方法新增或修改键值对</li></ul><ul id="3ae858c3-f848-4c32-8607-fe01bad9e4ed" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="ffc40090-df9a-48fd-a784-54ba6f09e984" class="code code-wrap"><code>map.set(key, val);</code></pre><ul id="e7e884fe-c7b8-4910-ab97-64d7676786c6" class="bulleted-list"><li style="list-style-type:circle">参数</li></ul><ul id="a20eac5e-d76f-419a-8585-c78f9b44d720" class="bulleted-list"><li style="list-style-type:circle"><code>key</code> : 键</li></ul><ul id="d32e9f40-9561-494d-8b85-45fd9992ffc0" class="bulleted-list"><li style="list-style-type:circle"><code>val</code> ：值</li></ul><ul id="2c22bc7b-4aa4-48b5-b59c-3816448a8a31" class="bulleted-list"><li style="list-style-type:circle">返回值：原始映射（键值对被更新）</li></ul></li></ul><ul id="1cabd7aa-5736-4a14-9150-256462d5aa9c" class="bulleted-list"><li style="list-style-type:disc">时间复杂度<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span>.</li></ul><ul id="11390a31-d5fd-486c-b06f-e6e70d1f3073" class="bulleted-list"><li style="list-style-type:disc">更新规则：如果map中已存在这个键，就更新值为set的给定值；如果map中不存在这个键，就新增键值对</li></ul><ul id="b180896d-21e0-40b5-87a7-b05552b19649" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="1c048589-6a7c-4824-ab50-adda84c91e05" class="code code-wrap"><code>const map = new Map();
+console.log(map.set(+0, 3)); // 新增
+console.log(map.set(-0, -3)); // 修改
+console.log(map.set(NaN, &quot;NaN&quot;)); // 新增
+console.log(map.set(NaN, &quot;nan&quot;)); // 修改
+// 打印
+Map(1) { 0 =&gt; 3 }
+Map(1) { 0 =&gt; -3 }
+Map(2) { 0 =&gt; -3, NaN =&gt; &#x27;NaN&#x27; }
+Map(2) { 0 =&gt; -3, NaN =&gt; &#x27;nan&#x27; }</code></pre></li></ul><ul id="ff477538-c8b2-47bc-83e0-7fe6afb5bdab" class="bulleted-list"><li style="list-style-type:disc">通过例子可以得知，映射判断键是否存在的比较算法不是严格相等</li></ul><ul id="222e81e0-e204-44c6-9bdf-4a665b40c8d0" class="bulleted-list"><li style="list-style-type:disc">因为NaN可以被识别，而+0和-0不被区分，所以是<strong>同值零比较</strong>，更多查看<strong><a href="https://www.notion.so/8563d63d3f8c41cb86a8d5c61b1a9004">同值零比较 </a></strong><strong> </strong></li></ul><h2 id="a8ac5bf8-64d5-4fdc-9d50-895936064419" class="">4.1.3 <code>Map.prototype.has()</code> </h2><ul id="c373a404-8d38-41f6-bda0-1dcf56579f4b" class="bulleted-list"><li style="list-style-type:disc">用于判断映射中是否存在参数给的键，存在判断使用<strong>同值零比较</strong></li></ul><ul id="99f29a32-38e9-4073-abcf-52ded551d6ad" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="6c1ea843-a754-406b-84fd-e180ae11293f" class="code code-wrap"><code>map.has(key)</code></pre><ul id="1f98165f-a7e8-438e-b7aa-d135f21f5826" class="bulleted-list"><li style="list-style-type:circle">参数key：键，可以是任意类型的实例</li></ul><ul id="a0e3e191-e5e2-4451-a2c9-0e442ba5af54" class="bulleted-list"><li style="list-style-type:circle">返回值：使用同值零判断是否存在键，存在就返回true，不存在就返回false</li></ul></li></ul><ul id="8809a584-f2fa-466a-93ba-805dac684642" class="bulleted-list"><li style="list-style-type:disc">时间复杂度<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span>.</li></ul><ul id="de3580d5-eed6-47d4-a087-be13f5841019" class="bulleted-list"><li style="list-style-type:disc">例子，使用上面创建的map<pre id="2b766979-eba0-4588-bf92-25d442c3a5d2" class="code code-wrap"><code>// 判断键 has
+console.log(map.has(0n)); // false
+console.log(map.has(NaN)); // true</code></pre><ul id="6eef4a4b-3a3b-4248-b025-7e521c65b376" class="bulleted-list"><li style="list-style-type:circle"><code>0n</code> 是<code>BigInt</code> 类型大整数类型，与<code>number</code> 不同，所以返回false</li></ul><ul id="d8bb74d9-14bf-4f9a-bef9-affa3541cce1" class="bulleted-list"><li style="list-style-type:circle">同值零比较<code>NaN</code> 与<code>NaN</code>等同</li></ul></li></ul><h2 id="e9fc6a0d-2fde-476c-a652-b24fab2f0473" class="">4.1.4 <code>Map.prototype.get()</code></h2><ul id="89bfb78c-99fd-46fa-9aba-f1e6bc1f5a66" class="bulleted-list"><li style="list-style-type:disc">用于获取映射中某一个键值</li></ul><ul id="fb7a49b5-232d-496d-b20e-b1d0572c2199" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="cd0ff73e-8527-4588-96f3-36d713aec075" class="code code-wrap"><code>map.get(key)</code></pre><ul id="4a8c5c5e-f292-428e-8a43-034bfe21aeb2" class="bulleted-list"><li style="list-style-type:circle">参数key：键，可以是任意类型的实例</li></ul><ul id="e5ee61e2-feb4-44ce-968d-493295a776d3" class="bulleted-list"><li style="list-style-type:circle">返回值：键值，如果不存在就返回<code>undefined</code></li></ul></li></ul><ul id="76858f4c-4f36-43dc-84ab-1d0bb6913670" class="bulleted-list"><li style="list-style-type:disc">时间复杂度<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span>.</li></ul><ul id="3b127aa0-fd8d-4b1f-88ce-c6245a5b8952" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="7f2a476b-9d21-4202-acfb-519a41070702" class="code code-wrap"><code>// 获取键 get
+const map2 = new Map([[&quot;key&quot;], [&quot;key1&quot;, &quot;value1&quot;], []]);
+console.log(map2);
+console.log(map2.get(&quot;key&quot;));
+console.log(map2.get(&quot;key1&quot;));
+console.log(map2.get(&quot;k&quot;));
+console.log(map2.get());
+console.log(map2.has());
+// 打印结果
+Map(3) {
+  &#x27;key&#x27; =&gt; undefined,
+  &#x27;key1&#x27; =&gt; &#x27;value1&#x27;,
+  undefined =&gt; undefined
+}
+undefined
+value1
+undefined
+undefined
+true</code></pre><ul id="aac4f603-c904-4e38-9222-d8b7340250e2" class="bulleted-list"><li style="list-style-type:circle">通过这个例子可以得出一个重要结论：<code>get()</code> 不能用于判断映射中是否含有某一键</li></ul><ul id="d11b0a04-e64f-4b8a-bf2c-8cc6bf18c6ce" class="bulleted-list"><li style="list-style-type:circle">因为键和键值都可以是<code>undefined</code> </li></ul><ul id="902e35a2-f5d7-49ad-911e-26a517ade6bf" class="bulleted-list"><li style="list-style-type:circle">如果<code>get()</code>和<code>has()</code> 不传递参数，默认查询的是映射中<code>undefined</code> 作为键的情况</li></ul></li></ul><h2 id="f188e6f8-9d31-4346-8abf-1f838f5b370e" class="">4.1.5 删除API</h2><ul id="9b45ec18-4a5a-4694-9baf-25f1ebe95970" class="bulleted-list"><li style="list-style-type:disc">删除键值对有两个API，分别删除单个和删除所有键值对</li></ul><h3 id="ba284027-460f-4726-afe6-7309a0a10589" class="">4.1.5.1 <code>Map.prototype.delete()</code></h3><ul id="fefd914f-13e3-466b-878a-4b3cb2b86318" class="bulleted-list"><li style="list-style-type:disc">删除单个单个键值对</li></ul><ul id="4569230f-5535-474b-9c45-48c7e9e9d939" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="472e99b1-3bb7-4b13-860d-6e67034825b1" class="code code-wrap"><code>map.delete(key);</code></pre><ul id="6343bd11-5dc5-47a2-a12c-fe9c9ab7d5f6" class="bulleted-list"><li style="list-style-type:circle">参数key: 键值</li></ul><ul id="f5a6ab56-4f48-4a64-9f18-df46d6660551" class="bulleted-list"><li style="list-style-type:circle">返回值:布尔值，如果映射中存在该键，则删除键值对，返回true；否则返回false</li></ul></li></ul><ul id="b18d667a-aa4a-4965-89e8-2838fb590c18" class="bulleted-list"><li style="list-style-type:disc">例子，使用上面例子的映射<pre id="fd5bb1e8-5012-4197-8e12-9cc0163c1884" class="code code-wrap"><code>// 删除单个
+console.log(map2.delete()); // true 
+console.log(map2); // Map(2) { &#x27;key&#x27; =&gt; undefined, &#x27;key1&#x27; =&gt; &#x27;value1&#x27; }</code></pre><ul id="5f2e11b0-dda4-481e-87fd-61299e7608bd" class="bulleted-list"><li style="list-style-type:circle">不传递参数默认删除<code>undefined</code> 作为键的键值对</li></ul></li></ul><h3 id="499d4b05-28ef-48b8-b4db-2be230364e05" class="">4.1.5.2 <code>Map.prototype.clear()</code></h3><ul id="55058d7a-1ed0-45ac-9fc7-b7ea8f3cd373" class="bulleted-list"><li style="list-style-type:disc">删除映射中的所有键值对</li></ul><ul id="3d808ac3-c098-4968-9468-3388c85a0d93" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="38d4cc63-08a8-4fe2-89ef-69bba4066794" class="code code-wrap"><code>map.clear()</code></pre><ul id="beaac7ce-8c7b-4737-8431-8e24da497644" class="bulleted-list"><li style="list-style-type:circle">返回值 undefined</li></ul></li></ul><ul id="4910e1fc-6ae9-48b6-b516-e6177736a685" class="bulleted-list"><li style="list-style-type:disc">例子 使用上面的例子的<code>map2</code><pre id="441e39ed-5d87-432e-b811-9e43525aa7e5" class="code code-wrap"><code>map2.clear();
+console.log(map2); // Map(0) {}</code></pre></li></ul><h2 id="2942911d-5556-4f70-9054-afe9032fc219" class="">4.1.6 <code>Map.prototype.size</code></h2><ul id="bed6b8eb-7181-4a03-955b-fa132035b852" class="bulleted-list"><li style="list-style-type:disc">实例属性，只读，返回映射的键值对个数</li></ul><h2 id="a9c2aac7-5d76-4801-b956-72e8502a26ae" class="">4.1.7 技巧</h2><ol type="1" id="dbe901ca-d598-4feb-bac8-1c9277f97e3c" class="numbered-list" start="1"><li>因为<code>set()</code> 在被使用后返回原映射，所以可以将多个set连续起来操作到达批量增加键值对的功能，包括初始化声明<pre id="ec1cac83-c4d2-487f-923d-155119c75845" class="code code-wrap"><code>const map3 = new Map().set(1, 2).set(3, 4); 
+console.log(map3); // Map(2) { 1 =&gt; 2, 3 =&gt; 4 }
+map3.set(5, 6).set(7, 8).set(9, 10);
+console.log(map3); // Map(5) { 1 =&gt; 2, 3 =&gt; 4, 5 =&gt; 6, 7 =&gt; 8, 9 =&gt; 10 }</code></pre></li></ol><ol type="1" id="2d967998-07bd-49be-b661-41113fccfe7f" class="numbered-list" start="2"><li><code>Map</code>中的键和值可以使用JavaScript中的任何类型实例，这点与<code>Object</code> 的键只能使用数值、字符串、符号不同<pre id="3e18cb2d-f6e7-4b55-b714-89d01f67a23e" class="code code-wrap"><code>console.log(
+  new Map()
+    .set(Symbol.iterator, function* () {
+      yield 1;
+      yield 2;
+    })
+    .set(function getName() {
+      return &quot;mangwu&quot;;
+    }, &quot;functionValue&quot;)
+    .set(new Set([1, 2]), new Date())
+);
+// 打印
+Map(3) {
+  Symbol(Symbol.iterator) =&gt; [GeneratorFunction (anonymous)],
+  [Function: getName] =&gt; &#x27;functionValue&#x27;,
+  Set(2) { 1, 2 } =&gt; 2022-08-30T09:08:12.421Z
+}</code></pre><ul id="58cd47ae-f308-4449-98c8-60c857c283c9" class="bulleted-list"><li style="list-style-type:disc"><code>Set</code> 是后面要介绍的一种集合类型</li></ul></li></ol><ol type="1" id="6b669c9b-6174-42e0-b180-7c000748c981" class="numbered-list" start="3"><li>SameValueZero比较使得+0和-0一致，NaN等同；同时作为键或值的对象而言，它们被修改不影响<code>get()</code>, <code>set()</code>, <code>has()</code> 的判断和使用，因为实质的引用值未变，只是引用值指向的对象被改变了<pre id="c0e1fd1f-d269-49a1-b2d7-33c8fc877908" class="code code-wrap"><code>const date = new Date();
+const arr = [1, 2];
+const map4 = new Map().set(date, arr);
+console.log(map4);
+// Map(1) { 2022-08-30T09:23:26.485Z =&gt; [ 1, 2 ] } 
+date.setTime(Date.parse(&quot;2022-08-30 12:00:22.456 GMT+0800&quot;))
+arr.push(3)
+console.log(map4.get(date));
+// [1,2,3]</code></pre><ul id="2cdb7cd7-6dd3-4e84-8530-86cfea4baa09" class="bulleted-list"><li style="list-style-type:disc">可以看到无论<code>date</code>表示的时间如何变化，只要<code>date</code>这个引用值不变，不会影响到<code>get()</code> 的使用</li></ul><ul id="e8fe0c6f-8471-47a3-807c-eff8b1d1ddba" class="bulleted-list"><li style="list-style-type:disc">同时打印出的<code>arr</code> 仍然是原来的数组，只是<code>arr</code>指向的数组对象新增了一个元素</li></ul></li></ol><h1 id="b4e7a1b6-ad83-4814-97be-69bad2d989fc" class="">4.2 顺序与迭代</h1><ul id="b0101014-204f-4229-994d-2bde44333aff" class="bulleted-list"><li style="list-style-type:disc"><code>Map</code> 有三个方法获取迭代器对象<ul id="c9d3e4ac-1973-48b5-bc40-3dfa089e04e8" class="bulleted-list"><li style="list-style-type:circle"><code>Map.prototype.entries()</code></li></ul><ul id="2c36b9cb-2286-44ea-847c-5669e3fa5891" class="bulleted-list"><li style="list-style-type:circle"><code>Map.prototype.keys()</code></li></ul><ul id="8b0d5b93-fb07-460c-8b71-1704b60a2abe" class="bulleted-list"><li style="list-style-type:circle"><code>Map.prototype.values()</code></li></ul></li></ul><ul id="13c6ce70-d11e-4a3e-988d-f18a81e59f6b" class="bulleted-list"><li style="list-style-type:disc"><code>Map</code>有一个符号属性是迭代生成器对象<ul id="02e8f197-11df-45cc-a6eb-b4fcddff9d37" class="bulleted-list"><li style="list-style-type:circle"><code>Map.prototype[Symbol.iterator]</code></li></ul></li></ul><h2 id="c8eb6a7f-2c71-49bf-a463-2d02811e0772" class="">4.2.1 迭代顺序</h2><ul id="2a1b38b3-fc1f-4c0f-825b-568a4df1ca05" class="bulleted-list"><li style="list-style-type:disc">在讨论迭代API前，先考虑一下映射迭代对象中每个键值对的顺序问题</li></ul><ul id="1ea8941a-1feb-408a-9e69-93171ca79030" class="bulleted-list"><li style="list-style-type:disc">与<code>Object</code>不同的是，<code>Map</code>实例会维护键值对的插入顺序，而Object中键值对的迭代顺序和浏览器的实现有关系，一般而言<ul id="5f1771a2-82dc-4e7c-a4e4-048655c53377" class="bulleted-list"><li style="list-style-type:circle"><code><strong>Map</strong></code>实例的迭代顺序就是键值对的插入顺序，先插入的先出，后插入的后被遍历；修改值不会影响迭代顺序，只有删除对应键值对后，重新插入相同键值对，该键值对才会拥有重新的插入顺序</li></ul><ul id="0d9a6245-bc54-40ac-96ac-cadcca91edb2" class="bulleted-list"><li style="list-style-type:circle"><code>Object</code> 遍历顺序在浏览器中的实现各不相同，在node环境下的顺序如下：<code>for…in</code> 只遍历字符串和数字属性，数字属性优先遍历，且按照转换成字符串的字典顺序从小到大排序；然后遍历字符串属性，按照声明的顺序进行遍历（这点和<code>Map</code>实例类型）</li></ul></li></ul><ul id="6c02f384-db82-4f26-b7c2-646e3b959df8" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="2cecf209-fcd2-45d0-a7c5-8ab85aaf5e20" class="code"><code>const obj = {
+  get() {
+    return 1;
+  },
+  [Symbol.isConcatSpreadable]: false,
+  jh: 1,
+  k: 1,
+  b: 2,
+  12: 7,
+  1: 5,
+  0: 6,
+  3: 2,
+  toString() {
+    return 1;
+  },
+  [Symbol.iterator]: function* () {
+    yield 1;
+    yield 2;
+  },
+};
+obj[&quot;new&quot;] = &quot;new&quot;;
+obj.jh = &quot;modify&quot;;
+for (const key in obj) {
+  console.log(key);
+}
+const map = new Map().set(&quot;a&quot;, 1).set(&quot;b&quot;, 2).set(&quot;c&quot;, 3).set(&quot;d&quot;, 4);
+for (const [key, val] of map) {
+  console.log(key, val);
+}
+map.set(&quot;c&quot;, &quot;c3&quot;);
+map.delete(&quot;b&quot;);
+map.set(&quot;b&quot;, &quot;b3&quot;);
+for (const [key, val] of map) {
+  console.log(key, val);
+}
+// 打印结果
+0
+1
+3
+12
+get
+jh
+k
+b
+toString
+new
+a 1
+b 2
+c 3
+d 4
+a 1
+c c3
+d 4
+b b3</code></pre><ul id="592e19d1-4cd3-4db9-a8c7-92a14f727885" class="bulleted-list"><li style="list-style-type:circle">对于对象，遵循先数字后字符串原则，数字按照字典排序后遍历，字符串按照声明顺序遍历</li></ul><ul id="93e0bb3f-e057-4e18-ba41-1b58653f1f76" class="bulleted-list"><li style="list-style-type:circle">对于<code>Map</code>实例，按照插入顺序遍历，如初始的<code>a b c d</code> ，后来修改了<code>c</code>的值，但不会影响顺序，然后删除<code>b</code> 后重新插入<code>b</code> 导致<code>b</code>的插入顺序在最后，所以遍历顺序变为了<code>a c d b</code></li></ul></li></ul><h2 id="d865dc02-d765-4098-8f3a-0d6dc168f7d1" class="">4.2.2 <code>Map.prototype.entries()</code></h2><ul id="7465f7b6-0348-48a8-90ad-6327c18d80f0" class="bulleted-list"><li style="list-style-type:disc">和<code>Array</code> ，定型数组的api类似，都返回一个迭代器对象，该迭代器对象包括以<code>[key, value]</code> 形式数组</li></ul><ul id="d028956b-1ae7-499e-b06e-ddeb3d7a9a75" class="bulleted-list"><li style="list-style-type:disc">需要注意的是<code>Map.prototype[Symbol.iterator]()</code> 符号属性同样可以返回一个迭代器对象，且功能相同，因为符号属性<code>@@iterator</code>和<code>entries</code> 属性指向<strong>同一个迭代生成器方法</strong> </li></ul><ul id="6e50f67c-37e9-483a-bd33-a3cdbed03c6a" class="bulleted-list"><li style="list-style-type:disc"><code>entries()</code> 是默认迭代器，可以直接使用<code>for...of</code> 遍历映射（因为迭代器符号属性和<code>entries</code> 引用同一个迭代生成器方法）</li></ul><ul id="66770eea-e452-4828-a059-3400663e27e6" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="57aa7488-5429-4660-aab3-f1d6787dbbda" class="code"><code>const map = new Map().set(&quot;a&quot;, 1).set(&quot;b&quot;, 2).set(&quot;c&quot;, 3);
+console.log(map.entries === map[Symbol.iterator]); // true 同一个迭代生成器
+for (const [key, val] of map.entries()) {
+  console.log(key, val);
+}
+for (const [key, val] of map[Symbol.iterator]()) {
+  console.log(key, val);
+}
+// 两个迭代打印相同，因为二种生成的迭代器功能相同</code></pre></li></ul><h2 id="165e6dce-6d01-4960-a650-ef0beeb41607" class="">4.2.3 <code>Map.prototype.keys()/Map.prototype.values()</code></h2><ul id="90c2c9c3-98b4-454a-8d62-0165650d6c68" class="bulleted-list"><li style="list-style-type:disc">二者分别返回以插入顺序生成键和值的迭代器</li></ul><ul id="91687357-b585-4dc9-a5be-19c316a05e2e" class="bulleted-list"><li style="list-style-type:disc">例子 使用上面的map<pre id="998ddd31-1037-49b5-bd92-b2c9d331017b" class="code code-wrap"><code>for (const key of map.keys()) {
+  console.log(key);
+}
+for (const val of map.values()) {
+  console.log(val);
+}</code></pre><ul id="e1de7946-a774-491c-bf2a-37e67f1a5fe9" class="bulleted-list"><li style="list-style-type:circle">按照<a href="4%20Map.html">键值对的插入顺序</a>遍历</li></ul></li></ul><h2 id="768807ce-980e-41b0-8ba5-3b758674db21" class="">4.2.4 <code>Map.prototype.forEach()</code></h2><ul id="4800f570-78af-46ac-ad8e-87b681ccde2a" class="bulleted-list"><li style="list-style-type:disc">映射的实例遍历方法，通过传入回调依次迭代每个键值对，遍历的顺序一样是插入顺序</li></ul><ul id="19b26b73-c079-4913-ad2d-dbedb42012e4" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="709d4bff-6b5c-4b96-9a40-89fe601572a0" class="code code-wrap"><code>map.forEach(callBack[, thisArg])</code></pre><ul id="58927097-5ca0-4782-b92f-6b97d1382be8" class="bulleted-list"><li style="list-style-type:circle">参数<ul id="2dad36ad-a56a-4beb-899b-084c119008a1" class="bulleted-list"><li style="list-style-type:square"><code>callBack</code>: 回调函数，常以 <code>(value, key, map) =&gt; {}</code> 的形式传入，<code>value</code>是键值，<code>key</code>是键，<code>map</code>是原映射</li></ul><ul id="fc050bf9-b708-484a-b84b-e6704c38179a" class="bulleted-list"><li style="list-style-type:square"><code>thisArg</code> : 指明回调函数的<code>this</code>指针，可选</li></ul></li></ul><ul id="9dd0f215-0e27-4f8d-9bc0-11887060b68a" class="bulleted-list"><li style="list-style-type:circle">返回值 <code>undefined</code></li></ul></li></ul><ul id="ea33df74-2923-44f6-9a2c-1304bc96309a" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="c6b68497-190d-4dd3-81b4-fd2379aa0581" class="code code-wrap"><code>map.forEach((v, k, _m) =&gt; {
+  console.log(v, k);
+});
+// 打印的v,k顺序一样是插入顺序</code></pre></li></ul><h2 id="a1c8f24a-4b89-49f7-875e-8cba62411aab" class="">4.2.5 技巧</h2><ol type="1" id="a7914b65-ee54-462c-8a5a-3fcb949daf22" class="numbered-list" start="1"><li>任何迭代对象都可以使用扩展操作符<code>…</code> ，所以可以通过扩展操作符将映射转换为键值对数组<pre id="30f12837-63df-4fe3-9e6a-30e1f3a7cfc1" class="code code-wrap"><code>const map2 = new Map().set(&quot;a&quot;, 1).set(&quot;b&quot;, 2).set(&quot;c&quot;, 3);
+console.log([...map2]); // [ [ &#x27;a&#x27;, 1 ], [ &#x27;b&#x27;, 2 ], [ &#x27;c&#x27;, 3 ] ]</code></pre></li></ol><ol type="1" id="fd378531-eadf-4b8c-ad8a-b446bfd0c29d" class="numbered-list" start="2"><li>在使用迭代生成器方法生成的迭代器时，映射是可以修改的,但是最好不要使用<code>delete()</code>方法，这会导致插入顺序改变，进而改变迭代对象，可能造成死循环：<pre id="f4339701-7f8f-4a14-a5a9-5d789571ced9" class="code code-wrap"><code>for (const [key, val] of map2.entries()) {
+  map2.delete(key);
+  map2.set(key, val + 1);
+  console.log(map2);
+  if (val == 100) {
+    map2.clear();
+  }
+}
+// 打印
+Map(3) { &#x27;b&#x27; =&gt; 2, &#x27;c&#x27; =&gt; 3, &#x27;a&#x27; =&gt; 2 }
+Map(3) { &#x27;c&#x27; =&gt; 3, &#x27;a&#x27; =&gt; 2, &#x27;b&#x27; =&gt; 3 }
+Map(3) { &#x27;a&#x27; =&gt; 2, &#x27;b&#x27; =&gt; 3, &#x27;c&#x27; =&gt; 4 }
+Map(3) { &#x27;b&#x27; =&gt; 3, &#x27;c&#x27; =&gt; 4, &#x27;a&#x27; =&gt; 3 }
+Map(3) { &#x27;c&#x27; =&gt; 4, &#x27;a&#x27; =&gt; 3, &#x27;b&#x27; =&gt; 4 }
+...
+Map(3) { &#x27;c&#x27; =&gt; 100, &#x27;a&#x27; =&gt; 99, &#x27;b&#x27; =&gt; 100 }
+Map(3) { &#x27;a&#x27; =&gt; 99, &#x27;b&#x27; =&gt; 100, &#x27;c&#x27; =&gt; 101 }</code></pre><ul id="6be6c5e3-4710-46c4-ab91-3ac514efccaa" class="bulleted-list"><li style="list-style-type:disc">上面的不断删除键值对，然后重新<code>set</code> 相当于新增键值对，导致迭代对象无限长，使用了一个判断条件进行退出，直接清除(<code>clear()</code>) 映射，从而避免死循环</li></ul><ul id="a977fc12-9557-487d-abec-3ce54641f9db" class="bulleted-list"><li style="list-style-type:disc">如果一定要删除键值对，可以使用<strong>扩展操作符创建键值对数组</strong>，遍历键值对数组，这样遍历的对象是固定的，遍历次数也就固定了<pre id="4aa2a9fa-7db2-4b41-af61-c261edf7256f" class="code code-wrap"><code>for (const [key, val] of [...map2]) {
+  map2.delete(key);
+  map2.set(key, val + 1);
+  console.log(map2);
+}
+// 打印
+Map(3) { &#x27;b&#x27; =&gt; 2, &#x27;c&#x27; =&gt; 3, &#x27;a&#x27; =&gt; 2 }
+Map(3) { &#x27;c&#x27; =&gt; 3, &#x27;a&#x27; =&gt; 2, &#x27;b&#x27; =&gt; 3 }
+Map(3) { &#x27;a&#x27; =&gt; 2, &#x27;b&#x27; =&gt; 3, &#x27;c&#x27; =&gt; 4 }</code></pre></li></ul></li></ol><h1 id="7e3dddfc-c1f3-407a-b641-1cdd36acc99e" class="">4.3 Object和Map比较</h1><p id="b27da8ba-9836-46c1-a620-9c78d0a39f38" class="">大多数Web开发者不必关系使用哪个更好，因为<code>Object</code>和<code>Map</code> 都能使用在大多数需要构建键值对的情况；</p><p id="36f6c24a-851b-4bd5-ac8f-c349ba840b64" class="">但是对于在乎内存和性能的开发者而言，对象和映射之间确实存在差异</p><ol type="1" id="16041a77-87d5-457a-af00-234180868463" class="numbered-list" start="1"><li><strong>内存占用</strong><ul id="bac93659-d290-4189-8308-c49121958740" class="bulleted-list"><li style="list-style-type:disc"><code>Object</code>和<code>Map</code> 在不同浏览器中实现存在差异，无法具象给出具体的内存占用差异</li></ul><ul id="f45ec620-ed7f-457f-b471-03ec8d868c77" class="bulleted-list"><li style="list-style-type:disc">但是二者都遵循一个原则：<strong>存储单个键值对所占用的内存会随键的数量线性增长</strong></li></ul><ul id="cca80cfd-a524-45b5-9c25-9269f4b35fd2" class="bulleted-list"><li style="list-style-type:disc">在给定<strong>固定</strong>大小的内存，Map大约可以比Object<strong>多存储50%的键值对</strong></li></ul></li></ol><ol type="1" id="fb82cd78-3942-43c2-b139-fd99b4838d59" class="numbered-list" start="2"><li>插入性能<ul id="af819c63-3851-4289-b00e-db9011eccfb2" class="bulleted-list"><li style="list-style-type:disc"><code>Map</code>中插入新键值对<strong>稍微</strong>比<code>Object</code>快一点</li></ul><ul id="3ae351c2-04e3-4358-a9ff-b76efe9e88dc" class="bulleted-list"><li style="list-style-type:disc">二者都遵循一个原则：<strong>插入速度不会随着键值对数量而线性增加</strong></li></ul><ul id="566def33-4dba-4a40-8d87-1da30403bba9" class="bulleted-list"><li style="list-style-type:disc">如果代码涉及大量插入操作，显然<code>Map</code>性能更佳</li></ul></li></ol><ol type="1" id="e0709ce7-9615-4e1a-ab94-0f3abc757750" class="numbered-list" start="3"><li>查找速度<ul id="71a485fd-bdca-4359-8b63-95ba15214efe" class="bulleted-list"><li style="list-style-type:disc">在大型键值对中进行查找，<code>Map</code>和<code>Object</code> 性能差异极小</li></ul><ul id="2bd358bf-4420-4884-bbe1-7dd17ae05ddc" class="bulleted-list"><li style="list-style-type:disc">如果只包含少量键值对，<code>Object</code> 有时候速度更快，例如对于数组而言，浏览器引擎可以进行优化，在内存中使用更高效的布局</li></ul><ul id="cc033de4-56ce-4e24-8b7d-8df235643a16" class="bulleted-list"><li style="list-style-type:disc">二者都遵循一个原则：<strong>查找速度不会随着键值对数量而线性增加</strong></li></ul><ul id="05948f37-462d-4ce9-9256-431e5fc32189" class="bulleted-list"><li style="list-style-type:disc">代码涉及大量查找操作，选择<code>Object</code>更佳</li></ul></li></ol><ol type="1" id="e3148261-da3d-42bc-8a7f-546846be2cc9" class="numbered-list" start="4"><li>删除性能<ul id="4f6d66b5-2ccd-4059-bdb4-3e8f9025b418" class="bulleted-list"><li style="list-style-type:disc">对于大多数浏览器来说，<code>Map</code> 的<code>delete()</code> 操作比插入和查找更快</li></ul><ul id="9def65e1-fdfc-4c7d-bf16-9ee0ea2d8eb0" class="bulleted-list"><li style="list-style-type:disc">因为<code>Object</code> 的<code>delete</code> 删除属性的<strong>性能一直饱受诟病</strong>，所以代码涉及大量删除操作一定要选<code>Map</code></li></ul><ul id="65771663-1736-48cd-92d4-4c6a430637df" class="bulleted-list"><li style="list-style-type:disc">当然，<code>Object</code> 也有一种伪删除对象属性的操作，就是将被删除的属性值设置为<code>undefined</code> 和 <code>null</code> ，这种伪删除的性能和插入性能一样，但是这是一种折中的讨厌的解决方案</li></ul></li></ol><p id="822c71f3-8a0c-4d36-a192-889f8337c09b" class="">
+</p></div></div><p id="5184b20c-ed13-4dd5-81b5-3ba8c6783170" class="">
+</p></div></article></body></html>

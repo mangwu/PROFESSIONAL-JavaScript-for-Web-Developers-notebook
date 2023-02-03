@@ -1,0 +1,1125 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3. 异步函数（ASYNC FUNCTIONS）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8d33f9e6-3c3a-4f3b-8e5f-7b325307e89a" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/woodcuts_13.jpg" style="object-position:center 100%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🛎️</span></div><h1 class="page-title">3. 异步函数（ASYNC FUNCTIONS）</h1></header><div class="page-body"><p id="b03adc14-a898-49d2-9565-8bb7d1746a7f" class="">异步函数，就是普通函数前加上<strong>操作符关键字对</strong>(<strong>operative keyword pair</strong>)”<strong>async/await</strong>”的函数，它是ES6<strong>期约模式</strong>（<strong>Promise paradigm</strong>）在ECMAScript函数中的应用</p><p id="daa1516d-2521-4877-a179-9f54d774b842" class=""><strong>async/await </strong>关键字是ES7新增的，这个新增的关键字从行为和语法上都增强了JavaScript，让以同步方式写的代码能够异步执行</p><p id="587988a4-9eb0-44d1-a68b-9e1a56cd9081" class="">在上一节最简单的例子中，声明一个<code>Promise</code> 实例，等待获取它解决的结果需要使用<code>then()</code> 方法，通过传入兑现处理程序利用参数获取<code>Promise</code> 实例的内部值<div class="indented"><p id="0075b093-fcfb-4d72-9452-2717fc8c1df0" class="">这种方式有明显的缺点，就是程序中的其它代码要<strong>这个值可用</strong>时访问它，需要额外写一个解决处理程序获取</p><p id="b6a1f673-2ccd-4539-8e98-1986668e92e0" class="">这样做并不方便，因为其它代码都必须塞到期约处理程序中，<del>这可能导致期约处理程序的冗余或不可维护</del>，ES7提供了async/await关键字优雅的解决这个问题</p></div></p><div id="4377737a-c529-4a5d-a59b-7d9a1a98608b" class="column-list"><div id="c02ca110-99d3-49a1-83cb-ab8583af23de" style="width:25%" class="column"><nav id="2624de41-afbf-43d9-bee2-01591dc7b697" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#41bbc921-9997-42c9-bec4-9291b46e00bd">3.1 异步函数基础（Async Function Basics）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e14cf661-e9f2-4a90-aab2-780d8b21621e">3.1.1 async关键字（keyword）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#870d5fee-c93f-49d8-b784-79060886afe4">3.1.1.1 async声明的函数</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6d927b4b-0e2f-4225-9e2b-1635a9e7488a">3.1.1.2 异步函数的返回值</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#76d3e76f-d347-4ace-afd0-a77e54b4d09c">3.1.1.3 在异步函数中抛出错误</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#daea24df-8300-4be5-a96c-64a5af0cd319">3.1.2 await 关键字（keyword）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b8106b8d-b356-4e6d-a08c-87474f9fbf02">3.1.2.1 在异步函数中使用await</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#548c14cd-01e3-46ae-be40-9e02493abec3">3.1.2.2 await处理抛出异常的语句</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1e24c12a-13ef-4646-9c23-ac930d8e4063">3.1.2.3 await的限制（Restrictions on await）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c3df8700-1ce4-4b15-a79e-be04cc47f776">3.2 停止和恢复执行（Halting and Resuming Execution）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a5f3a8a5-c02c-4a5a-ba31-8ec8b68d9d72">3.2.1 理解await</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ff47428a-94f8-4d36-b0c7-67f9c7ae97d5">3.3 异步函数策略（Strategies for Async Functions）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d138a050-ff3f-4db8-9f09-36026ef67298">3.3.1 实现sleep()（Implementing Sleep()）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#01f7bf15-d53a-482c-b4d6-7007ebf7c5c4">3.3.2 利用平行执行（Maximizing Parallelization）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#820a04f0-1d47-418b-b2f3-93ddae6cf286">3.3.3 串行执行期约（Serial Promise Execution）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#75716273-3bf7-430e-a709-82dde8fba6db">3.3.4 栈追踪与内存管理（Stack Traces and Memory Management）</a></div></nav><p id="3bcd7b9f-6e14-4650-ad4d-a142013f07de" class="">
+</p></div><div id="aeb88d94-e15b-490c-9817-422ea9bf7515" style="width:75%" class="column"><h1 id="41bbc921-9997-42c9-bec4-9291b46e00bd" class="">3.1 异步函数基础（Async Function Basics）</h1><p id="54b01f4e-bef8-4c36-a33a-80f9c29011b8" class="">ES7的async/await旨在直接利用<strong>异步结构</strong>（<strong>asynchronous constructs</strong>）解决<strong>代码组织</strong>（<strong>organizing code</strong>）的问题。为此，ES7通过两个关键词—async和awiait—为JavaScript中的函数进行逻辑上的<strong>异步行为</strong>（<strong>asynchronous behavior</strong>）扩展。</p><h2 id="e14cf661-e9f2-4a90-aab2-780d8b21621e" class="">3.1.1 async关键字（keyword）</h2><h3 id="870d5fee-c93f-49d8-b784-79060886afe4" class="">3.1.1.1 async声明的函数</h3><ul id="593cd297-132f-4f5f-8c18-fcf7854ecafc" class="bulleted-list"><li style="list-style-type:disc"><code>async</code> 关键字用于声明异步函数，这个关键字可以用在函数声明、函数表达式、箭头函数和方法上<pre id="35c057da-aa4c-45e3-ad8a-3e074228daf0" class="code"><code>async function foo() {}
+let bar = async function () {};
+let baz = async () =&gt; {};
+class Qux {
+  async que() {}
+}
+console.log(foo); // [AsyncFunction: foo]</code></pre><ul id="d0decb84-2a25-41f3-8fbb-b91cfde65fe2" class="bulleted-list"><li style="list-style-type:circle">可以发现异步函数的直接引用类型是<code>AsyncFunction</code> 而不是<code>Function</code> </li></ul><ul id="c492b354-df18-4b1f-995d-f7a26f3cbf24" class="bulleted-list"><li style="list-style-type:circle">通过浏览器中的打印可以发现异步函数没有<code>prototype</code> 属性（所以不能当作构造函数，也是箭头函数可以作为异步函数的原因）<figure id="7475feca-285a-4e5b-8566-b97a8fa1eb3f" class="image"><a href="3%20%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%EF%BC%88ASYNC%20FUNCTIONS%EF%BC%89/%25E5%25BC%2582%25E6%25AD%25A5%25E5%2587%25BD%25E6%2595%25B0.png"><img style="width:672px" src="3%20%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%EF%BC%88ASYNC%20FUNCTIONS%EF%BC%89/%25E5%25BC%2582%25E6%25AD%25A5%25E5%2587%25BD%25E6%2595%25B0.png"/></a></figure></li></ul></li></ul><ul id="fb702359-0bc6-496c-bd9f-5b9ac98d59b3" class="bulleted-list"><li style="list-style-type:disc">使用<code>async</code>关键字可以让声明异步函数，那么该函数也会具有相应的<strong>异步特征</strong>（<strong>asynchronous characteristics</strong>），但总体上其代码仍然是<strong>同步</strong>（<strong>synchronously</strong>）求值的<ul id="019c9cbb-fd62-459d-b9f4-62c3d7a815a6" class="bulleted-list"><li style="list-style-type:circle">和普通函数相比，异步函数在参数和<strong>闭包</strong>(<strong>closures</strong>)方面仍然具有JavaScript普通函数的正常行为</li></ul><ul id="19e934c7-e2c4-4ac6-af28-aa2b35b4b8f8" class="bulleted-list"><li style="list-style-type:circle">调用异步函数仍然会在后面的指令前求值</li></ul><pre id="c7c6fa23-9df8-4fc0-903e-199e672c1e80" class="code"><code>// 异步函数仍然具有普通函数的正常行为
+async function logOne() {
+  console.log(1);
+}
+logOne();
+console.log(2);
+// 打印
+1
+2</code></pre></li></ul><h3 id="6d927b4b-0e2f-4225-9e2b-1635a9e7488a" class="">3.1.1.2 异步函数的返回值</h3><ul id="913c2e47-43c6-493e-88e2-72633bc049c5" class="bulleted-list"><li style="list-style-type:disc">使用<code>async</code> 声明的异步函数的特性表现在：<ul id="db5a256c-f02d-4507-8e4e-7141479860bc" class="bulleted-list"><li style="list-style-type:circle">如果异步函数使用<code>return</code> 关键字返回了值（没有使用<code>return</code> 则默认返回<code>undefined</code>）,这个值会被<code>Promise.resolve()</code> 包装成一个期约对象</li></ul><ul id="e036c948-3ca5-4500-bc54-1c553f32d42c" class="bulleted-list"><li style="list-style-type:circle"><strong>异步函数始终返回期约对象</strong>，在函数外部调用这个函数可以得到它返回的期约</li></ul><pre id="24d61799-eb96-485a-b308-27b3b8745711" class="code"><code>async function getThree() {
+  console.log(1);
+  return 3;
+}
+let a = getThree(); // 调用获得一个内部值为3，状态为兑现的Promise，同时因执行内部代码还打印了1
+console.log(a); // Promise { &lt;state&gt;: &quot;fulfilled&quot;, &lt;value&gt;: 3 }
+a.then((res) =&gt; console.log(res)) // 通过then()方法能获取到Promise的内部值 3
+console.log(2); // 2
+// 打印结果
+1
+Promise {&lt;fulfilled&gt;: 3}
+2   // 同步打印
+3   // 异步操作获取内部值，所以在2的后面</code></pre><ul id="f97a7d94-b829-4432-b25f-3e5fad6d52cd" class="bulleted-list"><li style="list-style-type:circle">在异步函数中直接返回一个期约对象也是可行的</li></ul><pre id="dbdd44ec-b4a2-439b-b2bf-134d48d97285" class="code"><code>async function getThree2() {
+  console.log(1);
+  return Promise.resolve(3)
+}
+let b = getThree();
+console.log(b);
+b.then((res) =&gt; console.log(res))
+console.log(2);
+// 打印结果和上面一致
+1
+Promise {&lt;fulfilled&gt;: 3}
+2   // 同步打印
+3   // 异步操作获取内部值，所以在2的后面</code></pre></li></ul><ul id="296c739c-d576-4946-a18f-bd7f0f55a6d7" class="bulleted-list"><li style="list-style-type:disc">异步函数的返回值<strong>期待</strong>（<strong>anticipates， </strong>但实际上并不要求）一个实现<strong>thenable</strong>接口的对象，但是<strong>常规值</strong>（<strong>regular values</strong>）也可以<ul id="4821322d-857c-4104-95d9-dc9bc7319244" class="bulleted-list"><li style="list-style-type:circle">如果返回的是实现thenable接口的对象，则这个对象（的内部值）可以通过提供给<code>then()</code> 的处理程序的第一个参数进行“解包（<strong>unwrapped</strong>）”【<del>意思就是没必要使用</del><del><code>Promise.resolve()</code></del><del> 进行包装以提供</del><del><code>then()</code></del><del> 及其解决处理程序 进行解包</del>】<ul id="5fe68366-8960-4783-ab0a-445f4366d344" class="bulleted-list"><li style="list-style-type:square">这里所谓的解包实际上就是把异步函数<strong>获取到的值</strong>认定为 异步函数内返回的 实现thenable接口的对象的 <code>then()</code> 方法中的 传递给<code>then()</code> 的处理回调函数 进行调用时的 第一个参数值；基本模式如下<pre id="d2a9b4f0-6e62-4f10-869a-007c1a1bc07d" class="code"><code>let thenableObj = {
+	then(callback) {
+		callback(res); 
+// 这样在获取到thenableObj 后，调用其then方法，
+// 传递一个函数对象，该函数对象就会被调用，且第一个参数一定是在thenableObj中确定的res
+	}
+}</code></pre></li></ul></li></ul><ul id="01e234cf-76ff-4905-b887-da7c9ee39b64" class="bulleted-list"><li style="list-style-type:circle">如果不是，则返回中就被当作已经解决的期约</li></ul><pre id="77cb316d-c9b6-447f-9c4d-b7bc78c69d26" class="code"><code>// 返回一个原始值
+async function primaryType() {
+  return &quot;foo&quot;; // 会被Promise.resolve()进行包装
+}
+let p1 = primaryType();
+console.log(p1);
+p1.then((res) =&gt; console.log(res));
+
+// 返回一个没有使用thenable接口的对象
+async function objType() {
+  return [&quot;bar&quot;]; // 会被Promise.resolve()进行包装
+}
+let p2 = objType();
+console.log(p2);
+p2.then((res) =&gt; console.log(res));
+
+// 返回一个实现了thenable接口的非期约对象
+async function thenableObj() {
+  const thenable = {
+    then(callback) {
+      callback(&quot;baz&quot;);
+    },
+  };
+  return thenable;
+}
+let the = thenableObj();
+console.log(the);
+the.then((res) =&gt; console.log(res));
+
+// 返回一个期约
+async function promise() {
+  return Promise.resolve(&quot;qux&quot;);
+}
+let p3 = promise();
+console.log(p3);
+p3.then((res) =&gt; console.log(res));
+// 打印结果
+// Promise {&lt;fulfilled&gt;: &#x27;foo&#x27;}
+// Promise {&lt;fulfilled&gt;: Array(1)}
+// Promise {&lt;pending&gt;}
+// Promise {&lt;pending&gt;}
+// foo
+// [&#x27;bar&#x27;]
+// baz
+// qux</code></pre><ul id="f35c2e13-076a-4c6a-b3de-b73dc98d6665" class="bulleted-list"><li style="list-style-type:circle">从打印结果可以看出，无论返回的是自定义实现的<code>thenable</code> 接口的对象还是原始值异或普通对象，得到的具体返回值都是一个<code>Promise</code> 实例</li></ul><ul id="cc0c4d09-8692-426f-8961-0bda2f5b34d2" class="bulleted-list"><li style="list-style-type:circle">对于异步函数内部返回普通对象和原始值而言，外部得到它们的返回值相当于使用<code>Promise.resolve()</code> 得到的返回值，所以可以直接同步打印出来它们在对象状态</li></ul><ul id="60ad1646-870c-430b-8c94-1b05ee67ae5b" class="bulleted-list"><li style="list-style-type:circle">对于异步函数内部返回<code>Promise</code>实例和实现<code>thenable</code> 接口的对象而言，外部得到它们的返回值初始状态为Pending，所以同步打印不能打印出它们立即执行的落定状态</li></ul><ul id="52ae3958-4d8d-417f-a115-7b5dc891b66f" class="bulleted-list"><li style="list-style-type:circle">对于返回实现<code>thenable</code> 接口对象而言，返回的<code>Promise</code> 对象的最终内部值不是对象本身，而是<a href="3%20%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%EF%BC%88ASYNC%20FUNCTIONS%EF%BC%89.html">包装在对象</a><a href="3%20%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%EF%BC%88ASYNC%20FUNCTIONS%EF%BC%89.html"><code>then()</code></a><a href="3%20%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%EF%BC%88ASYNC%20FUNCTIONS%EF%BC%89.html"> 方法的解决回调函数执行时传递的值</a> </li></ul><ul id="0c01fbcf-12c3-44a0-99f8-9a912aad9c32" class="bulleted-list"><li style="list-style-type:circle">外部promises使用<code>then()</code> 获取内部值进行打印是异步操作，所以在所有同步打印后才执行</li></ul></li></ul><h3 id="76d3e76f-d347-4ace-afd0-a77e54b4d09c" class="">3.1.1.3 在异步函数中抛出错误</h3><ul id="792ae1bf-1cd2-40bc-9b2c-33378e655d42" class="bulleted-list"><li style="list-style-type:disc">与在期约的处理程序中一样的行为，在异步函数中抛出错误会返回拒绝的期约；</li></ul><ul id="66168afc-ad8f-40c6-91ff-0796bb8b756d" class="bulleted-list"><li style="list-style-type:disc">同时这个拒绝的期约的内部值就是抛出的错误；</li></ul><ul id="33310217-6657-45d3-9ba5-c80e2848d815" class="bulleted-list"><li style="list-style-type:disc">抛出的错误不能通过<code>try/catch</code> 语句进行捕获，需要调用返回的拒绝的期约的<code>then()</code> 或<code>catch()</code> 方法添加一个拒绝处理程序进行捕获<pre id="b9afeeac-7d1b-4885-b845-80d2d41db6ec" class="code"><code>// 抛出错误
+async function throwError() {
+  console.log(1);
+  throw 3;
+}
+let t1 = throwError();
+console.log(t1);
+t1.catch(console.log);
+console.log(2);
+// 打印
+1
+Promise {&lt;rejected&gt;: 3}
+2
+3</code></pre></li></ul><ul id="57b61f0c-75f4-4ab6-b3ea-8c8eda8218ce" class="bulleted-list"><li style="list-style-type:disc">如果在异步函数中返回一个拒绝的期约，其行为和上面的抛出错误的行为<strong>大体</strong>一致（立即打印的结果不一致，抛出错误立即打印会得到一个落定的拒绝状态的promise，而返回一个拒绝promise会得到一个新的初始为pending的promise）<pre id="4ed89919-9d02-42e4-964d-15c1bbd08318" class="code"><code>async function throwError2() {
+  console.log(1);
+  return Promise.reject(3);
+}
+let t2 = throwError2();
+console.log(t2);
+t2.catch(console.log);
+console.log(2);
+// 打印
+1
+Promise {&lt;pending&gt;}
+2
+3 </code></pre></li></ul><ul id="2570516b-8ebc-49d8-9eeb-89d0511f381e" class="bulleted-list"><li style="list-style-type:disc">如果在异步函数中生成一个拒绝的期约但是并不作为返回值返回，那么这个错误就没办法在函数外部进行捕获了，只能在函数内部通过这个局部期约自己的<code>catch()</code> 方法进行捕获<pre id="927c6493-6248-4b93-b5b8-4cd130e8fbc0" class="code"><code>async function throwError3() {
+  console.log(1);
+  Promise.reject(3);
+}
+let t3 = throwError3();
+console.log(t3);
+t3.catch(console.log);
+console.log(2);
+// 打印
+1
+Promise {&lt;fulfilled&gt;: undefined}
+2
+Uncaught (in promise) 3</code></pre><ul id="c7f25679-7498-470d-b973-cb75a1ab4ff1" class="bulleted-list"><li style="list-style-type:circle">这里在<code>throwError3</code> 执行的<code>Promise.reject(3);</code> 语句生成会抛出一个异步错误，浏览器会报出<mark class="highlight-red">Uncaught </mark>的错误信息</li></ul><ul id="339eb199-23c5-4a07-8224-211cf208053f" class="bulleted-list"><li style="list-style-type:circle">同时也发现如果不返回任何值也会返回一个<code>Promise</code> 实例（实例会异步兑现），只不过这个实例的内部值就是<code>undefined</code></li></ul></li></ul><h2 id="daea24df-8300-4be5-a96c-64a5af0cd319" class="">3.1.2 await 关键字（keyword）</h2><h3 id="b8106b8d-b356-4e6d-a08c-87474f9fbf02" class="">3.1.2.1 在异步函数中使用await</h3><ul id="271ccbd5-467a-422f-8126-790912254d01" class="bulleted-list"><li style="list-style-type:disc">异步函数主要针对不会马上完成的任务，所以自然需要一种<strong>暂停和恢复执行的能力（pause and resume execution, </strong><em><del><strong>可重入？</strong></del></em><strong>）</strong>，使用<code>await</code> 关键字可以<strong>暂停异步函数代码的执行</strong>(<strong>pause execution of the async function</strong>)，等待期约解决（以下为<strong>个人理解</strong>）<ul id="2023c7a4-0417-4c94-a915-dbebf17c91cf" class="bulleted-list"><li style="list-style-type:circle"> 使用<code>async</code> 声明的异步函数本身具有普通函数的性质，其中的代码除了返回值，其他的<strong>正常语句（非异步操作）</strong>都是同步执行的</li></ul><ul id="50bf6ee9-e69f-4595-9002-bf075078ab66" class="bulleted-list"><li style="list-style-type:circle">如果要在异步函数中执行异步语句，那么这个异步语句的结果一半是返回值</li></ul><ul id="7f0bd2b3-da04-40c6-aaf1-8a3ec6e84fbe" class="bulleted-list"><li style="list-style-type:circle">如果有多个异步语句，这几个异步语句之间相互依赖（只有获取其中一个之后才能获取另一个异步语句的值），或许可以通过期约连锁的方式进行，最后返回最后一个期约即可</li></ul><ul id="273cd878-8f9e-4df3-8001-f16960243ecc" class="bulleted-list"><li style="list-style-type:circle">虽然期约连锁可以通过类似函数合成的思想实现简洁的串联期约合成，但是在书写逻辑上更期望简单的代码</li></ul><ul id="5ab7c316-40f6-4a68-9845-227915ac2f8e" class="bulleted-list"><li style="list-style-type:circle">所以就出现了<code>await</code> ，它能让一个语句等待异步任务执行完毕后才执行，就像下面这样<pre id="9d856fad-24f8-4d90-824f-20ad597d2882" class="code"><code>async function foo() {
+  let p = new Promise((resolve, reject) =&gt; setTimeout(resolve, 1000, 3));
+  console.log(await p); // 
+	console.loh(1);
+}
+foo(); 
+// 3 (1秒后)
+// 1 (1秒后)</code></pre><ul id="396538d9-eb6a-480b-99c8-3f99408cfcb2" class="bulleted-list"><li style="list-style-type:square">注意这里，<code>await</code> 关键字会暂停执行异步函数后面的代码，让出JavaScript<strong>运行时的执行线程</strong>(<strong>runtime’s thread of execution</strong>)</li></ul><ul id="f0934d73-199c-4f3d-afa8-a725def54582" class="bulleted-list"><li style="list-style-type:square">这个行为和生成器中的<code>yield</code> 关键字类似，<code>await</code> 关键字同样尝试“解包”对象（实现了thenable接口的对象）的值，然后将这个值传给表达式，再<strong>异步</strong>（<strong>asynchronously</strong>）恢复异步函数的执行</li></ul></li></ul><ul id="c2df5572-6eb0-454f-b5fb-7b383544e92a" class="bulleted-list"><li style="list-style-type:circle">如果不使用<code>await</code> ，这里获取<code>p</code> 的值就需要使用<code>then()</code> ，将<code>console.log</code> 代码<a href="3%20%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%EF%BC%88ASYNC%20FUNCTIONS%EF%BC%89.html">塞进</a><a href="3%20%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%EF%BC%88ASYNC%20FUNCTIONS%EF%BC%89.html"><code>then()</code></a><a href="3%20%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%EF%BC%88ASYNC%20FUNCTIONS%EF%BC%89.html"> 的解决处理程序</a>中了(同时后续的同步代码能正常执行因为<code>then()</code>是异步的操作)，如下<pre id="c0dc187b-9f22-4a0b-852f-4f386590e464" class="code"><code>async function foo2() {
+  let p = new Promise((resolve, reject) =&gt; setTimeout(resolve, 1000, 3));
+  p.then((res) =&gt; console.log(res));
+  console.log(1);
+}
+foo2();
+// 1  (立即)
+// 3  (1秒后)</code></pre></li></ul></li></ul><ul id="aedcd82a-1221-4710-a28c-2931f9eb3362" class="bulleted-list"><li style="list-style-type:disc"><code>await</code> 关键字的用法和JavaScript的一元操作一样，它可以单独使用，也可以在表达式中使用，如下<pre id="b4bfb70d-708f-4374-8fdf-fa4dbc7a6d94" class="code"><code>// 单独使用，在表达式中使用都可以
+async function printFoo() {
+  console.log(await Promise.resolve(&quot;foo&quot;));
+}
+printFoo();
+
+async function returnBar() {
+  return await Promise.resolve(&quot;bar&quot;);
+}
+let a = returnBar();
+console.log(a);
+a.then(console.log);
+
+// 异步打印
+async function printBaz() {
+  await new Promise((resolve, reject) =&gt; setTimeout(resolve, 1000));
+  console.log(&quot;baz&quot;);
+}
+printBaz();
+// 打印
+// Promise { &lt;pending&gt; }
+// foo
+// bar
+// baz (1s后)</code></pre></li></ul><ul id="673c3e31-ff15-4c74-b442-e4ed1330dc56" class="bulleted-list"><li style="list-style-type:disc"><code>await</code> 关键字期待（但实际上并不要求）一个实现<code>thenable</code> 接口的对象，但是常规的值也可以<ul id="5878aece-ef7a-47c0-a6e9-a27b543d4279" class="bulleted-list"><li style="list-style-type:circle">如果是实现<code>thenable</code> 接口的对象，则这个对象可以由<code>await</code> 来解包</li></ul><ul id="b07baa10-56c1-44c3-a408-7decf4603fb5" class="bulleted-list"><li style="list-style-type:circle">如果不是，则这个值就被当作已经解决的期约</li></ul><pre id="9d4456ad-d47a-4d6b-816e-a0e0485e474e" class="code"><code>// 等待一个原始值
+async function primaryType() {
+  console.log(await &quot;foo&quot;);
+}
+primaryType();
+// 等待一个没有实现thenable接口的对象
+async function obj() {
+  console.log(await [&quot;bar&quot;]);
+}
+obj();
+// 等待一个实现了thenable接口的非期约对象
+async function thenableObj() {
+  console.log(
+    await {
+      then(callback) {
+        callback(&quot;baz&quot;);
+      },
+    }
+  );
+}
+thenableObj();
+
+// 等待一个期约
+async function promiseType() {
+  console.log(await Promise.resolve(&quot;qux&quot;));
+}
+promiseType();
+// 打印
+// foo
+// [&#x27;bar&#x27;]
+// qux
+// baz</code></pre></li></ul><h3 id="548c14cd-01e3-46ae-be40-9e02493abec3" class="">3.1.2.2 await处理抛出异常的语句</h3><ul id="b2788e5a-dfeb-4aa3-8a28-5a87509f2437" class="bulleted-list"><li style="list-style-type:disc"><strong>等待</strong>（<strong>Awaiting</strong>）会抛出错误的<strong>同步</strong>（<strong>synchronous</strong>）操作，会返回拒绝的期约，该期约可以使用<code>catch()</code> 对抛出的异步错误进行捕获<pre id="fbb2d534-6d69-4af7-a882-67b2bcf2679e" class="code"><code>// 抛出错误
+async function throwError() {
+  console.log(1);
+  await (() =&gt; {
+    throw 3;
+  })();
+}
+
+let t1 = throwError();
+console.log(t1)
+t1.catch(console.log);
+console.log(2);
+// 打印
+// 1
+// Promise {&lt;rejected&gt;: 3}
+// 2
+// 3</code></pre><ul id="42045d02-8966-48d5-a49a-6d276ace791e" class="bulleted-list"><li style="list-style-type:circle">注意这里立即打印的<code>t1</code> promise是拒绝状态的，这一定是和上述直接在异步函数中抛出错误<a href="3%20%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%EF%BC%88ASYNC%20FUNCTIONS%EF%BC%89.html">一样的行为</a></li></ul></li></ul><ul id="627e4e4c-f931-453b-a65f-5f9753f78bbc" class="bulleted-list"><li style="list-style-type:disc">在异步函数中<a href="3%20%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%EF%BC%88ASYNC%20FUNCTIONS%EF%BC%89.html">获取到了单独拒绝的promise</a> （而隐式抛出的错误）不会在异步函数外部被捕获到，不过，如果对拒绝的期约使用<code>await</code> 则会<strong>释放</strong>（<strong>unwrap</strong>）错误值，并将拒绝期约返回<pre id="e0e057a1-a4cf-486b-84d8-4084fceb60d0" class="code"><code>async function throwError2() {
+  console.log(1);
+  await Promise.reject(3);
+  console.log(4); // 这行代码不会执行
+}
+let t2 = throwError2();
+console.log(t2);
+t2.catch(console.log);
+console.log(2);
+// 打印
+// 1
+// Promise {&lt;pending&gt;}
+// 2
+// 3</code></pre><ul id="21d07063-f163-44f2-b962-293fb32dca55" class="bulleted-list"><li style="list-style-type:circle">注意打印4的代码不会执行，因为上一个代码因为promise拒绝而直接返回了拒绝的promise</li></ul><ul id="637b72e8-5f39-4a16-9e2d-76f33332a850" class="bulleted-list"><li style="list-style-type:circle">立即打印<code>t2</code> 状态为pending，这与直接抛出错误立即打印的状态为rejected不同</li></ul></li></ul><h3 id="1e24c12a-13ef-4646-9c23-ac930d8e4063" class="">3.1.2.3 await的限制（Restrictions on await）</h3><ol type="1" id="172103f1-758b-4363-8962-d9e94fe4ba0d" class="numbered-list" start="1"><li><strong><code>await</code></strong><strong> 关键字必须在异步函数中使用</strong>，不能在顶级上下文如&lt;script&gt;标签或模块中使用<p id="61ae3967-fe21-4153-8368-dd1d8eb29167" class="">但是定义并立即调用异步函数是没问题的，如下</p><pre id="97076dae-2b66-4828-a908-fe9c170780be" class="code"><code>async function normalAFunc() {
+  console.log(await Promise.resolve(3));
+}
+normalAFunc(); // 3
+(async function () {
+  console.log(await Promise.resolve(3));
+})(); // 3</code></pre></li></ol><ol type="1" id="031b79c2-db98-4ff6-9fc4-6110bcd87ba0" class="numbered-list" start="2"><li>异步函数的特质不会扩散到嵌套函数中，因此<code>await</code> 关键字也只能<strong>直接</strong>出现在异步函数的定义中，在同步函数内部使用<code>await</code> 会抛出<code>SyntaxError</code><pre id="0060c71c-fd87-4239-b2bf-1b3fe8d05d6c" class="code"><code>(async function () {
+  for (let i = 0; i &lt; 3; i++) {
+    console.log(await Promise.resolve(3)); // 可行
+  }
+  function syncFn() {
+    return await Promise.resolve(&quot;bar&quot;); // 不可行
+  }
+})();</code></pre></li></ol><h1 id="c3df8700-1ce4-4b15-a79e-be04cc47f776" class="">3.2 停止和恢复执行（Halting and Resuming Execution）</h1><ul id="71a19ef8-d1f2-4ecb-9878-0d0e2fbfe71f" class="bulleted-list"><li style="list-style-type:disc">使用<code>await</code> 关键字的<strong>本质</strong>(<strong>nature</strong>)比上述的使用要<strong>细致入微的</strong>（<strong>nuanced</strong>）多；对不同的语句使用<code>await</code> 它们之间的执行顺序略有差异<pre id="ca0d6239-98e8-4119-98d0-8713a3223a1f" class="code"><code>async function foo() {
+  console.log(await Promise.resolve(&quot;foo&quot;));
+}
+
+async function bar() {
+  console.log(await &quot;bar&quot;);
+}
+
+async function baz() {
+  console.log(&quot;baz&quot;);
+}
+foo();
+bar();
+baz();
+// 打印
+// baz
+// foo
+// bar</code></pre><p id="ba30e217-b18c-4b7b-8de0-cb7252a3ee28" class=""><mark class="highlight-red">注意在《JavaScript高级程序设计（第4版）》中，这里的示例打印顺序是相反的，但是实际上，</mark><code><mark class="highlight-red">foo()</mark></code><mark class="highlight-red"> 和</mark><code><mark class="highlight-red">bar()</mark></code><mark class="highlight-red"> 二者打印的顺序和调用顺序一样，不存在因为await后面不是一个</mark><code><mark class="highlight-red">thenable</mark></code><mark class="highlight-red">的对象而有所区别，但是同步操作的</mark><code><mark class="highlight-red">baz()</mark></code><mark class="highlight-red"> 即使在最后调用，因为同步操作的关系仍然首先打印</mark></p></li></ul><ul id="76f84881-b2b2-4e5b-862f-6a6626f429d6" class="bulleted-list"><li style="list-style-type:disc">async/await关键字中<strong>真正起作用</strong>的是await；<ul id="d5b196ff-5eb7-4c3e-9a72-515fa08a4af6" class="bulleted-list"><li style="list-style-type:circle">async只是一个标识符，它表明函数是异步函数（允许使用await）</li></ul><ul id="1fd39f00-9d68-4167-afee-6ff4fba641e4" class="bulleted-list"><li style="list-style-type:circle">异步函数如果不包含await关键字，其执行<strong>基本上</strong>和普通函数没有什么区别（唯一区别在于返回值）</li></ul><pre id="7537d1b0-0d64-41d9-ac56-41d28e6fea01" class="code"><code>// 异步函数在不关心返回值时，起关键作用的其实是await关键字
+async function printOne() {
+  console.log(2);
+}
+console.log(1);
+printOne();
+console.log(2);
+// 打印
+1
+2
+3</code></pre></li></ul><h2 id="a5f3a8a5-c02c-4a5a-ba31-8ec8b68d9d72" class="">3.2.1 理解await</h2><ul id="52ee7509-7ac4-4bdf-b6b7-517ba0ee7f81" class="bulleted-list"><li style="list-style-type:disc">await关键字并非只是等待一个值可用那么简单，在异步函数中使用await，然后调用异步函数，会有如下过程<ul id="a5a1bdbd-d734-47d2-a8e6-dbbc60fb6396" class="bulleted-list"><li style="list-style-type:circle">JavaScript<strong>运行时</strong>(<strong>runtime</strong>)在碰到await关键字时，会<strong>记录(track)</strong>在哪里暂停执行</li></ul><ul id="265e67b7-4405-4c4c-ac46-84e4e946e830" class="bulleted-list"><li style="list-style-type:circle">暂停执行期间，异步函数await后的语句不会执行，而异步函数外的同步语句会执行</li></ul><ul id="a9b1638b-718d-4bb8-a7b0-7cbca9f49dc0" class="bulleted-list"><li style="list-style-type:circle">等到await右边的值可用了，JavaScript运行时会向消息队列中推送一个任务，这个任务会<strong>恢复</strong>(<strong>resume</strong>)异步函数的执行</li></ul><pre id="20d81e23-0eba-4631-970c-3879a8746e26" class="code"><code>// await会暂停异步函数的执行，记录位置
+async function test() {
+  console.log(2);
+  await null;
+  console.log(4);
+}
+console.log(1);
+test();
+console.log(3);
+// 打印
+1
+2
+3
+4</code></pre><ul id="aac19b45-eae3-47f2-bea5-eeaff9579abf" class="bulleted-list"><li style="list-style-type:circle">即使<code>await</code>后面跟着一个立即可用的值，函数的其余部分也会被<strong>异步（asynchronously）</strong>求值</li></ul><ul id="5645c4e2-ec6c-441d-b7cc-984cc6743c61" class="bulleted-list"><li style="list-style-type:circle">上面例子的输出的结果很好的解释了运行时的工作原理<ol type="1" id="76339041-a6f7-452f-83fe-916209cd561c" class="numbered-list" start="1"><li><strong>打印（Print）</strong>1</li></ol><ol type="1" id="9144c465-e915-4d34-8dda-6fc6f3c5edda" class="numbered-list" start="2"><li>调用异步函数<code>test()</code></li></ol><ol type="1" id="a00c1058-7805-4b47-b407-ac58c8cc9f7d" class="numbered-list" start="3"><li>（在<code>test()</code>中）<strong>打印（Print）</strong>2</li></ol><ol type="1" id="c43d4900-e87e-446a-9e89-a25845150291" class="numbered-list" start="4"><li>（在<code>test()</code> 中）await关键字暂停执行，为立即可用的值null向消息队列中添加一个任务</li></ol><ol type="1" id="1e90a311-cd8c-4c47-9f74-ee3283d7910e" class="numbered-list" start="5"><li><code>foo()</code> 退出</li></ol><ol type="1" id="5aaa9375-2d78-4045-acfd-dc971e278a90" class="numbered-list" start="6"><li><strong>打印（Print）</strong>3</li></ol><ol type="1" id="30198737-911f-4e5b-b5ff-93cc32e75657" class="numbered-list" start="7"><li>同步线程的代码执行完毕</li></ol><ol type="1" id="6c0d84db-8905-445d-aede-74967c730253" class="numbered-list" start="8"><li>JavaScript运行时从消息队列中<strong>取出</strong>（<strong>dequeues</strong>）任务，恢复异步函数执行</li></ol><ol type="1" id="3bdce71c-2320-4aec-a13e-4bdf6abb8bb3" class="numbered-list" start="9"><li>（在<code>test()</code> 中）恢复执行，<code>await</code> 取得null值（这里没有使用）</li></ol><ol type="1" id="85a843a1-4042-4845-b687-fa5f5af2cb5c" class="numbered-list" start="10"><li>（在<code>test()</code>中）<strong>打印（Print）</strong>4</li></ol><ol type="1" id="85f54879-0f13-4105-9e8f-9a7b3ab1d27b" class="numbered-list" start="11"><li><code>test()</code> 返回（一个期约）</li></ol></li></ul></li></ul><ul id="d1827126-4b1f-4da3-b525-7c7d54e5af85" class="bulleted-list"><li style="list-style-type:disc">如果<code>await</code>后面不是立即可用的值而是一个期约，则问题会稍微复杂一点，此时会有<mark class="highlight-orange"><em>两个任务(?</em></mark><mark class="highlight-blue"><strong><em>实际上仍然是一个</em></strong></mark><mark class="highlight-orange"><em>)</em></mark>被添加到消息队列并被异步求值<pre id="205ce846-5226-4eea-ae74-8c5fb866a0da" class="code"><code>// 异步函数，await后面是期约的情况
+async function test2() {
+  console.log(2);
+  console.log(await Promise.resolve(8));
+  console.log(9);
+}
+
+async function test3() {
+  console.log(4);
+  console.log(await 6);
+  console.log(7);
+}
+console.log(1);
+test2();
+console.log(3);
+test3();
+console.log(5);
+// 打印
+1
+2
+3
+4
+5
+8
+9
+6
+7</code></pre><p id="f8f52e61-ef68-4732-ba5b-1f9addeee1ae" class="block-color-red">注意在《JavaScript高级程序设计（第4版）》中，示例的打印是顺序的1-9，但是实际情况并非如此，这是因为TC39对await后面是期约的情况如何处理做了一次修改，修改后，本例中的<code>Promise.resolve(8)</code> 只会生成一个异步任务（和上面的立即可用值一样），在新版浏览器（包括node环境）中输出结果为123458967</p><ul id="64170cf4-eca6-4c1a-bde2-7ec70ab3ccd8" class="bulleted-list"><li style="list-style-type:circle">运行时会这样执行（修改了原书错误的地方）<ol type="1" id="2cb597a6-6161-4abc-87f6-3f798344850e" class="numbered-list" start="1"><li>打印1</li></ol><ol type="1" id="580d2c5a-91d3-4c0a-bca3-294a50cd33e9" class="numbered-list" start="2"><li>调用异步函数<code>test2()</code></li></ol><ol type="1" id="07a5606b-83bb-42f2-b057-3ed3f2ff6fc5" class="numbered-list" start="3"><li>（在<code>test2()</code> 中）打印2</li></ol><ol type="1" id="470ac286-c32f-469b-b93b-88ac5f4399cd" class="numbered-list" start="4"><li>（在<code>test2()</code> 中）await关键字暂停执行，向消息队列中添加一个期约执行任务</li></ol><ol type="1" id="24b1501d-dc99-47a0-b371-22ccd1817384" class="numbered-list" start="5"><li><code>test2()</code> 退出</li></ol><ol type="1" id="161db442-d158-4735-8df9-a1f2f960ae0a" class="numbered-list" start="6"><li>打印3</li></ol><ol type="1" id="00692e6f-fa24-47d3-b77d-3bec23fcf77e" class="numbered-list" start="7"><li>调用异步函数<code>test3()</code> </li></ol><ol type="1" id="fe123a17-edb7-424c-b0fa-bea8177d0a30" class="numbered-list" start="8"><li>（在<code>test3()</code> 中）打印4</li></ol><ol type="1" id="41c2cb47-243d-46d7-807b-eadb7ca145ea" class="numbered-list" start="9"><li>（在<code>test3()</code> 中）await关键字暂停执行，为立即可用的值6向消息队列中添加一个任务</li></ol><ol type="1" id="702ecde3-8694-4586-887a-4fc44018b234" class="numbered-list" start="10"><li><code>test3()</code> 退出</li></ol><ol type="1" id="4d51b790-a6bc-4d45-b790-ad91445de8d0" class="numbered-list" start="11"><li>打印5</li></ol><ol type="1" id="c0adb3f7-3233-4318-af44-10d961afa8d1" class="numbered-list" start="12"><li><strong>顶级线程执行</strong>（<strong>Top-level thread of execution</strong>）完毕</li></ol><ol type="1" id="ee4a77f7-5094-4883-8b5f-77fb14de671b" class="numbered-list" start="13"><li>JavaScript运行时从消息队列中取出恢复执行<code>test2()</code> 的任务和期约的解决值8</li></ol><ol type="1" id="168d82fb-4fbf-49a3-8191-09d8db4fd72f" class="numbered-list" start="14"><li>（在<code>test2()</code>中）恢复执行，await取得8</li></ol><ol type="1" id="c37a4a3c-743d-408b-90b9-4aa528cc1286" class="numbered-list" start="15"><li>（在<code>test2()</code> 中）打印8</li></ol><ol type="1" id="61f3227d-df76-47ea-a88c-b5eaddb1dd99" class="numbered-list" start="16"><li>（在<code>test2()</code> 中）打印9</li></ol><ol type="1" id="69025177-c116-4a2c-ae7e-250b14633c3a" class="numbered-list" start="17"><li><code>test2()</code> 返回</li></ol><ol type="1" id="d487d532-6d56-4560-b13a-dc05ce4fe81a" class="numbered-list" start="18"><li>JavaScript运行时从消息队列中取出恢复执行<code>test3()</code> 的任务和立即可用值6</li></ol><ol type="1" id="50cab742-5ba5-466f-8087-5cca4e498740" class="numbered-list" start="19"><li>在<code>test3()</code>中）恢复执行，await取得6</li></ol><ol type="1" id="5f79bc63-ab9c-4100-a565-1a7be03a92e4" class="numbered-list" start="20"><li>（在<code>test3()</code> 中）打印6</li></ol><ol type="1" id="2fe47701-db34-4c3d-91f5-ff17489fd7a3" class="numbered-list" start="21"><li>（在<code>test3()</code> 中）打印7</li></ol><ol type="1" id="21fbe4b1-d26a-4c3a-8c56-71d06e031d2c" class="numbered-list" start="22"><li><code>test3()</code> 返回</li></ol></li></ul></li></ul><h1 id="ff47428a-94f8-4d36-b0c7-67f9c7ae97d5" class="">3.3 异步函数策略（Strategies for Async Functions）</h1><p id="104aa413-eff1-4a74-b78c-84c366e8650b" class="">异步函数简单实用，所以很快成为JavaScript项目中使用最广泛的特性之一，不过使用异步函数仍然有一些需要注意的问题和扩展</p><h2 id="d138a050-ff3f-4db8-9f09-36026ef67298" class="">3.3.1 实现sleep()（Implementing Sleep()）</h2><ul id="a88716c9-4c49-419f-bf37-b84427fadeef" class="bulleted-list"><li style="list-style-type:disc">在支持多线程（JavaScript是单线程）的语言（如Java）中，可以使用<code>Thread.sleep()</code> 之类的函数，以便在程序中加入<strong>非阻塞的暂停</strong>（<strong>non-blocking delay</strong>）</li></ul><ul id="8804350f-57c5-4c87-bbf8-ae8d9b1383b0" class="bulleted-list"><li style="list-style-type:disc">在以前的JavaScript中，这个需求通过<code>setTimeout()</code> 利用JavaScript<strong>运行时（runtime）</strong>的行为来实现，有了异步函数后，一个简单的箭头函数就可以实现了<pre id="66783603-bd25-460c-8d7c-b180d5251454" class="code"><code>// 非阻塞暂停 线程
+async function sleep(delay) {
+  return new Promise((resolve) =&gt; setTimeout(resolve, delay));
+}
+
+async function foo() {
+  const t0 = Date.now();
+  await sleep(1500); // 暂停约1500毫秒
+  console.log(Date.now() - t0);
+}
+foo(); // 1509 (大概数字，因为引擎和设备会有差异)</code></pre><ul id="c891cb0e-8d0d-4815-b0c8-4288a662c5fc" class="bulleted-list"><li style="list-style-type:circle">在这里<code>sleep()</code> 就相当于非阻塞的暂停了1.5s的时间，等待完这个时间后异步函数才开始继续执行</li></ul><ul id="abbf01d4-d63d-4157-9adc-82957a5f1048" class="bulleted-list"><li style="list-style-type:circle">以线程的角度看，<code>foo()</code> 相当于一个线程，在遇到<code>await sleep(1500)</code> 的时候暂停了1.5s，然后继续执行</li></ul></li></ul><h2 id="01f7bf15-d53a-482c-b4d6-7007ebf7c5c4" class="">3.3.2 利用平行执行（Maximizing Parallelization）</h2><p id="98aa982e-4fb0-43d0-b9fe-08777cbd0170" class="">Maximizing 是最大化之意，Parallelization是并行化之意，这一小节讲述了一种利用<strong>期约并行执行的方式</strong>将异步函数的<strong>执行时间缩小</strong>的模式，所谓的最大化并行之意就是尽可能在异步函数中并行所有异步操作</p><hr id="4b5529bf-7dbe-4b80-8796-7ebc7a63f227"/><ul id="b89559a3-86ed-4ddb-9fb6-b204108f7e77" class="bulleted-list"><li style="list-style-type:disc">在使用await的时候，需要等待后面的语句执行完毕再接着执行之后的语句（即<a href="3%20%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0%EF%BC%88ASYNC%20FUNCTIONS%EF%BC%89.html">停止和恢复执行</a>）</li></ul><ul id="c56fefcf-d97d-4fc6-8597-7baa90ee1fdf" class="bulleted-list"><li style="list-style-type:disc">如果每次执行的异步操作都直接放在await后，则这些异步操作都是串行的，一个执行完毕后才开始执行另外一个，很可能错过<strong>平行加速</strong>（<strong>parallelization speedups</strong>）的机会<pre id="deb859ec-bca8-4583-8048-61c97bb25e15" class="code"><code>async function randomDelay(id) {
+  const delay = Math.random() * 1000;
+  return new Promise((resolve) =&gt;
+    setTimeout(() =&gt; {
+      console.log(`${id} finished: ${delay}ms`);
+      resolve();
+    }, delay)
+  );
+}
+
+async function foo1() {
+  const t0 = Date.now();
+  await randomDelay(0);
+  await randomDelay(1);
+  await randomDelay(2);
+  await randomDelay(3);
+  await randomDelay(4);
+  console.log(`${Date.now() - t0}ms elapsed`);
+}
+
+foo1();
+// 打印
+0 finished: 214.19967228425307ms
+1 finished: 119.86127024318205ms
+2 finished: 993.3495744350952ms
+3 finished: 94.76989928516267ms
+4 finished: 35.69635694252315ms
+1498ms elapsed
+</code></pre><ul id="acbaeb64-58d0-4b27-885d-d3e9037361f0" class="bulleted-list"><li style="list-style-type:circle">定义了一个<code>randomDelay()</code> 函数用于生成异步的<code>Promise</code> 示例，然后使用<code>await</code> 等待这些期约解决，最后打印执行时间</li></ul><ul id="d8f6bb83-d1cf-4f5c-a782-7e97b8497ba5" class="bulleted-list"><li style="list-style-type:circle">打印的结果是变化（生成的期约执行时间随机）的，但是有两点始终不变<ul id="a86770fe-8c30-4ca3-b5aa-33dff80e0e10" class="bulleted-list"><li style="list-style-type:square">期约打印的顺序始终是从0-5的（因为等待第一个期约解决后才创建等待另一个期约执行完毕）</li></ul><ul id="34e704d1-134a-4db0-a8ca-a0538224cfa2" class="bulleted-list"><li style="list-style-type:square">最终消耗时间大体上等于每个期约的解决的时间之和（略大，因为算上了语句执行时间）</li></ul></li></ul><ul id="4e71194e-126c-464a-8426-aea222d6a1a6" class="bulleted-list"><li style="list-style-type:circle">如果期约过多，可以使用for循环，如下</li></ul><pre id="fbc9986f-c937-41b7-ae28-c1ef8265793a" class="code"><code>async function foo2() {
+  const t0 = Date.now();
+  for (let i = 0; i &lt; 5; i++) {
+    await randomDelay(i);
+  }
+  console.log(`${Date.now() - t0}ms elapsed`);
+}
+foo2();
+// 打印结果（可能）
+0 finished: 546.2711688323944ms
+1 finished: 762.0109712491126ms
+2 finished: 9.054193227309714ms
+3 finished: 930.0128971909828ms
+4 finished: 1.1669204783719689ms
+2292ms elapsed</code></pre></li></ul><ul id="289e5a93-579b-481d-8a36-930660467800" class="bulleted-list"><li style="list-style-type:disc">上述的这种方式并没有利用期约的并行执行方式，即使这些期约之间没有依赖，异步函数也会依次暂停，等待每个期约执行完毕，然后再创建执行下一个期约，这样可以<strong>保证执行顺序和获取结果的顺序</strong></li></ul><ul id="3504c3b0-c8b0-4574-b499-ea6390ce3236" class="bulleted-list"><li style="list-style-type:disc">如果执行顺序<strong>不是</strong>必须保证的（await获取结果的顺序还是要保证），那么可以一次性初始化所有的期约，然和分别等待它们的结果，这样就能让所有期约并行执行，优化异步函数的执行时间<pre id="418b56fe-c5e5-4885-8434-7ba85dcd7052" class="code"><code>async function foo3() {
+  const t0 = Date.now();
+  const p0 = randomDelay(0);
+  const p1 = randomDelay(1);
+  const p2 = randomDelay(2);
+  const p3 = randomDelay(3);
+  const p4 = randomDelay(4);
+
+  await p0;
+  await p1;
+  await p2;
+  await p3;
+  await p4;
+
+  console.log(`${Date.now() - t0}ms elapsed`);
+}
+foo3();
+// 可能的打印
+0 finished: 439.2154559340167ms
+4 finished: 484.21195483601355ms
+2 finished: 555.1757965519266ms
+1 finished: 718.3955819162295ms
+3 finished: 926.4098582123498ms
+939ms elapsed</code></pre><ul id="39afbeff-3213-4d32-b4d4-3252042b16db" class="bulleted-list"><li style="list-style-type:circle">期约没有按照顺序打印，而是按照完成的时间进行打印，但是await<strong>按顺序</strong>收到了每个期约解决的值</li></ul><ul id="cc78e965-eb6c-4092-983b-533467c62be2" class="bulleted-list"><li style="list-style-type:circle">打印的结果是变化的，但是这种串行打印有两点是不变的<ul id="0ecefc10-c1f0-4a9e-83b1-2e146bcc19a1" class="bulleted-list"><li style="list-style-type:square">打印顺序按照随机得到的<code>delay</code> 的大小按从小到大进行打印</li></ul><ul id="c1b8181b-4d16-4895-8b03-678b7c8abb12" class="bulleted-list"><li style="list-style-type:square">最终消耗的时间大体等于最后解决的期约花费的时间（并行优化的结果会使得异步函数执行时间比上述的要短）</li></ul></li></ul><ul id="878213bf-9ee6-4c10-9676-aae1cc4e14bf" class="bulleted-list"><li style="list-style-type:circle">如果异步执行的操作过多，可以使用for循环和数组解决</li></ul><pre id="97eb9435-2283-4c55-8093-acb7d233966e" class="code"><code>async function foo4() {
+  const t0 = Date.now();
+  const promises = new Array(5).fill(0).map((v, i) =&gt; randomDelay(i));
+  for (const promise of promises) {
+    await promise;
+  }
+  console.log(`${Date.now() - t0}ms elapsed`);
+}
+
+foo4();
+// 可能的打印
+0 finished: 385.3511002437029ms
+2 finished: 469.86862617835203ms
+3 finished: 661.1382122053251ms
+1 finished: 807.2015049467173ms
+4 finished: 909.7679726941122ms
+917ms elapsed</code></pre><ul id="05ccc5bc-7cf8-49b7-ab7b-93fbccd6cfe7" class="bulleted-list"><li style="list-style-type:circle">注意这里的<code>promises</code> 数组不能使用<code>forEach</code> 方法遍历，因为异步函数的异步性不扩展到内部的函数作用域（使用<code>forEach</code> 内部无法使用<code>await</code>）</li></ul></li></ul><h2 id="820a04f0-1d47-418b-b2f3-93ddae6cf286" class="">3.3.3 串行执行期约（Serial Promise Execution）</h2><ul id="e8274964-3796-4b6f-819a-5eba37a93882" class="bulleted-list"><li style="list-style-type:disc">在<a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89.html">2.4.3 串行期约合成（Serial Promise Composition）</a> 的串行期约合成中，讨论过如何把相互依赖的期约通过函数合成进行代码优化编写，有了async/await关键字后，期约连锁会变得更简单，不再需要通过显式的书写<code>Promise</code> 一个个进行传递<pre id="7c3acbb1-6cac-4723-ba58-0688b49deee8" class="code"><code>function addTwo(x) {
+  return x + 2;
+}
+
+function addThree(x) {
+  return x + 3;
+}
+
+function addFive(x) {
+  return x + 5;
+}
+
+async function addTen(x) {
+  for (const fn of [addTwo, addThree, addFive]) {
+    x = await fn(x);
+  }
+  return x;
+}
+addTen(36).then(console.log); // 46</code></pre></li></ul><ul id="11f21a18-c2ae-48ba-863d-b5851fcf4b18" class="bulleted-list"><li style="list-style-type:disc">如果使用<a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89.html">函数合成</a>的方法，如下<pre id="4a42e9e3-eb3c-4496-8d57-a8b2e389c683" class="code"><code>function compose(...fns) {
+  return (x) =&gt;
+    fns.reduce((promise, fn) =&gt; promise.then(fn), Promise.resolve(x));
+}
+
+let addFifteen = compose(addFive, addTwo, addThree, addFive);
+addFifteen(22).then(console.log);</code></pre></li></ul><h2 id="75716273-3bf7-430e-a709-82dde8fba6db" class="">3.3.4 栈追踪与内存管理（Stack Traces and Memory Management）</h2><p id="12eb150c-a42f-42eb-9adf-92f5fcdc7665" class="">在JavaScript运行代码时，如果遇到错误，抛出错误信息，而错误信息具体发生的位置会给出具体的栈追踪信息，这些栈追踪信息应该直接表示函数之间的套用关系，如下</p><pre id="3596ecf2-3349-429b-8471-06025c030e1a" class="code"><code>function getError() {
+  if (arguments[0] === undefined) {
+    throw new Error(&quot;need first argument&quot;);
+  }
+  return 2;
+}
+
+function foo() {
+  let k = getError();
+  return k + 1;
+}
+
+foo();
+// 打印
+Uncaught Error: need first argument
+    at getError (&lt;anonymous&gt;:3:11)
+    at foo (&lt;anonymous&gt;:9:11)
+    at &lt;anonymous&gt;:13:1</code></pre><ul id="677730dc-1d4d-4f73-817b-67427d4454e5" class="bulleted-list"><li style="list-style-type:disc">这里的错误信息是<code><mark class="highlight-red"><strong>need first argument</strong></mark></code><mark class="highlight-red"><strong> </strong></mark>，而下面的三条就是具体抛出错误的位置给出的栈追踪信息<ul id="af56b373-5375-42be-8745-4b05c6329cad" class="bulleted-list"><li style="list-style-type:circle">它指出出现错误的位置在<code>getError()</code> 函数中</li></ul><ul id="1352afbb-773b-4bca-92fb-63b35c494bcc" class="bulleted-list"><li style="list-style-type:circle">而<code>getError()</code> 函数在<code>foo()</code> 函数中被调用</li></ul><ul id="7a35ba0f-da72-4e38-92f8-06adc674eecb" class="bulleted-list"><li style="list-style-type:circle">而出错的<code>foo()</code> 函数在全局的第13:1位置被调用</li></ul></li></ul><p id="f756bad8-aef0-4839-800a-77040161b961" class="">对于异步函数和期约而言，<strong>二者的栈追踪信息可能有所区别</strong>，这会导致内部管理的差异</p><hr id="494af2ba-08f6-4f98-b5e0-0018e72c2668"/><ul id="304f6bd8-0315-4bf0-9040-612a8a1ef801" class="bulleted-list"><li style="list-style-type:disc">期约与异步函数的功能有相当程度的重叠（如上述的串行执行期约），但是它们在内存中的表示则差别很大,下面是使用期约的栈追踪信息例子<pre id="1d26bab6-e9e4-460e-a9d7-4ba49776b17f" class="code"><code>// 期约
+function barPromiseExecutor(resolve, reject) {
+  setTimeout(reject, 1000, &quot;bar&quot;);
+}
+function bar() {
+  new Promise(barPromiseExecutor);
+}
+bar();
+// 报错打印
+// Uncaught (in promise) bar
+// setTimeout (async)		
+// barPromiseExecutor
+// bar
+// (anonymous)</code></pre><ul id="78385ad3-1e5b-47cb-8f4f-b8e6dbbd7974" class="bulleted-list"><li style="list-style-type:circle">栈追踪信息应该直接表现JavaScript引擎<strong>当前</strong>栈内存中函数调用之间的嵌套关系</li></ul><ul id="3767103a-d70d-4e65-89c2-90b15716b675" class="bulleted-list"><li style="list-style-type:circle">可以看到报错信息包括嵌套函数的标识符，那是被调用以创建最初期约的执行函数（<code>barPromiseExecutor</code> 和<code>bar</code>），但是在执行<code>bar()</code> ，这些函数<strong>已经返回（already return）</strong>了，因此栈追踪中应该看不到它们</li></ul><ul id="bbf0c46d-ebc0-46a8-921a-0a1fe8109b57" class="bulleted-list"><li style="list-style-type:circle">但是JavaScript引擎会<strong>在创建期约时</strong>尽可能保留<strong>完整的调用栈</strong>，在抛出错误时，<strong>调用栈</strong>（<strong>call stack</strong>）可以由运行时的错误处理逻辑<strong>回收</strong>（<strong>retrievable</strong>），所以这些栈追踪信息就会出现在报错的信息中，这也意味着栈追踪信息会<strong>占用内存，从而带来</strong></li></ul></li></ul><ul id="5f4853b4-9930-4727-b3a1-beea3ce39f83" class="bulleted-list"><li style="list-style-type:disc">但是使用<code>await/async</code> 关键字使得bar变为异步函数，等待创建的期约落地状态，这个时候栈追踪信息就能准确地反映当前的调用栈<pre id="7af7c5d8-2042-4490-84c9-87980089548c" class="code code-wrap"><code>async function bar2() {
+  await new Promise(barPromiseExecutor);
+}
+bar2();
+// Uncaught (in promise) bar
+// bar2	
+// await in bar2 (async)		
+// (anonymous)</code></pre><ul id="2ff3fd06-3cac-47c4-880b-cfee7715a0de" class="bulleted-list"><li style="list-style-type:circle"><code>barPromiseExecutor</code> 执行后已经返回，所以它不在错误信息中，但是<code>bar2</code> 因为<code>await</code> 的缘故被挂起，并没有退出，所以错误信息中有<code>bar2</code></li></ul><ul id="81935195-9e64-437c-a194-c36cbf2f0d0c" class="bulleted-list"><li style="list-style-type:circle">是<code>bar2</code> 中的<code>await</code> 关键字所在语句抛出的异步错误，所以栈信息包含<code>await in bar2 (async)</code></li></ul><ul id="696dc6dd-9a45-498c-9d5f-485010f95931" class="bulleted-list"><li style="list-style-type:circle"><del>最后的匿名函数实际上是</del><del><code>reject</code></del><del> </del></li></ul><ul id="fe09a66d-1a94-4d6e-8cbb-7be223da9f9b" class="bulleted-list"><li style="list-style-type:circle">JavaScript运行时可以简单地在嵌套函数中存储指向<strong>包含函数</strong>（<strong>container function</strong>）的指针，就跟对待同步函数调用栈一样，这个指针实际上存储在内存中，可用于在出错时生成栈追踪信息，这样就不会像之前（只使用期约）的例子带来额外的消耗，因此在重视性能的应用中可以优先考虑</li></ul></li></ul><p id="1012aaaf-c717-4842-9df6-f42eb4a7b801" class=""><div class="indented"><p id="aa6978f8-7c89-4e97-92a7-a39d1ee445e0" class="">
+</p></div></p></div></div><p id="8371453d-adb7-4279-b6fb-df9cd9a0255b" class="">
+</p></div></article></body></html>

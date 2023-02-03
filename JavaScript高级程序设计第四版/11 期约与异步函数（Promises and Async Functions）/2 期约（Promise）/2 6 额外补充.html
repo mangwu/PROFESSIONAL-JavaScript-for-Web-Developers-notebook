@@ -1,0 +1,700 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2.6 额外补充</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d872a8b-0569-4045-ad58-56dde8546fe8" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/woodcuts_13.jpg" style="object-position:center 100%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🎢</span></div><h1 class="page-title">2.6 额外补充</h1></header><div class="page-body"><h1 id="6052c3fc-8ca1-49ca-b3a0-37e4434eedf9" class="">2.6.1 Promise.allSettled()</h1><h2 id="9113b286-1c11-4318-9dfd-a6ce32750910" class="">2.6.1.1 定义</h2><ul id="2f72ff15-1768-4531-911e-e1c77c5a493f" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.allSettled()</code> 静态方法接收<code>Pormise</code> 实例构成的可迭代对象作为参数，并返回一个新的<code>Promise</code>实例</li></ul><ul id="ad135155-52ab-4e94-bfc9-13e26f40704e" class="bulleted-list"><li style="list-style-type:disc">这个新的<code>Promise</code> 实例会在所有包含<code>Promise</code>实例都落定（<strong>settle</strong>）时，它才进入兑现状态</li></ul><ul id="d833c416-51a3-4af3-90f1-e0e2741797fd" class="bulleted-list"><li style="list-style-type:disc">并且解决的新Promise 实例的内部值为描述每个包含<code>Promise</code> 实例的<strong>结果</strong>（<strong>outcome</strong>）</li></ul><hr id="34047d98-3ae8-4dfe-9e66-88ac9652f9f6"/><ul id="9b9eae70-317c-4386-9973-951b606a7be8" class="bulleted-list"><li style="list-style-type:disc">可以从定义中看出<code>Promise.allSettled()</code> 与<code>Promise.all()</code> 的不同之处在于<ul id="2a628db5-90ce-4223-9c00-c50ac6650748" class="bulleted-list"><li style="list-style-type:circle">前者会平等看待每个包含的<code>Promise</code> 实例，即使存在拒绝的实例，只有都是落定的状态生成新<code>Promise</code> 实例就会解决</li></ul><ul id="94caf47a-23f0-4aa9-b55c-ee8d16be624a" class="bulleted-list"><li style="list-style-type:circle">后者偏向于能进入兑现状态的<code>Promise</code> 实例，只有包含的实例全部解决，生成的新<code>Promise</code>实例才会解决，否则就会落定拒绝状态，原因就是包含实例中第一个拒绝的<code>Promise</code>实例的原因</li></ul><ul id="0b8abc2b-b1a5-48fb-964b-2098d455f16b" class="bulleted-list"><li style="list-style-type:circle">最后，<code>all()</code> 和<code>allSettled()</code> 生成的<code>Promise</code> 实例在进入兑现状态后，其内部值格式不一样，前者是按顺序保存每个包含实例的内部值的数组，后者是按顺序以<code>{status: x, value: y}</code> 形式保存每个包含实例的状态和内部值的数组</li></ul></li></ul><h2 id="ed65f346-3c15-4248-9584-92d2fd4d1b00" class="">2.6.1.2 语法</h2><pre id="1709446c-98b5-4bb7-b766-7d8f90704aec" class="code"><code>Promise.allSettled(iterable);</code></pre><ul id="58d6764a-c3de-4218-9740-cc273a5985fb" class="bulleted-list"><li style="list-style-type:disc">参数 <code>iterable</code> ： 一个元素是promises的可迭代对象，如果元素不是<code>Promise</code> 实例，会被<code>Promise.resolve()</code> 进行一次包装</li></ul><ul id="12f13ded-a3e6-4649-9dea-6c8cf1a4d4e6" class="bulleted-list"><li style="list-style-type:disc">返回值：一个新的<code>Promise</code>实例，它的状态情况如下<ul id="cb490327-0ba8-4d36-8ec2-f92adf2cef9f" class="bulleted-list"><li style="list-style-type:circle"><strong>已兑现（Already fulfilled）：</strong>如果<code>iterable</code> 是空的可迭代对象，则等价于使用<code>Promise.resolve([])</code></li></ul><ul id="33dc9767-b62f-441d-80ac-0dcb20133ab0" class="bulleted-list"><li style="list-style-type:circle"><strong>异步兑现</strong>（<strong>Asynchronously fulfilled</strong>）：当包含的promise都螺钉状态（fulfilled或rejected）时，新的Promise进入兑现状态；兑现状态的内部值是一个由对象组成的数组，每个对象是<code>iterable</code> 中包含的promises的<strong>结果</strong>（<strong>outcome</strong>），结果的顺序按照<code>iterable</code> 中promises的顺序，而不是<code>promises</code> 完成的顺序；内部值中的每个对象元素的结构如下<ul id="22b3adce-15c3-4707-8217-aa4f535e2dae" class="bulleted-list"><li style="list-style-type:square"><code><strong>status</strong></code><strong> </strong>:字符串，要么是<code>&quot;fulfilled&quot;</code>要么是<code>&quot;rejected&quot;</code> ,表示包含的promise的最终状态</li></ul><ul id="f3981724-168a-4566-8c41-604ab6748df3" class="bulleted-list"><li style="list-style-type:square"><strong><code>value</code></strong>: 只有当<code>status</code> 为 <code>&quot;fulfilled&quot;</code> 时才会有的参数，即<code>promise</code> 的解决值</li></ul><ul id="ce5e86b0-2282-49c5-8dcb-c895bc4a2360" class="bulleted-list"><li style="list-style-type:square"><strong><code>reason</code></strong> ：只有当<code>status</code> 为<code>&quot;rejected&quot;</code> 时才会有的参数，即<code>promise</code> 的拒绝理由</li></ul></li></ul></li></ul><ul id="0414a01a-9b7c-4072-854f-d16411d01584" class="bulleted-list"><li style="list-style-type:disc"><strong>注意</strong><ul id="1e2c289a-bad8-4b54-ac65-95743674cd68" class="bulleted-list"><li style="list-style-type:circle">传递的<code>iterable</code> 中包含的promise都是已经落地状态的promise（如<code>Promise.resolve()</code>），生成的promise依旧是<strong>异步兑现</strong>（<strong>asynchronously fulfilled</strong>），即初始为Pending状态</li></ul><ul id="beec509b-2019-49d5-b9c5-b37e673e4df1" class="bulleted-list"><li style="list-style-type:circle"><code>iterable</code> 是必须传递的，如果不传递就会抛出<strong>异步错误，异步错误</strong>不能通过<code>try/catch</code> 语句进行捕获，需要通过<code>Promise.prototype.catch()</code> 进行捕获，使用对应的拒绝处理程序处理错误原因</li></ul></li></ul><h2 id="dff9425a-2323-4169-bccf-7ced41fcff30" class="">2.6.1.3 理解Promise.allSettled()</h2><ul id="ee3d7dc6-5853-407d-9f89-5b4b7b644191" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.allSettled()</code> 是一个<strong>期约并发</strong>（<strong>promsie concurrency</strong>）方法</li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="fff2f18a-e389-459d-81b2-61bb526679f7"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">实际上Promise的<code>Promise.all()</code>, <code>Promise.race()</code>, <code>Promsie.any()</code>, <code>Promise.allSettled()</code> 这四个有关<strong>期约合成</strong>（<strong>Promise Composition</strong>）的静态方法都是<strong>期约并发</strong>方法；MDN解释“这四种方法能<strong>促进异步任务并发</strong>（<strong>facilitate async task concurrency</strong>）”，个人理解，就和《JavaScript高级程序设计（第4版）》中的<strong>并行期约合成（Parallel Promise Composition）</strong>使用的静态方法描述，是一、解释同一种的行为，只是MDN为这4个静态方法的<strong>特性</strong>做形容，而《JavaScript高级程序设计（第4版）》是为这四种方法的<strong>行为</strong>做描述</div></figure><ul id="1cfae694-cac1-4301-9163-5a58de91d2f5" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.allSettled()</code> 通常用于多个异步任务，这些任务不依赖彼此的成功完成（期约连锁），或想要知道每个promise的结果（<code>Promise.all()</code>）</li></ul><h2 id="e9705498-4118-422b-959b-a0e4a1c0827c" class="">2.6.1.4 例子</h2><pre id="173b3fe0-2074-4de7-a04b-61d4fecda07c" class="code code-wrap"><code>Promise.allSettled([
+  Promise.resolve(33),
+  new Promise((resolve) =&gt; setTimeout(() =&gt; resolve(66), 0)),
+  99,
+  Promise.reject(new Error(&quot;an error&quot;)),
+]).then((values) =&gt; console.log(values));
+// 打印结果
+[
+  { status: &#x27;fulfilled&#x27;, value: 33 },
+  { status: &#x27;fulfilled&#x27;, value: 66 },
+  { status: &#x27;fulfilled&#x27;, value: 99 },
+  {
+    status: &#x27;rejected&#x27;,
+    reason: Error: an error at ....
+  }
+]</code></pre><ul id="a4ced0d0-d387-424f-a604-2a6bb511201c" class="bulleted-list"><li style="list-style-type:disc">从这里可以看出<code>Promsie.allSettled()</code> 和<code>Promse.race()</code> 一样有<strong>静默处理</strong>包含的promises拒绝是抛出错误的行为</li></ul><h1 id="bbbee381-2754-4be3-9c10-f071c97e9bfa" class="">2.6.2 Promise.any()</h1><h2 id="d40f377d-e0bb-4c40-bda1-8d96ca58a6be" class="">2.6.2.1 定义</h2><ul id="a6efae3e-929a-472f-a175-3bf92c69fbbb" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.any()</code> 接收元素为promise的可迭代对象作为输入并返回单个promise</li></ul><ul id="715b1a98-e19d-4253-9ffb-455575c43e3f" class="bulleted-list"><li style="list-style-type:disc">当包含的promises中的任何一个promise解决（落定兑现状态）时，<code>Promise.any()</code> 返回的新<code>Promise</code>实例的就和落地和它（包含的promises中第一个解决的promise）一样的状态和<strong>内部值</strong>（<strong>fulfillment value</strong>）</li></ul><ul id="68321fb3-7fc8-4b0d-b10a-1e7ec4f8ba4b" class="bulleted-list"><li style="list-style-type:disc">当所有包含的promises都拒绝时，<code>Promise.any()</code> 返回的promise才会拒绝，拒绝的原因是由包含promises的拒绝原因组成的<code>AggregateError</code> 类型错误</li></ul><hr id="834b073c-5d01-4671-a891-026c879c5b65"/><ul id="568a4623-fd39-4c66-ad80-813db0ac0213" class="bulleted-list"><li style="list-style-type:disc">从定义中可以看出<code>Promise.any()</code> 和<code>Promise.race()</code> 的不同之处<ul id="2ea14288-241b-4a41-a32a-d7e7ea61388f" class="bulleted-list"><li style="list-style-type:circle"><code>Promise.race()</code> 对包含的所有promises是平等看待的，它会立即成为第一个落定状态的promise的<strong>镜像（mirror）</strong></li></ul><ul id="91bb88d4-60b7-4b58-ab20-bc05497fe8b4" class="bulleted-list"><li style="list-style-type:circle"><code>Promise.any()</code> 偏向于能进入兑现状态的promsies，它会理解成为一个解决（落定兑现状态）的promsie的<strong>镜像（mirror），</strong>如果都属拒绝的promises，<a href="2%206%20%E9%A2%9D%E5%A4%96%E8%A1%A5%E5%85%85.html">情况就如定义所述</a></li></ul></li></ul><h2 id="97f9253e-7d8b-45ed-93ec-245188fb5b6b" class="">2.6.2.2 语法</h2><pre id="a090dbd0-60dc-416a-abc0-ba14fa5203ac" class="code code-wrap"><code>Promise.any(iterable)</code></pre><ul id="bc9c4a4e-72b4-4a12-b82c-fb948b6b697b" class="bulleted-list"><li style="list-style-type:disc">参数<code>iterable</code> ：一个元素是promises的可迭代对象，如果元素不是<code>Promise</code> 实例，会被<code>Promise.resolve()</code> 进行一次包装</li></ul><ul id="b28d92ab-34d6-4f23-93c0-2941a97bd853" class="bulleted-list"><li style="list-style-type:disc">返回值：一个新的<code>Promise</code> 实例，其状态情况如下<ul id="0870c4e0-89db-4fe2-8931-ef2c25545c4f" class="bulleted-list"><li style="list-style-type:circle"><strong>已拒绝</strong>（<strong>Already rejected</strong>）：如果可迭代对象是空的，类似于<code>Promise.resolve(new AggregateError([]))</code> </li></ul><ul id="bb34ba0c-ada4-4b7f-9e5e-dbc4bf2d0e72" class="bulleted-list"><li style="list-style-type:circle"><strong>异步兑现（Asynchronously fulfilled）</strong>：当有任意一个包含的promise解决时，就会进入兑现状态，内部值（fulfillment value）就是第一个解决的promise的内部值</li></ul><ul id="028719d6-07f6-4b9e-8516-234a3f5be55a" class="bulleted-list"><li style="list-style-type:circle"><strong>异步拒绝（Asynchronously rejected）</strong>: 当所有包含的promises都拒绝时，就会进入拒绝状态<ul id="105132dd-8389-4965-85e2-a05a2e152483" class="bulleted-list"><li style="list-style-type:square">拒绝理由是一个<code>AggregateError</code> 类型的错误对象，这个对象的<code>errors</code> 属性保存包含promises中所有的拒绝理由构造的数组，且按照可迭代元素的顺序排列而非promise落地状态的顺序</li></ul><ul id="c5a33eb7-6541-4e46-9196-29bc7f5a8c3b" class="bulleted-list"><li style="list-style-type:square">如果所有的包含promises在传入<code>any()</code> 时就是拒绝的状态（例如<code>Promise.reject()</code>），返回的新promise仍然是<strong>异步拒绝（Asynchronously rejected）</strong></li></ul></li></ul></li></ul><h2 id="da7d4184-5c30-497d-b4ca-1a39a20bed9e" class="">2.6.2.3 理解Promise.any()</h2><ul id="55995c47-4835-430f-94f5-b1cf2955242b" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.any()</code> 是一个<strong>期约并发</strong>（<strong>promsie concurrency</strong>）方法，它在一组promises中只需要一个解决的promise时很有用处，缺点是在生成的新promise兑现后，不会等待包含的其它的promises完成</li></ul><ul id="d2860ec9-2915-4558-87fa-6b4d38af9ad6" class="bulleted-list"><li style="list-style-type:disc">与<code>Promise.all()</code> 比较，<code>Promise.any()</code> 只能获取一个解决promise的内部值，而前者要么获得所有包含的promises的内部值，要么拒绝，可以参考<code>Array.protootype.some()</code> 和<code>Array.prototype.every()</code> 的关系类比二者</li></ul><ul id="60a38c02-2c4e-4158-a457-a322834171f9" class="bulleted-list"><li style="list-style-type:disc">与<code>Promise.race()</code> 比较，一个返回第一个落定状态的promise的镜像，一个返回第一个落地兑现状态的promise的镜像</li></ul><h2 id="6f45d221-3dfe-4bb0-ab2c-6040eea55ccf" class="">2.6.2.4 例子</h2><p id="1cdf46aa-3147-45c2-b54c-8b70565209e7" class=""><strong>使用Promise.any()</strong></p><pre id="98faf0b1-e1ac-4db5-8cb8-a14630015bef" class="code code-wrap"><code>Promise.any([
+  new Promise((resolve, reject) =&gt; reject(&quot;Always fails&quot;)),
+  new Promise((resolve, reject) =&gt; setTimeout(resolve, 500, &quot;Done eventually&quot;)),
+  new Promise((resolve, reject) =&gt; setTimeout(resolve, 100, &quot;Done quick&quot;)),
+]).then((values) =&gt; console.log(values));
+// 打印
+Done quick</code></pre><ul id="87604a41-5923-49f5-922b-d82a8872aded" class="bulleted-list"><li style="list-style-type:disc">从这里可以看出<code>Promise.any()</code> 和<code>Promise.race()</code> 一样会静默处理其它拒绝的promise抛出的错误</li></ul><p id="112ea55a-7b13-4446-bc67-f16e66413a15" class=""><strong>拒绝（Rejections）和AggregateError</strong></p><pre id="1ef59244-c646-43da-a668-97a07343c9f0" class="code code-wrap"><code>Promise.any([
+  new Promise((resolve, reject) =&gt; reject(&quot;Always fails&quot;)),
+  Promise.reject(new Error(&quot;Initial fails&quot;)),
+  new Promise((resolve, reject) =&gt; setTimeout(reject, 100, &quot;Fail quick&quot;)),
+]).catch((reason) =&gt; {
+  console.log(reason);
+});
+// 打印
+// AggregateError: All promises were rejected  (100ms后)</code></pre><ul id="a0b15ade-3ef4-46c5-8149-41d103ba26cd" class="bulleted-list"><li style="list-style-type:disc">上述的<code>reason</code> 就是一个<code><strong>AggregateError</strong></code><strong> </strong>对象，只不过因为<code>console.log</code> 隐式调用<code>toString()</code> 转化为了字符串</li></ul><ul id="3c36a986-2da5-474b-9295-001503343812" class="bulleted-list"><li style="list-style-type:disc">例子中的<code>reason</code> 对象结构如下<figure id="607e47bd-3623-4861-a5dd-8a84f4959452" class="image"><a href="2%206%20%E9%A2%9D%E5%A4%96%E8%A1%A5%E5%85%85/20221028171545.png"><img style="width:686px" src="2%206%20%E9%A2%9D%E5%A4%96%E8%A1%A5%E5%85%85/20221028171545.png"/></a></figure><p id="8af22f9d-dd9b-4d1d-aee6-8d92ecf1dcb1" class="">
+</p></li></ul><p id="98fea56d-1c29-43ad-942c-c328ba73e6e9" class="">
+</p></div></article></body></html>

@@ -1,0 +1,671 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>1.3 日期格式化方法</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="31e1b744-345c-48b7-9823-3245f696fe49" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_robert_stewart_spacewalk.jpg" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🏘️</span></div><h1 class="page-title">1.3 日期格式化方法</h1></header><div class="page-body"><p id="7d3ec335-06c0-4c79-b198-cd7e9b7cd110" class="">Date已有对象除了重写toString(), toLocaleString()和valueOf()外，还自定义了一些返回常用日期格式的方法，它们都会返回一个以统一格式表示的日期字符串</p><h1 id="e3a87bc6-8126-4e11-81b7-b413d60f089b" class="">toDateString()</h1><ul id="e3a65e01-4728-455d-bdfc-1e77676aa872" class="bulleted-list"><li style="list-style-type:disc">周几、月、日、年</li></ul><ul id="080ec2a1-02bc-4149-b491-abd2eff5c01f" class="bulleted-list"><li style="list-style-type:disc">node和谷歌浏览器实现都是<ul id="d1254818-c632-47d3-a0b0-a5f1e255bc54" class="bulleted-list"><li style="list-style-type:circle">周几使用英文简写</li></ul><ul id="d02d7387-3e82-414f-a53f-31be115ab27e" class="bulleted-list"><li style="list-style-type:circle">月使用英文简写</li></ul><ul id="ce03b457-ab27-444e-830a-0d6e63c2044b" class="bulleted-list"><li style="list-style-type:circle">日和年使用完整阿拉伯数字</li></ul><ul id="12040fe4-0592-4a77-ac05-1ad6aad0859b" class="bulleted-list"><li style="list-style-type:circle">时间显示参考<strong>系统时区</strong></li></ul></li></ul><pre id="b56db4bf-1ac7-4e98-8860-036f0c0b030c" class="code code-wrap"><code>const date = new Date(&quot;2022-01-01 00:00:00.000 GMT+0800&quot;);
+console.log(date.toDateString());</code></pre><ul id="b7535cc1-7b65-433f-97d4-4a7c4245a72f" class="bulleted-list"><li style="list-style-type:disc">打印结果<code>Sat Jan 01 2022 </code></li></ul><h1 id="a9a3aa0e-17b4-447d-87de-bd106582d622" class="">toTimeString()</h1><ul id="5437bed0-e268-49ca-81bf-54101f98e2cd" class="bulleted-list"><li style="list-style-type:disc">时、分、秒、时区</li></ul><ul id="987fd60e-12fa-407b-ac09-6218c6badb69" class="bulleted-list"><li style="list-style-type:disc">node和谷歌浏览器实现格式是<ul id="5aa69a89-b0df-4973-9051-01289f3ae73c" class="bulleted-list"><li style="list-style-type:circle">HH:mm:ss GMT</li></ul><ul id="e7e51a98-6d8c-42e2-bffe-f35e3e11f7c0" class="bulleted-list"><li style="list-style-type:circle">其中GMT可以根据所在时区给出括号说明，例如GMT+0800(中国标准时间)</li></ul></li></ul><pre id="a3dc080a-93af-4cbf-a4e2-eb2dfff84b1e" class="code code-wrap"><code>console.log(date.toTimeString());</code></pre><ul id="55e09764-3345-401e-9d97-c15da4cda048" class="bulleted-list"><li style="list-style-type:disc">打印结果 <code>00:00:00 GMT+0800 (中国标准时间)</code></li></ul><h1 id="8db83dc7-ffcf-4ee8-9558-e67487e9f4eb" class="">toLocaleDateString()</h1><ul id="187a5366-e71e-4f16-a4b8-4358697c4efe" class="bulleted-list"><li style="list-style-type:disc">Locale的意思为根据时区和运行环境进行本土化</li></ul><ul id="4b0c6ea3-ef74-45c8-8887-09dacb9aa83f" class="bulleted-list"><li style="list-style-type:disc">格式：周几、月、日、年<ul id="82eb3504-d9c9-402f-831e-75737c47f8ab" class="bulleted-list"><li style="list-style-type:circle">中文环境下不会显示周几</li></ul><ul id="b78687a0-d548-4a57-954f-5187ea730e48" class="bulleted-list"><li style="list-style-type:circle">年月日按照单位大小进行排序，之间用斜杆分隔</li></ul><ul id="eddbe52e-936d-4082-8f6f-93fec114ea20" class="bulleted-list"><li style="list-style-type:circle">YYYY/MM/DD</li></ul></li></ul><pre id="7b42c3da-b056-4a5b-9429-5df0d8ec74e3" class="code code-wrap"><code>console.log(date.toLocaleDateString());</code></pre><ul id="75eee780-4357-4543-9791-aa6a934966de" class="bulleted-list"><li style="list-style-type:disc">打印结果<code>2022/1/1</code></li></ul><h1 id="bea80d4f-b963-47fd-9931-9503c87178f0" class="">toLocaleTimeString()</h1><ul id="519893e1-da62-43f7-a456-4e206e8dcada" class="bulleted-list"><li style="list-style-type:disc">Locale根据时区和运行环境进行本土化</li></ul><ul id="d8faeb21-c4ae-46e6-ad3c-2c1ce3c9c0c9" class="bulleted-list"><li style="list-style-type:disc">格式：时、分、秒<ul id="16c57d9a-963a-4aad-aca7-dfcba0d8b82c" class="bulleted-list"><li style="list-style-type:circle">中文环境下的情况下为</li></ul><ul id="4fee4c33-20e9-4959-8f04-75c3767e7ada" class="bulleted-list"><li style="list-style-type:circle">HH:mm:ss</li></ul><ul id="306fa07d-bb54-4e1a-9868-d4f42b309b9a" class="bulleted-list"><li style="list-style-type:circle">例如 17:25:36</li></ul></li></ul><pre id="4ff0b080-0177-481e-959c-ae6d70e897e3" class="code code-wrap"><code>console.log(date.toLocaleTimeString());</code></pre><ul id="1a3e1a90-ddc1-4560-98e5-d93d480816cd" class="bulleted-list"><li style="list-style-type:disc">打印结果<code>00:00:00</code></li></ul><h2 id="41f6cbcc-fca7-4290-99ea-fd8f6a91208e" class="">注意</h2><ul id="0017bbaa-b552-4d12-9364-4649d9beb8cd" class="bulleted-list"><li style="list-style-type:disc"><strong>实际上</strong><strong><code>toTimeString()</code></strong><strong> 和 </strong><strong><code>toDateString()</code></strong><strong> 就是把</strong><strong><code>toString()</code></strong><strong> 的结果进行分离而已</strong></li></ul><ul id="26ceef7c-d0d3-4eab-801d-be0ce4ea508a" class="bulleted-list"><li style="list-style-type:disc"><strong>实际上</strong><strong><code>toLocaleTimeString()</code></strong><strong>和</strong><strong><code>toLocaleDateString()</code></strong><strong> 就是把</strong><strong><code>toLocaleString()</code></strong><strong> 的结果进行分离而已</strong></li></ul><h1 id="4a8d5d20-febb-4660-ab41-d2fdaede147d" class="">toUTCString()</h1><ul id="b46a98db-867c-4e42-b8ae-844d67e81b45" class="bulleted-list"><li style="list-style-type:disc">显示完整的UTC标准日期<ul id="aaf9e255-49be-44a1-bc28-1c8d635432ad" class="bulleted-list"><li style="list-style-type:circle">格式与具体的环境实现有关系</li></ul><ul id="e8c9dd88-4721-45ba-bd3c-8648de0bc5da" class="bulleted-list"><li style="list-style-type:circle">时区使用GMT+00的时区，即UTC标准时间</li></ul></li></ul><ul id="e8b25603-46a0-43ff-9f22-6f667f823fed" class="bulleted-list"><li style="list-style-type:disc">在node环境和谷歌浏览器环境下，格式如下<ul id="5e695436-b0bd-427b-b929-4ff7aa9158eb" class="bulleted-list"><li style="list-style-type:circle">周几、日、月、年、时、分、秒、时区（GMT）</li></ul><ul id="0e623925-c451-4a1d-9f0b-df49316454f5" class="bulleted-list"><li style="list-style-type:circle">周几用英文简写，后接逗号</li></ul><ul id="99484af2-92d0-4e74-ae26-3d3070f95a60" class="bulleted-list"><li style="list-style-type:circle">月用月份英文简写</li></ul><ul id="ea6c021c-b89f-4dc1-a3a3-a3fa8dfcc15a" class="bulleted-list"><li style="list-style-type:circle">时区就是GMT，因为使用UTC标准时间</li></ul></li></ul><pre id="44a227d7-1734-429a-9f7b-d78c26f1b198" class="code code-wrap"><code>console.log(date.toUTCString());</code></pre><ul id="d752b116-61b2-4d07-b2fa-3ad69974b96e" class="bulleted-list"><li style="list-style-type:disc">打印结果<code>Fri, 31 Dec 2021 16:00:00 GMT</code></li></ul><ul id="13dfa347-2dd1-4386-8b22-353856c2ee1b" class="bulleted-list"><li style="list-style-type:disc">注意这种格式是创建日期和返回字符串独有的，因为使用了逗号，且按照“日月年”的方式显示</li></ul><h2 id="cba222a3-4e72-4710-bfea-2540ca2d7599" class="">注意</h2><ul id="14501f27-878d-4091-ace1-d547d1995c37" class="bulleted-list"><li style="list-style-type:disc">还有一个方法叫做<code><strong>toGMTString()</strong></code><strong> </strong>这个方法和上面的<code>toUTCString()</code> 返回格式一致</li></ul><ul id="77a83ec8-90a9-42ee-aca1-7fdaabef35af" class="bulleted-list"><li style="list-style-type:disc">目的是为了向后兼容（先有toGMTString()）, 因为UTC标准还未出现前，使用的是地理概念的GMT时间，详情查看<a href="1%201Date%E5%9F%BA%E6%9C%AC%E6%8F%8F%E8%BF%B0.html">格里尼治时间和协调世界时的解释</a></li></ul><h1 id="0c7adac4-b205-42e8-af74-2142a8e07773" class="">toISOString()</h1><p id="8d140d30-35c2-469c-b9c8-3e0640883349" class="">该方法在JavaScript高级程序设计第4版中未提及，实际上是有的</p><ul id="0cb8696a-cf89-4585-a350-432f8b302d3e" class="bulleted-list"><li style="list-style-type:disc">在node环境下打印的时间默认调用改方法</li></ul><ul id="8b116ed2-1ec0-4467-8f68-14105c2e94b2" class="bulleted-list"><li style="list-style-type:disc">格式就是<strong><a href="1%201Date%E5%9F%BA%E6%9C%AC%E6%8F%8F%E8%BF%B0.html">ISO 8601规范的格式</a></strong><ul id="f43f3ec7-0eac-4be6-8815-e9015a6bfd05" class="bulleted-list"><li style="list-style-type:circle">YYYY-MM-DDThh:mm:ss.sssZ</li></ul><ul id="da08f4d4-8c69-4d20-a64c-a0e95373623a" class="bulleted-list"><li style="list-style-type:circle">Z表示时区，可以使用默认时区（GMT），也可以使用时差代表，如”+08:00” 表示北京时区</li></ul><ul id="fcd4cd5f-52fa-4c9b-a37c-bc5c739e0802" class="bulleted-list"><li style="list-style-type:circle">但是因为使用ISO规范，基本上返回的就是Z，使用GMT+0000的时区（零区）</li></ul></li></ul><pre id="88c62893-9f47-4613-93c6-0a8c2e544823" class="code code-wrap"><code>console.log(date.toISOString());</code></pre><ul id="df510bae-de19-49b6-b32c-f4343fa492d8" class="bulleted-list"><li style="list-style-type:disc">打印结果<code>2021-12-31T16:00:00.000Z</code></li></ul><ul id="e587e4f7-696d-4db8-a9f6-9660ab8a861f" class="bulleted-list"><li style="list-style-type:disc">初始化时使用<code>const date = new Date(&quot;2022-01-01 00:00:00.000 GMT+0800&quot;);</code> 是东八区时间，实际的零区时间（GMT）在东八区时间上减去8小时，所以得到了2021最后一天的16点的结果</li></ul><p id="87318247-8891-48ab-a559-8dae526132be" class="">
+</p></div></article></body></html>

@@ -1,0 +1,907 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3. 继承</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="34be8111-f0d8-4720-b233-2bed54a77c5a" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_multi-axis_gimbal_rig.jpg" style="object-position:center 80%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🔉</span></div><h1 class="page-title">3. 继承</h1></header><div class="page-body"><p id="b158a2f0-a027-46e4-8813-cffb363a9429" class="">很多面向对象语言都支持两种继承<div class="indented"><p id="3b607e36-243b-4788-a8d6-033aee147575" class="">接口继承：继承方法签名</p><p id="62ba66be-cc3e-448d-b054-ce66a44824b8" class="">实现继承：继承实际的方法</p></div></p><p id="c157fe0a-6854-49d6-af7d-1a1fecf731dd" class="">接口继承在ECMAScript中不可能，因为函数没有签名</p><p id="d3bf1a1b-7419-4620-9996-ffd7dbcb6a64" class="">实现继承是ECMAScript唯一支持的继承方式，主要通过<strong>原型链</strong>实现</p><p id="152d9a4d-be19-4ed2-885c-ea4a7de40e63" class="">关于<strong>函数签名（</strong><strong>function signature） 可以查看</strong><a href="https://www.notion.so/JavaScript-63a78f2596a947989783defd2287e741"><span class="icon">🏉</span>JavaScript与函数签名</a> </p><div id="8a745c97-6fda-4f1f-aae8-2f27eadb2543" class="column-list"><div id="f56f4a86-b111-4087-a3dc-6dd13185dac1" style="width:12.5%" class="column"><nav id="3dd2180c-5e10-4c0b-8ee6-8bd39d0075ac" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b8cf39a7-2127-4234-9cf2-4bee7e9164eb">3.1 原型链</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2becfa54-7711-4d2a-8c18-3206d75a7c42">3.1.1 理解原型链</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#829fd9c2-808f-4d6b-a29d-98ff0270b6f7">3.1.2 默认原型</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5f77cfe5-fd84-4736-83ac-c89dcdedb8f1">3.1.3 原型和继承关系</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5d228649-3a6f-4221-9dca-267a9d2338f8">3.1.4 关于方法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#00499833-f657-40f1-b7a7-65c5375d7550">3.1.5 原型链的问题</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#eab2c8c9-4b96-46bf-87c2-0805aa749e70">3.2 盗用构造函数</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d83218f0-14b8-493f-b1de-ab3ac26e6628">3.2.1 基本思路</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#23045269-2c4e-449a-a2d9-563cf68b9a1d">3.2.2 传递参数</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0c7f5789-45dd-4fee-ad24-4185a2eb141d">3.2.3 盗用构造函数的问题</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2be38c1e-594a-480f-9d75-73f194de3d19">3.3 组合继承</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#640527ce-803b-4bb7-97f6-2ef47c4d8c93">3.3.1 理解组合继承</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#66ae7f63-3469-46b6-8ca1-fe417c0edcb0">3.3.2 实现组合继承</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#47b942f3-eb56-4472-8a23-4c7ce0aa655b">3.3.3 组合继承的优点</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0a7e42c4-59a9-482d-9e1e-0e855cccb039">3.3.4 理解组合继承</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#42da7f76-00a2-4f3b-93a2-eb00b5223bf5">3.4 原型式继承</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c5e58af8-0e9b-4a09-b45f-ff53399f3ec0">3.5 寄生式继承</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1b0db416-26b4-49f9-b9c6-a76221dcb770">3.6 寄生式组合继承</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#100a7898-e05b-4196-89bf-1341febc096b">3.6.1 组合继承的效率问题</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#860d04f2-d506-4035-91d4-fca92c0ea466">3.6.2 理解寄生式组合继承</a></div></nav><p id="6f1dce22-8244-4472-85b8-055a06087d6f" class="">
+</p></div><div id="c47843d3-dbc7-4319-8507-5db5a6f18c93" style="width:87.5%" class="column"><h1 id="b8cf39a7-2127-4234-9cf2-4bee7e9164eb" class="">3.1 原型链</h1><h2 id="2becfa54-7711-4d2a-8c18-3206d75a7c42" class="">3.1.1 理解原型链</h2><ul id="d352f00b-a2b6-437c-92c5-a61bcae294ca" class="bulleted-list"><li style="list-style-type:disc">ECMA-262把<strong>原型链（prototype chain）</strong>定义为ECMAScript的主要继承方式，其基本思想就是通过原型继承多个类型的属性和方法</li></ul><ul id="1f23d79d-d962-451c-8ceb-83f14a6671d4" class="bulleted-list"><li style="list-style-type:disc">原型链的解释：<ul id="29b48209-6c4e-45c5-87f0-5905a70d43af" class="bulleted-list"><li style="list-style-type:circle">每个构造函数都有一个原型对象，原型有一个属性（constructor）指向构造函数</li></ul><ul id="8a2170b4-7cc3-446f-b23c-545c47c86ca8" class="bulleted-list"><li style="list-style-type:circle">实例有一个内部指针（[[Prototype]]特性）指向原型</li></ul><ul id="d6655b1a-880d-431a-9708-cf3de85ce249" class="bulleted-list"><li style="list-style-type:circle">原型本身做为对象实例也有一个内部指针（[[Prototype]]特性）指向另外一个原型</li></ul><ul id="d6a85a05-3932-46f0-b302-2b626b5e6ef8" class="bulleted-list"><li style="list-style-type:circle">相应地另一个原型也有一个属性(constructor)指向另一个构造函数，并且也可能有一个内部指针指向一个原型</li></ul><ul id="39468225-eddd-41ba-a30f-578bec83e6f6" class="bulleted-list"><li style="list-style-type:circle">直达指向最后一个原型对象，Object构造函数关联地原型对象，<code>Object.prototype</code> ，它地内部指针([[Prototype]]特性)为<code>null</code></li></ul></li></ul><ul id="fceba4da-37d1-4cd0-85bb-95442b5ca105" class="bulleted-list"><li style="list-style-type:disc">这也就在实例和原型间构造了一条原型链，这就是原型链地基本构想；语法可以如下表示<pre id="68d0d6a9-2d17-4f1b-875c-c10c1da379f6" class="code code-wrap"><code>obj.__proto__  =&gt; prototypeObj1.__proto__ =&gt;  prototypeObj2.__proto__ =&gt; ... =&gt; prototypeObjI.__proto__ =&gt; ... =&gt;  Object.prototype.__proto__ =&gt; null</code></pre><ul id="f5740c94-2cd7-4d0d-8595-fefd15f2947f" class="bulleted-list"><li style="list-style-type:circle"><code>obj</code> 是一个实例对象，它的<code>__proto__</code>属性保持着一个指向下一个原型的指针</li></ul><ul id="9a35c415-1f38-4f03-8dc8-8cd66393d614" class="bulleted-list"><li style="list-style-type:circle">而每个原型的<code>__proto__</code> 属性都保持着一个指向下一个原型的指针</li></ul><ul id="67358fa0-132b-45a6-bd84-4e44c5ecab2c" class="bulleted-list"><li style="list-style-type:circle">最后一个原型就是<code>Object.prototype</code> 它的<code>__proto__</code> 是<code>null</code> 且不能被修改</li></ul><ul id="21927369-c608-422f-a470-4604b4e64cc2" class="bulleted-list"><li style="list-style-type:circle">其中<code>prototypeObjI</code> 的数量大于等于0，实例可以没有中间的原型，其<code>__proto__</code> 直接指向<code>Object.prototype</code> </li></ul></li></ul><ul id="b1a4c933-ea02-427a-a1a4-e146aba23fa8" class="bulleted-list"><li style="list-style-type:disc">例子：实现原型链的代码模式：<pre id="c11d219c-776b-4f1f-877a-b14a38301e76" class="code code-wrap"><code>function SuperType() {
+  this.property = true;
+}
+SuperType.prototype.getSuperValue = function () {
+  return this.property;
+};
+function SubType() {
+  this.subproperty = false;
+}
+
+// 继承SuperType
+SubType.prototype = new SuperType();
+SubType.prototype.getSubValue = function () {
+  return this.subproperty;
+};
+
+const instance = new SubType();
+console.log(instance.getSuperValue()); // true
+console.log(instance); // SuperType { subproperty: false }
+console.log(instance instanceof SubType); // true
+console.log(instance instanceof SuperType); // true</code></pre><ul id="1b54fd93-8f9a-4ca8-80b0-846b29c824c3" class="bulleted-list"><li style="list-style-type:circle">浏览器中的实例打印（省略了<code>Object.prototype</code>包含的部分属性）<figure id="a8f5a166-ab32-4c52-b496-add249de21b1" class="image"><a href="3%20%E7%BB%A7%E6%89%BF/Untitled.png"><img style="width:601px" src="3%20%E7%BB%A7%E6%89%BF/Untitled.png"/></a></figure></li></ul><ul id="8a7e79fb-d7c0-4427-be0d-68bad2d73336" class="bulleted-list"><li style="list-style-type:circle">先声明了两个构造函数，两个构造函数都有自己的原型对象</li></ul><ul id="c3921d60-8bc6-491b-af06-4cdb823a635a" class="bulleted-list"><li style="list-style-type:circle">然后将<code>SubType</code> 的原型属性<code>prototype</code> 赋值为一个<code>SuperType</code> 的实例<ul id="b53a1032-3ceb-4ec1-b537-963888d2d0a6" class="bulleted-list"><li style="list-style-type:square">这个赋值重写了<code>SubType</code> 的原型，将最初的原型替换成了<code>SuperType</code>实例</li></ul><ul id="72449d4a-a7af-42cd-b24a-eb18d25c938f" class="bulleted-list"><li style="list-style-type:square">这意味着<code>SuperType</code> 实例可以访问的所有属性和方法也会存在于<code>SubType.prototype</code>中</li></ul><ul id="a25a85bc-14cf-4e22-9ce3-4228fbd25471" class="bulleted-list"><li style="list-style-type:square">即实现了<code>SubType</code>对<code>SuperType</code> 的<strong>继承</strong></li></ul></li></ul><ul id="13a226ea-ed5e-4d51-87d9-08f0bf7ed831" class="bulleted-list"><li style="list-style-type:circle">再在<code>SubType</code> 的原型对象（即之前新建的<code>SuperType</code>实例）上声明<code>getSubValue()</code> 方法</li></ul></li></ul><ul id="a7659267-42a2-44c2-96c9-65bc976fd0ae" class="bulleted-list"><li style="list-style-type:disc">将上述的例子进行可视化<figure id="83e1b1c8-fb62-413a-b96b-22e83c45f601" class="image"><a href="3%20%E7%BB%A7%E6%89%BF/%25E7%25BB%25A7%25E6%2589%25BF_1.png"><img style="width:720px" src="3%20%E7%BB%A7%E6%89%BF/%25E7%25BB%25A7%25E6%2589%25BF_1.png"/></a></figure><figure id="6f973ecc-6edb-4ed7-be3f-3768133a826e" class="image"><a href="3%20%E7%BB%A7%E6%89%BF/%25E7%25BB%25A7%25E6%2589%25BF.png"><img style="width:2113px" src="3%20%E7%BB%A7%E6%89%BF/%25E7%25BB%25A7%25E6%2589%25BF.png"/></a></figure></li></ul><ul id="923a9bc2-1ba5-4ef4-968f-4980305c3b49" class="bulleted-list"><li style="list-style-type:disc">这个例子实现继承的关键在于<ul id="426ccc42-dc61-473f-9298-7578115460bb" class="bulleted-list"><li style="list-style-type:circle"><code>SubType</code> 没有使用默认原型，而是替换成了一个新对象，这个新对象恰好是<code>SuperType</code> 实例</li></ul><ul id="34f21fb3-1aaf-4932-95db-02677298e083" class="bulleted-list"><li style="list-style-type:circle">instance.__proto__ ⇒ super_instance.__proto__ ⇒ SuperType.prototype.__proto__ ⇒ Object.prototype.__proto__ ⇒ null</li></ul></li></ul><ul id="ad15ac02-3c82-4819-bcba-da19de8d9766" class="bulleted-list"><li style="list-style-type:disc">原型链<strong>扩展了</strong>第二节提到的<a href="2%20%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1.html">原型搜索机制</a><ul id="8e0e50bc-45c3-4402-bd4f-11a608e3ca3d" class="bulleted-list"><li style="list-style-type:circle">在读取实例的属性时，首先会在实例上搜索自有属性</li></ul><ul id="6e16bc5e-25f3-48fe-8b44-6fcae6fc2594" class="bulleted-list"><li style="list-style-type:circle">没有就会进入到实例的原型进行搜索</li></ul><ul id="cebfef0d-2c8a-410c-b51c-7d972054926b" class="bulleted-list"><li style="list-style-type:circle">在通过原型链实现继承后，搜索就可以继承向上，搜索原型的原型</li></ul><ul id="2c298865-d3f5-45fe-95ce-b7100c1f3e4d" class="bulleted-list"><li style="list-style-type:circle">例如访问<code>instance</code>的<code>getSuperValue()</code> 方法，经过三步搜索：<code>instance</code>、<code>SubType.prototype</code>、<code>SuperType.prototype</code></li></ul><ul id="81e685fb-e003-482d-ab61-aaddecf51085" class="bulleted-list"><li style="list-style-type:circle">对属性和方法的搜索会一直持续到原型链的末端（<code>Object.prototype</code>）</li></ul></li></ul><p id="908e8182-0124-4ad3-aed9-ee7cdb8d3a10" class="">
+</p><h2 id="829fd9c2-808f-4d6b-a29d-98ff0270b6f7" class="">3.1.2 默认原型</h2><ul id="65eff250-dc17-496d-b1df-58fb2306600e" class="bulleted-list"><li style="list-style-type:disc">原型链的最后一环就是默认原型；默认情况下所有引用类型都继承自Object，所以<strong>默认原型就是一个Object构造函数关联的原型</strong></li></ul><ul id="3857c0df-0bcc-4000-93d5-3b9e8a4ce87e" class="bulleted-list"><li style="list-style-type:disc">这也是为什么自定义类型能够继承使用<code>toString()</code> 、<code>valueOf()</code> 这些定义在<code>Object.prototype</code> 原型上的方法的原因</li></ul><ul id="6ff3a2bb-67be-4de4-9362-a9d4c44798a1" class="bulleted-list"><li style="list-style-type:disc">在<a href="3%20%E7%BB%A7%E6%89%BF.html">上面的例子</a>以及第二节的可视化例子中，其实都给出了完整的原型链</li></ul><h2 id="5f77cfe5-fd84-4736-83ac-c89dcdedb8f1" class="">3.1.3 原型和继承关系</h2><ul id="b7cf877c-c40f-4a24-becb-129a19cce3e1" class="bulleted-list"><li style="list-style-type:disc">原型和实例的关系使用两种方式确定<ol type="1" id="388468e7-88fb-473b-bae6-fb42fa22f706" class="numbered-list" start="1"><li><code>instanceof</code>操作符，如果一个实例的原型链上出现相应的构造函数，则<code>instanceof</code>返回<code>true</code> ，如下<pre id="26553035-f0a1-420f-b007-c99ba87b30a6" class="code"><code>console.log(instance instanceof SubType); // true
+console.log(instance instanceof SuperType); // true
+console.log(instance instanceof Object); // true</code></pre><ul id="b023a8bf-dc25-4cf0-b2c6-147214251ad2" class="bulleted-list"><li style="list-style-type:disc"><code>instance</code> 是<code>Object</code>、<code>SuperType</code> 、<code>SubType</code> 的实例，因为<code>instance</code>的原型链中包含这些构造函数的原型</li></ul><ul id="b6e836d1-d420-43a4-acfe-3ca0eb761578" class="bulleted-list"><li style="list-style-type:disc">注意<code>SubType.prototype</code> 被赋值为<code>SuperType</code> 的实例，虽然<code>SubType</code> <strong>最初</strong>的原型被舍弃了，但是<code>SuperType</code> 的实例就是<code>SubType.prototype</code> ，所以<code>instanceof</code> 判断是否是<code>SuperType</code> 一定返回<code>true</code></li></ul></li></ol><ol type="1" id="be3c28f5-b35f-4755-9965-0f5f030ae828" class="numbered-list" start="2"><li>使用<a href="2%20%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1.html"><code>Object.prototype.isPrototypeOf()</code></a> 方法，原型链中的每个原型都可以调用这个方法,如下<pre id="d28140e6-cc73-4eb9-a4aa-6b046b534e08" class="code"><code>console.log(Object.prototype.isPrototypeOf(instance)); // true
+console.log(SuperType.prototype.isPrototypeOf(instance)); // true
+console.log(SubType.prototype.isPrototypeOf(instance)); // true</code></pre></li></ol></li></ul><ul id="6371c6f5-7891-4d19-8cf6-041bd9f85be2" class="bulleted-list"><li style="list-style-type:disc">关于使用<strong>最初的原型的实例</strong><ul id="19f5f02f-0a26-4836-ab80-ca54dceb429c" class="bulleted-list"><li style="list-style-type:circle">如果在<code>SubType</code> 未继承<code>SuperType</code>前，就声明一个实例，这个实例在<code>SubType</code> 原型被重写为<code>SuperType</code> 实例后，其类型就不再是<code>SubType</code> 了，因为它的原型不再是<code>SubType</code> 的原型了（SubType原型主动变化导致的）<pre id="471f25aa-4008-4744-a102-f0dbbe1facc2" class="code"><code>function SuperType() {
+  this.property = true;
+}
+SuperType.prototype.getSuperValue = function () {
+  return this.property;
+};
+function SubType() {
+  this.subproperty = false;
+}
+// 在继承SuperType前声明的实例
+const primaryInstance = new SubType();
+SubType.prototype = new SuperType();
+SubType.prototype.getSubValue = function () {
+  return this.subproperty;
+};
+// 仍然是Object类型
+console.log(Object.prototype.isPrototypeOf(primaryInstance)); // true
+console.log(SuperType.prototype.isPrototypeOf(primaryInstance)); // false
+console.log(SubType.prototype.isPrototypeOf(primaryInstance)); // falser
+
+console.log(primaryInstance instanceof Object); // true
+console.log(primaryInstance instanceof SuperType); // false
+console.log(primaryInstance instanceof SubType); // false</code></pre></li></ul></li></ul><ul id="98bac7c4-ac59-4afd-b33f-6a0454575e1c" class="bulleted-list"><li style="list-style-type:disc">关于<code>instanceof</code> 操作符<figure id="77cd640c-9aa9-491a-acaa-12dabc0f1bae" class="link-to-page"><a href="3%20%E7%BB%A7%E6%89%BF/instanceof.html"><span class="icon">🎸</span>instanceof</a></figure></li></ul><h2 id="5d228649-3a6f-4221-9dca-267a9d2338f8" class="">3.1.4 关于方法</h2><ul id="bc1b8435-75da-46d2-a2a1-b5db7b4b2c1e" class="bulleted-list"><li style="list-style-type:disc">子类有时候需要覆盖父类的方法或者增加父类没有的方法<ul id="0f7159a6-8426-4859-8c26-d6d5e33cb8c6" class="bulleted-list"><li style="list-style-type:circle">这些方法必须在原型赋值（重写）后再添加到原型上</li></ul><ul id="68b30634-9919-4e19-98f2-2767a7d1b307" class="bulleted-list"><li style="list-style-type:circle">最初原型上的方法会因为重写被舍弃掉，所以在继承时尽量继承后再定义方法</li></ul></li></ul><ul id="9d02b6f7-ab4b-4cba-9dfa-9829cb37bf62" class="bulleted-list"><li style="list-style-type:disc">前面的例子中包含了添加方法的情况：<pre id="fbf739ad-1480-466f-ac7c-3734eef65aa7" class="code"><code>function SuperType() {
+  this.property = true;
+}
+SuperType.prototype.getSuperValue = function () {
+  return this.property;
+};
+
+function SubType() {
+  this.subproperty = false;
+}
+SubType.prototype = new SuperType(); // 继承Supertype
+// 在继承后添加方法
+SubType.prototype.getSubValue = function () {
+  return this.subproperty;
+};
+// 覆盖方法
+SubType.prototype.getSuperValue = function () {
+  return this.subproperty &amp;&amp; this.property;
+};</code></pre><ul id="21db35fa-4a89-411c-bab0-8b73aff4f2f7" class="bulleted-list"><li style="list-style-type:circle"><code>getSubValue()</code> 是<code>SubType</code> 的新方法，第二个<code>getSuperValue()</code> 则是原型链上已经存在但在这里被<strong>遮蔽</strong>(<strong>shadow</strong>)的方法</li></ul><ul id="da80b4bc-37d8-4909-b819-b9f0c58229ab" class="bulleted-list"><li style="list-style-type:circle"><code>SupType</code> 实例调用<code>getSuperValue()</code> 是新覆盖的方法，而<code>SuperType</code> 实例调用的<code>getSuperValue()</code> 仍然是最初的方法</li></ul><ul id="cde27f3f-3d34-4a69-aa9b-db63a54ac6c7" class="bulleted-list"><li style="list-style-type:circle">重点在于两个方法都在原型赋值（重写）为<code>SuperType</code> 实例之后定义的</li></ul></li></ul><ul id="255bc261-dfed-4154-9302-cd1282786098" class="bulleted-list"><li style="list-style-type:disc">不要通过对象字面量的方式创建原型方法会破坏之前的原型链，相当于重写了原型链；在继承了<code>SuperType</code> 后，如果想要保证继承的永久性，添加和修改方法只能通过句点调用或<code>Object.defineProperty()</code> 等不改变原型的方式进行增删改，在上一节中也解释过<a href="2%20%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1.html">对原型对象的增删改和重写整个原型是两回事</a> </li></ul><h2 id="00499833-f657-40f1-b7a7-65c5375d7550" class="">3.1.5 原型链的问题</h2><ul id="c565aa62-af42-4369-ba50-8879b7c3df3a" class="bulleted-list"><li style="list-style-type:disc">原型链的问题和<a href="2%20%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1.html">原型的问题</a>是一致的，即<ul id="04de7f14-6a56-46cb-bec7-d14df709d412" class="bulleted-list"><li style="list-style-type:circle">在原型中包含引用值时，引用值被所有实例之间共享，只要有一个实例修改了引用值指向的对象，其他的实例的也会动态变化</li></ul><ul id="716c601a-5dd0-4da2-9b78-0b451ab11334" class="bulleted-list"><li style="list-style-type:circle">这也为什么属性通常会在构造函数中定义而不是在原型上的原因</li></ul></li></ul><ul id="9b32ace8-7a2f-4df4-b848-6645300d38b7" class="bulleted-list"><li style="list-style-type:disc">通过原型链实现继承<strong>加剧</strong>了属性值是引用值时，所有实例共享属性值的问题<ul id="9b505b35-c140-4b73-bd3f-098bf2f15af4" class="bulleted-list"><li style="list-style-type:circle">因为在使用原型实现继承时，原型实际上变为了另一个类型的实例，这意味着原先的实例属性摇身一变成为了原型属性</li></ul><ul id="bb28fe0a-57f3-41b9-a6ed-170c4f4fc1d5" class="bulleted-list"><li style="list-style-type:circle">另一个类型的实例上不可避免的会出现属性值是引用值的情况，这就导致了本类型的实例共享这个属性值是引用值的问题，该引用值指向的对象内容改变会动态反映在所有实例上</li></ul><pre id="c7ee1603-f14b-4652-a4d0-718092ab177b" class="code"><code>function SuperType() {
+  this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
+}
+function SubType() {}
+SubType.prototype = new SuperType();
+
+let instance1 = new SubType();
+instance1.colors.push(&quot;black&quot;);
+console.log(instance1.colors); // [ &#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27;, &#x27;black&#x27; ]
+let instance2 = new SubType();
+console.log(instance2.colors); // [ &#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27;, &#x27;black&#x27; ]</code></pre><ul id="d27d1d10-38b4-477e-8ac1-920061811cb4" class="bulleted-list"><li style="list-style-type:circle"><code>SuperType</code> 定义的<code>colors</code> 属性对于<code>SuperType</code> 实例而言是一个自有属性，它包含一个数组（引用值）</li></ul><ul id="6a088311-0649-4c47-84ca-3a04c26c6d93" class="bulleted-list"><li style="list-style-type:circle">当<code>SubType</code> 通过原型继承<code>SuperType</code>后，<code>SubType.prototype</code>变成了<code>SuperType</code>的一个实例，因而也获得了一个<code>colors</code> 属性</li></ul><ul id="ce082f69-b569-40df-9b50-774851cc03a2" class="bulleted-list"><li style="list-style-type:circle">但是<code>colors</code> 是定义在<code>SubType</code> 的原型上的，即<code>SubType.prototype.colors</code> ，所以所有<code>SubType</code> 实例都会共享这个属性 </li></ul><ul id="8f15b60b-1959-4a08-b520-1aed5fcd3bff" class="bulleted-list"><li style="list-style-type:circle">这就导致<code>instance1</code> 对<code>colors</code> 的修改也能反映到<code>instance2</code> 上，如果我们需要每个实例拥有自己的<code>colors</code> 属性，相互独立，那么原型链的继承就无法解决这个问题了</li></ul></li></ul><ul id="5137f809-f127-4f8e-9d7e-7e09e9d7ae9c" class="bulleted-list"><li style="list-style-type:disc">原型链的<strong>第二个问题</strong>是，子类在实例化时不能给父类的构造函数传参<ul id="60ad0116-fa24-45b7-881e-41eca50379c3" class="bulleted-list"><li style="list-style-type:circle">原型链继承做不到在通过子类构造函数创建实例时将参数传递给父类的构造函数</li></ul><ul id="334de29a-2745-450d-81a8-69e7e311dfda" class="bulleted-list"><li style="list-style-type:circle">因为子类在通过原型链实现继承时就已经创建了一个固定的父类实例并传递了固定的参数</li></ul></li></ul><ul id="dd078ca8-0753-4edc-a78f-df9973570d15" class="bulleted-list"><li style="list-style-type:disc">这两个问题导致原型链基本不会被单独使用</li></ul><h1 id="eab2c8c9-4b96-46bf-87c2-0805aa749e70" class="">3.2 盗用构造函数</h1><ul id="18efe6c1-5b1e-4421-b0ce-dd5066ea1f86" class="bulleted-list"><li style="list-style-type:disc">为了解决原型包含引用值导致的继承问题，一种叫做<strong>盗用构造函数</strong>（<strong>constructor stealing</strong>）的技术在开发社区流行，这种技术又称为<strong>对象伪装</strong>，<strong>经典继承</strong></li></ul><h2 id="d83218f0-14b8-493f-b1de-ab3ac26e6628" class="">3.2.1 基本思路</h2><ul id="1c78d362-fc7b-46f0-825d-a9d8fe6c7b5b" class="bulleted-list"><li style="list-style-type:disc">盗用构造函数的基本思路：<strong>在子类构造函数中调用父类的构造函数</strong><ul id="c1308064-f79d-4620-9d19-b075509fa5c8" class="bulleted-list"><li style="list-style-type:circle">因为函数就是在特定的上下文中执行代码的对象</li></ul><ul id="74f3984d-ccf6-4275-9911-9e30109f9358" class="bulleted-list"><li style="list-style-type:circle">所以可以使用<code>apply()</code> 和<code>call()</code> 方法以新创建的对象为上下文执行构造函数</li></ul></li></ul><ul id="1b8b3603-e53a-429e-9266-42be5c7b4cfb" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="54795cb9-c8f2-4a34-bf3b-2cf5190d9897" class="code"><code>function SuperType() {
+  this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
+}
+
+function SubType() {
+  // 继承SuperType
+  SuperType.call(this);
+}
+
+const instance1 = new SubType();
+instance1.colors.push(&quot;black&quot;);
+console.log(instance1.colors); // [ &#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27;, &#x27;black&#x27; ]
+const instance2 = new SubType();
+console.log(instance2.colors); // [ &#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27; ]</code></pre><ul id="7b30f5d2-284e-4a08-bf94-aebbb42ef65b" class="bulleted-list"><li style="list-style-type:circle">通过使用<code>call()</code>或者<code>apply()</code> 方法，<code>SuperType</code> 构造函数在为<code>SubType</code> 的实例创建的新对象的上下文中执行了</li></ul><ul id="2ee3e6b4-1587-471a-b128-73e88a1b74be" class="bulleted-list"><li style="list-style-type:circle">这相当于新的<code>SubType</code>对象上运行了<code>SuperType()</code> 函数中所有的初始化代码，结果就是每个实例都有自己的<code>colors</code>属性</li></ul></li></ul><ul id="4c585fa6-6f54-4ba4-a48b-12153809af1c" class="bulleted-list"><li style="list-style-type:disc">这种盗用构造器函数的继承方式<strong>本质</strong>上就是把父类的自有属性赋值“搬运”到了子类上运行，让子类在实例化时拥有同样的自有属性</li></ul><ul id="2016b6b7-bc5b-4b4d-b4fd-34bff3543b3e" class="bulleted-list"><li style="list-style-type:disc">但是子类即子类实例<strong>在原型链上</strong>和父类以及父类实例<strong>没有</strong>任何关系，所以子类实例原型上是<strong>没有</strong>父类定义在原型链上的方法的</li></ul><h2 id="23045269-2c4e-449a-a2d9-563cf68b9a1d" class="">3.2.2 传递参数</h2><ul id="2cc11d74-adc9-455f-b933-8394ae7d3a56" class="bulleted-list"><li style="list-style-type:disc">相较于原型链，盗用构造函数的一个优点是可以在子类构造函数中向父类构造函数传递参数</li></ul><ul id="bd5c9c67-78a8-4397-b6dd-edc39ce60ed6" class="bulleted-list"><li style="list-style-type:disc">在使用<code>call()</code>或 <code>apply()</code> 调用父类构造函数时，第一个参数为指定的<code>this</code> ，后面的参数就是需要传递给父类构造函数的参数了，只不过<code>call()</code> 需要分开传递，<code>apply()</code> 需要使用数组统一传递，关于二者可以查看<a href="https://www.notion.so/apply-call-call-apply-19f2ab47132c421b815239e57cafcce7">apply方法与call方法的不同之处在于，call方法分别接受参数,而apply方法以数组的形式接受参数</a> </li></ul><ul id="61c2ce0f-ed71-47e1-9895-22edc31c490c" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="d05ec708-2278-4f6f-a4fc-3e32c4ec78ce" class="code"><code>function SuperType(property) {
+  this.property = property;
+}
+
+function SubType() {
+  SuperType.call(this, &quot;mangwu&quot;);
+  this.age = 22;
+}
+
+const instance = new SubType();
+console.log(instance); // SubType { property: &#x27;mangwu&#x27;, age: 22 }</code></pre><ul id="d742475c-86e6-4339-b315-4cc2e2029b79" class="bulleted-list"><li style="list-style-type:circle"><code>SuperType</code> 函数接受一个参数<code>property</code> ，在<code>SubType</code> 构造函数中通过调用实现继承时，需要在<code>call()</code> 的第二个参数开始传递</li></ul><ul id="148101cb-55b6-418f-9ed2-b3ac7b56325e" class="bulleted-list"><li style="list-style-type:circle">为了确保<code>SuperType</code> 的构造函数不会覆盖<code>SubType</code> 定义的属性，可以在调用父类构造器之后再给子类添加额外的属性（即保保证首先执行调用父类构造函数）</li></ul></li></ul><h2 id="0c7f5789-45dd-4fee-ad24-4185a2eb141d" class="">3.2.3 盗用构造函数的问题</h2><ul id="d40fcce7-274a-4d02-b0a4-7db99fc5b7d7" class="bulleted-list"><li style="list-style-type:disc">如果要使用父类的方法，那么盗用构造函数模式的问题是：<strong>必须在构造函数中定义方法，因此函数不能</strong><a href="2%20%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1.html"><strong>重用</strong></a><strong>（</strong>即逻辑相同的方法本该只声明一个所以实例共享但现在都是自有方法<strong>）</strong></li></ul><ul id="27f659b9-c38c-4d05-92b1-55112db8e08d" class="bulleted-list"><li style="list-style-type:disc">另一个问题是子类不能访问父类原型上定义的方法（这也是上面问题的原因），因此所有类型都只能使用<a href="2%20%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1.html"><strong>构造函数模式</strong></a><strong>（</strong>即不使用原型定义方法，所有类型都将方法定义为自有属性<strong>）</strong></li></ul><ul id="7a19fc4b-fc6a-4047-b679-7db95183d54e" class="bulleted-list"><li style="list-style-type:disc">得出结论：盗用构造函数模式不能单独使用（如果要定义一连串的父子类，全部使用盗用构造函数模式，且不能定义原型方法）</li></ul><h1 id="2be38c1e-594a-480f-9d75-73f194de3d19" class="">3.3 组合继承</h1><h2 id="640527ce-803b-4bb7-97f6-2ef47c4d8c93" class="">3.3.1 理解组合继承</h2><ul id="3077d793-f859-4ca3-aa39-b3c3baffbd09" class="bulleted-list"><li style="list-style-type:disc">组合继承，又称伪经典继承，综合了原型链和盗用构造函数，将两者的优点集中在了一起，基本思路是<ul id="a1cf50c0-b010-4614-9a20-ea1d61dfecaa" class="bulleted-list"><li style="list-style-type:circle">使用原型链继承原型链上的属性和方法</li></ul><ul id="c975fe2c-5e18-476c-b80e-11f3172abdd2" class="bulleted-list"><li style="list-style-type:circle">通过盗用构造函数继承实例属性</li></ul></li></ul><ul id="49066deb-1d56-4071-a70b-912a26ef282b" class="bulleted-list"><li style="list-style-type:disc">这样即可以把方法定义在原型链上，又可以实现重用吗，有可以让每个实例都有自己的属性</li></ul><h2 id="66ae7f63-3469-46b6-8ca1-fe417c0edcb0" class="">3.3.2 实现组合继承</h2><ul id="3e8a3ce8-2a55-4dc9-9f0a-0334e3e78692" class="bulleted-list"><li style="list-style-type:disc">实现方式基本上就是既使用盗用构造函数模式在子类构造函数中调用父类继承实例属性，又通过原型链重写模式继承原型链上的属性和方法<pre id="71007c9d-9134-4b9d-aba7-ef2b098378c1" class="code"><code>function SuperType(name) {
+  this.colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];
+  this.name = name;
+}
+SuperType.prototype.sayName = function () {
+  console.log(this.name);
+};
+
+function SubType(name, age) {
+  SuperType.call(this, name);
+  this.age = age;
+}
+
+SubType.prototype = new SuperType();
+
+SubType.prototype.sayAge = function () {
+  console.log(this.age);
+};
+
+const subInstance = new SubType(&quot;mangwu&quot;, 22);
+console.log(subInstance); // SubType {colors: Array(3), name: &#x27;mangwu&#x27;, age: 22}
+subInstance.colors.push(&quot;black&quot;); 
+console.log(subInstance.colors); // [&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;, &#x27;black&#x27;]
+subInstance.sayName(); // mangwu
+subInstance.sayAge(); // 22
+
+const subInstance2 = new SubType(&quot;wumang&quot;, 23);
+console.log(subInstance2.colors); // [&#x27;red&#x27;, &#x27;green&#x27;, &#x27;blue&#x27;]
+subInstance2.sayName(); // wumang
+subInstance2.sayAge(); // 23</code></pre><ul id="bc930555-c091-4508-8993-d4e589279f7d" class="bulleted-list"><li style="list-style-type:circle"><code>SuperType</code> 作为父类拥有两个属性<code>name</code>和<code>colors</code> 其中<code>colors</code> 属性值为引用类型，原型上定义了<code>sayName()</code> 方法</li></ul><ul id="16d22a73-73af-4ae2-a163-9a8e1b2b3e7d" class="bulleted-list"><li style="list-style-type:circle"><code>SubType</code> 为了继承<code>SuperType</code> ,先使用盗用构造函数的模式继承<code>name</code>和<code>colors</code> 两个属性，再声明自己的属性<code>age</code> ；然后通过原型链继承的模式重写<code>SubType.prototype</code> 为<code>SuperType</code> 的实例，继承子类的原型方法，然后在这个新原型上添加新方法<code>sayAge</code> </li></ul><ul id="64e69517-9e0f-47f6-a138-67a8506410fe" class="bulleted-list"><li style="list-style-type:circle">这样创建两个<code>SubType</code> 实例，它们有自己的属性，互相独立，但是它们又共享逻辑相同的方法</li></ul></li></ul><ul id="c01aeabb-ed70-4a9b-8b83-f86cdeca28d1" class="bulleted-list"><li style="list-style-type:disc">上述例子原型链可视化如下<figure id="0fc9c10f-483a-4872-8c07-3abcfffcf05d" class="image"><a href="3%20%E7%BB%A7%E6%89%BF/%25E7%25BB%2584%25E5%2590%2588%25E7%25BB%25A7%25E6%2589%25BF_1.png"><img style="width:1976px" src="3%20%E7%BB%A7%E6%89%BF/%25E7%25BB%2584%25E5%2590%2588%25E7%25BB%25A7%25E6%2589%25BF_1.png"/></a></figure><div><figure id="273519ed-6a48-4b93-9155-4ceda8aef0ea" class="image"><a href="3%20%E7%BB%A7%E6%89%BF/%25E7%25BB%2584%25E5%2590%2588%25E7%25BB%25A7%25E6%2589%25BF_2.png"><img style="width:2113px" src="3%20%E7%BB%A7%E6%89%BF/%25E7%25BB%2584%25E5%2590%2588%25E7%25BB%25A7%25E6%2589%25BF_2.png"/></a></figure></div><p id="00d9ae32-ad26-41fa-be1f-0da49be34794" class="">
+</p></li></ul><h2 id="47b942f3-eb56-4472-8a23-4c7ce0aa655b" class="">3.3.3 组合继承的优点</h2><ul id="0ba65610-18ae-4056-985a-b9f6e109bc06" class="bulleted-list"><li style="list-style-type:disc">组合继承弥补了原型链和盗用构造函数的不足，是JavaScript中<strong>使用最多的继承模式</strong></li></ul><ul id="36485136-98a4-469d-957b-417ba27fa17d" class="bulleted-list"><li style="list-style-type:disc">组合继承保留了<code>instanceof</code>操作符和<code>isPrototypeOf()</code>方法识别合成对象的能力</li></ul><h2 id="0a7e42c4-59a9-482d-9e1e-0e855cccb039" class="">3.3.4 理解组合继承</h2><p id="ad7b5624-714b-45a8-a36e-55cbfab01383" class="">参考<a href="https://www.zhihu.com/question/22232912">zhihu</a></p><p id="ee86002a-1f36-461f-ada5-36e2ecf3dffb" class="">曾经一段时间JavaScript因为类实现继承不规范，导致开发者实现了各种各样继承的代码；而实际上不管怎么变动，继承都基于两种方式：</p><ol type="1" id="1bbae29d-2b43-4439-9765-155c90991913" class="numbered-list" start="1"><li>通过<strong>原型链</strong>，即子类的原型指向父类的实例从而实现原型共享</li></ol><ol type="1" id="af5f9533-ca5a-4dc1-b9cd-e726e73509f4" class="numbered-list" start="2"><li>盗用<strong>构造函数，</strong>即通过js的apply，call实现子类调用父类的属性、方法</li></ol><p id="4da55b04-18aa-461a-8acb-da16631df036" class="">原型链方式可以<strong>实现所有属性的方法共享，但无法做到属性、方法的独享</strong><div class="indented"><p id="ef9773dc-823d-46e1-a608-169c9f2f3d6d" class="">例如父类拥有属性值是引用值的自有属性，那子类就只能共享这个引用值指向的对象而不能独享</p><p id="a80448df-547d-4061-8fbc-c35b9f80c90d" class="">或者说一个子类修改了父类的自有方法，所有其他子类都想要调用旧的方法就无法实现了（共享导致的）</p></div></p><p id="7e78bc7a-5567-4a66-b676-caa74996218c" class="">盗用构造函数可以<strong>实现所有属性方法独享</strong>，但无法做到<strong>原型属性、原型方法共享，且代码无法复用</strong><div class="indented"><p id="b5d72cca-e432-4713-be5f-49c343eed0d8" class="">例如父类拥有的原型属性和原型方法，子类无法通过盗用构造函数继承它们</p><p id="41a2432c-70b6-4386-a3c8-383b8d2e4471" class="">如果将这些原型属性和原型方法“搬运”成父类的自有属性，那么使用盗用构造函数的所有类关系都需要这样做，这导致了每个子类都独享属性和方法，而逻辑相同的方法本该共享，却无法复用</p></div></p><p id="65214d60-34b5-48ae-b15c-4e60916b3dfd" class="">
+</p><p id="b6912f5f-44d7-482c-90f0-98498ff4ef38" class="">组合继承就是把两者继承方式在一起使用：<strong>把共享的属性、方法用原型链继承实现，独享的属性、方法借用构造函数实现</strong>，所以组合继承<strong>几乎</strong>完美实现了js中的继承</p><p id="a0202a47-703c-47e5-984e-8b9a11248a0e" class=""><strong>几乎？因为geek们发现了组合继承的一个小bug，实现组合继承的时候调用了两次超类（父类），性能上不合格！于是“寄生继承”就出来了,它关注对象本身，而不是构造函数，这样就少了实例化父类这一步</strong></p><p id="65496c2e-ce18-478d-b78f-4f59cf4754d4" class="">下面介绍的三种继承方式是循序渐进的，先简单解释一下</p><ol type="1" id="1b5308d2-258a-490f-9169-500a749b1c00" class="numbered-list" start="1"><li>原型式继承：<strong>新对象</strong>的原型指向<strong>源对象</strong>从而实现原型共享（不再从构造函数的角度实现继承，相对于原型链式继承少了实例化父类这一步）</li></ol><ol type="1" id="7007b698-d942-4477-8a98-59f84029de69" class="numbered-list" start="2"><li>寄生继承：寄生继承的思路和工厂模式类似，就是<strong>调用一个仅用于封装继承过程的函数</strong></li></ol><h1 id="42da7f76-00a2-4f3b-93a2-eb00b5223bf5" class="">3.4 原型式继承</h1><p id="e1e1aacd-bf9c-49b1-9944-b63afabc3ec4" class="">2006年，Douglas Crockford写了一篇文章：《<strong>JavaScript中的原型式继承</strong>》（“<strong>Prototypal Inheritance in JavaScript”</strong>）</p><p id="fa3d4223-6966-468f-ac4d-02839005ec2e" class="">这篇文章的地址在Douglas Crockford自己的网站上<a href="https://www.crockford.com/javascript/prototypal.html">crockford.com</a></p><p id="5b7e9f24-d67e-4eeb-8355-d48cd0e1aac0" class="">它主要介绍了一种<strong>不涉及</strong>严格意义上的构造函数的继承方法，它的出发点是<strong>即使不自定义类型也可以通过原型实现对象之间的信息共享</strong></p><p id="549f4ff2-5293-4f81-9077-7aa0e6499a0c" class="">文章给出了一个函数：</p><pre id="546c6e37-213c-4efd-ae3c-ee63c3c3ff5a" class="code"><code>function object(o) {
+	function F(){};
+	F.ptototype = o;
+	return new F();
+}</code></pre><ul id="28deb4bc-0961-4e19-96ea-356f6bf60f18" class="bulleted-list"><li style="list-style-type:disc">这个<code>object()</code> 函数创建了一个临时构造函数，将传入的对象赋值给这个构造函数的原型，然后返回一个临时类型的实例</li></ul><ul id="44abc981-bf58-4c68-bf2f-1aa068b49ccf" class="bulleted-list"><li style="list-style-type:disc">本质上就是新建了一个普通对象，将其<strong>原型重写</strong>为指定的<code>o</code> 对象，然后新建的对象就拥有<code>o</code> 的所有属性和方法，同时可以在新建对象上定义自有属性和方法</li></ul><p id="f52cd8cf-e2c3-476e-b6cc-53c7b6d10f39" class="">例子如下<div class="indented"><pre id="7b05f4cc-7d17-4b20-83fc-8783311f31fe" class="code"><code>function object(o) {
+  function F() {}
+  F.prototype = o;
+  return new F();
+}
+
+let person = {
+  name: &quot;mangwu&quot;,
+  friends: [&quot;wumang&quot;, &quot;mangmang&quot;, &quot;wuwu&quot;],
+};
+person.__proto__.sayFriends = function () {
+  console.log(this.friends.join(&quot;,&quot;));
+};
+
+let anotherPerson = object(person);
+anotherPerson.name = &quot;mangwugo&quot;;
+anotherPerson.friends.push(&quot;gomangwu&quot;);
+
+let yetAnotherPerson = object(person);
+yetAnotherPerson.name = &quot;manggowu&quot;;
+yetAnotherPerson.friends.push(&quot;wugomang&quot;);
+
+console.log(person.friends); // [ &#x27;wumang&#x27;, &#x27;mangmang&#x27;, &#x27;wuwu&#x27;, &#x27;gomangwu&#x27;, &#x27;wugomang&#x27; ]
+anotherPerson.sayFriends(); // wumang,mangmang,wuwu,gomangwu,wugomang</code></pre></div></p><ul id="6c106ecc-117a-464c-838b-9cae8ceb90c4" class="bulleted-list"><li style="list-style-type:disc">Crockford推荐的原型式继承适用于这种情况<ul id="1cc8a388-47bb-4441-96ac-407685329576" class="bulleted-list"><li style="list-style-type:circle">有一个对象，想在它的基础上再创建一个新对象</li></ul><ul id="72346b14-725f-4411-af09-f38d43d2e888" class="bulleted-list"><li style="list-style-type:circle">需要把这个对象传递给<code>object()</code> ,然后再对返回的对象进行适当修改</li></ul><ul id="eaf05f6b-9980-4053-a2a5-4fadf13ab919" class="bulleted-list"><li style="list-style-type:circle">原型式继承非常适合<strong>不需要</strong>单独创建构造函数，但仍需要在对象之间共享信息的场合</li></ul><ul id="7d25f4a2-2ec7-449b-8b93-6eb30c981fb8" class="bulleted-list"><li style="list-style-type:circle">其缺点也来自共享，即属性中包含的引用值始终会在相关对象中共享，跟使用原型模式是一样的</li></ul></li></ul><ul id="68cb6bef-f401-43d7-bf12-62af59dc9d6d" class="bulleted-list"><li style="list-style-type:disc">在例子中<code>anotherPerson</code>和<code>yetAnotherPerson</code> 是<code>object()</code> 方法通过以<code>person</code> 为原型<strong>克隆</strong>出来的两个对象<ul id="0db5e189-5f57-492f-a00e-3e95a903a991" class="bulleted-list"><li style="list-style-type:circle">这种克隆是浅复制，只是把原型进行赋值</li></ul><ul id="26eee29e-168e-4307-aae9-34edfaf157b2" class="bulleted-list"><li style="list-style-type:circle">克隆出来的两个对象和<code>person</code> 共享信息</li></ul></li></ul><ul id="4a0aa294-3931-4d28-86cb-298db0bb4973" class="bulleted-list"><li style="list-style-type:disc">原型式继承与原型链继承最大的区别在于<ul id="a388807c-e564-4dbd-9f6a-454b3856770e" class="bulleted-list"><li style="list-style-type:circle">原型链继承需要创建构造函数，然后通过构造函数的原型重写实现继承然后创建子类实例</li></ul><ul id="5c774e3e-16fb-42a8-ba51-3bdfa7983263" class="bulleted-list"><li style="list-style-type:circle">而原型式继承在显式上<strong>不自定义任何类型</strong>，只需要调用<code>object()</code> 方法就能创建一个继承<code>obj</code> 的新对象</li></ul></li></ul><ul id="71275c7f-af9b-45f2-8ed9-c1cd6654664c" class="bulleted-list"><li style="list-style-type:disc"><code>object()</code> 是原型式继承的关键，而在ECMAScript 5 中，通过增加<code>Object.create()</code>方法将原型式继承的概念规范化了</li></ul><ul id="9c26755d-7320-4153-a1ff-d7b4dd0dc73b" class="bulleted-list"><li style="list-style-type:disc"><code>Object.create()</code> 在第二节的时候已经详细介绍过，<a href="2%20%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1.html">2.4.2.4 初始设置对象实例的原型链</a> ，它用来在创建新对象时指定新对象的原型，实际上就是原型式继承的核心思想；上述的例子将<code>object()</code> 方法换成<code>Object.create()</code> 具有一样的效果<pre id="254ceb63-4256-478a-9f15-7501ab65f067" class="code"><code>let person = {
+  name: &quot;mangwu&quot;,
+  friends: [&quot;wumang&quot;, &quot;mangmang&quot;, &quot;wuwu&quot;],
+};
+person.__proto__.sayFriends = function () {
+  console.log(this.friends.join(&quot;,&quot;));
+};
+
+let anotherPerson = Object.create(person);
+anotherPerson.name = &quot;mangwugo&quot;;
+anotherPerson.friends.push(&quot;gomangwu&quot;);
+
+let yetAnotherPerson = Object.create(person);
+yetAnotherPerson.name = &quot;manggowu&quot;;
+yetAnotherPerson.friends.push(&quot;wugomang&quot;);
+
+console.log(person.friends); // [ &#x27;wumang&#x27;, &#x27;mangmang&#x27;, &#x27;wuwu&#x27;, &#x27;gomangwu&#x27;, &#x27;wugomang&#x27; ]
+anotherPerson.sayFriends(); // wumang,mangmang,wuwu,gomangwu,wugomang</code></pre></li></ul><h1 id="c5e58af8-0e9b-4a09-b45f-ff53399f3ec0" class="">3.5 寄生式继承</h1><ul id="2be0efe8-43c8-4753-bde3-bcdac442b251" class="bulleted-list"><li style="list-style-type:disc"><strong>寄生式继承（parasitic inheritance）</strong>与原型式继承类似，它也是Crockford首倡的一种模式</li></ul><ul id="0351cc32-259d-4d4e-a093-57123b8b7549" class="bulleted-list"><li style="list-style-type:disc"><strong>寄生式继承</strong>也<strong>不涉及</strong>严格意义上的构造函数，不通过定义类型，思路寄生构造函数和工厂模式，创建一个实现继承的函数，以某种方式增强对象，然后返回这个对象；基本的寄生继承模式如下<pre id="23bf1e10-6732-4972-88c6-57d150588fce" class="code"><code>// 原型式继承
+function object(o) {
+  function F() {}
+  F.prototype = o;
+  return new F();
+}
+// 寄生式继承
+function createAnother(original) {
+  let clone = object(original); // 通过调用函数创建一个新对象
+  clone.sayHi = function () { // 以某种方式增强这个对象
+    console.log(&quot;hi&quot;);
+  };
+  return clone; // 返回这个对象
+}</code></pre><ul id="a070f56a-8264-459b-bfbf-d757ff6fd9ec" class="bulleted-list"><li style="list-style-type:circle"><code>creatAnother()</code> 函数就是寄生式继承需要创建的一个实现继承的函数，它接受的参数是基准对象</li></ul><ul id="c60d2f73-b112-425d-9c9f-e63a6bd4d49c" class="bulleted-list"><li style="list-style-type:circle">这个对象被传递给<code>object()</code> 方法，<code>object()</code> 会返回新对象并赋值给<code>clone</code> ；<code>object()</code> 方法并非一定是原型式继承定义的方法，也可以是<code>Object.create()</code> , 它实现的功能就是基于<code>original</code> 返回新对象</li></ul><ul id="3e9474cb-18c6-4fdc-9cad-c6adb55a64a9" class="bulleted-list"><li style="list-style-type:circle"><code>clone</code> 被添加一个新方法<code>sayHi()</code> 这是一种增强对象的方式，最后返回<code>clone</code> ，<code>clone</code> 就可以看作是继承<code>original</code> 但有自己的属性和方法的对象</li></ul></li></ul><ul id="d4713d4d-8e38-4526-aa14-86cc6b853904" class="bulleted-list"><li style="list-style-type:disc">寄生式继承同样适用主要关注对象，而不在乎类和构造函数的场景，如下<pre id="2bc85eb6-fa5f-48ba-9c1f-0585b51b1c87" class="code"><code>let person = {
+  name: &quot;mangwu&quot;,
+  age: 22,
+};
+
+let anotherPerson = createAnother(person);
+console.log(anotherPerson);
+anotherPerson.sayHi(); // &quot;Hi&quot;</code></pre><ul id="71416b5a-ce16-4b6c-a031-7d6c4ef8f700" class="bulleted-list"><li style="list-style-type:circle">通过<code>person</code> 返回一个新对象，新返回的对象<code>anotherPerson</code> 对象具有<code>person</code> 所有属性和方法，还有一个增强的方法<code>sayHi()</code></li></ul></li></ul><ul id="c69cdfa6-1432-4fd8-b269-04092abc2f70" class="bulleted-list"><li style="list-style-type:disc"><strong>注意</strong><ul id="1f76b0da-73e1-4196-805b-c60f6730193f" class="bulleted-list"><li style="list-style-type:circle"><strong>寄生式继承</strong>其实和<strong>原型式继承</strong>的实现相似，不过寄生式继承在原型式继承的继承上添加了在创建实例时函数中以某种形式来<strong>增强对象</strong></li></ul><ul id="664118f9-f120-4965-a57c-c9f14a84962c" class="bulleted-list"><li style="list-style-type:circle">使用寄生式继承来为对象添加函数，会由于不能做到函数复用而降低效率</li></ul></li></ul><h1 id="1b0db416-26b4-49f9-b9c6-a76221dcb770" class="">3.6 寄生式组合继承</h1><h2 id="100a7898-e05b-4196-89bf-1341febc096b" class="">3.6.1 组合继承的效率问题</h2><ul id="55856cec-1f50-4179-a4ed-e645b3f62602" class="bulleted-list"><li style="list-style-type:disc">在<a href="3%20%E7%BB%A7%E6%89%BF.html">3.3.4 理解组合继承</a> 中其实提到过组合继承的效率问题，就是父类构造函数始终被调用两次<ul id="619e64c3-b1ab-4a2a-866f-b82af4c2b147" class="bulleted-list"><li style="list-style-type:circle">一次在创建子类原型时调用</li></ul><ul id="07d75680-937d-4fa4-8048-bfa27766742a" class="bulleted-list"><li style="list-style-type:circle">一次在子类构造函数中调用</li></ul></li></ul><ul id="eb48a7a3-ef47-4e3e-a1d0-a13a0d795300" class="bulleted-list"><li style="list-style-type:disc">因为组合继承以构造函数为实现继承的蓝本，<strong>创建子类原型时的调用</strong>其实是不必要的，因为寄生式继承就做到了直接根据对象来继承，不需要额外的实例化</li></ul><ul id="2368469b-5488-40b2-b0a7-fb162d41da57" class="bulleted-list"><li style="list-style-type:disc">本质上，子类原型最终是要包含超类（父类）对象的所有实例属性，子类构造函数只要在执行时重写自己的原型即可，但组合继承并没有这样做，如下<pre id="2a3b2d4f-0523-4193-b64e-17881d71828c" class="code"><code>function SuperType(name) {
+  this.colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];
+  this.name = name;
+}
+SuperType.prototype.sayName = function () {
+  console.log(this.name);
+};
+
+function SubType(name, age) {
+  SuperType.call(this, name); // 第二次调用SuperType
+  this.age = age;
+}
+
+SubType.prototype = new SuperType(); // 第一次调用SuperType()
+SubType.prototype.constrcutor = SubType;
+SubType.prototype.sayAge = function () {
+  console.log(this.age);
+};</code></pre><ul id="97d0ffb0-77e5-4274-8d2b-4c37b1674d07" class="bulleted-list"><li style="list-style-type:circle">第一次调用<code>SuperType()</code> ，<code>SubType.prototype</code> 上会有两个属性<code>name</code>和<code>colors</code> ，它们都是<code>SuperType</code>的实例属性，现在都成为了<code>SubType</code> 的原型属性</li></ul><ul id="d6393591-f7a7-4a26-abee-5c91bc82cf1b" class="bulleted-list"><li style="list-style-type:circle">第二次调用<code>SuperType</code> ，会在新对象（<code>SubType</code> 实例）上创建实例属性<code>name</code>和<code>colors</code> ，这两个自有属性会遮蔽（shadow）原型上的同名属性。下面是最终的原型链关系</li></ul></li></ul><div><figure id="273519ed-6a48-4b93-9155-4ceda8aef0ea" class="image"><a href="3%20%E7%BB%A7%E6%89%BF/%25E7%25BB%2584%25E5%2590%2588%25E7%25BB%25A7%25E6%2589%25BF_2.png"><img style="width:2113px" src="3%20%E7%BB%A7%E6%89%BF/%25E7%25BB%2584%25E5%2590%2588%25E7%25BB%25A7%25E6%2589%25BF_2.png"/></a></figure></div><ul id="3a81e25f-f3f9-4f97-8f9d-4ecccf96ad74" class="bulleted-list"><li style="list-style-type:disc">从图中可以看出有两组name和colors属性：一组在实例上，一组在<code>SubType</code> 原型上，这也是调用两次<code>SuperType</code>构造函数的结果</li></ul><ul id="84c73445-c61a-4963-9961-40c5529520ed" class="bulleted-list"><li style="list-style-type:disc">要解决这个问题就要依靠<strong>寄生式继承</strong>来修复<strong>组合继承</strong>，这就是一种新的继承模式：<strong>寄生式组合继承</strong></li></ul><h2 id="860d04f2-d506-4035-91d4-fca92c0ea466" class="">3.6.2 理解寄生式组合继承</h2><ul id="9fea18d3-8287-45fa-a932-27731c538328" class="bulleted-list"><li style="list-style-type:disc">因为<strong>寄生式继承</strong>本质上是对象层面的原型链式继承，所以要是实现<strong>寄生式组合继承，</strong>需要通过盗用构造函数继承属性，但使用<strong>混合式原型链</strong>继承方法</li></ul><ul id="169f30fe-915a-4b30-8d65-bbe07f4d54b1" class="bulleted-list"><li style="list-style-type:disc">基本思路<ul id="cfa67188-d0fd-4362-a6e6-69be383ae819" class="bulleted-list"><li style="list-style-type:circle">不通过调用父类构造函数给子类原型赋值，而是取得一个原型的副本</li></ul><ul id="5716e2fa-5768-45ad-a22e-b15d77089c43" class="bulleted-list"><li style="list-style-type:circle">即使用<strong>寄生式继承</strong>来继承<strong>父类原型</strong>，然后将返回的新对象赋予给子类原型</li></ul></li></ul><ul id="6ba73ba1-3291-46eb-a5dd-0377244ec917" class="bulleted-list"><li style="list-style-type:disc">本质上，子类原型最终是要包含超类（父类）对象的所有实例属性，<strong>子类构造函数只要在执行时重写自己的原型</strong>即可，如下，在子类构造函数中调用的寄生式组合继承的基本模式为<pre id="979eff2f-fa94-4787-a8fc-b238f393f66c" class="code"><code>function inheritPrototype(SubType, SuperType) {
+  let prototype = Object.create(SuperType.prototype); // 创建原型对象
+  prototype.constructor = SubType; // 增强对象
+  SubType.prototype = prototype; // 赋值对象
+}</code></pre><ul id="4d36c809-e8cf-41f1-8240-9131be62a64e" class="bulleted-list"><li style="list-style-type:circle">这个<code>inheritPrototype()</code> 函数实现了寄生式组合继承的核心逻辑</li></ul><ul id="dcbf97a0-dd94-4d64-acfb-c810843d2b6b" class="bulleted-list"><li style="list-style-type:circle">这函数接受子类构造函数和父类构造函数<ol type="1" id="e4679e96-9292-4395-90b8-7664cf172dcd" class="numbered-list" start="1"><li>创建父类原型的一个副本<code><strong>prototype</strong></code>（原型式继承）</li></ol><ol type="1" id="d1faaeec-df75-46d1-b597-8d4d87516c1c" class="numbered-list" start="2"><li>给返回的<strong><code>prototype</code></strong><strong> </strong>设置<code>constructor</code>属性（寄生式继承），解决由于重写原型导致默认<code>constructor</code> 丢失的问题</li></ol><ol type="1" id="4b4bc57f-b1e8-4f01-b9b5-03dbf7398b82" class="numbered-list" start="3"><li>最后将新创建的对象赋值给子类型的原型（原型链继承）</li></ol></li></ul></li></ul><ul id="39ac4e8c-2994-4f5e-8b7b-09a69eb1c341" class="bulleted-list"><li style="list-style-type:disc">有了寄生式组合继承的基本模式，那么在组合继承中，可以舍弃第一次调用<code>SuperType()</code> ，换用<code>inheritPrototype()</code> ,结合盗用构造函数模式，实现寄生式组合继承<pre id="e75cb113-41db-46da-a9a2-ce898d6637d6" class="code"><code>// 基本模式
+function inheritPrototype(SubType, SuperType) {
+  let prototype = Object.create(SuperType.prototype); // 创建原型对象
+  prototype.constructor = SubType; // 增强对象
+  SubType.prototype = prototype; // 赋值对象
+}
+
+function SuperType(name) {
+  this.colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];
+  this.name = name;
+}
+SuperType.prototype.sayName = function () {
+  console.log(this.name);
+};
+
+function SubType(name, age) {
+  SuperType.call(this, name);
+  this.age = age;
+}
+inheritPrototype(SubType, SuperType);
+SubType.prototype.sayAge = function () {
+  console.log(this.age);
+};</code></pre><ul id="47989f29-bf17-444b-841b-adecad45f070" class="bulleted-list"><li style="list-style-type:circle">只调用了一次<code>SuperType</code> 构造函数，避免了<code>SubType.prototype</code> 不必要也用不到的属性</li></ul></li></ul><ul id="c0174969-210c-4977-8389-0735b3aae969" class="bulleted-list"><li style="list-style-type:disc">寄生式组合继承模式效率更高，而且原型链保持不变，因此<code>instanceof</code>操作符和<code>isPropertyOf()</code>  方法正常有效</li></ul><ul id="3aab8920-996d-43d7-8c68-0b9a16fa910f" class="bulleted-list"><li style="list-style-type:disc">寄生式组合继承是引用类型继承的<strong>最佳模式，</strong>下面是上面例子的原型链可视化<figure id="e2c9132d-cebc-4ab7-9670-e59990fb1773" class="image"><a href="3%20%E7%BB%A7%E6%89%BF/%25E5%25AF%2584%25E7%2594%259F%25E5%25BC%258F%25E7%25BB%2584%25E5%2590%2588%25E7%25BB%25A7%25E6%2589%25BF_1.png"><img style="width:1976px" src="3%20%E7%BB%A7%E6%89%BF/%25E5%25AF%2584%25E7%2594%259F%25E5%25BC%258F%25E7%25BB%2584%25E5%2590%2588%25E7%25BB%25A7%25E6%2589%25BF_1.png"/></a></figure><figure id="fd1a1e8c-3d46-48fe-a236-5d8c3995dc2b" class="image"><a href="3%20%E7%BB%A7%E6%89%BF/%25E5%25AF%2584%25E7%2594%259F%25E5%25BC%258F%25E7%25BB%2584%25E5%2590%2588%25E7%25BB%25A7%25E6%2589%25BF_2.png"><img style="width:2113px" src="3%20%E7%BB%A7%E6%89%BF/%25E5%25AF%2584%25E7%2594%259F%25E5%25BC%258F%25E7%25BB%2584%25E5%2590%2588%25E7%25BB%25A7%25E6%2589%25BF_2.png"/></a></figure></li></ul></div></div><p id="6e142944-d76e-4c0d-92da-bf3b9af9f3ea" class="">
+</p></div></article></body></html>

@@ -1,0 +1,714 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2. HTML中的JavaScript</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="b28e920a-e03d-477a-abe6-8d50f8589037" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_yellow.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🌃</span></div><h1 class="page-title">2. HTML中的JavaScript</h1></header><div class="page-body"><blockquote id="8417b899-ff15-4821-b8d2-bda363913c0f" class="">JavaScript引入网页中时，要解决网页主导语言HTML和JavaScript之间的关系问题(<strong>coexist</strong> 共存关系)。网景公司在保证JavaScript不会影响到HTML在浏览器中渲染的情况下，达成了向网页中引入<strong>通用</strong>（<strong>universal</strong>）<strong>脚本能力</strong>（<strong>scripting support</strong>）的共识，并<strong>正式</strong>（<strong>formalized</strong>）成为HTML规范的一部分</blockquote><div id="fbc5ecb7-9ab7-4a30-a863-808e38d802fb" class="column-list"><div id="c4e6e628-92d0-4f95-a849-f16ce086d240" style="width:18.75%" class="column"><nav id="808f79f7-aea9-4baa-a9b3-d5c9321a802b" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3be2985f-9152-41ac-9540-9f108e0d2ee0">1.&lt;script&gt;元素(The &lt;script&gt; Element)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#739ff6f6-5c14-4f3f-b0f6-91f4e5354da3">2.行内代码与外部文件（Inline Code and External File）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a32b3978-2a5d-400d-ab59-2e975f91fe9d">推荐使用</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9838bf9f-18ab-4627-9459-7ad31653bb37">外部文件引入优点</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9b257c51-9697-41ad-bb2e-a383f9b08ad2">模块化JavaScript文件</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6f3df7c0-8340-4739-970c-f627a3f6b942">3.文档模式</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c42dba7c-2e31-437f-b8dd-519dd4394f3b">定义</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e979322c-7c3d-4229-89e4-930d2e670e2d">文档模式区别</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#44bce005-9384-4ff3-aeb5-6d99ca746196">准文档模式（almost standard mode）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c709a818-98b0-4db1-8286-769b34d4d244">不同模式的声明方式</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4f0b6e9f-09d4-4091-88db-3a79e35a357d">A.混杂模式</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#cf0c7ca5-4ff3-4c54-9667-94338287f3b0">B.标准模式</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#96b3d290-f817-462b-88e1-8daad024954d">C.准标准模式</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#71700ddd-5174-4599-9ff4-a1fa2971eebd">4.&lt;noscript&gt;元素</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0fabf05d-9463-4199-ba50-8db1a49de7e4">总结</a></div></nav><p id="ac2604d8-2a1d-481c-97ea-934ae5549630" class="">
+</p></div><div id="6e8ee33f-5c21-4817-9cd4-0104dbcef595" style="width:81.25%" class="column"><h1 id="3be2985f-9152-41ac-9540-9f108e0d2ee0" class="">1.&lt;script&gt;元素(The &lt;script&gt; Element)</h1><ul id="e7b971f9-b0f5-4861-b271-01218140828e" class="bulleted-list"><li style="list-style-type:disc">将JavaScript插入HTML的主要方法就是使用<code>&lt;script&gt;</code>元素<ul id="711aa140-1329-4b1f-a6c2-e6773e6ceeef" class="bulleted-list"><li style="list-style-type:circle">由网景公司创造</li></ul><ul id="cd858f43-d684-41c8-8bf5-e320c6eb2f8d" class="bulleted-list"><li style="list-style-type:circle">最早在Netscape Navigatior2实现</li></ul><ul id="4d5cec01-6e00-4e97-bb1f-bcfefb6fbca6" class="bulleted-list"><li style="list-style-type:circle">后来被正式加入到HTML规范</li></ul></li></ul><figure id="8482acc6-dba1-4ca7-9485-72a51bf60583" class="link-to-page"><a href="2%20HTML%E4%B8%AD%E7%9A%84JavaScript/script%20%E5%85%83%E7%B4%A0.html"><span class="icon">🧧</span>&lt;script&gt;元素</a></figure><h1 id="739ff6f6-5c14-4f3f-b0f6-91f4e5354da3" class="">2.行内代码与外部文件（Inline Code and External File）</h1><h2 id="a32b3978-2a5d-400d-ab59-2e975f91fe9d" class="">推荐使用</h2><ul id="95929d3e-2171-48ec-be6f-cf1201bdcd52" class="bulleted-list"><li style="list-style-type:disc">直接在HTML中嵌入JavaScript代码是不被推荐的</li></ul><ul id="4be7cfba-2b29-4448-b4da-44edb2b7883b" class="bulleted-list"><li style="list-style-type:disc">通常的最佳实践是将JavaScript代码放在外部文件中再被引入（并非强制要求）</li></ul><h2 id="9838bf9f-18ab-4627-9459-7ad31653bb37" class="">外部文件引入优点</h2><ol type="1" id="97ec3152-7381-4ba3-bf13-d01b4ffdfa7e" class="numbered-list" start="1"><li><strong>可维护性</strong><ol type="a" id="b38c6f96-900a-4322-8b68-49b45efb80ea" class="numbered-list" start="1"><li>JavaScript分散到多个HTML页面中或再HTML中的不同位置，维护起来困难</li></ol><ol type="a" id="81920210-47ae-4ee3-a043-1cb77afa69f4" class="numbered-list" start="2"><li>使用一个目录保存所有JavaScript文件，易于维护，且可以独立于HTML页面来编辑JavaScript代码</li></ol></li></ol><ol type="1" id="7c5c93be-935d-44d4-b8c6-0587f09894fb" class="numbered-list" start="2"><li><strong>缓存</strong><ol type="a" id="e34fa2ec-7fa4-472d-91f7-3c9ab8d8a795" class="numbered-list" start="1"><li>浏览器会根据特定的设置<strong>缓存所有的外部链接的JavaScript文件</strong></li></ol><ol type="a" id="f4b93955-ee59-4b5c-bfc8-4ba101b13b31" class="numbered-list" start="2"><li>不同页面使用相同的JavaScript文件，只需下载一次，节省开支，页面加载更快</li></ol></li></ol><ol type="1" id="e4a6c1d3-9ebd-4989-9ea2-d668c0b9fb0a" class="numbered-list" start="3"><li><strong>适用未来</strong><ol type="a" id="9d4d79b0-2e5a-4891-9061-b48ee9ba31f9" class="numbered-list" start="1"><li>外部文件的JavaScript不必思考XHTML模式</li></ol><ol type="a" id="abf48544-ab6a-44b4-90fe-5e6e348914da" class="numbered-list" start="2"><li>包含外部JavaScript文件的语法在HTML和XHTML中是一样的</li></ol></li></ol><h2 id="9b257c51-9697-41ad-bb2e-a383f9b08ad2" class="">模块化JavaScript文件</h2><ul id="52c790f9-ccf8-49e1-aecb-22dd76418c6c" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">以<strong>轻量、独立JavaScript组件形式</strong>向客户端送达脚本更具优势<ol type="a" id="18236508-ce18-43c6-8e8a-a221fe23e0b9" class="numbered-list" start="1"><li>浏览请求外部文件考虑文件占用的带宽</li></ol><ol type="a" id="1a5379d0-2425-4827-a3bd-2bc4e5e894fe" class="numbered-list" start="2"><li>在支持SPDY/HTTP2协议的现代浏览器中，细分大的JavaScript文件成小组件，有助于<strong>提高浏览器加载性能</strong></li></ol></li></ul><ul id="9d4c67d6-b3fe-4b91-a48b-ddf37d748fe0" class="block-color-gray_background bulleted-list"><li style="list-style-type:disc">关于SPDY/HTTP2协议<figure id="3e31a775-291d-44db-9999-bc4cb548b100"><a href="https://www.cnblogs.com/bluestorm/p/7382091.html" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">HTTPS、SPDY和HTTP/2的性能比较</div><div class="bookmark-description">http://www.infoq.com/cn/news/2015/02/https-spdy-http2-comparison/ https://segmentfault.com/a/1190000002765886 SPDY试图保留HTTP的现有语义，所以 cookies 、ETags等特性都是可用的。[3] SPDY令人赞叹。这是十几年来对HTTP的第一次真正的升级，它不仅解决了高延迟移动网络的性能问题，还增强了Web的安全性。SPDY与HTTP有许多区别，但它最大的价值是它能通过复用仅仅一条（或几条)TCP连接，在客户端与服务器间发送几十个请求或回应。 之前的评测吹嘘说SPDY极其强力，从 页面加载速度变两倍到 相比纯HTTP用SPDY和HTTPS能让无线网站加载速度快23% 。不过在实际生活中的网站上我没发现有这么大的进步。老实说，我的测试表明SPDY仅比HTTPS快一点点，同时还比HTTP要慢。 为什么？简单的说，SPDY改进了HTTP，但对大多数网站来说，HTTP不是瓶颈。 SPDY（读作&quot;SPeeDY&quot;）是 Google开发的基于 TCP的传输层协议，用以最小化网络延迟，提升网络速度，优化用户的网络使用体验。SPDY并不是一种用于替代HTTP的协议，而是对 HTTP 协议的增强。新协议的功能包括数据流的多路复用、请求优先级以及HTTP报头压缩。谷歌表示，引入SPDY协议后，在实验室测试中页面加载速度比原先快64%。[1-2] 最大限度地减少部署的复杂性。SPDY使用TCP作为传输层，因此无需改变现有的网络设施。 避免网站开发者改动内容。 支持SPDY唯一需要变化的是客户端代理和Web服务器应用程序。 压缩报头和去掉不必要的头部来减少当前HTTP使用的带宽。 定义一个容易实现，在服务器端高效率的协议。通过减少边缘情况、定义易解析的消息格式来减少HTTP的复杂性。 强制使用 SSL ，让SSL协议在现存的网络设施下有更好的安全性和兼容性。 允许服务器在需要时发起对客户端的连接并推送数据。[1-2] https://baike.baidu.com/item/SPDY/3399551?fr=aladdin HTTP/2 新特性浅析： SPDY 系列协议由谷歌开发，于 2009 年公开。它的设计目标是降低 50% 的页面加载时间。当下很多著名的互联网公司，例如百度、淘宝、 UPYUN 都在自己的网站或 APP 中采用了 SPDY 系列协议（当前最新版本是 SPDY/3.1），因为它对性能的提升是显而易见的。主流的浏览器（谷歌、火狐、Opera）也都早已经支持 SPDY，它已经成为了工业标准，HTTP Working-Group 最终决定以 SPDY/2 为基础，开发 HTTP/2。 但是，HTTP/2 跟 SPDY</div></div><div class="bookmark-href"><img src="https://www.cnblogs.com/favicon.ico" class="icon bookmark-icon"/>https://www.cnblogs.com/bluestorm/p/7382091.html</div></div></a></figure></li></ul><ul id="8024f447-9b88-4ddc-9b09-d4c43f803057" class="block-color-blue_background bulleted-list"><li style="list-style-type:disc">例子：对于使用轻量，独立JavaScript组件形式的脚本<ol type="1" id="4f8175d5-c531-4859-8374-0fbbc3924566" class="numbered-list" start="1"><li>加载第一个页面中的脚本.<pre id="93e8f758-f962-48d6-9db0-766ec71f9d2d" class="code code-wrap"><code>&lt;script src=&quot;a.js&quot;&gt;&lt;/scirpt&gt;
+&lt;script src=&quot;component1.js&quot;&gt;&lt;/scirpt&gt;
+&lt;script src=&quot;component2.js&quot;&gt;&lt;/scirpt&gt;
+&lt;script src=&quot;component3.js&quot;&gt;&lt;/scirpt&gt;</code></pre><ul id="7ff5659d-a760-47be-ad6c-4282d8f49e12" class="bulleted-list"><li style="list-style-type:disc">初次请求，浏览器从同一服务器获取外部脚本，逐个加载缓存</li></ul><ul id="d280a2b0-734b-431f-9573-a309d99a0b32" class="bulleted-list"><li style="list-style-type:disc">从浏览器角度看，这和请求一个完整的大JavaScript文件延迟差不多</li></ul></li></ol><ol type="1" id="b3fef985-278e-4a73-9809-94d7a0993e38" class="numbered-list" start="2"><li>加载第二个页面中的脚本<pre id="546b2317-55c4-4f38-b492-5c352f52611c" class="code code-wrap"><code>&lt;script src=&quot;b.js&quot;&gt;&lt;/scirpt&gt;
+&lt;script src=&quot;component3.js&quot;&gt;&lt;/scirpt&gt;
+&lt;script src=&quot;component4.js&quot;&gt;&lt;/scirpt&gt;
+&lt;script src=&quot;component5.js&quot;&gt;&lt;/scirpt&gt;</code></pre><ul id="9485922f-93fa-4b82-879c-34dd01e814a9" class="bulleted-list"><li style="list-style-type:disc">第二个页面请求，component3是被分割出来的一个轻量独立JavaScript文件</li></ul><ul id="c27c8e6b-69fa-47fb-86de-5fff235eedfe" class="bulleted-list"><li style="list-style-type:disc">由于初次请求时已经缓存了component3，所以加载的速度变快了</li></ul></li></ol><ul id="5f1e1e19-7be2-46c5-9580-070c34198eac" class="bulleted-list"><li style="list-style-type:circle">例子前提是支持SPDY/HTTP2</li></ul></li></ul><h1 id="6f3df7c0-8340-4739-970c-f627a3f6b942" class="">3.文档模式</h1><h2 id="c42dba7c-2e31-437f-b8dd-519dd4394f3b" class="">定义</h2><ul id="cf8ba5c8-3178-4dd8-91ab-efcdddda3064" class="bulleted-list"><li style="list-style-type:disc">文档模式来源于IE5.5<ul id="63646bfa-b433-4fd2-b473-4f8d3132f54d" class="bulleted-list"><li style="list-style-type:circle">使用<strong>doctype</strong>来切换HTML的文档模式<pre id="58956577-36f5-493f-b131-67e0f5a28634" class="code code-wrap"><code>&lt;!-- 在HTML文档最前面声明相关文档模式 --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;!-- 现代HTML文档开头一般都是上面的文档模式，表示HTML5--&gt;</code></pre></li></ul><ul id="5e1ff352-649f-43f1-b334-83a4a436a89d" class="bulleted-list"><li style="list-style-type:circle">文档模式有两种：<ul id="8f5a81ca-cb2f-41b6-80cc-1b278af77b18" class="bulleted-list"><li style="list-style-type:square">混杂模式（quirks mode）</li></ul><ul id="84575c3a-54e9-4b11-923a-6d928620f995" class="bulleted-list"><li style="list-style-type:square">标准模式（standard mode）</li></ul></li></ul></li></ul><ul id="49323f8d-6086-45b8-acc8-bf77b58d765d" class="bulleted-list"><li style="list-style-type:disc">混杂模式：让IE像IE5一样支持一些非标准特性</li></ul><ul id="3b119b58-5a1a-4874-8701-399fd921f832" class="bulleted-list"><li style="list-style-type:disc">标准模式：让IE具有兼容标准的行为（HTML标准）</li></ul><h2 id="e979322c-7c3d-4229-89e4-930d2e670e2d" class="">文档模式区别</h2><ul id="f9aae720-4436-4050-830b-0d4a40d1a4c6" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">不同的文档模式的区别主要体现在<strong>CSS渲染的内容</strong>方面<ul id="a4a0c5d1-11b9-41b2-adc8-d1751746ce36" class="bulleted-list"><li style="list-style-type:circle">如在标准模式下，一个块元素div包含的内容只有图片时，图片底部都有<strong>3像素</strong>的空白<figure id="d8c8209b-54d4-479a-bdbe-92922449ceb6" class="image"><a href="2%20HTML%E4%B8%AD%E7%9A%84JavaScript/Untitled.png"><img style="width:1178px" src="2%20HTML%E4%B8%AD%E7%9A%84JavaScript/Untitled.png"/></a></figure></li></ul><ul id="87685dd4-78d1-482d-b984-235915fdfbc2" class="bulleted-list"><li style="list-style-type:circle">而在混杂模式下，标准浏览器（谷歌）中div距图片底部没有空白<figure id="69fcbe0c-d23a-4cca-8bd5-55b56ebe8531" class="image"><a href="2%20HTML%E4%B8%AD%E7%9A%84JavaScript/Untitled%201.png"><img style="width:1361px" src="2%20HTML%E4%B8%AD%E7%9A%84JavaScript/Untitled%201.png"/></a></figure></li></ul></li></ul><ul id="54eebf3f-16d2-4bdc-9b82-0bb5cf78f015" class="bulleted-list"><li style="list-style-type:disc">除了对CSS的影响，对JavaScript也会有一些关联影响（如上述例子中标准模式下获取到div元素的高度为103px而非100px），称之为<strong>副作用</strong></li></ul><h2 id="44bce005-9384-4ff3-aeb5-6d99ca746196" class="">准文档模式（almost standard mode）</h2><ul id="3bf7894c-3a66-4c39-a973-644ad48f3562" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">准文档模式的出现<ul id="8c3403c3-0506-4e42-9093-43939c0056d9" class="bulleted-list"><li style="list-style-type:circle">IE支持文档模式切换后，其他浏览器普通跟随实现</li></ul><ul id="da7fd318-e3d2-459d-b5a6-920989edce64" class="bulleted-list"><li style="list-style-type:circle">其中又出现了第三种文档模式：almost standard mode（准文档模式）</li></ul></li></ul><ul id="fb0787a9-cbde-4341-ba38-1d0f485ff5af" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">描述：<ul id="ee4452be-8c8d-495d-9307-6aef2dd4135a" class="bulleted-list"><li style="list-style-type:circle">这种模式支持大部分HTML标准特性，但是没有标准那么严格</li></ul><ul id="0616dc72-ecb4-48bf-970b-55ae8d1b4260" class="bulleted-list"><li style="list-style-type:circle">主要的区别在于如何对待图片元素周围的空白（上面的例子）</li></ul></li></ul><h2 id="c709a818-98b0-4db1-8286-769b34d4d244" class="">不同模式的声明方式</h2><h3 id="4f0b6e9f-09d4-4091-88db-3a79e35a357d" class="">A.混杂模式</h3><ul id="20dd2875-7647-4f18-9e0c-0005c813c627" class="bulleted-list"><li style="list-style-type:disc">省略文档开头的doctype声明作为开关<ul id="8f2bc339-c5e8-4659-a74a-4c9f73382fd6" class="bulleted-list"><li style="list-style-type:circle">这种约定并不合理，因为不同浏览器都定义了自己的混杂模式，没有一致性可言</li></ul></li></ul><h3 id="cf0c7ca5-4ff3-4c54-9667-94338287f3b0" class="">B.标准模式</h3><ul id="4ea0cb56-a6ee-4702-9cd5-c4dc99a05771" class="bulleted-list"><li style="list-style-type:disc">包括严格的HTML4.01，严格的XHTML1.0和正式的HTML5<pre id="dd96d7b2-e2c2-4f69-81a6-f95b2efb5b46" class="code code-wrap"><code>&lt;!-- HTML 4.01 Strict --&gt;
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot;
+&quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;
+
+&lt;!-- XHTML 1.0 Strict --&gt;
+&lt;!DOCTYPE html PUBLIC
+&quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;
+&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+
+&lt;!-- HTML5 --&gt;
+&lt;!DOCTYPE html&gt;</code></pre><p id="2e1ee13b-fd89-48b7-b59f-208e391f7579" class="">⇒ 现代开发使用HTML5即，正式的HTML5文档模式（标准模式）</p></li></ul><h3 id="96b3d290-f817-462b-88e1-8daad024954d" class="">C.准标准模式</h3><ul id="3bae2f29-7fca-431e-9543-e7f3d326729c" class="bulleted-list"><li style="list-style-type:disc">包括过渡性文档类型（Transitional）<ul id="e09f2db2-41ec-4511-9058-3a7ab52b0979" class="bulleted-list"><li style="list-style-type:circle">过渡HTML4.01</li></ul><ul id="bb012b41-34dc-46d0-998b-1e040b0365ca" class="bulleted-list"><li style="list-style-type:circle">过渡XHTML1</li></ul></li></ul><ul id="603f80e5-47c0-485e-aba8-a3633cf816a7" class="bulleted-list"><li style="list-style-type:disc">和框架集文档类型（Frameset）<ul id="800f0afa-7ece-49d4-88dc-5d6836c83eca" class="bulleted-list"><li style="list-style-type:circle">框架HTML4.01</li></ul><ul id="93c0fa94-708b-439d-bc9d-d0ed2788786a" class="bulleted-list"><li style="list-style-type:circle">框架XHTML1.0</li></ul><pre id="d9dd363a-e017-4e70-bd82-a98ceff1e9c1" class="code code-wrap"><code>&lt;!-- HTML 4.01 Transitional --&gt;
+&lt;!DOCTYPE HTML PUBLIC
+&quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;
+&quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;!-- HTML 4.01 Frameset --&gt;
+&lt;!DOCTYPE HTML PUBLIC
+&quot;-//W3C//DTD HTML 4.01 Frameset//EN&quot;
+&quot;http://www.w3.org/TR/html4/frameset.dtd&quot;&gt;
+&lt;!-- XHTML 1.0 Transitional --&gt;
+&lt;!DOCTYPE html PUBLIC
+&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
+&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;!-- XHTML 1.0 Frameset --&gt;
+&lt;!DOCTYPE html PUBLIC
+&quot;-//W3C//DTD XHTML 1.0 Frameset//EN&quot;
+&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd&quot;&gt;</code></pre></li></ul><p id="eb6bdc65-ad54-4fb4-96e6-eee39039aa84" class="">⇒ 准标准模式和标准模式非常接近，<strong>很少需要区分</strong></p><p id="4ddcf898-c25a-4ec0-8cb0-80f1a639a293" class="">⇒ 文档模式的检测也不会区分它们，所以<strong>标准模式在广义上可以指除了混杂模式以外的文档模式</strong></p><h1 id="71700ddd-5174-4599-9ff4-a1fa2971eebd" class="">4.&lt;noscript&gt;元素</h1><ul id="8ef49b3e-a2b5-40e5-abad-e2938f12a348" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">定义<ul id="564d1c93-b812-43ce-b01b-3fb8ed51d75f" class="bulleted-list"><li style="list-style-type:circle">早期有些浏览器不支持JavaScript，noscript元素是一个优雅降级的处理方案</li></ul><ul id="602f8e1e-85d7-40a6-b3d1-d4e6177cd982" class="bulleted-list"><li style="list-style-type:circle">&lt;noscript&gt;元素用于给不支持JavaScript的浏览器提供替代内容</li></ul></li></ul><ul id="e3ba502f-a4f3-42f5-bef8-90aedb1c90f4" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">使用方式<ul id="66c28b2e-ae27-4945-9a3d-1a84071ecf1c" class="bulleted-list"><li style="list-style-type:circle">noscript元素可以包含任意的可以出现在body元素中的HTML元素（script元素除外）</li></ul><ul id="c10456c2-de3d-4fcb-84c9-f5f6a9b0a1d3" class="bulleted-list"><li style="list-style-type:circle">浏览器渲染noscript中的内容的情况（否则浏览器不会渲染noscript中的内容）<ul id="ce435cf8-7bd1-47bf-b3c7-499891b05816" class="bulleted-list"><li style="list-style-type:square">浏览器不支持JavaScript</li></ul><ul id="7a602f4a-906d-4203-9223-5d594d4f1deb" class="bulleted-list"><li style="list-style-type:square">浏览器对脚本的支持被关闭</li></ul></li></ul></li></ul><ul id="48345baf-8eaa-4ee3-bc5b-817d5b75ed15" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">例子<pre id="9c341ad0-c16a-4605-8e22-2aaea2fa1f24" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;Exmaple HTML Page&lt;/title&gt;
+		&lt;script defer src=&quot;example.js&quot;&gt;&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;noscript&gt;
+			&lt;p&gt;This page requires a JavaScript-enable brower.&lt;/p&gt;
+		&lt;/noscript&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</code></pre><p id="ac6b1684-ac8e-4099-be8d-62179b200692" class="">⇒ 这个例子是在脚本不可用时显示一段话</p><p id="29846ca5-fb09-4fbd-a012-a678df1eb8aa" class="">⇒ 但是对于支持JavaScript的浏览器，用户不会看到这段话</p></li></ul><h1 id="0fabf05d-9463-4199-ba50-8db1a49de7e4" class="">总结</h1><ul id="0647b66c-e30f-4c16-aeab-43af1b4da1fa" class="bulleted-list"><li style="list-style-type:disc">JavaScript的引入<ul id="018688ec-be2d-4427-90b0-716bfa782421" class="bulleted-list"><li style="list-style-type:circle">JavaScript是通过&lt;script&gt;元素插入到HTML页面的</li></ul><ul id="64908401-2d83-4afd-8b5a-6b656f746e99" class="bulleted-list"><li style="list-style-type:circle">这个元素可以把JavaScript代码嵌入到HTML页面中混合一起</li></ul><ul id="fa64d4b9-14e8-4032-b26a-79bd5f10718f" class="bulleted-list"><li style="list-style-type:circle">也可以通过属性外部引入包含JavaScript的文件</li></ul></li></ul><ul id="6b3d77dd-2611-4312-95f1-581af30a8119" class="bulleted-list"><li style="list-style-type:disc">关于通过script引入JavaScript的特性<ol type="1" id="c3d354df-8006-43d4-ba2f-2d81c21c5e4f" class="numbered-list" start="1"><li>要包含外部JavaScript文件，必须将src属性设置为要包含文件的URL，文件可以跟网页在同一台服务器上，也可以位于不同的域</li></ol><ol type="1" id="4d4f061d-a053-41c7-a5bd-3d29ff383761" class="numbered-list" start="2"><li>所有&lt;script&gt;元素会依照它们在网页上出现的顺序被解释执行。在不使用defer和async属性的情况下，包含在script元素中的代码必须严格按次序解释</li></ol><ol type="1" id="75d4f95e-7a7e-4bbf-8a83-ab5c729e9631" class="numbered-list" start="3"><li>对不推迟执行的脚本，浏览器必须解释完位于&lt;script&gt;元素中的代码，然后才能继续渲染页面的剩余部分。为此通常将&lt;script&gt;元素放在页面末尾，介于主内容之后及&lt;/bdoy&gt;标签之前</li></ol><ol type="1" id="964f35d9-e2d7-4680-b5f3-869fecf5b64f" class="numbered-list" start="4"><li>可以使用defer属性把脚本推迟到文档渲染完毕后再执行，推迟的脚本原则上按照它们被列出的次序执行</li></ol><ol type="1" id="d366c5c9-0b86-4892-853d-8a6546063bf1" class="numbered-list" start="5"><li>可以使用async属性表示脚本不需要等待其他脚本，同时也不阻塞文档渲染，即异步加载。异步脚本不能保证按照它们再页面中出现的次序执行</li></ol><ol type="1" id="3ff4fb06-6016-4149-bcfe-cf719b565ab7" class="numbered-list" start="6"><li>通过使用&lt;noscript&gt;元素，可以指定再浏览器不支持JavaScript脚本时显示内容。如果浏览器支持并启用脚本，则&lt;noscript&gt;中的任何内容都不会被渲染</li></ol></li></ul></div></div></div></article></body></html>

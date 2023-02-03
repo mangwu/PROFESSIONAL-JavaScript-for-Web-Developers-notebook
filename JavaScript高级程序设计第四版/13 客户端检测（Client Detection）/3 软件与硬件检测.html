@@ -1,0 +1,711 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3. 软件与硬件检测</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ce2ce7c6-fe27-4003-9537-abbe531b0978" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_silk_kashan_carpet.jpg" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🎣</span></div><h1 class="page-title">3. 软件与硬件检测</h1></header><div class="page-body"><p id="39a36541-3d14-4fb8-8ab4-6d139ab9de0c" class="">现代浏览器提供了一组与页面执行环境相关的信息，包括浏览器、操作系统、硬件和周边设备信息。这些属性可以通过暴露window.navigator上的一组API获取，不过这些API的跨浏览器支持还不够好，远未达到标准化的程度</p><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="41b69a32-62fa-4225-ad3d-ea934eb470d4"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：不同的浏览器navigator上的属性不一样，并且各自实现了不同的navigator属性，在访问它们获取相关的运行环境信息时，需要先使用能力检测判断是否存在，因为多数都不是强制性的，很多浏览器并没有支持；本节介绍的特性不一定对所有浏览器都有效</div></figure><div id="6ab7dfa0-b020-43e7-be78-ade033601b8f" class="column-list"><div id="24251e7b-70b0-413c-b3bd-c2641dde72bd" style="width:25%" class="column"><nav id="a4200d10-32c1-465b-835a-30d83634953c" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#efc62f73-c56d-4bb0-b2c3-6f4b3db74fa3">3.1 识别浏览器和操作系统</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#07066ee4-985d-4edb-9712-94c8b5e5d46b">3.1.1 🚫navigator.oscpu</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c69c08d4-8c73-491e-ab94-94e75e11983a">3.1.2 navigator.vendor</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#80c3db94-7628-48e8-acb1-134180c59c42">3.1.3 navigator.platform</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#18d4a8e3-c806-4d43-bfa3-430435f76b2e">3.1.4 screen.colorDepth和screen.pixelDepth</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7674ec91-320c-467f-ab32-cf96f42ede6f">3.1.5 screen.orientation</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#30fc17f5-3599-481e-ae50-9bf217e03720">3.2 浏览器元数据（Browser Metadata）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ffc3fa28-4aed-4e56-9d14-62cf1b40817f">3.2.1 Geolocation API</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8491111d-af91-4014-9fed-e61b14595d9a">3.2.2 Connection State 和 NetworkInformation API</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ef15ffa2-9d3f-4994-a4be-6e8905111bbe">3.2.2.1 navigator.onLine</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8603bffe-6603-4d6c-b940-997edc37ffd2">3.2.2.2 navigator.connection</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c052dc15-109e-45f9-b730-e7c29490ce2f">3.2.3 Battery Status API</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#54d08220-ebe1-42c9-ac0a-c1d8540682e5">3.3 硬件</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7202e5f7-58cc-4c00-8b17-d4d3ca52560f">3.3.1 处理器核心数</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#981f1f40-5c25-4417-ba87-1e036eb289ad">3.3.2 设备内存大小</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8ee9e021-904a-442a-aafd-d44699525330">3.3.3 最大触点数</a></div></nav><p id="a8e0406b-4d5d-487c-ae4a-9dbad9d4bbd8" class="">
+</p></div><div id="8b5a8f05-a3ce-418b-bb68-446c1e78053c" style="width:75%" class="column"><h1 id="efc62f73-c56d-4bb0-b2c3-6f4b3db74fa3" class="">3.1 识别浏览器和操作系统</h1><p id="8930bbc8-edca-4203-84a8-fb3ed66c827a" class=""><strong>特性检测</strong>和<strong>用户代理字符串解析</strong>是当前常用的两种识别浏览器的方式，而navigator和screen对象也提供了关于页面所在软件环境的信息</p><h2 id="07066ee4-985d-4edb-9712-94c8b5e5d46b" class="">3.1.1 🚫navigator.oscpu</h2><ul id="af4bd65b-227a-4bb4-a1fc-c8a0dd302e45" class="bulleted-list"><li style="list-style-type:disc">一个字符串，通常对应用户代理字符串中操作系统/系统框架（OS-or-CPU）相关信息，根据<a href="https://html.spec.whatwg.org/multipage/system-state.html#dom-navigator-oscpu">HTML实时标准</a><blockquote id="ce5c137b-a2fb-4ff3-8ce8-b74d27c000c7" class="">oscpu属性的获取方法必须返回空字符串或者表示浏览器所在平台的字符串，比如“Windows NT 10.0; Win64; x64”或“Linux x86_64”</blockquote></li></ul><ul id="aeda1d66-13c3-4230-ac7b-302e2cd75d49" class="bulleted-list"><li style="list-style-type:disc">比如Windows 10 上的Firefox的oscpu属性应该对应于以下加粗的部分<pre id="9a59ba88-6082-454b-8273-5c1ce3b0434e" class="code"><code>console.log(navigator.userAgent);
+&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:108.0) Gecko/20100101 Firefox/108.0&quot;
+console.log(navigator.oscpu);
+&quot;Windows NT 10.0; Win64; x64&quot;
+</code></pre><ul id="46e1ec0e-09ce-4576-920b-377d2584b27f" class="bulleted-list"><li style="list-style-type:circle">上面的打印是在Firefox 108.0.1 (64 位)浏览器进行打印的</li></ul></li></ul><ul id="32293c84-4d73-45d2-bb85-e7521881bb14" class="bulleted-list"><li style="list-style-type:disc">实际上，<strong>navigator.oscpu</strong>是被<strong>舍弃</strong>的属性，不要再使用，仅为兼容性存在，谷歌浏览器从未实现过，详情查看<a href="../12%20%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%EF%BC%88The%20Brower%20Object%20Model%EF%BC%89/3%20navigator%20%E5%AF%B9%E8%B1%A1.html">navigator.oscpu 也只能在基于Gecko内核的浏览器中存在，它返回一个标识当前浏览器所处操作系统的的字符串，具体的操作系统和oscpu 对应为</a> </li></ul><h2 id="c69c08d4-8c73-491e-ab94-94e75e11983a" class="">3.1.2 navigator.vendor</h2><ul id="3149712e-73ea-49c9-9421-b54b8427016e" class="bulleted-list"><li style="list-style-type:disc">一个字符串，通常包含浏览器开发商信息，返回这个字符串是浏览器navigator兼容模式的一个功能，<a href="https://html.spec.whatwg.org/multipage/system-state.html#dom-navigator-vendor">HTML实时标准</a><blockquote id="2ff3907a-0967-4942-b989-b85a5b8faa34" class="">返回一个合适的字符串，如下<p id="5863d53d-14a9-4a05-873c-3ecbdfce682b" class="">如果浏览器兼容模式（<a href="https://html.spec.whatwg.org/multipage/system-state.html#concept-navigator-compatibility-mode"><strong>navigator compatibility mode</strong></a><strong></strong>）是Chrome，则返回字符串“Google Inc.”</p><p id="9927d4d1-88b0-444d-8905-710a132ae236" class="">如果浏览器兼容模式是Gecko，则返回空字符串</p><p id="aca124af-48c5-4e1e-a361-d47b0299c915" class="">如果浏览器兼容模式是WebKit，则返回“Apple Computer, Inc.”</p></blockquote></li></ul><ul id="cb418727-8f94-4bf3-8d92-09e78ddbe120" class="bulleted-list"><li style="list-style-type:disc">浏览器兼容模式就是用户代理的模式，包括Chrome，Gecko和WebKit三种</li></ul><ul id="69dc4e2f-a9fd-48c4-b2f2-b4c5caafea80" class="bulleted-list"><li style="list-style-type:disc"><code>vendor</code> 属性虽然主流浏览器都实现了，但是不推荐使用，仅为兼容性存在，详情查看<a href="../12%20%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%EF%BC%88The%20Brower%20Object%20Model%EF%BC%89/3%20navigator%20%E5%AF%B9%E8%B1%A1.html">Untitled</a> </li></ul><h2 id="80c3db94-7628-48e8-acb1-134180c59c42" class="">3.1.3 navigator.platform</h2><ul id="cf5bad59-4c94-4af3-92d6-37b0b7a36b25" class="bulleted-list"><li style="list-style-type:disc">一个字符串，通常表示浏览器所在的操作系统，根据<a href="https://html.spec.whatwg.org/multipage/system-state.html#dom-navigator-platform">HTML实时标准</a><blockquote id="8b87a345-3a03-4bde-b70e-92b4528a6c6e" class="">navigator.platform必须返回一个字符串或表示浏览器所在平台的字符串，例如“MacIntel”、“Win32”、“Linux x86_64”或”Linux armv81”</blockquote></li></ul><ul id="f4933aa2-3adb-4c50-a7e2-888933a30731" class="bulleted-list"><li style="list-style-type:disc">Windows11下的现代谷歌浏览器的navigator.platform返回”Win32“</li></ul><ul id="fc3b244e-fe4d-4278-bee5-0ebd0d6cd698" class="bulleted-list"><li style="list-style-type:disc"><code>platform</code> 属性虽然主流浏览器都实现了，但是不推荐使用，仅为兼容性存在，详情查看<a href="../12%20%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%EF%BC%88The%20Brower%20Object%20Model%EF%BC%89/3%20navigator%20%E5%AF%B9%E8%B1%A1.html">虽然为了特征检测（feature detection）应该避免使用naigator.platform ，但是在一种情况下，它可能还是有用处的</a> </li></ul><h2 id="18d4a8e3-c806-4d43-bfa3-430435f76b2e" class="">3.1.4 screen.colorDepth和screen.pixelDepth</h2><ul id="582ff33e-eab3-4edd-81ca-cc69a4267dab" class="bulleted-list"><li style="list-style-type:disc">二者返回一样的值，即显示器每像素颜色的位深，根据CSS对象模型（CSSOM）规范<blockquote id="d7015f74-5d5e-47a0-b5db-16a9771f93f0" class="">screen.colorDepth和screen.pixelDepth属性应该返回输出设备中每像素用于显示颜色的位数，不包含alpha通道</blockquote></li></ul><ul id="530d0e8c-ddd8-4184-ae05-623d9681f4e9" class="bulleted-list"><li style="list-style-type:disc">默认返回24，当前设备（联想拯救者R9000p2021返回了30）,详情查看<a href="../12%20%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%EF%BC%88The%20Brower%20Object%20Model%EF%BC%89/4%20screen%E5%AF%B9%E8%B1%A1.html">Untitled</a> </li></ul><h2 id="7674ec91-320c-467f-ab32-cf96f42ede6f" class="">3.1.5 screen.orientation</h2><ul id="dbf0b7a6-6b1e-45d2-8195-ca10066f7fd7" class="bulleted-list"><li style="list-style-type:disc">返回一个<code>ScreenOrientation</code>对象，其中包含Screen Oritentation API定义的屏幕信息，这个对象中包含两个有意思的属性，<code>angle</code>和<code>type</code> <ul id="25a8f5be-ad2e-438b-9a24-33a7794cc58e" class="bulleted-list"><li style="list-style-type:circle">angle表示默认状态下屏幕的角度</li></ul><ul id="94c48c85-dc5e-464a-9d4b-afc0e2cea5e8" class="bulleted-list"><li style="list-style-type:circle">type表示屏幕朝向，有如下四种<ul id="0976999c-9cf3-418b-b546-df4675278f71" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">portrait-primary</span></li></ul><ul id="60c166bf-1c9c-43a3-9353-41d4517f991e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">portrait-secondary</span></li></ul><ul id="849c2166-8c01-450d-8e63-07100d5b62f7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">landscape-primary</span></li></ul><ul id="2ff3857a-f7dd-4b77-9838-709b392229f0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">landscape-secondary</span></li></ul></li></ul></li></ul><ul id="06b70fbc-7683-42c9-baed-79017fa79407" class="bulleted-list"><li style="list-style-type:disc">在Chrome移动版中，screen.orientation返回的信息如下<table id="e6655f0b-57a9-49ce-a41f-ffc6879c8d62" class="simple-table"><tbody><tr id="b0202987-52e5-43d7-a9d5-fd3a9e81e778"><td id="}}_L" class="">移动设备方向</td><td id="E\lU" class="">type</td><td id="J&lt;Pw" class="">angle</td></tr><tr id="48ffa058-a3c0-49da-ac4e-e6bb635b50ac"><td id="}}_L" class="">垂直看</td><td id="E\lU" class="">portait-primary</td><td id="J&lt;Pw" class="">0</td></tr><tr id="e1135eba-f1e5-4caf-a415-daf3b5313568"><td id="}}_L" class="">向左转</td><td id="E\lU" class="">landscape-primary</td><td id="J&lt;Pw" class="">90</td></tr><tr id="600fd345-1b16-47e1-aee8-160aefda2bc3"><td id="}}_L" class="">向右转</td><td id="E\lU" class="">landscape-secondary</td><td id="J&lt;Pw" class="">270</td></tr></tbody></table></li></ul><ul id="01604ba3-6a57-41fe-b002-274336ae1149" class="bulleted-list"><li style="list-style-type:disc">根据规范，这些值的初始化取决于浏览器和设备状态，不能假设portrait-primary和0始终是初始值，这两个值用于确定设备的朝向变化</li></ul><ul id="4feb5921-376f-4db0-b028-008c94f099a2" class="bulleted-list"><li style="list-style-type:disc">本设备(R9000p2021)输出的默认朝向信息为landscape-primary和0,更多信息查看<a href="../12%20%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%EF%BC%88The%20Brower%20Object%20Model%EF%BC%89/4%20screen%E5%AF%B9%E8%B1%A1.html">所谓朝向（orientation）就是设备显示器的文字和图像的朝向</a> </li></ul><h1 id="30fc17f5-3599-481e-ae50-9bf217e03720" class="">3.2 浏览器元数据（Browser Metadata）</h1><p id="9afe8871-f1c1-49d9-84d1-a7c579441815" class="">navigator对象暴露出一些API，可以提供浏览器和操作系统的状态信息</p><h2 id="ffc3fa28-4aed-4e56-9d14-62cf1b40817f" class="">3.2.1 Geolocation API</h2><ul id="c73ad586-838d-45e9-8445-28d736928ef6" class="bulleted-list"><li style="list-style-type:disc">navigator.geolocation属性暴露了Geolocation API，可以让浏览器脚本感知当前设备的地理位置，这个API只在安全执行环境（通过HTTPS获取的脚本）中可用</li></ul><ul id="b16bde0b-b07a-465d-8340-a2b4de76db01" class="bulleted-list"><li style="list-style-type:disc">这个API可以查询<strong>宿主系统</strong>（<strong>host system</strong>）并尽可能精确地返回设备地位置信息，根据<strong>宿主系统</strong>的硬件和配置，返回结果的精度可能不一样。手机GPS的坐标系统可能具有极高的精度，而IP地址的精度就要差很多，根据w3c规范的<a href="https://w3c.github.io/geolocation-api/#dom-navigator-geolocation">Geolocation API</a><blockquote id="48cee1b9-3b04-4ac1-80b1-1e1ea7ce453d" class="">地理位置信息的主要来源是GPS和IP地址、射频识别（RFID）、Wi-Fi及蓝牙Mac地址、GSM/CDMA蜂窝ID以及用户输入等信息</blockquote><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="1a031912-58b4-4b57-a9a7-b0d71e1d8cef"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：浏览器也可能会利用Google Location Service（Chrome和Firefox）等服务确定位置，有时候，你可能发现自己并没有GPS但是浏览器给出的坐标却非常精确，浏览器会收集所有可用的无线网络，包括Wi-Fi和蜂窝信号。拿到这些信息后，再去查询网络数据库，这样就可以精确地报告出你的设备位置</div></figure></li></ul><ul id="b96609ed-61df-401e-aa5d-e0cbb95c6d48" class="bulleted-list"><li style="list-style-type:disc">要获取浏览器当前的位置，可以使用<code>Geolocation</code> 实例的<code>getCurrentPosition()</code> 方法，这个方法是异步函数，需要传入resolve和rejcet函数对象，resolve方法获得一个Coordinates对象，其中包含的信息不一定完全依赖宿主系统的能力<pre id="c28a2c20-5433-4802-9bee-6376c38ea947" class="code"><code>let p = null;
+navigator.geolocation.getCurrentPosition(
+  (position) =&gt; (p = position), // 成功的回调函数
+  (error) =&gt; console.log(error) // 失败的回调函数
+);</code></pre></li></ul><ul id="ea1dc1a4-69bd-4599-be35-b7ae7cc30ce0" class="bulleted-list"><li style="list-style-type:disc">如果获取位置成功，成功的回调函数会获得<code>Coordinates</code>位置对象，它包含查询时间的时间戳以及坐标信息<pre id="b0a75126-1160-4707-b168-fee8f52f522d" class="code"><code>console.log(p.timestamp); // 1671962782900
+console.log(p.coords); // GeolocationCoordinates { latitude: 30.4771327, longitude: 114.4005421, accuracy: 105.932255, … }</code></pre></li></ul><ul id="f918b401-cad3-4973-acb7-845e316c5e48" class="bulleted-list"><li style="list-style-type:disc"><code>Coordinates</code> 对象包含标准格式的经度和纬度，以及以米为单位的精度，精度同样以确定设备位置的机制来判定<pre id="3ba218b3-0877-4274-8b3e-8f030da3f23d" class="code"><code>console.log(p.coords.latitude, p.coords.longitude); // 30.4771327 114.4005421
+console.log(p.coords.accuracy); // 105.932255</code></pre></li></ul><ul id="388d7b4d-798e-4c79-bfe7-26bc147faad6" class="bulleted-list"><li style="list-style-type:disc"><code>Coordinates</code> 对象还包含一个<code>speed</code>属性，表示设备每秒移动速度，还有一个<code>heading</code> （朝向）属性，表示相对于正北方向移动的角度（0≤heading&lt;360），为获取这些信息，当前设备必须具备相应的能力（比如加速计或指南针），很多设备没有能力测量高度，所以这两个值经常是空的</li></ul><ul id="539a5858-c900-4ac9-a774-509151ca2f9f" class="bulleted-list"><li style="list-style-type:disc">获取浏览器地理位置并不能保证成功，因此getCurrentPosition()方法也接收失败回调作为第二个参数，这个函数会收到一个PositionError对象，在失败的情况下，PositionError对象中会包含一个code属性和一个message属性，后者包含对错误的简短描述。code属性是一个整数，表示以下三种错误<ul id="80abab8a-af43-4099-8990-55a292483cc1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">PERMISSION_DENIED：浏览器未被允许访问设备位置。页面第一次尝试访问Geolocation API时，浏览器会弹出确认对话框取得用户授权（每个域分别获取）。如果返回了这个错误码，则要么是用户不同意授权，要么是在不安全的环境下访问了Geolocation API,message属性还会提供额外信息</span></li></ul><ul id="3d0927d7-9b29-443e-baf7-080c2f37cf03" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">POSTION_UNAVAILABLE：系统无法返回任何位置信息，这个错误码可能代表各种失败的原因，但相对来说并不常见，因为只要设备能上网，就至少可以根据IP地址返回一个低精度的坐标</span></li></ul><ul id="89b0ab4b-0756-4d03-aa11-39fb2c9cb69a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">TIMEOUT：系统不能在超时时间内返回位置信息，关于如何配置超时，是在getCurrentPosition的第三个参数中设置的</span></li></ul><ul id="c8e0485c-992f-4761-910d-c5e7fb4c1307" class="bulleted-list"><li style="list-style-type:circle">如下是未进行任何配置的情况下，在国内使用火狐和谷歌浏览器分别调用<code>navigator.geolocation.getCurrentPostion()</code> 得到的错误信息</li></ul><pre id="52c5d30c-ed37-4bdf-bf53-ef692610aff5" class="code"><code>// 火狐浏览器
+GeolocationPositionError { code: 2, message: &quot;Unknown error acquiring position&quot; }
+// 谷歌浏览器
+GeolocationPositionError { 
+	code: 2
+	message: &quot;Network error. Check DevTools console for more information.&quot; 
+}</code></pre><ul id="c7cafb28-879b-465c-9f2b-cce2d492d083" class="bulleted-list"><li style="list-style-type:circle">原因很简单，提供服务的<a href="https://www.googleapis.com/">https://www.googleapis.com/</a>在国内访问不了，所以无法获取设备位置</li></ul><ul id="7e86cfce-c744-4ae5-8d40-7cdf5b980083" class="bulleted-list"><li style="list-style-type:circle">解决方案：对于火狐浏览器而言，输入<code>about:config</code> 进入设置选项，输入<code>geo.provider.network.url</code> 配置项，将<code>https://www.googleapis.com/geolocation/v1/geolocate?key=%GOOGLE_API_KEY%</code> 位置信息服务地址修改为可以访问的<code>https://location.services.mozilla.com/v1/geolocate?key=test</code> 即可<figure id="17a04850-cc4a-4888-b951-0e605298fe7a" class="image"><a href="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/%25E4%25BF%25AE%25E6%2594%25B9%25E4%25BD%258D%25E7%25BD%25AE%25E4%25BF%25A1%25E6%2581%25AF%25E6%258F%2590%25E4%25BE%259B%25E6%259C%258D%25E5%258A%25A1%25E5%259C%25B0%25E5%259D%2580.png"><img style="width:2560px" src="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/%25E4%25BF%25AE%25E6%2594%25B9%25E4%25BD%258D%25E7%25BD%25AE%25E4%25BF%25A1%25E6%2581%25AF%25E6%258F%2590%25E4%25BE%259B%25E6%259C%258D%25E5%258A%25A1%25E5%259C%25B0%25E5%259D%2580.png"/></a></figure></li></ul><ul id="6a9e7039-49dc-4d1d-8b59-27eceb52b4d0" class="bulleted-list"><li style="list-style-type:circle">在执行getCurrentPostion()可以得到地址，如下<figure id="20a8a810-3e6d-4eac-9583-fd610b45d612" class="image"><a href="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/geolocation.png"><img style="width:1234px" src="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/geolocation.png"/></a></figure></li></ul></li></ul><ul id="74967427-dda4-4539-b357-94578eaa23f7" class="bulleted-list"><li style="list-style-type:disc">Geolocation API位置请求可以使用PositionOptions对象来配置，作为第三个参数提供，该对象支持属性如下<ul id="dbc71eb8-e443-4e35-8ad7-a75c1c7905ba" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">enableHighAccuracy: 布尔值，true表示返回的值应该尽量精确，默认值为false。默认情况下，设备通常会选择最快、最省电的方式返回坐标。这通常意味着返回的是不够精确的坐标</span><ul id="4b4b1e6b-3500-426c-9d15-5d2030d487a4" class="bulleted-list"><li style="list-style-type:disc">在移动设备上，默认位置查询通常只会采用Wi-Fi和蜂窝网络的定位</li></ul><ul id="622b3e38-9e72-4f72-9446-7d61131464ba" class="bulleted-list"><li style="list-style-type:disc">而在enableHighAccuracy为true的情况下，则会使用设备的GPS确定设备位置，并返回这些值的混合结构，但是使用GPS会更耗时耗电，因此配置enableHighAccuracy要仔细权衡</li></ul></li></ul><ul id="def308aa-0ea0-4dfb-a78b-0eff335d13f4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">timeout: 毫秒，表示在以TIMEOUT状态调用错误回调函数之前等待的最长时间，默认值为0xFFFFFFF(<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{32} - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span>)。0表示完全跳过系统调用而立即以TIMEOUT调用错误回调函数</span></li></ul><ul id="1bfa0552-890b-4833-a22e-c3e046cea6ae" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">maximumAge：毫秒，表示返回坐标的最长有效期，默认值为0。因为查询设备位置会消耗资源，所以系统通常会缓存坐标并在下次返回缓存的值（遵从位置缓存失败策略）。系统计算缓冲区，如果Geolocation API请求的配置要求比缓存的结果更新，则系统或会重新查询并返回值。0表示强制系统忽略缓存的值，每次都重新查询。而Infinity会阻止系统重新查询，只会返回缓存的值。JavaScript可以通过检测Postion对象的timestamp属性值是否重复来判断返回的是不是缓存值</span></li></ul></li></ul><h2 id="8491111d-af91-4014-9fed-e61b14595d9a" class="">3.2.2 Connection State 和 NetworkInformation API</h2><h3 id="ef15ffa2-9d3f-4994-a4be-6e8905111bbe" class="">3.2.2.1 navigator.onLine</h3><ul id="ac65714c-7f06-4d21-9958-47ba8a1d9bfe" class="bulleted-list"><li style="list-style-type:disc">浏览器会<strong>跟踪网络连接状态</strong>并以两种方式暴露这些信息<ul id="7eae4262-0651-489c-b11d-2a9e190be610" class="bulleted-list"><li style="list-style-type:circle">连接事件<ul id="fd830381-de37-463c-8399-5b46c8029070" class="bulleted-list"><li style="list-style-type:square">在设备连接到网络时，浏览器会记录这个事实并在window对象上触发<code>online</code>事件</li></ul><ul id="a4fb8d5c-d052-4784-9e9d-2e60de614a2d" class="bulleted-list"><li style="list-style-type:square">当设备断开网络连接时，浏览器会在window对象上触发offline事件</li></ul></li></ul><ul id="e287d3c4-cd43-4b4f-8b56-6bd39eeb5017" class="bulleted-list"><li style="list-style-type:circle">navigator.onLine属性<ul id="2238b985-8611-4145-a299-035cb132e08b" class="bulleted-list"><li style="list-style-type:square">任何时候都可以通过navigator.onLine属性来确定浏览器的联网状态</li></ul><ul id="6c72386c-d6ce-4129-b2eb-29eca18640b9" class="bulleted-list"><li style="list-style-type:square">这个属性返回一个布尔值，表示浏览器是否联网</li></ul></li></ul></li></ul><ul id="9cec29cd-8bc5-4c8d-8bdd-2e40d8c8d5b5" class="bulleted-list"><li style="list-style-type:disc">一个例子<pre id="b0ce7ec4-b3fd-457f-af79-ae1540b04f13" class="code"><code>&lt;h1&gt;&lt;/h1&gt;
+&lt;script&gt;
+  const h1 = document.querySelector(&quot;h1&quot;);
+  window.addEventListener(&quot;online&quot;, () =&gt; {
+    h1.textContent = &quot;联网了&quot; + navigator.onLine;
+  });
+  window.addEventListener(&quot;offline&quot;, () =&gt; {
+    h1.textContent = &quot;断网了&quot; + navigator.onLine;
+  });
+&lt;/script&gt;</code></pre><figure id="a63eb30d-8a10-4392-aed7-acda372c3741" class="image"><a href="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/navigator.onLine.gif"><img style="width:720px" src="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/navigator.onLine.gif"/></a></figure></li></ul><ul id="95aaf4bb-0c56-41e8-8ca4-2d8af0b23f4d" class="bulleted-list"><li style="list-style-type:disc">到底怎样才算联网取决于浏览器与系统实现，有些浏览器可能认为只要连接到局域网就算“在线”，而不管是否真正接入互联网</li></ul><h3 id="8603bffe-6603-4d6c-b940-997edc37ffd2" class="">3.2.2.2 navigator.connection</h3><ul id="fb8f6f9f-7ab3-4106-b640-3d72a1df80bf" class="bulleted-list"><li style="list-style-type:disc"><code>connection</code> 属性暴露了NetworkInformation API,这个API提供一些只读属性，并为连接属性变化事件处理程序定义了一个事件对象<ul id="930282e3-8e42-43ec-b31b-41191fd574de" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">downlink: 整数，表示当前设备的带宽（以Mbit/s为单位），舍入到最接近的25kbit/s。这个值可能会根据历史网络吞吐量计算，也可能根据连接技术的能力来计算</span></li></ul><ul id="d87ea26e-0949-4836-96cd-122eebf2fe24" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">downlinkMax: 整数，表示当前设备最大的下行带宽（以Mbit/s为单位），根据网络的第一跳来确定，因为第一跳不一定反映端到端的网络速度，所以这个值只能用作粗略的上限值</span></li></ul><ul id="a7e1930d-5124-4994-bf65-1c2672bfc038" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">effectiveType：字符串枚举类，表示连接速度和质量。这些值对应不同的蜂窝数据网络连接技术，但也用于分类无线网络，有以下4种可能</span><ul id="eef3cfc1-1707-4544-bbc4-0f73da4bc52c" class="bulleted-list"><li style="list-style-type:disc">slow-2g，往返时间&gt;2000ms下行带宽&lt;50kbit/s</li></ul><ul id="496b141e-0048-4421-94d5-68943854174a" class="bulleted-list"><li style="list-style-type:disc">2g，往返时间≥1400ms下行带宽≥50kbit/s</li></ul><ul id="12d907b1-ddbd-4bd9-9693-395e0fa2aa0f" class="bulleted-list"><li style="list-style-type:disc">3g，往返时间≥270ms下行带宽≥70kbit/s</li></ul><ul id="7e66ae72-1662-426b-a418-faf5c090ffdc" class="bulleted-list"><li style="list-style-type:disc">4g，往返时间≥0ms下行带宽≥700kbit/s</li></ul></li></ul><ul id="ffefa799-f645-4bb8-8fa1-2dd2646b0bfe" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">rtt：毫秒，表示当前网络实际的往返时间，舍入为最接近的25毫秒，这个值可能根据历史网络吞吐量计算，也可能根据连接技术的能力来计算</span></li></ul><ul id="5833191c-7517-4b41-a80f-f9c10f8efbf3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">type：字符串枚举值，表示网络连接技术，这个值可能为：</span><ul id="b374d220-38d1-4fb3-9d5c-34a9532435c5" class="bulleted-list"><li style="list-style-type:disc">bluetooth: 蓝牙</li></ul><ul id="186b9f96-94b6-4ee2-87d7-c5c647270c40" class="bulleted-list"><li style="list-style-type:disc">cellular：蜂窝</li></ul><ul id="278cd81b-bd49-427c-ac2b-0229de68476a" class="bulleted-list"><li style="list-style-type:disc">ethernet：以太网</li></ul><ul id="2d59f6d2-02d8-4f30-8c3a-e868d30c23f0" class="bulleted-list"><li style="list-style-type:disc">none：无网络连接，相当于navigator.onLine === false</li></ul><ul id="c3a6f547-6f2b-41ce-b654-ad1ee3c2e368" class="bulleted-list"><li style="list-style-type:disc">mixed: 多种网络混合</li></ul><ul id="66c6bba1-7587-4c36-98ee-bffd3176c7cc" class="bulleted-list"><li style="list-style-type:disc">other：其他</li></ul><ul id="775bcb7b-d44d-4f83-9108-a47cc7915ba7" class="bulleted-list"><li style="list-style-type:disc">unknow：不确定</li></ul><ul id="942029d6-82b9-4f12-90ec-085b5b07ece0" class="bulleted-list"><li style="list-style-type:disc">wifi：Wi-Fi</li></ul><ul id="84ff6065-188b-4fba-b9a7-27d98b6e4249" class="bulleted-list"><li style="list-style-type:disc">wimax：WiMAX</li></ul></li></ul><ul id="2d042f63-5be6-43c3-9eac-32a3e7dff821" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">saveData：布尔值，表示用户设备是否启用了节流（reduced data）模式</span></li></ul><ul id="41a1a7b3-d271-4945-a09a-d1689d8d7115" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">onchange：时间处理程序，会在任何连接状态变化时触发一个change事件，可以通过navigator.connection.addEventlistener(”change”, changeHandler)或navigator.connection.onchange = changeHandler等方式使用</span></li></ul></li></ul><ul id="44e80212-0901-4d52-a7ea-c9ed4fa66853" class="bulleted-list"><li style="list-style-type:disc">连接Wi-Fi的电脑设备上的谷歌浏览器的navigator.connection对象（火狐浏览器没有相关对象）：<figure id="b7df6b32-ef38-4088-a067-7a0daccd94cc" class="image"><a href="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/navigator.connection.png"><img style="width:1855px" src="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/navigator.connection.png"/></a></figure></li></ul><h2 id="c052dc15-109e-45f9-b730-e7c29490ce2f" class="">3.2.3 Battery Status API</h2><ul id="4dcd8e0c-13c6-4afa-9146-f29acdfb2a38" class="bulleted-list"><li style="list-style-type:disc">浏览器可以访问设备电池及充电状态的信息</li></ul><ul id="65b87227-b0c5-438f-aab7-33c9d8390611" class="bulleted-list"><li style="list-style-type:disc">navigator.getBattery()方法会返回一个期约实例，解决为一个BatteryManager对象<pre id="53ead3df-c6ee-459f-a124-3b1fe49458db" class="code"><code>navigator.getBattery().then((b) =&gt; console.log(b));
+// 在谷歌浏览器上的打印
+BatteryManager {charging: true, chargingTime: 0, dischargingTime: Infinity, level: 1, onchargingchange: null, …}</code></pre></li></ul><ul id="90c235a0-0957-4454-9c03-3ce4010e48e1" class="bulleted-list"><li style="list-style-type:disc">BatteryManager包含4个只读属性，提供了设备电池的相关信息<ul id="7c755b65-4947-48ae-b79b-e0242a8d275b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">charging：布尔值，表示设备当前是否接入电源充电。如果设备没有电池，则返回true</span></li></ul><ul id="eb74e03b-290c-4070-979e-68550a2911d5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">chargingTime：整数，表示预计离电池充满还有多少秒，如果电池已充满或设备没有电池，则返回0</span></li></ul><ul id="599e424f-e6ed-4da9-9e13-8004d5f92b5b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">dischargingTime：整数，表示预计离电池耗尽还有多少秒，如果设备没有电池，则返回Infinity</span></li></ul><ul id="7e810002-976f-414a-8042-45a468f3bfd3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">level：浮点数，表示电量百分比，电量完全耗尽返回0.0，电池充满返回1.0，如果设备没有电池返回1.0</span></li></ul><p id="dc7cc0ec-2e07-4033-b600-871c9277abe6" class="">还提供了四个事件属性，可用于设置在相应的电池事件发生时调用的回调函数，可以通过给BatterManager添加事件监听器，也可以通过给事件属性赋值来使用这些属性</p><ul id="0374ecd8-b790-4d83-a6b9-5949997fb1a4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">oncharingchange</span></li></ul><ul id="81cf8d9f-28f2-47a0-ba3b-65b49ae7291d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">oncharingtimechange</span></li></ul><ul id="9ff3cc4c-d3c5-4ad0-8100-2b44f867a8b0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">ondichargingtimechange</span></li></ul><ul id="6d5867a0-bb54-43d5-a74b-2f6d7f54345e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">onlevelchange</span></li></ul></li></ul><ul id="2c54a52a-5ec3-495c-b767-c23d7e846bc9" class="bulleted-list"><li style="list-style-type:disc">带有电池的笔记本的Chrome浏览器获取到的BatteryManager对象（火狐浏览器没有实现getBattery()）如下<figure id="6d8cc63d-5a48-4452-be19-ae68e7a5be06" class="image"><a href="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/BatteryManager.png"><img style="width:1945px" src="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/BatteryManager.png"/></a></figure><ul id="c5070fc5-8cfa-4831-8fb0-dd1b7ef3faba" class="bulleted-list"><li style="list-style-type:circle">因为接电且保持满电池状态，所以这里的充满时间为0，预计耗尽为Infinity</li></ul></li></ul><ul id="6c09075a-5707-416a-aab9-78cebe1ef0b1" class="bulleted-list"><li style="list-style-type:disc">给电池状态变化添加处理程序<pre id="895c9c05-5526-4754-9e10-381b2a4e81ae" class="code"><code>navigator.getBattery().then((battery) =&gt; {
+  battery.addEventListener(&quot;chargingchange&quot;, () =&gt; {
+    console.log(&quot;电源接电状态变化&quot;);
+  });
+  battery.addEventListener(&quot;chargingtimechange&quot;, () =&gt; {
+    console.log(&quot;电源充满时间变化&quot;);
+  });
+  battery.addEventListener(&quot;dischargingtimechange&quot;, () =&gt; {
+    console.log(&quot;电源电量耗尽时间变化&quot;);
+  });
+  battery.addEventListener(&quot;levelchange&quot;, () =&gt; {
+    console.log(&quot;电源电量百分比变化&quot;);
+  });
+});</code></pre></li></ul><h1 id="54d08220-ebe1-42c9-ac0a-c1d8540682e5" class="">3.3 硬件</h1><ul id="e890d49b-f025-416b-b70f-76757609776a" class="bulleted-list"><li style="list-style-type:disc">浏览器处理硬件的能力十分有限，但是navigator对象还是有一些属性提供了基本信息</li></ul><h2 id="7202e5f7-58cc-4c00-8b17-d4d3ca52560f" class="">3.3.1 处理器核心数</h2><p id="c1307988-bd1b-4a5c-87a8-a399bd6d59f3" class="">navigator.hardwareConcurrency属性返回浏览器所在设备支持的逻辑处理器核心数量，是一个整数值，如果无法确定就返回1，关键在于这个值表示浏览器可以并行执行的最大工作线程数量，不一定是实际的CPU核心数</p><figure id="fff15e95-6a42-4712-906b-d3519f1010bf" class="image"><a href="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/harwareConcurrency.png"><img style="width:528px" src="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/harwareConcurrency.png"/></a></figure><p id="59d4496c-6e04-493f-873d-a7930db54b3c" class="">关于<code>hardwareConcurrency</code> 属性，详情 查看<a href="../12%20%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%EF%BC%88The%20Brower%20Object%20Model%EF%BC%89/3%20navigator%20%E5%AF%B9%E8%B1%A1.html">注意-hardwareConcurrency 的值并不准确</a> </p><h2 id="981f1f40-5c25-4417-ba87-1e036eb289ad" class="">3.3.2 设备内存大小</h2><p id="e86bc895-772d-47ba-a3f0-8dcae6c53dc6" class="">navigator.deviceMemory属性返回设备大致的系统内存大小，包含单位为GB的浮点数（舍入为最接近2的幂：512MB返回0.5，4GB返回4）</p><figure id="9fd1d075-1b74-4d1d-b68f-2e71807b0ab6" class="image"><a href="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/navigator.deviceMemory.png"><img style="width:432px" src="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/navigator.deviceMemory.png"/></a></figure><p id="b24850a8-62ad-4f08-bb44-cd692f56f465" class="">关于navigator.deveiceMemory，详情查看<a href="../12%20%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AF%B9%E8%B1%A1%E6%A8%A1%E5%9E%8B%EF%BC%88The%20Brower%20Object%20Model%EF%BC%89/3%20navigator%20%E5%AF%B9%E8%B1%A1.html">navigator的一些属性可能是w3c规范 或其它Web规范的，如WebVR API</a> </p><h2 id="8ee9e021-904a-442a-aafd-d44699525330" class="">3.3.3 最大触点数</h2><p id="b4592a94-6e48-4aa1-95ce-b63b99b8ff18" class="">navigator.maxTouchPoints属性返回触摸屏支持的最大关联触点数量，包含一个整数值</p><figure id="f33d6ea0-ff68-4b82-a2d1-20933b6f45f1" class="image"><a href="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/navigator.maxTouchPoints.png"><img style="width:432px" src="3%20%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B/navigator.maxTouchPoints.png"/></a></figure><p id="bc2228aa-4671-4f75-a9f7-181ae3a036bd" class="">电脑等不能非触屏设备上的浏览器这个属性返回0</p></div></div><p id="c051530b-1b3e-4649-831b-bed2862d3829" class="">
+</p></div></article></body></html>

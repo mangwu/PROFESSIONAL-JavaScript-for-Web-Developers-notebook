@@ -1,0 +1,763 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>5.1一元操作符与位操作符</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="b21bffaa-662c-41d2-9fec-ace33a6df9e9" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/rijksmuseum_jansz_1636.jpg" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🚴🏽</span></div><h1 class="page-title">5.1一元操作符与位操作符</h1></header><div class="page-body"><p id="efb37a4b-fb8d-4aaa-8f05-15f96fe2702c" class="">只操作一个值的操作符叫一元操作符（unary operator），它是ECMAScript中最简单的操作符</p><div id="af509838-bfd9-48c0-95d9-23c7d9eabfdf" class="column-list"><div id="4e6e5fbc-2351-4744-9b19-9b618ce1298f" style="width:18.75%" class="column"><nav id="d234bb61-f916-4d90-b4a9-cff1479e506e" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#32fe2462-7b47-4d14-806c-8a01437d26cc">5.1.1递增/递减操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bb1780fd-2a41-45b7-98df-591f133af752">描述</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#aa93a4cc-2cfd-4a96-b680-6f9f79243997">前缀版本的递增/递减操作符</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a029aa97-59eb-46ee-bde2-cc89f9186f1b">语法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#cee00ac7-b0fa-473e-ad28-157efb809827">特性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9e618012-07fa-4236-a584-38eefa1d5b5c">后缀版本的递增/递减操作符</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8f5735a5-5759-45ad-a64e-4f8499464241">语法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0bc4c155-41a0-4986-9e9e-3ec805458293">特性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b4ef2c0a-601d-47c3-adc3-ebf0c3d4857c">作用变量类型</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b9d4e6ab-908a-42a7-8d90-a16454596bcb">5.1.2一元加和减</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2547976b-9e2e-44f5-bdef-d80956fc7660">描述</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6b5d0b97-238b-4adf-bfb8-6be1de07074e">语法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2c7d4973-b553-4003-91cc-3ab3c61f5539">一元加操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e72b0ab9-037a-4071-8c0f-944c600e070c">一元减操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a319ff34-a108-42ed-9e07-26214bb59aa4">作用</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#182a2c4b-85a5-4349-ae62-f73b407f504f">5.1.3位操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#20378d5d-4ce4-405e-8d59-49b38ca5311f">底层数值存储</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#127ccd94-feb7-4742-b926-c86ed566c7b2">32位整数</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1550d764-de32-426d-b9b0-94c2150a4490">获取数字的二进制表示</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#08a4cdc7-3dac-475f-8fdb-b3375826dde2">注意</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ead16ca0-cab9-402e-9995-a6b7d4e6050b">5.1.3.a 按位非</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c3a993e3-507f-4516-9324-70e8844167e1">描述</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8cd94327-c3e6-4676-9f61-dfd8972bffce">语法与特性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#12e16ce7-2074-4a9c-83fd-397b63e2ee5d">5.1.3.b 按位与</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2ffb341d-8088-48a4-a63b-a752b7828eb7">描述</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6ebe5cd6-1787-4e3f-adcd-bfc56785e28e">与操作真值表</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e4f21651-30c2-40dd-87b3-12d68d49596a">例子</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1943a6a6-ea7e-4322-a527-5f5aa025d377">5.1.3.c 按位或</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14cef9e2-3037-4110-9d8b-41794499e41d">描述</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#af0bcf07-94c8-4ab0-8537-9295f9e727f8">真值表</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ce28a2b6-e3ed-46d6-b474-1a8daa8e098a">例子</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c631d9bc-5ed5-42e8-a078-f2d0c6654fbb">5.1.3.d 按位异或</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#302ef3a0-e687-4437-a636-7cc2fe87a765">描述</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a9fbffc2-facd-4012-a024-b933bc285eda">按位异或真值表</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#020c7415-741b-4df7-8d47-84f8f87c35cd">例子</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#32f41ce1-1005-4a6d-89a6-a43af80c5fd8">5.1.3.e 左移</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4b106dce-9a83-4271-bc3e-f9a46e6b3cbf">描述</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#57a6cd78-9292-4454-8ce1-8a3d63904adc">未溢出时</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#dd769305-536d-447d-983e-debcea379c54">溢出时</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#604233ae-8df8-426b-9d96-e91318b2146d">5.1.3.f 有符号右移</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#45e1a57e-0c8b-4576-bf23-5c2d312a7c90">描述</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ed83f738-383b-4616-bc0d-b2173f741bb9">特性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7d976582-1ec9-423b-ac51-61d1e1759ff6">注意</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a333d809-37b3-4605-b63d-6cf0d6e84e4c">5.1.3.g 无符号右移</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#950ffa5f-a5d6-4d57-9ecb-7d15f08fff75">描述</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#aaa7430d-dff3-4b80-b5c3-e19dc176f6c1">特性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#589e5d44-7103-46ff-9ee8-8cd35fdea891">注意</a></div></nav><p id="a59bcd01-0480-4175-9ad2-73d7ea222aff" class="">
+</p></div><div id="9349af16-a4e5-4a5e-a336-91976c0d59c1" style="width:81.25%" class="column"><h1 id="32fe2462-7b47-4d14-806c-8a01437d26cc" class="">5.1.1递增/递减操作符</h1><h2 id="bb1780fd-2a41-45b7-98df-591f133af752" class="">描述</h2><ul id="9ed116de-331a-4aad-8cad-c88c053be03a" class="bulleted-list"><li style="list-style-type:disc">递增/递减操作符照<strong>搬自C语言</strong></li></ul><ul id="b7016566-6d9e-400d-8b6d-e4bc3a6f763a" class="bulleted-list"><li style="list-style-type:disc">它们能对<strong>数字变量</strong>进行自增或者自减</li></ul><ul id="487cb88e-8761-497e-8895-3d69a92ceafc" class="bulleted-list"><li style="list-style-type:disc">递增/递减操作符有两个版本：<strong>前缀版本和后缀版本</strong></li></ul><h2 id="aa93a4cc-2cfd-4a96-b680-6f9f79243997" class="">前缀版本的递增/递减操作符</h2><h3 id="a029aa97-59eb-46ee-bde2-cc89f9186f1b" class="">语法</h3><ul id="8c6f3964-9a5c-4632-8af4-518ab300bf85" class="bulleted-list"><li style="list-style-type:disc">放在被操作的数字变量前面，对变量进行递增或者递减<pre id="0b1540fa-cb00-470f-959c-706079b92cce" class="code code-wrap"><code>let age = 19;
+++age;
+console.log(age); // 20
+--age;
+console.log(age); // 19</code></pre></li></ul><h3 id="cee00ac7-b0fa-473e-ad28-157efb809827" class="">特性</h3><ul id="c255e9a8-4481-4f4c-9459-0157a47c2700" class="bulleted-list"><li style="list-style-type:disc">前缀递增/递减操作符会在语句<strong>被求值之前改变变量的值</strong></li></ul><ul id="580e419c-4c19-40e3-8a49-35892c36790f" class="bulleted-list"><li style="list-style-type:disc">在计算机科学中，这通常被称为<strong>副作用</strong><pre id="1370329b-4d08-4915-baaa-68874106378c" class="code code-wrap"><code>let age = 19;
+// 前缀版本在求值之前改变变量的值
+console.log(--age + 2); // 20</code></pre></li></ul><ul id="b2d37cf8-d072-4eff-855d-d1e8ad68ad82" class="bulleted-list"><li style="list-style-type:disc">前缀递增和递减的操作符优先级相等，会从左到右依次求值</li></ul><h2 id="9e618012-07fa-4236-a584-38eefa1d5b5c" class="">后缀版本的递增/递减操作符</h2><h3 id="8f5735a5-5759-45ad-a64e-4f8499464241" class="">语法</h3><ul id="bf3fc15c-6fe3-48e1-b1a5-bffd71200721" class="bulleted-list"><li style="list-style-type:disc">放在数字变量的后面，对变量进行自增或自减操作,通常情况下和前缀没什么区别<pre id="f4dc8d71-20d5-4fa1-a859-7e22ee8f451c" class="code code-wrap"><code>let age = 19;
+age++;
+console.log(age); // 20
+age--;
+console.log(age); // 19</code></pre></li></ul><h3 id="0bc4c155-41a0-4986-9e9e-3ec805458293" class="">特性</h3><ul id="e941c6ac-1c90-4325-9164-ff04dee92a1f" class="bulleted-list"><li style="list-style-type:disc">和前缀递增/递减操作符的唯一区别在于，后缀递增/递减操作符会<strong>在语句被求值之后改变变量的值</strong><pre id="bc48a9d1-474f-4e61-8687-ac853d193d76" class="code code-wrap"><code>let age = 19;
+// 后缀版本在求值之后改变变量的值
+console.log(age-- + 2); // 21</code></pre></li></ul><h2 id="b4ef2c0a-601d-47c3-adc3-ebf0c3d4857c" class="">作用变量类型</h2><ul id="ca1e5e72-a76a-4df6-b61b-c1f987491e5b" class="bulleted-list"><li style="list-style-type:disc">通常，递增/递减操作符<strong>多作用于数字变量</strong>，包括整数与浮点数</li></ul><ul id="78ca8c31-efd6-4ba1-9d00-8e31867bf6eb" class="bulleted-list"><li style="list-style-type:disc">实际上，递增/递减操作符可以<strong>作用于任何值</strong>，包括字符串，布尔值，浮点值，对象</li></ul><div><table id="e7067e8e-debf-4e41-844f-91eda6da555b" class="simple-table"><thead class="simple-table-header"><tr id="ebda3071-afd8-4fcb-8574-fe2052af7ed8"><th id="tA&lt;c" class="block-color-red simple-table-header" style="width:241.27272033691406px">作用变量类型</th><th id="|dbX" class="block-color-red simple-table-header" style="width:383.1817932128906px">作用结果</th></tr></thead><tbody><tr id="b76e62c5-20c2-4bbe-9b23-a973fcc78d7c"><td id="tA&lt;c" class="" style="width:241.27272033691406px">有效的数值字符形式（只包含<strong>数字字符，+，-，小数点</strong>）</td><td id="|dbX" class="" style="width:383.1817932128906px">转化位数字后再应用，变量从字符串变为数值，例如c=”12.5”;c++; c变为13.5</td></tr><tr id="64dd4f82-9f2a-406b-9587-d45e986f502c"><td id="tA&lt;c" class="" style="width:241.27272033691406px">无效的数值字符形式</td><td id="|dbX" class="" style="width:383.1817932128906px">会将变量值设置为<strong>NaN，</strong>属于数值类型</td></tr><tr id="5ad4a355-24fa-4632-ac19-d1fad7417c19"><td id="tA&lt;c" class="" style="width:241.27272033691406px">布尔值</td><td id="|dbX" class="" style="width:383.1817932128906px">flase转化为0，true转化为1，再进行改变，如b=true;b++;b变为2</td></tr><tr id="68d20d71-6e3d-47e7-a944-d80343a3b3c4"><td id="tA&lt;c" class="" style="width:241.27272033691406px">对象</td><td id="|dbX" class="" style="width:383.1817932128906px">调用valueOf()方法<strong>取得原始数据类型</strong>后再按照原始数据类型的方式进行作用，如果结果是NaN就会调用toString()再次应用其它规则将对象转化为数值后进行操作</td></tr><tr id="e6d18af8-5296-4dfd-a7f9-41c761c7e615"><td id="tA&lt;c" class="" style="width:241.27272033691406px">Undefined</td><td id="|dbX" class="" style="width:383.1817932128906px">NaN</td></tr><tr id="f9a9c0e4-645b-4502-9be9-dad06d020a44"><td id="tA&lt;c" class="" style="width:241.27272033691406px">null</td><td id="|dbX" class="" style="width:383.1817932128906px">空会被转化为0，然后进行递增或者递减</td></tr></tbody></table></div><pre id="1bc12158-ba86-45d3-a875-52857967b1b2" class="code code-wrap"><code>let b = true;
+let c = null;
+let d = {
+  toString() {
+    return &quot;12.3&quot;;
+  },
+  valueOf() {
+    return &quot;d&quot;;
+  },
+};
+let e = 1.1;
+let f = &quot;num&quot;;
+console.log(++b);
+console.log(++c);
+console.log(++d);
+console.log(--e);
+console.log(++f);
+// 打印
+2
+1
+NaN // 和书说的情况不同
+0.10000000000000009 // 浮点数的精度问题
+NaN</code></pre><p id="9f66d52e-571a-4865-a5ee-3da68052b5a8" class="">⇒ 对于对象，有valueOf()方法就调用<code>valueOf()</code> 之后就不会调用<code>toString()</code>,没有就调用<code>toString()</code></p><h1 id="b9d4e6ab-908a-42a7-8d90-a16454596bcb" class="">5.1.2一元加和减</h1><h2 id="2547976b-9e2e-44f5-bdef-d80956fc7660" class="">描述</h2><ul id="b9e5fc4b-f59f-46be-96e0-2cfbdc3d4484" class="bulleted-list"><li style="list-style-type:disc">ECMAScript规范中的一元加和减操作符就是初中数学中的表示数字符号的<code>＋</code>和<code>-</code> </li></ul><h2 id="6b5d0b97-238b-4adf-bfb8-6be1de07074e" class="">语法</h2><ul id="afc304d2-67e6-447b-b20f-1a4bfed1158f" class="bulleted-list"><li style="list-style-type:disc">一元加和减操作符放在变量前面，<strong>可能</strong>对变量进行改变<pre id="ae2d6cc2-e70a-4caa-83f6-806d062823ff" class="code code-wrap"><code>let c = 45
+-c; // -45
++c; // 45</code></pre><p id="82affb2e-4855-4b8e-9093-628986780a05" class="">
+</p></li></ul><h2 id="2c7d4973-b553-4003-91cc-3ab3c61f5539" class="">一元加操作符</h2><ul id="b8b53121-d376-4649-a900-6c3dfda630bc" class="bulleted-list"><li style="list-style-type:disc">一元加（+）操作符号放在<strong>数值变量</strong>前面，不会对数值有任何影响</li></ul><ul id="370bdf98-9d87-4cf8-9af2-3c4f26a4a4bb" class="bulleted-list"><li style="list-style-type:disc">如果将一元加放在<strong>非数值变量</strong>前面，则会执行使用<strong>Number()</strong>一样的转型函数进行类型转换</li></ul><ul id="9120a395-39ca-48d1-ae7e-62278c01e616" class="bulleted-list"><li style="list-style-type:disc">对于非数值类型的其它类型变量，一元加操作符对变量的类型转换和前面的递增/递减操作符<strong><a href="5%201%E4%B8%80%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6%E4%B8%8E%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6.html">类似</a></strong><strong> </strong>只是只对变量进行到数值类型的转换<div></div><pre id="49bc40b2-e754-445f-bf35-3a4fad2c67f5" class="code code-wrap"><code>console.log(+null);
+console.log(+undefined);
+console.log(+&quot;123&quot;);
+console.log(+&quot;a123&quot;);
+console.log(
+  +{
+    valueOf() {
+      return &quot;3&quot;;
+    },
+  }
+);
+console.log(+true);
+
+// 打印
+0
+NaN
+123
+NaN
+3
+1</code></pre></li></ul><h2 id="e72b0ab9-037a-4071-8c0f-944c600e070c" class="">一元减操作符</h2><ul id="6b3c57bb-8a9b-4ddf-8184-ad4f42492e94" class="bulleted-list"><li style="list-style-type:disc">和一元加操作符不同是：<ul id="c426246a-5ad3-45f5-88cb-ccab32fa10aa" class="bulleted-list"><li style="list-style-type:circle">对于数值变量，像高中数学一样<strong>设置数值的符号</strong></li></ul><ul id="234283a5-178a-4fa3-9477-a497943cacc2" class="bulleted-list"><li style="list-style-type:circle">对于非数字变量，先将其转化为数值变量，再设置数值的符号</li></ul></li></ul><h2 id="a319ff34-a108-42ed-9e07-26214bb59aa4" class="">作用</h2><ol type="1" id="a76bf523-bab2-4550-b06d-1d9fc442979c" class="numbered-list" start="1"><li>数值的基本算术</li></ol><ol type="1" id="bd2e16fe-9dad-4766-bc6f-a282387e0482" class="numbered-list" start="2"><li>数据类型转换</li></ol><h1 id="182a2c4b-85a5-4349-ae62-f73b407f504f" class="">5.1.3位操作符</h1><p id="f8e2db15-6fc5-4125-99f9-28c9d28f7628" class="">位操作符号都是作用于数值的<strong>底层操作，</strong>也就是<strong>操作内存中表示数据的比特位</strong></p><h2 id="20378d5d-4ce4-405e-8d59-49b38ca5311f" class="">底层数值存储</h2><p id="129b6682-3a41-4469-9a40-a6349a14bfdc" class="">ECMAScript规范所以数值都以<strong>IEEE 754 64位</strong>格式存储</p><blockquote id="a301f5f9-466c-4ee6-8295-e68b6abb86e9" class="">但是位操作并不直接应用到64位表示，而是<strong>先把值转化为32位整数</strong>，再进行位操作，之后再把结果转化为64位</blockquote><p id="0b94becf-e3fe-4499-8d27-b08da6ad0b86" class="">对于开发者，只需要了解<strong>32位整数</strong>是如何存储，如被操作即可，因为64位整数存储格式是不可见的</p><h3 id="127ccd94-feb7-4742-b926-c86ed566c7b2" class="">32位整数</h3><ul id="22c7301c-7a8c-494c-8cef-068eb55f948e" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">有符号整数<ul id="8111f3a9-a225-4f2c-9916-b8c754b0636a" class="bulleted-list"><li style="list-style-type:circle">使用32位的前31位表示整数值</li></ul><ul id="c2b7458c-3536-4e29-bc1d-1dcfea2a6030" class="bulleted-list"><li style="list-style-type:circle">第32位（称为第31位）表示数值的符号，0为正，1为负，这一位称为<strong>符号位</strong></li></ul><ul id="6a6db3fa-9fb9-42e4-b647-08c11c945dfc" class="bulleted-list"><li style="list-style-type:circle"><strong>符号位的数值决定了其它31位的格式</strong></li></ul><hr id="21e90df8-ace8-4ec4-84b6-4bc24f25c0dd"/><ol type="1" id="626662ae-e847-47c4-b60b-187a11131857" class="block-color-teal_background numbered-list" start="1"><li>符号位为0，值为正值，<strong>其余31位以真正的二进制格式进行存储</strong><ul id="22373e9a-0fb9-4558-9188-594150589730" class="bulleted-list"><li style="list-style-type:disc">31位中的每一位的位置代表2的幂，称为<strong>位权</strong></li></ul><ul id="290c6e96-d049-43bb-b99d-555afc57bb10" class="bulleted-list"><li style="list-style-type:disc">第一位（称为第0位）位权为<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>0</mn></msup></mrow><annotation encoding="application/x-tex">2^0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> ，第二位（称为第1位）位权<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>1</mn></msup></mrow><annotation encoding="application/x-tex">2^1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span><hr id="4d62ddf7-00c0-45f6-9f5e-cc21cecd3b25"/></li></ul><ul id="5f450d16-6e33-4cb4-b64b-fd940db34c9c" class="bulleted-list"><li style="list-style-type:disc">31位中的每一位的值，代表在每个位权的值</li></ul><ul id="a583c770-045e-4965-8913-5316c0d8cf4d" class="bulleted-list"><li style="list-style-type:disc">可选值个数是基数(2)个,范围为[0,2)的整数<hr id="8b4b1cec-9750-4c9f-89ea-dd47f1346c1e"/></li></ul><ul id="1ee9d5c5-eae9-4a7d-afaf-c8270a7e6b58" class="bulleted-list"><li style="list-style-type:disc">二进制表示的十进制数值就是每一位的值乘以维权求和<p id="0a23a2e6-eca3-4b64-a95b-329cc70c50e7" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mn>30</mn></msubsup><mi>f</mi><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mo>∗</mo><msup><mn>2</mn><mi>i</mi></msup><mo separator="true">,</mo><mi>f</mi><mo stretchy="false">(</mo><mi>i</mi><mo stretchy="false">)</mo><mtext>表示第</mtext><mi>i</mi><mtext>位的值，</mtext><mn>0</mn><mtext>或</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">y = \sum_ {i = 0}^{30}f(i) * 2 ^i ,f(i) 表示第i位的值，0或1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.253718em;vertical-align:-0.29971000000000003em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.954008em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">30</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.0746639999999998em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mclose">)</span><span class="mord cjk_fallback">表示第</span><span class="mord mathnormal">i</span><span class="mord cjk_fallback">位的值，</span><span class="mord">0</span><span class="mord cjk_fallback">或</span><span class="mord">1</span></span></span></span></span><span>﻿</span></span></p><hr id="2a176ad9-3edb-47d5-bf9e-11674327e296"/></li></ul><ul id="58762638-7c25-4398-91d6-e3c4b3303b8b" class="bulleted-list"><li style="list-style-type:disc">例如18的二进制格式为<p id="dcff538f-673d-4e40-8e64-6a918badb38a" class="">0<strong>000 0000 0000 0000 0000 0000 0001 0010</strong></p><p id="15b2e43e-486b-47a2-8baa-edacc2d4d81a" class="">符号位(1) + 数值位(31)</p><p id="8c4906a9-e1e3-472c-be03-08aac525d6ae" class="">十六进制 ⇒ 0000 0012</p><ul id="e43fd9e2-7156-4c75-b485-218c881d964c" class="bulleted-list"><li style="list-style-type:circle">有效位数：<strong>10010</strong></li></ul><ul id="6cbe80c5-a2d4-46f7-b720-81df6123284d" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>1</mn><mo>∗</mo><msup><mn>2</mn><mn>4</mn></msup><mo>+</mo><mn>0</mn><mo>∗</mo><msup><mn>2</mn><mn>3</mn></msup><mo>+</mo><mn>0</mn><mo>∗</mo><msup><mn>2</mn><mn>2</mn></msup><mo>+</mo><mn>1</mn><mo>∗</mo><msup><mn>2</mn><mn>1</mn></msup><mo>+</mo><mn>0</mn><mo>∗</mo><msup><mn>2</mn><mn>0</mn></msup></mrow><annotation encoding="application/x-tex">y = 1 * 2^4 + 0 * 2^3 + 0 * 2 ^2 + 1 * 2^1 + 0 * 2 ^0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></li></ul></li></ul></li></ol><ol type="1" id="6b7a4e0c-170e-4e40-afde-7cf0977e7c3c" class="block-color-purple_background numbered-list" start="2"><li>符号位为1，值为负数，其余31位以<strong>补码的二进制编码进行存储</strong><ul id="1f2134e1-b222-4ed5-8448-82ffb63fc23d" class="bulleted-list"><li style="list-style-type:disc">十进制负数的补码确定方式<ol type="1" id="41928559-12d1-4dbe-9d7b-d28a839aeb57" class="numbered-list" start="1"><li>确定绝对值的而进制表示，如-18，先确定18的二进制表示</li></ol><ol type="1" id="6704024e-51e5-4f71-82e0-af0ff490aee7" class="numbered-list" start="2"><li>找到绝对值数的补数（<strong>反码</strong>），0变为1，1变为0</li></ol><ol type="1" id="5954dc76-f9fe-4e84-b9b8-4411eb5bbf77" class="numbered-list" start="3"><li>给结果加1</li></ol><hr id="9f1a1a1f-650f-4928-adbe-b01c013f1930"/></li></ul><ul id="f2a6d7ab-9f9d-4067-b223-f7cb8369bddd" class="bulleted-list"><li style="list-style-type:disc">例子，-18<ol type="1" id="6be0fb22-6c93-4d49-b11d-821533bdc8e6" class="numbered-list" start="1"><li>18的二进制：0<strong>000 0000 0000 0000 0000 0000 0001 0010</strong></li></ol><ol type="1" id="0abd4963-e443-4223-aeb5-db885a904635" class="numbered-list" start="2"><li>补码：1111 1111 1111 1111 1111 1111 1110 1101</li></ol><ol type="1" id="edc76d38-7e9c-450b-b049-20a87852deb5" class="numbered-list" start="3"><li>加1：1111 1111 1111 1111 1111 1111 1110 1110<p id="cea0ce7f-81d7-43a5-a843-4ac32ee4eaf6" class="">十六进制 ffff ffee</p></li></ol><hr id="1d90f3c1-cd61-4292-8e03-43d5f3999a6c"/></li></ul><ul id="c9e252bd-6807-4ad6-924b-2f2787bc9aaf" class="bulleted-list"><li style="list-style-type:disc">实际上，正整数数与负整数的编码范围的十进制对二进制(这里使用十六进制进行简化)有如下映射关系：<p id="97b6d364-252f-4436-b782-3d8cd1b76a14" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><msup><mn>2</mn><mn>31</mn></msup><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo><mo separator="true">,</mo><mo stretchy="false">[</mo><mo>−</mo><msup><mn>2</mn><mn>31</mn></msup><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0, 2^{31} - 1], [-2^{31},-1] </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">31</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">31</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mclose">]</span></span></span></span></span><span>﻿</span></span> ⇒ [0000 0000, 7fff ffff], [8000 0000, ffff ffff]</p><ul id="e0eef8ec-d425-4029-8402-c412ec9fe8be" class="bulleted-list"><li style="list-style-type:circle">这里每个区间中的整数都是递增1的</li></ul><ul id="3762a742-efc5-4e1c-b5ca-dca41c7a7c7f" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>31</mn></msup></mrow><annotation encoding="application/x-tex">-2^{31} </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">31</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> 是32位的最小负整数，使用”<strong>负数0</strong>“表示，二进制刚好比32位最大整数大一（7fff ffff ⇒ 8000 0000）</li></ul></li></ul></li></ol><ol type="1" id="caa47972-11e7-494e-b16c-aa14dd42cafa" class="numbered-list" start="3"><li>”处理有符号整数时，无法访问第31位“ （这里的31位就是最左边的符号位）<ul id="a5a17d0c-ca61-475f-9d35-a352c32949e3" class="bulleted-list"><li style="list-style-type:disc">在解释整数的二进制位时，习惯上<strong>从数字0开始进行数位</strong></li></ul><ul id="a351fde4-7bfe-4251-b7f1-a89c7efc069e" class="bulleted-list"><li style="list-style-type:disc"><strong>位数的数法习惯上从右向左数</strong></li></ul><ul id="ab112eb4-f31b-4dd2-ae0f-a2cc8ad60c58" class="bulleted-list"><li style="list-style-type:disc">所以第31位就是符号位</li></ul><ul id="d149fd6e-8907-4da7-a33d-0f86bccbe9e9" class="bulleted-list"><li style="list-style-type:disc">前31位表示从右向左数共31个的数值位</li></ul><ul id="907aaa9b-3ee1-4b39-a91d-e79e9f974086" class="bulleted-list"><li style="list-style-type:disc">用o表示数值位，x表示符号位，32位有符号整数如下<p id="54fd5da4-f4e1-4feb-aff1-e151671abbf3" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mi>x</mi><mi>x</mi><mi>x</mi><mtext> </mtext><mi>x</mi><mi>x</mi><mi>x</mi><mi>x</mi><mtext> </mtext><mi>x</mi><mi>x</mi><mi>x</mi><mi>x</mi><mtext> </mtext><mi>x</mi><mi>x</mi><mi>x</mi><mi>x</mi><mtext> </mtext><mi>x</mi><mi>x</mi><mi>x</mi><mi>x</mi><mtext> </mtext><mi>x</mi><mi>x</mi><mi>x</mi><mi>x</mi><mtext> </mtext><mi>x</mi><mi>x</mi><mi>x</mi><mi>x</mi><mtext> </mtext><mi>x</mi><mi>x</mi><mi>x</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">oxxx\space xxxx\space xxxx\space xxxx\space xxxx\space xxxx\space xxxx\space xxxx</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">o</span><span class="mord mathnormal">xxx</span><span class="mspace"> </span><span class="mord mathnormal">xxxx</span><span class="mspace"> </span><span class="mord mathnormal">xxxx</span><span class="mspace"> </span><span class="mord mathnormal">xxxx</span><span class="mspace"> </span><span class="mord mathnormal">xxxx</span><span class="mspace"> </span><span class="mord mathnormal">xxxx</span><span class="mspace"> </span><span class="mord mathnormal">xxxx</span><span class="mspace"> </span><span class="mord mathnormal">xxxx</span></span></span></span></span><span>﻿</span></span></p><p id="189033fa-1b79-4e3c-b477-1ead7b823787" class="">31                                                                                  0</p></li></ul></li></ol></li></ul><ul id="0824704f-b17b-4e67-a7f0-3710bbbc9c46" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">无符号整数<blockquote id="d19c2094-18c4-4eba-9638-5327d252ad9a" class="">默认情况下，ECMAScript中所有整数<strong>都表示为有符号数</strong></blockquote><ul id="28e92749-0e67-4bfa-a0c9-6afeb0fae024" class="bulleted-list"><li style="list-style-type:circle">无符号数的第31位不表示符号，用来表示数值</li></ul></li></ul><h3 id="1550d764-de32-426d-b9b0-94c2150a4490" class="">获取数字的二进制表示</h3><ul id="fee03909-d6b5-4605-a4d4-f49356d2615e" class="bulleted-list"><li style="list-style-type:disc">使用数字的toString()方法，填入需要获取的进制的<strong>基数</strong>即可得到对应的进制数表示</li></ul><ul id="87971282-7751-49e6-a777-6744d234e77e" class="bulleted-list"><li style="list-style-type:disc">对应二进制，传入数字2即可得到数字的二进制字符串表示<pre id="6f340077-bf17-436f-a129-cbbbe2299f35" class="code code-wrap"><code>let num = 5;
+num.toString(2); // &quot;101&quot;</code></pre></li></ul><ul id="e48cc098-3891-4ef7-b69d-056d23b5d7f7" class="bulleted-list"><li style="list-style-type:disc">对于负整数，toString方法只是得到绝对值的正整数的二进制，再在前面添加一个负数符号“-”,无法得到负数的实际<strong>补码</strong>表示，但是在toString()的实际计算过程中会得到二补数</li></ul><h3 id="08a4cdc7-3dac-475f-8fdb-b3375826dde2" class="">注意</h3><ul id="20b6e99c-ad5a-4d49-aeb9-fd2d191328b7" class="bulleted-list"><li style="list-style-type:disc">由于ECMAScript规范，将数值在应用位操作符时，后台将64位转化为32位数值，执行位运算后，再把结果转化为64为存储起来</li></ul><ul id="e9858160-3135-4b27-8211-ab0f06d9a3d4" class="bulleted-list"><li style="list-style-type:disc">这种转化方式导致了副作用⇒ <strong>特殊值，如NaN和Infinity在位操作中当作0处理</strong><pre id="c7ead900-84ab-4a08-9804-1b1242a661d2" class="code code-wrap"><code>console.log(~NaN); // -1  相当于 ~0
+console.log(5 ^ NaN); // 5 相当于 5 ^ 0</code></pre></li></ul><ul id="0f8d2ffb-503b-4801-b076-6b334c1ce32e" class="bulleted-list"><li style="list-style-type:disc">位操作符应用到非数值，首先使用Number()函数将其转化位数值（自动的），然后应用位操作</li></ul><h2 id="ead16ca0-cab9-402e-9995-a6b7d4e6050b" class="">5.1.3.a 按位非</h2><h3 id="c3a993e3-507f-4516-9324-70e8844167e1" class="">描述</h3><ul id="29805054-60cd-449f-a4a4-3dcc62b675ba" class="bulleted-list"><li style="list-style-type:disc">按位非操作符，使用波浪符号表示，放在数值变量的前面，返回数值的补数，属于一元操作符</li></ul><ul id="472feef9-54f4-4d9e-a9b9-e059b5c3982c" class="bulleted-list"><li style="list-style-type:disc">补数就是将数值的二进制位进行”翻转“，0→1,1→0<strong>,包括符号位</strong></li></ul><h3 id="8cd94327-c3e6-4676-9f61-dfd8972bffce" class="">语法与特性</h3><ul id="748e72e1-649f-4bab-b129-fcb4ae75a5d0" class="bulleted-list"><li style="list-style-type:disc">将<code>~</code>放在数值变量前即可进行按位非操作<pre id="7d90088b-a97c-4817-918a-d45d4a66f07a" class="code"><code>let num = 25;
+console.log(~num);
+// -26</code></pre><ul id="5fc4c0ea-849f-4273-a31d-29849d367539" class="bulleted-list"><li style="list-style-type:circle">25： 0x00000019 0b0000 0000 0000 0000 0000 0000 0001 1001</li></ul><ul id="5524d93f-157b-43e9-a30e-fe85f04bf3d1" class="bulleted-list"><li style="list-style-type:circle">-26:  0xffffffe3 0b1111 1111 1111 1111 1111 1111 1110 0110</li></ul></li></ul><ul id="ab0c607e-6cbc-4fa7-b1bf-27b71c0dfd1f" class="bulleted-list"><li style="list-style-type:disc">使用<code>~</code> 相当于对数值取负数然后减去1<pre id="bf3b77e8-1eb9-4b13-b535-5be1dc16c1ab" class="code"><code>let num3 = Math.floor(Math.random() * Math.pow(2, 31));
+console.log(num3);
+console.log(~num3 == -num3 - 1); // true</code></pre><p id="15da454d-207d-43ae-9c42-1f662bd60218" class="">⇒ 对包括符号位的二进制进行翻转，符号位肯定会变化</p><ul id="d0a9b5e2-e6ca-40f6-bdea-1fe890f1c27a" class="bulleted-list"><li style="list-style-type:circle">如果原始值为正整数，按位非后，符号位由0变为1，变为负数<ul id="abf886e6-3df0-462c-a2f5-c3283c7a39b2" class="bulleted-list"><li style="list-style-type:square">其他位取反，同时按照<strong>补码</strong>的格式读取31位的数值位</li></ul><ul id="4ac5b2ff-5d24-4820-b158-19d311718fac" class="bulleted-list"><li style="list-style-type:square">为了得到十进制大小，对按位非后的二进制<strong>减1取反（补码的反规则）</strong>即得到数值的十进制绝对值</li></ul><ul id="5bdfdada-cd98-40c6-8344-323b1569c5a2" class="bulleted-list"><li style="list-style-type:square">数值位被取反后被减去一位再取反，相当于十进制取负后减去一位，即-num-1</li></ul></li></ul><ul id="ae1f6acb-1b7e-4725-ab24-c8a783a90204" class="bulleted-list"><li style="list-style-type:circle">同理，如果原始值为负整数，按位非后，符号位由1变为0，变为正数<ul id="8a6e249e-6155-4509-9d95-18061a8dc7f6" class="bulleted-list"><li style="list-style-type:square">其他位取反，按照正常进制格式读取31位的数值位</li></ul><ul id="7863d4d0-31a6-48fc-b22f-197b5ea67c8a" class="bulleted-list"><li style="list-style-type:square">因为原始数值（负数）为补码，其<strong>原始值绝对值</strong>得到方式为<strong>减1取反</strong>，现在直接取反，相当于减去了1，例如-1的补码为0xffffffff, 减去1取反得到0x00000001,即1，直接取反为0x00000000 ,所以相当于减去了1，即-num - 1</li></ul></li></ul></li></ul><ul id="a91a229e-4e5c-461d-b303-718ab695d14b" class="bulleted-list"><li style="list-style-type:disc"><strong>按位非操作</strong>比<strong>取反减1</strong>速度更快，因为位操作是在数值底层表示上完成的</li></ul><h2 id="12e16ce7-2074-4a9c-83fd-397b63e2ee5d" class="">5.1.3.b 按位与</h2><h3 id="2ffb341d-8088-48a4-a63b-a752b7828eb7" class="">描述</h3><ul id="23100fd5-1b07-4cb0-95e6-8faf23908ef5" class="bulleted-list"><li style="list-style-type:disc">使用和号(&amp;)表示按位与，有两个操作数，属于二元操作符</li></ul><ul id="1a21046d-2dbe-4c7d-a3dd-6ce3c05bac65" class="bulleted-list"><li style="list-style-type:disc">本质上按位与就是将两个数的<strong>每一位（包括符号位）</strong>的数值对齐，然后按照与操作的真值表得到结果</li></ul><ul id="b6255254-c9d3-4d2c-8308-8e2bbd418d5d" class="bulleted-list"><li style="list-style-type:disc">与操作原则：只有两位都为1的情况下才返回1，其他情况返回0</li></ul><h3 id="6ebe5cd6-1787-4e3f-adcd-bfc56785e28e" class="">与操作真值表</h3><table id="3d9ee064-f800-41e3-b1c1-8411a8778ac2" class="simple-table"><tbody><tr id="1c6bac31-80d9-4200-95d5-2b7ac094a382"><td id="dAZP" class="">第一个数值的位</td><td id="A_|u" class="">第二个数值的位</td><td id="MmQB" class="">结果</td></tr><tr id="41b05d53-2b13-4b84-ba8c-add79e0a6820"><td id="dAZP" class="">1</td><td id="A_|u" class="">1</td><td id="MmQB" class="">1</td></tr><tr id="0c5dd9f1-9aef-4f0e-b2e2-bad493f1563b"><td id="dAZP" class="">0</td><td id="A_|u" class="">1</td><td id="MmQB" class="">0</td></tr><tr id="6a94a0bb-f086-4f71-a763-37ba197c3dff"><td id="dAZP" class="">1</td><td id="A_|u" class="">0</td><td id="MmQB" class="">0</td></tr><tr id="c3cd63aa-2248-4ef1-b2c1-87e5b62700b7"><td id="dAZP" class="">0</td><td id="A_|u" class="">0</td><td id="MmQB" class="">0</td></tr></tbody></table><h3 id="e4f21651-30c2-40dd-87b3-12d68d49596a" class="">例子</h3><ul id="7637f6e9-74b1-4651-9da1-998105a48883" class="bulleted-list"><li style="list-style-type:disc">-3 &amp; 2</li></ul><ul id="6f0ab0a0-020e-4a8e-8d10-76488e476c1b" class="bulleted-list"><li style="list-style-type:disc">1111 1111 1111 1111 1111 1111 1111 1101 (-3) &amp;</li></ul><ul id="9947507f-fa5b-4e8f-9c16-c051020b69f2" class="bulleted-list"><li style="list-style-type:disc">0000 0000 0000 0000 0000 0000 0000 0010 (2)</li></ul><ul id="3515aba7-ba3d-4f04-b5a3-03fb5481c343" class="bulleted-list"><li style="list-style-type:disc">0000 0000 0000 0000 0000 0000 0000 0000 (0)<pre id="52567ee0-0df9-4d55-9c77-a669b2322751" class="code"><code>console.log(-3 &amp; 2); // 0</code></pre></li></ul><ul id="6759edf6-65e4-4801-9047-ef2c44eb000a" class="bulleted-list"><li style="list-style-type:disc">结论：由按位非的结论可知，<strong>任何数</strong>与<strong>其按位非的数</strong>进行<strong>按位与</strong>操作结果都是0</li></ul><ul id="2422c5f9-84b7-4699-a51f-184825d358b3" class="bulleted-list"><li style="list-style-type:disc">更进一步，<strong>任何数</strong>与<strong>其取负减1后的数</strong>进行<strong>按位与</strong>的操作结果都是0<pre id="dfc65cf9-e086-49e9-bed4-bbdff7bec703" class="code"><code>// 按位与 &amp;
+// 任何数与其取负减1后的数相与都是0
+// 因为取负减1的数就是按位非后的数
+let num = Math.floor(Math.random() * Math.pow(2, 31));
+console.log(num);
+console.log((num &amp; (-num - 1)) == 0); // true</code></pre></li></ul><h2 id="1943a6a6-ea7e-4322-a527-5f5aa025d377" class="">5.1.3.c 按位或</h2><h3 id="14cef9e2-3037-4110-9d8b-41794499e41d" class="">描述</h3><ul id="3cab7005-ccdb-4bf0-9b2e-70188956e20a" class="bulleted-list"><li style="list-style-type:disc">按位或操作符使用管道符(|)表示，有两个操作数，属于二元操作符</li></ul><ul id="8b57b038-aaf0-49cf-a87e-0e8091eb6f53" class="bulleted-list"><li style="list-style-type:disc">和按位与一样，它遵循按位或的真值表对两个数的每一位进行按位或操作</li></ul><h3 id="af0bcf07-94c8-4ab0-8537-9295f9e727f8" class="">真值表</h3><table id="64e19be2-6e67-4456-b6f6-a5dcb9a4a2b3" class="simple-table"><tbody><tr id="3ee1b3c7-8157-43d7-a8a3-aa85dea1d00c"><td id="dMjS" class="">第一个数值的位</td><td id="qL=A" class="">第二个数值的位</td><td id="e&gt;BS" class="">结果</td></tr><tr id="d2986eb0-858d-4d2f-b500-e466f2b7c552"><td id="dMjS" class="">1</td><td id="qL=A" class="">1</td><td id="e&gt;BS" class="">1</td></tr><tr id="62965410-4f93-48a5-bfe7-022db08d21be"><td id="dMjS" class="">1</td><td id="qL=A" class="">0</td><td id="e&gt;BS" class="">1</td></tr><tr id="2ba32176-d3fa-45b4-ab29-9e64cba51ad6"><td id="dMjS" class="">0</td><td id="qL=A" class="">1</td><td id="e&gt;BS" class="">1</td></tr><tr id="06b0438d-2af5-4a76-8cac-6177ebecb3d6"><td id="dMjS" class="">0</td><td id="qL=A" class="">0</td><td id="e&gt;BS" class="">0</td></tr></tbody></table><ul id="2f427808-8ef4-4fbd-8497-38f1bff15b39" class="bulleted-list"><li style="list-style-type:disc">按位与的特性是：只要有一位数值为1就返回1，只有当两个都是0时才返回0</li></ul><h3 id="ce28a2b6-e3ed-46d6-b474-1a8daa8e098a" class="">例子</h3><ul id="57d54cc1-cb14-4ef1-9c1f-f71fe953620c" class="bulleted-list"><li style="list-style-type:disc">-3 | 2</li></ul><ul id="d60ccde8-1238-4751-a521-299f5325bcdc" class="bulleted-list"><li style="list-style-type:disc">1111 1111 1111 1111 1111 1111 1111 1101 (-3) &amp;</li></ul><ul id="3ef25b74-ca54-4b2b-94cc-bbeda598d7e0" class="bulleted-list"><li style="list-style-type:disc">0000 0000 0000 0000 0000 0000 0000 0010 (2)</li></ul><ul id="a1fd6604-72a6-42cf-9131-a360b463536b" class="bulleted-list"><li style="list-style-type:disc">1111 1111 1111 1111 1111 1111 1111 1111(-1)<pre id="dde85f7d-fdec-4ab4-8767-405ace04e380" class="code"><code>console.log(-3 | 2); // -1</code></pre></li></ul><ul id="e1e7fd58-6ed8-44fc-ac3a-d79c378aa2d4" class="bulleted-list"><li style="list-style-type:disc">结论，<strong>任何数</strong>和<strong>其按位非的数</strong>进行<strong>按位或</strong>操作都会得到-1</li></ul><ul id="6ab96c6f-2946-4e05-87f2-1cb1ee771de0" class="bulleted-list"><li style="list-style-type:disc">进一步，任何数和其取负减1后的数进行按位或操作都会得到-1</li></ul><ul id="2baa8542-734c-4969-a7fc-9171d629b5d5" class="bulleted-list"><li style="list-style-type:disc">因为32位都是取反后的结果，即都是1-0或是0-1对，按位或得到0xffffffff 即-1<pre id="296417c9-cc32-4d33-982f-f03146489468" class="code"><code>const num = Math.floor(Math.random() * Math.pow(2, 31));
+
+console.log(num, (num | (-num - 1)) == -1); // num true</code></pre></li></ul><h2 id="c631d9bc-5ed5-42e8-a078-f2d0c6654fbb" class="">5.1.3.d 按位异或</h2><h3 id="302ef3a0-e687-4437-a636-7cc2fe87a765" class="">描述</h3><ul id="180cb7c0-a35d-4381-a2cd-249926b4671d" class="bulleted-list"><li style="list-style-type:disc">按位异或使用脱字符(^)表示,两个操作数，二元操作符</li></ul><ul id="455e545f-05f1-49c5-b1be-31c35d25c6be" class="bulleted-list"><li style="list-style-type:disc">按照按位异或真值表对没一位进行异或操作</li></ul><h3 id="a9fbffc2-facd-4012-a024-b933bc285eda" class="">按位异或真值表</h3><table id="aaa08bd8-05c1-4ddd-8d46-63207b10240a" class="simple-table"><tbody><tr id="4ca84cde-02ac-4a98-a9e1-5ab6188944b0"><td id="LOQD" class="">第一个数的位</td><td id="YZ&lt;H" class="">第二个数的位</td><td id="aq=c" class="">结果</td></tr><tr id="9b861844-f496-4369-9186-def8c9b412ea"><td id="LOQD" class="">1</td><td id="YZ&lt;H" class="">1</td><td id="aq=c" class="">0</td></tr><tr id="630614f6-9cb3-4afa-ae30-0570c986c9de"><td id="LOQD" class="">1</td><td id="YZ&lt;H" class="">0</td><td id="aq=c" class="">1</td></tr><tr id="e4c14365-86d4-4868-a4a8-97f56ae5fab6"><td id="LOQD" class="">0</td><td id="YZ&lt;H" class="">1</td><td id="aq=c" class="">1</td></tr><tr id="27de2ee1-6fd6-4a3f-97c3-4d6656e72e14"><td id="LOQD" class="">0</td><td id="YZ&lt;H" class="">0</td><td id="aq=c" class="">0</td></tr></tbody></table><ul id="5017baea-beed-416a-9449-f3140fab2286" class="bulleted-list"><li style="list-style-type:disc">特性：只有两个位是不同值（即1-0对）时才返回1，相同值时返回0</li></ul><h3 id="020c7415-741b-4df7-8d47-84f8f87c35cd" class="">例子</h3><ul id="16bdcb31-a6bc-4bcb-97aa-2b53fa572a45" class="bulleted-list"><li style="list-style-type:disc">-3 ^ 2</li></ul><ul id="5c977ca7-4919-40d7-93bb-527629b06bed" class="bulleted-list"><li style="list-style-type:disc">1111 1111 1111 1111 1111 1111 1111 1101 (-3) </li></ul><ul id="c8503ea4-acf7-4c04-b8bf-2a41adde78be" class="bulleted-list"><li style="list-style-type:disc">0000 0000 0000 0000 0000 0000 0000 0010 (2)</li></ul><ul id="44e6b715-f9de-437e-a9a2-4b06543cd37c" class="bulleted-list"><li style="list-style-type:disc">1111 1111 1111 1111 1111 1111 1111 1111(-1)<pre id="fa316c6f-e9a6-4db9-90a0-0c91478174b2" class="code"><code>console.log(-3 ^ 2); // -1</code></pre><ul id="b63f8673-171b-486e-a11e-67ddf5a9d410" class="bulleted-list"><li style="list-style-type:circle">和按位或一样的特性，<strong>所有数</strong>和<strong>其按位非后的数</strong>进行<strong>按位异或</strong>操作后会得到-1</li></ul></li></ul><ul id="74228941-f295-4fe5-a841-66ddf02f86d3" class="bulleted-list"><li style="list-style-type:disc">除此之外，<strong>所有相同数按位异或都会得到0</strong><pre id="7c093604-b95e-4a19-bd8b-01fec5afb6f1" class="code"><code>const num = Math.floor(Math.random() * Math.pow(2, 31));
+console.log((num ^ num) == 0); // true</code></pre><ul id="03cee55a-bb26-4c23-84b1-dc836a8c15db" class="bulleted-list"><li style="list-style-type:circle">因为32位都是相同数值对（1-1，0-0），按位异或后都会得到0</li></ul></li></ul><ul id="e84daba1-a546-489a-803e-8036988d6e1c" class="bulleted-list"><li style="list-style-type:disc">所有<strong>数按位异或0都会得到本身</strong><pre id="d753eeca-360c-47c3-8649-d95aa3af0f9c" class="code code-wrap"><code>const num = Math.floor(Math.random() * Math.pow(2, 31));
+console.log((num ^ 0) == num); // true</code></pre><ul id="f7963b03-5ace-4cad-9f70-7aadab11d492" class="bulleted-list"><li style="list-style-type:circle">由真值表：1-0 ⇒ 1; 0-0⇒0; 所以num的每一位与0异或都会得到原始位值</li></ul></li></ul><h2 id="32f41ce1-1005-4a6d-89a6-a43af80c5fd8" class="">5.1.3.e 左移</h2><h3 id="4b106dce-9a83-4271-bc3e-f9a46e6b3cbf" class="">描述</h3><ul id="b895421e-5d8a-48d4-9464-492f5a672df3" class="bulleted-list"><li style="list-style-type:disc">左移操作符使用两个小于号（&lt;&lt;）表示，有两个操作数，左边的操作数位被左移的数，右边的操作数位左移的位数，按照指定的位数对左边的数将”<strong>所有位</strong>“向左移动</li></ul><ul id="1d07d470-d98e-49f5-87ff-af49c7783069" class="bulleted-list"><li style="list-style-type:disc">左移后右边空出来的位置补0</li></ul><h3 id="57a6cd78-9292-4454-8ce1-8a3d63904adc" class="">未溢出时</h3><ul id="550edb46-1e28-4118-ab53-4a7ae10ff0a6" class="bulleted-list"><li style="list-style-type:disc">未溢出时，<strong>左移不移动符号位（或者说符号位不受影响）</strong></li></ul><ul id="9375886d-85f0-4920-9f0c-f49afe9fe0ed" class="bulleted-list"><li style="list-style-type:disc">32位整数的范围[-2147483648, 2147483647] ([-2^31, 2^31 - 1])</li></ul><ul id="00426778-8334-4505-a3ba-3262e3c4d831" class="bulleted-list"><li style="list-style-type:disc">假设左移位数为n，<strong>左移相当于将数的绝对值扩大到</strong><strong><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">2^n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></strong><strong> 倍</strong></li></ul><ul id="8f867c47-25ea-4086-9ebd-aef748902fe9" class="bulleted-list"><li style="list-style-type:disc">例如数7左移3位，相当于<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mo>∗</mo><msup><mn>2</mn><mn>3</mn></msup><mo>=</mo><mn>56</mn></mrow><annotation encoding="application/x-tex">7 * 2 ^3 = 56</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">56</span></span></span></span></span><span>﻿</span></span><p id="18d7c99a-eb03-4220-90d0-874f9f88af1c" class="">7： 0000 0000 0000 0000 0000 0000 0000 0111</p><p id="d8ccf9df-7b8f-4b12-8e31-d65eca2c6025" class="">56:  0000 0000 0000 0000 0000 0000 0011 1000</p></li></ul><h3 id="dd769305-536d-447d-983e-debcea379c54" class="">溢出时</h3><ul id="1298fbb5-21f1-4d22-bf8a-bf8e4cef1405" class="bulleted-list"><li style="list-style-type:disc">溢出时，符号位可能发生改变</li></ul><ul id="850f4499-4c6a-414b-bf09-f5f7c6790e5a" class="bulleted-list"><li style="list-style-type:disc">对于正数，在<strong>数值位中的最高位1，距离符号位的距离</strong>就是不溢出左移时的最大距离</li></ul><ul id="f137aa7f-4178-49a8-8483-6dcbc3221413" class="bulleted-list"><li style="list-style-type:disc">对于负数，在<strong>数值位中的最高位0，距离符号位的距离</strong>就是不溢出右移时的最大距离</li></ul><hr id="24062b7e-dfca-4f9a-a083-2aa55939b79e"/><ul id="343e9043-c650-46f7-ac30-ff13a934c8b1" class="bulleted-list"><li style="list-style-type:disc">例如7，最高位1在第2（从0开始）位，距离最左边的符号位有 28（31 - 2 - 1）位</li></ul><ul id="4001e4c8-d224-4277-a820-b5214c4e2503" class="bulleted-list"><li style="list-style-type:disc">7左移28位，相当于<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn><mo>∗</mo><msup><mn>2</mn><mn>28</mn></msup><mo>=</mo><mn>1879048192</mn></mrow><annotation encoding="application/x-tex">7 * 2 ^{28} = 1879048192</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">28</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1879048192</span></span></span></span></span><span>﻿</span></span><p id="84f27f6d-c55b-43e4-bab8-c9b7a4f76850" class="">7：  0000 0000 0000 0000 0000 0000 0000 0111</p><p id="5fc05e79-924a-4916-93cd-01b0ac7b7140" class="">max:0111 0000 0000 0000 0000 0000 0000 0000 </p></li></ul><hr id="909b0f7f-b0cd-433e-b9d5-35840f417067"/><ul id="aa2b683d-ff98-4299-8bf8-7b6c53c00af5" class="bulleted-list"><li style="list-style-type:disc">如果将7左移29位，这个时候发生溢出：<p id="9746fe3e-fdde-449e-9f3c-dd11b71e016f" class="">7&lt;&lt;29: 1110 0000 0000 0000 0000 0000 0000 0000  (-536870912) <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>29</mn></msup></mrow><annotation encoding="application/x-tex">-2^{29}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">29</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></p><p id="2cb01ed4-1734-4a2f-9801-294bfb87fd67" class="">符号位变为1，成为负数，数值位按照补码形式输出，其对应的绝对值为</p><p id="c9532677-c760-4c70-b6b8-0990e6a24085" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>29</mn></msup></mrow><annotation encoding="application/x-tex">2^{29}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">29</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span>:      0010 0000 0000 0000 0000 0000 0000 0000</p></li></ul><hr id="8b6f5192-0a92-4b80-8e69-d71fb9a843b3"/><ul id="dab4ddf5-64e8-4132-8d50-4f766f6588f8" class="bulleted-list"><li style="list-style-type:disc">将7左移30位<p id="be614b0b-6760-49a3-911d-ae6f8272ae9b" class="">7&lt;&lt;30: 1100 0000 0000 0000 0000 0000 0000 0000  (-1073741824) <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>30</mn></msup></mrow><annotation encoding="application/x-tex">-2^{30}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">30</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></p><p id="277762ac-8369-4c4b-8e8e-eb953781442c" class="">数值位按照补码形式输出，对应绝对值为</p><p id="da03e00a-0da6-4062-99f6-6890360475a2" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>30</mn></msup></mrow><annotation encoding="application/x-tex">2^{30}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">30</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> :      0100 0000 0000 0000 0000 0000 0000 0000 </p></li></ul><hr id="f874ea3d-0097-4487-93dc-d2a43c32ce0e"/><ul id="91b1e4f7-251e-49f5-8a76-cd737cba9bd4" class="bulleted-list"><li style="list-style-type:disc">将7左移31位，得到32位整数的最小值<p id="c348b3a1-7c5d-42eb-a9f6-c2455c91766d" class="">7&lt;&lt; 31: 1000 0000 0000 0000 0000 0000 0000 0000 (-2147483648) <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>31</mn></msup></mrow><annotation encoding="application/x-tex">-2^{31}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">31</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span></p><p id="1afcc8a6-c9a9-4768-8efb-5e2b70c15d51" class="">数值位按照补码形式输出，对应的绝对值的二进制就是“正0”</p></li></ul><hr id="efd21e5c-26c2-419e-a7fd-2ede9c7324dd"/><ul id="518069f8-ca04-4f5a-b7dd-b5a01c370413" class="bulleted-list"><li style="list-style-type:disc"><strong>将7左移32位，得到原始值</strong><ul id="d1c10955-7899-45ab-987f-427627e76550" class="bulleted-list"><li style="list-style-type:circle"><strong>任何在32位数范围（[-2147483648, 2147483647] ）内的数左移32位都会得到原始值</strong></li></ul><ul id="0fa23c86-feaf-4450-80be-1b534899c98a" class="bulleted-list"><li style="list-style-type:circle">所以之后左移33位就相当于左移1位了</li></ul><ul id="c91895b8-2a29-46c7-a810-f8f7ea184655" class="bulleted-list"><li style="list-style-type:circle">在JavaScript能表示的数值范围内，<strong>任何在32位数范围内的数左移x位相当于左移x%32位</strong></li></ul><pre id="497ae5aa-408f-40fe-ba22-4cdf69809dcc" class="code"><code>// 左移
+// 左移不溢出的最大位为被左移数的最高位距离符号位中0的个数
+// 对于32位整数范围内的任何数，它左移的位数以32位为一个周期，左移32位会变为原始数值
+let k = Math.floor(Math.random() * Math.pow(2, 31));
+const num = Math.floor(Math.random() * 2) ? k : -k;
+
+console.log(num &lt;&lt; 32 == num); 
+console.log(num &lt;&lt; 33 == num * 2);
+console.log(num &lt;&lt; 34 == num * 4);
+// 打印结果
+true
+true
+true</code></pre></li></ul><h2 id="604233ae-8df8-426b-9d96-e91318b2146d" class="">5.1.3.f 有符号右移</h2><h3 id="45e1a57e-0c8b-4576-bf23-5c2d312a7c90" class="">描述</h3><ul id="ce5635d1-1ee7-4ef2-b2ba-8d5d9b896ecd" class="bulleted-list"><li style="list-style-type:disc">有符号右移由两个大于号（&gt;&gt;）表示，两个操作数，二元位操作符</li></ul><ul id="3e28faff-cc07-4646-9291-e5028634e6f3" class="bulleted-list"><li style="list-style-type:disc">左边的操作数为被右移数，右边的数为右移位数</li></ul><ul id="a01fe3ac-4af6-40d6-abb4-2ae5e84403ec" class="bulleted-list"><li style="list-style-type:disc">有符号右移会将所有32位向右移，同时<strong>保留符号</strong></li></ul><ul id="9aa1f144-83bc-474f-bf2c-21839f0a101f" class="bulleted-list"><li style="list-style-type:disc">这里的有符号实际上指在右移时，<strong>空白位填充符号位</strong></li></ul><h3 id="ed83f738-383b-4616-bc0d-b2173f741bb9" class="">特性</h3><ul id="45af0e9a-f371-4403-8e7b-e250c9333196" class="toggle"><li><details open=""><summary>有符号右移实际上就是左移的逆运算</summary><ul id="9bc37061-43d7-4c58-9369-c44063ceb228" class="bulleted-list"><li style="list-style-type:disc">在实际值数值上将数缩小到<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">2^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.771331em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.771331em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> n是右移位数</li></ul><ul id="48b171e3-ec1e-4579-9065-1cd8d62b456b" class="bulleted-list"><li style="list-style-type:disc">例如将48右移3位，相当于除以8,结果为6<p id="5aee4016-de13-4253-b8b6-3c8aead4d6ec" class="">110000 &gt;&gt; 3</p><p id="332da9a7-3485-4165-9605-67e37d174f1c" class="">000110 ⇒ 6</p></li></ul></details></li></ul><ul id="37fe0125-15cd-46a2-aeb1-a0aba5241c4a" class="toggle"><li><details open=""><summary>右移出现的空位在<strong>符号位右边</strong>，即左侧，ECMAScript<strong>使用符号位</strong>的值来填充这些空位，</summary><ul id="321010dc-8bf8-4dc4-923e-08f5971f64eb" class="bulleted-list"><li style="list-style-type:disc">非负数右移，左侧补0，数值变小<ul id="1cd80a6a-1a5b-43f1-a239-f3cfb638912b" class="bulleted-list"><li style="list-style-type:circle">正数右移能起效果的<strong>最大移动位数</strong>为：最高位1到第0位的距离</li></ul><ul id="87028d42-97f5-44f3-a706-f19edb7b08e0" class="bulleted-list"><li style="list-style-type:circle">超过最大移动位数，右移不起效果，结果变为<strong>非负数右移的最终值0</strong></li></ul><ul id="0c3e2bfd-394f-40ce-b259-9cde315302e0" class="bulleted-list"><li style="list-style-type:circle">例如48最大移动位数为6，移动位数增大后没有效果，结果一直是0<p id="67055640-7ea8-4c75-9ea2-7416fdaaebcb" class="">110000 ⇒ 最高位1到第0位长6位</p><figure id="77aa167b-3e47-4e7c-8ea1-3e7b68067db7" class="image"><a href="5%201%E4%B8%80%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6%E4%B8%8E%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6/Untitled.png"><img style="width:432px" src="5%201%E4%B8%80%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6%E4%B8%8E%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6/Untitled.png"/></a></figure></li></ul></li></ul><ul id="62c01125-195c-437c-9f3a-208151296a23" class="bulleted-list"><li style="list-style-type:disc">负数右移，左侧补1，数值指数变小（仍然是负数）<ul id="9fe2fd5b-2098-49fb-9225-345e4a8cdb56" class="bulleted-list"><li style="list-style-type:circle">负数右移能起效果的<strong>最大移动位数</strong>为：最高位0到第0位的距离</li></ul><ul id="93cf15ca-d1c4-4fc2-85f4-daae8cb4c8df" class="bulleted-list"><li style="list-style-type:circle">超过最大移动位数，右移不起效果。结果变为<strong>负数右移的最终值-1</strong></li></ul><ul id="b3ea2b19-6bca-4da6-b797-3c424f374d26" class="bulleted-list"><li style="list-style-type:circle">因为左侧补1，右移位足够大一定是0xffffffff(-1)</li></ul><ul id="4e5d713e-8fe3-4199-85a7-1445bc048ff3" class="bulleted-list"><li style="list-style-type:circle">例如-48，最大移动位数为6<p id="593889b4-5e29-4c8c-8c63-b2e171af5282" class="">0xffffffb0 ⇒ 1101 0000 (后8位) ⇒ 最高位0到第0位长6位</p><figure id="e577d363-9a98-4388-9258-e74b6bff14f6" class="image"><a href="5%201%E4%B8%80%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6%E4%B8%8E%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6/Untitled%201.png"><img style="width:480px" src="5%201%E4%B8%80%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6%E4%B8%8E%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6/Untitled%201.png"/></a></figure></li></ul></li></ul><pre id="3514231e-cc35-496e-b4e0-68903d0a8927" class="code code-wrap"><code>// 有符号右移,左侧补位为符号位
+// 负数右移最终值-1
+// 正数右移最终值0
+
+let num = Math.floor(Math.random() * Math.pow(2, 31));
+
+console.log(num &gt;&gt; 31, -num &gt;&gt; 31);
+// 打印
+0
+-1</code></pre></details></li></ul><ul id="fea48e9d-2d7e-466f-bd8c-f213aed9d61f" class="toggle"><li><details open=""><summary>和左移类似，<strong>任何在32位数范围（[-2147483648, 2147483647] ）内的数有符号右移32位都会得到原始值</strong></summary><ul id="5aa6a1dc-33a3-40a4-9cec-2cd75c50431f" class="bulleted-list"><li style="list-style-type:disc">右移33位相当于右移1位</li></ul><ul id="27f00cd2-c9e3-4aea-a7f9-4adc9598ac1c" class="bulleted-list"><li style="list-style-type:disc">在JavaScript能表示的数值范围内，<strong>任何在32位数范围内的数有符号右移x位相当于右移x%32位</strong></li></ul></details></li></ul><h3 id="7d976582-1ec9-423b-ac51-61d1e1759ff6" class="">注意</h3><ul id="2dec88c5-1b43-40f9-ade8-640421ada995" class="bulleted-list"><li style="list-style-type:disc">上面48和-48的最大移动位数相同，但是在右移5位时，二者的<strong>结果值不是相反数</strong></li></ul><ul id="bedc8f05-43be-4dc5-8e9d-3f21df76b26d" class="bulleted-list"><li style="list-style-type:disc">有符号右移实际上就是把数值缩小到<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">2^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.771331em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.771331em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span> ，如果结果是<strong>小数，就会进行向下取整的操作</strong><ul id="3778a761-d060-42df-a01b-d75852c6ec97" class="bulleted-list"><li style="list-style-type:circle">-48 &gt;&gt; 5相当于 -48 / 32 = -1.5</li></ul><ul id="9e737f10-31d8-4610-926a-9254892601e6" class="bulleted-list"><li style="list-style-type:circle">48 &gt;&gt; 5 相当于 48 / 32 = 1.5</li></ul><ul id="4b48e012-2a79-4322-b4e2-e0b5127b90be" class="bulleted-list"><li style="list-style-type:circle">向下取整就是省略小数，结果整数要<strong>小于等于</strong>原始浮点数(<code>Math.floor</code>)</li></ul><ul id="63fd1e67-addd-4177-bca4-4d5bbf53bfe4" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌊</mo><mn>1.5</mn><mo stretchy="false">⌋</mo><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\lfloor1.5\rfloor = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌊</span><span class="mord">1.5</span><span class="mclose">⌋</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span>, <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">⌊</mo><mo>−</mo><mn>1.5</mn><mo stretchy="false">⌋</mo><mo>=</mo><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\lfloor-1.5\rfloor = -2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">⌊</span><span class="mord">−</span><span class="mord">1.5</span><span class="mclose">⌋</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord">2</span></span></span></span></span><span>﻿</span></span> </li></ul><ul id="c86c5358-fda8-4c26-8fc4-e44fd4fff046" class="bulleted-list"><li style="list-style-type:circle">所以结果不是相反数</li></ul></li></ul><h2 id="a333d809-37b3-4605-b63d-6cf0d6e84e4c" class="">5.1.3.g 无符号右移</h2><h3 id="950ffa5f-a5d6-4d57-9ecb-7d15f08fff75" class="">描述</h3><ul id="022ea09e-a96c-4ff8-87e4-9956d73bd42d" class="bulleted-list"><li style="list-style-type:disc">无符号右移由三个大于号（&gt;&gt;&gt;）表示，两个操作数，二元操作符</li></ul><ul id="09fb29dc-ca4b-4998-bde8-7c0543a18f55" class="bulleted-list"><li style="list-style-type:disc">左边的操作数被称为被无符号右移的数，右边的操作数为移动位数</li></ul><ul id="184dbf3a-e20f-4225-8ba7-3e03b8973922" class="bulleted-list"><li style="list-style-type:disc">无符号右移对于数值的符号位不关心，因为<strong>右移多出的空位默认使用0填充</strong></li></ul><ul id="fe90f4e6-1729-422a-9479-9ab6bfbe6c3d" class="bulleted-list"><li style="list-style-type:disc">所以对于<strong>正数</strong>而言，无符号右移和有符号右移<strong><em>没有区别</em></strong></li></ul><ul id="a2c417a1-92b8-40ad-bfaa-aee8ff11daa1" class="bulleted-list"><li style="list-style-type:disc">对于负数而言，结果差异可能很大，因为符号位同样被右移</li></ul><h3 id="aaa7430d-dff3-4b80-b5c3-e19dc176f6c1" class="">特性</h3><ul id="62c0d7f5-273e-4c0b-9e64-7f40dd1534ed" class="bulleted-list"><li style="list-style-type:disc">因为符号位被右移会补0，所以32位的<strong>负数</strong>会被右移1位就会成为正数</li></ul><ul id="b28c8e38-b091-46e1-a128-574f89cacc99" class="bulleted-list"><li style="list-style-type:disc">对于正数而言，无符号右移与有符号右移没有区别，查看<a href="5%201%E4%B8%80%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6%E4%B8%8E%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6.html"><strong>有符号右移特性</strong></a>即可</li></ul><ul id="69bdb19f-2629-4770-9971-fda419ace66b" class="toggle"><li><details open=""><summary>以-1为例子，关于无符号右移的规律：</summary><ul id="3ca6607e-4425-473d-a71f-f8257a3e5131" class="bulleted-list"><li style="list-style-type:disc">-1的二进制：1111 1111 1111 1111 1111 1111 1111 1111</li></ul><ul id="c959f9fe-79e1-42f1-b373-b071256490e5" class="bulleted-list"><li style="list-style-type:disc">-1&gt;&gt;&gt;1:        0111 1111 1111 1111 1111 1111 1111 1111 ⇒ 2147483647</li></ul><ul id="d215ecf7-6b4a-410f-977e-0abb6aa7dbba" class="bulleted-list"><li style="list-style-type:disc">-1&gt;&gt;&gt;2:        0011 1111 1111 1111 1111 1111 1111 1111 ⇒ 1073741823</li></ul><ul id="e27c8cd6-db23-4474-8c73-8f0dcd2194ce" class="bulleted-list"><li style="list-style-type:disc">-1&gt;&gt;&gt;x:(1≤x≤31) ⇒ x个0，32 - x个1 ⇒ <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mrow><mo stretchy="false">(</mo><mn>32</mn><mo>−</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{(32-x)} - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9713299999999999em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">32</span><span class="mbin mtight">−</span><span class="mord mathnormal mtight">x</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span></li></ul><ul id="4c978cab-1690-44d8-be58-42ac0388983c" class="bulleted-list"><li style="list-style-type:disc">-1&gt;&gt;&gt;31:      0000 0000 0000 0000 0000 0000 0000 0001 ⇒ 1</li></ul><ul id="fbb7d1be-c8c2-494b-a768-6e5d4fd29bcd" class="bulleted-list"><li style="list-style-type:disc">-1&gt;&gt;&gt;32:      1111 1111 1111 1111 1111 1111 1111 1111 ⇒<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{32} - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span></li></ul><ul id="2495d826-598a-495c-b23c-ec4fb86117f5" class="bulleted-list"><li style="list-style-type:disc">-1&gt;&gt;&gt;33:      0111 1111 1111 1111 1111 1111 1111 1111 ⇒ 2147483647</li></ul><hr id="cc061206-6f7a-4bad-99e9-a8fc22d75686"/></details></li></ul><ul id="58d239e6-6739-4c2d-9399-01f40426238a" class="bulleted-list"><li style="list-style-type:disc">负数的<strong>无符号右移也以32位为一个周期进行</strong><ul id="8b634b56-6d77-4d13-9a7e-961541d74c74" class="bulleted-list"><li style="list-style-type:circle">区别在于，<strong>左移，有符号右移，非负数无符号右移32位都是原始值</strong></li></ul><ul id="8ab64634-a995-44e0-9d2f-e5c88aae2ac4" class="bulleted-list"><li style="list-style-type:circle">但是<strong>负数的无符号右移32位是无符号整数，</strong>即原先的符号位1表示数值了，所以<strong>-1&gt;&gt;&gt; 32 == </strong><strong><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{32} - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span></strong><strong> </strong></li></ul><ul id="45672647-7f20-4dde-aaa2-a6b513f6e729" class="bulleted-list"><li style="list-style-type:circle">这一结论仍然不变：<strong>任何在32位数范围内的数无符号右移x位相当于右移x%32位</strong></li></ul></li></ul><h3 id="589e5d44-7103-46ff-9ee8-8cd35fdea891" class="">注意</h3><ul id="b9f721a6-d739-461c-9445-4a792a31387a" class="bulleted-list"><li style="list-style-type:disc">无符号右移得到的结果是<strong>无符号整数（</strong>这也是为什么-1右移32位变为32位无符号整数最大值的原因<strong>）</strong></li></ul><ul id="e7decdae-8ec5-47a4-bd19-7a15a5aeca0f" class="bulleted-list"><li style="list-style-type:disc">负数可以无符号右移0位得到对应的无符号整数<pre id="442946e7-62a2-4e0d-85ce-6389ae01aebc" class="code code-wrap"><code>-1 &gt;&gt;&gt; 0 === -1 &gt;&gt;&gt; 32 // true</code></pre></li></ul><p id="e3b408ff-a559-4ec9-b947-4900a1793cb8" class="">
+</p></div></div></div></article></body></html>

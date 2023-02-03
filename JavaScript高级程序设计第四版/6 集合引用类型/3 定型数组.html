@@ -1,0 +1,911 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3. 定型数组</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="45197f3d-8b3e-4392-8756-1de45982dcb8" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_william_morris_1877_willow.jpg" style="object-position:center 90%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🕔</span></div><h1 class="page-title">3. 定型数组</h1></header><div class="page-body"><div id="b2d3cf75-cae3-4468-92b8-3e4204b57b8e" class="column-list"><div id="9cf7deff-2b3a-4395-8473-eed242f56cd4" style="width:12.5%" class="column"><nav id="55eb745d-403c-4529-95ff-60c8e84ad300" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#accac96e-ff19-478b-ab2b-cc809afdf256">3.1 定型数组的历史</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7a8976a5-bb6c-4917-a02b-0e45a2c9eac4">3.1.1 3D图形</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#234244ce-354d-4f67-9f60-ec0952920eda">WebGL</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1dde2c71-fe1b-46fa-ac8f-cef68410e440">定型数组</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3302a32f-b86c-4b24-8f5e-f174ee72af72">3.2 ArrayBuffer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6bb70e5e-b61b-4206-8039-d521cc32cc95">3.2.1 描述</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bbfd75f5-b73d-47f3-bd5c-72fdd693e98f">3.2.2 特性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#da5ee086-34b5-4790-90e3-db51611be775">3.2.2.1 与数组区别</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5feba0ae-ddd7-4082-ba64-954d7c13d4dc">3.2.2.2 广义的视图</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2c102cff-91ee-48cf-9e02-31aa73233969">3.2.3 语法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#befc4f07-a5a6-45aa-9ebc-2df807897255">3.2.3.1 属性与方法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#cc67ef2f-c64b-48b9-bcb0-db03575d8abf">3.2.4 ArrayBuffer与C++的malloc()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#91dfe1a9-5d41-41d3-9fce-5e43385397eb">3.2.5 例子</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bcdcf0f9-e313-4128-bed9-c7e29c7e0c6d">3.3 DataView</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ab02b689-e6aa-4601-8d75-e43e1844b334">3.3.1 视图</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ff506711-ebc2-41d2-9e61-4bf883b80dd9">3.3.2 语法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d06927c9-9463-4da4-a6dd-477c8734c9c9">3.3.2.1 参数</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b0353095-fb57-49d4-bcf1-81321528b4b4">3.3.2.2 返回值</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1b82d60e-479c-4579-8bc8-6d969196d3c1">3.3.2.3 例子</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bc9cd041-da09-4cf3-b5eb-c43df4955ec8">3.3.3 属性与方法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#592daaf3-02c5-4d8f-a06e-82196f0a2ff3">3.3.3.1 属性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7a7a3a7a-630a-47d6-9fca-ea0aac173d80">3.3.3.2 方法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5ab6ab18-5e37-46ff-953c-4f34e0ed3a23">3.3.3.3 例子</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c344553e-88e4-42ab-903d-664d81880a44">3.4 定型数组</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2f51841f-e605-4f70-8474-b0586fad9494">3.4.1 定型数组</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#23298a2a-21a3-4d86-97ea-f88f57a7e4ae">3.4.2 创建定型数组</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4a595c33-cd57-48f8-9180-c56a2e187dba">3.4.2.1 读取已有的缓冲</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e9891b55-70af-48c9-b9b5-a5c612566983">3.4.2.2 使用自有缓冲</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#595782c9-6dae-443b-931f-bf4b097a92d1">3.4.2.3 填充可迭代结构</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#44f29aa8-7ad0-4ace-88fe-d83f2eb7811f">3.4.2.4 填充基于任意类型的定型数组</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4ffc2aa7-88dd-47f8-9cbb-61086fcf5a76">3.4.2.5 使用定型数组的静态方法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#51702f5a-2574-46fa-88ae-edc5c3c1683f">3.4.3 定型数组的属性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1970bb21-669c-4a93-ae6e-f4e42ee1e3cb">3.4.3.1 静态属性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#fb4e1079-9c1d-4c77-9fb9-ed165155a874">3.4.2.2 静态方法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#33244e8f-02fd-4d31-ad0e-9d2872b6c2e2">3.4.2.3 实例属性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#fe75fb5b-53d0-4c93-92c2-96b1d8ff8d8f">3.4.2.4 实例方法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#15fa998d-c5ef-48ad-9ffd-1ecdf2c3671a">3.4.4 定型数组与普通数组区别</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8c577324-cac4-41ef-8f03-683f58dff05d">3.4.5 定型数组的上溢和下溢</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ea755ff0-70e9-40d9-b3a7-3c2ecea01d24">3.4.5.1 有符号整数</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a5757e9d-e5b0-4ece-9d3b-85d570a58a03">3.4.5.2 无符号整数</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b2d76e13-6760-4d6a-80bf-592214ccf747">3.4.5.3 注意</a></div></nav><p id="c0111288-7c7f-4e4d-880b-8c3993e4c2ab" class="">
+</p></div><div id="fc79febb-9d02-4ff5-8e8e-5d39e18d830d" style="width:87.5%" class="column"><h1 id="accac96e-ff19-478b-ab2b-cc809afdf256" class="">3.1 定型数组的历史</h1><h2 id="7a8976a5-bb6c-4917-a02b-0e45a2c9eac4" class="">3.1.1 3D图形</h2><ul id="a71d7c67-d63a-47fc-8d24-f5a6d56e3f69" class="bulleted-list"><li style="list-style-type:disc">随着浏览器流行，人们期待它能运行复杂的<strong>3D</strong>应用程序</li></ul><ul id="0c33efb2-8bdc-4587-b0fb-575c0aab8128" class="bulleted-list"><li style="list-style-type:disc">2006时，Mozilla，Opera等浏览器提供商就实验性地在浏览器中增加了用于渲染复杂图形应用程序的编程平台<ul id="f3974f21-b505-4c61-9789-933d9fe18da2" class="bulleted-list"><li style="list-style-type:circle">这个编程平台无需安装任何插件</li></ul><ul id="8b4bcdfc-fa88-472e-a323-8e96dcc644c1" class="bulleted-list"><li style="list-style-type:circle">目标为开发一套实验性质的JavaScript API</li></ul><ul id="befc58f5-0654-404f-8f52-f93b5eb0aa12" class="bulleted-list"><li style="list-style-type:circle">利用3D图形API和GPU加速，以便在<code>&lt;canvas&gt;</code> 元素上渲染复杂的图形</li></ul></li></ul><h3 id="234244ce-354d-4f67-9f60-ec0952920eda" class="">WebGL</h3><ul id="5e217271-5c11-4f06-ae3f-ae768628c18d" class="bulleted-list"><li style="list-style-type:disc">最终确定的浏览器JavaScript 3D图形API就是WebGL</li></ul><ul id="2d8c1afd-ece0-4243-8a4e-9c1e0dc7bdf7" class="bulleted-list"><li style="list-style-type:disc">WebGL基于OpenGL ES（OpenGL for Embedded Systems）2.0 规范，而OpenGL ES是专注于2D和3D计算机图形的子集</li></ul><ul id="999d8e09-18d3-4d93-8588-116375a8bc39" class="bulleted-list"><li style="list-style-type:disc">WebGL全称Web Graphics Library，在2011年发布1.0版本</li></ul><ul id="a791ffac-cf37-46c8-b263-1835be485e55" class="bulleted-list"><li style="list-style-type:disc">有了WebGL，开发者就能编写涉及复杂图形的应用程序，它被兼容WebGL的浏览器原生解释执行</li></ul><hr id="49291788-dc5f-4a3d-bbae-3a42917d5aed"/><ul id="21a2affe-2593-46a9-b2ab-3615aee1c927" class="bulleted-list"><li style="list-style-type:disc">早期版本的缺陷<ul id="8641f89f-46a6-4a59-b712-6d26599443f3" class="bulleted-list"><li style="list-style-type:circle">WebGL的早期版本中的原生数组与JavaScript的数组之间不匹配，所以出现了性能问题</li></ul><ul id="aabd3eb4-be96-4a62-880d-a9eeae1388a4" class="bulleted-list"><li style="list-style-type:circle">不匹配的原因在于，JavaScript中的数值默认是双精度浮点格式，这也恰好是JavaScript数组在内存中的格式</li></ul><ul id="f4354321-f867-494d-880c-628401de5a59" class="bulleted-list"><li style="list-style-type:circle">而WebGL 驱动程序API通常都不需要这中双精度格式的数值</li></ul><ul id="816facd4-c879-4b36-81a4-8812fae6bd25" class="bulleted-list"><li style="list-style-type:circle">所以每次在WebGL和JavaScript运行时传递数组时，WebGL绑定都需要在目标环境分配新数组，以其当前格式迭代数组，然后将数组转型为新数组的适当格式</li></ul></li></ul><h3 id="1dde2c71-fe1b-46fa-ac8f-cef68410e440" class="">定型数组</h3><ul id="60a4058d-68fe-4b75-bf07-30030d464485" class="bulleted-list"><li style="list-style-type:disc">定型数组就是为了解决WebGL版本原生数组和JavaScript的数组之间不匹配问题而生的</li></ul><ul id="71c2db68-6c9e-4341-bbf2-f58a50e5c26b" class="bulleted-list"><li style="list-style-type:disc">Mozilla浏览器实现了<code>CanvasFloatArray</code>，这个数组类型提供JavaScript接口，是具有C语言风格的浮点值数组</li></ul><ul id="559b91e0-b556-4d22-977e-a2b6eea4250d" class="bulleted-list"><li style="list-style-type:disc">JavaScript运行可以正常使用这个数组，也能直接传递给底层图形驱动程序API，也可从底层直接获取</li></ul><ul id="2894f505-42fc-442c-82f2-bf5c79a7ce46" class="bulleted-list"><li style="list-style-type:disc">最终<code>CanvasFloatArray</code> 修改名称变为了<code>Float32Array</code> ，就是第一个有“类型”的定型数组</li></ul><h1 id="3302a32f-b86c-4b24-8f5e-f174ee72af72" class="">3.2 ArrayBuffer</h1><h2 id="6bb70e5e-b61b-4206-8039-d521cc32cc95" class="">3.2.1 描述</h2><ul id="30b59041-4efa-4021-b6e3-121ca0938ee6" class="bulleted-list"><li style="list-style-type:disc"><code>ArrayBuffer</code> 是用来表示<strong>通用的</strong>、<strong>固定长度的原始二进制数据缓存区</strong></li></ul><ul id="238226c5-1b82-4ace-9467-3273c8dea1aa" class="bulleted-list"><li style="list-style-type:disc">它是一个字节数组，通常在其它语言中称为‘byte array’</li></ul><blockquote id="c437bb16-fae0-416e-aba2-625277ee8518" class="">&quot;<code>ArrayBuffer</code>  是<strong>所有定型数组及视图引用的基本单位”</strong><ul id="7fb08742-b5bf-4b3d-9c72-a17e2a8a112a" class="bulleted-list"><li style="list-style-type:disc">这里的视图，指<code>DataView</code> ，视图构造函数创建对象时就需要一个<code>ArrayBuffer</code>对象作为<strong>数据源</strong></li></ul><ul id="07a1b2eb-3d54-42b0-b030-8c9760dd8fc1" class="bulleted-list"><li style="list-style-type:disc">因为<code>ArrayBuffer</code> 对象创建时需要指定长度，<strong>单位为字节</strong>，所以它可以创建一块在安全长度内的<strong>连续内存块，</strong>其它定型数组可以以<code>ArrayBuffer</code> 对象为数据源创建定型数组对象</li></ul></blockquote><h2 id="bbfd75f5-b73d-47f3-bd5c-72fdd693e98f" class="">3.2.2 特性</h2><ul id="cb6b2806-0eb7-4f90-8b39-bdae30c17c92" class="bulleted-list"><li style="list-style-type:disc"><code>ArrayBuffer</code>是定型数组中很重要的基础对象，<strong>不能直接操作</strong><code>ArrayBuffer</code>的内容，需要通过其它<strong>定型数组对象</strong>或<strong><code>DataView</code></strong><strong> 对象</strong>来操作</li></ul><ul id="0b4db4fe-0038-40e6-abd6-b06d1ecdd893" class="bulleted-list"><li style="list-style-type:disc">定型数组对象在创建时，会创建<code>ArrayBuffer</code> 的预分配内存，并将缓冲区中的数据表示为特定格式（定型数组对象特定的格式），通过这些格式来读写缓冲区内容</li></ul><h3 id="da5ee086-34b5-4790-90e3-db51611be775" class="">3.2.2.1 与数组区别</h3><ul id="1d69f6f1-45e0-45d5-a095-2558e605c110" class="bulleted-list"><li style="list-style-type:disc">数组中的元素可以放数字、字符串、布尔值、对象等，而<code>ArrayBuffer</code> 存放0，1组成的二进制数据，基本单元为一个字节</li></ul><ul id="296f1899-941e-4958-ba56-4caab62fbbcd" class="bulleted-list"><li style="list-style-type:disc">数组放在堆中，<code>ArrayBuffer</code> 则把数据放在栈中（取数据时栈更快）</li></ul><ul id="42b78c69-2b10-4bdc-a46e-cd04fff5c05c" class="bulleted-list"><li style="list-style-type:disc"><code>ArrayBuffer</code> 初始化后固定大小，而数组可以自由增减（这也导致了数组不一定是连续的固定内存区域）</li></ul><h3 id="5feba0ae-ddd7-4082-ba64-954d7c13d4dc" class="">3.2.2.2 广义的视图</h3><ul id="0faee9b3-a465-4aaa-9803-1a12486c8258" class="bulleted-list"><li style="list-style-type:disc">上述的狭义视图就是<code>DataView</code> 对象，它将<code>ArrayBuffer</code> 对象作为数据源</li></ul><ul id="67db3bc9-f6e8-424c-a64a-9843e7ac1951" class="bulleted-list"><li style="list-style-type:disc">而广义的视图就是<strong>以</strong><strong><code>ArrayBuffer</code></strong><strong> 作为内存区域，存放多种类型的数据，不同数据有不同的存储方式的“视图”</strong>：<ul id="ac6d89c5-7df2-4836-9cf5-6a7cb3e308ae" class="bulleted-list"><li style="list-style-type:circle"><code>Int8Array</code> :8位有符号整数，长度一个字节和<code>ArrayBuffer</code> 对象的基本单位一致</li></ul><ul id="fbb38421-e0ea-4b6b-ad3e-21eb7e3ce95b" class="bulleted-list"><li style="list-style-type:circle"><code>Uint8Array</code> :8位无符号整数，长度一个字节</li></ul><ul id="548b4f59-e075-4df5-b8ee-31c39772e46a" class="bulleted-list"><li style="list-style-type:circle"><code>Int16Array</code> :16位有符号整数，长度两个字节</li></ul><ul id="ab1a1afe-b54b-4183-854b-a47d333c7155" class="bulleted-list"><li style="list-style-type:circle"><code>Uint61Array</code> : 16位无符号整数，长度两个字节</li></ul><ul id="fdfaa38d-6bdb-4027-9d3b-7e14796bae1f" class="bulleted-list"><li style="list-style-type:circle"><code>Int32Array</code> : 32位有符号整数，长度四个字节</li></ul><ul id="997b8d5b-6ff8-49ce-962c-25a95924ef27" class="bulleted-list"><li style="list-style-type:circle"><code>Uint32Array</code> : 32位无符号整数，长度四个字节</li></ul><ul id="10f4fc3f-c14c-4471-95a9-396a04ac1b45" class="bulleted-list"><li style="list-style-type:circle"><code>Float32Array</code> : 32位浮点数（单精度浮点数），长度四个字节</li></ul><ul id="b5cec0f9-ed67-48cc-baad-807dd747126a" class="bulleted-list"><li style="list-style-type:circle"><code>Float64Array</code> : 64位浮点数（双精度浮点数），长度八个字节</li></ul></li></ul><h2 id="2c102cff-91ee-48cf-9e02-31aa73233969" class="">3.2.3 语法</h2><pre id="f925de84-3cc2-45c4-a5f2-0f5638142cbb" class="code"><code>new ArrayBuffer(length);</code></pre><ul id="a112e68f-b040-4a5f-9aac-7123efe203e4" class="bulleted-list"><li style="list-style-type:disc">参数length，要创建的<code>ArrayBuffer</code>的大小，单位字节</li></ul><ul id="3f0fabb6-d41c-4fd8-b17f-a569a08b51df" class="bulleted-list"><li style="list-style-type:disc">返回值，一个指定大写的<code>ArrayBuffer</code> 对象，内容被初始化为0</li></ul><ul id="3c86cc3c-46cf-4639-ba21-085e6f111883" class="bulleted-list"><li style="list-style-type:disc">创建的<code>ArrayBuffer</code> 对象不能直接被修改内容，只能作为其他视图的数据源，或查看其字节长度</li></ul><h3 id="befc4f07-a5a6-45aa-9ebc-2df807897255" class="">3.2.3.1 属性与方法</h3><ul id="86fd733d-906a-41b1-b830-a79c0119c421" class="bulleted-list"><li style="list-style-type:disc"><code>ArrayBuffer.length</code>  这个length是构造函数的属性（不是传入的参数），值为1，表示该定型数组中的元素类占用的长度为1个字节</li></ul><ul id="92537abe-e960-40e3-835b-4f8744d7040c" class="bulleted-list"><li style="list-style-type:disc"><code>ArrayBuffer.prototype.byteLength</code>, <code>ArrayBuffer</code> 对象的属性，只读，表示对象的byte大小，即在构造时传入的length大小，</li></ul><ul id="4d980482-b6fe-44a3-8330-d963777388b1" class="bulleted-list"><li style="list-style-type:disc"><code>ArrayBuffer.isView()</code> 静态方法，如果参数是<code>ArrayBuffer</code> 的视图实例（定型数组对象和<code>DataView</code>对象）就返回true，否则返回false</li></ul><ul id="8919138a-8de4-4699-b85c-c41fe0c315de" class="bulleted-list"><li style="list-style-type:disc"><code>ArrayBuffer.prototype.slice()</code> 方法，返回一个新<code>ArrayBuffer</code> 对象，内容是<code>ArrayBuffer</code> 原对象的字节副本<ul id="942ff561-9e95-4d93-ac44-8bd19221d966" class="bulleted-list"><li style="list-style-type:circle">类似数组的slice()方法</li></ul><pre id="d7d38ef1-5a42-4e5e-b0c8-5add0286a5e4" class="code"><code>arraybuffer.slice(begin[, end]);</code></pre><ul id="4136cb55-8dc2-4137-8d4d-5345fc42110a" class="bulleted-list"><li style="list-style-type:circle">begin，开始的索引，切片从这开始</li></ul><ul id="d57f9f48-70e6-4792-8a04-4eec693cb617" class="bulleted-list"><li style="list-style-type:circle">end，结束索引，可选，没有就是原<code>ArrayBuffer</code> 对象的<code>byteLength</code> ，字节数组长度</li></ul><ul id="59d04143-7b92-4a73-b2c9-5bfe2a10c91c" class="bulleted-list"><li style="list-style-type:circle">返回，从begin（包括）到end（不包括）的字节数组对象（副本）</li></ul></li></ul><h2 id="cc67ef2f-c64b-48b9-bcb0-db03575d8abf" class="">3.2.4 ArrayBuffer与C++的malloc()</h2><ul id="c92cb713-2f8d-4392-9eae-51b76b02bab3" class="bulleted-list"><li style="list-style-type:disc"><code>ArrayBuffer</code> 在创建对象，分配内存失败时会抛出错误（<code>RangeError</code>）,而<code>malloc()</code>分配失败时会返回一个null指针</li></ul><ul id="9f076b27-f39a-4404-a650-f819814861ba" class="bulleted-list"><li style="list-style-type:disc"><code>malloc()</code> 可以利用虚拟内存，因此最大可分配尺寸只受可寻址系统内存限制。<code>ArrayBuffer</code> 分配的内存不能超过Number.MAX_SAFE_INTERGER(<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>53</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{53} - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">53</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span>)字节</li></ul><ul id="3e3dfd6b-7aab-4a99-97ea-1ff4e7b65167" class="bulleted-list"><li style="list-style-type:disc"><code>malloc()</code> 调用成功不会初始化实际的地址。声明<code>ArrayBuffer</code> 则会将所有二进制位初始化为0</li></ul><ul id="b61f3bd1-20f3-418c-af11-ee65c0d6a2d3" class="bulleted-list"><li style="list-style-type:disc">通过<code>malloc()</code> 调用分配的堆内存除非调用<code>free()</code> 或 程序退出，否则系统不能再使用，而通过声明<code>ArrayBuffer</code>分配的堆内存可以被当成垃圾回收，不用手动释放</li></ul><h2 id="91dfe1a9-5d41-41d3-9fce-5e43385397eb" class="">3.2.5 例子</h2><pre id="fdd1c740-d7cb-4c29-bcc0-c9ba20b4adc0" class="code"><code>const ab = new ArrayBuffer(5);
+const ab_copy = ab.slice(1, 3);
+console.log(ab);
+console.log(ab_copy);
+console.log(ab.byteLength);
+console.log(ArrayBuffer.length);
+console.log(ArrayBuffer.isView(ab));
+// 打印结果
+ArrayBuffer { [Uint8Contents]: &lt;00 00 00 00 00&gt;, byteLength: 5 }
+ArrayBuffer { [Uint8Contents]: &lt;00 00&gt;, byteLength: 2 }
+5
+1
+false
+</code></pre><ul id="adfab262-2f55-4fa9-88b5-29fa6766690f" class="bulleted-list"><li style="list-style-type:disc">ab和ab_copy是两个不同的字节数组，ab_copy是通过字节数组对象的<code>slice</code> 方法创建的</li></ul><ul id="c534655d-5715-4c95-91cb-43d99615f6cb" class="bulleted-list"><li style="list-style-type:disc"><code>byteLength</code> 是字节数组对象属性，表示对象占用的字节数量</li></ul><ul id="bd8e40f3-a2ed-4541-98ab-7683b5072126" class="bulleted-list"><li style="list-style-type:disc"><code>length</code> 是字节数组构造函数的属性，表示定型数组中元素占用的字节长度，在字节数组中就是一个字节</li></ul><ul id="eb2dd946-ab5c-4cfa-b707-06592c21c678" class="bulleted-list"><li style="list-style-type:disc"><code>isView</code> 是静态方法，用于判断传入对象是否为<strong>视图实例</strong>，字节数组本身是所有定型数组和视图引用的基本单位，不能直接被修改值，字节数组对象不是视图实例，而是视图的<strong>数据源</strong><ul id="81452b90-8ee2-4134-b57a-59e3fc604625" class="bulleted-list"><li style="list-style-type:circle">读写<code>ArrayBuffer</code> 必须通过视图</li></ul><ul id="fd0d4e2a-67b9-4f00-a025-4be232278e23" class="bulleted-list"><li style="list-style-type:circle">视图有不同类型，但基本引用都是<code>ArrayBuffer</code> 中存储的二进制数据</li></ul></li></ul><h1 id="bcdcf0f9-e313-4128-bed9-c7e29c7e0c6d" class="">3.3 DataView</h1><h2 id="ab02b689-e6aa-4601-8d75-e43e1844b334" class="">3.3.1 视图</h2><ul id="723eab38-8c86-46f8-8b77-f4784380b957" class="bulleted-list"><li style="list-style-type:disc">上述<a href="3%20%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84.html">介绍ArrayBuffer</a>时阐述过的，一种允许读写<code>ArrayBuffer</code> 的视图就是<code>DataView</code></li></ul><ul id="4ef74ba4-27c3-4499-b479-1d82ef45e7b2" class="bulleted-list"><li style="list-style-type:disc">这种视图专为文件I/O和网络I/O设计，其API支持对缓冲数据的高度控制，相比于其他视图（定型数组）性能更差</li></ul><ul id="0ce30cf3-95d8-4813-a90c-a50b3175e0c1" class="bulleted-list"><li style="list-style-type:disc"><code>DataView</code>对缓冲内容没有任何预设，也不能迭代</li></ul><blockquote id="cefd2c3b-4d58-46bb-baa4-a31c018a1977" class="">&quot;<code>DataView</code> 视图是一个可以从二进制<code>ArrayBuffer</code> 对象中读取多种数据类型的底层接口，使用它时，不用考虑不同平台的字节序问题&quot;     ——MDN</blockquote><h2 id="ff506711-ebc2-41d2-9e61-4bf883b80dd9" class="">3.3.2 语法</h2><ul id="0a934106-ffac-44c8-83ee-78e09d44ad5c" class="bulleted-list"><li style="list-style-type:disc">必须对<strong>已有</strong>的<code>ArrayBuffer</code>读取或写入时才能创建<code>DataView</code> 实例</li></ul><ul id="82a7e69d-74cf-4b7b-befb-fd6c0fe12a36" class="bulleted-list"><li style="list-style-type:disc">这个视图实例可以使用全部或部分<code>ArrayBuffer</code> 对象</li></ul><ul id="10347f1a-7ffe-426f-aa35-fa86ca4db563" class="bulleted-list"><li style="list-style-type:disc">视图实例维护对该缓冲实例的引用，以及视图在缓冲中开始的位置</li></ul><pre id="01b85a48-b127-4a1c-8f1e-80fde1e69112" class="code"><code>new DataView(buffer[, byteOffset[, byteLength]])</code></pre><h3 id="d06927c9-9463-4da4-a6dd-477c8734c9c9" class="">3.3.2.1 参数</h3><ul id="857db672-d839-45e8-a905-e18450e57794" class="bulleted-list"><li style="list-style-type:disc"><code>buffer</code> :一个已经存在的<code>ArrayBuffer</code>或<code>SharedArrayBuffer</code> 对象，它是视图实例化的<strong>数据源</strong></li></ul><ul id="6a9b4a8d-9c13-4b57-9440-88251b607891" class="bulleted-list"><li style="list-style-type:disc"><code>byteOffset</code>： 可选字节偏移量， 它表示视图对象的第一个字节从<code>buffer</code> 的第几个字节开始，默认为0（从<code>buffer</code> 的第一个字节开始）</li></ul><ul id="4af81a03-ae30-4850-9115-f57f2cb0b7ef" class="bulleted-list"><li style="list-style-type:disc"><code>byteLength</code> :视图对象的字节长度，如果未指定，视图对象的长度将匹配<code>buffer</code>的长度，即从<code>byteOffset</code>开始后到<code>buffer</code>最后的长度</li></ul><h3 id="b0353095-fb57-49d4-bcf1-81321528b4b4" class="">3.3.2.2 返回值</h3><ul id="b2be07f9-2c31-47ea-ae1b-1874cefc4654" class="bulleted-list"><li style="list-style-type:disc">一个表示指定数据缓冲区的新<code>DataView</code>对象</li></ul><ul id="5addb269-e791-4a7a-92d4-d98cee11da71" class="bulleted-list"><li style="list-style-type:disc">可以把返回值想象成一个处理二进制字节缓存区”array buffer“的解释器，它知道如何读写这一部分字节缓存的内容，且它能正确转换字节码，处理整数与浮点转化、字节顺序等细节问题</li></ul><h3 id="1b82d60e-479c-4579-8bc8-6d969196d3c1" class="">3.3.2.3 例子</h3><pre id="c9eb660c-c0c1-4ac5-9911-3ce3cc4b5b89" class="code"><code>// 声明一个包含16个字节的字节数组
+const buf = new ArrayBuffer(16);
+
+// 创建操作buf的视图
+const whole_view = new DataView(buf); // 默认使用整个字节数组
+console.log(whole_view.buffer == buf); // true
+console.log(whole_view.byteOffset); // 0
+console.log(whole_view.byteLength); // 16
+
+// 设置偏移量为buf的一半，长度默认为从byteoffset到buffer最后的长度
+const half_view = new DataView(buf, buf.byteLength / 2);
+console.log(half_view.buffer === buf); // true
+console.log(half_view.byteOffset); // 8
+console.log(half_view.byteLength); // 8
+
+// 自定义区间
+const my_view = new DataView(buf, 7, 3); // true
+console.log(my_view.buffer === buf); // true
+console.log(my_view.byteOffset); // 7
+console.log(my_view.byteLength); // 3
+
+// range Error
+try {
+  const my_view2 = new DataView(buf, 17, 3);
+} catch (error) {
+  console.log(error.message); // Start offset 17 is outside the bounds of the buffer
+}
+try {
+  const my_view3 = new DataView(buf, 8, 9);
+} catch (error) {
+  console.log(error.message); // Invalid DataView length undefined
+}</code></pre><ul id="dc321c51-99cd-4683-973b-c6f801fa2280" class="bulleted-list"><li style="list-style-type:disc">注意报错：两个都是<code>RangeError</code> <ul id="bf48c9f6-45fb-4c5e-86e8-44f9b259e07d" class="bulleted-list"><li style="list-style-type:circle">第一个表示<code>byteOffset</code> 范围错误，因为<code>buf</code>长度为16，所以字节偏移量最大值为16</li></ul><ul id="6e10070d-e8ea-40a7-a304-54ab6b7df999" class="bulleted-list"><li style="list-style-type:circle">第二个表示<code>byteLength</code> 范围错误，因为<code>buf</code> 长度为16，以8为字节偏移量最多剩余8个字节，最大值为8</li></ul></li></ul><h2 id="bc9cd041-da09-4cf3-b5eb-c43df4955ec8" class="">3.3.3 属性与方法</h2><h3 id="592daaf3-02c5-4d8f-a06e-82196f0a2ff3" class="">3.3.3.1 属性</h3><p id="1381cadb-6c5a-4443-92c8-66525c23f0b5" class="">视图实例的属性就是通过构造函数传入的三个参数</p><ol type="1" id="95efe101-4cb5-41c3-9b5d-80a0f675d55e" class="numbered-list" start="1"><li><code>DataView.prototype.buffer</code> <ul id="c0bac675-485f-46bf-928c-b713c6fae6b7" class="bulleted-list"><li style="list-style-type:disc">在构造时传入的<code>ArrayBuffer</code> 或<code>SharedArrayBuffer</code> 对象引用</li></ul></li></ol><ol type="1" id="0c3dfe79-63b2-44cc-ad6a-de08830c84db" class="numbered-list" start="2"><li><code>DataView.prototype.byteLength</code> <ul id="9746d90e-2622-424e-9906-fe8c74400492" class="bulleted-list"><li style="list-style-type:disc">视图对象的字节长度，在构造视图对象时传入</li></ul><ul id="e3cfbc46-de4e-4a35-a08d-8dbb52f123fa" class="bulleted-list"><li style="list-style-type:disc">如果未指定，就是<code>buffer</code> 的长度减去偏移量</li></ul></li></ol><ol type="1" id="104c22da-5995-4d70-b481-3030b1c82a84" class="numbered-list" start="3"><li><code>DataView.prototype.byteOffset</code> <ul id="edb61ded-0528-49ad-8b7f-c9c02aa48716" class="bulleted-list"><li style="list-style-type:disc">从<code>buffer</code> 开始的字节偏移量，在构造视图对象时传入</li></ul><ul id="101ceff6-720e-453f-bb52-1e1dbc6d40d1" class="bulleted-list"><li style="list-style-type:disc">未指定默认为0</li></ul></li></ol><h3 id="7a7a3a7a-630a-47d6-9fca-ea0aac173d80" class="">3.3.3.2 方法</h3><p id="efd89807-a1f8-43eb-9524-9a31fc5ee889" class="">视图实例的方法是许多组用于读写<code>buffer</code> 的<strong>get/set访问器，</strong>根据读写的字节类型不同，共有10种访问器（20个实例方法）</p><p id="eeaa023e-f78c-42ed-9045-9b7884350604" class="">在通过视图的方法读写缓冲时，需要提前知晓关于读写的几个组件</p><ol type="1" id="00f4dd86-0c2b-4315-a64d-bfce779b447e" class="numbered-list" start="1"><li>需要读写的字节偏移量，可以看成视图的某种“地址”，是使用读写方法需要传递的参数</li></ol><ol type="1" id="a7556841-7340-4971-b39d-49468c5134b4" class="numbered-list" start="2"><li><code>DataView</code>应该使用<code>ElementType</code>来实现JavaScript的Number类型到缓冲内二进制格式的转换<ul id="93c3d438-58b8-4b88-ac09-b345c432693b" class="bulleted-list"><li style="list-style-type:disc">这里的<code>ElementType</code> 就是指视图中的字节数组存储元素时的数字类型</li></ul><ul id="16ff1b6c-b7f2-4615-bec6-7fead4f9a08c" class="bulleted-list"><li style="list-style-type:disc">不同数字类型有不同存储方式，上面广义视图中简述的<a href="3%20%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84.html">数字类型</a> 就是各种<code>ElementType</code></li></ul><figure id="e4fa42ef-0c25-4968-b288-d503337b0227" class="link-to-page"><a href="3%20%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84/ElementType.html"><span class="icon">🎆</span>ElementType</a></figure></li></ol><ol type="1" id="de8360ed-7f89-4528-a113-ed03135dc7bf" class="numbered-list" start="3"><li>字节序表示在字节数组中存储的数字的字节顺序，默认为大端字节序<ul id="dd8b16f6-bff7-4e22-bcfb-be37e5da45b1" class="bulleted-list"><li style="list-style-type:disc"><code>set/get</code> 方法除了<code>set/getInt8</code> 和<code>set/getUint8</code> 不需要考虑可选参数<code>littleEndian</code> ,其它<code>set/get</code> 方法都可以选择字节序，因为这些数字是单字节的，不存在字节序问题</li></ul><ul id="d5790de9-d488-4076-a8b8-a61197da04b4" class="bulleted-list"><li style="list-style-type:disc">字节序指计算机系统为了维护一种字节顺序的约定，详情查看<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Endianness">MDN-Endianness</a></li></ul><ul id="6e70f328-4bb5-41c9-9f91-5a4d83073b5a" class="bulleted-list"><li style="list-style-type:disc"><code>DataView</code> 支持两种字节序：大端字节序（big-endian）和小端字节序(little-endian)<ul id="2605242d-d7ac-4c5c-8299-4ec5f2cc4b80" class="bulleted-list"><li style="list-style-type:circle">大端字节序：又称网络字节序（Network Byte Order），数字的高位字节存储在内存低位地址中，数字的低位字节存储在内存高位地址中</li></ul><ul id="bf275dc5-8f91-4933-b706-f21dbc340962" class="bulleted-list"><li style="list-style-type:circle">小端字节序：正好和大端字节序相反，数字的高位字节存储在内存的高位地址中，数字的低位字节存储在内存的低位地址中</li></ul></li></ul><ul id="81c632d5-1eb5-4aa0-9d4f-6a5cce215d74" class="bulleted-list"><li style="list-style-type:disc">JavaScript运行时的系统的原生字节序决定了如何读取或写入字节，但<code>DataView</code>是一个中立的操作字节数组的接口，可以通过实例方法以两种方式设定和读取字节序</li></ul></li></ol><ol type="1" id="6d986193-b133-40c8-aa97-a62e0197b2ee" class="numbered-list" start="4"><li>边界情形<ul id="84bd46ac-097d-4b8e-ad5f-264fb77278fa" class="bulleted-list"><li style="list-style-type:disc"><code>DataView</code> 中的<code>set/get</code> 方法完成读写操作前提是有足够的缓冲区，否则就抛出<code>RangeError</code></li></ul><ul id="979b917f-b5ef-412f-bd41-d8508d73c870" class="bulleted-list"><li style="list-style-type:disc">需要保证<code>byteOffset</code> 在<code>DataView</code> 对象中能操作的字节数组个数范围内，根据<code>ElementType</code> 占用的字节个数，保证 <code>byteOffset+ElementType.byteLength</code> 也在视图对象能操作的字节数组个数范围内</li></ul></li></ol><h3 id="5ab6ab18-5e37-46ff-953c-4f34e0ed3a23" class="">3.3.3.3 例子</h3><ol type="1" id="8798c9cf-54a1-4d46-b2c5-7274da51f82d" class="numbered-list" start="1"><li>利用视图暴露的方法读写字节，不同类型可以相互使用<pre id="dc96ae53-9ceb-4482-b448-53d0e9ca3eef" class="code"><code>// 1. 视图读写字节数组中的值，类型是可以互换使用的
+const buf = new ArrayBuffer(8); // 8个字节
+const view = new DataView(buf, 4); // 使用后面一半的字节
+for (let i = 0; i &lt; buf.byteLength / 2; i++) {
+  // 查看每个字节的值(初始都是0)
+  console.log(view.getInt8(i));
+}
+view.setUint8(3, 5); // 最后一个字节设置为 5
+view.setUint16(1, 128); // 中间两个字节设置为 128
+// 4个字节现在的情况： 0x00 0x00 0x80 0x05
+console.log(view.getInt32(0)); // 查看4个字节表示的Int大小 2^15 + 5
+for (let i = 0; i &lt; buf.byteLength / 2; i++) {
+  // 查看每个字节的值
+  console.log(view.getInt8(i));
+}
+// 打印
+0
+0
+0
+0
+32773
+0
+0
+-128
+5</code></pre></li></ol><ol type="1" id="c851c863-b56b-4863-9dbb-0e73a0c69e2d" class="numbered-list" start="2"><li>不同的字节序读取相同的字节，得到的结构可能不同<pre id="6aa8f2ce-0831-46e6-b319-7456e51e9913" class="code"><code>// 2. 字节序 DataView默认以大端序存取字节
+const buf2 = new ArrayBuffer(4);
+const whole_view = new DataView(buf2); // 可操作buf2的全部4个字节
+whole_view.setUint16(0, 0x8000); // 按照默认大端序存储前两个字节
+whole_view.setUint16(2, 0x0001); // 按照默认大端序存储后两个字节
+// 现在字节为 0x80 0x00 0x00 0x01
+// 按照大端序读取4个字节组成的无符号32位整数
+console.log(whole_view.getUint32(0)); // 2^31 + 1
+// 按照小端序读取4个字节组成的无符号32位整数
+console.log(whole_view.getUint32(0, true)); // 2^24 + 2^7
+
+whole_view.setUint16(0, 0x8000, true); // 按照小端序存储前两个字节
+whole_view.setUint16(2, 0x0001, true); // 按照小端序存储前两个字节
+// 现在字节为0x00 0x80 0x01 0x00
+// 按照大端序读取4个字节组成的无符号32位整数
+console.log(whole_view.getUint32(0)); // 2^23 + 2^8
+// 按照小端序读取4个字节组成的无符号32位整数
+console.log(whole_view.getUint32(0, true)); // 2^16 + 2^15
+// 打印结果
+2147483649
+16777344
+8388864
+98304</code></pre></li></ol><ol type="1" id="4fd01ced-b9fc-4a4e-89c9-69e9ae325f2b" class="numbered-list" start="3"><li><code>RangeError</code> 数组越界问题，需要保证<code>byteOffset</code>和<code>buteOffset+ElementType.byteLength</code> 在视图可操作字节数组长度范围内<pre id="c4ae1df5-9a2e-4721-8325-49667589636b" class="code"><code>const buf3 = new ArrayBuffer(4);
+const view3 = new DataView(buf3);
+try {
+  view3.getBigInt64(0);
+} catch (error) {
+  console.log(error.message);
+}
+try {
+  view3.getInt32(5);
+} catch (error) {
+  console.log(error.message);
+}
+try {
+  view3.setInt32(1, 5);
+} catch (error) {
+  console.log(error.message);
+}
+try {
+  view3.setInt32(5, 5);
+} catch (error) {
+  console.log(error.message);
+}
+// 打印
+Offset is outside the bounds of the DataView
+Offset is outside the bounds of the DataView
+Offset is outside the bounds of the DataView
+Offset is outside the bounds of the DataVie</code></pre></li></ol><hr id="079dafd5-dee2-4e01-b41c-a6cb0d373737"/><h1 id="c344553e-88e4-42ab-903d-664d81880a44" class="">3.4 定型数组</h1><h2 id="2f51841f-e605-4f70-8474-b0586fad9494" class="">3.4.1 定型数组</h2><ul id="b6e386b0-e147-4a2f-8226-6fd3e64bab68" class="bulleted-list"><li style="list-style-type:disc">定型数组是另一种形式的<code>ArrayBuffer</code><a href="3%20%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84.html">视图</a> ，它与<code>DataView</code> 的区别在于<ul id="d62463d7-06bc-43e7-b2db-8dd150a6338f" class="bulleted-list"><li style="list-style-type:circle">定型数组特定一种<code>ElementType</code> 读取字节缓存</li></ul><ul id="db06b8b4-96d3-473c-af9d-0a516275c248" class="bulleted-list"><li style="list-style-type:circle">遵循系统的<strong>原生字节序</strong></li></ul></li></ul><ul id="5cad6cb1-2e4f-499a-844e-351eeef063c8" class="bulleted-list"><li style="list-style-type:disc">适应性缩小，相应的性能就会增加<ul id="a412c659-b9f7-4193-82ad-80312a14ab61" class="bulleted-list"><li style="list-style-type:circle">定型数组提供了针对一种ElementType更多的API和更高的性能</li></ul><ul id="dcb96a6e-6762-4dad-a9cd-26ed46366d2e" class="bulleted-list"><li style="list-style-type:circle">设定<a href="3%20%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84.html">定型数组</a>的目的就是为了提高与WebGL等原生库交换二进制数据的效率</li></ul></li></ul><ul id="cfa772c0-596a-43ff-b2de-631a0415f868" class="bulleted-list"><li style="list-style-type:disc">性能更快的原因<ul id="b308f0a5-bb3c-419a-9155-a769a1a80791" class="bulleted-list"><li style="list-style-type:circle">数组中的元素数字类型固定，操作系统对相同类型，字节数相同的二进制表示更容易使用和读取</li></ul><ul id="86c5ec7a-3c60-4ac5-93db-e50c590f0c20" class="bulleted-list"><li style="list-style-type:circle">JavaScript可以重度优化算术运算、按位运算和其它对定型数组的常见操作</li></ul></li></ul><h2 id="23298a2a-21a3-4d86-97ea-f88f57a7e4ae" class="">3.4.2 创建定型数组</h2><h3 id="4a595c33-cd57-48f8-9180-c56a2e187dba" class="">3.4.2.1 读取已有的缓冲</h3><pre id="d360cd3e-d64e-4573-960b-132d14670cf3" class="code"><code>const buf = new ArrayBuffer(length);
+new ElementTypeArray(buf[, byteOffset[, length]])</code></pre><ul id="5bfb10da-05d8-4c6b-b315-c515015f64cf" class="bulleted-list"><li style="list-style-type:disc">创建一个字节数组，然后像DataView一样传入已有缓冲，以及可选的偏移量，长度</li></ul><ul id="33c7263c-37bc-427b-9514-8e2040e82c69" class="bulleted-list"><li style="list-style-type:disc">例如<pre id="d9d5dc3a-19ac-44ce-86bf-1a774d7427e9" class="code"><code>const buf = new ArrayBuffer(12);
+// 一个长度为3的Int32数组，一个元素占用4个字节
+const int32arr = new Int32Array(buf);
+console.log(int32arr.length); // 3</code></pre></li></ul><h3 id="e9891b55-70af-48c9-b9b5-a5c612566983" class="">3.4.2.2 使用自有缓冲</h3><pre id="5a58c25c-21c8-49aa-a40d-f7d0a84cc352" class="code"><code>new ElementTypeArray(length);</code></pre><ul id="c5863aac-441e-4a60-a2b1-b4bba449e7f8" class="bulleted-list"><li style="list-style-type:disc">创建一个长度为<code>length</code>的字节数组，<code>length</code>不是字节长度，而是元素个数</li></ul><ul id="3f1d13cb-7116-4d7c-932e-c71e40cfb2af" class="bulleted-list"><li style="list-style-type:disc">例如<pre id="871e020d-b6e9-4060-9143-763ce915dbca" class="code"><code>const int32arr = new Int32Array(6);
+// 创建一个长度为6的有符号32位整型数组</code></pre></li></ul><h3 id="595782c9-6dae-443b-931f-bf4b097a92d1" class="">3.4.2.3 填充可迭代结构</h3><pre id="8e614683-cd1f-41a9-9875-5c0b28569bbc" class="code"><code>new ElementTypeArray(object);</code></pre><ul id="af4fc8c3-0457-41a8-8d87-1aa444b1ab9c" class="bulleted-list"><li style="list-style-type:disc"><code>object</code> 是一个可迭代结构，可以是一个普通的数组，也可以是<code>Set</code>对象实例等</li></ul><ul id="bb03c2ed-6062-4d80-b615-8474a549216e" class="bulleted-list"><li style="list-style-type:disc">例如<pre id="ff2d3bee-74af-47dc-83c8-4a61e550e37a" class="code"><code>const int32arr = new Int32Array([2,4,5,6]);
+// 创建一个长度为4的有符号32位整型数组</code></pre></li></ul><h3 id="44f29aa8-7ad0-4ace-88fe-d83f2eb7811f" class="">3.4.2.4 填充基于任意类型的定型数组</h3><pre id="eb86fd94-0001-429c-a813-faa3a4648216" class="code"><code>const primaryInt = new ElementTypeArray(length);
+const copyInt = new ElementTypeArray(primaryInt);</code></pre><ul id="7b5ed463-3a48-4318-9f62-7aa36107349e" class="bulleted-list"><li style="list-style-type:disc"><code>primaryInt</code> 是任意类型的定型数组，传入到一个<code>ElementTypeArray</code> 中可以创建一个基于<code>primaryInt</code>的新的定型数组</li></ul><ul id="a70a98d5-d9f3-4807-9bf7-043ef3825c76" class="bulleted-list"><li style="list-style-type:disc">基于任意类型的定型数组创建的新数组的长度和传入的定型数组<strong>长度一致</strong>，对应索引的的<strong>每个值都会转换成新格式分配到新缓冲</strong>中</li></ul><ul id="7f0b2618-56ba-4436-8f2f-1e1747644195" class="bulleted-list"><li style="list-style-type:disc">例如<pre id="fd2e2c22-b49b-448f-9f68-d4b0cf5d2c0f" class="code"><code>const primaryArr = new Int32Array([2,3,4,6])
+const copyInt = new Int16Array(priamryArr);
+console.log(copyInt.buffer.byteLength); // 8</code></pre></li></ul><h3 id="4ffc2aa7-88dd-47f8-9cbb-61086fcf5a76" class="">3.4.2.5 使用定型数组的静态方法</h3><ul id="5486e79f-94a9-4042-812e-fa373285a756" class="bulleted-list"><li style="list-style-type:disc">使用<code>ElementTypeArray.from</code> 或<code>ElementTypeArray.of</code> 静态方法创建定型数组，解释在<a href="3%20%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84.html">下面一节</a></li></ul><h2 id="51702f5a-2574-46fa-88ae-edc5c3c1683f" class="">3.4.3 定型数组的属性</h2><h3 id="1970bb21-669c-4a93-ae6e-f4e42ee1e3cb" class="">3.4.3.1 静态属性</h3><ul id="0d68c25d-15ac-4def-bedc-e5781680ef9e" class="bulleted-list"><li style="list-style-type:disc"><code>ElementTypeArray.BYTES_PRE_ELEMENT</code> 返回<code>ElementType</code> 类型数组元素的大小，如<code>Int32Array</code>的该属性返回4</li></ul><ul id="a768cf75-1f78-4552-abe9-6cbe3ef18b83" class="bulleted-list"><li style="list-style-type:disc"><code>ElementTypeArray.name</code> ： 返回<code>ElementType</code> 构造函数名称，如<code>Int32Array</code> 就返回”Int32Array”</li></ul><h3 id="fb4e1079-9c1d-4c77-9fb9-ed165155a874" class="">3.4.2.2 静态方法</h3><ul id="80031387-b351-44f1-a63d-2eb2ad97bafd" class="bulleted-list"><li style="list-style-type:disc"><code>ElementTypeArray.from()</code> :通过一个类数组对象或者迭代对象创建一个<code>ElementType</code> 定型数组对象，类似于<a href="2%20Array.html"><code>Array.from()</code></a><a href="2%20Array.html"> </a><pre id="1e998ef6-12f6-4d9b-8ee1-1e2f1ff072db" class="code"><code>const typedArr = ElementType.from(arrayLike[, mapFn[, thisArg]]);</code></pre><ul id="5baecbf9-67ba-47ba-959c-6e3efaa1221c" class="bulleted-list"><li style="list-style-type:circle">参数<code>arrayLike</code> ：必填，类数组对象或可迭代对象</li></ul><ul id="c9ffa86a-350d-40ef-9e44-317292f3ced4" class="bulleted-list"><li style="list-style-type:circle">参数 <code>mapFn</code> : 可选，填上之后相当于<code>ElementType.from(Array.prototype.map.call(arrayLike, mapFn))</code> ,即在生成定型数组前，对<code>arrayLike</code> 结构进行一次遍历，将其中的元素做一次<code>mapFn</code>的统一处理，和<code>Array.from() </code> 中的<code>mapFn</code> 可选参数一样</li></ul><ul id="9ba7d8e8-6dac-4c8c-a197-705d15121b10" class="bulleted-list"><li style="list-style-type:circle">参数<code>thisArg</code> :当执行<code>mapFn</code>函数时，函数内部的<code>this</code> 指针指代，可选参数</li></ul><ul id="f7a928ed-9115-43b3-8406-a3435400cd82" class="bulleted-list"><li style="list-style-type:circle">返回值：一个新的<code>ElementTypeArray</code>实例</li></ul><hr id="864e0b98-a0bc-4338-9eca-0f520c8e2966"/><ul id="2ba74124-cb1a-45f5-b5c1-e12134668303" class="bulleted-list"><li style="list-style-type:circle">例子<pre id="8edc8315-ad71-4ef8-8177-6fe478fc5263" class="code code-wrap"><code>// 5. 使用ElementType.from() 从一个类数组结构中构造定型数组
+const uint8arr = Uint8Array.from({ 0: 1, 2: 3, 3: 5, length: 3 }, (v) =&gt; v - 2);
+console.log(uint8arr); // 类数组元素中没有索引1的元素，所以但是长度为3，所以默认为0
+// 打印
+Uint8Array(3) [ 255, 0, 1 ]</code></pre></li></ul></li></ul><ul id="e552e095-78a3-4d1b-ab47-040a4952b80c" class="bulleted-list"><li style="list-style-type:disc"><code>ElementTypeArray.of()</code> : 通过将传入的多个参数作为元素值创建一个<code>ElementArray</code> 定型数组对象，类似于<a href="2%20Array.html"><code>Array.of()</code></a> <pre id="8a1af491-b657-4fb5-9950-fbf95e31b456" class="code code-wrap"><code>const typedArr = ElementTypeArray.of(element0, element1, /* ... ,*/ elementN)</code></pre><ul id="d63f983e-3955-4c79-882e-a8bff3168db0" class="bulleted-list"><li style="list-style-type:circle">参数<code>arguments</code>：参数中的每个值按顺序被作为数组元素值<ul id="d87a962f-a4c6-4fca-84fd-a7853a0496b3" class="bulleted-list"><li style="list-style-type:square">参数能被转换为数字就以<code>ElementType</code> 类型保存</li></ul><ul id="5e69814b-d7ba-4c17-b2ca-ff58864f7faf" class="bulleted-list"><li style="list-style-type:square">不能转换为数字就默认为0</li></ul></li></ul><ul id="2df3921a-0c32-48a3-9705-4f280a6497dc" class="bulleted-list"><li style="list-style-type:circle">返回值：一个新的<code>ElementTypeArray</code>实例</li></ul><hr id="3786e0d6-0eb7-420a-a7fe-b5458f446069"/><ul id="44150005-4073-4018-97b4-3751b4b270cb" class="bulleted-list"><li style="list-style-type:circle">例子<pre id="b18ab2a8-cbe1-4365-ade7-192346f67a6b" class="code code-wrap"><code>// 6. 使用ElementType.of()
+const int32Arr2 = Int32Array.of(null, &quot;a&quot;, &quot;1&quot;, undefined, uint8arr);
+console.log(int32Arr2); // 不能转换为数字的默认为0，能转换为数字或就是数字的将数组用32位保存
+// 打印
+Int32Array(5) [ 0, 0, 1, 0, 0 ]</code></pre></li></ul></li></ul><h3 id="33244e8f-02fd-4d31-ad0e-9d2872b6c2e2" class="">3.4.2.3 实例属性</h3><ol type="1" id="ef7f21f6-c444-40a7-a557-993a93a6463f" class="numbered-list" start="1"><li><code>ElementTypeArray.prototype.buffer</code> :构造时绑定的字节数组，只读，是定型数组的缓存</li></ol><ol type="1" id="b6ae0f2c-2dff-4a84-8a3d-6a79e98042fc" class="numbered-list" start="2"><li><code>ElementTypeArray.prototype.byteLength</code> :字节长度，和ElementType有关，例如<code>Int32Array</code> 的字节长度就是4</li></ol><ol type="1" id="a290d195-cc0b-49e4-bb66-136d623b9f41" class="numbered-list" start="3"><li><code>ElementTypeArray.prototype.byteOffset</code> : 默认为0，基于已有缓存（字节数组）创建时，可以传入的偏移量参数，用于表示从已有缓存的第几位开始构建定型数组</li></ol><ol type="1" id="0d19f561-a9ae-49e0-a3a5-264d1ad75aae" class="numbered-list" start="4"><li><code>ElementTypeArray.prototype.length</code> :定型数组的长度，改长度乘以字节长度就是定型数组拥有的总字节数</li></ol><h3 id="fe75fb5b-53d0-4c93-92c2-96b1d8ff8d8f" class="">3.4.2.4 实例方法</h3><p id="1a0a43b1-f401-4082-af70-44ad073154b6" class="">从很多方面看，定型数组与普通数组都很相似，定型数组支持的方法也<strong><code><a href="2%20Array.html">Array</a></code></strong>类似</p><ul id="18a7de71-250d-4ce7-96b9-bb80814871d0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.at()</code> : 接受一个索引，返回数组中指定索引位置的值</span><pre id="bb95eb43-465e-4c35-b5b9-85e8fc25cce7" class="code code-wrap"><code>const int32arr = new Int32Array([1,2,3]);
+console.log(int32arr.at(2)); // 3</code></pre></li></ul><ul id="084d7feb-69b1-4541-9a1e-bfea6e001109" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.copyWithin()</code> :复制定型数组中的一段子序列到另一子序列，并返回原定型数组；详情查看<a href="2%20Array.html">Array.prototype.copyWithin()</a> </span><pre id="9ed1cfd2-f526-427c-95e8-0ad1dc889c8f" class="code code-wrap"><code>const int32Arr = new Int32Array([1, 2, 3, 4]);
+console.log(int32Arr.copyWithin(1, 2, 4));
+// 大于结果
+Int32Array(4) [ 1, 3, 4, 4 ]</code></pre><ul id="b9b2e3b1-3b4d-4751-a2c8-8e7f4a7c49e0" class="bulleted-list"><li style="list-style-type:disc">将原数组<code>[2,4)</code> 位置的元素值复制到<code>[1, 3)</code> </li></ul></li></ul><ul id="08c5020b-4d73-4a1a-960c-c097cfaca819" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.entries()</code> : 返回定型数组的键值对的迭代对象，键为索引，值为元素值</span><pre id="f37ede28-7ec6-4d4f-a9a5-86bae138b445" class="code code-wrap"><code>const int32Arr = new Int32Array([1, 2, 3, 4]);
+for (const [key, val] of int32Arr.entries()) {
+  console.log(key, val);
+}
+// 打印结果
+0 1
+1 2
+2 3
+3 4</code></pre></li></ul><ul id="675f90db-8fe0-4e6b-94c9-510876c76011" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.every()</code> : 定型数组中的所有元素是否满足every中传入的函数，全部通过就返回<code>true</code>，否则返回<code>false</code> </span><pre id="0a3110a6-20c3-4cac-9d59-ed27d7f4a0cc" class="code code-wrap"><code>console.log(int32Arr.every((v) =&gt; v &gt; 0)); // 判断定型数组中的元素是否都大于0
+// true</code></pre></li></ul><ul id="df926ea1-abf7-4176-91f1-5204c087335a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.some()</code> : 定型数组中是否存在一个元素满足some中传入的函数，只要满足一个就返回<code>true</code>，只有全部不满足就返回<code>false</code></span><pre id="471d0ca7-6751-43af-8605-ab6798088399" class="code code-wrap"><code>console.log(int32Arr.every((v) =&gt; v &gt; 0)); // 判断定型数组中的元素是否存在一个大于0
+// true</code></pre></li></ul><ul id="7651ee09-cc50-4faa-ab4e-0cb75bcbcaf1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.fill()</code> : 填充定型数组中的元素值为传入的参数，然后返回原数组</span><pre id="37517caa-5ce6-474f-81fb-a21af8532146" class="code code-wrap"><code>console.log(int32Arr.fill(1));
+// Int32Array(4) [ 1, 1, 1, 1 ]</code></pre></li></ul><ul id="abb219c1-cc75-4bca-a495-8f92163171de" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.filter()</code> :过滤不满足条件的元素，保留满足条件的元素并组成一个新的定型数组返回，原定型数组不会被改变</span><pre id="80c3ded6-c82f-4e1b-9420-be847ac6bbaa" class="code code-wrap"><code>const filterArr = int32Arr.filter((_v, i) =&gt; i);
+console.log(int32Arr.buffer);
+console.log(filterArr, filterArr.buffer);
+// 打印结果 node环境
+ArrayBuffer {
+  [Uint8Contents]: &lt;01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00&gt;,
+  byteLength: 16
+}
+Int32Array(3) [ 1, 1, 1 ] ArrayBuffer {
+  [Uint8Contents]: &lt;01 00 00 00 01 00 00 00 01 00 00 00&gt;,
+  byteLength: 12
+}</code></pre><ul id="a8219217-7a0a-4a7f-a7d2-8018c0644411" class="bulleted-list"><li style="list-style-type:disc"><code>[Uint8Contents]</code> 表示的是无符号单字节的字节显示，是要16进行表示</li></ul><ul id="f147a7f0-260d-4350-a5c0-a520c7f1c949" class="bulleted-list"><li style="list-style-type:disc">在浏览器环境中字节数组的打印如下<figure id="301990cd-8d9a-46cc-9f9b-8c1121fc1aff" class="image"><a href="3%20%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84/Untitled.png"><img style="width:528px" src="3%20%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84/Untitled.png"/></a></figure></li></ul></li></ul><ul id="43fe2852-8fd1-4459-9a04-a8c049beb2d2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.find()</code> : 找到第一个满足给定测试条件（test Function 断言函数）的元素并返回，如果没有就返回<code>undefined</code> ；详情可查看<a href="2%20Array.html"><code>Array.prototype.find()</code></a></span><pre id="02eef54b-7328-4867-803a-2a6e3e7f15c7" class="code code-wrap"><code>console.log(int32Arr.find((v, i) =&gt; v + i == 2));
+// 返回v + i 等于 2 的第一个元素</code></pre></li></ul><ul id="a47caf6e-4704-4e79-8268-5aec785c24b1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"> <code>ElementTypeArray.prototype.findIndex()</code>: 找到第一个满足给定测试条件（test Function 断言函数）的元素，并返回索引值，如果没有就返回-1；详情可查看<a href="2%20Array.html"><code>Array.prototype.findIndex()</code></a> </span><pre id="8a82a18a-3fcd-4f0b-85d4-2ac8a29a99b3" class="code code-wrap"><code>console.log(int32Arr.findIndex((v, i) =&gt; v + i == 3));
+// 返回v + i 等于 3 的第一个元素索引</code></pre></li></ul><ul id="99dee867-efbf-464c-bab7-90557d754828" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.findLast()</code> / <code>ElementTypeArray.prototype.findLastIndex()</code> : 找到最后一个满足给定测试条件（test Function 断言函数）的元素，并返回元素 / 索引值，没有就返回undefined 或 -1</span><pre id="9015b05d-bb06-4c17-8eb6-de863646a585" class="code code-wrap"><code>console.log(int32Arr.findLast((v, i) =&gt; v + i == 3));
+// 返回 v + i 等于 3 的最后一个元素
+console.log(int32Arr.findLastIndex((v, i) =&gt; v + i == 3));
+// 返回 v + i 等于 3 的最后一个元素索引</code></pre></li></ul><ul id="8de93e35-0fcf-4ccc-ab49-2a32653a2ece" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.forEach()</code> ： for循环的数组方法实现，遍历每个元素，执行传入的方法，语法和<a href="2%20Array.html"><code>Array.prototype.forEach()</code></a> 一致</span><pre id="0ba1eea9-f406-40d1-a35b-e167a5fa442d" class="code code-wrap"><code>int32Arr.forEach((v, i) =&gt; {
+  console.log(v, i);
+});
+// 打印定型数组中的每个元素值和元素索引</code></pre></li></ul><ul id="4eeea94f-e959-406c-a318-90a40b75d5a0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.includes()</code> : 按照<mark class="highlight-gray"><em><span style="border-bottom:0.05em solid"><del>严格相等</del></span></em></mark>（<code>===</code>）原则搜索定型数组，如果数组中有元素与传入的参数严格相等就返回<code>true</code>，否则返回<code>false</code> ；语法和<a href="2%20Array.html"><code>Array.prototype.includes()</code></a> 一致</span><pre id="636a9a65-75c3-4d75-8281-841c153dd9e2" class="code code-wrap"><code>const float32Arr = new Float32Array(int32Arr);
+console.log(float32Arr.includes(1.0)); // true
+console.log(int32Arr.includes(1.0)); // true
+
+console.log(new Uint16Array([NaN]).includes(NaN)); // false
+console.log(new Float32Array([NaN]).includes(NaN)); // true</code></pre><ul id="bfc4ae59-093a-4317-94d8-0794ff1cf2f5" class="bulleted-list"><li style="list-style-type:disc">注意，<code>new Uint16Array([NaN]).includes(NaN)</code> 返回<code>NaN</code> 是因为在构造整型数组时，不会考虑NaN，所以元素使用默认值0，而构造浮点数定型数组时会考虑NaN，如下<pre id="c7c3e5d0-a03d-47e8-8798-c637f7f76663" class="code code-wrap"><code>Uint16Array(1) [ 0 ]
+Float32Array(1) [ NaN ]</code></pre></li></ul><ul id="c6e2d162-8ae2-4ff4-a83a-d14d4f526f50" class="bulleted-list"><li style="list-style-type:disc">关于<code>includes()</code> 搜数组是否存在某元素时的判断相等方法并非严格相等（《JavaScript高级程序设计第4版》的错误说法），而是<strong>同值零，</strong>即将两个NaN视为相等，所以返回true，相应在<code>Array</code>中也给出说明<a href="2%20Array.html">注意</a> </li></ul></li></ul><ul id="7ae8eefa-823f-4804-809b-8220201f2e19" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.indexOf()</code> :按照严格相等（<code>===</code>）原则搜索定型数组，如果数组中有元素与传入的参数严格相等就返回第一个相等的索引，否则返回<code>-1</code> ;相当于<code>typeArr.findIndex((v) ⇒ v === target)</code> ;可以查看数组的<code>Array.prototype.indexOf()</code></span><pre id="08454228-9aab-4cf6-83fa-e1b3c406b5eb" class="code"><code>console.log(new Float32Array([NaN]).indexOf(NaN)); // -1</code></pre><ul id="fadd99a8-53e5-4bc4-a6d3-fd173472b7c4" class="bulleted-list"><li style="list-style-type:disc">注意，严格相等的判定下，NaN === NaN是返回false的，所以使用严格相等算法的<code>indexOf</code>对NaN无法检查到</li></ul></li></ul><ul id="dfb68efb-83fe-4cbc-bef6-06c1bcf4e449" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.lastIndexOf()</code> : 按照严格相等（<code>===</code>）原则搜索定型数组，返回最后一个与传入参数严格相等的索引，没有就返回<code>-1</code> ;相当于<code>typeArr.findLastIndex((v) ⇒ v === target)</code> </span></li></ul><ul id="ce7381de-146b-477d-8041-8ff48b67a8a8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.join()</code> : 和<code>Array.prototype.join()</code> 一样，返回连接的字符串，默认使用英文逗号</span><pre id="56852816-be7d-4213-a56e-3ca6844c7915" class="code"><code>console.log(int32Arr.join());
+// 1,1,1,1</code></pre></li></ul><ul id="91a1e967-d193-4d58-b593-7de53e8aac4a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.keys()</code> : 返回一个包含定型数组每个索引键值的<code>Array Iterator</code> 迭代对象；和<a href="2%20Array.html"><code>Array.protototype.keys()</code></a>语法一致</span><pre id="27b3e4f0-00fe-48a1-a3d8-de84e9594d39" class="code"><code>// 14 keys()
+for (let key of int32Arr.keys()) {
+  console.log(key, typeof key);// 0 - n number
+}</code></pre><ul id="427d3ce9-6ee0-4f76-bb2e-afdb05a15b70" class="bulleted-list"><li style="list-style-type:disc">注意key是number类型的</li></ul></li></ul><ul id="e6608e0d-2463-421e-8022-cee1258cf41f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.map()</code> : 高阶函数，被调用的定型数组的每个元素会执行<code>map</code>函数中的方法，这个方法通过原始的定型数组中的元素得到处理得到一个新值，作为新的同类型同长度的定型数组的元素，最终返回一个新的定型数组；和<a href="2%20Array.html"><code>Array.prototype.map()</code></a> 语法一样</span><ul id="1ecb332b-97c3-4b64-ab57-0fc4fb1a67f8" class="bulleted-list"><li style="list-style-type:disc">唯一区别在于<code>Array.prototype.map()</code> 对于空位会忽略处理（即空位不会执行传入的方法，仍然是空位）</li></ul><ul id="5ba06574-37cd-4ff1-8805-6d5eee28414f" class="bulleted-list"><li style="list-style-type:disc">而<code>ElementTypeArray.prototyp.map()</code> <strong>不会出现</strong>这种情况，因为定型数组的每个值都有默认值0<pre id="654c7b6d-ec05-4826-8c38-ab67491c0398" class="code"><code>console.log([1, , 2, 3, ,].map((v) =&gt; 2)); // [ 2, &lt;1 empty item&gt;, 2, 2, &lt;1 empty item&gt; ]
+console.log(new Int32Array(5).map((_v) =&gt; 5)); // Int32Array(5) [ 5, 5, 5, 5, 5 ]</code></pre></li></ul></li></ul><ul id="049e8cc1-a6de-4ae8-8d94-c926f768cb83" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.reduce/reduceRight()</code> :高阶函数，需要传入一个计算器方法（accumulator）用于遍历每个元素然后计算返回成一个结果并最终方法；可以额外传递一个初始值，如果没有传递初始值，从第二个元素开始进行遍历，第一个被当作初始值；<code>reduce()</code>从左到右遍历，<code>reduceRight()</code>从右到左开始遍历; 当数组为空且未提供初始值时会产生<code>TypeError</code> 错误；更多细节可以查看<a href="2%20Array.html"><code>Array.prototype.reduce()</code></a> </span><pre id="cc326b51-59f6-406a-826c-f7b13ae8c173" class="code"><code>console.log(int32Arr.reduce((pre, cur) =&gt; pre + cur));
+console.log(int32Arr.reduceRight((pre, cur) =&gt; pre + cur));
+// 二者结果一致，本质上就是对定型数组中元素求和，只是求和遍历时方向不同</code></pre></li></ul><ul id="069ff997-058d-46ae-bb94-f8527d3fd4c6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.reverse()</code> : 翻转数组中的元素，返回翻转后的原始定型数组；和<a href="2%20Array.html"><code>Array.prototype.reverse()</code></a> 语法一致</span></li></ul><ul id="eae18058-d0c7-4c9e-8a1c-f6235a81fc4b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><strong><code>ElementTypeArray.prototype.set()</code></strong> : 定型数组独有的设置元素值的方法，<code>Array</code> 的实例没有此方法</span><ul id="60e61417-431c-43c8-9b4e-4d5ed04331fb" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="02282738-b46c-4412-b5f8-c2df29d7c571" class="code code-wrap"><code>typedArray.set(array[, offset]);
+typedArray.set(typedarr[, offset]);</code></pre></li></ul><ul id="76ffe848-8993-4b1d-a6a4-c6aff48e36d5" class="bulleted-list"><li style="list-style-type:disc">参数<ul id="a55167c0-a9d7-4b37-aebc-07983806cb25" class="bulleted-list"><li style="list-style-type:circle"><code>array</code>: 拷贝数据的源数组，源数组中的所有值都会被复制到定型数组中，除非源数组的长度加上偏移量大于目标数组的长度，且这种情况会抛出异常 </li></ul><ul id="6d0ed928-03fe-4d97-8d19-ab38b499ec18" class="bulleted-list"><li style="list-style-type:circle"><code>typedarr</code> : 源数组可是定型数组；且源数组<strong>可以</strong>和调用的目标数组使用同一个底层的字节数组（缓存）；JavaScript引擎会智能地将源数组缓存复制到目标数组的指定范围中</li></ul><ul id="82159375-3e70-4f97-9160-70ced462f7c1" class="bulleted-list"><li style="list-style-type:circle"><code>offset</code>: 偏移量，默认为0，可选，表示目标数组被写入数据开始的位置</li></ul></li></ul><ul id="5b2021a5-e026-4de3-ae9e-7dadef201174" class="bulleted-list"><li style="list-style-type:disc">返回值：<code>undefined</code>；功能性方法，用于批量设置定型数组的值 </li></ul><ul id="21232a21-5895-4428-b28c-ec345adfca55" class="bulleted-list"><li style="list-style-type:disc">错误：<code>RangeError</code> ；源数组的需要被完全复制到目标数组中，如果因为偏移量或长度原因无法完全复制，会抛出范围错误；具体原因如下<ol type="1" id="e02b6406-af21-4310-9616-158341043045" class="numbered-list" start="1"><li>偏移量加源数组长度大于目标数组长度</li></ol><ol type="1" id="fb2a1b80-d803-435b-9244-b150d7ef34c8" class="numbered-list" start="2"><li>偏移量为负数</li></ol></li></ul><ul id="c9cc29bd-8a37-4e10-901c-4a53a8f138ea" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="86c4f795-3450-498d-88af-7c37dd088343" class="code code-wrap"><code>const int16Arr = new Int16Array([4,3,2,1]);
+const int32Arr = new Int32Array([1,1,1,1]);
+int32Arr.set([5, 4], 1); 
+console.log(int32Arr); // Int32Array(4) [1,5,4,1]
+int32Arr.set(int16Arr);
+console.log(int32Arr); // Int32Array(4) [4,3,2,1]</code></pre></li></ul></li></ul><ul id="202ec44e-4c16-49b5-b139-d1fdc7ee45c5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.slice()</code> ：数组切片（复制数组的一部分连续片段）并返回新定型数组；更多参数内容可以查看<a href="2%20Array.html"><code>Array.prototype.slice()</code></a></span><pre id="38eba66c-1bd9-4b86-9039-3272e0a087a3" class="code code-wrap"><code>let copy = int32Arr.slice();
+console.log(copy);
+console.log(int32Arr.buffer === copy.buffer);</code></pre><ul id="5124ec82-d464-4c83-978d-42b8fee38fd2" class="bulleted-list"><li style="list-style-type:disc">注意切片的新定型数组是创建了新buffer的</li></ul></li></ul><ul id="d698c0fc-cfda-4bfb-8a6e-a78fa1711bd9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementArray.prototype.sort()</code> :排序数组，排序定型数组中的元素后返回原定型数组；可以传入自定义比较函数<code>(a, b) ⇒ num</code> a,b 是定型数组中原顺序的两个值，num分三种情况：正数，a在b后、负数a在b前、0，相对位置不变；更多细节可以查看<code>Array.prototype.sort()</code> </span><pre id="b01b945d-9a2e-4be7-9b1a-05781070bfa0" class="code code-wrap"><code>console.log(new Int16Array([12, 85, 61, 2, 5, 6, 8]).sort());
+// Int16Array(7) [2, 5, 6, 8, 12, 61, 85]</code></pre><ul id="bffb281e-6842-4139-a5b5-de3cea7c6acd" class="bulleted-list"><li style="list-style-type:disc">注意，定型数组的<strong>默认</strong>比较函数是按数字大小从小到大排序</li></ul><ul id="9e815172-e645-4c7c-aa0a-2e83fde1bba3" class="bulleted-list"><li style="list-style-type:disc">而数组排序的默认比较函数是先将每个元素转换为字符串，然后按照UTF-16代码单元值大小从小到大排序</li></ul></li></ul><ul id="700907cf-5acc-4388-b87b-0a7f64c4b8e8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementArray.prototype.subarray()</code> : 定型数组的区别于普通数组的方法，也是数组切片（复制数组的一部分连续片段）并返回新定型数组；与<code>slice()</code>唯一的区别在于新定型数组的<code>buffer</code> 就是原定型数组的<code>buffer</code> ；</span><ul id="832bbde2-5bd7-407f-b10f-92d115cfaee3" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="e25ad97d-3030-4ff1-87ee-66f4cee9b346" class="code code-wrap"><code>typedArr.subarray();
+typedArr.subarray(begin);
+typedArr.subarray(begin, end);</code></pre></li></ul><ul id="dcb28029-709e-4049-a35c-47c87d0e0321" class="bulleted-list"><li style="list-style-type:disc">参数<ul id="766866c7-e976-4d53-8a75-6d0aa70d7940" class="bulleted-list"><li style="list-style-type:circle"><code>begin</code>: 第一个参数，可选，默认为0，表示开始切片的索引位置</li></ul><ul id="3bc21314-4f35-4795-98a8-e6472131d86d" class="bulleted-list"><li style="list-style-type:circle"><code>end</code>： 第二个参数，可选，默认为定型数组长度，表示结束切片的索引位置，切片不包括该位置的元素</li></ul></li></ul><ul id="8afe0d21-3448-4f22-a9ec-4e41fcaa376f" class="bulleted-list"><li style="list-style-type:disc">返回值：新的定型数组；只是使用和源定型数组一样的缓存</li></ul><ul id="19b263ff-b3f6-430e-9dc1-6e6dafb1f68e" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="5ec4a8b9-016d-4958-991d-5a91da0f7cc4" class="code code-wrap"><code>const subArr = int32Arr.subarray(1);
+console.log(int32Arr);
+console.log(subArr);
+console.log(int32Arr.buffer);
+console.log(subArr.buffer);
+console.log(int32Arr.buffer === subArr.buffer);
+console.log(int32Arr === subArr);
+// 打印结果
+Int32Array(4) [ 4, 3, 2, 1 ]
+Int32Array(3) [ 3, 2, 1 ]
+ArrayBuffer {
+  [Uint8Contents]: &lt;04 00 00 00 03 00 00 00 02 00 00 00 01 00 00 00&gt;,
+  byteLength: 16
+}
+ArrayBuffer {
+  [Uint8Contents]: &lt;04 00 00 00 03 00 00 00 02 00 00 00 01 00 00 00&gt;,
+  byteLength: 16
+}
+true
+false</code></pre></li></ul></li></ul><ul id="7d989678-1ea1-454d-ba8d-995cc0b72009" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.values()</code> ：返回一个新的数组迭代对象，这个迭代对象中包括定型数组中的每个元素值，它按索引顺序迭代；可以查看<a href="2%20Array.html"><code>Array.prototype.values()</code></a></span><pre id="8b444cd4-06e8-442b-9d75-949cd6ce3b4f" class="code code-wrap"><code>for (const val of int32Arr.values()) {
+  console.log(val); // int32Arr[0] - int32Arr[n-1]
+}</code></pre><ul id="4a0d5b35-e65a-48b8-be9d-26b45386cdc9" class="bulleted-list"><li style="list-style-type:disc">注意定型数组没有空位问题，所以不必考虑（普通数组将空位视为undefined输出）</li></ul></li></ul><ul id="bdfc6365-ef97-450c-8498-e5e2b442cda2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>ElementTypeArray.prototype.toString()/toLocaleString()</code> : 返回定型数组的字符串形式，定型数组中元素之间使用字符串逗号分隔，每个元素都调用<code>toString()</code>或<code>toLocaleString()</code> 获取对应元素的字符串形式；参考<a href="2%20Array.html"><code>Array.prototype.toString()/toLocaleString()</code></a> ，唯一区别在于定型数组中的元素都是数字 ，而普通数组中元素可以是任何值，不用考虑空位，null，undefined，以及对象的字符串转换问题；所以查看数字的<a href="../5%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/3%202%20Number.html">toLocaleString()</a> 中继承的<code>toString()</code>和<code>toLocaleString()</code> 方法即可得知转换的字符串</span><pre id="cbe50eca-50fa-41b3-82f0-760e72af1547" class="code code-wrap"><code>console.log(new Int16Array([1234, 5678, 124]).toString());
+console.log(new Int16Array([1234, 5678, 124]).toLocaleString());
+console.log(new Float32Array([1234, 5678.24578, 124.1]).toString());
+console.log(new Float32Array([1234, 5678.24578, 124.1]).toLocaleString());
+// 打印结果
+1234,5678,124
+1,234,5,678,124
+1234,5678.24560546875,124.0999984741211
+1,234,5,678.246,124.1</code></pre><ul id="7a8066f1-d074-4e69-8d13-58e4071d1128" class="bulleted-list"><li style="list-style-type:disc"><code>toLocaleString()</code> 对于数字的处理是美式格式：三位一个逗号隔开；小数点保留3位</li></ul><ul id="cda6aacc-3ace-4a02-960c-de67209663b2" class="bulleted-list"><li style="list-style-type:disc">而<code>124.1</code> 使用<code>toString()</code> 打印结果变为<code>124.0999984741211</code> 的原因在于32位浮点数无法准确保存<code>124.1</code> 只能保存近似值，这是IEEE 754的精度问题导致的</li></ul></li></ul><ul id="9f358bad-395a-4d1d-98af-19d47983dce4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>TypedArray.prototype[@@iterator]()</code> 符号属性，迭代生成器，返回定型数组的元素迭代对象</span><pre id="95ae6013-b0f3-4f64-97f1-3f19393f47bc" class="code code-wrap"><code>const arrIterator = int32Arr[Symbol.iterator]();
+const arrIterator2 = int32Arr.values(); 
+console.log(arrIterator === arrIterator2);
+for (const val of arrIterator) {
+  console.log(val);
+}</code></pre><ul id="01fe64a1-f9a5-48a5-83f9-338d9e0fb2aa" class="bulleted-list"><li style="list-style-type:disc">注意<code>values()</code> 生成的数组元素迭代器对象和迭代生成器生成的迭代对象<strong>功能</strong>完全相同,但是是不同的对象</li></ul><ul id="5e5a6214-47f0-4d57-b4e1-249aeeb1e381" class="bulleted-list"><li style="list-style-type:disc"><code>[@@iterator]()</code> 迭代生成器保证了<code>for … of </code> 循环和扩展操作符（<code>…</code>）能操作定型数组</li></ul></li></ul><h2 id="15fa998d-c5ef-48ad-9ffd-1ecdf2c3671a" class="">3.4.4 定型数组与普通数组区别</h2><ul id="6a25a07d-affc-4344-80c7-e007f515beab" class="bulleted-list"><li style="list-style-type:disc">JavaScript中的普通数组是动态的，元素类型，长度都可以随需要改变</li></ul><ul id="5e76a976-75f0-47b5-ad1b-8a10846a8707" class="bulleted-list"><li style="list-style-type:disc">而定型数组在声明后长度和元素类型固定，使用的字节数组（缓存）是固定的，所以不能<strong>随便</strong>合并、复制和修改定型数组，以下数组的方法都不可用：<ul id="30e4d16c-378b-467f-af1a-a71bfb6fe3ed" class="bulleted-list"><li style="list-style-type:circle"><strong><a href="2%20Array.html"><code>concat()</code></a></strong></li></ul><ul id="a83da798-e26c-48aa-9a2a-9f4ddb0a7d20" class="bulleted-list"><li style="list-style-type:circle"><code><a href="2%20Array.html">pop()</a></code></li></ul><ul id="9a5c6a33-d5d5-4c71-94fc-dddd3a593b9e" class="bulleted-list"><li style="list-style-type:circle"><a href="2%20Array.html"><code>push()</code></a></li></ul><ul id="3f38b217-7101-4255-acf6-1b3222934544" class="bulleted-list"><li style="list-style-type:circle"><a href="2%20Array.html"><code>shift()</code></a></li></ul><ul id="d996ed5a-9880-497e-b491-0d7d0442f0e2" class="bulleted-list"><li style="list-style-type:circle"><a href="2%20Array.html"><code>unshift()</code></a></li></ul><ul id="199d3237-2123-4a42-bcb4-04112e02c78c" class="bulleted-list"><li style="list-style-type:circle"><a href="2%20Array.html"><code>splice()</code></a> </li></ul></li></ul><ul id="a5534c73-4833-4611-ba8c-0a51d10b1772" class="bulleted-list"><li style="list-style-type:disc">但是定型数组提供了两个用于批量设置元素值和从调用数组创建新定型数组的方法<code>set()</code> 和<code>subarray()</code> <ul id="08b47376-cd29-4f97-ab5e-5bed5e8f96a7" class="bulleted-list"><li style="list-style-type:circle"><code>set()</code> <a href="3%20%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84.html">ElementTypeArray.prototype.set() : 定型数组独有的设置元素值的方法，Array 的实例没有此方法</a> </li></ul><ul id="c2efd5a4-9799-422e-a127-2b40fc43e20b" class="bulleted-list"><li style="list-style-type:circle"><code>subarray()</code> <a href="3%20%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84.html">ElementArray.prototype.subarray() : 定型数组的区别于普通数组的方法，也是数组切片（复制数组的一部分连续片段）并返回新定型数组；与slice()唯一的区别在于新定型数组的buffer 就是原定型数组的buffer ；</a> </li></ul></li></ul><h2 id="8c577324-cac4-41ef-8f03-683f58dff05d" class="">3.4.5 定型数组的上溢和下溢</h2><ul id="119c8231-2a3b-403b-b89d-8f839664ee86" class="bulleted-list"><li style="list-style-type:disc">一个定型数组中的元素值存储所占用的位是规定的，例如<code>Int16Array</code> 它元素占用2两个字节</li></ul><ul id="6fba5aef-651e-468f-bb02-72765d093230" class="bulleted-list"><li style="list-style-type:disc">上溢和下溢指的就是元素值向上超过固定字节能表示的最大数，以及向下超过固定字节能表示的最小数的情况</li></ul><ul id="009527c3-0378-4da1-a4cc-1808f80148e4" class="bulleted-list"><li style="list-style-type:disc">定型数组中的元素发送上溢或下溢时<strong>不会影响</strong>其它索引中的元素值</li></ul><ul id="6b300727-6d5f-4086-bbc0-c2c1f2ff41b1" class="bulleted-list"><li style="list-style-type:disc">当在初始化，赋值或修改一个定型数组中的元素值时，就有可能发生上溢或下溢出</li></ul><ul id="504bc28f-c981-463b-903d-d0f9735bb752" class="bulleted-list"><li style="list-style-type:disc">上溢下溢的基本原则是：<strong>未溢出字节位不变，溢出的字节位被抹去</strong>，剩下字节位表示的数据由<code>ElementType</code>决定</li></ul><h3 id="ea755ff0-70e9-40d9-b3a7-3c2ecea01d24" class="">3.4.5.1 有符号整数</h3><ul id="80d81922-ed0b-4153-aed8-43fba0023b1b" class="bulleted-list"><li style="list-style-type:disc">有符号整数的上下溢唯一需要考虑的就是抹去溢出的字节位后，符号位的变化</li></ul><ul id="42952526-b5ca-4583-8709-7f8621e2aad0" class="bulleted-list"><li style="list-style-type:disc">如果符号位为1，数字识别为二进制补数形式，负数</li></ul><ul id="8b4587fc-e7d0-453e-86d0-d440b6b33565" class="bulleted-list"><li style="list-style-type:disc">如果符号位位0，则按照正常位进行识别，正数<pre id="c8ede751-fa12-4dd4-94d4-c337c8a52656" class="code code-wrap"><code>const int8Arr = new Int8Array(2); // [-128, 127]
+int8Arr[1] = 128; // 0x80 上溢
+console.log(int8Arr); // Int8Array(2) [ 0, -128 ]
+int8Arr[0] = -129; // 0x17f
+console.log(int8Arr); // Int8Array(2) [ 127, -128 ]</code></pre><ul id="9ec4999d-c86f-4b6d-81d8-08ddd6c19a67" class="bulleted-list"><li style="list-style-type:circle">128 即 0x80 第一位为1，被当成负数，按照二进制补数形式识别，取反加一变为 0x80 ，所以就是-128</li></ul><ul id="50426506-3717-4ea8-b354-f700796da545" class="bulleted-list"><li style="list-style-type:circle">-129即0x17f，去除溢出位变为0x7f，第一位为正数，按照正常为识别，就是127</li></ul></li></ul><h3 id="a5757e9d-e5b0-4ece-9d3b-85d570a58a03" class="">3.4.5.2 无符号整数</h3><ul id="b875c7c4-f497-46f9-92be-aa0d23edae87" class="bulleted-list"><li style="list-style-type:disc">无符号整数不用判断去除溢出位后的符号位变化，因为无符号整数没有符号位</li></ul><ul id="2f2706bc-8d40-4a83-be2e-2744d0102c4a" class="bulleted-list"><li style="list-style-type:disc">所以对未溢出的字节同理按照正常位进行识别即可，都是非负数<pre id="6f056464-8965-4b7c-9082-1a9d1a9cd64e" class="code code-wrap"><code>const uint8Arr = new Uint8Array(2); // [0, 255];
+uint8Arr[1] = 256; // 0x100上溢
+console.log(uint8Arr); // Uint8Array(2) [ 0, 0 ]
+uint8Arr[0] = -1; // 0x1ff 下溢
+console.log(uint8Arr); // Uint8Array(2) [ 255, 0 ]</code></pre><ul id="5b38f84d-705a-4a80-a851-b068d49d628a" class="bulleted-list"><li style="list-style-type:circle">256即0x100，抹去溢出的第一个字节，变为0x00，即0</li></ul><ul id="259387b6-56c6-47f2-baa0-2c6722a1b438" class="bulleted-list"><li style="list-style-type:circle">-1即0x1ff， 谋取溢出的第一个字节变为0xff，不用考虑符号，即255</li></ul></li></ul><h3 id="b2d76e13-6760-4d6a-80bf-592214ccf747" class="">3.4.5.3 注意</h3><ul id="03923a29-5b1d-4498-8062-38313a13bb42" class="bulleted-list"><li style="list-style-type:disc">在介绍<code>ElementType</code>时有常规的8 * 2种存储类型，以及补充的2个大数存储类型（<code>BigInt</code>和<code>BigUint</code>）<ul id="ccc2b5a7-f9df-4ac6-9735-11a6903416ca" class="bulleted-list"><li style="list-style-type:circle">这些类型中的所有整数类型都符合上溢和下溢的规则</li></ul><ul id="11cd2079-cc6c-4267-99b5-15608c250c3f" class="bulleted-list"><li style="list-style-type:circle">还有一个<code>Uint8Array</code> 的变种定型数组⇒ <code>Uint8ClampedArray</code> ,它不遵守上述的上溢和下溢规则</li></ul></li></ul><ul id="b0648b1c-0cf5-4bfe-932e-dbb037ac1da4" class="bulleted-list"><li style="list-style-type:disc"><code>Uint8ClampedArray</code>  称为“夹板”8位定型数组<ul id="1443a5eb-fa2f-4e31-bf4c-c36e788ffc92" class="bulleted-list"><li style="list-style-type:circle">与 <code>Uint8Array</code> 一样范围在<code>[0, 255]</code> </li></ul><ul id="c99941f0-a0d7-4011-a212-60acf27a7d13" class="bulleted-list"><li style="list-style-type:circle">区别在于处理上溢和下溢时不同，<code>Uint8ClampedArray</code> 将上溢的数统一替换为255，下溢的数替换为0，而非整数替换为最接近它的整数</li></ul></li></ul><ul id="5bbd0f22-3167-4094-8e46-d1da9f8b23d2" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="e64118c2-b5e3-44de-8996-74af7beb0e64" class="code code-wrap"><code>const uintClampedArr = new Uint8ClampedArray(3);
+uintClampedArr[0] = -1234; // 下溢
+uintClampedArr[1] = 5678; // 上溢
+uintClampedArr[2] = 12.5056; // 非整数
+uint8Arr[0] = 12.5056;
+console.log(uintClampedArr); // Uint8ClampedArray(3) [ 0, 255, 13 ]
+console.log(uint8Arr); // Uint8Array(2) [ 12, 0 ]</code></pre><ul id="6c29f613-a544-41ab-bbc1-9827315f8589" class="bulleted-list"><li style="list-style-type:circle">可以看到8位无符号整型数组对于12.5056的处理是取整数部分，而夹板8位无符号整型数组对12.5056进行了最接近处理，选择了13</li></ul></li></ul><ul id="d8f16c92-6b15-4925-a13d-7e86124faa70" class="bulleted-list"><li style="list-style-type:disc">关于夹板8位无符号整型数组<code>Uint8ClampedArray</code><ul id="64b38fea-b2a3-4bd7-9b8c-dfc2e0af5e44" class="bulleted-list"><li style="list-style-type:circle">RGB颜色数据的每个单色范围是<code>[0,255]</code> 刚好符合8位二进制的无符号整数</li></ul><ul id="dff9a5c7-c0a3-4040-90c6-49751e9bb13c" class="bulleted-list"><li style="list-style-type:circle">所以这两个无符号整型数组常用于处理Canvas绘图数据<ul id="b9817159-a57f-40c9-a709-bcf695cbf485" class="bulleted-list"><li style="list-style-type:square">而夹板8位无符号整型数组更特殊的使用场景是<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ImageData/ImageData"><code>ImageData</code></a> 它是Canvas的API</li></ul><ul id="1003f3ce-8dd0-4a1f-839e-591be9889dde" class="bulleted-list"><li style="list-style-type:square"><code>ImageData()</code>用于构造一个实例化的<code>ImageData</code> 对象，需要传递夹板8位无符号整型数组指定图像的每个像素，如果没有给定就指定为黑色的矩形图像</li></ul></li></ul></li></ul><ul id="bcd26f15-67c7-4f7a-b7d2-724a724480bf" class="bulleted-list"><li style="list-style-type:disc"><code>Uint8ClampedArray</code> 因为历史原因保留：<blockquote id="49f0b807-e062-4ec0-970d-d2afa969ecea" class="">”Uint8ClampedArray完全是HTML5canvas 元素的历史遗留。除非真的做跟canvas相关的开发，否则不要使用它“ —— JavaScript之父 Brendan Eich</blockquote></li></ul><p id="efc484f2-8755-42f6-81d6-94d24371d929" class="">
+</p></div></div><p id="d37d35f8-55d2-403e-9677-da19f892b888" class="">
+</p></div></article></body></html>

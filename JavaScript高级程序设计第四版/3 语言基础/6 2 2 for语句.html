@@ -1,0 +1,778 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>6.2.2 for语句</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0da98a8e-0832-4dff-9f81-4cc901cca34c" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_beige.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🖥️</span></div><h1 class="page-title">6.2.2 for语句</h1></header><div class="page-body"><p id="b939224e-53a5-49ba-9a16-2d30d2101629" class="">ECMAScript中的for语句有很多种，基础的for语句和其它语句类似，但也有自己特殊的for语句</p><h1 id="de21837a-7527-44cd-921d-d1e998206893" class="">6.2.2.a基础for语句</h1><h2 id="01202bcf-9052-4f10-b38d-87f77d258518" class="">描述</h2><ul id="5f357ae2-bd2c-4fe6-b8a2-647d97c3de8d" class="bulleted-list"><li style="list-style-type:disc">基础for语句是先测试后循环的语句，相较于while语句，for语句只是增加了<strong>进行循环前执行的初始代码</strong>以及<strong>一次循环后需要执行的表达式</strong></li></ul><h2 id="2e197dd8-b3bb-4950-8025-a68930bcea5d" class="">语法</h2><pre id="05aa8d17-f1e3-4be3-a214-d56a00a84352" class="code code-wrap"><code>for(initialization; expression; post-loop-expression) statement</code></pre><ul id="d1d227fa-97c4-46f3-bba3-0b8ccbd23674" class="bulleted-list"><li style="list-style-type:disc">initialization通常是循环需要的变量初始化声明，如<code>let i = 0</code></li></ul><ul id="9f9111a5-5f6a-472e-823d-bf10b88f9345" class="bulleted-list"><li style="list-style-type:disc">expression是循环执行的判断条件，如<code>i &lt; 10</code> </li></ul><ul id="3669709a-7924-45cb-a34f-fc638e385043" class="bulleted-list"><li style="list-style-type:disc">post-loop-expression通常是循环变量增减表达式，通常使用自增和自减一元操作符如<code>i++</code></li></ul><h2 id="a533eb2f-77e5-4ef6-89f5-dba801d7086e" class="">使用</h2><ul id="f28f01d8-0e57-4dc3-83aa-78f0d6c31791" class="bulleted-list"><li style="list-style-type:disc">实际上，能使用while语句写出的循环，都能使用for语句实现</li></ul><ul id="22555fc9-edd0-42c8-9ae9-07168b86525d" class="bulleted-list"><li style="list-style-type:disc">基础的for语句的优势在于：它规范了<strong>循环判断条件中的初始化变量</strong>，以及和<strong>循环判断条件有关的变量变化表达式设置，</strong>如下是二者<pre id="3cc8e0d4-de99-4983-a039-380c7bc11656" class="code code-wrap"><code>// while循环条件需要的初始化变量
+let idx = 0;
+while(idx &lt; 10) {
+	// dosomething
+	console.log(idx);
+	idx++; // while循环条件变量的变化表达式
+}
+
+// for循环
+for(let i = 0; i &lt; 10; i++) {
+	// dosomething
+	console.log(i);
+}</code></pre><ul id="029c5269-fbc6-43dc-aae6-006e88f9825b" class="bulleted-list"><li style="list-style-type:circle">for循环将循环条件需要的变量，循环条件，循环条件变量的变化表达式都写在一行</li></ul><ul id="ce15ab97-5314-431a-8f92-4f12e24d5781" class="bulleted-list"><li style="list-style-type:circle">如果<strong>明确循环的次数</strong>，通常使用for循环更好，因为for语句中使用let声明的初始化变量只在循环体中有用，是局部变量</li></ul></li></ul><ul id="25894329-711f-4b5d-80b1-c774b8980002" class="bulleted-list"><li style="list-style-type:disc">initialization,expression，post-loop-expression都是可以省略的，如果全部省略，会得到一个死循环<pre id="fd00ef25-080b-49ee-b6c3-bab66e72e3a5" class="code code-wrap"><code>for(;;) { // 死循环
+	doSomething();
+}</code></pre><ul id="c563ef39-864e-48b3-926b-c34232e3fe93" class="bulleted-list"><li style="list-style-type:circle">如果只包含expression,在循环体外声明循环变量，在循环体内对循环遍历进行变化，就和while循环一样了<pre id="d75a50e2-0994-4901-9cf7-9d3743b9125b" class="code code-wrap"><code>let i = 0;
+for(;i&lt;10;) {
+	// dosomething
+	i++;
+}</code></pre></li></ul></li></ul><ul id="0f1d0960-a0fc-44de-abe1-cefdeb01f6ed" class="bulleted-list"><li style="list-style-type:disc">for循环的多功能性使得其用途广泛</li></ul><h1 id="3a7156b9-e837-4ca3-9ddc-fbd01110a8d6" class="">6.2.2.b for-in语句</h1><ul id="7c358a4d-3daa-476e-a1ae-478444170338" class="toggle"><li><details open=""><summary>关于for-in语句，在Object.hasOwnProperty中对其遍历的范围有详细的解释</summary><div><ul id="b32d90ef-abce-4263-9a17-daa1c939ff8a" class="bulleted-list"><li style="list-style-type:disc"><code>hasOwnProperty(propertyName:string)</code>: 判断当前对象实例上是否存在给定的属性，被检查的属性名必须是字符串或者符号<blockquote id="33e1713a-9a72-4ef8-8915-21ec5721bbe3" class="">所有继承了Object的类都会继承hasOwnProperty方法，该方法<strong>会忽略那些从原型链上继承到的属性</strong></blockquote><ul id="87636cef-b16d-4d66-b891-3187c5797273" class="bulleted-list"><li style="list-style-type:circle">即，hasOwnProperty方法只对<strong>对象自定义的属性判断有效</strong>，使用o.valueOf()方法可以默认看到用户定义的属性</li></ul><pre id="d73ad58b-261d-447f-a76d-f0a47236d052" class="code code-wrap"><code>// hasOwnProperty只检查自定义属性，不检查来自原型链上的属性
+const o = {
+  [Symbol.isConcatSpreadable]: true,
+  length: 2,
+  0: &quot;property1&quot;,
+  1: &quot;property2&quot;,
+};
+console.log(o.hasOwnProperty(Symbol.isConcatSpreadable)); // true
+console.log(o.hasOwnProperty(0)); // true
+console.log(o.hasOwnProperty(Symbol.iterator)); // false
+console.log(o.hasOwnProperty(&quot;toString&quot;)); // false
+console.log(o.hasOwnProperty(&quot;hasOwnProperty&quot;)); // false
+
+// 打印 
+true
+true
+false 
+false // 不检查原型链上的属性
+false</code></pre><ul id="4b85cf32-3016-4be7-b3d8-312654603b6f" class="bulleted-list"><li style="list-style-type:circle">和<code>in</code>操作符不同，<code>in</code>操作符会读取到继承的可枚举属性<blockquote id="881fe05b-bb48-4ac3-9b8f-bf0803a30556" class=""><code><strong>for...in</strong></code><strong>语句</strong>以任意顺序迭代一个对象的除<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbol</a>以外的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Enumerability_and_ownership_of_properties">可枚举</a>属性，包括继承的可枚举属性。</blockquote></li></ul><pre id="3d13d684-7628-4e28-83e0-e74ac0eb56dc" class="code"><code>class O {
+  constructor(len, arr) {
+    this.length = len;
+    for (let i = 0; i &lt; len; i++) {
+      this[i] = arr[i];
+    }
+    this.odata = &quot;odata&quot;;
+  }
+  [Symbol.isConcatSpreadable] = true;
+}
+const o = new O(2, [1, 2]);
+// 原型链上的属性
+O.prototype.toOdata = () =&gt; {
+  return this.odata.toString();
+};
+// in操作符
+for (const name in o) {
+  if (o.hasOwnProperty(name)) {
+    console.log(&quot;own property:&quot;, name, o[name]);
+  } else {
+    console.log(&quot;prototype property:&quot;, name, o[name]);
+  }
+}
+// 
+own property: 0 1
+own property: 1 2
+own property: length 2
+own property: odata odata
+prototype property: toOdata [Function (anonymous)]</code></pre><p id="5a17ab31-c6b3-4eaf-8779-832ccac44c0c" class="">⇒ for in遍历了原型链上的属性和继承的可枚举的属性</p></li></ul></div></details></li></ul><h2 id="5bb4db65-b5c5-4290-ae99-35bde182f727" class="">描述</h2><blockquote id="2d2f8d4e-990a-4b1f-9db8-60acdcf60ca5" class="">for-in语句是一种严格的迭代语句，用于<strong>枚举对象中的非符号键属性</strong></blockquote><ul id="7e3e0081-56c2-495a-a4d2-cb6f67560f3f" class="bulleted-list"><li style="list-style-type:disc">准确来说，是读取对象中的<mark class="highlight-red"><strong>继承的</strong></mark><mark class="highlight-teal"><strong>可枚举</strong></mark>的<mark class="highlight-yellow">非符号</mark>属性</li></ul><h2 id="c6bedf9d-a149-41c1-b2bf-0601fbc84aed" class="">语法</h2><pre id="c1ae39d8-e802-4d2b-a381-ed4583fdf4c6" class="code code-wrap"><code>for(property in expression) statement</code></pre><ul id="6f3669f7-12e8-4ad1-9996-a108f3187e99" class="bulleted-list"><li style="list-style-type:disc"><strong>property一定是字符串类型，</strong>它是expression返回的对象中的键属性（这也能解释为何无法读取符号属性）</li></ul><ul id="5fe8b550-d6f5-4458-be64-ac4897d3136b" class="bulleted-list"><li style="list-style-type:disc">一般而言，property前会使用const声明为固定量，确保这个局部变量不被修改</li></ul><h2 id="44c8411f-25ea-4afb-bf4d-29558e2e83cb" class="">使用</h2><ol type="1" id="8aebff94-e0c0-4e5d-ba3f-322fe833ecc5" class="numbered-list" start="1"><li>可以对数组（<strong>数组本质就是使用数字索引作为键的对象</strong>）进行使用，获得每个索引值（字符串形式）<pre id="03c014d8-bffd-42ef-b221-d50a45eff180" class="code code-wrap"><code>const arr = new Array(3).fill(0).map((_v, i) =&gt; i);
+arr[Symbol.iterator] = function* () {
+  yield 1;
+  yield 2;
+  yield 3;
+};
+
+console.log(arr);
+for(const i of arr) {
+  console.log(i);
+}
+// for-of 的打印
+1
+2
+3
+
+for(const i in arr) {
+  console.log(i);
+}
+// for-in 的打印 都是字符串类型
+0
+1
+2 </code></pre><ul id="71439a57-0b50-41cc-bff7-eb455db91d59" class="bulleted-list"><li style="list-style-type:disc">可以看到，for-in是针对对象中的非符号可枚举属性，即数组定义时的3个索引</li></ul><ul id="44534edb-a7f4-4ecd-b512-a106f7bb6bb8" class="bulleted-list"><li style="list-style-type:disc">for-of遍历的是后来重新定义的迭代生成器函数返回的迭代器对象</li></ul></li></ol><ol type="1" id="3cfe3cd5-eef5-4163-bec0-f4dfd26e0fc4" class="numbered-list" start="2"><li>for-in语句不能保证对象属性的顺序：因为<strong>ECMAScript中对象的属性是无序的</strong><pre id="4cbc69e7-f465-48a8-ae62-2f57b7e41e5e" class="code code-wrap"><code>// 无序的属性
+for(const item in global) {
+  console.log(item);
+}
+// 打印 node v16.14.0的全局对象global的可枚举的属性的名称
+global
+clearInterval
+clearTimeout
+setInterval
+setTimeout
+queueMicrotask
+performance
+clearImmediate
+setImmediate</code></pre><p id="7b978d77-54ea-4e18-946a-484c39759c6c" class="">⇒ 不同node环境下可能打印出来的顺序不同</p></li></ol><ol type="1" id="3e8ec687-2f1a-4203-9b3d-2a646e7d210b" class="numbered-list" start="3"><li>对于undefined, null等不会执行循环体</li></ol><h1 id="d27c4845-cc1b-4da3-9a93-ac025c602395" class="">6.2.2.c for-of语句</h1><h2 id="60a2210e-945d-4189-9575-ce74fd95b116" class="">描述</h2><blockquote id="20768af4-75ab-4e8f-a39b-af643c86e459" class="">for-of语句是一种严格的迭代语句，用于遍历<strong>可迭代对象的元素</strong></blockquote><ul id="2ffaf1e8-d63f-475e-870b-912372a5dcb5" class="bulleted-list"><li style="list-style-type:disc">最典型的内置可迭代对象就是Array对象</li></ul><ul id="74ed57f3-b4a5-45e0-9172-ef339518c965" class="bulleted-list"><li style="list-style-type:disc">通过字面量定义的普通对象默认不是可迭代对象，除非定义Symbol.iterator<a href="%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E7%AC%A6%E5%8F%B7.html">4.Symbol.iterator</a> </li></ul><h2 id="5edeef43-adb5-4b56-b410-223a8e80718c" class="">语法</h2><pre id="99125dec-3792-41af-a252-9a9ad22881e9" class="code code-wrap"><code>for(ele of expression) statement</code></pre><h2 id="3696acf0-94cb-40a3-a312-0f3de76b3e22" class="">使用</h2><ul id="17bd51a8-a5c2-4846-b4dc-afd566a821a2" class="bulleted-list"><li style="list-style-type:disc">一般对于数组使用，遍历出数组的所有元素，使用let或const声明元素<pre id="aec7ff06-c1aa-4478-8f4b-983fd51d129c" class="code code-wrap"><code>for(const ele of [1,4,5,8,9]){
+	console.log(ele);
+}
+// 打印
+1
+4
+5
+8
+9</code></pre></li></ul><ul id="c83caa82-ed9e-4787-8d41-0e95e5b8e2f2" class="bulleted-list"><li style="list-style-type:disc">for-of的迭代是有序的，它<strong>按照迭代对象的next方法产生值的顺序迭代元素</strong></li></ul><h1 id="755dd711-0711-4a69-b06a-cf980e5769e1" class="">6.2.2.d for-await-of </h1><h2 id="2517c602-fc86-4c0c-b205-a1b343658e9f" class="">描述</h2><ul id="b4931b9a-ef6b-420b-8aed-a1ff6f65221a" class="bulleted-list"><li style="list-style-type:disc">异步迭代,ES2018规范的内容，可生成支持期约(promise)异步可迭代对象</li></ul><p id="6f403e73-68ea-46c1-8e11-84cf0e7d26a5" class="">
+</p><p id="4b6effde-487b-4d81-b68c-41bf32fa62d5" class="">
+</p></div></article></body></html>
