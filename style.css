@@ -37,3 +37,9 @@ body {
   border-bottom: 1px solid rgba(55, 53, 47, 0.16);
   text-decoration: none;
 }
+.to-do-list li ul.bulleted-list {
+  text-indent: 0;
+}
+.to-do-list li blockquote {
+  text-indent: 0;
+}

@@ -2,7 +2,7 @@
  * @Author: mangwu                                                             *
  * @File: delete32Hash.js                                                      *
  * @Date: 2023-02-03 17:09:08                                                  *
- * @LastModifiedDate: 2023-02-03 17:13:24                                      *
+ * @LastModifiedDate: 2023-02-04 00:04:42                                      *
  * @ModifiedBy: mangwu                                                         *
  * -----------------------                                                     *
  * Copyright (c) 2023 mangwu                                                   *
@@ -53,7 +53,7 @@ const deleteDfs = (path, reg) => {
           let newPath = path + "/" + file.substring(0, file.length - 33);
           fs.rename(oldPath, newPath, (err) => {
             if (!err) {
-              dfs(newPath);
+              deleteDfs(newPath, reg);
             } else {
               return console.log(`${oldPath}文件夹名称修改失败`, err.message);
             }
