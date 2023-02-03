@@ -1,0 +1,670 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>4.1Global</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="6541177d-5138-40ec-a91e-3c7ff94fec29" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_transonic_tunnel.jpg" style="object-position:center 60%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🎖️</span></div><h1 class="page-title">4.1Global</h1></header><div class="page-body"><h1 id="318fb4f0-788b-4458-bb3b-1b1682ce33da" class="">描述</h1><ul id="2ae1f46b-5cc6-4c09-a3f8-f02ae829120f" class="bulleted-list"><li style="list-style-type:disc">Global对象是ECMAScript最<strong>特殊</strong>的对象，因为代码不会<strong>显示地</strong>访问它<ul id="9bc20569-1c8f-4802-9354-8585ef185cab" class="bulleted-list"><li style="list-style-type:circle">直接在代码中打印Global会报错<code> ReferenceError: Global is not defined</code> </li></ul><ul id="7cc0b951-f6c6-4a91-a7bc-29a00bbde873" class="bulleted-list"><li style="list-style-type:circle">因为这个对象很特殊，它定义了一些方法，但是无法直接访问它</li></ul></li></ul><ul id="b98435c6-0c12-4038-ae10-b49585712d34" class="bulleted-list"><li style="list-style-type:disc">Global对象是一种<strong>兜底对象</strong><ul id="3f8f6f5c-c01a-421d-9ca5-10ee030ce5a7" class="bulleted-list"><li style="list-style-type:circle">也就是说，<strong>不属于任何对象的属性和方法</strong>默认是Global对象定义的</li></ul><ul id="fb81a766-8441-4a15-8f10-2e155c4a8d52" class="bulleted-list"><li style="list-style-type:circle">事实上，不存在全局变量或全局函数这种东西，因为所有在全局作用域中定义的函数和变量都会成为Global对象的属性</li></ul></li></ul><ul id="65b3398e-38ce-4bba-9d38-757d85cb3d99" class="bulleted-list"><li style="list-style-type:disc">前面说的isNaN(), isFinite(), parseInt(), parseFloat()实际上都是Global对象的方法<ul id="9fe7401e-e89c-4a95-8bbf-1ca84dbc9707" class="bulleted-list"><li style="list-style-type:circle">不同环境下，isNaN,isFinite等方法挂载的实际对象不同</li></ul><ul id="9b2c8c96-fdeb-4185-b249-84f423a2cbe0" class="bulleted-list"><li style="list-style-type:circle">在node中它们挂载在global对象上，<strong>global对象实际上就是node对ECMAScript中Global的实现</strong><figure id="39073cf1-3877-4568-ac24-b7c6325984dc" class="image"><a href="4%201Global%206541177d513840eca91e3c7ff94fec29/Untitled.png"><img style="width:249px" src="4%201Global%206541177d513840eca91e3c7ff94fec29/Untitled.png"/></a></figure></li></ul><ul id="d61136f3-504e-4676-ac18-1c979624b668" class="bulleted-list"><li style="list-style-type:circle">在浏览器环境中，它们挂载在window对象上，<strong>window对象实际上就是浏览器环境对ECMAScript中Global的实现</strong><figure id="b260b95e-93f0-4114-9cfb-cc0ef78b6665" class="image"><a href="4%201Global%206541177d513840eca91e3c7ff94fec29/Untitled%201.png"><img style="width:278px" src="4%201Global%206541177d513840eca91e3c7ff94fec29/Untitled%201.png"/></a></figure></li></ul></li></ul><h1 id="72b34e7d-2753-463d-a223-6ed5eccf052f" class="">Global对象上的方法</h1><h2 id="fb3d632c-1c52-4021-bf7f-c2e8e1733658" class="">1. URL编码方法</h2><h2 id="a2136cec-8bf4-49c6-8e64-e19e0b4fbe5a" class="">URI与URL</h2><figure id="64386b6f-71ee-4d46-b440-15b4f85c0589" class="link-to-page"><a href="4%201Global%206541177d513840eca91e3c7ff94fec29/URI%E4%B8%8EURL%2064386b6f71ee4d46b44015b4f85c0589.html"><span class="icon">🪅</span>URI与URL</a></figure><h3 id="84f70af4-9bfb-4642-a85a-0eae94db8cda" class="">URL编码方法</h3><figure id="22cdfd80-a659-420d-8446-872f1cb3d589" class="link-to-page"><a href="4%201Global%206541177d513840eca91e3c7ff94fec29/URL%E7%BC%96%E7%A0%81%E6%96%B9%E6%B3%95%2022cdfd80a659420d8446872f1cb3d589.html"><span class="icon">🛡️</span>URL编码方法</a></figure><h3 id="b99425fe-ccb8-4ab8-bb3d-9fca6a58ef96" class="">URL解码方法</h3><figure id="1ec02c2f-aad7-4e34-acc8-0bdd4bec5546" class="link-to-page"><a href="4%201Global%206541177d513840eca91e3c7ff94fec29/URL%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95%201ec02c2faad74e34acc80bdd4bec5546.html"><span class="icon">⚖️</span>URL解码方法</a></figure><h3 id="b815b11b-989c-496a-a0b9-de47a7d44aff" class="">废弃的方案</h3><ul id="1f6c6b3e-759e-4d9b-9ef7-1c1715d74f25" class="bulleted-list"><li style="list-style-type:disc">ECMAScript-262 第三版中使用的escape()和unescape()方法是旧标准中的编码和解码</li></ul><ul id="d31372e3-9888-48dd-8e38-f79891d7f5e9" class="bulleted-list"><li style="list-style-type:disc">因为只能正确编码ASCII字符，现在已经废弃，不要再使用，也不必了解</li></ul><h2 id="11a9a645-7a3d-4e91-81ad-e683fd583f7c" class="">2. eval()</h2><figure id="f77a93eb-49b6-4ef0-95bd-50e68a490d7f" class="link-to-page"><a href="4%201Global%206541177d513840eca91e3c7ff94fec29/eval()%20f77a93eb49b64ef095bd50e68a490d7f.html"><span class="icon">🔊</span>eval()</a></figure><h1 id="a9220959-85bb-4ac5-a5cc-71f99eb143b8" class="">Global对象属性</h1><ul id="865b142f-d63e-4f91-91ac-e890baaaaa54" class="bulleted-list"><li style="list-style-type:disc">所有原生引用类型构造函数，包括之前提过的Boolean,String，Number都是Global对象的属性<table id="1d6b9b87-20ac-4d10-8866-c4613c064111" class="simple-table"><tbody><tr id="3b91930f-dc13-4718-aa78-e8d09f0a1a91"><td id="l&lt;LL" class="" style="width:191px">属性</td><td id="=SUA" class="" style="width:373px">说明</td></tr><tr id="5a9f8c53-d9df-4b1f-bd3a-d86e41c5291c"><td id="l&lt;LL" class="" style="width:191px">undefined</td><td id="=SUA" class="" style="width:373px">特殊值undefined</td></tr><tr id="34ee9d46-f6e9-4ea7-b950-4b6cea3aecda"><td id="l&lt;LL" class="" style="width:191px">NaN</td><td id="=SUA" class="" style="width:373px">特殊值NaN</td></tr><tr id="96c0998d-bfad-4b08-a8ea-f61d4f5a4b2c"><td id="l&lt;LL" class="" style="width:191px">Infinity</td><td id="=SUA" class="" style="width:373px">特殊值Infinity</td></tr><tr id="863fbbf2-233f-48b2-b10a-c3a27e9b901f"><td id="l&lt;LL" class="" style="width:191px">Object</td><td id="=SUA" class="" style="width:373px">Object的构造函数</td></tr><tr id="c334dc6a-1028-4321-9dae-c1d892d54ec5"><td id="l&lt;LL" class="" style="width:191px">Array</td><td id="=SUA" class="" style="width:373px">Array的构造函数</td></tr><tr id="0db5b269-4d29-453c-88e3-f510a120b5f5"><td id="l&lt;LL" class="" style="width:191px">Function</td><td id="=SUA" class="" style="width:373px">Function的构造函数</td></tr><tr id="b84dd49f-48d7-440d-b823-51ad45da46fd"><td id="l&lt;LL" class="" style="width:191px">Boolean</td><td id="=SUA" class="" style="width:373px">Boolean的构造函数</td></tr><tr id="5a3aacc6-c932-42b4-a9e3-d3dd94be8190"><td id="l&lt;LL" class="" style="width:191px">String</td><td id="=SUA" class="" style="width:373px">String的构造函数</td></tr><tr id="1c83fd67-1693-42da-b362-f45ad92f4857"><td id="l&lt;LL" class="" style="width:191px">Number</td><td id="=SUA" class="" style="width:373px">Number的构造函数</td></tr><tr id="82fcf3cc-59dc-4fe1-b239-96b7c0f80601"><td id="l&lt;LL" class="" style="width:191px">Date</td><td id="=SUA" class="" style="width:373px">Date的构造函数</td></tr><tr id="4441c01f-6cc0-4516-9d42-daf6053ecf68"><td id="l&lt;LL" class="" style="width:191px">RegExp</td><td id="=SUA" class="" style="width:373px">RegExp的构造函数</td></tr><tr id="e7493ccb-c34b-4530-a071-d45db37002c8"><td id="l&lt;LL" class="" style="width:191px">Symbol</td><td id="=SUA" class="" style="width:373px">Symbol的<strong>伪构造函数</strong></td></tr><tr id="67fa8b5c-d635-42c1-931f-aa5b6a372c19"><td id="l&lt;LL" class="" style="width:191px">Error</td><td id="=SUA" class="" style="width:373px">Error的构造函数</td></tr><tr id="ed88d357-21de-4687-8eb1-8ce147b97119"><td id="l&lt;LL" class="" style="width:191px">EvalError</td><td id="=SUA" class="" style="width:373px">EvalError的构造函数</td></tr><tr id="2922f51f-f02f-4569-883d-928e20282f04"><td id="l&lt;LL" class="" style="width:191px">RangeError</td><td id="=SUA" class="" style="width:373px">RangeError的构造函数</td></tr><tr id="d638979e-9155-4570-ad90-6e95e9a92e2f"><td id="l&lt;LL" class="" style="width:191px">ReferenceError</td><td id="=SUA" class="" style="width:373px">ReferenceError的构造函数</td></tr><tr id="6a4f97b6-448c-40ad-909e-c61833078b1f"><td id="l&lt;LL" class="" style="width:191px">SyntaxError</td><td id="=SUA" class="" style="width:373px">SyntaxError的构造函数</td></tr><tr id="6c5b5132-6e83-4945-a194-906b0b75da46"><td id="l&lt;LL" class="" style="width:191px">TypeError</td><td id="=SUA" class="" style="width:373px">TypeError的构造函数</td></tr><tr id="832f77ce-8ae3-4b47-bdf1-3f07f3de8e0d"><td id="l&lt;LL" class="" style="width:191px">URIError</td><td id="=SUA" class="" style="width:373px">URIError的构造函数</td></tr></tbody></table></li></ul><h1 id="4fc83736-49bb-49ab-800b-5ca306cefb77" class="">window对象</h1><figure id="498fcb61-d0a9-4a75-8dd8-adffca18594e" class="link-to-page"><a href="4%201Global%206541177d513840eca91e3c7ff94fec29/window%20498fcb61d0a94a758dd8adffca18594e.html"><span class="icon">🧩</span>window</a></figure><p id="dd9a8ff0-ed76-4ad1-8bcc-9ec3ac6f7920" class="">
+</p></div></article></body></html>

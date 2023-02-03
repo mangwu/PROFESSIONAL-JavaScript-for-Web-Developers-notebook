@@ -1,0 +1,689 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>5. history对象</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="731f7ca5-89c6-43b5-a678-0da2b6efba16" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_earth_grid.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">👢</span></div><h1 class="page-title">5. history对象</h1></header><div class="page-body"><p id="8cd7ae5c-439c-4aa4-affd-7e1cca47bc27" class=""><code>history</code> 对象用于记录当前窗口（tab页，iframe等）首次使用以来用户的导航页面（<strong>navigation history</strong>）<div class="indented"><p id="037a4fbc-4efe-4670-8508-4456dc1f7abe" class=""><code>history</code> 是<code>window</code> 的属性，每个窗口（<code>window</code>）都有自己的<code>history</code>对象</p><p id="f34bfbb2-6fd6-4f8c-9007-f839f4db75b5" class="">出于安全考虑，这个对象<strong>不会</strong>暴露用户访问过的URL，但是通过它在不知道实际URL的情况下前进和后退</p></div></p><div id="17ac421c-3194-4fae-a53b-0b4ce3beffce" class="column-list"><div id="659b36ec-9bf6-4258-a544-755e289e99aa" style="width:12.5%" class="column"><nav id="9c54d4a6-e0ef-4ec3-966f-cae469aea289" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#676e22f6-8ec5-4fc8-8470-d3337cef6daa">5.0 HTML5标准下History接口</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bb72c18f-0332-444e-9097-51f9294ddde4">5.0.1 接口</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#27623239-a7f9-481c-b03a-63816a77300e">5.0.2 pushState与replaceState()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#87226ca0-0197-4ee1-ad2c-3b62fb2e8e15">5.0.2.1 参数</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#bd06a558-44e6-4e0a-bca9-10ab0b50cb7d">5.0.2.2 URL</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6d4a962c-97fb-4ce5-beac-b4adb4948f3e">5.0.2.3 例子</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8d31f150-5b4f-4b1d-ac27-1ced99498d36">5.1 JavaScript高级程序设计4</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#622eefd1-a9fa-4584-9cf5-d61fef064949">5.1.1 导航</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#24db8ebc-cacb-4baa-b9b4-18bc55225b90">5.1.2 历史状态管理</a></div></nav><p id="e6b764b2-4ecb-4630-826b-1a6ebb3889be" class="">
+</p></div><div id="bcf2cffb-8ebd-470b-b14d-aae55246ffc6" style="width:87.5%" class="column"><h1 id="676e22f6-8ec5-4fc8-8470-d3337cef6daa" class="">5.0 HTML5标准下History接口</h1><ul id="517cbb05-cee0-4757-bf61-6de3d91808ef" class="bulleted-list"><li style="list-style-type:disc">HTML Standard定义了<a href="https://html.spec.whatwg.org/multipage/history.html#the-history-interface"># the-history-interface</a> 接口，这是现代浏览器实现的基础</li></ul><h2 id="bb72c18f-0332-444e-9097-51f9294ddde4" class="">5.0.1 接口</h2><pre id="c47cca76-9c60-4160-a934-bf25d8b85603" class="code code-wrap"><code>enum ScrollRestoration { &quot;auto&quot;, &quot;manual&quot; };
+[Exposed=Window]
+interface History {
+	readonly attribute unsigned long length;
+	attribute ScrollResoration scrollResoration;
+	readonly attribute any state;
+	undefined go(optional long delata = 0);
+	undefined back();
+	undefined forward();
+	undefined pushState(any data, DOMString unused, optional USVString? url = null);
+	undefined replaceState(any data, DOMString unused, optional USVString? url = null);
+}</code></pre><ul id="76d9c1a4-d3c6-4b68-868b-ed00ec81c208" class="bulleted-list"><li style="list-style-type:disc">这里定义了一个枚举类型<code>ScrollRestoration</code> ，表示以它为类型的值只能是”auto”或”manual”</li></ul><ul id="686c746c-857a-481f-a984-e56a9977cc22" class="bulleted-list"><li style="list-style-type:disc"><code>any</code> 表示属性的类型没有限制（可以是任何类型值）</li></ul><ul id="f28edcf0-a248-4764-a22d-e7075ce16103" class="bulleted-list"><li style="list-style-type:disc"><code>optional</code> 表示参数可选</li></ul><ul id="678a872b-a04a-45e0-a668-ca1420597889" class="bulleted-list"><li style="list-style-type:disc"><code>USVString</code> 代表所有可用<code>unicode</code><strong>标量序列</strong>的集合，关于DOMString，USVString，CSSDOMString以及BinaryString可以查看<a href="https://www.notion.so/9-JavaScript-String-e5d7b667f08e4f90ac1f6cefbdb42ad9"><span class="icon">🎍</span>9. JavaScript中的字符串（String）</a> </li></ul><table id="aef28475-d5db-4125-82a2-cac6d4bce413" class="simple-table"><tbody><tr id="885f8ddd-0db3-4079-851c-92dc3223c2b0"><td id="xm:A" class="">属性/方法</td><td id="qYg\" class="" style="width:666.9852905273438px">描述</td></tr><tr id="9c81b117-6f13-4410-88a7-cb6c46b76c87"><td id="xm:A" class="">length</td><td id="qYg\" class="" style="width:666.9852905273438px">返回一个整数值，表示<strong>会话历史</strong>（<strong>session history</strong>）中元素的数量，包括当前加载页面，所以最小值为1</td></tr><tr id="1de239d3-4458-46ae-b6ad-3163224e8bfb"><td id="xm:A" class="">scrollResoration</td><td id="qYg\" class="" style="width:666.9852905273438px">一个枚举类型的属性，它只有”auto”和”manual”两个值，它允许web应用程序明确设置历史导航的<strong>默认滚动恢复行为（default scroll restoration behavior）</strong>。默认情况下这个属性值就是”auto”，它保证浏览器会记住当前用户滚动到的位置，刷新后仍然在记录的位置；如果设置为“manual”，那么浏览器不会记录当前页面滚动到的位置，刷新后页面将会变成初始状态</td></tr><tr id="627628be-1704-41a2-8351-4ecaef23252a"><td id="xm:A" class="">state</td><td id="qYg\" class="" style="width:666.9852905273438px">返回表示历史堆栈顶部状态的值，这是一种不用等待<code>popstate</code> 事件就能查看状态的方法，在未进行使用pushState()和repalceState()方法前，这个属性的值为<code>null</code> </td></tr><tr id="6fdcc1dc-f3c9-458d-9299-017727643854"><td id="xm:A" class="">go()</td><td id="qYg\" class="" style="width:666.9852905273438px">从会话历史中加载特定的页面，可以使用它根据参数值在历史记录中向前或向后移动，这是一个<strong>异步方法；</strong>可以传递一个<code>delta</code> 参数（不传递默认为0），它表示相对于当前页面，想要移动到的页面历史位置，负值表示向后移动，正值表示向前移动，例如<code>history.go(2)</code> 表示前进两个页面，传递0则相当于调用<code>location.reload()</code> ,传递-2表示后退两个页面，如果给出的值<strong>超过了能移动范围</strong>，则不会进行任何操作</td></tr><tr id="b1a93190-5fb7-42c9-bf4a-7f7c762380bd"><td id="xm:A" class="">back()</td><td id="qYg\" class="" style="width:666.9852905273438px">异步函数，让当前页面在历史会话上向后移动一个页面，它和go(-1)效果一样，也相当于浏览器地址栏左边的后退按钮</td></tr><tr id="661a48aa-9653-41e6-ad60-3236e5beb3ce"><td id="xm:A" class="">forward()</td><td id="qYg\" class="" style="width:666.9852905273438px">异步函数，让当前页面在历史会话上向前移动一个页面，它和go(1)效果一样也相当于浏览器地址栏左边的前进按钮</td></tr><tr id="5c4fc545-f939-4bd4-a35a-31022c3a9f51"><td id="xm:A" class="">pushState()</td><td id="qYg\" class="" style="width:666.9852905273438px">在HTML文档中，调用该方法会在浏览器的会话历史栈中添加一条记录（状态），</td></tr><tr id="355d3601-568b-488a-96e4-bdc45c55af9b"><td id="xm:A" class="">replaceState()</td><td id="qYg\" class="" style="width:666.9852905273438px">修改当前<strong>历史记录项</strong>（<strong>history entry</strong>），将其替换为方法参数中传递的状态对象和URL。当想更新当前的state对象或者当前<strong>历史记录项</strong>的URL以响应用户操作时，这个方法特别有用</td></tr></tbody></table><h2 id="27623239-a7f9-481c-b03a-63816a77300e" class="">5.0.2 pushState与replaceState()</h2><h3 id="87226ca0-0197-4ee1-ad2c-3b62fb2e8e15" class="">5.0.2.1 参数</h3><ul id="832f7ba4-460d-4368-9efb-928fc419d806" class="bulleted-list"><li style="list-style-type:disc">二者都用来修改历史会话中的状态，都可以接收三个参数</li></ul><pre id="77b9f796-c04c-4561-ad2c-c7394bb5a331" class="code"><code>history.pushState(state, title[, url]);</code></pre><pre id="6b269dbb-ac03-422a-a49f-31dfe78016a4" class="code"><code>history.replaceState(state, unused[, url]);</code></pre><ul id="9ea6e9aa-825c-497d-b406-8cb358697183" class="bulleted-list"><li style="list-style-type:disc">第一个参数：<code>state</code><ul id="ec4e1006-fd85-4ce9-9ae9-be245a1c1d9e" class="bulleted-list"><li style="list-style-type:circle">状态对象是一个JavaScript对象，它与<code>pushState()</code> 创建的新历史记录条目相关联；每当用户导航到新状态时，都是触发<code>popstate</code> 事件，并且该事件的状态属性包含历史记录条目的状态对象副本</li></ul><ul id="2c328336-dbbf-4c69-8dcb-b974a6a6a183" class="bulleted-list"><li style="list-style-type:circle">状态对象<strong>可以是任何可序列化的对象</strong>。</li></ul><ul id="ab05073e-69c1-4666-ac54-9bae97e344ef" class="bulleted-list"><li style="list-style-type:circle">Firefox对状态对象序列化表示施加了2MiB的大小限制，如果将序列化后大于2MiB的的状态传递给pushState()会引起异常</li></ul></li></ul><ul id="38cc949c-79c5-46b3-9429-b7d03b33b7a3" class="bulleted-list"><li style="list-style-type:disc">第二个参数：<code>title</code>/<code>unused</code><ul id="54380ab3-8b77-4a1c-9738-551692afd4cd" class="bulleted-list"><li style="list-style-type:circle"><code>title</code> 被当前大多数浏览器都忽略，它用于为要添加的状态传递简短的标题</li></ul><ul id="fdcef625-7842-4ad8-ab85-353eea0808e9" class="bulleted-list"><li style="list-style-type:circle"><code>unused</code> 传递空值，由于历史原因需要传递，这个值没有用处，只是为了兼容性</li></ul></li></ul><ul id="29188708-832f-4e8c-aa1b-c4a338652a84" class="bulleted-list"><li style="list-style-type:disc">第三个参数：<code>url</code> 可选<ul id="3d51a243-fda3-47b4-820c-bcd3c550ee57" class="bulleted-list"><li style="list-style-type:circle">历史记录项（history entry）的URL，必须和当前页面的URL同源</li></ul><ul id="c2c172a0-d7d8-4bc4-b9c9-b6d98283d151" class="bulleted-list"><li style="list-style-type:circle">注意调用pushState()或replaceState()后，不会尝试加载此URL，可能会在之后尝试（如重写加载页面）</li></ul><ul id="6a44dd0a-d317-4f46-92e7-171d896fd437" class="bulleted-list"><li style="list-style-type:circle">URL不一定是绝对，可以是相对的，如果不传递这个参数，则当前URL不会改变</li></ul></li></ul><h3 id="bd06a558-44e6-4e0a-bca9-10ab0b50cb7d" class="">5.0.2.2 URL</h3><ul id="b6c535d6-fad4-4289-a85f-c51969094973" class="bulleted-list"><li style="list-style-type:disc">从某种程度来说，调用<code>pushState()</code>和<code>window.location = &quot;#foo&quot;</code> 基本上一样，它们都会在当前document中创建和激活一个新的历史记录。但是<code>pushState()</code> 有以下优势<ul id="636a46a6-98ad-40a3-99ff-8d48209c7ff6" class="bulleted-list"><li style="list-style-type:circle">新的URL可以是任何和当前URL同源的URL，但是设置<code>window.location</code>只会在你设置锚时才会使用当前URL</li></ul><ul id="4072123a-7784-43ff-ad73-1e7085805aa7" class="bulleted-list"><li style="list-style-type:circle">非强制修改URL，相反设置<code>window.location=&quot;#foo&quot;</code> 仅仅会在当前锚的值不是<code>&quot;#foo&quot;</code> 时才创建一个新的历史记录项</li></ul><ul id="3986bc74-2cd5-4397-bef0-c960292d65b4" class="bulleted-list"><li style="list-style-type:circle">可以在新的历史记录中关联任何数据。<code>window.location = &quot;#foo&quot;</code> 形式的操作，只能将所需数据写入锚的字符串中</li></ul></li></ul><ul id="feef816c-af18-4eb9-b46b-6382cb897398" class="bulleted-list"><li style="list-style-type:disc"><code>pushState()</code> 不会触发hashchange事件，即使新的URL和之前URL只是锚数据不同</li></ul><h3 id="6d4a962c-97fb-4ce5-beac-b4adb4948f3e" class="">5.0.2.3 例子</h3><ul id="bdc17a5e-4b4d-4f36-a17e-7a6c6f416bff" class="bulleted-list"><li style="list-style-type:disc">初始URL：<code>https://www.example.org/foo.html</code> ，执行如下语句<pre id="79a2da9b-53d4-4832-a9d9-d9e113d26435" class="code"><code>const stateObj = { foo: &quot;bar&quot; };
+history.pushState(stateObj, &#x27;&#x27;, &#x27;bar.html&#x27;);</code></pre></li></ul><ul id="c1d9c55c-cc31-4875-881c-c1dca9b222c0" class="bulleted-list"><li style="list-style-type:disc">URL变成了：<code>https://www.example.org/bar.html</code> ,状态（history.state）变成了<code>{ foo: &quot;bar&quot; }</code> ，但是页面没有变化</li></ul><ul id="d3f4d164-48dd-4db6-9ce7-fcd2b9d22cd6" class="bulleted-list"><li style="list-style-type:disc">继续执行如下语句<pre id="0d0d041a-a739-459a-b2c2-18bee25a3f3c" class="code"><code>history.replaceState(stateObj, &#x27;&#x27;, &#x27;bar2.html&#x27;);</code></pre></li></ul><ul id="95bcb376-3ac8-4d42-887c-64662408a0e8" class="bulleted-list"><li style="list-style-type:disc">URL变成了：<code>https://www.example.org/bar2.html</code> ,状态（history.state）变成了<code>{ foo: &quot;bar&quot; }</code> ，但是页面没有变化</li></ul><ul id="e0a69779-f6bb-4cbf-b94b-3ffa98f24a61" class="bulleted-list"><li style="list-style-type:disc">现在在地址栏输入<a href="https://www.microsoft.com/">https://www.microsoft.com</a>导航到微软首页，然后点击旁边的后退按钮，URL显示为<code>https://www.example.org/bar2.html</code>，页面加载成example的页面；如果再次点击后退按钮，URL显示为<code>https://www.example.org/foo.html</code> ，直接绕开了<code>bar.html</code> ，这就是使用<code>replaceState()</code> 的效果</li></ul><h1 id="8d31f150-5b4f-4b1d-ac27-1ced99498d36" class="">5.1 JavaScript高级程序设计4</h1><h2 id="622eefd1-a9fa-4584-9cf5-d61fef064949" class="">5.1.1 导航</h2><ul id="0c670b0b-edc1-48bd-a9e1-00fb869a4b60" class="bulleted-list"><li style="list-style-type:disc">本节讲解一些使用history的go，back，forward方法进行导航的方式，上面已经介绍过</li></ul><ul id="74c491a5-5325-4159-a27e-19a3678938f8" class="bulleted-list"><li style="list-style-type:disc">值得注意的是<ul id="0330e7d1-0fef-426e-8c9e-8eedef1ced3c" class="bulleted-list"><li style="list-style-type:circle">在旧版本的浏览器中，<code>go()</code> 方法的参数也可以是一个字符串，在这种情况下，会导航到历史中包含该字符串的第一个位置，最接近的位置可能涉及后退，也可能涉及前进，如果历史记录中没有匹配的项，那么这个方法什么都不会做</li></ul><ul id="397d8248-2d03-481c-b3ee-1c616bf10c60" class="bulleted-list"><li style="list-style-type:circle">如果URL发生变化，则会在历史记录中生成一个新条目，对于2009年以来发布的主流浏览器，这包括改变URL的散列值（因此，把location.hash设置为一个新值会在这些主流浏览器的历史记录中增加一条新记录），这个行为被<strong>单页应用程序框架</strong>用来模拟前进和后退，这样做是为了不会因为导航而触发页面刷新</li></ul></li></ul><h2 id="24db8ebc-cacb-4baa-b9b4-18bc55225b90" class="">5.1.2 历史状态管理</h2><ul id="652b3d74-2b0f-41d0-a973-14e807006882" class="bulleted-list"><li style="list-style-type:disc">现代web应用程序开发最难的环节之一就是<strong>历史记录管理（history management）</strong></li></ul><ul id="521887f4-067c-456d-a218-5168d7e3a9f4" class="bulleted-list"><li style="list-style-type:disc">用户每次点击都会触发页面刷新的时代已经过去，”后退“和”前进“按钮对用户来说就代表”帮我切换一个状态“的历史也随之结束了</li></ul><ul id="f7b5a6ba-15c1-4c61-bcdf-f912f87cc016" class="bulleted-list"><li style="list-style-type:disc">为了解决这个问题，首先出现的就是hashchange事件，HTML5也为history对象增加了方便状态管理特性（pushState, replaceState）</li></ul><hr id="d0943a48-3ebe-4dbe-b821-67e0296991e2"/><ul id="3b5b6e28-8665-41e9-8739-50519a0b4d96" class="bulleted-list"><li style="list-style-type:disc">hashchange会在页面URL的散列变化时被触发，开发者可以在此时执行某些操作</li></ul><ul id="db4ed2a3-820f-46a8-befd-00f4c0720ff9" class="bulleted-list"><li style="list-style-type:disc">而状态管理API则可以让开发者改变浏览器URL当不会加载新页面<ul id="40d801ca-f08a-46bf-b26a-2b77b7e80ba2" class="bulleted-list"><li style="list-style-type:circle"><code>history.pushState()</code> 它接收三个参数，<code>state</code> ，<code>title</code> ，可选的<code>URL</code> <pre id="1d3ec908-d6fe-4fd1-9bcb-736c0aae640f" class="code"><code>let stateObj = {foo: &quot;bar&quot;};
+history.pushState(stateObj, &quot;My title&quot;, &quot;baz.html&quot;);</code></pre><ul id="ceeb3c84-28c0-4348-8ced-1917c41001a8" class="bulleted-list"><li style="list-style-type:square">pushState()方法执行后，状态信息被推到历史记录中，浏览器地址也会改变以反映新的相对URL</li></ul><ul id="17f90e22-d384-4cdb-8a99-572bad19bb6e" class="bulleted-list"><li style="list-style-type:square">除此之外，<code>location.href</code> 返回的是地址栏中的内容，浏览器页面不会向服务器发送请求</li></ul><ul id="6c73a202-dc61-4e59-9b65-31014a61b533" class="bulleted-list"><li style="list-style-type:square">第一个参数应该包含正确初始化页面状态所必需的信息，为防止滥用，这个状态的对象大小是有限制的，通常在500KB~1MB以内</li></ul></li></ul><ul id="d14472e0-c433-49e8-8df4-1bf5a1160c47" class="bulleted-list"><li style="list-style-type:circle"><code>popstate</code>事件，该事件是在当前状态（<code>history.state</code>）发生变化时触发，如上面<code>pushState</code> 后，点击回退按钮，就会触发window对象上的<code>popstate</code> 事件，该事件对象上有一个<code>state</code>属性，其值就是当前状态<pre id="e10e4e4d-3e23-458c-94c2-cd2e646e8aef" class="code"><code>window.addEventListener(&quot;popstate&quot;, (event) =&gt; {
+	let state = event.state;
+	console.log(state);
+})</code></pre></li></ul><ul id="401de283-c7b4-4d66-9061-1f5dfa93d20b" class="bulleted-list"><li style="list-style-type:circle">使用<code>history.replaceState()</code> 来更新状态，更新状态不会创建新历史记录，只会覆盖当前状态，其参数和<code>pushState()</code> 一样<pre id="99477596-9f35-4c2a-ba6d-30552a5c1ddc" class="code"><code>let stateObj = {foo: &quot;bar&quot;};
+history.replaceState(stateObj, &quot;&quot;, &quot;bar.html&quot;);</code></pre><ul id="44ca8159-6712-4df1-a9c0-365b9ca54c89" class="bulleted-list"><li style="list-style-type:square">传给<code>pushState()</code> 和<code>replaceState()</code> 的<code>state</code> 对象应该只包含可以被序列化的信息，因此DOM元素之类的并不适合放入状态对象中</li></ul></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="5d406944-c725-41c5-8c68-6aefdf30493c"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：使用HTML5管理状态时，要确保通过<code>pushState()</code> 创建的每个”假“的URL背后都对应着一个服务器上真实的URL，否则单机”刷新“按钮会导致404错误，所有单页应用程序（SPA）框架都必须通过服务器或客户端的某些配置解决这个问题</div></figure><p id="4fc4b7ad-11ee-49d0-8b24-1ce663c5237d" class="">
+</p></li></ul></div></div><p id="f11cf1f8-493e-48f2-9b1d-f22f2741c3b4" class="">
+</p></div></article></body></html>

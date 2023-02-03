@@ -1,0 +1,894 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3. MutationObserver接口</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="74c5d8a6-6437-4b63-882e-da30752c2cd1" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/woodcuts_5.jpg" style="object-position:center 100%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🪃</span></div><h1 class="page-title">3. MutationObserver接口</h1></header><div class="page-body"><p id="deb22640-bfc1-459d-b441-3be3a13251fb" class="">MutationObserver接口实现了可以在DOM被修改时<strong>异步执行回调</strong></p><p id="fee347fc-4158-474f-a3ef-435f6bb4b783" class="">使用MutationObserver可以<strong>观察</strong>整个文档、DOM树的一部分、或某个元素，此外还可以观察元素属性、子节点、文本或者前三者的<strong>任意组合变化</strong></p><p id="d74378db-5273-48d6-9e9c-580f14adba88" class=""><strong>Mutation</strong>在英语中意为突变，在前端领域，它常被指为 <strong>DOM 元素所经历的变化</strong>或 渲染DOM元素的 <strong>状态的变化</strong></p><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="5d4ed01a-f4e6-47fa-b060-4d007dcc0def"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：MutaionObserver接口的引入是为了取代废弃的MutationEvent</div></figure><div id="15c3cbe2-3958-4eca-bb75-c870cbe93f3d" class="column-list"><div id="7be77b76-40e1-4f37-b5d4-dacd9633f519" style="width:18.75%" class="column"><nav id="b20ce80f-ac50-4a0e-98b6-64222da06a22" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b637e58e-8ca5-43cb-9806-42358962707a">3.0 MutationObserver接口规范</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#461fe270-61d2-451b-9c4a-46a20aa3ffee">3.1 基本用法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e76b14c3-c4b7-40ba-b297-ad0270d12ce3">3.1.1 observe()方法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#37761023-9920-458c-a655-ba6f56257751">3.1.2 回调与MutationRecord</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ea3bcce5-8985-4194-bc83-efaf72d7fcbe">3.1.3 disconnect()方法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#22737abb-1a3e-4d74-b901-05ef16ae0f3a">3.1.4 复用MutationObserver（Multiplexing a MuatationObserver）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f445a238-0b7b-4559-85cd-f8250cbf2e63">3.1.5 重用MutationObserver（Reusing a MutationObserver）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a20322ac-5a5d-414e-85a6-0819b03abd67">3.2 MutationObserverInit与观察范围（Controlling the Observer scope with MutationObserverInit）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#32d51b07-daa7-434c-a2cc-404d022ca159">3.2.1 观察属性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5e669da9-94a7-4e69-922f-5d51d67eb18b">3.2.2 观察字符数据</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#78055929-c745-422a-9fb0-119fa37c8e14">3.2.3 观察子节点</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7d069d70-03ca-45de-8faa-165e29ac8cc3">3.2.4 观察子树</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#38197e37-48c7-4f2a-894a-db9b9ea15041">3.3 异步回调与记录队列（Async Callbacks and Record Queue）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ffb74362-7024-4eb4-801f-03969127c444">3.3.1 记录队列的行为</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c5ccb941-4251-440a-b9f9-719a32bc4bbf">3.3.2 takeRecords()方法</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f0537b46-64b2-48fb-8fc3-c0b284eaa769">3.4 性能、内存与垃圾回收（<strong>Performance, Memory, and Garbage Collection</strong>）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#522d2610-5c0f-4a6b-809b-dd79f95af982">3.4.1 MutationObserver的引用（<strong>References</strong>）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#90724117-f837-4e64-9259-8fbc3842df12">3.4.2 MutationRecord的引用（<strong>References</strong>）</a></div></nav><p id="c070d1b8-c394-49ab-84bf-2ac81673e56f" class="">
+</p></div><div id="43114f72-fc3f-4fd7-a5c0-e6736a8aaaff" style="width:81.25%" class="column"><h1 id="b637e58e-8ca5-43cb-9806-42358962707a" class="">3.0 MutationObserver接口规范</h1><ul id="eca029d5-5552-41d2-a93d-d27d389a8f98" class="bulleted-list"><li style="list-style-type:disc">DOM Standard规范定义了 <a href="https://dom.spec.whatwg.org/#interface-mutationobserver">MutationObserver</a> 接口，如下<pre id="870bbd2d-d06b-43fd-9ea1-93b19774af19" class="code code-wrap"><code>[Exposed=Window]
+interface MutationObserver {
+  constructor(MutationCallback callback);
+
+  undefined observe(Node target, optional MutationObserverInit options = {});
+  undefined disconnect();
+  sequence&lt;MutationRecord&gt; takeRecords();
+};
+
+callback MutationCallback = undefined (sequence&lt;MutationRecord&gt; mutations, MutationObserver observer);
+
+dictionary MutationObserverInit {
+  boolean childList = false;
+  boolean attributes;
+  boolean characterData;
+  boolean subtree = false;
+  boolean attributeOldValue;
+  boolean characterDataOldValue;
+  sequence&lt;DOMString&gt; attributeFilter;
+};</code></pre></li></ul><ul id="8f171134-d03e-40a7-a36e-b09391335d32" class="bulleted-list"><li style="list-style-type:disc">一个<code>MutationObserver</code>对象可以用来观察DOM树上所有节点的<strong>变化</strong>（<strong>mutation</strong>）</li></ul><ul id="8d22a404-56cd-46ce-a0fe-eaa4305573f4" class="bulleted-list"><li style="list-style-type:disc">每个<code>MutationObserver</code> 对象都有以下相关概念<ul id="4668b59c-9ade-4f30-8f76-f0632a103a0c" class="bulleted-list"><li style="list-style-type:circle">创建时设置的<strong>回调函数（callback）</strong></li></ul><ul id="62b4339a-e589-4456-bde1-c2cba1f72ca2" class="bulleted-list"><li style="list-style-type:circle">一个<strong>节点列表</strong>(<strong>node list</strong>，节点的列表)，初始为空。</li></ul><ul id="b6c514d3-467f-45dc-a92e-71f423afde31" class="bulleted-list"><li style="list-style-type:circle">一个<strong>记录队列</strong>(由零个或多个<code>MutationRecord</code>对象组成的队列)，最初是空的。</li></ul></li></ul><ul id="35c324d2-6f93-4c3a-a43d-1032d6c1d540" class="bulleted-list"><li style="list-style-type:disc">对网页开发者而言，非规范化的用法解释如下<ul id="5b7d96b4-d247-419e-8c80-2b1e59009c6f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>observer = new MutationObserver(callback)</code> </span><p id="a0b7d0cf-e96e-4c41-b90b-25b3410e102a" class="">构造一个<code>MutationObjserver</code>对象并设置其回调函数为<code>callback</code> ；调用回调时，<code>MutationRecord</code> 对象列表作为第一个（回调函数的）参数，构造的<code>MutationObserver</code> 对象作为第二个参数；在<code>observer()</code> 方法<strong>注册的节点</strong>发生<strong>变化</strong>（<strong>mutation</strong>）后调用它（回调函数）</p></li></ul><ul id="357f3b81-f9f2-41d4-8735-3767f827ef36" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>observer.observer(target, options)</code> </span><p id="78a1a702-b5b7-4a97-aaa6-d442d909225e" class="">注册节点，其具体职能为 指定用户代理需要<strong>观察</strong>(<strong>observe</strong>)的目标（<strong>target，</strong>节点），并根据选项（<strong>options，</strong>一个对象）给出报告任何<strong>变化</strong>（<strong>mutation</strong>）的标准。</p><p id="8106479a-cd5d-4954-a8ec-bce27efa5c53" class=""><code>options</code>参数允许通过对象成员（即属性）设置<strong>变化观察选项</strong>（<strong>mutation observation options</strong>），以下是可以使用的对象成员</p><ul id="42b8eb37-12a5-4ede-9eff-f991559073c4" class="bulleted-list"><li style="list-style-type:disc"><code><strong>childList</strong></code><strong> ，</strong>布尔值，表示是否需求用户代理观察目标的<strong>子节点</strong>（<strong>children</strong>）变化，为<code>true</code> 时表示目标的子节点变化也会被观察</li></ul><ul id="ac16e137-3ade-4b8a-9163-e6bdc8874d31" class="bulleted-list"><li style="list-style-type:disc"><code><strong>attributes</strong></code><strong> </strong>，布尔值，表示是否需求用户代理观察目标的属性（<strong>attributes</strong>）变化，为<code>true</code> 时表示目标的属性变化也会被观察，如果后面的<code>attributeOldValue</code> 或<code>attributeFilter</code> 被赋值了，<code>attributes</code> 选项会被忽略</li></ul><ul id="fe0991a8-a43a-4519-af08-3efdeb7f2c85" class="bulleted-list"><li style="list-style-type:disc"><strong><code>characterData</code></strong><strong> </strong>，布尔值，<strong> </strong>表示是否需求用户代理观察目标节点的数据（<strong>data</strong>，指继承于<code>CharacterData</code> 接口的部分类型节点，包括文本节点，ProcessingInstruction节点和注释节点）变化，为<code>true</code> 时表示目标的数据变化也会被观察，如果后面的<code>characterDataOldValue</code> 被赋值了，<code>characterData</code> 选项会被忽略</li></ul><ul id="f9da93ba-b605-403d-a08b-99b10e93f717" class="bulleted-list"><li style="list-style-type:disc"><code><strong>subtree</strong></code><strong> </strong>，布尔值，表示是否需求用户代理不仅要观察目标的变化，还要观察目标的<strong>后代</strong>（<strong>descendants</strong>）的变化，为<code>true</code> 时表示二者都进行观察</li></ul><ul id="5bd41e1d-3ce7-4423-954b-747b82595343" class="bulleted-list"><li style="list-style-type:disc"><code>attributeOldValue</code> ，布尔值，如果<code>attributes</code> 选项为<code>true</code> 或被忽略则为<code>true</code> ，（设置为<code>true</code> )需要记录<strong>变化</strong>(<strong>mutation</strong>)前的目标属性值</li></ul><ul id="079d5d5b-057d-48bb-a6d3-7a9e613223ef" class="bulleted-list"><li style="list-style-type:disc"><code>characterDataOldValue</code> ，布尔值，如果被指定，<code>attributes</code> 选项被忽略 ，（设置为<code>true</code>）需要记录目标在<strong>变化</strong>(<strong>mutation</strong>)前的目标数据值</li></ul><ul id="f8c387ca-6875-44e3-bddf-785dda4d2b7f" class="bulleted-list"><li style="list-style-type:disc"><code>attributeFilter</code> ，列表（数组）类型，在不是所有目标的属性变化都需要被观察时使用，它被赋值为需被观察的<strong>属性名称</strong>（<strong>local name，不带有namespace命名空间</strong>）字符串数组，如果被指定，<code>attributes</code> 选项被忽略</li></ul></li></ul><ul id="617ea175-40a1-4e8d-a3bb-0270ec56172f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>observer.disconnect()</code></span><p id="245dbc2f-4717-44b6-bc67-6478ce31145a" class="">停止<strong>观察者</strong>(<strong>observer</strong>)观察任何变化。在再次使用<code>observe()</code>方法之前，<code>observer</code>对象的回调函数不会被调用。</p></li></ul><ul id="d4b4d035-8e0d-46bc-b867-ed290e9d56d4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>observer.takeRecords()</code> </span><p id="8da6a7a7-53dc-45dc-95ac-4364631c64b0" class="">清空记录队列并返回其中的内容。</p></li></ul></li></ul><h1 id="461fe270-61d2-451b-9c4a-46a20aa3ffee" class="">3.1 基本用法</h1><ul id="029b42d5-a8bb-480e-90f9-716585b0efd1" class="bulleted-list"><li style="list-style-type:disc"><code>MutationObserver</code> 的实例要通过调用<code>MutationObserver</code> 构造函数并传入一个回调函数来创建<pre id="9ff523f5-65a5-4275-a8c0-3462fce035c1" class="code code-wrap"><code>let observer = new MutationObserver(() =&gt; console.log(&quot;DOM was mutated!&quot;))</code></pre></li></ul><h2 id="e76b14c3-c4b7-40ba-b297-ad0270d12ce3" class="">3.1.1 observe()方法</h2><ul id="41cf67f0-ca7f-4766-9f38-14101605113d" class="bulleted-list"><li style="list-style-type:disc">新创建的<code>MutationObserver</code> 实例不会关联DOM的任何部分，要把这个<code>observer</code>与DOM关联起来需要使用<code>observe()</code> </li></ul><ul id="002be61b-ac45-42fd-b2dd-5a61f787d5a5" class="bulleted-list"><li style="list-style-type:disc">这个方法接收两个必须的参数<ul id="70394b69-bec0-4159-adc8-6e28f17a33fd" class="bulleted-list"><li style="list-style-type:circle">要观察其变化的DOM节点</li></ul><ul id="94ff0b58-8c57-4d47-84cb-f9445e13733c" class="bulleted-list"><li style="list-style-type:circle">以及一个<code>MutationObserverInit</code>对象（就是上面接口规范说的要设置的观察报告标准）</li></ul></li></ul><ul id="5c7bc1d9-677d-4931-9520-8847ad949ca8" class="bulleted-list"><li style="list-style-type:disc"><code>MutationObserverInit</code> 对象用于控制观察哪些方面的变化，是一个键/值对形式配置选项的字典，如下<pre id="3901da6e-623f-4c7c-9161-0a12f5f70210" class="code code-wrap"><code>let observer = new MutationObserver(() =&gt;
+  console.log(&quot;&lt;body&gt; attributes changed&quot;)
+);
+
+observer.observe(document.body, {
+  attributes: true,
+});
+
+document.body.className = &quot;foo&quot;;
+
+console.log(&quot;Changed body class&quot;)
+
+// 打印结果
+// Changed body class
+// &lt;body&gt; attributes changed</code></pre><ul id="a819f191-2fed-43c5-bc64-59dc51d5eaca" class="bulleted-list"><li style="list-style-type:circle">执行以上代码后，&lt;body&gt;元素上任何属性发生变化都会被这个<code>MutationObserver</code> 实例发现，然后就会<strong>异步执行</strong>注册的回调函数</li></ul><ul id="ea92a2ef-4aed-40de-91a4-b733179e892b" class="bulleted-list"><li style="list-style-type:circle">&lt;body&gt;元素后代的修改或其它<strong>非属性</strong>修改都不会除法回调进入任务队列（因为<code>MutationObserverInit</code> 对象设置仅观察目标节点的属性）</li></ul></li></ul><h2 id="37761023-9920-458c-a655-ba6f56257751" class="">3.1.2 回调与MutationRecord</h2><ul id="3c8b33fd-9fee-4b36-8a63-10d60631ea58" class="bulleted-list"><li style="list-style-type:disc">DOM Standard规范的 <a href="https://dom.spec.whatwg.org/#mutationrecord"><code>MutationRecord</code></a><a href="https://dom.spec.whatwg.org/#mutationrecord"> </a>接口定义如下</li></ul><pre id="43247f46-5faa-4b20-9d83-98b89d279a69" class="code code-wrap"><code>[Exposed=Window]
+interface MutationRecord {
+  readonly attributeDOMStringtype;
+  [SameObject] readonly attributeNodetarget;
+  [SameObject] readonly attributeNodeListaddedNodes;
+  [SameObject] readonly attributeNodeListremovedNodes;
+  readonly attributeNode?previousSibling;
+  readonly attributeNode?nextSibling;
+  readonly attributeDOMString?attributeName;
+  readonly attributeDOMString?attributeNamespace;
+  readonly attributeDOMString?oldValue;
+};</code></pre><ul id="b56dd6eb-e171-4d12-829b-bbfa7fb83f03" class="bulleted-list"><li style="list-style-type:disc">这个接口实际上是对一次变化（<strong>Mutation</strong>）的记录，一个<code>MuationRecord</code> 实例包含的信息包括发生了什么变化，以及DOM的哪一些部分收到了影响</li></ul><ul id="02e3605c-dfbb-48a6-9258-60d67ad10b1e" class="bulleted-list"><li style="list-style-type:disc"><code>MutationObserver</code> 实例的每个回调都会收到一个<code>MutationRecord</code> 实例构成的数组作为参数，因为回调执行之前可能同时发生多个满足观察条件的事件，所以每次调用执行回调都会传入一个包含按顺序入队的<code>MutationRecord</code>实例的数组</li></ul><ul id="f299ba43-650b-4d31-a6bf-6d4ac6371dea" class="bulleted-list"><li style="list-style-type:disc">回调函数的第二个参数就是<code>MuatrionObserver</code> 构造函数本身，下面展示反映了属性变化的<code>MutationRecord</code>实例的数组<pre id="740159e6-8b47-4203-8538-dc8dbd932577" class="code code-wrap"><code>let observer = new MutationObserver((mutationRecords, observer) =&gt; {
+  console.log(mutationRecords);
+  console.log(observer === observer);
+});
+
+observer.observe(document.body, { attributes: true });
+document.body.setAttribute(&quot;foo&quot;, &quot;bar&quot;);
+document.body.className = &quot;baz&quot;;</code></pre><figure id="48483ba4-a705-4de9-920b-120f1de5bd6f" class="image"><a href="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/MutationRecord.png"><img style="width:624px" src="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/MutationRecord.png"/></a></figure><ul id="ff387fe3-3caa-4e8c-8b99-6ea318217371" class="bulleted-list"><li style="list-style-type:circle">这里进行了两次属性的设置，一次是自定义属性，一次是类名称设置，按顺序<code>MutationRecord</code> 保存到了一个数组中，并提供了这两次属性变化的记录</li></ul><ul id="50220fc8-9cf4-4eb3-9d9e-44b27c7e57dd" class="bulleted-list"><li style="list-style-type:circle">因为<code>MutationObserverInit</code> 对象只要求记录<code>attributes</code> ，所以<code>MutationRecord</code> 也就只记录了<code>attributeName</code> （变化的属性名称）、<code>target</code> （变化的目标节点）、和<code>type</code> （目标节点变化的类型）</li></ul></li></ul><ul id="fa92bdab-d5b4-435e-830c-7afc771d1596" class="bulleted-list"><li style="list-style-type:disc">在之前的介绍中，设置属性除了<code>setAttribute</code> 外，还有对命名空间中属性的设置，<code>setAttributeNs()</code> ,虽然这个方法在XML文档中更有用处，但是在HTML使用仍然是会被<code>MutationObserver</code>对象所观察，如下<pre id="b8d91bda-df18-4dc0-8167-2c489a4dac21" class="code code-wrap"><code>let observer = new MutationObserver((mutationRecords, observer) =&gt; {
+  console.log(mutationRecords);
+});
+
+observer.observe(document.body, { attributes: true });
+
+document.body.setAttributeNS(&quot;localhost:8000&quot;, &quot;foo&quot;, &quot;bar&quot;);</code></pre><figure id="e7e36d7a-bad3-4dbf-96bd-220782351019" class="image"><a href="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/attributeNSMutationRecord.png"><img style="width:432px" src="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/attributeNSMutationRecord.png"/></a></figure><ul id="e007e915-40c5-4eb5-b541-97bf62d1ad38" class="bulleted-list"><li style="list-style-type:circle"><code>setAttributeNS()</code> 设置属性触发的回调函数记录的<code>mutationRecords</code> 中的记录实例与<code>setAttribute()</code> 的唯一区别在于多记录了一个<code>attributeNamespace</code> 属性</li></ul></li></ul><ul id="7df9ca62-80ed-4acb-89b3-26967ba573f7" class="bulleted-list"><li style="list-style-type:disc">下表列出了<code>MutationRecord</code> 实例的属性和描述<table id="e6769d93-b45a-4644-bc9f-b8eb7a7b003b" class="simple-table"><tbody><tr id="3d965890-88cc-4b24-a25c-9e6aeeb42d62"><td id="tY[K" class="">属性</td><td id="He_O" class="" style="width:451px">说明</td></tr><tr id="c03a4b3a-7f5c-4179-bd19-def6ec5bce9c"><td id="tY[K" class="">target</td><td id="He_O" class="" style="width:451px">被修改影响的目标节点</td></tr><tr id="1fe896ed-f2f3-4160-a5ce-c5089c9f5de6"><td id="tY[K" class="">type</td><td id="He_O" class="" style="width:451px">字符串，表示变化的类型：“attribute”、”characterData”或”childList”</td></tr><tr id="bc2e03e6-86df-4bb8-80d3-71bff12e3373"><td id="tY[K" class="">oldValue</td><td id="He_O" class="" style="width:451px">如果在<code>MutationObserverInit</code> 对象中启用(attributeOldValue或characterDataOldValue)，“attributes”或”characterData”的变化事件会设置这个属性为被替代的值；”childList”类型的变化始终将这个属性设置为null</td></tr><tr id="164c3edd-5371-4835-a10d-b1bd171e53ea"><td id="tY[K" class="">attributeName</td><td id="He_O" class="" style="width:451px">对于”attributes”类型的变化，这里保存被修改属性的名字</td></tr><tr id="ca8c22a4-5082-43c3-b1ff-b38be6e1c740"><td id="tY[K" class="">attributeNamespace</td><td id="He_O" class="" style="width:451px">对于使用了命名空间的”attributes”类型的变化，这里保存被修改属性的命名空间名字，其它变化事件会将这个属性值设置为null</td></tr><tr id="4dcd5c29-2128-43de-894b-666811a005a8"><td id="tY[K" class="">addedNodes</td><td id="He_O" class="" style="width:451px">对于”childList”类型的变化，返回包含变化中添加节点的NodeList默；认为空NodeList</td></tr><tr id="c0973b6f-3820-43ed-a474-e131ff294f20"><td id="tY[K" class="">removedNodes</td><td id="He_O" class="" style="width:451px">对于”childList“类型的变化，返回包含变化中删除节点的NodeList；默认为空NodeList</td></tr><tr id="713611e7-93dd-4de6-89be-172485c78211"><td id="tY[K" class="">previousSibling</td><td id="He_O" class="" style="width:451px">对于”childList“类型的变化，返回变化节点的前一个同胞Node；默认为null</td></tr><tr id="ef650bd3-30c6-4094-b98a-783fe6a51869"><td id="tY[K" class="">nextSibling</td><td id="He_O" class="" style="width:451px">对于”childList”类型的变化，返回变化节点的后一个同胞Node；默认为null</td></tr></tbody></table></li></ul><ul id="73ca3dfe-105e-42c5-90f2-f62ae4527812" class="bulleted-list"><li style="list-style-type:disc">对于<code>childList</code>类型的变化，有如下例子<pre id="6805385a-0e65-4454-8919-ff6246e26ffa" class="code code-wrap"><code>const div = document.querySelector(&quot;div&quot;);
+
+const observer = new MutationObserver((MutationRecords) =&gt; {
+  console.log(MutationRecords);
+});
+observer.observe(div, { childList: true });
+div.appendChild(document.createTextNode(&quot;你好&quot;)); // ①
+div.textContent = &quot;hello&quot;; // ②
+div.childNodes[0].textContent = &quot;hello2&quot;; // ③
+div.removeChild(div.firstChild); // ④
+const p = document.createElement(&quot;p&quot;);
+p.textContent = &quot;Hello&quot;;
+div.appendChild(p); // ⑤
+const span = document.createElement(&quot;span&quot;);
+span.textContent = &quot;你好&quot;;
+p.appendChild(span); // ⑥</code></pre><figure id="0fa284b7-91f5-4d4a-a068-59662a17d6da" class="image"><a href="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/childList.png"><img style="width:1155px" src="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/childList.png"/></a></figure><ul id="ddd36b0c-f574-4900-81da-c3b9d97019f2" class="bulleted-list"><li style="list-style-type:circle"><code>childList</code> 类型的变化只针对目标节点的<strong>直接子节点</strong>的变化，说简单点就是目标节点的<code>childNodes</code> 中的节点变化</li></ul><ul id="924fe51b-dbc1-4486-984e-b1b06edc0506" class="bulleted-list"><li style="list-style-type:circle">直接在目标节点上新增一个文本节点，也就是操作①，目标节点（div）的<code>childNodes</code> 发生改变，新增了一个文本节点，所以第一个<code>MutationRecord</code> 实例的<code>addedNodes</code>就是这个文本节点；<code>childNodes</code> 为包含一个空格字符串文本节点的<code>NodeLists</code> ，变化后仍然存在，不存在移除的节点，所以<code>removedNodes</code> 为空<code>NodeLists</code> ；而<code>previousSibling</code> 就是当前新增的节点的前一个同胞节点（空字符串文本节点），没有<code>nextSibling</code> ，因为默认新增的文本节点在<code>childNodes</code> 的最后</li></ul><ul id="1a5e50b7-c7a5-4183-9aab-ac450cf6f961" class="bulleted-list"><li style="list-style-type:circle">直接修改目标节点的<code>textContent</code> ，也就是操作②，目标节点（div）的<code>childNodes</code> 发生改变，整个<code>childNodes</code> 直接变成了一个文本节点，所以第二个<code>MutationRecord</code> 实例的<code>addedNodes</code> 就是新的文本节点，<code>removedNodes</code> 就是之前的两个文本节点，因为目标节点的子节点就只有当前的新文本节点，所以<code>previousSibling</code> 和<code>nextSibling</code> 都是<code>null</code></li></ul><ul id="e3cbc931-de7f-4f93-b85e-7960addcd297" class="bulleted-list"><li style="list-style-type:circle">修改目标节点的子节点的<code>textContent</code> ，也就是操作③，不会触发<code>observer</code> 对象的回调函数，因为<code>observe()</code> 方法设置为<code>childList</code> ，即仅观察<strong>目标节点的直接子节点</strong>变化，修改目标节点的子节点的<code>textContent</code> 不会改变目标节点的直接子节点引用（即<code>childNodes</code> 属性的列表元素值没有变化）</li></ul><ul id="87655b70-a3d9-459b-996b-5e080eb070fc" class="bulleted-list"><li style="list-style-type:circle">删除目标节点的子节点，也就是操作④，目标节点（div）的<code>childNodes</code> 发生改变，<code>childNodes</code> 中的文本节点被删除了，所以第三个<code>MutationRecord</code> 实例的<code>removedNodes</code> 就是被删除的节点，而<code>addedNodes</code> 为空<code>NodeList</code> ；因为删除节点不存在<code>addedNodes</code> 并且删除后<code>childNodes</code> 为空<code>NodeList</code>，所以<code>previousSibling</code> 和<code>nextSibling</code> 都是<code>null</code></li></ul><ul id="02932282-06fc-42b2-8d5f-de248385f17e" class="bulleted-list"><li style="list-style-type:circle">直接在目标节点上新增一个元素节点，也就是操作⑤，无论是什么类型的节点，在目标节点上直接进行增删改节点都会触发<code>observer</code> 对象的回调函数，所以第四个<code>MutationRecord</code> 实例和第一个<code>MutationRecord</code> 实例类似，<code>addedNodes</code> 就是包含新增的元素节点（p）的<code>NodeList</code> 对象，<code>removedNodes</code> 就是空<code>NodeList</code> ，因为目标节点当前子节点为空<code>NodeList</code> ，所以<code>previousSibling</code> 和<code>nextSibling</code> 都是<code>null</code> </li></ul></li></ul><ul id="4651f4c4-eda1-455d-baf3-ca357291fd73" class="bulleted-list"><li style="list-style-type:disc">对于<code>subtree</code> 类型的变化，先要理解：<ul id="80ae07c8-adcf-43b8-96e6-b12b94df7696" class="bulleted-list"><li style="list-style-type:circle">它不能单独作为<code>MutationObserverInit</code> 对象的属性，因为它表明是否需求用户代理不仅要观察目标的变化，还要观察目标的<strong>后代</strong>（<strong>descendants</strong>）的变化，也就是说它作为对观察范围的一个<strong>扩展</strong>，而不是指定被观察的具体对象；如果单独使用<code>subtree</code> 则会浏览器会抛出如下错误<pre id="674cd392-d396-4e34-930b-abc966186a4b" class="code code-wrap"><code>Uncaught TypeError: Failed to execute &#x27;observe&#x27; on &#x27;MutationObserver&#x27;: The options object must set at least one of &#x27;attributes&#x27;, &#x27;characterData&#x27;, or &#x27;childList&#x27; to true.
+    at 14.3.1.2 MutationRecord.js:21:10</code></pre></li></ul><ul id="c84c2fd8-6b3e-46fa-84cd-25737eb1ca6c" class="bulleted-list"><li style="list-style-type:circle">如前面例子，增加一个<code>subtree</code> 属性，值为true，则会出现如下结果<figure id="ab21dcd4-50ad-48e1-805b-47ff5145c3c9" class="image"><a href="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/subtree.png"><img style="width:1162px" src="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/subtree.png"/></a></figure><ul id="b9b1bc29-dfae-4a0a-9522-e3d5d085ac6e" class="bulleted-list"><li style="list-style-type:square">除了前4个<code>MutationRecord</code> 实例和前面的记录一样外，新增了一个<code>MutationRecord</code> 实例在最后</li></ul><ul id="8a07b296-d16f-44ed-9ae1-c4d35367467f" class="bulleted-list"><li style="list-style-type:square">因为增加了<code>subtree</code> 类型，所以<code>observer</code> 对象注册的目标的所有后代节点都会被观察，也就是操作⑥；<code>p</code> 元素节点是目标节点（div）的一个子节点，在p节点上新增子节点会被观察到，因为子节点变化的直接对象是元素节点<code>p</code> ，所以最后一个<code>MutationRecord</code> 实例的<code>target</code> 是节点<code>p</code> （而不是<code>div</code>），<code>addedNodes</code> 就是包含新增的<code>span</code> 节点的<code>NodeList</code>，没有删除，所以<code>removedNodes</code> 是一个空的<code>NodeList</code> ，同理新增的<code>span</code> 节点作为<code>childNodes</code> 的最后一个节点加入，<code>previousSibling</code> 就是前面的文本节点，<code>nextSibling</code> 就是<code>null</code> </li></ul></li></ul></li></ul><ul id="6634cae9-1e2c-42a0-9ec7-fcbd4f0754d6" class="bulleted-list"><li style="list-style-type:disc">对于<strong><code>characterData</code></strong><strong> </strong>类型的变化而言，先要理解<ul id="cebb7cfd-902f-4183-a4a7-2ea69c8914c0" class="bulleted-list"><li style="list-style-type:circle"><code>characterData</code> 类型表示只对文本节点，ProcessingInstruction节点和注释节点进行观察，不会对元素节点进行观察，因为元素节点的接口定义为<code>Element</code> 而不是<code>CharacterData</code> 接口</li></ul><ul id="52b69baf-763a-43cc-9781-974c4f0d3985" class="bulleted-list"><li style="list-style-type:circle"><code>subtree</code> 对<code>characterData</code> 类型一般无效，因为HTML常见的<strong>文本节点不会有子节点</strong></li></ul><ul id="139665fd-191c-435c-a483-1862fed2149f" class="bulleted-list"><li style="list-style-type:circle">例子如下<pre id="43727185-3efd-432f-bf25-60e73c897703" class="code code-wrap"><code>const div = document.querySelector(&quot;div&quot;);
+
+const observer = new MutationObserver((MutationRecords) =&gt;
+  console.log(MutationRecords)
+);
+
+observer.observe(div, { characterData: true, subtree: true });
+div.textContent = &quot;Hello&quot;;
+div.appendChild(document.createTextNode(&quot;你好&quot;));
+div.appendChild(document.createElement(&quot;p&quot;));
+div.firstChild.data = &quot;KKK&quot;;
+observer.disconnect();
+
+observer.observe(div.firstChild, { characterData: true });
+div.firstChild.textContent = &quot;KKK&quot;; // ①
+div.firstChild.data = &quot;SSS&quot;; // ②
+div.firstChild.nodeValue = &quot;RRR&quot;; // ③
+div.replaceChild(document.createTextNode(&quot;MMM&quot;), div.firstChild); // ④
+div.firstChild.data = &quot;SSS&quot;; // ⑤</code></pre><figure id="13ea5a74-5075-4b5b-a1d6-843a720672eb" class="image"><a href="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/CharacterData.png"><img style="width:1175px" src="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/CharacterData.png"/></a></figure><ul id="fc1018d5-2c0c-4e43-b680-4732f1c4abb5" class="bulleted-list"><li style="list-style-type:square"><code>observer</code> 对象本来注册的观察对象是<code>div</code>元素节点，但是对于<code>div</code> 及其子节点的修改并不能引起任何的变化(<strong>Mutation</strong>)，因为注册时的<code>MutationObserverInit</code> 对象的观察标准是<code>characterData</code> 类型，所以<code>subtree</code> 对其无效，而<code>div</code> 又是元素节点，所以不会有触发<code>observer</code> 的回调函数</li></ul><ul id="e2d67a88-889e-4850-b14f-c15f4e5479a0" class="bulleted-list"><li style="list-style-type:square">而后调用<code>disconnect()</code> 注销了对<code>div</code> 元素节点的观察，再注册<code>div</code> 节点的第一个文本节点为目标对象，之后就可以观察文本节点的内容</li></ul><ul id="6307c368-7c01-45fb-999f-b4d85d08d7c4" class="bulleted-list"><li style="list-style-type:square">操作①②③对应回调函数的参数中三个<code>MutationRecord</code> 实例的变化记录，它们的<code>type</code> 都是<code>characterData</code> 这是由注册时的<code>MutationObserverInit</code> 对象决定，因为观察的是文本内容，所以<code>addedNodes</code> 、<code>removedNodes</code> 自然是空<code>NodeList</code> ，<code>nextSibling</code> 、<code>previousSibling</code> 自然是<code>null</code> ，<code>target</code> 是目标对象，即<code>div</code> 的第一个文本节点；从中也可以发现，文本节点的<code>data</code>（<code>CharacterData</code> 接口定义）、<code>nodeValue</code>（<code>Node</code> 接口定义）、<code>textContent</code> （<code>Node</code> 接口定义）实际上指的都是文本字符串</li></ul><ul id="018588a8-44e4-41ec-a1bf-77b1226ac494" class="bulleted-list"><li style="list-style-type:square">操作④没有触发回调函数，因为调用<code>replaceChild()</code> 替换文本节点不属于对被观察文本节点的内容改变，而是对<code>div</code> 元素节点的子节点改变，因为被观察的文本节点已不再DOM树中，操作⑤也就是不是对目标文本节点的改变，而是对替换的新文本节点的改变，所以也不会触发回调函数</li></ul></li></ul></li></ul><ul id="13bddd63-91e1-4184-ab1b-daaee6ef119b" class="bulleted-list"><li style="list-style-type:disc">对于 <code>attributeOldValue</code> 属性，需要了解<ul id="1841f6a5-73d9-40cd-a8b9-cd0ac80ff50b" class="bulleted-list"><li style="list-style-type:circle">设置<code>attributeOldValue</code> 为<code>true</code> ，那么就不用关心<code>attributes</code> 的值，它要么为<code>true</code> ，要么不进行设置（即被连带为<code>true</code>），否则（在<code>attributeOldValue</code> 为<code>true</code> ，<code>attributes</code> 为<code>false</code> 的情况下）会抛出异常<figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="302a62e2-6f49-418b-997c-1aad3a17b952"><div style="font-size:1.5em"><span class="icon">🔴</span></div><div style="width:100%"><mark class="highlight-red">Uncaught TypeError: Failed to execute &#x27;observe&#x27; on &#x27;MutationObserver&#x27;: The options object may only set &#x27;attributeOldValue&#x27; to true when &#x27;attributes&#x27; is true or not present.</mark>
+at 14.3.1.2 attributeOldValue.js:21:10</div></figure></li></ul><ul id="8b37b468-7f5a-4cbd-9629-031d6a95f916" class="bulleted-list"><li style="list-style-type:circle">设置<code>attributeOldValue</code> 为<code>false</code> ，那么<code>attributes</code> 的值决定了是否观察注册的目标对象的属性，如果观察目标对象的属性，那么<code>oldValue</code> 的值一定是<code>null</code> （因为不记录上一个属性值）</li></ul><ul id="58ca73bd-ba7e-44ae-ae68-91c5ead96b1d" class="bulleted-list"><li style="list-style-type:circle"><code>attributeOldValue</code> 配合 <code>subtree</code> 可以连带目标节点的所有后代节点的属性值都被观察，如下是例子<pre id="2d997ad7-5978-4c94-b9b8-64bf127738d9" class="code"><code>const div = document.querySelector(&quot;div&quot;);
+
+const observer = new MutationObserver((mutationRecords) =&gt;
+  console.log(mutationRecords)
+);
+
+observer.observe(div, {
+  subtree: true,
+  attributeOldValue: true,
+  attributes: true, // 可以不设置或设置成true，但不能设置为false
+});
+
+div.className = &quot;bar&quot;; // ①
+div.className = &quot;barz&quot;; // ②
+
+div.appendChild(document.createElement(&quot;p&quot;));
+div.children[0].className = &quot;my-p&quot;; // ③
+div.children[0].className = &quot;my-p2&quot;; // ④</code></pre><figure id="7aefb083-8de5-4831-b6de-7acddeb2a6cd" class="image"><a href="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/attributesOldValue.png"><img style="width:2109px" src="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1/attributesOldValue.png"/></a></figure><ul id="d73e899a-b6d6-4709-9ad8-217f7bae4c06" class="bulleted-list"><li style="list-style-type:square">第一个<code>MutationRecord</code> 实例由操作①引起，因为是首次修改<code>class</code> 不存在上一个类名称，所以<code>oldValue</code> 为<code>null</code> </li></ul><ul id="e3479072-ba76-4087-93a5-2477f9f249db" class="bulleted-list"><li style="list-style-type:square">第二个<code>MutationRecord</code> 实例由操作②引起，本来的类名就是上一个操作（①）设置的类名称，所以<code>oldValue</code> 为<code>bar</code></li></ul><ul id="8e38f65f-5d75-4a69-8426-dd1ddf4abee4" class="bulleted-list"><li style="list-style-type:square">第三个<code>MutationRecord</code> 实例由操作③引起，它是目标对象的后代节点（<code>p</code>）的属性产生的<strong>变化</strong>，<code>target</code> 为<code>p</code> 元素节点，因为是首次修改<code>class</code> ，所以<code>oldValue</code> 为<code>null</code></li></ul><ul id="a847ac4d-778c-4dce-9e7b-7d46e7785caa" class="bulleted-list"><li style="list-style-type:square">第四个<code>MutationRecord</code> 实例由操作④引起，它是上一个操作的<code>p</code> 元素节点修改<code>className</code> 的变化，所以<code>oldValue</code> 为 <code>my-p</code> </li></ul></li></ul></li></ul><h2 id="ea3bcce5-8985-4194-bc83-efaf72d7fcbe" class="">3.1.3 disconnect()方法</h2><ul id="ddd1bb00-853c-47dc-83a3-cd27b7711676" class="bulleted-list"><li style="list-style-type:disc">使用<code>observe()</code> 注册被观察的节点和观察标准后，只要节点不被垃圾回收，<code>MutationObserver</code> 实例的回调就会响应DOM变化事件</li></ul><ul id="576d77ed-ff05-4e26-8746-dd9744f76d76" class="bulleted-list"><li style="list-style-type:disc">要注销<code>MutationObserver</code> 注册的被观察节点，可以调用<code>disconnect()</code> 方法<ul id="114ba038-2afd-4d31-bbb2-44accb805593" class="bulleted-list"><li style="list-style-type:circle"><code>disconnect()</code> 是同步方法，所以执行后不仅会停止此后变化事件的回调，也会<strong>抛弃已加入任务队列要异步执行的回调</strong></li></ul><ul id="834f67a2-ea40-498b-9c61-b5e57853747e" class="bulleted-list"><li style="list-style-type:circle">想要让已加入的任务队列的回调执行，可以使用<code>setTimeout()</code> 让已经入列的回调执行完毕再调用<code>disconnect()</code> </li></ul><pre id="045b3cd2-0bc1-4cc1-8569-d0d0ca9e6046" class="code"><code>const div = document.querySelector(&quot;div&quot;);
+
+const observer = new MutationObserver((mutationRecords) =&gt;
+  console.log(mutationRecords)
+);
+
+observer.observe(div, { attributes: true });
+
+div.className = &quot;foo&quot;;
+observer.disconnect();
+div.className = &quot;bar&quot;;
+// 不会有任何打印</code></pre><pre id="335cb68b-b131-41fa-81d2-17bc7ae4d642" class="code"><code>const div = document.querySelector(&quot;div&quot;);
+
+const observer = new MutationObserver((mutationRecords) =&gt;
+  console.log(mutationRecords)
+);
+
+observer.observe(div, { attributes: true });
+
+div.className = &quot;foo&quot;; // 操作①
+setTimeout(() =&gt; {
+  observer.disconnect();
+  div.className = &quot;bar&quot;; // 操作②
+});
+// 打印
+[MutationRecord] {
+	0: MutationRecord {type: &#x27;attributes&#x27;, target: div.bar, addedNodes: NodeList(0), removedNodes: NodeList(0), previousSibling: null, …}
+	length :1
+}</code></pre><ul id="2d287432-5039-4b67-996c-4ef51892c57d" class="bulleted-list"><li style="list-style-type:circle">使用<code>setTimeout()</code> 后，操作①触发的变化事件会调用回调函数，但是操作②触发的变化事件会被停止</li></ul></li></ul><h2 id="22737abb-1a3e-4d74-b901-05ef16ae0f3a" class="">3.1.4 复用MutationObserver（Multiplexing a MuatationObserver）</h2><ul id="ecd8e84b-f49c-4eec-9b58-de55613b0af0" class="bulleted-list"><li style="list-style-type:disc">一个<code>MuattionObserver</code> 对象可以同时观察多个不同的目标节点，只要多次调用<code>observe()</code> 方法时传入不同的目标节点即可，回调函数的参数中的<code>MutationRecord</code> 实例的<code>target</code> 属性会保存变化的目标节点</li></ul><ul id="8579b1f8-8d87-4891-a702-f2cc1839ecb8" class="bulleted-list"><li style="list-style-type:disc">而<code>disconnect()</code> 方法是一个“一刀切”方案，调用它会停止观察所有目标</li></ul><ul id="595e95e2-3ab9-4363-9f6f-726042b41be1" class="bulleted-list"><li style="list-style-type:disc">即使同时观察多个不同的目标节点，回调函数参数中的<code>MutationRecord</code> 实例数组中的顺序也是按照<strong>变化</strong>发生的顺序排列的<pre id="224deea3-338f-4659-bbcb-2eaac4747cae" class="code"><code>const div = document.querySelector(&quot;div&quot;);
+const p = document.querySelector(&quot;p&quot;);
+
+const observer = new MutationObserver((mutationRecords) =&gt;
+  console.log(mutationRecords)
+);
+observer.observe(div, { attributes: true });
+observer.observe(p, { attributes: true });
+p.className = &quot;bar&quot;;
+div.className = &quot;foo&quot;;
+
+setTimeout(() =&gt; {
+  observer.disconnect();
+  p.className = &quot;bar2&quot;;
+  div.className = &quot;foo2&quot;;
+});
+
+// 打印
+// [MutationRecord, MutationRecord]</code></pre></li></ul><h2 id="f445a238-0b7b-4559-85cd-f8250cbf2e63" class="">3.1.5 重用MutationObserver（Reusing a MutationObserver）</h2><ul id="f49182ac-5fba-4083-8b6a-7dbe1dab34bc" class="bulleted-list"><li style="list-style-type:disc">调用<code>disconnect()</code> 并不会结束<code>MutationObserver</code> 的生命，还可以重新使用这个观察者，只需要再调用<code>observe()</code> 把它关联到新的目标节点就行</li></ul><ul id="76cacf37-855a-43df-8464-46b7af7a6da3" class="bulleted-list"><li style="list-style-type:disc">因为<code>observe()</code> 和<code>disconnect()</code> 都是同步的，调用后就会立即生效，而产生的变化事件去调用异步函数又是异步的，所以<code>disconnect()</code> 会无效在调用它之前到下一个<code>observe()</code> 调用之前的所有变化事件<pre id="d536cd62-887f-4048-92c7-a2574e280d5c" class="code"><code>const p = document.querySelector(&quot;p&quot;);
+const observer = new MutationObserver((mutationRecords) =&gt;
+  console.log(mutationRecords)
+);
+
+observer.observe(p, { attributes: true }); // 开始
+p.className = &quot;bar&quot;;
+
+observer.disconnect();
+
+p.className = &quot;bar2&quot;;
+p.className = &quot;bar3&quot;;
+observer.observe(p, { attributes: true }); // 结束  -&gt;这一段的属性变化事件无效
+
+p.className = &quot;bar4&quot;;
+
+// 打印
+// [MutationRecord]</code></pre></li></ul><h1 id="a20322ac-5a5d-414e-85a6-0819b03abd67" class="">3.2 MutationObserverInit与观察范围（Controlling the Observer scope with MutationObserverInit）</h1><ul id="e0a9ddb6-5955-4670-9ac3-b8b3035e33a2" class="bulleted-list"><li style="list-style-type:disc"><code>MutationObserverInit</code> 对象用于<a href="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1.html">控制对目标节点的观察范围</a> 。观察者可以观察的变化包括属性变化（<code>attributes</code>），文本变化（<code>characterData</code>），子节点变化（<code>childList</code>）</li></ul><ul id="5be36885-abbf-4b87-9023-53422a6ac465" class="bulleted-list"><li style="list-style-type:disc"><code>MutationObserverInit</code> 对象的属性如下表<table id="8e3f3910-b5c5-4a51-8e37-6d635c51ef92" class="simple-table"><tbody><tr id="1c801140-aec0-463e-b37b-903d13b8e7bb"><td id="[pmC" class="">属性</td><td id="sFU\" class="" style="width:464px">说明</td></tr><tr id="c0a1a1ee-ec2b-4330-96d5-4d4b9e3d5916"><td id="[pmC" class="">subtree</td><td id="sFU\" class="" style="width:464px">布尔值，表示除了目标节点，是否观察目标节点的子树（后代）；如果是<code>false</code> 则只观察目标节点的变化；如果是<code>true</code> 则观察目标节点及其整个子树；默认为<code>false</code> </td></tr><tr id="eef69489-69dc-42be-84c9-7dbe04432036"><td id="[pmC" class="">attributes</td><td id="sFU\" class="" style="width:464px">布尔值，表示是否观察目标节点的属性变化；默认为<code>false</code></td></tr><tr id="fc3922ed-27a4-4ac6-b4bb-59d1ed013829"><td id="[pmC" class="">attributeFilter</td><td id="sFU\" class="" style="width:464px">字符串数组，表示要观察哪些属性的变化；把这个值设置为<code>true</code> 也会将<code>attributes</code> 的值转换为<code>true</code> ；默认值为观察所有属性</td></tr><tr id="7f3a9cfe-3ce5-4281-ab95-0b834b1b7ed2"><td id="[pmC" class="">attributeOldValue</td><td id="sFU\" class="" style="width:464px">布尔值，表示<code>MutationRecord</code> 是否记录变化之前的属性值，把这个值设置为<code>true</code> 也会将<code>attributes</code> 的值转换为<code>true</code> ，默认为<code>false</code> </td></tr><tr id="5bb13989-d87a-4424-bd0b-0d3414173a92"><td id="[pmC" class="">characterData</td><td id="sFU\" class="" style="width:464px">布尔值，表示修改字符数据是否触发事件；默认为<code>false</code> </td></tr><tr id="49e490b4-e6f0-4d1e-b46d-8c54f4396de6"><td id="[pmC" class="">characterDataOldValue</td><td id="sFU\" class="" style="width:464px">布尔值，表示<code>MutationRecord</code> 是否记录变化之前的字符数据；把这个值设置为<code>true</code> 也会将<code>characterData</code> 的值转换为<code>true</code> ，默认为<code>false</code></td></tr><tr id="f6a2f125-11eb-496b-ad38-4b290673fe0f"><td id="[pmC" class="">childList</td><td id="sFU\" class="" style="width:464px">布尔值，表示修改目标节点的子节点是否触发变化事件；默认为<code>false</code> </td></tr></tbody></table></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="0f2ceb69-ebdb-45c3-8c27-3cb18c800b71"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：在调用<code>observe()</code>时，<code>MutationObserverInit</code> 对象中的<code>attributes</code> 、<code>characterData</code> 、<code>childList</code> 属性必须至少有一项为<code>true</code> （无论是直接设置这几个属性，还是通过设置<code>attributeOldValue</code> 等属性间接导致它们的值转换为<code>true</code>）。否则会抛出错误，因为没有任何变化事件可能触发回调</div></figure><h2 id="32d51b07-daa7-434c-a2cc-404d022ca159" class="">3.2.1 观察属性</h2><ul id="10b3a3e7-6ec2-4b27-a7b1-40d5520b0edc" class="bulleted-list"><li style="list-style-type:disc"><code>MutationObserver</code> 可以观察节点属性的<strong>添加、移除和修改</strong>，要为属性变化注册回调，需要在<code>MutationObserverInit</code> 对象将<code>attributes</code> 属性设置为<code>true</code> 即可</li></ul><ul id="a089b978-bdea-432c-ab2b-d1909cd07950" class="bulleted-list"><li style="list-style-type:disc">把<code>attributes</code> 设置为<code>true</code> 的默认行为是观察所有属性，但不会在<code>MutationRecord</code> 对象中记录原来的属性值。<ul id="d5d5e41b-670e-4e57-9db7-a9eea736f067" class="bulleted-list"><li style="list-style-type:circle">如果想要观察某个或一些属性，可以使用<code>attributeFilter</code> 属性来设置白名单，即一个属性名字符串数据</li></ul><ul id="485b6228-a678-4c28-baf6-231011541a98" class="bulleted-list"><li style="list-style-type:circle">如果想要记录属性变化的前一个值，可以使用<code>attributeOldValue</code> 来指示记录前一个属性值</li></ul></li></ul><ul id="cee6b27a-3bf2-4c20-b15b-b9887b7b10b6" class="bulleted-list"><li style="list-style-type:disc">观察属性的例子可以查看 <a href="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1.html">example</a></li></ul><h2 id="5e669da9-94a7-4e69-922f-5d51d67eb18b" class="">3.2.2 观察字符数据</h2><ul id="1adbf408-f28e-46d5-9141-4e6860634f94" class="bulleted-list"><li style="list-style-type:disc"><code>MutationObserver</code> 可以观察文本节点（如Text，Comment和ProcessingInstruction节点）中字符（data）的添加、删除修改，要为字符数据注册回调，需要在<code>MutationObserverInit</code> 对象中将<code>characterData</code>属性设置为<code>true</code></li></ul><ul id="493a3e46-7e7a-4624-aefa-8afbf2bc9358" class="bulleted-list"><li style="list-style-type:disc">将<code>characterData</code> 属性设置为<code>true</code> 的默认行为不会在<code>MutationRecord</code> 对象记录原本的字符数据，如果想要在变化记录中保存原来的字符数据，可以将<code>characterDataOldValue</code> 属性设置为<code>true</code> </li></ul><ul id="39afd8f6-4707-4180-b222-41ea03fc4b9b" class="bulleted-list"><li style="list-style-type:disc">观察字符数据的例子可以查看<a href="3%20MutationObserver%E6%8E%A5%E5%8F%A3%2074c5d8a664374b63882eda30752c2cd1.html">example</a></li></ul><h2 id="78055929-c745-422a-9fb0-119fa37c8e14" class="">3.2.3 观察子节点</h2><ul id="be609cde-dc74-48a5-919b-068682f44345" class="bulleted-list"><li style="list-style-type:disc"><code>MutationObserver</code> 可以观察目标节点子节点的添加和移除，要观察子节点，需要在<code>MutationObserverInit</code> 对象中将<code>childList</code> 属性设置为<code>true</code> </li></ul><ul id="a323c93a-f3b9-455b-9f6e-137862b4e4f7" class="bulleted-list"><li style="list-style-type:disc">对子节点的<strong>重新排序（</strong>尽管调用一个方法即可实现<strong>）</strong>会报告两次变化事件，因为从技术上会涉及先移除和再添加<ul id="a15167e7-b179-4d5b-ba59-12e96d47533d" class="bulleted-list"><li style="list-style-type:circle">最简单的排序就是使用<code>insertBefore()</code> 方法将两个已经存在的子节点改变位置，也就是将其中一个节点的位置移动到另一个节点的前面</li></ul><ul id="54ce720b-def9-4734-8dd6-8cbad6dc3430" class="bulleted-list"><li style="list-style-type:circle">这里涉及到两个变化，假设移动位置的节点为<code>node1</code> ，那么先要将他从目标节点中移除，移除会触发一次变化事件，对应的<code>MutationRecord</code> 实例的<code>removedNodes</code> 包含<code>node1</code> ，<code>nextSibling</code> 和<code>previousSibling</code> 就是<code>node1</code> 节点的前后相邻节点；假设参考位置的节点为<code>node2</code> ，那么将<code>node1</code> 插入到<code>node2</code> 节点前相当于一次添加变化，对应的<code>MutationRecord</code> 实例的<code>addedNodes</code> 包含<code>node1</code> ，<code>nextSibling</code> 和<code>previousSibling</code>就是<code>node1</code> 节点插入后的前后相邻节点</li></ul></li></ul><ul id="cd12212b-efd8-4d7d-bafb-f7db4ebf918d" class="bulleted-list"><li style="list-style-type:disc">使用<code>inserBefore()</code> 进行排序的例子如下<pre id="de5ee832-2e4c-4165-b638-18d290e5f6c7" class="code code-wrap"><code>&lt;div&gt;
+  &lt;p&gt;1&lt;/p&gt;
+  &lt;p&gt;2&lt;/p&gt;
+  &lt;p&gt;3&lt;/p&gt;
+&lt;/div&gt;
+-----------------------
+const div = document.querySelector(&quot;div&quot;);
+
+const observer = new MutationObserver((mutationRecords) =&gt;
+  console.log(mutationRecords)
+);
+
+observer.observe(div, { childList: true });
+
+div.insertBefore(div.lastElementChild, div.firstElementChild);
+// 打印
+// [MutationRecord, MutationRecord]</code></pre></li></ul><h2 id="7d069d70-03ca-45de-8faa-165e29ac8cc3" class="">3.2.4 观察子树</h2><ul id="f99cb939-ba3f-43c5-8fdb-d57006979c95" class="bulleted-list"><li style="list-style-type:disc">默认情况下，MutationObserver将观察的范围限定为一个元素及其子节点的变化，要把观察范围扩展到这个元素的子树（所有后代节点），这需要在<code>MutationObserverInit</code> 对象中将<code>subtree</code> 属性设置为<code>true</code> </li></ul><ul id="6ec8c780-a80e-43d8-ad85-f40c1343974e" class="bulleted-list"><li style="list-style-type:disc">被观察的子树中的节点<strong>被移出子树之后仍然能触发变化事件</strong>，这意味着在时间维度上，曾经在过子树上的节点都能触发变化事件，除非这个节点被垃圾回收<pre id="9c2e135f-d708-4b61-bb2f-3c7651a7786e" class="code code-wrap"><code>const div = document.querySelector(&quot;div&quot;);
+
+const observer = new MutationObserver((mutationRecords) =&gt;
+  console.log(mutationRecords)
+);
+const p = document.createElement(&quot;p&quot;);
+div.appendChild(p);
+
+observer.observe(div, { childList: true, subtree: true });
+
+div.removeChild(p); // 删除节点，触发变化事件
+
+p.textContent = &quot;Hello&quot;; // 被删除节点也会触发变化事件
+
+// 打印
+// [MutationRecord, MutationRecord]</code></pre></li></ul><h1 id="38197e37-48c7-4f2a-894a-db9b9ea15041" class="">3.3 异步回调与记录队列（Async Callbacks and Record Queue）</h1><ul id="e4c2b82f-2173-4b23-863c-8a8c2312fdc5" class="bulleted-list"><li style="list-style-type:disc"><code>MutationObserver</code> 接口的核心是<strong>异步回调</strong>与<strong>记录队列</strong>模型，这样设计是出于<strong>性能</strong>考虑<ul id="949af7b8-8dbe-4e7c-886a-f5c2f7728240" class="bulleted-list"><li style="list-style-type:circle">为了在大量变化事件发生时不影响性能，每次变化的信息（由观察者实例决定）会保存在<code>MutationRecord</code> 实例中，然后实例被添加到<strong>记录队列</strong></li></ul><ul id="e5a49682-e46b-419b-8383-9bd59771ebe9" class="bulleted-list"><li style="list-style-type:circle">这个队列对每个<code>MutationObserver</code> 实例都是唯一的，是所有DOM变化事件的有序列表</li></ul></li></ul><h2 id="ffb74362-7024-4eb4-801f-03969127c444" class="">3.3.1 记录队列的行为</h2><ul id="0c1f141f-f322-4be5-9475-245c9f2e0fb4" class="bulleted-list"><li style="list-style-type:disc">每次<code>MutationRecord</code> 被添加到<code>MutationObserver</code> 的记录队列时，仅当之前没有已排期的微任务回调时（队列中微任务长度为0），才会将观察者注册的回调（在初始化<code>MutationObserver</code>时传入）作为微任务调度在任务队列上，这样可以保证记录队列的内容不会被回调处理两次<ul id="a69f272f-fc18-4f8a-8051-5980132c5c2c" class="bulleted-list"><li style="list-style-type:circle"><strong>微任务</strong>（<strong>microtask</strong>），组成任务的更小部分</li></ul><ul id="f614cfc0-169b-4f4e-80b9-c095a7ffd15c" class="bulleted-list"><li style="list-style-type:circle">上面的是《JavaScript高级程序设计（第4版）》的原话，为了表示多个微任务回调应该组合成一个任务，这样就只需调用一次回调，而不需要多次调用回调</li></ul></li></ul><ul id="9edf7e91-912b-42cd-a792-cd815bac05ad" class="bulleted-list"><li style="list-style-type:disc">不过在回调的微任务异步执行的期间，有可能又发生更多变化事件，因此被调用的回调会接收到一个<code>MutationRecord</code> 实例的数组，顺序为它们进入记录队列的顺序，回调要负责处理这个数组的每一个实例，因为函数退出之后这些实现（<strong>persist</strong>）就不存在了。回调执行后，这些<code>MutationRecord</code> 就用不着了，因此记录队列会被清空，其内容会被丢弃</li></ul><h2 id="c5ccb941-4251-440a-b9f9-719a32bc4bbf" class="">3.3.2 takeRecords()方法</h2><ul id="ba1b0b1a-b93c-4e08-87b6-f66bcf2dd5de" class="bulleted-list"><li style="list-style-type:disc">调用<code>MutationObserver</code> 实例的<code>takeRecords()</code> 方法可以清空记录队列，取出并返回其中的所有<code>MutationRecord</code> 实例</li></ul><ul id="91e1633a-e965-4105-af13-269e16a592b9" class="bulleted-list"><li style="list-style-type:disc">这是希望<strong>断开与观察目标的联系</strong>，但又希望处理由于调用disconnect()而被抛弃的记录队列中的<code>MutationRecord</code> 实例时比较有用<ul id="0342743d-285c-426b-aea7-f63867328a27" class="bulleted-list"><li style="list-style-type:circle">上面的是《JavaScript高级程序设计（第4版）》的原话</li></ul><ul id="8eefab37-ce94-455b-bf79-e92047dae76f" class="bulleted-list"><li style="list-style-type:circle">因为<code>takeRecords()</code> 是同步函数，所以一旦执行，已经记录的变化对应的<code>MutationRecord</code> 会从记录队列中被取出</li></ul><ul id="c7f0c538-acf9-4b72-a898-f7e7ed05a5f5" class="bulleted-list"><li style="list-style-type:circle">之后的变化事件仍然会进入到记录队列中，这就是与<code>disconnect()</code> 的主要区别</li></ul><pre id="0a338984-2144-4db0-8d0b-87fc8782518c" class="code code-wrap"><code>const div = document.querySelector(&quot;div&quot;);
+
+const observer = new MutationObserver((mutationRecords) =&gt;
+  console.log(mutationRecords)
+);
+
+observer.observe(div, { attributes: true });
+
+div.className = &quot;bar&quot;;
+div.className = &quot;baz&quot;;
+div.className = &quot;foo&quot;;
+
+console.log(observer.takeRecords()); // [MutationRecord, MutationRecord, MutationRecord]
+console.log(observer.takeRecords()); // []
+
+div.className = &quot;foo&quot;;
+// 异步打印
+// [MutationRecord]</code></pre></li></ul><h1 id="f0537b46-64b2-48fb-8fc3-c0b284eaa769" class="">3.4 性能、内存与垃圾回收（<strong>Performance, Memory, and Garbage Collection</strong>）</h1><ul id="fc3fbb70-d908-4257-a2b7-bec3de690a0b" class="bulleted-list"><li style="list-style-type:disc">DOM Level 2 规范中描述的<code>MutationEvent</code> 定义了一组会在各种DOM变化时触发的事件，由于浏览器事件的实现机制，这个接口出现了严重的<strong>性能</strong>问题</li></ul><ul id="7e7f3c80-92e5-4b31-b5d4-efb661252865" class="bulleted-list"><li style="list-style-type:disc">因此DOM Level 3 规定废弃了这些事件，提出了<code>MutationObserver</code> 接口用于替代，把DOM变化的观察设计的更实用、性能更好</li></ul><ul id="49c802af-4736-447e-a232-9b98636a7197" class="bulleted-list"><li style="list-style-type:disc">无论如何，使用<code>MutationObserver</code>仍然<strong>不是没有代价</strong>的，因此理解什么时候避免出现这种情况很重要</li></ul><h2 id="522d2610-5c0f-4a6b-809b-dd79f95af982" class="">3.4.1 MutationObserver的引用（<strong>References</strong>）</h2><ul id="e7a017c0-52e4-45b0-9025-8cb137f9d243" class="bulleted-list"><li style="list-style-type:disc">在<a href="../6%20%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%20bd032f9faee241a895d14d6989c1483e/5%20WeakMap%20efe26b43b8e0474eae48fe72b1aab2a9.html"><span class="icon">🛻</span>5. WeakMap</a> 中，提到过弱引用的概念，弱引用的键值会被垃圾回收程序回收，在<code>MutationObserver</code> 接口中同样有弱引用的实现<ul id="ac2be06d-d4cf-42f3-b4e5-3ad4b6bff166" class="bulleted-list"><li style="list-style-type:circle"><code>MutationObserver</code> 实例与目标节点之间的引用关系是<strong>非对称的（asymmetric）</strong></li></ul><ul id="c08c0f7d-06d9-4628-9a55-d6f98e3e99f5" class="bulleted-list"><li style="list-style-type:circle">非对称指观察者与被观察的目标节点之间互相引用，但是引用类型不同</li></ul><ul id="88870729-29a5-4d9a-9027-4b054ceb5574" class="bulleted-list"><li style="list-style-type:circle"><code>MutationObserver</code> 实例对要观察的目标节点是<strong>弱引用，</strong>所以<strong>不会妨碍</strong>垃圾回收程序回收目标节点（<del>也许是在DOM树中被删除节点依然能触发变化的原因</del>）</li></ul><ul id="fca00ceb-f7e4-41f4-b9ad-c81330b51b29" class="bulleted-list"><li style="list-style-type:circle">目标节点对<code>MutationObserver</code> 实例是<strong>强引用，</strong>所以等注册的所有目标节点从DOM中被移除，随后被垃圾回收后，关联的<code>MutationObserver</code> 才会被垃圾回收</li></ul></li></ul><h2 id="90724117-f837-4e64-9259-8fbc3842df12" class="">3.4.2 MutationRecord的引用（<strong>References</strong>）</h2><ul id="f7e14f3f-a36e-4b2d-a877-ca1d1341a56b" class="bulleted-list"><li style="list-style-type:disc">记录队列中的每个<code>MutationRecord</code> 实例至少包含对已有DOM节点的一个引用（<code>target</code> 属性），如果变化是<code>childList</code>类型，则会包含多个节点的引用</li></ul><ul id="1f96baa7-43c8-40b4-a9b7-58a7e2c7e2eb" class="bulleted-list"><li style="list-style-type:disc">记录队列和回调处理的默认行为是<strong>耗尽</strong>这个队列，处理每个<code>MutationRecord</code> ，然后让它们超出作用域并被垃圾回收<ul id="6f6ccf0d-6e0f-4586-af1a-e96ca9adc978" class="bulleted-list"><li style="list-style-type:circle">异步调用一次回调，就会消耗记录队列中的<code>MutationRecord</code> 实例</li></ul><ul id="9f4d4ec3-da90-466f-9074-15a3447ca744" class="bulleted-list"><li style="list-style-type:circle">如果需要保存某个观察者的完整变化记录，<strong>不能直接保存</strong><code>MutationRecord</code> 实例，因为它们引用着节点，会妨碍这些节点被回收，如果需要尽快释放内存，可以从<code>MutationRecord</code> 中抽取有用的信息，然后保存到一个新对象上，最后抛弃<code>MutationRecord</code></li></ul></li></ul><p id="ffdd11e8-d321-400f-8544-f96271ae7d5d" class="">
+</p><p id="8cd969d8-e557-4be3-bfb1-8afc74fc928a" class="">
+</p><p id="f800671a-8b59-492a-b0b2-152752342c4e" class="">
+</p></div></div><p id="e76064e7-87a7-4a89-a001-e3d450d6b053" class="">
+</p></div></article></body></html>

@@ -1,0 +1,696 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>5.2布尔操作符</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="400f32d3-da10-41bb-841a-ba11798c9fa5" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_vincent_van_gogh_oleanders.jpg" style="object-position:center 0%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🌜</span></div><h1 class="page-title">5.2布尔操作符</h1></header><div class="page-body"><p id="5aac4292-7311-4d9c-b2f9-4b278975339d" class="">布尔操作符有三个，逻辑非、逻辑与、逻辑或。布尔操作符用于条件判断语句中，用于<strong>测试两个值的关系</strong></p><h1 id="88a85dea-674d-402f-bb76-73f22815c5d7" class="">5.2.1 逻辑非</h1><h2 id="b0d65524-a407-4884-9e1f-ff96ba941f8b" class="">描述</h2><ul id="fa74e217-cef5-4c2c-b4c4-794f93cbf5c5" class="bulleted-list"><li style="list-style-type:disc">由感叹号(!)表示，一元操作符，可以应用给ECMAScript的任何值</li></ul><ul id="a08ceb26-9dd0-417d-97ce-7926b5f4e0f1" class="bulleted-list"><li style="list-style-type:disc">操作符始终返回布尔值</li></ul><h2 id="fc9c46ea-3ad5-49d2-846e-8e9d580cb5a7" class="">原理</h2><ul id="25e765f0-325d-4924-991a-2bb8b1acbfb7" class="bulleted-list"><li style="list-style-type:disc">逻辑非操作首先将操作数转换为布尔值，然后<strong>取反</strong>，规则如下<table id="420e959c-7045-49f6-b6eb-2cd91251b7c1" class="simple-table"><tbody><tr id="60a9deca-b2e7-4c9e-9712-ac7ad20eb112"><td id="X&gt;Ux" class="">操作数类型</td><td id="WMAz" class="" style="width:497.0909118652344px">操作结果</td></tr><tr id="615a99bd-3968-41a3-abfa-ebb1424f11dd"><td id="X&gt;Ux" class="">对象</td><td id="WMAz" class="" style="width:497.0909118652344px">false</td></tr><tr id="b0ed50bc-a7f2-48cd-a0ec-b7ae59b3a3b8"><td id="X&gt;Ux" class="">字符串</td><td id="WMAz" class="" style="width:497.0909118652344px">空字符串返回true，非空字符串返回false</td></tr><tr id="983d9997-139d-446f-91f8-d852e5c90de9"><td id="X&gt;Ux" class="">数值</td><td id="WMAz" class="" style="width:497.0909118652344px"><strong>0和NaN</strong>被看作false，返回true;<strong>非0数值和Infinity</strong>被看作true，返回false</td></tr><tr id="8fa744c4-986c-414d-af1d-cf3c511f018b"><td id="X&gt;Ux" class="">null</td><td id="WMAz" class="" style="width:497.0909118652344px">true</td></tr><tr id="1002a9b0-9760-4c42-8fc2-2c4ded8b40d3"><td id="X&gt;Ux" class="">undefined</td><td id="WMAz" class="" style="width:497.0909118652344px">true</td></tr><tr id="029eb31e-f06e-4da5-bb1d-7d68b5da3638"><td id="X&gt;Ux" class="">布尔值</td><td id="WMAz" class="" style="width:497.0909118652344px">取反</td></tr><tr id="458ab066-7335-4511-9c15-e9e54b0d1bd5"><td id="X&gt;Ux" class="">其它</td><td id="WMAz" class="" style="width:497.0909118652344px">如方法(function)，与对象相同，返回false；符号，已存在的符号当作true，不存在的符号当作false</td></tr></tbody></table></li></ul><h3 id="f669ea47-d2aa-4212-80f6-20941b30554c" class="">应用</h3><ul id="fa54a519-f605-4bf2-a499-8c2358eefe03" class="bulleted-list"><li style="list-style-type:disc">使用两个逻辑非符号可以用于把<strong>任何变量转换为布尔值，</strong>相当于调用<strong>转型函数Boolean()</strong><pre id="736e7841-251a-4ac6-8f8b-be2d41ca38e7" class="code code-wrap"><code>// 逻辑非
+// 应用于任何变量
+// 两个逻辑非符号相当于Boolean()转型函数
+console.log(!!123); // true
+console.log(!!0);  // false
+console.log(!!{});  // true 对象被看为true
+console.log(!!NaN);  // false NaN被看为false
+console.log(!!Infinity);  // true Infinity被看为true
+console.log(!!&quot;&quot;);  // false 空字符串被看为false
+console.log(!!undefined);  // false
+console.log(!!Symbol[&quot;isConcatSpreadable&quot;]); // true 存在的符号
+console.log(!!((x) =&gt; x)); // true function</code></pre></li></ul><h1 id="ac7d9a41-36a6-4b26-8492-8517f967b9fd" class="">5.2.2 逻辑与</h1><h2 id="2eb4bc1c-7ee4-4736-b9b7-65f9f9f019b6" class="">描述</h2><ul id="6a05e1d6-63c0-4661-bc00-20405f10b908" class="bulleted-list"><li style="list-style-type:disc">由两个和号(&amp;&amp;)表示，有两个操作数，属于二元操作符</li></ul><ul id="22263bb8-1716-4ad2-a2ef-b7cbf8b19136" class="bulleted-list"><li style="list-style-type:disc">返回值不一定是布尔值</li></ul><h2 id="f462280f-f8a6-4f7a-96a2-f2d3f1dcdcb7" class="">真值表</h2><ul id="84f33916-1943-4055-bb07-768f81746f6a" class="bulleted-list"><li style="list-style-type:disc">对于两个操作数是布尔值的情况，遵循如下真值表得出结果<table id="cd546ae2-4f86-4a6a-987b-49ad1b8889c6" class="simple-table"><tbody><tr id="713f0720-bfd6-43f9-9c98-908b9e97abcc"><td id="]R@v" class="">第一个操作数</td><td id="g&lt;I~" class="">第二个操作数</td><td id="ADqd" class="">结果</td></tr><tr id="659ea38a-7153-4ec9-8302-a87b3829c070"><td id="]R@v" class="">true</td><td id="g&lt;I~" class="">true</td><td id="ADqd" class="">true</td></tr><tr id="b35c4131-35b5-4202-9cc8-e976ca6ca9af"><td id="]R@v" class="">true</td><td id="g&lt;I~" class="">false</td><td id="ADqd" class="">false</td></tr><tr id="78c8a26f-4587-4c26-8eb2-b2b46af5b5ba"><td id="]R@v" class="">false</td><td id="g&lt;I~" class="">true</td><td id="ADqd" class="">false</td></tr><tr id="a3a574da-b9df-48e7-8938-87f34007fb78"><td id="]R@v" class="">false</td><td id="g&lt;I~" class="">false</td><td id="ADqd" class="">false</td></tr></tbody></table></li></ul><h2 id="20df0189-d602-4123-bc47-16521a6c7add" class="">原理</h2><ul id="b07cbac8-0531-4ebd-98b3-8d8b3900b13e" class="bulleted-list"><li style="list-style-type:disc">总体原则：<strong>先判断第一个操作值，如果第一个操作值能决定结果，就不会求值判断第二个操作符</strong><ul id="c750a97c-ab25-41f3-92de-9674eaef2d3f" class="bulleted-list"><li style="list-style-type:circle">短路原则</li></ul></li></ul><ul id="33d96ba1-b417-457c-b4c7-cc9a2b225d47" class="bulleted-list"><li style="list-style-type:disc">返回值原则：<table id="21967c1b-6dcf-4375-820c-72fa7d7c5a8d" class="simple-table"><tbody><tr id="50e15dd4-c77f-45d3-9e1d-26b85226ede2"><td id="uLzV" class="">第一个操作数</td><td id="p;Mq" class="">第二个操作数</td><td id="Etiy" class="">结果</td></tr><tr id="eecc03b4-ed9c-44b9-a8aa-999a2f15fb82"><td id="uLzV" class="">对象</td><td id="p;Mq" class="">任意</td><td id="Etiy" class="">第二个操作数</td></tr><tr id="c30d1797-7725-424a-9c38-28163b376b39"><td id="uLzV" class="">null</td><td id="p;Mq" class="">任意</td><td id="Etiy" class="">null</td></tr><tr id="d0455f82-4ca5-481c-bf20-cc6641d5d333"><td id="uLzV" class="">NaN</td><td id="p;Mq" class="">任意</td><td id="Etiy" class="">NaN</td></tr><tr id="89713bb3-c846-4894-a739-0aa85c184896"><td id="uLzV" class="">undefined</td><td id="p;Mq" class="">任意</td><td id="Etiy" class="">undefined</td></tr></tbody></table></li></ul><ul id="0910cc72-4f96-4a7d-a11c-50d045663e06" class="bulleted-list"><li style="list-style-type:disc">结论：<ol type="1" id="842f52fb-bbd8-470b-be8e-dd2c3c34f363" class="numbered-list" start="1"><li>第一个操作数转换为布尔值是true的情况下，直接返回第二个操作数</li></ol><ol type="1" id="a58adf31-610e-469a-a3ee-6a486b60418d" class="numbered-list" start="2"><li>第一个操作数转换为布尔值是false的情况下，直接返回第一个操作数（<strong>不会检查和执行第二个操作数</strong>）</li></ol></li></ul><h2 id="243f1c77-e772-4293-8965-12315c7c61ca" class="">应用</h2><ul id="2a1232a9-7b2f-4530-b768-6723ba5ecb1e" class="bulleted-list"><li style="list-style-type:disc">在JSX中用作判断是否有数据的常用操作符<pre id="71a1e722-05b5-4793-b731-c762eb2f8d0a" class="code code-wrap"><code>render() {
+	return (&lt;ol&gt;
+		{data &amp;&amp; data.length &amp;&amp; data.map((v,i) =&gt; &lt;li key={i}&gt;{v}&lt;/li&gt;)}	
+	&lt;/ol&gt;)
+}</code></pre></li></ul><ul id="bf9e65f6-ebae-4d52-8e4f-9ada5891e375" class="bulleted-list"><li style="list-style-type:disc">根据短路原则，第一个布尔值为false情况下，不会检查第二个操作数，如果第二个操作数有一些语句问题也不会报错<pre id="71faae16-4a62-444a-a1e2-b2bae0422b52" class="code code-wrap"><code>// 第一个操作数转换为布尔值为true就返回第二个操作数
+// 第一个操作数转换为布尔值为false就返回第一个操作数
+let found = false;
+let result = (found &amp;&amp; undeclaredVar); // 不会出错，因为短路原则不会执行第二个操作数
+console.log(result); // false</code></pre></li></ul><h1 id="1fcb0243-60e5-494c-82e9-cf80a1c88b00" class="">5.2.3 逻辑或</h1><h2 id="d5278092-9b23-4f05-b7ab-29cbd811cf3f" class="">描述</h2><ul id="0338c146-892f-42fa-9b64-24654e63efb2" class="bulleted-list"><li style="list-style-type:disc">逻辑或由两个管道符(<code>||</code>)组成,有两个操作数，属于二元操作符</li></ul><ul id="fa900d51-39a8-49aa-be9a-f5fb2960d557" class="bulleted-list"><li style="list-style-type:disc">返回值不一定是布尔值</li></ul><h2 id="7ea8bf8d-47b7-4222-b7a1-9b9eddbdb0f6" class="">真值表</h2><ul id="4cb78daf-33f9-4867-ad80-7b6c7a98144b" class="bulleted-list"><li style="list-style-type:disc">如果两个操作数都是布尔值，遵循的真值表如下<table id="1100fc76-a947-4543-9aa4-f4af551c0b63" class="simple-table"><tbody><tr id="75ee264b-0f0f-40e3-8bf8-d447ace5c160"><td id="BkiV" class="">第一个操作数</td><td id="MNlS" class="">第二个操作数</td><td id="QNba" class="">结果</td></tr><tr id="34862719-7411-41ff-b10b-713af75887db"><td id="BkiV" class="">true</td><td id="MNlS" class="">true</td><td id="QNba" class="">true</td></tr><tr id="f1ef3916-4db6-4747-b8b8-bcd35d41ec4f"><td id="BkiV" class="">true</td><td id="MNlS" class="">false</td><td id="QNba" class="">true</td></tr><tr id="08a847b0-0f42-4643-a519-1af1e391d16b"><td id="BkiV" class="">false</td><td id="MNlS" class="">true</td><td id="QNba" class="">true</td></tr><tr id="ff9e9b6c-9023-4ba5-98a7-02d89b626ed5"><td id="BkiV" class="">false</td><td id="MNlS" class="">false</td><td id="QNba" class="">false</td></tr></tbody></table></li></ul><h2 id="a1839625-1812-43fb-bc4c-abfd10c32b8f" class="">原理</h2><ul id="d6584c14-343d-49e5-b249-fba56020c65a" class="bulleted-list"><li style="list-style-type:disc">总体原则：和逻辑与类似，先判断第一个操作数是否能决定结果，如果能就不会判断第二个操作数<ul id="68402989-e25e-4f9b-9c0d-1bcfe09b39b1" class="bulleted-list"><li style="list-style-type:circle">短路原则</li></ul></li></ul><ul id="f35c53d1-39a6-4889-ae44-fc5ca35ba221" class="bulleted-list"><li style="list-style-type:disc">返回值原则：<table id="99d49f5e-a3a8-4272-aa2a-7bb0b95049c8" class="simple-table"><tbody><tr id="9518cda9-2e8a-4f70-8d7e-0c5fa9310f65"><td id="}pF^" class="">第一个操作数</td><td id="x^[b" class="">第二个操作数</td><td id="mHjp" class="">结果</td></tr><tr id="6daae4c9-4d72-4485-b00c-04507843f9b9"><td id="}pF^" class="">转换为布尔值为true</td><td id="x^[b" class="">任意</td><td id="mHjp" class="">第一个操作数</td></tr><tr id="b94c55f4-7b8b-4f84-87d1-0647fde870dd"><td id="}pF^" class="">转换为布尔值为false</td><td id="x^[b" class="">任意</td><td id="mHjp" class="">第二个操作数</td></tr></tbody></table></li></ul><h2 id="f52cfba7-e1a6-43a2-bd8b-6ea54feafdc7" class="">应用</h2><ul id="8f9f1928-b396-40f5-b29d-be0acdfe4b12" class="bulleted-list"><li style="list-style-type:disc">给变量备选值，避免变量是空或者undefined<pre id="d2a7e804-3d06-4661-abb8-4d93ee7d6bbb" class="code code-wrap"><code>let varible = preferredObj || backupObj;
+// 可能是两种值，如果preferredObj有值就优先 backupObj是备用的</code></pre></li></ul><ul id="2e9144e7-7599-4e58-9be6-9085b5dbc898" class="bulleted-list"><li style="list-style-type:disc">由于短路，如果第一个操作数转换为布尔值为true的情况下，第二个操作数有语句错误也不会报错，和逻辑与类似<pre id="0d0fa860-d04b-4c29-a0f3-d91369e08be5" class="code code-wrap"><code>// 逻辑或 短路原则
+// 第一个操作数转换为true就返回第一个操作数
+// 第一个操作数转换为false就返回第二个操作数
+
+let o = {};
+let rez = o || undeclaredVar; // 不会报错
+console.log(rez); // {}</code></pre></li></ul><p id="eeee5dd2-2ee3-495b-86d9-395b11d8167b" class="">
+</p></div></article></body></html>

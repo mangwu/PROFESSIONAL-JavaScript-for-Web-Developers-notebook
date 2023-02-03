@@ -1,0 +1,717 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2.2 变量声明</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0b922805-bf1d-4d30-b657-3d583bc65fac" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🔭</span></div><h1 class="page-title">2.2 变量声明</h1></header><div class="page-body"><h1 id="b2d6847f-7bbc-4f9a-b517-d8f189d83248" class="">2.2.1 使用var的函数作用域声明</h1><h2 id="3ddb359f-ae43-4b6c-a963-e55276e327f7" class="">描述</h2><ul id="80239643-be17-4b9b-8483-a8d3ada14fdf" class="bulleted-list"><li style="list-style-type:disc">使用var声明变量，<strong>变量自动被添加到最接近的上下文的变量对象中</strong><ul id="3865c818-6ca9-441d-9f5d-137e3393ca36" class="bulleted-list"><li style="list-style-type:circle">浏览器环境下，var声明的变量挂载到window上</li></ul><ul id="27b065a1-220c-4cfd-9820-80998baf1f59" class="bulleted-list"><li style="list-style-type:circle">node环境下，var声明的变量<strong>不会</strong>挂载到global下</li></ul></li></ul><ul id="0ae47468-73b6-44c8-9bd7-2cb99cfa9ab0" class="bulleted-list"><li style="list-style-type:disc"><strong>最接近的上下文要么是全局上下文，要么是函数的局部上下文</strong></li></ul><ul id="46b3f80f-ed61-4542-82fe-4ef58d8a6992" class="bulleted-list"><li style="list-style-type:disc">在with语句中，因为只是指定了临时上下文的变量对象，在其中用var声明变量，这个变量会添加到临时上下文外最接近的上下文的变量对象中</li></ul><h2 id="db6001a7-e19b-4417-80bd-9640fecb7c3f" class="">函数作用域中声明var变量</h2><ul id="9b9aab7a-ac5f-4b78-befb-96cacd8412f8" class="bulleted-list"><li style="list-style-type:disc">在函数作用域中声明的var变量是函数的局部变量</li></ul><ul id="9dd29cd2-89a9-48a9-bffc-51e3cb3e0c41" class="bulleted-list"><li style="list-style-type:disc">在函数执行完毕后被销毁,这点在<a href="../3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">3.变量</a> 中阐述过<pre id="62e234dc-a2e9-405c-98d2-fe2c0f06db62" class="code"><code>function add(num1, num2) {
+	var sum = num1 + num2;
+	return sum;
+}
+let result = add(10, 20);
+console.log(sum); // 报错，未识别的sum</code></pre></li></ul><h2 id="7883cc72-cc28-401a-90e0-f4090f6224a6" class="">在函数作用域中省略var</h2><ul id="29ad2a67-6841-40c6-89b4-10bcef1bff69" class="bulleted-list"><li style="list-style-type:disc">在函数作用域中省略var声明一个变量，这个变量会变为全局变量，被添加到全局上下文</li></ul><ul id="f5ebf32e-99c8-4a9b-83c5-c613dce34563" class="bulleted-list"><li style="list-style-type:disc">严格模式下这种声明方式会报错，<a href="../3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">3.变量</a> 中阐述过<pre id="82484283-e7ba-47dd-a808-b86c44afdb11" class="code"><code>function add(num1, num2) {
+	sum = num1 + num2;
+	return sum;
+}
+let result = add(10, 20);
+console.log(sum); // 30</code></pre></li></ul><h2 id="d8093d90-1241-4bc1-838e-4e9762655cc5" class="">var的状态提升</h2><ul id="903b8a2f-9d40-4873-b620-2ec8c9fe612b" class="bulleted-list"><li style="list-style-type:disc">状态提示即使用var声明的变量默认提示在上下文最顶部执行，例如<pre id="ab16be38-378c-4bc3-9b78-627a2a4f6f09" class="code"><code>let a = 123;
+var name = &quot;456&quot;;</code></pre><p id="fc8ca6e7-a0e8-4088-b61b-6325e170b592" class="">等价于</p><pre id="2ef5def0-8b82-4b5c-83f8-05480d4e9f1f" class="code"><code>var name;
+let a = 123;
+name = &quot;456&quot;;</code></pre><p id="0106f5f6-40cc-43a3-b27f-b917301ce3fd" class="">⇒ 在<code>let a = 123</code> 语句之前大于使用name都不会报错误，但是会<strong>被当作undefined处理</strong></p></li></ul><ul id="4b000ce6-2205-4841-a87c-7566805cd138" class="bulleted-list"><li style="list-style-type:disc"><strong>状态提升只是提升了声明，而没有提升赋值</strong></li></ul><h2 id="2d12eee2-d374-4410-bc03-23d1eeca16cb" class="">重复声明</h2><ul id="e1445f06-459c-4070-ab4e-40562ce9f4f1" class="bulleted-list"><li style="list-style-type:disc">由于状态提升的特性，使用var在同级上下文重复声明同一个变量并不会报错</li></ul><ul id="acbb7a20-39cf-483c-8079-e75381d2e4d5" class="bulleted-list"><li style="list-style-type:disc">因为状态提示，所有声明都想当与在上下文顶部声明一下变量，而赋值的位置不变，例如<pre id="1cef016a-a446-4a24-8c89-333ba24046bd" class="code"><code>var name = 789;
+let a = 123;
+var name = 456;
+let b = 456;
+var name = a;</code></pre><p id="5ed8cae9-4c80-4877-b39b-119f0cadd9a4" class="">等价于</p><pre id="ab92f6a4-3564-480a-a178-823d1b869396" class="code"><code>var name; // 状态提升
+name = 789
+let a = 123;
+name = 456;
+let b = 456;
+name = a;</code></pre><ul id="603a70b6-65b6-47cb-9104-71c854d1b57f" class="bulleted-list"><li style="list-style-type:circle">在<code>let a</code> 和 <code>let b</code> 前，中，后打印name会得到不同的值</li></ul><ul id="34a3fda8-4570-49a2-9466-b35da32d0d61" class="bulleted-list"><li style="list-style-type:circle">状态提升只是提升声明，没有提升赋值</li></ul></li></ul><h1 id="f249cecf-3219-4f29-9df8-07a4e8971ef7" class="">2.2.2 使用let的块级作用域声明</h1><p id="a8515031-e0ed-493a-b169-7ef8ef203537" class=""><a href="../3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">let特性</a> 中提到过let的特性与使用方式</p><h2 id="8275e620-97dd-447a-8909-baecddc3e05b" class="">描述</h2><ul id="b9614662-171d-4705-a941-b8b9ccc06076" class="bulleted-list"><li style="list-style-type:disc">ES6新增的关键字，用于声明变量，和var相似，但作用域是块级的</li></ul><ul id="75565f34-6b82-407e-9c60-815d792b0c4c" class="bulleted-list"><li style="list-style-type:disc">块级作用域是JavaScript的新概念，它<strong>由最近的一对花括号{}界定</strong></li></ul><ul id="c73b9b54-d254-46f2-bfcc-2b39b77b47bd" class="bulleted-list"><li style="list-style-type:disc">if块，while块，function块，甚至只使用花括号的单独的块也是let声明的作用域</li></ul><h2 id="8a4bcec5-8682-4bc1-9f54-535fa5e4265e" class="">不能重复声明</h2><ul id="8da1ba28-67d2-4125-b864-35e9dca895a5" class="bulleted-list"><li style="list-style-type:disc">let不能在同一块级作用域声明两次相同变量，因为var可以状态提升，而let没有</li></ul><ul id="821a2938-0346-45bb-b165-e1afe3be419c" class="bulleted-list"><li style="list-style-type:disc">重复声明会抛出SyntaxError(语法错误)<pre id="4e8baa4c-c065-4111-a9b4-1786c4d58e97" class="code code-wrap"><code>let b = 2;
+if(true) {
+	let b = 3; // 不会报错
+	let b = 4; // 报错 同一作用域中有相同变量 不能重复声明 SyntaxError
+}</code></pre></li></ul><h2 id="85cb617f-5cf3-4a9e-a600-cf821271dddd" class="">适合作为迭代变量</h2><ul id="eaf8dac3-1d18-42c6-af01-416cb68a28ae" class="bulleted-list"><li style="list-style-type:disc">let是块作用域，在循环中是局部变量，循环结束后被销毁，对循环外部上下文没有影响</li></ul><ul id="acbe1afa-159e-4633-bccf-7b483d968a80" class="bulleted-list"><li style="list-style-type:disc">var是函数作用域，在循环中声明后变为全局变量，循环结束后不会被销毁，对循环外部上下文有影响<pre id="38380a86-24ac-4ec2-80e2-3119fc72fe8a" class="code code-wrap"><code>for(var i = 0; i &lt; 0; i++) {};
+console.log(i); // 10
+
+for(let i = 0; i &lt; 0; i++) {};
+console.log(i); // 未定义ReferenceError</code></pre></li></ul><h2 id="75cacbcc-c8d4-4b90-ad42-41813e9991f7" class="">暂时性死区</h2><p id="1b3dbd86-b7b2-43a4-a7ff-65488019e814" class=""><a href="../3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">暂时性死区</a> 中有关于let的暂时性死区、全局声明、<a href="../3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">条件声明</a>等说明</p><ul id="7df8554a-0f82-4925-989b-d7056f1084b3" class="bulleted-list"><li style="list-style-type:disc">temporal dead zone</li></ul><ul id="904356af-cdfe-4a7c-9b0b-9bc4896c471f" class="bulleted-list"><li style="list-style-type:disc">在一个使用let声明的变量时，对于这个变量而言，之前的部分就是暂时性死区</li></ul><ul id="0a2bdb0f-40d9-412c-8919-1c372a3fc169" class="bulleted-list"><li style="list-style-type:disc">实际上let也有状态提升，因为暂时性死区的原因，在声明之前不能使用let声明的变量</li></ul><h1 id="4a437000-d387-4da5-8b5d-83df81dad2ab" class="">2.2.3 使用const的常量声明</h1><ul id="92117443-1824-4c30-9f4f-d6d159c9dcbf" class="bulleted-list"><li style="list-style-type:disc">ES6新增的const关键字，const声明的变量必须初始化为某个值，之后不能再被重新赋值</li></ul><ul id="7bbd84f1-1d33-4f79-84d4-69ba9951060e" class="bulleted-list"><li style="list-style-type:disc">除了常量这个特性外，其它的和let的特性一样</li></ul><h2 id="2e9e7236-827c-4b21-aac2-0c2cdb69011a" class="">和let的区别</h2><ul id="cf83d85f-4750-4d30-89a9-6929b0c1956a" class="bulleted-list"><li style="list-style-type:disc">唯一区别：在声明时必须初始化，且不能再被赋值</li></ul><ul id="ebde7ab1-388d-4276-97c2-885510f5ce88" class="bulleted-list"><li style="list-style-type:disc">其它和let一样：块作用域、不能重复声明，适合做for…of的迭代常量、暂时性死区</li></ul><h2 id="c8f5548e-b700-4e94-b640-59bc8ce914a7" class="">适合保存对象引用</h2><ul id="a3d53b56-21e9-4e5c-a0ed-20b4904d1f88" class="bulleted-list"><li style="list-style-type:disc">const声明的变量适合初始化为对象</li></ul><ul id="bde773c8-ecf1-4d70-a4f2-c794be8c48e2" class="bulleted-list"><li style="list-style-type:disc">因为<strong>const声明只应用到顶级原语或者对象、</strong><ul id="f76f5579-ef26-4a2a-bece-3c1b54010498" class="bulleted-list"><li style="list-style-type:circle">赋值为对象的const变量不能再被赋值</li></ul><ul id="65fc4443-1f53-4f20-90d7-f2df8661b951" class="bulleted-list"><li style="list-style-type:circle">但是对象的键不受影响，可以修改</li></ul><pre id="837bce97-cb77-4d44-8ea9-126ca07c8ab9" class="code code-wrap"><code>const o1 = {}
+o.name = &quot;mangwu&quot;;</code></pre></li></ul><ul id="23363b5d-81eb-41e5-8df9-989ed9766d4c" class="bulleted-list"><li style="list-style-type:disc">如果想让整个对象都不被修改，可以使用<strong>Object.freeze()</strong>方法<ul id="cfc7dcde-04d7-49f7-8f0e-d91d961d3c4f" class="bulleted-list"><li style="list-style-type:circle">给<strong>对象修改属性值时虽然不会报错，但是会静默失败</strong><pre id="51310856-6a08-427d-8e48-a583c8093fb9" class="code code-wrap"><code>const o = Object.freeze({});
+o.name = &quot;mangwu&quot;;// 不会报错
+console.log(o); // {}  修改属性失败
+</code></pre></li></ul></li></ul><h2 id="1189b52d-e454-4c4e-a9b0-3b4d19a3b2c1" class="">JavaScript引擎处理const变量</h2><ul id="f6ccf8e2-0089-4d2a-9f6b-3f35e63f02ac" class="bulleted-list"><li style="list-style-type:disc">因为const变量保存的值是不变的（对象的引用不变）<ul id="43ec076e-fcb9-479a-bb21-25198ff29e1e" class="bulleted-list"><li style="list-style-type:circle">JavaScript运行时编译器可以将const变量的实例都替换成实际的值</li></ul><ul id="f50ac731-7599-4245-b4f3-1a7e3c9132c1" class="bulleted-list"><li style="list-style-type:circle">不会通过查询表进行变量查找</li></ul><ul id="42fb0438-f40e-4819-8c28-d4c5ab008e32" class="bulleted-list"><li style="list-style-type:circle">谷歌的V8引擎就是执行了这种优化</li></ul></li></ul><ul id="cdc6fe4d-6798-41ad-bbc2-99bee3c72093" class="bulleted-list"><li style="list-style-type:disc">基于这种情况，开发流程不会因为声明const受到影响，<strong>编写代码时应该多使用const</strong></li></ul><ul id="9e396f4f-7f4a-477c-86a9-c53ae0b65001" class="toggle"><li><details open=""><summary>关于声明变量的使用情况，<a href="../3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">3.4 声明变量的代码风格</a> 中有提及</summary><div><h2 id="5da060f5-beba-4b9d-9235-c86f2cf07309" class="">3.4 声明变量的代码风格</h2><ul id="5840959a-6741-4cb7-9958-b1e5ece81501" class="bulleted-list"><li style="list-style-type:disc">ES6的新声明变量的关键字进一步规范了JavaScript的书写，有助于提升代码质量</li></ul><ul id="df223ebf-6869-401e-8165-48bc79506384" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">ES6新增声明关键字的使用实践<ol type="1" id="e835bddb-eb50-41be-b9db-956c0f0e5730" class="numbered-list" start="1"><li>不使用<strong>var</strong><ol type="a" id="9c6e42f8-197b-4439-8c40-c7375e6a1d83" class="numbered-list" start="1"><li>var的函数作用域范围比let的块作用域大，会导致变量渗透</li></ol><ol type="a" id="9ec0e73d-f76a-4d2c-97e9-8fb9524c83b5" class="numbered-list" start="2"><li>使用let和const能<strong>明确作用域、声明位置、和值限制</strong></li></ol></li></ol><ol type="1" id="194b5ab9-9029-4958-a610-c1d087ce71f4" class="numbered-list" start="2"><li>const 优先，let次之<ol type="a" id="86b78c06-d69b-4ca3-9e3c-a776ea1db128" class="numbered-list" start="1"><li>静态代码分析工具提前发现不合法赋值操作</li></ol><ol type="a" id="0c8afb0b-3149-40ad-aadd-bd78ee05c6b8" class="numbered-list" start="2"><li>优先使用const能让开发者更有信心推断某些变量的值不会改变</li></ol></li></ol></li></ul></div></details></li></ul><h1 id="ef3b0d9f-cc7a-437c-929f-df8b1bd2fa32" class="">2.2.4 标识符查找</h1><h2 id="12af505e-c0cc-4889-8695-9209c7bffd01" class="">描述</h2><ul id="fc8ebe82-19fa-434e-9e68-7e13d8571d15" class="bulleted-list"><li style="list-style-type:disc">标识符查找指<ul id="84110544-80fa-4fcb-9a30-395730788bee" class="bulleted-list"><li style="list-style-type:circle">在特定上下文位读取或写入而引入一个标识符时，必须通过搜索确定这个标识符表示什么</li></ul><ul id="be7ae5bd-97f5-47a8-ab35-0448944a5f52" class="bulleted-list"><li style="list-style-type:circle">例如在表达式中使用一个变量，那么程序就会在当前上下文搜索该变量，并读取该变量的值以便执行表达式</li></ul></li></ul><ul id="5920afd4-051d-4cbc-8af3-24a4f11cb846" class="bulleted-list"><li style="list-style-type:disc">搜索过程和作用域链有关<ol type="1" id="9dcaf8ab-d001-4c13-a61f-0b6058a54b0a" class="numbered-list" start="1"><li>开始于作用域链前端，以给定的名称搜索对应的标识符</li></ol><ol type="1" id="4f54431e-1663-41c8-b125-f5370f361a76" class="numbered-list" start="2"><li>如果<strong>在局部上下文的变量对象有该标识符，则搜索停</strong>止，变量确定<ol type="a" id="bf506fad-0481-46a0-8c9e-1ff4c55a48fb" class="numbered-list" start="1"><li>作用域链的每个变量对象也有原型链</li></ol><ol type="a" id="4ad18120-cf05-4f3d-a382-25aff64d98e3" class="numbered-list" start="2"><li>搜索涉及到每个对象的原型链</li></ol></li></ol><ol type="1" id="ea8a528b-16f6-4560-b11b-b31e6f4923a0" class="numbered-list" start="3"><li>如果没有找到变量名，则继续沿着作用域链搜索</li></ol><ol type="1" id="0f90b7b5-589b-4bcb-8e20-eb297e3d48d8" class="numbered-list" start="4"><li>直到搜索到全局上下文的变量对象</li></ol><ol type="1" id="0edca6c1-0e21-4b24-a846-2c014efa6ff4" class="numbered-list" start="5"><li>如果仍然没有找到，说明没有定义该标识符，会报错</li></ol></li></ul><h2 id="fd4846a9-4922-49a7-8867-1595ebf7ce46" class="">例子</h2><ul id="0bc72494-9015-4dd2-b58d-7830e6b39813" class="toggle"><li><details open=""><summary>可以查看<a href="../4%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%203f42d13992b54b3b84d87f40a65c7434.html">上述关于上下文中代码执行原理过于抽象，可以对一个简单的例子加以解析</a> 中关于上下文代码执行的原理</summary><div><ul id="83985cbf-90b4-49d6-bf8c-6a39b90348f5" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">上述关于上下文中代码执行原理过于抽象，可以对一个简单的例子加以解析<pre id="28c96872-3fcf-4bce-bb3e-d049374ae92d" class="code"><code>var color = &quot;blue&quot;;
+function changeColor() {
+	if(color == &quot;blue&quot;) {
+		color = &quot;red&quot;;
+	} else {
+		color = &quot;blue&quot;;
+	}
+}
+changeColor();</code></pre><ul id="8d843d10-18b9-4118-ab6f-df29315d4f62" class="bulleted-list"><li style="list-style-type:circle">函数changeColor的作用域链包含两个变量对象：<ul id="685515e4-0461-4595-b28b-e942b1d167ac" class="bulleted-list"><li style="list-style-type:square">函数自己的变量对象（即参数定义的arguments对象，即使没有参数）</li></ul><ul id="a2f7f473-8432-452c-853a-4d93eb6fe493" class="bulleted-list"><li style="list-style-type:square">另一个就是全局上下文的变量对象</li></ul></li></ul><ul id="a0981a63-5eb5-48a8-b456-13b915225be3" class="bulleted-list"><li style="list-style-type:circle">这个函数能够找到color，原因<ul id="fa3a8d6f-adf1-4ebb-9a2e-188e85977da9" class="bulleted-list"><li style="list-style-type:square">先从作用域链的最前端（函数自己的变量对象）开始查找，没有往后查找</li></ul><ul id="45ad4a45-c442-4a92-8bb9-e41e3a6bf26e" class="bulleted-list"><li style="list-style-type:square">作用域链中的第二个（也是最后一个）变量对象就是全局上下文的变量对象，其中有通过var定义的color变量</li></ul><ul id="f907123d-f351-43b9-8525-34ee0d38e8d5" class="bulleted-list"><li style="list-style-type:square">这就<strong>完成了一次通过作用域链逐级搜索标识符名称解析变量的过程</strong></li></ul></li></ul></li></ul></div></details></li></ul><ul id="aedeb5ca-b67a-416c-894f-4afe234b6bf2" class="bulleted-list"><li style="list-style-type:disc">如果局部上下文中有一个同名的标识符，那就不能在该上下文中引用<strong>父上下文</strong>的同名标识符<pre id="4cf9ccee-e88d-42bc-8bb7-14e704a57bb5" class="code code-wrap"><code>var color = &quot;red&quot;;
+function getColor(){
+	let color = &quot;blue&#x27;;
+	console.log(color); // 这个时候引用的color就不能引用到父上下文的color了
+	return color;
+}</code></pre></li></ul><ul id="dcda74e9-fb17-4c04-bf32-a92879514d88" class="bulleted-list"><li style="list-style-type:disc">唯一的例外是，再浏览器环境下，color是挂载再window变量对象下的，所以可以使用<code>window.color</code> 引用全局上下文的color</li></ul><hr id="47f2866c-6960-4a22-8adf-0cc1e9ea6c88"/><h2 id="51df8b5a-b1cf-41b2-a0a2-7115c6ae84db" class="">注意</h2><ul id="c6b6e982-e606-457d-9d38-404ae417c152" class="bulleted-list"><li style="list-style-type:disc">标识符这种通过作用域链从局部上下文的变量对象到父上下文的变量对象直到全局上下文的变量对象的查找方式，是一种标识符越在外层，耗费越大的搜寻方式；<ul id="c34337c0-004a-4413-9c9d-fdf6ee8749b2" class="bulleted-list"><li style="list-style-type:circle">访问局部变量比访问全局变量更快，因为不用切换作用域</li></ul><ul id="1cf17a3a-034c-4ee1-a747-598fe1300d89" class="bulleted-list"><li style="list-style-type:circle">不过JavaScript引擎在优化标识符查找上做了很多工作，现在这个差异微不足道</li></ul></li></ul><p id="30fd3b21-48d6-4ed7-a681-657a5d05b799" class="">
+</p></div></article></body></html>

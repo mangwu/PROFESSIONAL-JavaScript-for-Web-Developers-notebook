@@ -1,0 +1,711 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>15. 立即调用的函数表达式（Immediately Invoked Function Expressions）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f2563e99-02e0-4176-b1f4-7b95d498e85a" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_tim_peake_spacewalk.jpg" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🚟</span></div><h1 class="page-title">15. 立即调用的函数表达式（Immediately Invoked Function Expressions）</h1></header><div class="page-body"><p id="6656bb21-2db8-4f17-8fd2-8896510dd1c2" class="">立即调用的函数表达式在<a href="11%20%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%88Function%20Expressions%EF%BC%89%20cec9a33388a642e19afbe29bae6f24fc.html">匿名函数表达式可以用作IIFE（Immediately Invoked Function Expression ，立即调用函数表达式），即一经定义就立即运行</a> 中简单介绍过使用</p><h1 id="45fa2f8a-6f01-464e-8602-4e75d91eca33" class="">15.1 立即调用的函数表达式</h1><ul id="1c52df9f-53c4-428e-befe-edfdcc5e361a" class="bulleted-list"><li style="list-style-type:disc">立即调用的匿名函数又被称为<strong>立即调用的函数表达式（IIFE，Immediately Invoked Function Expressions）</strong></li></ul><ul id="545a0e56-cb8a-4cbc-a86a-5adbe2f2243f" class="bulleted-list"><li style="list-style-type:disc">它类似于函数声明，但由于被包括在括号中，所以会被解释为函数表达式，紧跟在第一组括号后面的第二组括号会理解调用前面的函数表达式</li></ul><h2 id="79480e18-3dce-421c-b0b0-002487be328b" class="">15.1.1 语法</h2><pre id="ca07b758-590b-4a17-8598-1d21cb91c276" class="code code-wrap"><code>(function() {
+	// 块级作用域
+})()</code></pre><h2 id="9e970278-094b-4b52-a3ef-64a2ac1c7ef1" class="">15.1.2 使用场景</h2><ul id="443989ba-26b2-44f7-9e6b-1def249bfe77" class="bulleted-list"><li style="list-style-type:disc">使用IIFE可以<strong>模拟</strong>（<strong>simulate</strong>）<strong>块级作用域</strong>（<strong>block scope</strong>）：在一个函数表达式内部声明变量，然后立即调用这个函数，这样位于函数体作用域的变量行为就像是在块级作用域中一样（<strong>block scope-like</strong>）</li></ul><ul id="f0fd6d5b-da67-436a-9058-a558b323c6dc" class="bulleted-list"><li style="list-style-type:disc">ES5尚未支持块级作用域，使用IIFE模拟块级作用域是相当普遍的<pre id="1128f827-5c3c-4ea1-93f9-9012097295bc" class="code code-wrap"><code>(function(){
+	for(var i = 0; i &lt; count; i++) {
+		console.log(i);
+	}
+})();
+console.log(i); // 抛出错误</code></pre><ul id="c64f7916-33ef-4eed-92fc-77bbb99cf83d" class="bulleted-list"><li style="list-style-type:circle"><code>var</code> 定义的变量是函数作用域的，所以在IIFE外部访问<code>i</code> 会抛出异常</li></ul></li></ul><ul id="a42a6f9a-a46d-4b0e-8b8c-643cefa72911" class="bulleted-list"><li style="list-style-type:disc">在ECMAScript5.1及以前（没有<code>let</code>和<code>const</code>），为了防止<strong>变量外泄</strong>（<strong>variable bleed</strong>），IIFE是一个非常有效的方式；这样也不会导致闭包相关的内存问题，因为不存在对这个匿名函数的引用，因此，只要函数执行完毕，其作用域链就可以被销毁</li></ul><h1 id="15748991-358b-4ae8-a1bf-6f533af748b3" class="">15.2 ES6的块级作用域</h1><ul id="96c7fca6-620c-477c-820f-c8a456fde913" class="bulleted-list"><li style="list-style-type:disc">在ECMAScript6以后，IIFE没有使用的必要了，因为ES6支持<code>let</code>和<code>const</code> ，在扩块级作用域中的变量无需IIFE就可以实现同样的隔离</li></ul><ul id="21440ba7-0f72-4b15-a1b2-5f71d99d9fa5" class="bulleted-list"><li style="list-style-type:disc">例如在内嵌的<strong>块级作用域</strong>(<strong>inline block scope</strong>)和循环的块级作用域中<pre id="ed8ae942-9da9-463d-b0c0-fb6d68e1cefc" class="code code-wrap"><code>// 内嵌级块作用域
+{
+  let i;
+  for (i = 1; i &lt; 10; i++) {
+    console.log(i);
+  }
+}
+// 循环块作用域
+for (let i = 0; i &lt; 10; i++) {
+  console.log(i);
+}</code></pre></li></ul><h2 id="0521c60b-aed9-4ca9-a5ce-5e00212c8ff6" class="">15.2.1 锁定循环的参数值</h2><ul id="d9cd67ec-88b7-406d-a3cd-d8e6d12d1cec" class="bulleted-list"><li style="list-style-type:disc">这里的参数值指在一个循环中为方法添加可用的变量值，典型的应用场景就是为顺序元素添加事件处理程序时使用循环的条件变量<pre id="457c6eb3-cc7a-4a71-8785-dbc8fcdec86c" class="code code-wrap"><code>const divs = document.querySelectorAll(&quot;div&quot;);
+
+for (let i = 0; i &lt; divs.length; i++) {
+  divs[i].addEventListener(&quot;click&quot;, function () {
+    console.log(i);
+  });
+}</code></pre><ul id="1ac51f96-11db-4b6e-814b-ad870fbe3e50" class="bulleted-list"><li style="list-style-type:circle">每次点击一个<code>div</code> 元素都能显示正确的索引</li></ul></li></ul><ul id="2744d11d-f8c0-4f54-a952-56b00322334c" class="bulleted-list"><li style="list-style-type:disc">循环块作用域可以轻松锁定参数值，因为在ECMAScript6中，如果对for循环使用块级作用域变量关键字，那么循环就会为每次<strong>遍历</strong>（<strong>iteration</strong>）创建<strong>独立的变量</strong>（<strong>separate counter instance</strong>），从而让每个单机处理程序都能引用特定的索引</li></ul><ul id="f2a347ce-f624-4764-8fec-ca21e4066ecf" class="bulleted-list"><li style="list-style-type:disc">但是注意，如果把声明拿到<code>for</code>循环外部，因为这样就相当于引用同一个变量<code>i</code> ，它的值最后为固定的<code>divs</code> 长度<div><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="edc6eab3-225e-46d1-a18e-e14730503970"><div style="font-size:1.5em"><span class="icon">❌</span></div><div style="width:100%">let j = 0;
+for (j = 0; j &lt; divs.length; j++) {
+  divs[i].addEventListener(&quot;click&quot;, function () {
+    console.log(j);
+  });
+}</div></figure></div></li></ul><h3 id="85a5e315-e5ce-4f71-be9d-5c8021494eae" class="">15.2.1.1 在ES5中锁定循环的参数值</h3><ul id="33190ba9-c9d6-4227-a69c-294e7851249b" class="bulleted-list"><li style="list-style-type:disc">使用<code>var</code> 关键字声明的循环迭代变量<code>i</code> 不会被限制在for循环的块级作用域内，因此会出现和上述把<code>let j = 0</code> 声明到for循环外部相同的情况，即值每个事件处理程序都引用同一个变量， 打印<code>i</code> 循环后的最终结果（<code>divs</code> 的长度）<figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="e05cf7c6-cca2-4013-8871-11ff995f1248"><div style="font-size:1.5em"><span class="icon">❌</span></div><div style="width:100%">for (var j = 0; j &lt; divs.length; j++) {
+  divs[i].addEventListener(&quot;click&quot;, function () {
+    console.log(j);
+  });
+}</div></figure></li></ul><ul id="c85f09fd-4650-4da8-a39d-a009a732e0cf" class="bulleted-list"><li style="list-style-type:disc">以前，为了实现锁定循环的参数值，需要借助<strong>IIFE</strong>和闭包一起实现：一个匿名函数传入每次循序的当前索引，然后返回一个引用了当前索引的事件处理匿名函数，从而锁定循环的参数值<pre id="c381b744-26a3-440e-af3c-7465efa960de" class="code code-wrap"><code>for (var i = 0; i &lt; divs.length; i++) {
+  divs[i].addEventListener(
+    &quot;click&quot;,
+    (function (frozenCounter) {
+      return function () {
+        console.log(frozenCounter);
+      };
+    })(i)
+  );
+}</code></pre><ul id="2f1b71e5-2cb4-4cdb-bb50-a7677ad44b3b" class="bulleted-list"><li style="list-style-type:circle">这种相当于每个闭包函数引用了每个外部立即执行函数的活动对象中的<code><mark class="highlight-yellow_background"><strong>frozenCounter</strong></mark></code>参数变量，而这个参数变量就是当前循环的索引值<code>i</code></li></ul></li></ul><p id="fee04fdc-1048-41e3-9e54-1bc3a265f914" class="">
+</p></div></article></body></html>

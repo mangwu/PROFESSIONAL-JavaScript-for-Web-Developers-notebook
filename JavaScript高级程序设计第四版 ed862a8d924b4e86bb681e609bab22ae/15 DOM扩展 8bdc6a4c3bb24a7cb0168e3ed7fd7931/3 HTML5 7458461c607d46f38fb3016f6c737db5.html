@@ -1,0 +1,1011 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3. HTML5</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7458461c-607d-46f3-8fb3-016f6c737db5" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_william_morris_1877_willow.jpg" style="object-position:center 90%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🧵</span></div><h1 class="page-title">3. HTML5</h1></header><div class="page-body"><ul id="a3f034ec-0a85-4c44-8cc1-ac9e837cbd1f" class="bulleted-list"><li style="list-style-type:disc">在HTML5之前，HTML（超文本标记语言——HyperText Markup Language）仅作为一个<strong>纯标记语言</strong>，不会包含关于JavaScript相同的事情，这些事情都交给DOM规范去定义</li></ul><ul id="64781c5d-1da1-4561-a0a6-da4b2221a545" class="bulleted-list"><li style="list-style-type:disc">HTML5代表着与以前的HTML截然不同的方向，HTML5规范包含了与标记相关的大量JavaScript API定义，其中有的API与DOM重合，定义了浏览器应该提供的DOM扩展<figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="95390a0f-baf2-44b1-9842-50ad1eb6fece"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">HTML5覆盖的范围极其广泛，本节仅讨论其影响DOM节点的部分</div></figure></li></ul><ul id="6d754fc8-6ce3-479f-b5b5-117ab28a7551" class="bulleted-list"><li style="list-style-type:disc">HTML5是之前HTML版本的继承者，在之前版本HTML 4.01的基础上引入了新的元素和功能，并改进或删除了一些现有的功能<ul id="efbd7047-18ec-4dbc-bbed-6bc48d5b2dc6" class="bulleted-list"><li style="list-style-type:circle">HTML5最新标准可以查看<a href="http://www.w3.org/TR/html5/"><strong>w3c</strong></a><a href="http://www.w3.org/TR/html5/">-</a><a href="http://www.w3.org/TR/html5/"><strong>HTML5 </strong></a>，w3c为它做了一个单独的域名网站（<a href="http://html.spec.whatwg.org/">html.spec.whatwg.org</a>）而不是w3c的域名</li></ul><ul id="783c55fb-38f8-45eb-b0d4-054935fa5917" class="bulleted-list"><li style="list-style-type:circle">MDN解释：直到2019年，W3C发布了一个与HTML5竞争的带有版本号的（HTML）标准。自2019年5月28日起，<strong>WHATWG使用标准</strong>（<strong>WHATWG Living Standard</strong>）被W3C宣布为唯一的HTML版本。<ul id="6cac7f13-2fe8-48e7-ad56-692a469c3725" class="bulleted-list"><li style="list-style-type:square">WHATWG是苹果（Apple），谷歌（Google），谋智（Mozilla），微软（Microsoft）组成的一个组织，该组织全名称为<strong>Web Hypertext Application Technology Working Group ——</strong>网页超文本应用技术工作小组，起初是一个以推动网络<a href="https://baike.baidu.com/item/HTML%205/8762673?fromModule=lemma_inlink">HTML 5</a>标准为目的而成立的组织</li></ul><ul id="78831674-be69-4b30-9d79-070ce893c012" class="bulleted-list"><li style="list-style-type:square">现在在w3.org标准组织网站搜索HTML，可以看大最新的标准版本是<a href="https://www.w3.org/TR/2021/NOTE-html53-20210128/">HTML5.3</a> ，它目前就是上面所说的<a href="http://html.spec.whatwg.org/">html.spec.whatwg.org</a></li></ul></li></ul></li></ul><div id="996eec9a-138c-4418-a0e9-c295e83c179d" class="column-list"><div id="f1cee0a5-d91d-460b-835a-0ff04b0b7445" style="width:25%" class="column"><nav id="61fbe44b-ff65-4bff-8b57-7dfd40eafcbe" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6991d69c-9795-4d6d-8ea2-611c2fde4845">3.1 CSS类扩展（Class-Related Additions）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f84cde46-279f-43a3-a37c-b828cc51c36c">3.1.1 getElementsByClassName()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bd1e95b9-aa00-46f1-9c2f-dfdf3b3951be">3.1.2 classList属性</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#01b29f97-2c3b-4d9a-8395-87606350fd2e">3.2 焦点管理（Focus Management）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e03e2b6a-64c4-4b52-8b30-b0f9a0f63d08">3.3 HTMLDocument扩展</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#801ad4d4-9867-4b81-b01d-eec7856e6b2d">3.3.1 readyState属性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ee8002dc-80ab-494a-ab0c-3999c1a784b6">3.3.2 compatMode属性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f30614b2-7346-47e9-8977-0dae1d6d970e">3.3.3 head属性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ef696933-07f1-40df-a6c3-cd7443931fb0">3.4 字符集属性（Character Set Properties）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3e471524-13d6-41db-ae77-b0701ba1a5a7">3.5 自定义数据属性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0a07708d-4e02-4958-9e7f-8e6429754e6d">3.6 插入标记（Markup Insertion）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5ad5a97b-7cfb-43f3-95cc-e2527dad0859">3.6.1 innerHTML属性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d3a58f1a-6354-4dd6-a1b2-095a1de3d38d">3.6.2 旧IE中的innerHTML</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8c344052-13cd-42cb-bb5a-9487016a7bb6">3.6.3 outerHTML属性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e4327f10-6f73-4dad-b0d5-5d56dcf9f897">3.6.4 insertAdjacentHTML()与insertAdjacentText()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f5deec5a-a258-4fe9-906d-a69e76c23ae4">3.6.5 内存与性能问题（Memory and Performance Issues）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8aee3e51-2dd9-487a-b82a-9e020dfe7f08">3.6.6 跨站点脚本（<strong>Cross-Site Scripting Considerations</strong>）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f592fbd1-7db8-4024-82c4-653d1b249a81">3.6.7 scrollIntoView()</a></div></nav><p id="108dca41-ddc3-49f9-8107-842d647830b5" class="">
+</p></div><div id="00cf342e-49b1-423b-823e-6c7240675276" style="width:75%" class="column"><h1 id="6991d69c-9795-4d6d-8ea2-611c2fde4845" class="">3.1 CSS类扩展（Class-Related Additions）</h1><ul id="e60f7e1e-282b-43a2-be0c-1721c499346f" class="bulleted-list"><li style="list-style-type:disc">自HTML4被广泛采用以来，Web开发中一个主要变化是class属性用的越来越多，其用处是为元素<strong>添加样式以及语义信息</strong></li></ul><ul id="df80f161-970f-4497-9c34-88c89dee4db9" class="bulleted-list"><li style="list-style-type:disc">JavaScript关于CSS类的<strong>交互</strong>也就越来越多，包括动态修改类名（className），以及根据给定的一个或一组类名查询元素（Selector API）等</li></ul><ul id="3294ca1b-8ab6-4b18-9c0b-66988e6f2402" class="bulleted-list"><li style="list-style-type:disc">HTML5为了适应开发者对class属性的使用，增加了一些特性以方便使用CSS类型</li></ul><h2 id="f84cde46-279f-43a3-a37c-b828cc51c36c" class="">3.1.1 getElementsByClassName()</h2><ul id="077c055f-b677-4ee4-a29d-66eccbbf1e02" class="bulleted-list"><li style="list-style-type:disc"><code>getElementsByClassName()</code> 方法基于原有DOM特性实现该功能的JavaScript库，提供了性能高好的原生实现<ul id="35c533c0-be79-4f51-9c96-d5b6245b0b18" class="bulleted-list"><li style="list-style-type:circle">接受一个参数，即包含一个或多个类名的字符串，返回类名中包含相应类的元素的<a href="https://dom.spec.whatwg.org/#htmlcollection"><code>HTMLCollection</code></a> （《JavaScript高级程序设计（第4版）》上写的<code>NodeList</code> ，实际上应该是HTMLCollection）</li></ul><ul id="26360fd0-5319-4e3e-88dd-20116b9d7437" class="bulleted-list"><li style="list-style-type:circle">多个类名的顺序是无关紧要的，它们之间用空格分隔，查询的元素节点的类名称能匹配所有类名</li></ul><ul id="ca096f0c-23c5-44aa-8924-b905b0728da2" class="bulleted-list"><li style="list-style-type:circle">这个方法在<code>Node</code> 接口中定义，所以Document，Element类型都实现了，它只会返回以调用它的对象为根元素的子树中所匹配的元素</li></ul><ul id="fc404114-2820-43a8-bc1e-364efde83969" class="bulleted-list"><li style="list-style-type:circle">IE9版本及以上，以及所有现代浏览器都支持<code>getElementsByClassName()</code>方法</li></ul><pre id="7327b5e9-ac6a-4b60-813c-348f5696f9cd" class="code"><code>&lt;body&gt;
+  &lt;div class=&quot;a b c d&quot;&gt;
+    &lt;p class=&quot;a b c&quot;&gt;abc&lt;/p&gt;
+    &lt;p class=&quot;a b d&quot;&gt;abd&lt;/p&gt;
+    &lt;p class=&quot;c b d&quot;&gt;bcd&lt;/p&gt;
+    &lt;p class=&quot;a c d&quot;&gt;acd&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;c d b&quot;&gt;
+    cdb
+    &lt;span class=&quot;b a d&quot;&gt; bad &lt;/span&gt;
+    &lt;p class=&quot;a c d&quot;&gt;acd&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;script&gt;
+    const ads = document.getElementsByClassName(&quot;a d&quot;);
+    console.log(ads);
+    const abcd = document.getElementsByClassName(&quot;a b c d&quot;)[0];
+    const bcs = abcd.getElementsByClassName(&quot;b c&quot;);
+    console.log(bcs);
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><figure id="36a54c0d-0e6f-4fd3-a7a1-998b046ba497" class="image"><a href="3%20HTML5%207458461c607d46f38fb3016f6c737db5/getElementsByClassName.png"><img style="width:720px" src="3%20HTML5%207458461c607d46f38fb3016f6c737db5/getElementsByClassName.png"/></a></figure></li></ul><h2 id="bd1e95b9-aa00-46f1-9c2f-dfdf3b3951be" class="">3.1.2 classList属性</h2><ul id="bb363ab6-e32c-434c-b7f1-0b1529bc7523" class="bulleted-list"><li style="list-style-type:disc">一个元素节点可以有多个类名称，在HTML中，类名使用至少一个空格分隔开，所以没有<code>classList</code>属性前，可以操作<code>className</code> 属性值获取每个类名，然后进行增删改查，比如<pre id="023a77be-c86d-4f16-885b-605868bdeed1" class="code"><code>&lt;div class=&quot;a b c&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+  const div = document.querySelector(&quot;div&quot;);
+  const classNames = div.className.split(/\s+/);
+  // 找到想要修改的类名
+  let idx = classNames.indexOf(&quot;b&quot;);
+  if (idx !== -1) classNames.splice(idx, 1, &quot;d&quot;); // 修改成想要的类名
+  div.className = classNames.join(&quot; &quot;); // 最后div类名变成乐a d c
+&lt;/script&gt;</code></pre></li></ul><ul id="4df73380-45c8-4143-977c-a2106c7b7ff1" class="bulleted-list"><li style="list-style-type:disc">删除类名、增加类名也会有类似的先分隔获取所有类名，操作后重新合并的算法，很多JavaScript库为这些操作实现乐便利的方法</li></ul><ul id="48878101-ae53-4593-8517-b7403dc551ac" class="bulleted-list"><li style="list-style-type:disc">HTML5通过给所有元素增加<code>classList</code>属性为这些操作提供了更简单也更安全的实现方式，<code>classList</code> 定义在<code>Node</code> 接口，它本身并不是一个数组，而是一个<a href="https://dom.spec.whatwg.org/#domtokenlist"><code>DOMTokenList</code></a><a href="https://dom.spec.whatwg.org/#domtokenlist"> </a>类型，其接口定义如下<pre id="5d0c256f-53b0-4609-b181-23b6d7b1b75e" class="code"><code>[Exposed=Window]
+interface DOMTokenList {
+  readonly attribute unsigned long length;
+  getter DOMString? item(unsigned long index);
+  boolean contains(DOMString token);
+  [CEReactions] undefined add(DOMString... tokens);
+  [CEReactions] undefined remove(DOMString... tokens);
+  [CEReactions] boolean toggle(DOMString token, optional boolean force);
+  [CEReactions] boolean replace(DOMString token, DOMString newToken);
+  boolean supports(DOMString token);
+  [CEReactions] stringifier attribute DOMString value;
+  iterable&lt;DOMString&gt;;
+};</code></pre><ul id="b58bf4ee-793f-4f8f-8a03-aba48ccdf9fc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>length</code> ：表示包含多少项，在<code>classList</code> 属性中就是节点的类名个数</span></li></ul><ul id="3013e4a9-a9b9-44ce-84ad-f8a183337cae" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>item(index)</code> ：<code>getter</code> 方法，传入索引数字获取对应的类名，也可以使用中括号语法，类名的顺序就是<code>className</code> 字符串以空格分割后的顺序</span></li></ul><ul id="18e07aa2-4643-45df-aefd-3b8309d7a5f2" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>add(value)</code> ：向类名列表中添加指定的字符串值<code>value</code> ，会加在列表最后（也就是<code>className</code>字符串最后），如果列表中存在同名类名，就不会做任何事情</span></li></ul><ul id="9031d58d-4b37-460a-abd8-8b7770672621" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>contains(value)</code> ：返回布尔值，表示给定的<code>value</code> 是否存在</span></li></ul><ul id="9a12f91f-f46a-409a-8225-b993e3c6de27" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>remove(value)</code> ：从类名列表中删除指定的字符串值<code>value</code> ，如果没有就不会做任何事情</span></li></ul><ul id="508a1295-bd9a-4aa8-9812-500c169560e4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>toggle(token[, force])</code> ：如果<code>force</code> 为<code>false</code> 或者没有传递，那么会进行“<strong>切换（toggle）</strong>”操作，即类名列表中已经存在指定的<code>token</code> 就删除之并返回<code>false</code>，不存在，则添加之并返回<code>true</code>；如果<code>force</code> 为<code>true</code> ，则会进行强制添加（有重复就不添加）操作并返回<code>true</code> </span></li></ul><ul id="c1104ce5-8eb0-49ea-98e1-e5eb5789efd6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>repalce(token, newToken)</code> ：使用<code>newToken</code>替换已存在的<code>token</code> ，如果<code>token</code> 在类列表中已存在，会成功替换并返回<code>true</code> ，否则不能成功替换，不进行其他操作，返回<code>false</code> </span></li></ul><ul id="2786e785-9f59-469d-95f3-c07f7393bf96" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>value</code> ：等于节点的<code>className</code> </span></li></ul></li></ul><ul id="6f934a04-c0ab-43eb-98ed-0a1c33388e29" class="bulleted-list"><li style="list-style-type:disc">IE10及以上版本（部分）和其他主流浏览器（完全）实现了<code>classList</code>属性<pre id="0b78023e-2407-47fb-ac07-4692ddc4e7d4" class="code"><code>&lt;body&gt;
+  &lt;p class=&quot;a b c d&quot;&gt;&lt;/p&gt;
+  &lt;script&gt;
+    const p = document.querySelector(&quot;p&quot;);
+    console.log(p.classList.toggle(&quot;a&quot;)); // 删除之，返回false
+    console.log(p.classList.toggle(&quot;e&quot;)); // 添加之，返回true
+
+    console.log(p.classList.toggle(&quot;b&quot;, true)); // 强制重复添加，返回true
+    console.log(p.classList.toggle(&quot;f&quot;, true)); // 强制添加，返回true
+
+    console.log(p.classList.contains(&quot;c&quot;)); // true
+    console.log(p.classList.replace(&quot;c&quot;, &quot;a&quot;)); // true
+  &lt;/script&gt;
+&lt;/body&gt;
+// 最终p节点的类名称为&quot;b a d e f&quot;</code></pre></li></ul><h1 id="01b29f97-2c3b-4d9a-8395-87606350fd2e" class="">3.2 焦点管理（Focus Management）</h1><ul id="1cf9164c-e6c4-49a8-9312-624d1b5ee517" class="bulleted-list"><li style="list-style-type:disc">HTML5增加了辅助DOM焦点管理的功能，它就是<code>activeElement</code> ，MDN提示它定义在<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/activeElement"><code>DocumentOrShadowRoot</code></a><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/activeElement"> </a>接口中，用来返回当前在DOM或者shadow DOM树中处于聚焦状态的元素节点<ul id="7cd51841-81a6-4107-9727-9c44ed0f46a8" class="bulleted-list"><li style="list-style-type:circle">页面加载时，可以通过用户输入（按Tab键或代码中使用focus()方法）让某个元素自动获得焦点</li></ul></li></ul><ul id="7e70a38d-bd16-4d82-bbb4-a0ba27f88ac7" class="bulleted-list"><li style="list-style-type:disc">在DOM规范中，确实有一个<strong>混入</strong>（<strong>mixin</strong>）接口<a href="https://dom.spec.whatwg.org/#documentorshadowroot"><code><strong><strong>DocumentOrShadowRoot</strong></strong></code></a><strong><strong> </strong></strong>,它的定义如下<pre id="7c8f89ae-6e12-48e5-ba35-df5e5a878163" class="code"><code>interface mixin DocumentOrShadowRoot {
+};
+Document includes DocumentOrShadowRoot;
+ShadowRoot includes DocumentOrShadowRoot;</code></pre><ul id="8276688b-6769-4005-a7c3-7f03ee85f432" class="bulleted-list"><li style="list-style-type:circle"><code>Document</code>和<code>ShadowRoot</code> 共享<code>DocumentOrShadowRoot</code> 定义的属性和方法，但是HTML规范并未给出具体的属性和方法</li></ul><ul id="d723e8ed-2ccf-440e-bab1-82be696d703d" class="bulleted-list"><li style="list-style-type:circle"><code>Document</code> 接口和<code>ShadowRoot</code> 接口的IDL都没有直接定义<code>activeElement</code> ，说明二者的<code>avitveElement</code> 属性确实是混入的</li></ul></li></ul><ul id="ee96f30e-2132-4b79-ac04-277a2ed9c01d" class="bulleted-list"><li style="list-style-type:disc">在最新的HTML规范中，对<code><a href="https://html.spec.whatwg.org/multipage/interaction.html#dom-documentorshadowroot-activeelement-dev">documentOrShadowRoot.activeElement</a></code> 有一个标准解释，并定义了具体的<a href="https://html.spec.whatwg.org/#documentorshadowroot">DocumentOrShadowRoot</a> 接口，如下<pre id="95fc7141-80f7-406b-a525-9e7eca1afde7" class="code"><code>partial interface mixin DocumentOrShadowRoot {
+  readonly attribute Element? activeElement;
+};</code></pre></li></ul><ul id="38768c1b-a62c-4d5b-ab84-61a7c61032fa" class="bulleted-list"><li style="list-style-type:disc">默认情况下，<code>document.activeElement</code> 在页面刚加载完之后会设置为<code>document.body</code> ，而在页面完全加载之前，<code>document.activeElement</code> 的值为<code>null</code> </li></ul><ul id="ebff90b8-c68a-4071-aa95-20529ac65ac5" class="bulleted-list"><li style="list-style-type:disc">可以通过<code>document.hasFocus()</code> 方法判断文档是否拥有焦点，<code>hasFocus</code> 仅在<code>Document</code> 类型中存在，但在DOM规范的<a href="https://dom.spec.whatwg.org/#document">Document接口</a> 的IDL没有进行定义，而在HTML规范的<a href="https://html.spec.whatwg.org/multipage/interaction.html#focus-management-apis"><strong><strong>Focus management APIs</strong></strong></a><strong><strong> </strong></strong>和<a href="https://html.spec.whatwg.org/#document">document</a> object 进行了说明<ul id="a6c9eda6-a949-4dc3-ad1d-7e8009b30fa8" class="bulleted-list"><li style="list-style-type:circle">确定文档是否具有焦点，就可以帮助确定用户是否在操作页面</li></ul><ul id="43dc0e75-cd99-4feb-9142-b4009e362860" class="bulleted-list"><li style="list-style-type:circle"><code>hasFocus()</code> 可以查询文档是否获得了焦点，<code>activeElement</code> 用于确定哪个元素拥有焦点</li></ul><ul id="347151c8-0d22-442e-b12d-788948664dc7" class="bulleted-list"><li style="list-style-type:circle">这两个接口对于保证Web应用程序的无障碍使用非常重要，无障碍地一个重要方面就是焦点管理，而能够确定哪个元素当前拥有焦点是一个很大的进步</li></ul></li></ul><pre id="690eefb7-0299-4c8e-8e0a-1a6fb499b1a7" class="code"><code>&lt;body&gt;
+  &lt;input type=&quot;text&quot; /&gt;
+  &lt;script&gt;
+    console.log(document.hasFocus());
+    const input = document.querySelector(&quot;input&quot;);
+    input.focus();
+    if (document.hasFocus()) {
+      console.log(document.activeElement);
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+// 打印结果
+// true
+// &lt;input type=&quot;text&quot;&gt;</code></pre><h1 id="e03e2b6a-64c4-4b52-8b30-b0f9a0f63d08" class="">3.3 HTMLDocument扩展</h1><ul id="2247a10c-308b-4561-84db-5d35f9bb8226" class="bulleted-list"><li style="list-style-type:disc">HTML5扩展了<code>HTMLDocument</code>类型，增加了更多功能，与其他HTML5定义的DOM扩展一样，在成为标准前事实上大部分浏览器都实现了这些专有扩展</li></ul><h2 id="801ad4d4-9867-4b81-b01d-eec7856e6b2d" class="">3.3.1 readyState属性</h2><ul id="81a8941b-16f0-4c63-93fc-071ab8c7d3ae" class="bulleted-list"><li style="list-style-type:disc"><code>readyState</code> 属性是IE4最早添加到<code>document</code> 对象上的属性，后来其他浏览器也参照这个支持这个属性，最终HTML5将这个属性写入了标准</li></ul><ul id="78efdcb2-145a-4240-a2d4-10aceedc0c49" class="bulleted-list"><li style="list-style-type:disc"><code>readyState</code> 属性在HTML规范的<a href="https://html.spec.whatwg.org/#document">Document接口</a> 中定义，它是一个<a href="https://html.spec.whatwg.org/#documentreadystate">DocumentReadyState</a> 枚举类型，定义如下<pre id="e6bbe641-79bb-46c4-b067-32ad993026b6" class="code"><code>enum DocumentReadyState { &quot;loading&quot;, &quot;interactive&quot;, &quot;complete&quot; };</code></pre><ul id="b3e0f236-e81d-4993-bfcb-51c0c2330305" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>loading</code> ：表示文档正在加载</span></li></ul><ul id="07781c9a-e93d-4e8c-b687-7cb98f72de80" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>complete</code> ：表示文档加载完成</span></li></ul><ul id="6ddfa67a-fa74-4e7a-8d14-286a6c72e490" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>interactive</code> ：表示解析完成（<strong>finished parsing</strong>）但仍在加载<strong>子资源</strong>（<strong>subresources</strong>）</span></li></ul></li></ul><ul id="b0d6abc5-c356-4b3e-9e69-2ea65ddfee37" class="bulleted-list"><li style="list-style-type:disc">实际开发中，最好把<code>document.readyState</code> 当成一个指示器，以判断文档是否加载完毕<ul id="9757daf9-d025-477c-8997-5ba79332091a" class="bulleted-list"><li style="list-style-type:circle">在这个属性得到广泛支持前，通常依赖<code>onload</code> 事件处理程序设置一个标记，表示文档加载完毕</li></ul><ul id="a2f4eb1b-0020-4eeb-8fda-ee354a622859" class="bulleted-list"><li style="list-style-type:circle">但是有了这个<code>readyState</code> 就可以随时查询文档加载状态</li></ul></li></ul><pre id="fae7c47c-9d8d-48a1-9292-e3a18978e3a1" class="code"><code>&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot; /&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+  &lt;title&gt;readyState&lt;/title&gt;
+  &lt;script src=&quot;15.3.3.1 readyState.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p&gt;readyState&lt;/p&gt;
+&lt;/body&gt;</code></pre><pre id="8fb13012-2a90-4e33-9e15-d8ecd6a71e83" class="code"><code>let interval = setInterval(() =&gt; {
+  console.log(document.readyState);
+});
+setTimeout(() =&gt; {
+  clearInterval(interval);
+}, 500);</code></pre><ul id="8544cd4b-0657-42a9-b5a1-2b57b7f4ce18" class="bulleted-list"><li style="list-style-type:disc">打印结果会因为浏览器加载文档和外部引用而有变化，三种状态都可能打印出来，如下<figure id="6c770874-d0c7-429a-b0d4-3522f9b0e7d9" class="image"><a href="3%20HTML5%207458461c607d46f38fb3016f6c737db5/readyState.png"><img style="width:336px" src="3%20HTML5%207458461c607d46f38fb3016f6c737db5/readyState.png"/></a></figure></li></ul><h2 id="ee8002dc-80ab-494a-ab0c-3999c1a784b6" class="">3.3.2 compatMode属性</h2><ul id="88b37bb3-43e9-46d4-91ce-50fe5aa48e3b" class="bulleted-list"><li style="list-style-type:disc">自从IE6提供了以<strong>标准或混杂模式</strong>渲染页面的能力之后，检测页面渲染模式成为了一个必要的需求；文档模式相关的查看第二章的<a href="../2%20HTML%E4%B8%AD%E7%9A%84JavaScript%20b28e920ae03d477aabe68d50f8589037.html">3.文档模式</a> <ul id="3c77e939-00d5-42ab-a34e-194fa9cacb34" class="bulleted-list"><li style="list-style-type:circle">标准模式（standard mode）</li></ul><ul id="14ad7eae-0b11-419b-9b7f-72884bdb5a9e" class="bulleted-list"><li style="list-style-type:circle">混杂模式（quirks mode）</li></ul><ul id="d366c246-a371-455f-b168-25d3d70e20fa" class="bulleted-list"><li style="list-style-type:circle">准标准模式（almost standard mode）</li></ul></li></ul><ul id="837ae91b-0b42-4abe-8b20-4a2ad955ece5" class="bulleted-list"><li style="list-style-type:disc">IE为<code>document</code>添加了<code>compatMode</code> 属性，这个属性唯一的任务是指示浏览器当前处于什么<strong>渲染模式</strong>，它在HTML规范中没有相关的，反而在DOM规范的<a href="https://dom.spec.whatwg.org/#ref-for-dom-document-compatmode%E2%91%A0">Document接口</a>的IDL上定义了该属性<ul id="eb7bf758-02ed-4a0e-b470-9a0b9ce4c13f" class="bulleted-list"><li style="list-style-type:circle">文档模式是标准模式和准标准模式，<code>compatMode</code> 值是”BackCompat”，文档模式是混杂模式，<code>compatMode</code> 值是“CSS1Compat”<pre id="1e7a0dd7-7397-4a3e-ad5c-6564fcefc66e" class="code"><code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;compatMode&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;准标准模式&lt;/p&gt;
+    &lt;script&gt;
+      console.log(document.compatMode); // CSS1Compat
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><pre id="85a1cdd6-5477-41d4-b220-ded6a9711fd4" class="code"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;compatMode&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;标准模式&lt;/p&gt;
+    &lt;script&gt;
+      console.log(document.compatMode); // CSS1Compat
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><pre id="8025e5f5-87f5-40e0-85fc-f307dd0a348f" class="code"><code>&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;compatMode&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;混杂模式&lt;/p&gt;
+    &lt;script&gt;
+      console.log(document.compatMode); // BackCompat
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></li></ul></li></ul><h2 id="f30614b2-7346-47e9-8977-0dae1d6d970e" class="">3.3.3 head属性</h2><ul id="e9e24565-6ecf-4dca-892c-b28ef1d133be" class="bulleted-list"><li style="list-style-type:disc">作为对<code>document.body</code> （指向文档的&lt;body&gt;元素）的补充，HTML5新增了<code>document.head</code> 属性，指向文档的&lt;head&gt;元素，<code>head</code> 属性在HTML规范中的<a href="https://html.spec.whatwg.org/#document">Document</a> 的IDL定义了<pre id="454ecb4a-48ce-4094-ab98-c8173c4a2de1" class="code"><code>console.log(document.head);
+// 打印出head元素</code></pre></li></ul><h2 id="ef696933-07f1-40df-a6c3-cd7443931fb0" class="">3.4 字符集属性（Character Set Properties）</h2><ul id="1c9b6bb2-fe31-400a-9290-9b8775999140" class="bulleted-list"><li style="list-style-type:disc">HTML5增加了几个与文档字符集有关的新属性，其中一个就是<code>characterSet</code> 属性，表示文档实际使用的字符串，也可以用来指定新字符集<ul id="2676b0fd-144c-490c-ab46-78a91771eae3" class="bulleted-list"><li style="list-style-type:circle"><code>characterSet</code> 的默认值是<del>“UTF-16”</del>（《JavaScript高级程序设计（第4版）》原话）</li></ul><ul id="03d36c30-c127-468d-923e-5ecf6b86b03d" class="bulleted-list"><li style="list-style-type:circle">可以通过&lt;meta&gt;元素，响应头，修改<code>characterSet</code>属性来设置字符集</li></ul><ul id="255ee91e-f3d3-4bd5-9ed8-50dd02ca5384" class="bulleted-list"><li style="list-style-type:circle">DOM规范在<a href="https://dom.spec.whatwg.org/#document">Document</a>接口中定义了<code>characterSet</code> 属性</li></ul><pre id="4639188b-edef-4da5-9623-00d8ad1284b0" class="code"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;字符集&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;script&gt;
+      console.log(document.characterSet, document.charset); // UTF-8 UTF-8
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></li></ul><ul id="4c40a888-6894-4375-93ae-1ac8ea857333" class="bulleted-list"><li style="list-style-type:disc">通过上面的例子可以发现，<code>characterSet</code> 拥有非法别名<code>document.charset</code> ，且默认值为”UTF-8“<ul id="b855861d-c2fa-4a85-b5ab-87e58833e056" class="bulleted-list"><li style="list-style-type:circle">关于字符集可以查看<a href="https://www.notion.so/10-Unicode-e5fe2c042bee4a018d2d4d2f46854124"><span class="icon">🥻</span>10. Unicode标准中文翻译</a> </li></ul><ul id="5619b914-72ae-4fdb-8a94-f7ac91574cd3" class="bulleted-list"><li style="list-style-type:circle">关于<code>document.characterSet</code> ，参考DOM规范，它返回编码格式</li></ul></li></ul><h2 id="3e471524-13d6-41db-ae77-b0701ba1a5a7" class="">3.5 自定义数据属性</h2><ul id="eb8fd556-1bb0-435f-92c7-7ef88edece3c" class="bulleted-list"><li style="list-style-type:disc">HTML5允许给元素指定非标准的属性，但要使用前缀<code>data-</code>以便告诉浏览器，这些属性既<strong>不</strong>包含与<strong>渲染有关的信息</strong>，也<strong>不</strong>包含元素的<strong>语义信息</strong><pre id="500f3b4b-4a39-4f69-914f-2bb89145c55d" class="code"><code>&lt;div id=&quot;myDiv&quot; data-appId=&quot;12345&quot; data-myname=&quot;Nicholas&quot;&gt;&lt;/div&gt;</code></pre></li></ul><ul id="e3a7f261-e5f3-4515-a930-c7db8989c410" class="bulleted-list"><li style="list-style-type:disc">定义了自定义属性后，可以通过元素的<code>dataset</code> 属性来访问<ul id="41fc6850-44ba-4fa7-ba2a-7ad2e42a54b7" class="bulleted-list"><li style="list-style-type:circle"><code>dataset</code>属性定义在 HTMLOrSVGElement<strong> </strong>混入接口上，而HTMLElement包含实现了HTMLOrSVGElement ，HTML规范上的<a href="https://html.spec.whatwg.org/multipage/dom.html#htmlelement">HTMLElement</a>接口和<a href="https://html.spec.whatwg.org/multipage/dom.html#htmlorsvgelement">HTMLOrSVGElement </a>接口<pre id="dac7ea92-1d57-425b-a4a7-e081b2c5b385" class="code"><code>[Exposed=Window]
+interface HTMLElement : Element {
+  [HTMLConstructor] constructor();
+
+  // metadata attributes
+  [CEReactions] attribute DOMString title;
+  [CEReactions] attribute DOMString lang;
+  [CEReactions] attribute boolean translate;
+  [CEReactions] attribute DOMString dir;
+
+  // user interaction
+  [CEReactions] attribute (boolean or unrestricted double or DOMString)? hidden;
+  [CEReactions] attribute boolean inert;
+  undefined click();
+  [CEReactions] attribute DOMString accessKey;
+  readonly attribute DOMString accessKeyLabel;
+  [CEReactions] attribute boolean draggable;
+  [CEReactions] attribute boolean spellcheck;
+  [CEReactions] attribute DOMString autocapitalize;
+
+  [CEReactions] attribute [LegacyNullToEmptyString] DOMString innerText;
+  [CEReactions] attribute [LegacyNullToEmptyString] DOMString outerText;
+
+  ElementInternals attachInternals();
+};
+
+HTMLElement includes GlobalEventHandlers;
+HTMLElement includes ElementContentEditable;
+HTMLElement includes HTMLOrSVGElement;
+
+[Exposed=Window]
+interface HTMLUnknownElement : HTMLElement {
+  // Note: intentionally no [HTMLConstructor]
+};
+
+interface mixin HTMLOrSVGElement {
+  [SameObject] readonly attribute DOMStringMap dataset;
+  attribute DOMString nonce; // intentionally no [CEReactions]
+
+  [CEReactions] attribute boolean autofocus;
+  [CEReactions] attribute long tabIndex;
+  undefined focus(optional FocusOptions options = {});
+  undefined blur();
+};</code></pre></li></ul><ul id="e1d7ccf1-be72-4136-9af2-69a866ba42cb" class="bulleted-list"><li style="list-style-type:circle"><code>dataset</code>属性是一个<code>DOMStringMap</code>的实例，在HTML规范中，这个<a href="https://html.spec.whatwg.org/multipage/dom.html#domstringmap">DOMStringMap</a>接口定义如下<pre id="df1d954f-d8c3-4bde-963a-06eba74b3750" class="code"><code>[Exposed=Window,
+ LegacyOverrideBuiltIns]
+interface DOMStringMap {
+  getter DOMString (DOMString name);
+  [CEReactions] setter undefined (DOMString name, DOMString value);
+  [CEReactions] deleter undefined (DOMString name);
+};</code></pre><ul id="3d87ecfd-f1dc-4626-8b8e-86fa41a4fa3b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>getter</code> 方法：根据元素的自定义属性键获取对应属性值</span></li></ul><ul id="5086ffa5-46cc-4f8b-9676-fd1cb8271ffd" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>setter</code> 方法：设置自定义属性的键值</span></li></ul><ul id="d40bb9c3-8f9c-49e5-ab6c-f8f7ef5e55ac" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>deleter</code> 方法：删除元素的自定义属性键</span></li></ul><p id="981c25d2-c1f1-4900-b63b-82d1d5461382" class="">对于HTML来说，元素的自定义属性键就是data-后面的字符串</p><pre id="9522510f-aaab-4f6f-bec9-34c3e6075116" class="code"><code>&lt;body&gt;
+  &lt;div data-my-attribute=&quot;hello&quot; data-attribute2=&quot;world&quot;&gt;自定义属性&lt;/div&gt;
+  &lt;script&gt;
+    const div = document.querySelector(&quot;div&quot;);
+    console.log(div.dataset); // DOMStringMap
+    console.log(div.dataset.myAttribute); // hello
+    div.dataset.attribute2 = &quot;mangwu&quot;;
+    console.log(div.dataset.attribute2); // mangwu
+    delete div.dataset.myAttribute;
+    console.log(div.dataset); // DOMStringMap
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><ul id="b52ada37-aa29-4982-bdbf-fea3fe4fca42" class="bulleted-list"><li style="list-style-type:square">DOMStringMap是<strong>实时</strong>的，它最终只有一个<code><strong>attribute2</strong></code><strong> </strong>属性，值为”mangwu”</li></ul></li></ul></li></ul><ul id="ca216e99-3a03-4feb-a63e-bc40b76487f0" class="bulleted-list"><li style="list-style-type:disc">自定义数据属性非常适合需要给元素附加某些数据的场景，比如<strong>链接追踪</strong>和在聚合应用程序中标识页面的不同部分，另外，单应用程序框架也非常多地使用了自定义数据属性</li></ul><h2 id="0a07708d-4e02-4958-9e7f-8e6429754e6d" class="">3.6 插入标记（Markup Insertion）</h2><ul id="78839517-e638-4119-ae49-c0a169f28e62" class="bulleted-list"><li style="list-style-type:disc">DOM虽然已经为操作节点提供了很多API，但向文档中一次性插入大量HTML时还是比较麻烦的<ul id="67a71060-b84e-413e-a0ff-8e44a5b49ec4" class="bulleted-list"><li style="list-style-type:circle">直接插入一个HTML字符串要比一个个创建节点再插入要方便的多</li></ul><ul id="5aa38867-f76e-46c0-9d69-43968f8e15cd" class="bulleted-list"><li style="list-style-type:circle">HTML5已经通过以下DOM扩展将这种能力标准化了</li></ul></li></ul><h3 id="5ad5a97b-7cfb-43f3-95cc-e2527dad0859" class="">3.6.1 innerHTML属性</h3><ul id="d574dcdc-0db0-49f8-9ad5-02cfca7264a6" class="bulleted-list"><li style="list-style-type:disc"><code>innerHTML</code>属性 会返回元素所有后代的HTML字符串，包括元素、注释和文本节点<ul id="8ba3a433-473c-4e1b-bd41-81a2334e4dda" class="bulleted-list"><li style="list-style-type:circle">写入<code>innerHTML</code> 时，会根据提供的字符串值以新的DOM子树替代元素中原来包含的所有节点</li></ul><ul id="9f9de9e5-13ed-4907-a7cd-aaac1dc06e12" class="bulleted-list"><li style="list-style-type:circle"><a href="https://w3c.github.io/DOM-Parsing/#dom-innerhtml-innerhtml">DOM Parsing and Serialization</a> 规范定义了<a href="https://w3c.github.io/DOM-Parsing/#dom-innerhtml-innerhtml">InnerHTML</a>混入接口，Element 接口包含了InnerHTML接口，如下<pre id="efb865b8-bb6a-4d71-b5ab-be3eea010ddc" class="code"><code>interface mixin InnerHTML {
+  [CEReactions] attribute [LegacyNullToEmptyString] DOMString innerHTML;
+};
+
+Element includes InnerHTML;
+ShadowRoot includes InnerHTML;</code></pre></li></ul><ul id="c3cb95c7-db60-4b37-9506-3f7ab8619efe" class="bulleted-list"><li style="list-style-type:circle"><code>innerHTML</code> 属性返回的文本内容会因浏览器实现而不同<ul id="4d7fbe3f-07bb-4d1f-b414-95151f0b0265" class="bulleted-list"><li style="list-style-type:square">IE和Opera会把所有元素标签转换为大写</li></ul><ul id="73531188-ac56-4797-8568-761422e697bb" class="bulleted-list"><li style="list-style-type:square">Safari、Chrome和Firefox则会按照文档源代码的格式返回，包含空格和缩进</li></ul><ul id="7aa23ca2-923f-4fa0-844c-1b7e5c5cefeb" class="bulleted-list"><li style="list-style-type:square">不要指望不同的浏览器的innerHTML会返回完全一样的值</li></ul></li></ul><ul id="e06f7daf-be30-417a-b9b9-c238a2611b50" class="bulleted-list"><li style="list-style-type:circle">在写入模式下，赋给<code>innerHTML</code> 属性的值会被解析为DOM子树，并替代元素之前的所有节点<ul id="bf799468-cfe0-45fe-afb4-c3ae9a7a0134" class="bulleted-list"><li style="list-style-type:square">所赋的值默认以HTML格式识别，其中的所有标签都会以浏览器处理HTML的方式转换为元素</li></ul><ul id="6b40d059-eb04-4d37-9a29-707c1010a733" class="bulleted-list"><li style="list-style-type:square">如果赋值中不包含任何HTML标签，则直接生成一个文本节点</li></ul></li></ul><ul id="57aab7a1-dcd3-4f27-8b86-9c6b661079f9" class="bulleted-list"><li style="list-style-type:circle">如果给<code>innerHTML</code>设置包含HTML（标签）的字符串时，它在实际渲染时会进行转义处理识别</li></ul><pre id="e1e2d665-c2ec-40fe-bd3d-1475db91ff91" class="code"><code>&lt;body&gt;
+  &lt;ul&gt;
+    &lt;li&gt;item 1&lt;/li&gt;
+    &lt;li&gt;item 2&lt;/li&gt;
+    &lt;li&gt;item 3&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;script&gt;
+    const ul = document.querySelector(&quot;ul&quot;);
+    console.log(ul.innerHTML);
+    ul.innerHTML = &quot;&lt;li&gt;item4&lt;/li&gt;&quot;
+    console.log(ul.innerHTML);
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><figure id="77ebe342-e892-4f5a-abfa-89f29ede1f19" class="image"><a href="3%20HTML5%207458461c607d46f38fb3016f6c737db5/innerHTML.png"><img style="width:384px" src="3%20HTML5%207458461c607d46f38fb3016f6c737db5/innerHTML.png"/></a></figure><ul id="54316bbb-1ae0-43a4-ba59-7beb3485c83d" class="bulleted-list"><li style="list-style-type:circle">可以看到如上的<code>innerHTML</code> 直接打印出来是有换行，空格的</li></ul></li></ul><h3 id="d3a58f1a-6354-4dd6-a1b2-095a1de3d38d" class="">3.6.2 旧IE中的innerHTML</h3><ul id="3bbf8134-cefb-4643-a4aa-4eef600158a3" class="bulleted-list"><li style="list-style-type:disc">在所有现代浏览器中，通过innerHTML插入的&lt;script&gt;标签是不会执行的的</li></ul><ul id="bbf9591f-69d7-4d90-b63d-acb76487836d" class="bulleted-list"><li style="list-style-type:disc">而在IE8及之前的版本中，只要这样插入&lt;script&gt;元素指定了defer属性，且&lt;script&gt;之前是“受控元素”（scoped element），那就是可以执行的<ul id="946f9dd1-fbe6-457b-8647-bb02ff3bbf1a" class="bulleted-list"><li style="list-style-type:circle">&lt;script&gt;，&lt;style&gt;元素和注释元素都是“非受控元素（NoScope Element）”，也就是在页面上看不到它们</li></ul><ul id="02ace5fa-88f7-44f0-a53b-e8b44527febc" class="bulleted-list"><li style="list-style-type:circle">IE会把<code>innerHTML</code>中从非受控元素开始的内容都删掉</li></ul><pre id="92d06794-0a63-4d7f-af7a-36f213358a8c" class="code"><code>&lt;body&gt;
+  &lt;script&gt;
+    document.body.innerHTML = &quot;&lt;script defer&gt;console.log(&#x27;hi!&#x27;)&lt;\/script&gt;&quot;;
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><ul id="520e7c38-d8ec-461f-86f9-6b26ccd43c16" class="bulleted-list"><li style="list-style-type:circle">如果想要旧版本IE中执行临时插入的script，只需要在前面添加受控元素就行，如下</li></ul><pre id="e95c30d6-2846-41fe-9f8e-5d20ff4ece73" class="code"><code>document.body.innerHTML = &quot;_&lt;script&gt;console.log(&#x27;hi!&#x27;)&lt;\/script&gt;&quot;;
+document.body.innerHTML = &quot;&lt;div&gt;&amp;nbsp;&lt;/div&gt;&lt;script&gt;console.log(&#x27;hi!&#x27;)&lt;\/script&gt;&quot;;
+document.body.innerHTML =
+        &quot;&lt;input type=&#x27;hidden&#x27;&gt;&lt;script&gt;console.log(&#x27;hi!&#x27;)&lt;\/script&gt;&quot;;</code></pre><ul id="658cc947-2aa9-430c-bcc7-0fa2c90edfb9" class="bulleted-list"><li style="list-style-type:circle">第三行会是最好的方案，因为不会有受控元素内容显示</li></ul></li></ul><ul id="a5de1b66-2acc-4763-85c0-75292863aa37" class="bulleted-list"><li style="list-style-type:disc">在IE中，通过innerHTML插入&lt;style&gt;也会有类似的问题，因为在IE8中&lt;style&gt;也被认为是非受控元素；现代浏览器中通过innerHTML可以成功设置样式<pre id="ee38b14b-53ff-4e94-8f0a-e3ce9560d4c8" class="code"><code>document.body.innerHTML =
+  &quot;&lt;style&gt;body { background-color: red; }&lt;\/style&gt;&quot;;
+document.body.innerHTML =
+  &quot;&lt;input type=&#x27;hidden&#x27;&gt;&lt;style&gt;body { background-color: red; }&lt;\/style&gt;&quot;;</code></pre><ul id="89dafc9b-6023-4759-8fcf-57d7a7f872c6" class="bulleted-list"><li style="list-style-type:circle">在现代浏览器中两个语句的style都会生效，但是在IE8及以下版本只有第二个会生效</li></ul></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="0bb49aba-46a5-47bb-90c3-3ca2e1599599"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：Firefox在内容类型为application/xhtml+xml的XHTML文档中对innerHTML更加严格。在XHTML文档中使用innerHTML，必须使用格式良好的XHTML代码。否则，在Firefox会静默失败</div></figure><h3 id="8c344052-13cd-42cb-bb5a-9487016a7bb6" class="">3.6.3 outerHTML属性</h3><ul id="d581f733-4243-4263-a645-d9f67213e3f7" class="bulleted-list"><li style="list-style-type:disc">读取outerHTML属性时，会返回调用它的元素（及所有后代元素）的HTML字符串<ul id="acaf0d4b-2c2d-4e0d-839b-8e02f59aa79f" class="bulleted-list"><li style="list-style-type:circle">在写入outerHTML属性时，调用它的元素会被传入的HTML字符串经解释后生成的DOM子树取代</li></ul><pre id="f55ce42a-15ad-410a-98df-794d3e0c2f41" class="code"><code>&lt;body&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    &lt;p&gt;This is a &lt;strong&gt;paragraph&lt;/strong&gt; with a list following it.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Item 1&lt;/li&gt;
+      &lt;li&gt;Item 2&lt;/li&gt;
+      &lt;li&gt;Item 3&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;script&gt;
+    const div = document.querySelector(&quot;DIV&quot;);
+    console.log(div.innerHTML);
+    console.log(div.outerHTML);
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><figure id="ec460f65-d595-4bcc-9031-e15ee069ec54" class="image"><a href="3%20HTML5%207458461c607d46f38fb3016f6c737db5/outerHTML.png"><img style="width:720px" src="3%20HTML5%207458461c607d46f38fb3016f6c737db5/outerHTML.png"/></a></figure><ul id="1c25455f-9038-4ab2-9cfe-d42441f4b406" class="bulleted-list"><li style="list-style-type:circle"><code>outerHTML</code> 属性的返回值与<code>innerHTML</code>的区别在于它包含调用元素节点自身</li></ul></li></ul><ul id="364d817d-0884-4e08-b6dc-aceb06c1c8a4" class="bulleted-list"><li style="list-style-type:disc">修改<code>outerHTML</code>属性会连带元素节点被修改，如下<pre id="468acc95-75ba-4c9e-a157-c181b68d4672" class="code"><code>&lt;body&gt;
+  &lt;div&gt;
+    &lt;p&gt;Hello, world!&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;script&gt;
+    const div = document.querySelector(&quot;div&quot;);
+    div.outerHTML = &quot;&lt;p&gt;Hello, mangwu&lt;/p&gt;&quot;;
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><p id="5e2dc1d3-22cd-4b58-90bd-f070128365c7" class="">&lt;div&gt;节点的outerHTML被修改为一个p节点，如下</p><figure id="d6aacf4d-274e-4062-8912-b4aa5ef1efa4" class="image"><a href="3%20HTML5%207458461c607d46f38fb3016f6c737db5/outerHTML2.png"><img style="width:384px" src="3%20HTML5%207458461c607d46f38fb3016f6c737db5/outerHTML2.png"/></a></figure></li></ul><h3 id="e4327f10-6f73-4dad-b0d5-5d56dcf9f897" class="">3.6.4 insertAdjacentHTML()与insertAdjacentText()</h3><ul id="2cae984f-4071-432d-b6a5-f3f03df58e8f" class="bulleted-list"><li style="list-style-type:disc">关于插入标签的最后两个新增方法是insertAdjacentHTML()和insertAdjacentText()<ul id="aed760ff-bdf6-4590-a32a-45aef906141e" class="bulleted-list"><li style="list-style-type:circle">这两个方法最早源于IE</li></ul><ul id="9ad09dc6-feba-4ae2-a101-af8cb24da9aa" class="bulleted-list"><li style="list-style-type:circle">它们都接收两个参数：要插入标记的位置和要插入的HTML或文本</li></ul><ul id="5d332ab7-3c6a-47ad-aaa6-03d1c961c8d6" class="bulleted-list"><li style="list-style-type:circle">第一个参数（不区分大小写）必须是下列值其中一个<ul id="77a9d771-10b0-4022-9950-6c95fc9a59a1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">“beforebegin”, 插入当前元素前面，作为前一个同胞节点</span></li></ul><ul id="9ab7c6ec-0452-49d1-a7bb-626ce09c7ab5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">“afterbegin”，插入当前元素内部，作为新的子节点或放在第一个子节点前面</span></li></ul><ul id="5f9f0865-01be-4903-b482-6e320f440324" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">“beforeend”，插入当前元素内部，作为新的子节点或放在最后一个子节点后面</span></li></ul><ul id="89fead02-bb6a-4e63-84e1-ee90a9da92c7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">“afterend”，插入当前元素后面，作为下一个同胞节点</span></li></ul></li></ul><ul id="7deb4b5e-a2c0-49c8-9aa0-5650daffca7b" class="bulleted-list"><li style="list-style-type:circle">第二个参数会作为HTML字符串解析（与innerHTML和outerHTML相同），或作为纯文本解析（与innerText和outerText相同），如果是HTML，则会在解析出错时抛出错误。</li></ul></li></ul><ul id="f844480b-ed5a-4c66-8d32-486028d99137" class="bulleted-list"><li style="list-style-type:disc"><a href="https://dom.spec.whatwg.org/#element">Element</a> 接口扩展了这两个接口，<code>insertAdjacentHTML</code>在<a href="https://w3c.github.io/DOM-Parsing/#dom-element-insertadjacenthtml">DOM-Paring</a> 规范中定义了，<code>insertAdjacentText</code> 在<a href="https://dom.spec.whatwg.org/#dom-element-insertadjacenttext">DOM</a>规范中有提及<pre id="7e46304b-8a07-4c6a-8b16-006e2854cbf4" class="code"><code>&lt;body&gt;
+    &lt;div class=&quot;content&quot;&gt;
+      &lt;div class=&quot;sss&quot;&gt;sss&lt;/div&gt;
+      &lt;div class=&quot;kkk&quot;&gt;kkk&lt;/div&gt;
+      &lt;div class=&quot;mmm&quot;&gt;mmm&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+      const content = document.querySelector(&quot;.content&quot;);
+      // 作为前一个同胞节点插入
+      content.insertAdjacentHTML(&quot;beforebegin&quot;, &quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;);
+      content.insertAdjacentText(&quot;beforebegin&quot;, &quot;Hello world!&quot;);
+
+      // 作为第一个子节点插入
+      content.insertAdjacentHTML(&quot;afterbegin&quot;, &quot;&lt;p&gt;Hello world!2&lt;/p&gt;&quot;);
+      content.insertAdjacentText(&quot;afterbegin&quot;, &quot;Hello world!2&quot;);
+
+      // 作为最后一个子节点插入
+      content.insertAdjacentHTML(&quot;beforeend&quot;, &quot;&lt;p&gt;Hello world!3&lt;/p&gt;&quot;);
+      content.insertAdjacentText(&quot;beforeend&quot;, &quot;Hello world!3&quot;);
+
+      // 作为下一个同胞节点插入
+      content.insertAdjacentHTML(&quot;afterend&quot;, &quot;&lt;p&gt;Hello world!4&lt;/p&gt;&quot;);
+      content.insertAdjacentText(&quot;afterend&quot;, &quot;Hello world!4&quot;);
+
+    &lt;/script&gt;
+  &lt;/body&gt;</code></pre><figure id="9de88531-d311-453c-9d13-3eeb59f21702" class="image"><a href="3%20HTML5%207458461c607d46f38fb3016f6c737db5/insert.png"><img style="width:720px" src="3%20HTML5%207458461c607d46f38fb3016f6c737db5/insert.png"/></a></figure></li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="ac3c128f-6c04-4c9c-8859-372f645db4ff"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意，在DOM规则中还定义了一个<a href="https://dom.spec.whatwg.org/#dom-element-insertadjacentelement"><strong>insertAdjacentElement</strong></a><strong> </strong>方法，用于给节点插入元素节点，第一个参数和上面两个方法的第一个参数值一样，但是第二个参数应该是一个元素节点，而不是HTML格式文本或文本字符串；《JavaScript高级程序设计（第4版）》没有介绍它的原因是它是<strong>非法（legacy）</strong>的（实际上insertAdjacentText也是非法的方法）</div></figure><p id="2ef6287d-b8d3-498a-84fb-95c9b23a6836" class="">
+</p><h3 id="f5deec5a-a258-4fe9-906d-a69e76c23ae4" class="">3.6.5 内存与性能问题（Memory and Performance Issues）</h3><ul id="cc9d98d8-6c17-40c2-8dc7-286e92de5e8e" class="bulleted-list"><li style="list-style-type:disc">使用本节<a href="3%20HTML5%207458461c607d46f38fb3016f6c737db5.html">3.6 插入标记（Markup Insertion）</a> 介绍的方法和属性替换节点可能在浏览器（特别是IE）中可能导致内存问题<ul id="640383c2-2c9e-44a0-ba95-a0016a9481c7" class="bulleted-list"><li style="list-style-type:circle">如果被移除子树元素中之前有关联的事件处理程序或其它JavaScript对象（作为元素的属性），那么它们之间的绑定关系会滞留在内存中（内存泄漏）</li></ul><ul id="57414a7d-82b9-4f0b-a7e8-c729154a13e3" class="bulleted-list"><li style="list-style-type:circle">并且频繁使用插入标记的属性和方法，页面占用的内存就会持续攀升，在手动使用<code>innerHTML</code> 、<code>outerHTML</code> 、<code>insertAdjacentHTML()</code> 之前，最好手动删除要被替换的元素上关联的事件处理程序和JavaScript对象</li></ul></li></ul><ul id="72320665-197c-4e02-9c96-276cbc38dcd6" class="bulleted-list"><li style="list-style-type:disc">一般而言，插入大量新HTML使用innerHTML比使用多次DOM操作创建节点再插入来的更便捷<ul id="8a6c91f7-2e0b-455b-9b0a-56ab7f73f019" class="bulleted-list"><li style="list-style-type:circle">因为HTML<strong>解析器</strong>（<strong>parser</strong>）会解析设置给innerHTML（或outerHTML）的值</li></ul><ul id="8f2661a3-436c-4ed1-b227-eb1781ce9b20" class="bulleted-list"><li style="list-style-type:circle">解析器在浏览器中是底层代码（通常是C++代码），比JavaScript快得多</li></ul></li></ul><ul id="03a4d1fa-ecf1-4094-9130-51c724a3f699" class="bulleted-list"><li style="list-style-type:disc">不过HTML解析器的构建和解构（creation and destruction）也不是没有代价，因此最好限制使用<code>innerHTML</code>和<code>outerHTML</code> ,如下代码创建一些列表项就是返例<pre id="baa19466-9118-43a5-8919-d36bae558998" class="code"><code>&lt;body&gt;
+  &lt;ul&gt;&lt;/ul&gt;
+  &lt;script&gt;
+    const values = [&quot;hello&quot;, &quot;message&quot;, &quot;mangwu&quot;, &quot;hms&quot;, &quot;AliOs&quot;, &quot;afraid&quot;];
+    const ul = document.querySelector(&quot;ul&quot;);
+    for (const value of values) {
+      ul.innerHTML += `&lt;li&gt;${value}&lt;/li&gt;`;
+    }
+  &lt;/script&gt;
+&lt;/body&gt;</code></pre><ul id="3d2f4bef-bd23-49b8-9f37-02cd7cc84cc2" class="bulleted-list"><li style="list-style-type:circle">这段代码效率低下，因为每次迭代都要设置一次innerHTML</li></ul><ul id="cf502e38-5eb5-4194-9bd1-6d314d7b3d57" class="bulleted-list"><li style="list-style-type:circle">不仅如此，每次循环还要先读取<code>innerHTML</code> ，多次使用HTML解析器的构建和解构，代价会增加</li></ul></li></ul><ul id="e4252be6-05e3-47b8-b684-8698af23ff71" class="bulleted-list"><li style="list-style-type:disc">解决方案为先通过循环构建一个独立的字符串，最后一次性把生成的字符串赋值给<code>innerHTML</code> ，如下<pre id="dc1d62be-7482-495f-a688-98d2fa0e5a59" class="code"><code>let itemsHTML = &quot;&quot;;
+for (const value of values) {
+  itemsHTML += `&lt;li&gt;${value}&lt;/li&gt;`;
+}
+ul.innerHTML = itemsHTML;</code></pre></li></ul><h3 id="8aee3e51-2dd9-487a-b82a-9e020dfe7f08" class="">3.6.6 跨站点脚本（<strong>Cross-Site Scripting Considerations</strong>）</h3><ul id="cea28a3b-fcef-4ef3-961c-1afb9d94ec32" class="bulleted-list"><li style="list-style-type:disc">尽管<code>innerHTML</code>不会执行自己创建的&lt;script&gt;标签，但仍然向恶意用户暴露了很大的攻击面，因为通过它可以毫不费力地创建并执行<code>onclick</code>之类的属性</li></ul><ul id="96784d49-652c-4ec7-a908-77c8f4e41d95" class="bulleted-list"><li style="list-style-type:disc">如果页面要使用用户提供的信息，不建议使用<code>innerHTML</code> <ul id="3604ba06-71b8-41ca-b68c-352e1045ac3d" class="bulleted-list"><li style="list-style-type:circle">与使用innerHTML获得的方便相比，防止XSS攻击更让人头疼</li></ul><ul id="8b8810d8-04d2-474a-8187-59a564657193" class="bulleted-list"><li style="list-style-type:circle">此时一定要隔离要插入的数据，在插入页面前必须毫不犹豫地使用相同的库对它们进行转义</li></ul></li></ul><h3 id="f592fbd1-7db8-4024-82c4-653d1b249a81" class="">3.6.7 scrollIntoView()</h3><ul id="e5306f1b-06b4-4d11-9674-f0b70b4191c6" class="bulleted-list"><li style="list-style-type:disc">DOM规范中没有涉及的一个问题是如何滚动页面中的某个区域<ul id="2dc327b7-dd38-4a80-aec3-4fb09e23eaff" class="bulleted-list"><li style="list-style-type:circle">不同浏览器实现了不同的控制滚动的方式</li></ul><ul id="5c5a8911-53b2-4035-aa01-2d1752733e70" class="bulleted-list"><li style="list-style-type:circle">在所有这些专有方法中，HTML5选择了标准化<code>scrollIntoView()</code> </li></ul></li></ul><ul id="9e3cb7a9-0a96-4840-95c6-27a79580cdb3" class="bulleted-list"><li style="list-style-type:disc"><code>scrollIntoView</code> 方法定义在<a href="https://w3c.github.io/csswg-drafts/cssom-view/#dom-element-scrollintoview">CSSOM View Module</a> 标准中，<code>scrollIntoView</code>方法定义在<a href="https://w3c.github.io/csswg-drafts/cssom-view/#extension-to-the-element-interface">Element的扩展接口</a>中，在有详细的介绍<pre id="82abc18c-bb09-43d5-a33a-7558aed858bf" class="code"><code>enum ScrollBehavior { &quot;auto&quot;, &quot;smooth&quot; };
+
+dictionary ScrollOptions {
+    ScrollBehavior behavior = &quot;auto&quot;;
+};
+
+enum ScrollLogicalPosition { &quot;start&quot;, &quot;center&quot;, &quot;end&quot;, &quot;nearest&quot; };
+dictionary ScrollIntoViewOptions : ScrollOptions {
+  ScrollLogicalPosition block = &quot;start&quot;;
+  ScrollLogicalPosition inline = &quot;nearest&quot;;
+};
+
+dictionary CheckVisibilityOptions {
+    boolean checkOpacity = false;
+    boolean checkVisibilityCSS = false;
+};
+partial interface Element {
+  DOMRectList getClientRects();
+  [NewObject] DOMRect getBoundingClientRect();
+
+  boolean checkVisibility(optional CheckVisibilityOptions options = {});
+
+  undefined scrollIntoView(optional (boolean or ScrollIntoViewOptions) arg = {});
+  undefined scroll(optional ScrollToOptions options = {});
+  undefined scroll(unrestricted double x, unrestricted double y);
+  undefined scrollTo(optional ScrollToOptions options = {});
+  undefined scrollTo(unrestricted double x, unrestricted double y);
+  undefined scrollBy(optional ScrollToOptions options = {});
+  undefined scrollBy(unrestricted double x, unrestricted double y);
+  attribute unrestricted double scrollTop;
+  attribute unrestricted double scrollLeft;
+  readonly attribute long scrollWidth;
+  readonly attribute long scrollHeight;
+  readonly attribute long clientTop;
+  readonly attribute long clientLeft;
+  readonly attribute long clientWidth;
+  readonly attribute long clientHeight;
+};</code></pre><ul id="9bcdcf2f-ba14-4e50-921d-a884188dad7b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>alignToTop</code> 是一个布尔值，布尔值作为第一个参数有如下含义</span><ul id="03f28e8d-24e1-42ef-a783-6a3578033350" class="bulleted-list"><li style="list-style-type:disc"><code>true</code> ：窗口滚动后元素的顶部与视口顶部对齐</li></ul><ul id="918b6cd4-4f0f-482f-ad04-1d5953e9d52a" class="bulleted-list"><li style="list-style-type:disc"><code>false</code> ：窗口滚动后元素的底部与视口底部对齐</li></ul></li></ul><ul id="6eebabb0-dbcd-4d41-96b2-416c2f2c90c7" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>scrollIntoViewOptions</code> 是一个选项对象，属性和属性值有如下选择</span><ul id="dca40a25-9033-4b63-8513-00ae2d5a7282" class="bulleted-list"><li style="list-style-type:disc"><code>behavior</code> ：定义过渡动画，可取值为”smooth”，”auto”，默认为”auto”</li></ul><ul id="9493401b-8043-45aa-a8dd-52985ca06c30" class="bulleted-list"><li style="list-style-type:disc"><code>block</code> ：定义垂直方向的对齐，可取的值为“start‘、”center”、”end”和”nearest”，默认为”start”</li></ul><ul id="80f9202e-0574-434f-b5e9-ff0939344570" class="bulleted-list"><li style="list-style-type:disc"><code>inline</code> ：定义水平方向的对齐，可取的值为”start“、”center”、”end”和”nearest”，默认为”nearset”</li></ul></li></ul><ul id="cf49e9fc-606b-4a79-a0b7-9bbec85873ad" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">不传递参数等同于<code>alignToTop</code> 为<code>true</code> </span></li></ul></li></ul><ul id="163bef66-4027-47b2-8c81-a191dce77ba5" class="bulleted-list"><li style="list-style-type:disc">这个方法用的很少，MDN甚至都没有可视化的例子，总的来说，它就是用来设置父级容器中的子元素出现在视口时的行为（对齐方式，动画等）,下面是一个例子<pre id="d218875e-b5df-475c-9b53-697e5bcc6538" class="code"><code>&lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+
+&lt;p&gt;&lt;/p&gt;
+	&lt;div class=&quot;wrapper&quot;&gt;
+	  &lt;div class=&quot;special&quot;&gt;JavaScript&lt;/div&gt;
+	&lt;/div&gt;
+&lt;p&gt;&lt;/p&gt;</code></pre><pre id="b654c9da-a22b-4e46-bac7-a16044e34b80" class="code"><code>let el = document.querySelector(&quot;.special&quot;);
+const submit = document.querySelector(&quot;input[type=&#x27;submit&#x27;]&quot;);
+
+// arg是页面选择的传递的参数，可以查看具体代码
+submit.addEventListener(&quot;click&quot;, () =&gt; {
+  if (arg.type === &quot;arg1&quot;) {
+    el.scrollIntoView(arg.value1);
+  } else {
+    el.scrollIntoView(arg.value2);
+  }
+});</code></pre><p id="ee5444e3-0844-4637-a777-472af3733a43" class=""> 完整代码查看<a href="https://github.com/mangwu/javascript/blob/master/ProfessionalJavaScriptForWebDeveloper4/ch15%20-%20DOM%20Extensions/15.3%20HTML5/15.3.6%20Insertion%20Markup/15.3.6.6%20scrollIntoView.html">github</a></p><figure id="9acbd832-974a-4d07-9063-609a54102c09" class="image"><a href="3%20HTML5%207458461c607d46f38fb3016f6c737db5/scrollIntoView.gif"><img style="width:1759px" src="3%20HTML5%207458461c607d46f38fb3016f6c737db5/scrollIntoView.gif"/></a></figure><ul id="b287387c-2c57-4a64-b7e3-b60bccbb72e4" class="bulleted-list"><li style="list-style-type:circle">不同的参数有不同的效果</li></ul></li></ul><ul id="90a2b89c-d263-4039-8824-f9027f46213e" class="bulleted-list"><li style="list-style-type:disc"></li></ul></div></div><p id="ab793d0f-3bb3-4534-a2fc-569177f51f15" class="">
+</p></div></article></body></html>

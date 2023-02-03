@@ -1,0 +1,758 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2.3 RegExp实例方法</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4c4c0d08-cd6c-423a-aa39-f4a3405a3323" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/woodcuts_3.jpg" style="object-position:center 19.999999999999996%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🧦</span></div><h1 class="page-title">2.3 RegExp实例方法</h1></header><div class="page-body"><p id="c7e2713d-8770-4457-b81d-304837b5ff39" class="">RegExp实例有三个方法，分别是RegExp.prototype.compile()、RegExp.prototype.exec()、RegExp.prototype.test(),其中第一个已被废弃，重要的是第二个实例方法</p><h1 id="a5391329-5bf7-4fa1-b8ae-e07ae2421715" class="">RegExp.prototype.exec()</h1><h2 id="c8aa0366-12a2-4eb2-b740-a8eb8d3c255c" class="">语法</h2><ul id="f2fbfc93-dfef-4ba4-87b9-a0ae5e55e431" class="bulleted-list"><li style="list-style-type:disc">exec()是正则实例的主要方法，配合捕获组使用<pre id="d2923e33-b7b9-409a-872b-d258d5fac953" class="code code-wrap"><code>reg.exec(str);</code></pre></li></ul><ul id="3dfce29f-c97d-4dd2-9274-44c22a284000" class="bulleted-list"><li style="list-style-type:disc">exec()方法接受一个用于匹配模式的字符串参数<ul id="424f53e7-1085-46c0-87bb-7eb98576299a" class="bulleted-list"><li style="list-style-type:circle">如果找到匹配项就返回包含第一个匹配信息的数组</li></ul><ul id="ae4389ad-a7c5-4177-82d1-2bef19c7e034" class="bulleted-list"><li style="list-style-type:circle">如果没有找到匹配项，就返回null</li></ul></li></ul><ul id="5c7f0c56-351f-4a50-ac34-28ddaeb9dd8c" class="bulleted-list"><li style="list-style-type:disc">返回的数组是Array实例，但是具有额外的属性<ul id="b76106e5-143b-401c-b417-487fa5f07763" class="bulleted-list"><li style="list-style-type:circle">index: 字符串匹配模式的起始位置（从index位置开始匹配到满足正则表达式的子字符串）</li></ul><ul id="e1c1ca8f-ef00-4738-9b6f-69847b3a19dc" class="bulleted-list"><li style="list-style-type:circle">input: 要查找的字符串</li></ul><ul id="13b29418-58b0-408e-96f9-9e2b6dbfc344" class="bulleted-list"><li style="list-style-type:circle">groups: 捕获组属性，如果没有显式命名捕获组就为undefined</li></ul></li></ul><h3 id="481b1e26-1f04-4436-81eb-f3e23ca8946e" class="">捕获组</h3><ul id="01eaaa4a-8466-4e09-b282-8f5172fb2f8d" class="bulleted-list"><li style="list-style-type:disc">捕获组简单讲就是正则表达式中把使用括号包裹的子表达式匹配的内容保存在组中</li></ul><figure id="89fb310a-84e3-4bc2-b478-b1c4ab813f95" class="link-to-page"><a href="2%203%20RegExp%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%204c4c0d08cd6c423aaa39f4a3405a3323/%E6%8D%95%E8%8E%B7%E7%BB%84%2089fb310a84e34bc2b478b1c4ab813f95.html"><span class="icon">🧷</span>捕获组</a></figure><h2 id="06ab6878-473b-4d26-bd82-ada0afb27b65" class="">返回值</h2><ul id="cc6e08cd-cba3-4e2b-8d24-e0c2701f370f" class="bulleted-list"><li style="list-style-type:disc">exec的返回值是一个数组，具有index, input, groups属性</li></ul><ul id="b9a884c6-0754-451c-8442-48ea2aa65bc1" class="bulleted-list"><li style="list-style-type:disc"><strong>数组元素的索引和捕获组的编号有关系：元素索引和捕获组编号一一对应</strong><ul id="2c2f991a-b35d-440d-8ad0-44459d008a9a" class="bulleted-list"><li style="list-style-type:circle">索引0对应捕获组编号0，元素是匹配整个模式的字符串</li></ul><ul id="01a8d30c-e194-4029-93a4-2580951318c7" class="bulleted-list"><li style="list-style-type:circle">后续的索引对应各个捕获组的编号，元素是表达式中捕获组匹配的字符串</li></ul><ul id="aca2d0cd-0a9a-49b6-962b-1064b86de630" class="bulleted-list"><li style="list-style-type:circle">如果元素没有捕获组，则数组长度为1，只有整个模式匹配的字符串</li></ul></li></ul><h3 id="5ecbd442-30f0-4536-b43d-7ff9a1065e97" class="">例子</h3><pre id="2d73ccfb-5bf8-4d7b-bf3d-2c5ca71a905e" class="code code-wrap"><code>const pattern3 = /(?&lt;year&gt;\d{4})-(?&lt;date&gt;(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d\d))/;
+console.log(pattern3.exec(&quot;2022-07-01&quot;));</code></pre><ul id="4958324e-2087-43c7-970e-16cd5e72e5ab" class="bulleted-list"><li style="list-style-type:disc">打印结果如下<pre id="8432a5ed-ae19-4799-be2f-08741c4ea49a" class="code code-wrap"><code>[
+  &#x27;2022-07-01&#x27;,
+  &#x27;2022&#x27;,
+  &#x27;07-01&#x27;,
+  &#x27;07&#x27;,
+  &#x27;01&#x27;,
+  index: 0,
+  input: &#x27;2022-07-01&#x27;,
+  groups: [Object: null prototype] {
+    year: &#x27;2022&#x27;,
+    date: &#x27;07-01&#x27;,
+    month: &#x27;07&#x27;,
+    day: &#x27;01&#x27;
+  }
+]</code></pre></li></ul><ul id="cc9cfd0b-7796-4fa3-83c0-6298e8df1ef7" class="bulleted-list"><li style="list-style-type:disc">捕获组可以命名</li></ul><ul id="344cd764-1499-4109-9c3b-4afd79f98c65" class="bulleted-list"><li style="list-style-type:disc">捕获组的编号按照左括号的属性从左到右，从1开始编号‘</li></ul><h2 id="82d99a6e-21c2-4c03-b453-b820368d99fc" class="">exec()方法的状态</h2><p id="8104481c-96a9-4fcc-9827-7d78e8442434" class="">RegExp.prototype.exec()方法是有状态的，具体可以查看<a href="https://www.notion.so/global-sticky-46f43c43f19d4a5eb28d6274b1eafebc">如果设置了标志位为global或sticky</a> </p><ul id="0d12faf8-0bcd-4f2c-ab07-ce3bc9093f0f" class="bulleted-list"><li style="list-style-type:disc">如果模式设置了全局标记（g）<ul id="091637d9-183f-41e7-9054-3f03b327f937" class="bulleted-list"><li style="list-style-type:circle">每次调用exec()方法会返回一个匹配信息</li></ul><ul id="f1bfc562-11cb-4502-ae27-cac94aff3a57" class="bulleted-list"><li style="list-style-type:circle">这个匹配信息匹配的字符串的开始位置是<strong>正则实例</strong><strong><code>lastIndex</code></strong><strong> 属性索引</strong></li></ul><ul id="f989b624-61d8-44fa-bf21-a6e1f14d60b0" class="bulleted-list"><li style="list-style-type:circle">lastIndex初始为0，且不与任何字符串绑定，在匹配一次后就赋值当前字符串匹配的结束索引</li></ul><ul id="99dab7ac-c2e6-4bdc-b95e-cad2d753376b" class="bulleted-list"><li style="list-style-type:circle">下一次匹配就以上一次匹配结束后的lastIndex属性开始位置进行匹配（不区分字符串）</li></ul><ul id="baa9c365-5b23-4597-a9ca-ff587cfa7b44" class="bulleted-list"><li style="list-style-type:circle">如果匹配结果为null，则重置lastIndex为0</li></ul></li></ul><ul id="23d574d3-b9c9-4db8-9ca5-705629064b99" class="bulleted-list"><li style="list-style-type:disc">如果模式没有设置全局标志<ul id="c82b8f36-9cc9-40be-85fd-a4282f3df9c6" class="bulleted-list"><li style="list-style-type:circle">lastIndex始终是0</li></ul><ul id="3e0c6c0a-ecc7-4cb7-9d18-c706641ffd80" class="bulleted-list"><li style="list-style-type:circle">每次只匹配字符串的第一个匹配信息</li></ul></li></ul><pre id="943844c0-935b-45ba-a810-27c67161b4d9" class="code code-wrap"><code>const pattern9 = /(\d{4})-((?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2}))/g;
+console.log(
+	pattern9.lastIndex,
+  pattern9.exec(&quot;2012-02-05, 2054-01-02&quot;),
+  pattern9.lastIndex,
+  pattern9.exec(&quot;2012-02-05, 2054-01-02&quot;),
+  pattern9.lastIndex,
+  pattern9.exec(&quot;2012-02-05&quot;),
+  pattern9.lastIndex,
+  pattern9.exec(&quot;2012-02-05&quot;),
+  pattern9.lastIndex
+);</code></pre><ul id="21ef7231-8ab8-4c37-9398-5220a6bc86bf" class="bulleted-list"><li style="list-style-type:disc">打印结果<pre id="e1ca681d-1d74-4982-b236-06e7c4ef2218" class="code code-wrap"><code>0 [
+  &#x27;2012-02-05&#x27;,
+  &#x27;2012&#x27;,
+  &#x27;02-05&#x27;,
+  &#x27;02&#x27;,
+  &#x27;05&#x27;,
+  index: 0,
+  input: &#x27;2012-02-05, 2054-01-02&#x27;,
+  groups: [Object: null prototype] { month: &#x27;02&#x27;, day: &#x27;05&#x27; }
+] 10 [
+  &#x27;2054-01-02&#x27;,
+  &#x27;2054&#x27;,
+  &#x27;01-02&#x27;,
+  &#x27;01&#x27;,
+  &#x27;02&#x27;,
+  index: 12,
+  input: &#x27;2012-02-05, 2054-01-02&#x27;,
+  groups: [Object: null prototype] { month: &#x27;01&#x27;, day: &#x27;02&#x27; }
+] 22 null 0 [
+  &#x27;2012-02-05&#x27;,
+  &#x27;2012&#x27;,
+  &#x27;02-05&#x27;,
+  &#x27;02&#x27;,
+  &#x27;05&#x27;,
+  index: 0,
+  input: &#x27;2012-02-05&#x27;,
+  groups: [Object: null prototype] { month: &#x27;02&#x27;, day: &#x27;05&#x27; }
+] 10</code></pre><ul id="c5f8be96-1a4c-4701-9fd1-2c817e8c5838" class="bulleted-list"><li style="list-style-type:circle">可以看到每次匹配后，正则实例的lastIndex都会改变，初始为0，匹配后变为匹配结束时字符串的索引</li></ul><ul id="25c9dd23-80b2-4bd2-a11f-92540e0578b6" class="bulleted-list"><li style="list-style-type:circle">如果匹配信息为null, 则lastIndex会被重置为0</li></ul></li></ul><hr id="4e91249d-2fe5-4aba-9ac6-579cc1ca3e1f"/><ul id="23a2903c-ee52-4d35-8428-907f8eb0fee5" class="bulleted-list"><li style="list-style-type:disc">如果模式设置了粘附标记y<ul id="de46ed5e-e776-4c1f-96c2-38ec603d79a8" class="bulleted-list"><li style="list-style-type:circle">每次调用exec()就只会在lastIndex的位置上寻找匹配项</li></ul><ul id="5829aef2-cad4-4bcc-8fc7-4111a37bdc48" class="bulleted-list"><li style="list-style-type:circle">粘附标记会覆盖全局标记</li></ul></li></ul><ul id="538eec50-b2f5-42b6-aac8-76d7e68127f3" class="bulleted-list"><li style="list-style-type:disc">粘附标记y与g的区别在于<ul id="47334a2d-af25-4204-85be-cdd14b7184d8" class="bulleted-list"><li style="list-style-type:circle">粘附标记y从lastIndex的位置上开始匹配，第一个字符必须匹配lastIndex索引处的元素</li></ul><ul id="6568efd5-a674-4775-8f25-8dd05da3dc3c" class="bulleted-list"><li style="list-style-type:circle">而全局标记g，从lastIndex开始匹配，匹配的第一个字符索引可以在lastIndex后</li></ul></li></ul><pre id="3c651b65-e899-4182-9a04-8e0c7f98e1e4" class="code code-wrap"><code>const pattern10 = /(\d{4})-((?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2}))/y;
+console.log(
+  pattern10.lastIndex,
+  pattern10.exec(&quot;2012-02-05, 2054-01-02&quot;),
+  pattern10.lastIndex,
+  pattern10.exec(&quot;2012-02-05, 2054-01-02&quot;),
+  pattern10.lastIndex,
+  (pattern10.lastIndex = 12),
+  pattern10.exec(&quot;2012-02-05, 2054-01-02&quot;),
+  pattern10.lastIndex
+);</code></pre><ul id="0f2856e6-0e13-46f6-9285-e8605314f1de" class="bulleted-list"><li style="list-style-type:disc">打印结果<pre id="545cbbb0-a13b-4c92-bc77-b7a0c69be66d" class="code code-wrap"><code>0 [
+  &#x27;2012-02-05&#x27;,
+  &#x27;2012&#x27;,
+  &#x27;02-05&#x27;,
+  &#x27;02&#x27;,
+  &#x27;05&#x27;,
+  index: 0,
+  input: &#x27;2012-02-05, 2054-01-02&#x27;,
+  groups: [Object: null prototype] { month: &#x27;02&#x27;, day: &#x27;05&#x27; }
+] 10 null 0 12 [
+  &#x27;2054-01-02&#x27;,
+  &#x27;2054&#x27;,
+  &#x27;01-02&#x27;,
+  &#x27;01&#x27;,
+  &#x27;02&#x27;,
+  index: 12,
+  input: &#x27;2012-02-05, 2054-01-02&#x27;,
+  groups: [Object: null prototype] { month: &#x27;01&#x27;, day: &#x27;02&#x27; }
+] 22</code></pre><ul id="d447496e-d6c2-49b0-a966-ec2c22d6e3be" class="bulleted-list"><li style="list-style-type:circle">第一次可以匹配成功，因为从lastIndex(0)处开始正好有一个匹配项</li></ul><ul id="aba8c811-b3e5-43d8-af7f-6a3ff2354491" class="bulleted-list"><li style="list-style-type:circle">第二次从字符串逗号处开始匹配，因为第一个字符必须是逗号，无法进行匹配，所以返回null,重置lastIndex为0</li></ul><ul id="69cff924-592d-457c-a5d5-d8885805592e" class="bulleted-list"><li style="list-style-type:circle">第三次匹配前指定了lastIndex的位置，所以能匹配成功</li></ul></li></ul><h1 id="3eb9d5db-3813-425d-aad8-edebe1d66f42" class="">RegExp.prototype.test()</h1><h2 id="b1241755-938f-40b0-acb9-04a9c962b1a6" class="">描述</h2><ul id="1e12f600-a7c8-4af3-b93f-3db5b0a1a11f" class="bulleted-list"><li style="list-style-type:disc">接受一个字符串参数</li></ul><ul id="5d65f063-1862-45eb-a585-3fb6571b2fbe" class="bulleted-list"><li style="list-style-type:disc">如果输入的文本与正则实例的模式匹配就返回true,否则返回false</li></ul><ul id="f813448f-2d58-42ac-9e9b-497b4f249faa" class="bulleted-list"><li style="list-style-type:disc">只用于测试模式是否能匹配字符串，常用于条件语句中</li></ul><h2 id="c9bef550-ff8e-4946-a80a-e86bb5fa5062" class="">例子</h2><ul id="5e905631-cd06-4aec-be94-591d3122c762" class="bulleted-list"><li style="list-style-type:disc">在条件语句中使用，常用于检查用户输入字符串是否符合要求<pre id="98817857-b9bd-4045-bc1a-fd25fa8567d1" class="code code-wrap"><code>const text = &quot;111-00-1111&quot;;
+const pattern = /\d{3}-\d{2}-\d{4}/
+if(pattern.test(text)) {
+	console.log(&quot;匹配成功&quot;)
+}</code></pre></li></ul><h1 id="f1348e24-e380-4cb2-b799-d51fa122582e" class="">继承的方法</h1><ul id="80eff077-8101-4ac5-af46-27a9d3f25698" class="bulleted-list"><li style="list-style-type:disc">toString()和toLocaleString()都返回正则表达式的字面量表示<pre id="b04a6da4-c19e-437f-80e8-9c251e28164f" class="code"><code>const pattern2 = /(\d{4})-((\d{2})-(\d\d))/;
+console.log(pattern2.toString(), pattern2.toLocaleString());</code></pre><ul id="8d32dba4-80e5-4fc5-802e-ac526e2ec851" class="bulleted-list"><li style="list-style-type:circle">打印结果</li></ul><pre id="a296bf7a-0940-4d0b-9c05-2fff8478cb40" class="code"><code>/(\d{4})-((\d{2})-(\d\d))/ /(\d{4})-((\d{2})-(\d\d))/</code></pre></li></ul><ul id="54180935-a788-4603-9f6e-ff47d9e2d0bb" class="bulleted-list"><li style="list-style-type:disc">valueOf()返回正则表达式本身<pre id="01988753-b1e6-4375-a885-31bc8393e6ce" class="code"><code>const pattern10 = /(\d{4})-((?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2}))/y;
+console.log(pattern10.valueOf());</code></pre><ul id="9bdab262-6bfd-4c2e-8115-d0d0706169e5" class="bulleted-list"><li style="list-style-type:circle">打印结果</li></ul><pre id="b60eb086-f738-48db-a56f-f155a8b275f8" class="code"><code>/(\d{4})-((?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2}))/y 
+// 不是字符串，而是正则表达式本身</code></pre></li></ul><p id="2ccd53a7-0eb8-4518-98db-5faf6ce97a48" class="">
+</p></div></article></body></html>

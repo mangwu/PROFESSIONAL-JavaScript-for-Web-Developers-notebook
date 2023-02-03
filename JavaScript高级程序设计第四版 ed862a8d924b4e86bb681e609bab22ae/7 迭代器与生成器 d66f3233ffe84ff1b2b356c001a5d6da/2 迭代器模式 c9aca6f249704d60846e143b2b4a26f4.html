@@ -1,0 +1,1004 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2. 迭代器模式</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="c9aca6f2-4970-4d60-846e-143b2b4a26f4" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_vincent_van_gogh_cradle.jpg" style="object-position:center 80%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🎁</span></div><h1 class="page-title">2. 迭代器模式</h1></header><div class="page-body"><div id="0c3340a8-47ff-49ea-9b38-768b025a0c22" class="column-list"><div id="666baa60-dc63-42c6-a8f6-ba932e6882b6" style="width:12.5%" class="column"><nav id="f17f557d-1be9-43a9-b632-7fd0f721d224" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8233b9cf-65c5-452d-82c0-5ca379251709">2.1 迭代器模式</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#074eea60-487e-4e15-ad22-df4cff7b6ba4">2.1.1 描述</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ea772eef-3ba2-4a4c-9141-0b3b80ddeb04">2.1.1.1 解释迭代器模式（Iterator Pattern）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#92bd0ee6-c2bc-4cf3-b906-5fc607e4c017">2.1.1.2 解释 Iterable 接口</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4f7e8c69-e748-41c6-ae4c-8fc8e3ce9543">2.1.1.2 解释可迭代对象</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#af1ee8b4-f468-4b42-9338-ba9c81cc55f2">2.1.1.3 解释 迭代器 Iterator 消费</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6d76b662-fbf0-44df-98c9-90d577a2d671">2.1.4 iteration iterator iterable</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7f0102e3-13dc-4237-b93f-420142a608f2">2.1.5 可迭代对象的特性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a63dfe30-3e8f-4711-939e-6e19ad950aa2">2.1.6 临时性可迭代对象</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c5549d97-a624-4748-af08-bcfd5af09480">2.2 迭代协议（iteration protocols）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e5ba9791-a255-4c5d-8f72-dc914a9b3d70">2.2.1 可迭代协议（The Iterable protocol）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7f7d9081-fe50-4254-8bbb-e16a9e4ef782">2.2.1.1 实现可迭代协议</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#85e105ca-417f-4fba-8d34-458d9becdbf9">2.2.1.2 实现了iterable接口（可迭代协议）的内置类型</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c0c8115b-b200-4b12-9dd3-335be118da0f">2.2.1.3 检查对象是否是可迭代对象</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#cf1d8415-5f6f-4a6d-b364-309a71d24e34">2.2.1.4 隐式调用工厂函数</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#956a68e8-4fae-4504-864b-8a70d32477af">2.2.1.5 Iterable接口的继承</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1d34fd59-4791-4860-9e84-67ce0edc702f">2.2.2 迭代器协议（The iterator protocol）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#357f86d2-2251-4389-8f2f-a6218fd5863a">2.2.2.1 迭代器</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f8e0fba6-0df2-4c56-b1e0-b9a0eb396aee">2.3 自定义迭代器</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#74a3d6d8-6803-443e-b868-3066f306ae14">2.3.1 简单有缺陷的实现</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#cfbbc81e-cad7-4bc5-b5ff-e6f3c1137708">2.3.2 闭包实现</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9f26cff9-386e-4dd7-9001-9d156e3d0906">2.4 提前终止迭代器</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9319d451-7fd0-4d9d-8682-337242d67e28">2.4.1 return()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#99a882d4-8bea-401e-88a5-a23a11642738">2.4.2 非强制关闭迭代器</a></div></nav><p id="1f6e2f38-9af6-4fb1-86c6-0cc66059a3a7" class="">
+</p></div><div id="49dd3e08-45d7-415b-913e-3bfd905028c4" style="width:87.5%" class="column"><h1 id="8233b9cf-65c5-452d-82c0-5ca379251709" class="">2.1 迭代器模式</h1><p id="130f14c3-493e-4a59-b6a4-b8d1f82c384d" class="">JavaScript高级程序设计（第四版）在本章的翻译实在无法读懂（特别是在迭代器模式的最后一段），参考需要<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols">MDN</a>的说明</p><h2 id="074eea60-487e-4e15-ad22-df4cff7b6ba4" class="">2.1.1 描述</h2><ul id="3f725999-bc60-432d-a11c-a0ef43e9d307" class="bulleted-list"><li style="list-style-type:disc">在ECMAScript6语境下，<strong>迭代器模式</strong>描述了一种数据结构迭代解决方案<ul id="0b26d482-2dc5-4d6c-9884-3cc32b84d559" class="bulleted-list"><li style="list-style-type:circle">把一些结构称为可迭代对象（<strong>iterable</strong>）</li></ul><ul id="06aa344d-b72a-416b-9e93-e61048f12671" class="bulleted-list"><li style="list-style-type:circle">这些结构实现了正式的<code>Iterable</code>接口</li></ul><ul id="581462b2-8de4-4bfc-a8b8-5f1aa70c971b" class="bulleted-list"><li style="list-style-type:circle">开发者只需要通过迭代器<code>Iterator</code>消费，无需关注数据结构中元素顺序和实现迭代的方式</li></ul></li></ul><blockquote id="f83ee893-2c25-41b5-be06-4ae05312c9ce" class="">“迭代器模式（Iterator Pattern），提供<strong>一种方法顺序访问一个聚合对象中的各种元素</strong>，而又<strong>不暴露该对象的内部</strong>表示。” —-<a href="https://baike.baidu.com/item/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/1355498">百度百科</a></blockquote><h3 id="ea772eef-3ba2-4a4c-9141-0b3b80ddeb04" class="">2.1.1.1 解释迭代器模式（Iterator Pattern）</h3><ul id="a5195ee6-6b9f-47f9-ad26-aac91fb28c9c" class="bulleted-list"><li style="list-style-type:disc">参考百度百科的说法，迭代器模式不是任何一门语言的特殊说法，而是一种<strong>设计模式</strong><ul id="ad295e5e-7e29-4f20-befe-dc6b1270948f" class="bulleted-list"><li style="list-style-type:circle">在讨论<a href="1%20%E7%90%86%E8%A7%A3%E8%BF%AD%E4%BB%A3%20d3cdb7b47bf845e6b164fb1b816d8b1b.html"><span class="icon">🛑</span>1. 理解迭代</a> 中，我们提过三种迭代：计数迭代（循环）、有序集合迭代（遍历数组等）、内置迭代（<code>forEach</code>）<ul id="f96db1ea-83ba-412f-a194-02f76044c4ed" class="bulleted-list"><li style="list-style-type:square">前两种属于利用循环语句和事先知道的数据结构进行迭代，这并不理想，因为这往往只对<strong>暴露对象内部</strong>的数据结构有效，对于像<code>Set</code>这样的数据结构，前两种都无法进行迭代</li></ul><ul id="efb4bf96-ef1e-4c86-8080-83b1ef49acf7" class="bulleted-list"><li style="list-style-type:square">而内置迭代方法的确不需要数据结构暴露内部，问题是它<strong>不能中途停止，</strong>这是很大的缺陷</li></ul></li></ul><ul id="46092a9d-66b1-4890-873a-49fa20a2b295" class="bulleted-list"><li style="list-style-type:circle">为此，JavaScript需要利用迭代器模式这种设计模式解决JavaScript中所有数据结构的迭代</li></ul></li></ul><h3 id="92bd0ee6-c2bc-4cf3-b906-5fc607e4c017" class="">2.1.1.2 解释 Iterable 接口</h3><ul id="e5ef4c5e-2312-4734-91b0-ff95630db416" class="bulleted-list"><li style="list-style-type:disc">实际上Iterable 接口就是<strong>迭代协议（Iteration protocols）中的可迭代协议（The Iterable protocol）</strong></li></ul><ul id="923efc9b-a32e-4ff7-be03-d72ddecfc243" class="bulleted-list"><li style="list-style-type:disc">迭代器模式是一种设计模式，解决方案，迭代协议（Iteration protocols）就是这种解决方案更为具体的<strong>实现协议</strong><ul id="3ea8ddcf-1d41-46d7-b6f4-a2a9e8275a07" class="bulleted-list"><li style="list-style-type:circle">迭代器模式指出迭代时要<strong>顺序访问</strong>和<strong>不暴露对象内部，</strong>这两条给出了迭代需要完成的<strong>方向</strong></li></ul><ul id="f6946c02-62fb-4308-8fbd-beb70bfe48fa" class="bulleted-list"><li style="list-style-type:circle">而迭代协议（Iteration protocols）就是根据具体的<strong>实现手段</strong>（也不是具体的语法实现）</li></ul></li></ul><ul id="837d0a31-3437-49cf-b6b6-5d224a935f12" class="bulleted-list"><li style="list-style-type:disc">迭代协议（Iteration protocols）包含两个<ul id="c8922c40-7bdf-4928-8363-1f5ec6842046" class="bulleted-list"><li style="list-style-type:circle"><strong>可迭代协议</strong>（<strong>The Iterable protocol</strong>）</li></ul><ul id="b97bae60-ca75-4b02-aa47-e5e443da39fc" class="bulleted-list"><li style="list-style-type:circle"><strong>迭代器协议</strong>（<strong>The Iterator protocol</strong>）</li></ul></li></ul><h3 id="4f7e8c69-e748-41c6-ae4c-8fc8e3ce9543" class="">2.1.1.2 解释可迭代对象</h3><ul id="e8840c80-f1f3-4e26-8e1f-144419713566" class="bulleted-list"><li style="list-style-type:disc">可迭代对象（iterable object）<ul id="0731fb5b-e61e-4d8b-8b76-90c8c935daeb" class="bulleted-list"><li style="list-style-type:circle">符合迭代器模式指出的两个方向：迭代时可以按顺序访问其中的元素；不会暴露对象的内部表示</li></ul><ul id="8d4b8f7c-877a-47e0-b03b-93c8c3fa45cf" class="bulleted-list"><li style="list-style-type:circle">使用JavaScript实现了迭代协议（Iteration protocols）</li></ul></li></ul><h3 id="af1ee8b4-f468-4b42-9338-ba9c81cc55f2" class="">2.1.1.3 解释 迭代器 Iterator 消费</h3><ul id="5be069c6-7371-42b7-a3c2-8d26e58da687" class="bulleted-list"><li style="list-style-type:disc">迭代器 Iterator 就是JavaScript在具体实现迭代协议时整出的<strong>迭代对象</strong>，它是按需创建的<strong>一次性</strong>对象,它关联一个可迭代对象</li></ul><ul id="ebff2630-e41d-4690-88b7-f6882f98a8f2" class="bulleted-list"><li style="list-style-type:disc">这里的消费（consume）应该就是指 <strong>迭代器 </strong>获取可迭代对象中的元素时，进行的一次次按顺序弹出元素的过程<ul id="1a3ff604-5099-44d6-a63d-7ece72521818" class="bulleted-list"><li style="list-style-type:circle">一次弹出就是一次消费</li></ul><ul id="78f1b0b6-6722-40cb-a957-c71f73ddfb04" class="bulleted-list"><li style="list-style-type:circle">元素全部被消费完后，迭代器也就迭代完毕，没有作用了（所以是一次性的）</li></ul><ul id="7abbd1c7-49af-444e-a215-d1d929a4ee52" class="bulleted-list"><li style="list-style-type:circle">想要再次迭代，再生成一个迭代器即可</li></ul></li></ul><ul id="5b3f5e46-dbbf-425f-bda7-abca55bb41f8" class="bulleted-list"><li style="list-style-type:disc">可以查看下面的<a href="2%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%20c9aca6f249704d60846e143b2b4a26f4.html">词条</a>观察更多关于迭代器的问题</li></ul><h2 id="6d76b662-fbf0-44df-98c9-90d577a2d671" class="">2.1.4 iteration iterator iterable</h2><ul id="e5b7197b-6e80-467f-9b98-99be5aaa469c" class="bulleted-list"><li style="list-style-type:disc"><strong>iteration</strong> 就是<strong>迭代</strong>，第一小章已解释为 按顺序反复执行一段程序，有明确的终止条件</li></ul><ul id="a3526d21-c7f4-427b-9d5b-729244d5e922" class="bulleted-list"><li style="list-style-type:disc"><strong>iterator</strong> 翻译为<strong>迭代器 </strong>，它和生成器（Generator）一起组成实现JavaScript核心语言迭代的两个概念，并且提供了一种用于自定义<code><strong>for…of</strong></code>循环的机制</li></ul><ul id="926cb3bc-f8e4-4074-8e96-fba40388c502" class="bulleted-list"><li style="list-style-type:disc"><strong>iterable </strong>是形容词，用于描述对象是否可迭代，对象是否可迭代的<strong>本质</strong>就是对象是否实现了<strong>可迭代协议</strong></li></ul><ul id="5420f96c-c78a-4454-ad68-5391c178b5d2" class="bulleted-list"><li style="list-style-type:disc">JavaScript高级程序设计（第4版）的中文翻译有如下话语<blockquote id="81a2a568-7364-4481-bc23-3f554a54eb4b" class="">任何实现Iterable接口的数据结构都可以被实现Iterator接口的结构”消费“（consume）</blockquote><ul id="3b10962e-ce16-41a9-9ccd-b5fd590a83b3" class="bulleted-list"><li style="list-style-type:circle">这句话中，”<em><strong>Iterable 接口”</strong></em>指的是可迭代协议（<strong>The Iterable protocol</strong>）</li></ul><ul id="fd0de3d9-5e91-4ba4-a806-8c8f65bbee2b" class="bulleted-list"><li style="list-style-type:circle">“<em><strong>Iterator 接口</strong></em>” 指的是迭代器协议（<strong>The Iterator protocol</strong>）</li></ul><ul id="4d195d53-9111-4dd6-9d9a-ab355f3f0180" class="bulleted-list"><li style="list-style-type:circle">而最后一个”结构”其实就是迭代器对象（Iterator）</li></ul><ul id="1d1698cc-30c7-4c0e-ad4c-126d76e8611d" class="bulleted-list"><li style="list-style-type:circle">翻译以下就是：<mark class="highlight-red">任何实现 </mark><mark class="highlight-red"><strong>可迭代协议</strong></mark><mark class="highlight-red"> 的数据结构都可以被实现 </mark><mark class="highlight-red"><strong>迭代器协议 的 </strong></mark><mark class="highlight-red">（该数据结构的）迭代器 </mark><mark class="highlight-red"><a href="2%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%20c9aca6f249704d60846e143b2b4a26f4.html">消费</a></mark></li></ul><p id="0210e245-f147-46bc-b458-181159506cba" class="">
+</p></li></ul><h2 id="7f0102e3-13dc-4237-b93f-420142a608f2" class="">2.1.5 可迭代对象的特性</h2><ul id="d35930ef-dc88-447f-b581-9009b6c44487" class="bulleted-list"><li style="list-style-type:disc">可迭代对象是一种抽象（不具体）的说法，可迭代对象的特性<ul id="68f30bfd-8b51-49fa-a699-b3ac8528d1cd" class="bulleted-list"><li style="list-style-type:circle">基本上都是数组或集合这样的<strong>集合类型</strong>的对象</li></ul><ul id="495b610d-28a4-458d-8aba-9d8fefd9e1e1" class="bulleted-list"><li style="list-style-type:circle">它们包含的元素是有限的（<strong>可枚举</strong>）</li></ul><ul id="748ef170-d238-4398-97e5-e548aa38ef73" class="bulleted-list"><li style="list-style-type:circle">可迭代对象具有<strong>无歧义</strong>的遍历顺序</li></ul></li></ul><ul id="34c04dbd-19db-40d0-8dbb-a36993610245" class="bulleted-list"><li style="list-style-type:disc">JavaScript内置的部分可迭代对象<ul id="dd45a929-aa8d-42cf-b16a-1791978d4f6a" class="bulleted-list"><li style="list-style-type:circle"><code>Array</code></li></ul><ul id="dd68fdfd-4a68-4921-9e17-60ef84ebbc7c" class="bulleted-list"><li style="list-style-type:circle"><code>ElementTypeArray</code></li></ul><ul id="c1a0bdc4-5836-43ac-8ead-e24c324b074d" class="bulleted-list"><li style="list-style-type:circle"><code>Set</code></li></ul><ul id="601de043-4fd2-47cc-a0d0-83a593998014" class="bulleted-list"><li style="list-style-type:circle"><code>Map</code></li></ul></li></ul><h2 id="a63dfe30-3e8f-4711-939e-6e19ad950aa2" class="">2.1.6 临时性可迭代对象</h2><ul id="270439fd-a95b-4748-b186-c4a59fbff5be" class="bulleted-list"><li style="list-style-type:disc">有些可迭代对象并不是集合对象，而是具有类似数组行为的临时可迭代对象</li></ul><ul id="e9126d87-4a94-416e-8be6-12575d20bdc7" class="bulleted-list"><li style="list-style-type:disc">例如<strong>计数循环</strong><ul id="4b8587b0-8405-4208-a312-cc37350a5e3c" class="bulleted-list"><li style="list-style-type:circle">循环生成的值是暂时性的</li></ul><ul id="d96b24ac-b8ee-4029-9839-067e7034e5f1" class="bulleted-list"><li style="list-style-type:circle">循环本身是在执行迭代</li></ul></li></ul><ul id="4186831f-ab92-4d78-8a87-50ae3c1b8ee5" class="bulleted-list"><li style="list-style-type:disc">临时性可迭代对象可以实现<strong>生成器（Generator）</strong></li></ul><hr id="82e92526-81bf-49cc-9b2f-97ef7cf9c70a"/><p id="d01c6be6-e84b-4603-8ecf-cd5a37852491" class="">
+</p><p id="9c7015e7-d208-401b-830a-e191c28cb335" class="">为了掌握迭代，最先知晓的就应该是<strong>迭代协议</strong>（<strong>iteration</strong> <strong>protocols</strong>）</p><h1 id="c5549d97-a624-4748-af08-bcfd5af09480" class="">2.2 迭代协议（iteration protocols）</h1><blockquote id="9b8b8468-db13-4218-b7dd-2d750460f2fa" class="">迭代协议不是JavaScript内置的对象或语法，而是协议。这些协议可以由<strong>任何</strong>对象通过遵循一些约定而实现</blockquote><p id="7f7eb2c5-dba1-4c15-bce1-6b703c8044e7" class="">迭代协议有<a href="2%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%20c9aca6f249704d60846e143b2b4a26f4.html">两个</a></p><ol type="1" id="d099d170-2c3a-4977-95ff-036b7bc1ef35" class="numbered-list" start="1"><li>可迭代协议（The Iterable protocol）</li></ol><ol type="1" id="36afd7dc-ba29-4e6b-b58e-dfcf9495a4a7" class="numbered-list" start="2"><li>迭代器协议（The Iterator protocol）</li></ol><h2 id="e5ba9791-a255-4c5d-8f72-dc914a9b3d70" class="">2.2.1 可迭代协议（The Iterable protocol）</h2><ul id="360783ad-ae31-4e9d-9c9a-cdfb4e8aeab4" class="bulleted-list"><li style="list-style-type:disc">可迭代协议要求JavaScript对象去自定义它们被迭代时的行为，例如在<code>for…of</code> 中被遍历时，什么值该被迭代</li></ul><ul id="abb43132-1a07-4306-9f8d-69398e24d86e" class="bulleted-list"><li style="list-style-type:disc">一些内置类型默认就有内置的默认迭代行为，如<code>Array</code>，<code>Map</code> ，一些内置类型没有，如<code>Object</code></li></ul><h3 id="7f7d9081-fe50-4254-8bbb-e16a9e4ef782" class="">2.2.1.1 实现可迭代协议</h3><ul id="bef58722-a68b-447f-813d-3c5d1df8ef1a" class="bulleted-list"><li style="list-style-type:disc">实现可迭代协议需要引用类型具备两种能力<ol type="1" id="cdb70e46-670d-4f38-af55-e40e1062ce83" class="numbered-list" start="1"><li>支持迭代的自我识别能力</li></ol><ol type="1" id="229f6a50-8024-44d1-a019-9074349981e4" class="numbered-list" start="2"><li>创建实现Iterator接口的对象的能力（就是能生成迭代器对象）</li></ol></li></ul><ul id="4b00c98d-7ee1-466f-a577-b2dbe70ecb3c" class="bulleted-list"><li style="list-style-type:disc">为了实现这两种能力使得对象称为可迭代对象，必须实现<strong><code>@@iterator</code></strong>方法，参见<a href="../3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E7%AC%A6%E5%8F%B7%2020d09a965d2844c886bf494160a778c5.html">4.Symbol.iterator</a> <ul id="a832e13a-630d-4492-93c0-6245fef92c93" class="bulleted-list"><li style="list-style-type:circle">因为<code>for of</code>循环就是利用该迭代器符号属性引用的方法 获取迭代器进行迭代操作</li></ul><ul id="43c30d89-40bd-40bb-9cc3-c7b4a335a004" class="bulleted-list"><li style="list-style-type:circle">所以实现了该符号属性就能具有上述的两种能力</li></ul></li></ul><ul id="17a32d20-90a9-45f9-9a5c-99ce69ba6f05" class="bulleted-list"><li style="list-style-type:disc">迭代器符号属性引用一个迭代器工厂（生成器）函数，调用这个工厂函数必须返回一个新迭代器（Iterator）对象，这就是对象的<strong>默认迭代器</strong></li></ul><h3 id="85e105ca-417f-4fba-8d34-458d9becdbf9" class="">2.2.1.2 实现了iterable接口（可迭代协议）的内置类型</h3><ul id="8a9d740a-ba2b-4691-b16d-ff2a3dfe8b0c" class="bulleted-list"><li style="list-style-type:disc">字符串</li></ul><ul id="2cc646f7-8147-413e-be80-0dd79b285ee4" class="bulleted-list"><li style="list-style-type:disc">数组</li></ul><ul id="378014bb-9f8d-4edc-b74e-920014370747" class="bulleted-list"><li style="list-style-type:disc">映射</li></ul><ul id="f569fdb6-8121-41e0-85d6-05e372eb39cc" class="bulleted-list"><li style="list-style-type:disc">集合</li></ul><ul id="89bd0c9d-43f6-425c-b4e9-248d93e5fd38" class="bulleted-list"><li style="list-style-type:disc">arguments对象</li></ul><ul id="2a5d2eee-5ac8-4ece-a479-b31d5305ebe5" class="bulleted-list"><li style="list-style-type:disc">NodeList等DOM集合类型</li></ul><h3 id="c0c8115b-b200-4b12-9dd3-335be118da0f" class="">2.2.1.3 检查对象是否是可迭代对象</h3><ul id="3a49e122-126a-4b06-8e54-f3c90e89bdaa" class="bulleted-list"><li style="list-style-type:disc">检查对象是否存在迭代器符号属性即可（即需要暴露该符号属性引用的工厂函数）</li></ul><pre id="dca40f77-d322-4524-b08a-d1a4ca5d17eb" class="code"><code>// Object number都是不可迭代的额
+const num = 1;
+const obj = {};
+console.log(num[Symbol.iterator]); // undefined
+console.log(obj[Symbol.iterator]); // undefined
+// 数组，集合，映射，字符串，arguments，都是可迭代的
+const str = &quot;123&quot;;
+const arr = [1, 2, 3];
+const set = new Set(arr);
+const map = new Map().set(&quot;a&quot;, 1).set(&quot;b&quot;, 2);
+function test() {
+  console.log(arguments[Symbol.iterator]);
+}
+console.log(str[Symbol.iterator]); // [Function: [Symbol.iterator]]
+console.log(arr[Symbol.iterator]); // [Function: values]
+console.log(set[Symbol.iterator]); // [Function: values]
+console.log(map[Symbol.iterator]); // [Function: entries]
+test(1, 2, &quot;a&quot;); // [Function: values]
+
+function test() {
+  console.log(arguments[Symbol.iterator]());
+}
+// 可以通过调用迭代器工厂函数生成一个迭代器
+console.log(str[Symbol.iterator]()); // Object [String Iterator] {}
+console.log(arr[Symbol.iterator]()); // Object [Array Iterator] {}
+console.log(set[Symbol.iterator]()); // [Set Iterator] { 1, 2, 3 }
+console.log(map[Symbol.iterator]()); // [Map Entries] { [ &#x27;a&#x27;, 1 ], [ &#x27;b&#x27;, 2 ] }
+test(1, 2, &quot;a&quot;); // Object [Array Iterator] {}</code></pre><ul id="e49b9e20-3851-4f6c-93fc-47fbd31e134e" class="bulleted-list"><li style="list-style-type:disc">可以看到，arguments本质上就是一个数组（保存参数）</li></ul><ul id="e0dd4a80-70cf-4ed5-911b-91bcd99d50c0" class="bulleted-list"><li style="list-style-type:disc">字符串的工厂函数（生成器）没有别名就是，<code>[Symbol.iterator]</code></li></ul><ul id="c6c1b818-bc1e-4323-9b9b-29353a7c8072" class="bulleted-list"><li style="list-style-type:disc">数组和集合的工厂函数可以使用<code>values</code> 即<code>Array/Set.prototype.values()</code></li></ul><ul id="b073f5e1-49c7-4dd6-bd88-e15a0289e5b1" class="bulleted-list"><li style="list-style-type:disc">映射的工厂函数可以使用别名<code>entries</code> 即<code>Map.prototype.entries()</code></li></ul><h3 id="cf1d8415-5f6f-4a6d-b364-309a71d24e34" class="">2.2.1.4 隐式调用工厂函数</h3><ul id="ec08d71b-3856-4c42-affc-33fd989daff2" class="bulleted-list"><li style="list-style-type:disc">实际写代码时<strong>不需要</strong>显示地调用迭代器符号属性引用的工厂函数去生成迭代器</li></ul><ul id="f0c1e3f7-bbae-4341-9c06-2d8d254d7fb9" class="bulleted-list"><li style="list-style-type:disc">实现了可迭代协议（Iterable protocol）后的所有类型都会自动兼容 <strong>接受可迭代对象（Iterable object）的任何语言特性</strong>：</li></ul><ul id="2f0f9419-dcbe-452f-afca-9a5f90601836" class="bulleted-list"><li style="list-style-type:disc"><strong>接受可迭代对象的原生语言特性</strong> 就是 JavaScript中对可迭代对象隐式调用其工厂函数获取迭代器 的原生语句；包括<ul id="ac3b240a-efc2-496c-ac9d-737368a459ee" class="bulleted-list"><li style="list-style-type:circle"><code>for…of</code>循环</li></ul><ul id="99af127e-43a6-4574-b94a-e9b473f362c5" class="bulleted-list"><li style="list-style-type:circle">数组解构<code>[,,,...]</code></li></ul><ul id="8c1d90d4-e287-49b2-8a50-4ab0c3de7408" class="bulleted-list"><li style="list-style-type:circle">扩展操作符 <code>…</code></li></ul><ul id="d8f0c7f3-677b-44f5-889e-84ca88a48470" class="bulleted-list"><li style="list-style-type:circle"><code>Array.from()</code> 包括定型数组</li></ul><ul id="c95ade49-94d5-433d-abbc-a0320a052475" class="bulleted-list"><li style="list-style-type:circle">创建集合 <code>new Set()</code></li></ul><ul id="f9f7dbdc-fca8-4394-b287-642601483534" class="bulleted-list"><li style="list-style-type:circle">创建映射 <code>new Map()</code></li></ul><ul id="220121b5-cf3d-4981-bb02-bc37f1e33c6e" class="bulleted-list"><li style="list-style-type:circle"><code>Promise.all()</code> 接收由期约组成的可迭代对象</li></ul><ul id="7dda721b-7a54-4f8b-a301-e951f6310d3d" class="bulleted-list"><li style="list-style-type:circle"><code>Promise.race()</code> 接收由期约组成的可迭代对象</li></ul><ul id="085d3ad9-cb2e-47ce-ac77-4cc4c8d7e534" class="bulleted-list"><li style="list-style-type:circle"><code>yield*</code>操作符，在生成器中使用</li></ul></li></ul><ul id="a8d77532-1c6e-49a9-b91d-20b013fb819d" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="23bb53c8-aaac-48b8-a1aa-77a0b6b8ba63" class="code"><code>const arr = [1, 2, 3];
+// 1. for of
+for (const item of arr) {
+  console.log(item); // 1 2 3
+}
+
+// 2. 数组结构
+const [a, b, c] = arr;
+console.log(a, b, c); // 1 2 3
+
+// 3. 扩展操作符
+console.log([0, ...arr]); // [0,1,2,3]
+
+// 4. 基于其他数组创建新数组
+console.log(Array.from(arr)); // [1,2,3]
+
+// 5. 构造集合
+console.log(new Map(arr.map((v, i) =&gt; [i, v]))); // Map(3) {0 =&gt; 1, 1 =&gt; 2, 2 =&gt; 3}</code></pre></li></ul><h3 id="956a68e8-4fae-4504-864b-8a70d32477af" class="">2.2.1.5 Iterable接口的继承</h3><ul id="a8207ada-b728-4bf4-8270-06221ad2ea29" class="bulleted-list"><li style="list-style-type:disc">如果<strong>对象原型链</strong>上的父类实现了Iterable接口（可迭代协议），那么这个对象也就实现了可迭代协议</li></ul><ul id="aebcbb79-56c6-4c31-8cff-e0837c0802ff" class="bulleted-list"><li style="list-style-type:disc">即 可迭代协议 的实现接口（迭代器符号属性）是可以继承的<pre id="05d03690-c651-4b29-b5a2-3a0d9e6de5bf" class="code"><code>// 可迭代协议实现接口可以继承
+class FooArray extends Array {}
+const foo = new FooArray([1, 2, 3]);
+console.log(foo[Symbol.iterator]);
+for (const item of foo) {
+  console.log(item);
+}
+// 打印结果
+[Function: values]
+[ 1, 2, 3 ]</code></pre></li></ul><h2 id="1d34fd59-4791-4860-9e84-67ce0edc702f" class="">2.2.2 迭代器协议（The iterator protocol）</h2><ul id="155e7006-9fde-49a7-9205-84a56b8f0967" class="bulleted-list"><li style="list-style-type:disc">迭代器协议定义了一个标准的方法用于产生一系列的值（有限或无限），并且当（关联的可迭代对象）的所有值都被生成了，仍然会继续返回值（undefined）</li></ul><h3 id="357f86d2-2251-4389-8f2f-a6218fd5863a" class="">2.2.2.1 迭代器</h3><ul id="3406cb28-04a8-4e62-ba13-d8814384b8a0" class="bulleted-list"><li style="list-style-type:disc">迭代器是一种一次性使用的对象，用于迭代与其关联的可迭代对象，<a href="2%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%20c9aca6f249704d60846e143b2b4a26f4.html">消费</a>（consume）其中的元素</li></ul><ul id="d6adc6cd-86c7-4833-9627-3d11ab865301" class="bulleted-list"><li style="list-style-type:disc">迭代器实现了<code>next()</code>方法用于在可迭代对象遍历数据</li></ul><ol type="1" id="4069edad-ab8b-4ae6-a8f6-c8e18f5953d3" class="numbered-list" start="1"><li><strong><code>Iterator.prototype.next()</code></strong><strong> 语法</strong><pre id="44e2cf8e-75f1-4260-b30a-e19e7a9a285c" class="code"><code>const iterator = iterableObject[Symbol.iterator]();
+const iteratorResult = iterator.next();</code></pre><ul id="97144633-0ffd-461e-ad9c-58f3437c11a0" class="bulleted-list"><li style="list-style-type:disc">参数：接受0个或一个参数（<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols">mdn</a>的说法）</li></ul><ul id="39128286-3f46-4e48-9a96-52df09019939" class="bulleted-list"><li style="list-style-type:disc">返回值：返回一个<code>IteratorResult </code>接口对象（object），它包含如下两个属性<ul id="f3ee760f-0821-4014-8a9d-3773fb71856d" class="bulleted-list"><li style="list-style-type:circle"><code>done</code> 可选属性，布尔值<ul id="dc4b8e9d-e6f1-4b6c-8bc7-9fd6675e99b3" class="bulleted-list"><li style="list-style-type:square">如果是<code>false</code>表示迭代器能在可迭代对象序列中产生下一个值，完全等效于不指定<code>done</code>属性</li></ul><ul id="ee2f1ebe-7de4-4281-8cf3-c7206d8d03fa" class="bulleted-list"><li style="list-style-type:square">如果是<code>true</code> 表示迭代器已经消费完了它关联的可迭代对象的序列，这个时候，<code>value</code> 属性可以不被指定</li></ul></li></ul><ul id="79898d58-b9c1-4196-a17f-5067126f7ce4" class="bulleted-list"><li style="list-style-type:circle"><code>value</code> 可选属性，类型由迭代器关联的可迭代对象的序列中的元素类型决定<ul id="2e740d3d-95b2-43ff-bf38-a5b0b00afb6f" class="bulleted-list"><li style="list-style-type:square">迭代器在它关联的可迭代对象的序列中”消费“的一个值</li></ul><ul id="c7317d24-082b-4825-9862-ce264379a42c" class="bulleted-list"><li style="list-style-type:square">当属性<code>done</code> 是<code>true</code> 时，<code>value</code> 属性可被省略</li></ul></li></ul><hr id="2c0a504a-bc9a-4839-9e59-53b15dc8a612"/><ul id="ceaf09a7-191e-47c8-a888-bac47eea7d3f" class="bulleted-list"><li style="list-style-type:circle">这两个属性并非是与关系（至少有一个），即可以都没有，都没有时等价于<code>{done: false, value: undefined}</code> ，表示迭代器关联的可迭代对象的序列元素为undefined，且还有下一个元素可消费</li></ul><ul id="66b97c54-7479-4973-b74b-5a624d95b4b1" class="bulleted-list"><li style="list-style-type:circle">当<code>done:true</code> 时，仍然可以执行<code>next()</code> ，只不过下一个<code>IteratorResult</code> 的<code>done</code> 一定时<code>true</code>，且已经没有可用的<code>value</code>了</li></ul><ul id="2d457f57-24c4-49f2-b4b6-2ad7e066cf4a" class="bulleted-list"><li style="list-style-type:circle">注意，可迭代对象的序列中最后一个元素值所在的<code>IteratorResult</code> 的<code>done</code> 应该是<code>false</code></li></ul></li></ul><ul id="90143b97-81f4-44dd-bd1c-2c3af1cfbb27" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="f40d81bf-87c6-47d6-ae14-0e4169da635c" class="code"><code>const arr = {
+  [Symbol.iterator]: function* (value) {
+    yield value + 1;
+    yield value + 2;
+    yield value + 3;
+  },
+};
+const iterator = arr[Symbol.iterator](2);
+console.log(iterator.next()); // { value: 3, done: false }
+console.log(iterator.next()); // { value: 4, done: false }
+console.log(iterator.next()); // { value: 5, done: false }
+console.log(iterator.next()); // { value: undefined, done: true }
+console.log(iterator.next()); // { value: undefined, done: true }</code></pre><ul id="2888bd46-d9b8-4372-9f12-dba87e4408f8" class="bulleted-list"><li style="list-style-type:circle">迭代器的<code>next()</code> 方法将获取关联的可迭代对象的序列的下一个值，并根据<code>done</code>判断是否迭代完毕</li></ul></li></ul><ul id="bf4748a1-a895-431a-91ca-eaac7837788f" class="bulleted-list"><li style="list-style-type:disc">对于开发者而言，迭代器好用的原因在于<ul id="851b3737-93de-40f9-8fe1-9175e00ddd25" class="bulleted-list"><li style="list-style-type:circle">获取值的方式和什么时候迭代完毕都不是开发者需要考虑的问题，迭代器很好的包装了这些功能使得迭代更加方便</li></ul><ul id="b2ee39f7-c2a2-4669-8407-c52885aca400" class="bulleted-list"><li style="list-style-type:circle">每个迭代器互相独立，都表示一次性的有序遍历，开发者需要迭代时从可迭代对象的工厂函数获取一个迭代器即可</li></ul><ul id="fc5e2ba1-a272-498b-8928-f94bc9e726f5" class="bulleted-list"><li style="list-style-type:circle"><strong>迭代器不与某个时刻的快照绑定</strong>，仅仅使用<strong>游标</strong>记录可迭代对象的历程⇒<strong> </strong>当迭代器关联的可迭代对象在迭代期间被修改，迭代器也会有相应的变化，例如<pre id="373c906d-dff4-4530-871e-1a3a17c7d839" class="code"><code>const a = [1, 2, 3, 4];
+const iterator2 = a.values();
+console.log(iterator2.next()); // { value: 1, done: false }
+// 修改迭代器关联的可迭代数组的元素
+a.splice(0, 2, 5, 6); // 删除两个元素然后添加 5 6
+console.log(iterator2.next()); // { value: 6, done: false }
+console.log(iterator2.next()); // { value: 3, done: false }</code></pre><ul id="be59aa7a-0aed-4e65-ae01-e72962d60413" class="bulleted-list"><li style="list-style-type:square">对于数组而言，<strong>游标</strong>就是迭代记录的数组<strong>索引</strong></li></ul><ul id="fdbde500-f726-4912-b573-86f9c84b0217" class="bulleted-list"><li style="list-style-type:square">初始时 <code>[1,2,3,4]</code> 迭代器调用一次<code>next()</code> ,迭代游标为数组索引 <strong>1</strong></li></ul><ul id="4be63c5f-0287-4286-b4b7-62713e60613e" class="bulleted-list"><li style="list-style-type:square">调用<code>splice()</code> 对被关联的对象进行修改，最终修改为 <code>[5,6,3,4]</code></li></ul><ul id="9fff1608-e7e0-490f-a8bc-8db285b661b5" class="bulleted-list"><li style="list-style-type:square">再次调用<code>next()</code> ，虽然数组中元素改变了，但是游标指向的元素仍然存在，所以获取到迭代值为6，迭代游标记录数组索引2</li></ul></li></ul></li></ul><ul id="9f672b52-d1a4-4db5-be49-fcf24ca20084" class="bulleted-list"><li style="list-style-type:disc">即使迭代器关联的可迭代对象被赋值为其他对象或数据，但是迭代器仍然有效，因为迭代器维护着一个指向可迭代对象的引用，它会阻止垃圾回收程序回收可迭代对象，例如上述例子将<code><strong>a</strong></code>数组设置为<code>let</code> 变量，修改它的值，继续使用<code>iterator2</code>迭代器进行迭代<pre id="063d1884-43dd-46d0-9507-9ac904ebc726" class="code"><code>let a = [1, 2, 3, 4];
+const iterator2 = a.values();
+console.log(iterator2.next()); // { value: 1, done: false }
+// 修改迭代器关联的可迭代数组的元素
+a.splice(0, 2, 5, 6);
+console.log(iterator2.next());// { value: 6, done: false }
+console.log(iterator2.next());// { value: 3, done: false }
+a = [9, 9, 9, 9, 9];
+console.log(iterator2.next()); // { value: 4, done: false }
+console.log(iterator2.next()); // { value: undefined, done: true }</code></pre><ul id="a6bbcace-a1ea-4a4f-8364-362d3615307d" class="bulleted-list"><li style="list-style-type:circle">将a修改为另一个数组后，迭代器<code>iterator2</code> 消费的元素仍然是被修改前的数组</li></ul><ul id="d04d1083-db75-4261-9298-a055ac77a708" class="bulleted-list"><li style="list-style-type:circle">这就是因为迭代器维护着一个指向可迭代对象的引用</li></ul></li></ul><ol type="1" id="c1a86ec9-5c50-4219-a281-ef33085e3837" class="numbered-list" start="2"><li><code>Iterator.prototype.return()</code> <ul id="5cfa8311-3f73-4443-b82b-462ba4913fad" class="bulleted-list"><li style="list-style-type:disc">迭代器实现的另一个方法，接受一个可选参数，并返回一个<code>IteratorResult</code> ；调用这个方法就是告诉迭代器<strong>调用者不打算再进行</strong><code><strong>next()</strong></code><strong>调用</strong>，可以执行任何<strong>清理（cleanup）</strong>操作</li></ul><ul id="a835fab2-3364-45ab-b30a-32428298ad92" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="2840ef98-a1aa-4239-b41a-fb219fbf1717" class="code"><code>iterator.next(value)</code></pre><ul id="4c7c2e57-f2c9-49ac-8855-1ad0601f518d" class="bulleted-list"><li style="list-style-type:circle">参数：<code>value</code>，可选，通常作为返回值中的value值</li></ul><ul id="4345c63e-97e6-4a9e-9771-303128a56b26" class="bulleted-list"><li style="list-style-type:circle">返回值：<code>IteratorResult</code> 接口类型的对象，<code>value</code> 为传入的值，<code>done</code>为<code>true</code></li></ul></li></ul><ul id="f2229ac3-e871-4bcc-99d3-53b5a212e23e" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="0d967a27-f1b4-4da6-b82c-4d2df073657f" class="code"><code>// return 方法
+const obj = {
+  [Symbol.iterator](start = 0, end = 3) {
+    let i = start;
+    return {
+      next() {
+        i++;
+        if (i &gt; end) return { done: true, value: undefined };
+        return { done: false, value: i };
+      },
+      return(value) {
+        console.log(&quot;Closing&quot;);
+        return { done: true, value };
+      },
+    };
+  },
+};
+const [b] = obj; // 解构语法
+console.log(b);
+const [c, d, e] = obj; // 解构语法
+console.log(c, d, e, f);
+const iterator3 = obj[Symbol.iterator]();
+console.log(iterator3.next());
+console.log(iterator3.next());
+console.log(iterator3.next());
+console.log(iterator3.next());
+console.log(iterator3.next());
+
+for (const item of obj) {
+  console.log(item);
+}
+for (const item of obj) {
+  console.log(item);
+  break;
+}
+// 打印
+Closing
+1
+1 2 3 undefined
+{ done: false, value: 1 }
+{ done: false, value: 2 }
+{ done: false, value: 3 }
+{ done: true, value: undefined }
+{ done: true, value: undefined }
+1
+2
+3
+1
+Closing</code></pre><ul id="8d311af2-fb94-45f9-86c6-93ebe984699c" class="bulleted-list"><li style="list-style-type:circle">自定义了一个迭代器工厂函数，当调用<code>return</code> 时，按照迭代器协议的语法给出了相应的实现</li></ul><ul id="40c72b7c-dce5-4b65-a971-818b2a9cad3c" class="bulleted-list"><li style="list-style-type:circle">观察打印可以发现<ul id="1c51a898-556b-4b21-b8f1-94d2b2a2cd35" class="bulleted-list"><li style="list-style-type:square">可以使用解构语法获取迭代值，因为<code>obj</code> 定义的工厂函数返回的迭代器在<code>value &gt; 3</code> 时就返回<code>done: true</code> 表示已迭代完毕，所以只能获取三个迭代元素</li></ul><ul id="3c0c6baa-f0b2-4846-8c3b-9fd01821a05d" class="bulleted-list"><li style="list-style-type:square"><code>Closing</code> 是 <code>return()</code> 函数打印的，只在<code>const [b] = obj;</code> 和 <code>break;</code> 打印了两次<ul id="30adae9c-f0e4-4279-b97f-41d14635f9f5" class="bulleted-list"><li style="list-style-type:disc">解构语法也会隐式的调用工厂函数获取迭代器然后进行<code>next()</code> 迭代</li></ul><ul id="22b7ab9f-317e-4566-9f07-91c2e246679e" class="bulleted-list"><li style="list-style-type:disc"><code>const [b] = obj;</code> 只迭代一次获取一个值，此时不会调用<code>next()</code> 但 <code>done</code> 状态为<code>false</code> ，所以需要调用一次<code>return()</code> 获取<code>done</code> 状态为<code>true</code> ，表示该迭代器应该被清理了</li></ul><ul id="6becd97f-e3d2-416e-b7c2-6ebf2b730744" class="bulleted-list"><li style="list-style-type:disc"><code>const [c,d,e,f] = obj;</code> 没有打印<code>Closing</code> 是因为调用了四次<code>next()</code> 即第四次调用时，<code>done</code> 状态为<code>true</code> 所以<code>f</code>可以直接设置为<code>undefined</code> 不用再调用<code>return</code> ，因为迭代器已被消费完，会被自动清理</li></ul><ul id="ccf42677-8bba-423b-887e-e7876f686dd8" class="bulleted-list"><li style="list-style-type:disc">第一个<code>for… of</code> 循环获取了<code>obj</code> 的迭代器后，调用了四次<code>next()</code> ,<code>done</code> 状态为<code>true</code> 输出三个值，不再调用<code>return</code></li></ul><ul id="e30e991c-4a88-4ec1-a382-b3eb721fc8b2" class="bulleted-list"><li style="list-style-type:disc">第二个<code>for…of</code> 循环获取<code>obj</code> 的迭代器后，因为<code>break</code> 语句，只调用了一次<code>next()</code> ,<code>done</code> 状态为<code>false</code> ,需要调用<code>return</code> 让<code>done</code> 为<code>true</code> ，所以打印了一个<code>Closing</code></li></ul></li></ul></li></ul></li></ul></li></ol><ol type="1" id="2179ec3b-ae75-4d41-9998-3e0f206f0966" class="numbered-list" start="3"><li><code>Iterator.prototype.throw()</code> <ul id="d2f7361a-4844-4798-b4a5-e54f6564fc40" class="bulleted-list"><li style="list-style-type:disc">迭代器抛出错误的方法，调用这个方法告诉迭代器调用者检查到一个错误条件</li></ul><ul id="c91c531f-d4a0-4dcb-b461-aae604c5e345" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="0f11cb29-92fe-45d7-ae54-9aa4e8a2d484" class="code"><code>const iteratorResult = iterator.throw(exception);</code></pre><ul id="0f2b3476-e1b7-41af-85d9-1a288693360a" class="bulleted-list"><li style="list-style-type:circle">参数 <code>exception</code> 是一个<code>Error</code> 实例，说明错误信息</li></ul><ul id="eb6b7136-2dc8-4fd0-8323-649a4b605b1a" class="bulleted-list"><li style="list-style-type:circle">返回值 <code>IteratorResult</code> 接口实例，<code>done</code> 属性为<code>true</code></li></ul></li></ul><ul id="c8897d0d-16e5-4f8c-941a-abec81c9ce4a" class="bulleted-list"><li style="list-style-type:disc">实际上<code>throw()</code> 方法一般会在<code>next()</code> 调用后检查返回结果是否符合迭代器协议才被<strong>手动</strong>调用<ul id="63b329fc-6d8d-4070-9486-0774baaa4bed" class="bulleted-list"><li style="list-style-type:circle"><code>next()</code> 方法一般不会报错，只有当<strong>隐式调用</strong>它的语句发现其返回结果有问题后，调用语句会抛出错误，但是调用语句不会像<code>return()</code> 一样调用<code>throw()</code>，而是直接抛出类型错误</li></ul><ul id="4f9a732c-9525-4c7b-9036-40e656e3c382" class="bulleted-list"><li style="list-style-type:circle">当<strong>显示使用</strong>迭代器调用<code>next()</code> ，需要开发者自行检测返回值是否符合条件，然后主动调用<code>throw()</code></li></ul></li></ul><ul id="3d2ba97c-dff2-48cc-b915-d1c27b5a4285" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="ca3ae71f-33cc-4f99-b79b-9c2d3a85e7b7" class="code code-wrap"><code>// throw方法
+const obj2 = {
+  [Symbol.iterator](start = 0, end = 3) {
+    let i = start;
+    return {
+      next() {
+        i++;
+        if (i &lt; end) return { done: false, value: i };
+        return 1;
+      },
+      return(value) {
+        console.log(&quot;Closing&quot;);
+        return { done: true, value };
+      },
+      throw(error = &quot;结果不是对象&quot;) {
+        throw new TypeError(error);
+      },
+    };
+  },
+};
+
+try {
+  for (const item of obj2) {
+    console.log(item); // 1 2
+  }
+} catch (error) {
+  console.log(error.message); // Iterator result 1 is not an object
+}
+const iterator4 = obj2[Symbol.iterator]();
+console.log(iterator4.next()); // { done: false, value: 1 }
+console.log(iterator4.next()); // { done: false, value: 2 }
+const next = iterator4.next();
+if (next.done == undefined) {
+  iterator4.throw(); // throw new TypeError(error);
+        ^
+// TypeError: 结果不是对象
+}</code></pre><ul id="dc58d830-edb5-4de3-861d-fc009f647da1" class="bulleted-list"><li style="list-style-type:circle">使用<code>for…of</code> 遍历<code>obj2</code> 时，因为第三个结果返回的是原始数据类型<code>1</code> ，所以循环语句直接报错，打印<code>Iterator result 1 is not an object</code></li></ul><ul id="34726aa4-bbbd-4bd9-83cd-c4e143a1057e" class="bulleted-list"><li style="list-style-type:circle">后面显示使用迭代器调用<code>next()</code>，判断其返回值是否符合<code>IteratorResult</code> 然后手动调用<code>throw()</code> 抛出错误</li></ul></li></ul></li></ol></li></ol><hr id="eeacdc2e-9912-459f-9aad-0a3fc6a932e4"/><p id="ecd1471d-5926-4df8-81d7-290dfcee6d4f" class=""><strong>注意</strong></p><ul id="946f4a9a-d4c3-4135-8aab-88d6596c26b1" class="bulleted-list"><li style="list-style-type:disc">上述的<code>return()</code> 和<code>throw()</code> 都是可选实现的方法，实现迭代器协议至少要完成对<code>next()</code> 方法的实现</li></ul><ul id="71f0d598-360b-46e4-b504-a95737366a88" class="bulleted-list"><li style="list-style-type:disc">上述自定义<code>next()</code> 的方式属于<strong>显式的迭代器</strong>实现，与之对应的是<strong>原生的迭代器</strong>实现（例如数组，<code>Set</code> 的迭代器）</li></ul><h1 id="f8e0fba6-0df2-4c56-b1e0-b9a0eb396aee" class="">2.3 自定义迭代器</h1><ul id="618c1330-5063-4921-9b74-fa02326f7ff9" class="bulleted-list"><li style="list-style-type:disc"><strong>自定义迭代器</strong>指通过实现<strong>迭代器协议（Iterator接口）</strong>使得对象可作为迭代器使用，即实现上节的<code>next(), return()</code> 等方法</li></ul><ul id="92db2c85-6776-4d16-96b9-37fe6147f821" class="bulleted-list"><li style="list-style-type:disc">与实现<strong>可迭代协议（Iterable接口）</strong>一样，实现<strong>Iterator接口</strong>中的<code>next()</code> 方法就能直接保证对象可作为迭代器使用</li></ul><h2 id="74a3d6d8-6803-443e-b868-3066f306ae14" class="">2.3.1 简单有缺陷的实现</h2><ul id="51626b42-74ba-4bfc-a618-5e4d09dea7e1" class="bulleted-list"><li style="list-style-type:disc">一般可以将迭代器符号属性直接返回对象本身（<code>this</code>），然后实现实例方法<code>next()</code>等</li></ul><ul id="51b03661-baea-49db-856f-64c5fdbb766a" class="bulleted-list"><li style="list-style-type:disc">这种方式将<strong>对象本身当作了迭代器</strong>，没有构造新的迭代器对象</li></ul><ul id="2147f1b2-ea35-49ec-8f12-a9bddae73269" class="bulleted-list"><li style="list-style-type:disc">例如<pre id="4956b681-aa94-42c6-8263-e71f1ac33e8d" class="code code-wrap"><code>class Foo {
+  constructor(limit) {
+    this.limit = limit;
+    this.count = 0;
+  }
+  next() {
+    if (this.count &lt; this.limit) {
+      return { done: false, value: this.count++ };
+    } else {
+      return { done: true, value: undefined };
+    }
+  }
+  [Symbol.iterator]() {
+    return this;
+  }
+}</code></pre></li></ul><ul id="265494e6-c125-4739-a2c9-f133783db5a0" class="bulleted-list"><li style="list-style-type:disc">这种迭代器的实现方式的缺陷在于，<code>count</code>作为实例的属性，改变之后就不可恢复，在调用有限次的<code>next()</code> 后，<code>count</code> 会超过<code>limit</code> 的值，之后再怎么调用都会返回<code>{done:true, value: undefined}</code> </li></ul><ul id="273387e7-52ae-4f34-8205-76279806510f" class="bulleted-list"><li style="list-style-type:disc">如下调用<pre id="c1df85be-78d2-4416-a18d-ccd0137380f8" class="code code-wrap"><code>const foo = new Foo(5);
+for (const item of foo) {
+  console.log(item); // 0 - 4
+}
+for (const item of foo) {
+  console.log(item);
+}</code></pre><ul id="076ea6ba-c03f-4b08-b7ba-7c17a54b7035" class="bulleted-list"><li style="list-style-type:circle">第二个for循环不会打印任何值， 这种简单实现只会被迭代一次</li></ul></li></ul><h2 id="cfbbc81e-cad7-4bc5-b5ff-e6f3c1137708" class="">2.3.2 闭包实现</h2><ul id="a59ddf3a-be54-4bdd-ba27-d8bd3141946a" class="bulleted-list"><li style="list-style-type:disc">为了让每个可迭代对象创建多个迭代器，就像在迭代器协议中举得例子一样<ul id="80eaea1d-642d-428c-82cf-2fc3a864e762" class="bulleted-list"><li style="list-style-type:circle">每次迭代都新建一个迭代器</li></ul><ul id="5f71fac1-94b9-4302-ac2d-615e81c08679" class="bulleted-list"><li style="list-style-type:circle">把迭代初始值（计数器）变量放到闭包(<strong>closure</strong>)中</li></ul><ul id="6071a044-70b5-4ba3-be95-ac817efa85d1" class="bulleted-list"><li style="list-style-type:circle">然后通过闭包(<strong>closure</strong>)返回迭代器</li></ul></li></ul><ul id="814174f8-698d-4dc8-b79a-5e5fe24a9b81" class="bulleted-list"><li style="list-style-type:disc">实现如下<pre id="cf389632-dd94-47a3-ab16-8f2dbeae082f" class="code code-wrap"><code>class Counter {
+  constructor(limit) {
+    this.limit = limit;
+  }
+  [Symbol.iterator]() {
+    let limit = this.limit;
+    let count = 0;
+    return {
+      next() {
+        if (count &lt; limit) {
+          return { done: false, value: count++ };
+        }
+        return { done: true, value: undefined };
+      },
+    };
+  }
+}</code></pre></li></ul><ul id="1449b5c7-246f-4499-9215-7ff8902c3248" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="4f34a69e-5a7b-4c05-8f19-3b6f247d0b5b" class="code code-wrap"><code>const counter = new Counter(5);
+for (const item of counter) {
+  console.log(item); // 0 - 4
+}
+for (const item of counter) {
+  console.log(item); // 0 - 4
+}</code></pre></li></ul><ul id="53f135f5-98bb-4571-8220-5d6ed08d0e3b" class="bulleted-list"><li style="list-style-type:disc"><strong>以闭包方式创建的迭代器也实现了Iterable接口（可迭代协议），以</strong><code><strong>Symbol.iterator</strong></code><strong> 属性引用的工厂函数会返回相同的迭代器</strong><ul id="8e046b37-32e9-41b7-83eb-b4516e1a4a8c" class="bulleted-list"><li style="list-style-type:circle">也就是说，迭代器对象（<strong>Iterator</strong>）本身也是可迭代对象（<strong>Iterable object</strong>）</li></ul><ul id="fce8950c-4d12-4654-b9aa-af986f715c5a" class="bulleted-list"><li style="list-style-type:circle">调用迭代对象的迭代器符号属性（<strong><code>Symbole.iterator</code></strong>）引用的工厂函数会返回相同的迭代器</li></ul><ul id="855ba7a5-1de4-4145-8a73-405a1bf106d0" class="bulleted-list"><li style="list-style-type:circle">上述的闭包实现并未实现这一功能</li></ul></li></ul><ul id="826d2037-e2fb-4410-a892-e1e631870e76" class="bulleted-list"><li style="list-style-type:disc"><strong>内置</strong>的可迭代对象的迭代器都实现了可迭代协议，如下<pre id="72495320-27df-4c7e-b301-4939ca25eafb" class="code code-wrap"><code>const arr = [1, 5, 2, 3];
+const iterarr1 = arr.values();
+const iterarr2 = iterarr1[Symbol.iterator]();
+const iterarr3 = iterarr2[Symbol.iterator]();
+
+console.log(iterarr1 === iterarr2 &amp;&amp; iterarr1 === iterarr3); // true
+
+console.log(iterarr1.next()); // { value: 1, done: false }
+console.log(iterarr2.next()); // { value: 5, done: false }
+console.log(iterarr3.next()); // { value: 2, done: false }</code></pre><ul id="2dda5b07-7c55-4a18-8d0f-0d1d63aa8e87" class="bulleted-list"><li style="list-style-type:circle">三个变量实际上引用同一个迭代器</li></ul></li></ul><ul id="af1448ea-19c4-46c2-840e-e5bed501abc7" class="bulleted-list"><li style="list-style-type:disc">自定义迭代器实现可迭代协议也很简单：结合<a href="2%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%20c9aca6f249704d60846e143b2b4a26f4.html">2.3.1 简单有缺陷的实现</a> 和闭包，实现迭代器的可迭代符号属性时将迭代器本身（<code>this</code>）作为结果返回，如下<pre id="b3346929-d915-44a9-93c9-ec0714a124cf" class="code code-wrap"><code>class Counter {
+  constructor(limit) {
+    this.limit = limit;
+  }
+  [Symbol.iterator]() {
+    let limit = this.limit;
+    let count = 0;
+    return {
+      next() {
+        if (count &lt; limit) {
+          return { done: false, value: count++ };
+        }
+        return { done: true, value: undefined };
+      },
+      [Symbol.iterator]() {
+        return this;
+      },
+    };
+  }
+}</code></pre></li></ul><h1 id="9f26cff9-386e-4dd7-9001-9d156e3d0906" class="">2.4 提前终止迭代器</h1><h2 id="9319d451-7fd0-4d9d-8682-337242d67e28" class="">2.4.1 return()</h2><ul id="58a3f1c9-d100-4308-8905-dee6e66fde97" class="bulleted-list"><li style="list-style-type:disc">在迭代器提前关闭后一定会执行<code>return()</code> 语句</li></ul><ul id="a7d086ed-aec0-4546-a5cf-4e296f9e1d7c" class="bulleted-list"><li style="list-style-type:disc">迭代时提前关闭（不耗尽序列元素）的情况是：<ul id="125cae98-ef3b-4ed0-ada8-e1495dfed573" class="bulleted-list"><li style="list-style-type:circle">for-of循环通过<code><strong>break; continue; return 或throw</strong></code><strong> </strong>提前退出</li></ul><ul id="edbbe3f0-3b69-43b7-bd68-5b2ff838de8f" class="bulleted-list"><li style="list-style-type:circle">解构操作并未消费所有值</li></ul></li></ul><ul id="cac3922f-7a3a-4323-a7a6-a3cfc9eab385" class="bulleted-list"><li style="list-style-type:disc"><code>return()</code> 的返回值只会用在生成器的上下文中，可以只返回<code>{done: true}</code> ，在讨论生成器时解释</li></ul><ul id="ac74054a-5588-4d19-b294-9229aa64f374" class="bulleted-list"><li style="list-style-type:disc">例子：和<a href="2%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%20c9aca6f249704d60846e143b2b4a26f4.html">Iterator.prototype.return() </a> 基本一样<pre id="4ee49a9a-d771-40fe-be6d-abe9b6b0b404" class="code code-wrap"><code>class Foo {
+  constructor(limit) {
+    this.limit = limit;
+  }
+  [Symbol.iterator]() {
+    let count = 0;
+    let limit = this.limit;
+    return {
+      next() {
+        if (count &lt; limit) {
+          return { value: count++, done: false };
+        }
+        return { value: count, done: true };
+      },
+      return() {
+        console.log(&quot;closed&quot;);
+        return { done: true };
+      },
+      [Symbol.iterator]() {
+        return this;
+      },
+    };
+  }
+}
+console.log(&quot;---数组解构---&quot;);
+const foo = new Foo(3);
+const [a, b, c] = foo; // closed
+console.log(a, b, c); // 0 1 2
+console.log(&quot;---break语句---&quot;);
+
+for (const i of foo) {
+  if (i &gt; 1) break; // closed
+  console.log(i); // 0 1
+}
+console.log(&quot;---抛出错误---&quot;);
+
+try {
+  for (let i of foo) {
+    if (i &gt; 1) {
+      throw &quot;iterator result i cannot bigger than 1&quot;;
+			// closed
+    }
+    console.log(i); // 0 1
+  }
+} catch (error) {
+  console.log(error); // iterator result i cannot bigger than 1
+}</code></pre></li></ul><h2 id="99a882d4-8bea-401e-88a5-a23a11642738" class="">2.4.2 非强制关闭迭代器</h2><ul id="15c92063-cc58-45b0-90fb-d221a1f52bf1" class="bulleted-list"><li style="list-style-type:disc">迭代器调用<code>return()</code> “相当于”关闭了迭代器（<code>done: true</code>）</li></ul><ul id="49c9bb44-e71a-4785-9c01-7c51fefa1edd" class="bulleted-list"><li style="list-style-type:disc">如果迭代器没有被关闭，可以接着上次离开的地方继续迭代，比如<strong>数组的迭代器就是不能关闭的</strong><pre id="608ddc2f-9eac-44ca-a0a7-cac908555f5f" class="code code-wrap"><code>const arr = [4, 2, 1, 5, 6];
+const iter = arr.values();
+for (const item of iter) {
+  console.log(item); // 4 2 1
+  if (item &lt; 2) {
+    break;
+  }
+}
+for (const item of iter) {
+  console.log(item); // 5 6
+}</code></pre></li></ul><ul id="6fbc6648-c009-4adc-b6d2-794e412d531e" class="bulleted-list"><li style="list-style-type:disc">因为<code>return()</code> 方法是可选实现的，所以并非所有迭代器都是可关闭的<ul id="b69580cd-f7ba-44aa-8342-14a9e8449e4b" class="bulleted-list"><li style="list-style-type:circle">对于内置可迭代对象而言，它是否可关闭可以测试它的迭代器的<code>return</code>属性是否是函数对象</li></ul><ul id="a94f4495-eda1-4a20-898e-eb4adf030e81" class="bulleted-list"><li style="list-style-type:circle">并且仅仅给不可关闭的迭代器增加一个<a href="2%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%20c9aca6f249704d60846e143b2b4a26f4.html">简单</a>的<code>return</code>方法，<strong>并不能</strong>让迭代器变为可关闭的</li></ul><ul id="fb691d6f-0957-4613-b6b2-92bc2f47c9d7" class="bulleted-list"><li style="list-style-type:circle">因为调用<code>return()</code><strong>不会强制</strong>进入关闭状态，即便如此，遇到上述的终止迭代器的情况仍然会调用<code>return()</code></li></ul></li></ul><ul id="553dd766-a9ea-4c3a-8a3c-45959be7f6a1" class="bulleted-list"><li style="list-style-type:disc">例如自定义的迭代器<pre id="c8b7de8f-81be-4e37-b34e-f93c7133fd02" class="code code-wrap"><code>class Foo {
+  constructor(limit) {
+    this.limit = limit;
+  }
+  [Symbol.iterator]() {
+    let count = 0;
+    let limit = this.limit;
+    return {
+      next() {
+        if (count &lt; limit) {
+          return { value: count++, done: false };
+        }
+        return { value: count, done: true };
+      },
+      return() {
+        console.log(&quot;closed&quot;);
+        return { done: true };
+      },
+      [Symbol.iterator]() {
+        return this;
+      },
+    };
+  }
+  values() {
+    return this[Symbol.iterator]();
+  }
+}
+console.log(&quot;--自定义迭代器--&quot;);
+const foo = new Foo(5);
+const iter2 = foo.values();
+for (const item of iter2) {
+  console.log(item); // 0 1 2
+  if (item &gt; 1) {
+    break; // closed
+  }
+}
+for (const item of iter2) {
+  console.log(item); // 3 4 
+}</code></pre><ul id="9f25a3a2-1812-4771-8e72-a9589528119b" class="bulleted-list"><li style="list-style-type:circle">数组的迭代器和上述的一样，在迭代器中实现了<code>return()</code> 方法在<code>break</code>后仍然没有强制关闭迭代器，再调用是接着上次的状态的</li></ul></li></ul><p id="12512edc-1d09-4cfe-9298-38e649e81ce8" class="">
+</p></div></div><p id="f381224e-2ba8-41c9-bbd4-76036f913434" class="">
+</p></div></article></body></html>

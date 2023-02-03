@@ -1,0 +1,710 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>捕获组</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="89fb310a-84e3-4bc2-b478-b1c4ab813f95" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_william_morris_1875.jpg" style="object-position:center 0%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🧷</span></div><h1 class="page-title">捕获组</h1></header><div class="page-body"><p id="7823c486-6384-4831-ba6e-b001dbb4852b" class="">参考<a href="https://blog.csdn.net/johnf_nash/article/details/78570836">csdn</a></p><h1 id="eaddd1a5-f785-4825-92c2-737340ad1110" class="">1. 概述</h1><h2 id="6aaf106c-3929-4437-b24c-b103b1d241e7" class="">1.1 捕获组定义</h2><ul id="7e0a69b9-334a-4e1f-bbb0-d0417f79ec8c" class="bulleted-list"><li style="list-style-type:disc">捕获组，capture groups ，就是把正则表达式中子表达式的匹配的内容，保存到内存中以<strong>数字编号或显式命名的组</strong>里，方便后面引用<ul id="e6c639fb-f40c-43d7-94db-a624a0888b5f" class="bulleted-list"><li style="list-style-type:circle">数字编号的形式就是在匹配返回的数组信息中按照编号排列匹配字符串</li></ul><ul id="c6ebe293-0d9f-4fee-8346-db83df8c3ca7" class="bulleted-list"><li style="list-style-type:circle">显式命名就是在匹配数组中以<code>groups</code> 属性值的方式保存</li></ul></li></ul><ul id="c2a9cd66-1cfc-4ae9-913d-ff3ca6b80dbb" class="bulleted-list"><li style="list-style-type:disc">捕获组有两种定义方式<ul id="0a8239d8-fd1c-4e25-b8f2-4583e61a3058" class="bulleted-list"><li style="list-style-type:circle">普通捕获组，通常的捕获组就是普通捕获组，使用小括号将子正则表达式括起来<pre id="1225180e-5190-4dc9-a678-a2262bfc4ca0" class="code code-wrap"><code>(Expression)</code></pre><ul id="200cca07-82d9-4548-8b5d-15ac1058b7e0" class="bulleted-list"><li style="list-style-type:square">正则表达式中的小括号是一种元符号，有特殊含义</li></ul><ul id="796c902b-d26f-4714-a127-9d244acbd6bf" class="bulleted-list"><li style="list-style-type:square">使用括号将正则中模式的部分表达式括起来，括起来的部分匹配到的字符就是一个捕获组</li></ul></li></ul><ul id="86e8786e-27e2-4b1f-a630-daaa7003b16c" class="bulleted-list"><li style="list-style-type:circle">命名捕获组<pre id="793a1573-5022-486e-8158-eca0072de7f4" class="code code-wrap"><code>(?&lt;name&gt;Exprssion)</code></pre><ul id="bab793ea-cbe1-46c1-8e15-676658125216" class="bulleted-list"><li style="list-style-type:square">命名捕获组同样有数字编号，只是额外增加了对捕获组的命名</li></ul></li></ul></li></ul><ul id="6d36035d-e0c2-462c-ab49-a8edd32093ce" class="bulleted-list"><li style="list-style-type:disc">支持捕获组的语言<ul id="8ce61b03-98f9-4fe1-a92a-75a4e38aa4a9" class="bulleted-list"><li style="list-style-type:circle">普通捕获组在大部分支持正则表达式的语言或工具中都支持</li></ul><ul id="d05a77e7-fce5-4c8c-b03b-26ba6b3e8ab3" class="bulleted-list"><li style="list-style-type:circle">命名捕获组只在.NET,PHP,Python，JavaScript等语言中支持</li></ul><ul id="67a59236-1418-4ad9-8a9d-03f7743339a5" class="bulleted-list"><li style="list-style-type:circle">在.NET语言中的命名捕获组还可以使用<code>(?&quot;name&quot;Expression)</code> 的方式定义</li></ul></li></ul><h2 id="11325278-fa32-4cdf-be94-c6992b1641f9" class="">1.2 捕获组编号规则</h2><p id="dd2568f6-322e-4194-8b47-1285e7d059d9" class="">编号规则指以数字为捕获组进行编号的规则，正则表达式中<strong>只有</strong>普通捕获组或者命名捕获组，则编号规则比较清晰：<strong>编号0为整个正则表达式整体，之后的编号按照左括号的顺序逐一增加</strong></p><h3 id="0877ae95-e247-4bef-8bad-38f7d5469944" class="">1.2.1 普通捕获组的编号规则</h3><ul id="faf5d6c3-ffed-4093-a063-183f3fbbba58" class="bulleted-list"><li style="list-style-type:disc">按照左括号在模式中出现的顺序来编号捕获组，即按照”(”的出现顺序，从左到右，从1开始编号</li></ul><ul id="d182abcc-1915-43d7-95a2-112e6d3e16dc" class="bulleted-list"><li style="list-style-type:disc">例如简单日期（未做数字范围判断）的正则表达式<code>/(\d{4})-((\d{2})-(\d\d))/</code><ul id="d1521a75-d804-4497-9a2b-43f8b65e9dc8" class="bulleted-list"><li style="list-style-type:circle">以2022-07-01为例</li></ul><table id="16230f2c-7753-46a6-a588-f3eab7ff5835" class="simple-table"><tbody><tr id="f226d3f9-4f60-45a5-af4c-d724bed191f7"><td id="H~rj" class="">编号</td><td id=";DRo" class="">命名</td><td id="v@}X" class="">捕获组</td><td id="isyO" class="">匹配内容</td></tr><tr id="5f6b0d9a-5eb9-45c7-bf95-f5c842816d39"><td id="H~rj" class="">0</td><td id=";DRo" class=""></td><td id="v@}X" class="">(\d{4})-((\d{2})-(\d\d))</td><td id="isyO" class="">2022-07-01</td></tr><tr id="b3453d54-dc73-435d-83ea-89f1fb3d2c64"><td id="H~rj" class="">1</td><td id=";DRo" class=""></td><td id="v@}X" class="">(\d{4})</td><td id="isyO" class="">2022</td></tr><tr id="0c2d8224-11f4-4e93-9784-06dd385a34a5"><td id="H~rj" class="">2</td><td id=";DRo" class=""></td><td id="v@}X" class="">((\d{2})-(\d\d))</td><td id="isyO" class="">07-01</td></tr><tr id="7c139311-6b15-42e2-a9a9-8a449fb0ce8f"><td id="H~rj" class="">3</td><td id=";DRo" class=""></td><td id="v@}X" class="">(\d{2})</td><td id="isyO" class="">07</td></tr><tr id="af48090f-0a41-40c8-a567-821fc7b44224"><td id="H~rj" class="">4</td><td id=";DRo" class=""></td><td id="v@}X" class="">(\d\d)</td><td id="isyO" class="">01</td></tr></tbody></table></li></ul><h3 id="5599e584-bd1b-42b6-81ef-46ff0f6f4c7a" class="">1.2.2 命名捕获组编号规则</h3><ul id="05727ae9-c96d-414f-9277-f572da84e2a1" class="bulleted-list"><li style="list-style-type:disc">如果正则模式的捕获组数量过多，那么一个个去数编号然后获取捕获组的匹配内容难免产生错误，而且正则表达式在后续扩展修改的过程中，编号可能随之改变，所以命名捕获组很有必要</li></ul><ul id="087a5efd-6f70-4526-82c9-00e23236b1d6" class="bulleted-list"><li style="list-style-type:disc">命名捕获组可以通过命名访问到指定的组，注意不能重名</li></ul><ul id="60ae68ad-b816-491b-87fd-29cbfff81898" class="bulleted-list"><li style="list-style-type:disc">同时命名捕获组也参与了捕获组的编号，在只有命名捕获组的情况下，编号也是按照”(”出现的顺序，从左到右，从1开始编号的</li></ul><ul id="b6c10147-a259-4c93-8e81-d792d8d2c346" class="bulleted-list"><li style="list-style-type:disc">例如，将上述的简单日期的每个未命名的捕获组进行命名：<code>/(?&lt;year&gt;\d{4})-(?&lt;date&gt;(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d\d))/</code><ul id="161273a8-a12c-4c92-b59c-1c779320d72f" class="bulleted-list"><li style="list-style-type:circle">以2022-07-01为例</li></ul><table id="679ec1e5-b9f5-4ec1-b164-bea6bf6197d6" class="simple-table"><tbody><tr id="dedbdd36-c82b-459a-a1ca-e6a510d8a42f"><td id="H~rj" class="">编号</td><td id=";DRo" class="">命名</td><td id="v@}X" class="" style="width:228.99998474121094px">捕获组</td><td id="isyO" class="">匹配内容</td></tr><tr id="66e34b3d-9079-4501-81a5-4486bac9d8fe"><td id="H~rj" class="">0</td><td id=";DRo" class=""></td><td id="v@}X" class="" style="width:228.99998474121094px">(?&lt;year&gt;\d{4})-(?&lt;date&gt;(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d\d))</td><td id="isyO" class="">2022-07-01</td></tr><tr id="72f4c64b-f185-4bba-add9-fcbf51ba4996"><td id="H~rj" class="">1</td><td id=";DRo" class="">year</td><td id="v@}X" class="" style="width:228.99998474121094px">(?&lt;year&gt;\d{4})</td><td id="isyO" class="">2022</td></tr><tr id="0ab7311a-51d9-4ab1-a38f-6c2fbfe8b4d3"><td id="H~rj" class="">2</td><td id=";DRo" class="">date</td><td id="v@}X" class="" style="width:228.99998474121094px">(?&lt;date&gt;(\d{2})-(\d\d))</td><td id="isyO" class="">07-01</td></tr><tr id="c5506aa0-1e85-4d2b-bda8-1e78b088b710"><td id="H~rj" class="">3</td><td id=";DRo" class="">month</td><td id="v@}X" class="" style="width:228.99998474121094px">(\d{2})</td><td id="isyO" class="">07</td></tr><tr id="1462e118-fd27-49a9-a494-7f47cb800cb1"><td id="H~rj" class="">4</td><td id=";DRo" class="">day</td><td id="v@}X" class="" style="width:228.99998474121094px">(\d\d)</td><td id="isyO" class="">01</td></tr></tbody></table></li></ul><h3 id="1589373a-d4a6-40c4-9d1d-a696bb2aa944" class="">1.2.3 普通捕获组与命名捕获组混合编号规则</h3><ul id="0df4acbd-d936-40a8-85c1-81181355b044" class="bulleted-list"><li style="list-style-type:disc">普通捕获组合命名捕获组混合出现时，捕获组的编号规则就有变化了<ul id="bfbe7329-030d-4c39-a385-6c55761578e7" class="bulleted-list"><li style="list-style-type:circle">首先按照普通捕获组中”(”出现的先后顺序，从左到右，从1开始编号</li></ul><ul id="57cf07c1-ecc7-48c0-ab4f-7d4e4b99a7d6" class="bulleted-list"><li style="list-style-type:circle">当普通捕获组编号完成后，再按照命名捕获组中”(”出现的先后顺序从左到右，接着普通捕获组的编号继续进行编号</li></ul></li></ul><ul id="a324bb17-a75a-4053-b354-810af100cbd2" class="bulleted-list"><li style="list-style-type:disc">例如，将上述的简单日期正则，一部分不命名，一部分命名：<code><strong>/(\d{4})-(?&lt;date&gt;(\d{2})-(?&lt;day&gt;\d\d))/</strong></code><ul id="4802f6a9-eeeb-4f83-b61b-99e11f53c626" class="bulleted-list"><li style="list-style-type:circle">以2022-07-01为例</li></ul><table id="b8815b0b-850e-4cc4-b49e-4e09eaba0f1c" class="simple-table"><tbody><tr id="fa1be093-6cc0-4e76-af66-fc96f26d5bc5"><td id="H~rj" class="">编号</td><td id=";DRo" class="">命名</td><td id="v@}X" class="">捕获组</td><td id="isyO" class="">匹配内容</td></tr><tr id="ff618f56-21d7-41f7-96e2-c23c4045393e"><td id="H~rj" class="">0</td><td id=";DRo" class=""></td><td id="v@}X" class="">(\d{4})-((\d{2})-(\d\d))</td><td id="isyO" class="">2022-07-01</td></tr><tr id="b4a9317e-79e1-4c35-bdc0-0309ac3f048b"><td id="H~rj" class="">1</td><td id=";DRo" class=""></td><td id="v@}X" class="">(\d{4})</td><td id="isyO" class="">2022</td></tr><tr id="92e3b789-6e86-4884-9eee-2524b1746eeb"><td id="H~rj" class="">3</td><td id=";DRo" class="">date</td><td id="v@}X" class=""><strong>(?&lt;date&gt;(\d{2})-(?&lt;day&gt;\d\d))</strong></td><td id="isyO" class="">07-01</td></tr><tr id="5337d692-5cfe-4e49-89dd-d5849b37c131"><td id="H~rj" class="">2</td><td id=";DRo" class=""></td><td id="v@}X" class="">(\d{2})</td><td id="isyO" class="">07</td></tr><tr id="a8dcca9b-de16-4ec3-af45-970e8459b0db"><td id="H~rj" class="">4</td><td id=";DRo" class="">day</td><td id="v@}X" class=""><strong>(?&lt;day&gt;\d\d)</strong></td><td id="isyO" class="">01</td></tr></tbody></table></li></ul><ul id="817fae14-b873-43b8-8f8b-bc4cb15c797c" class="bulleted-list"><li style="list-style-type:disc">注意，实际上再JavaScript中，使用exec()实例方法对字符串进行匹配时，捕获组的编号不会区分不同捕获组和命名捕获组，仍然按照左括号的顺序进行编号</li></ul><h1 id="32d8c8a6-2102-4a31-8db5-22b9910cd878" class="">2. 捕获组的引用</h1><h2 id="42b34482-c503-45fb-966e-5d11d70cf7dd" class="">引用的方式</h2><ul id="0b316bac-29b5-4037-a5d7-bd2627670cfd" class="bulleted-list"><li style="list-style-type:disc">捕获组的引用方式有三种<ol type="1" id="9731f82f-8740-4cc3-b70b-2e3600d74d7e" class="numbered-list" start="1"><li>在正则表达式中，对前面捕获组的内容进行引用，称为反向引用</li></ol><ol type="1" id="fc4433d9-1848-4eb9-bba6-907c291ffbe6" class="numbered-list" start="2"><li>在正则表达式中，<code>(?(name)yes|no)</code> 的条件判断结构引用</li></ol><ol type="1" id="77cb984c-80ce-4e02-a0e9-c05797d92b1c" class="numbered-list" start="3"><li>在程序中，对捕获组的（匹配的）内容进行引用</li></ol></li></ul><h2 id="62fc9711-716a-4b48-843b-3846e86eb3d4" class="">2.1 反向引用</h2><ul id="0aacb441-e3db-4130-afd3-2dc2847a6380" class="bulleted-list"><li style="list-style-type:disc">在正则表达式模式内部将捕获组进行引用的方式就是反向引用</li></ul><ul id="08b309a1-ccce-430d-ad69-6ee53f9d3658" class="bulleted-list"><li style="list-style-type:disc">反向引用作用通常用来<strong>查找或限定重复，限定指定标识配对出现等</strong></li></ul><h3 id="22c64d8f-261c-4e08-89b3-2285fc4044a7" class="">2.1.1普通捕获组的反向引用</h3><pre id="c056fd73-afb4-4968-8e31-ac52c939d918" class="code"><code>\k&lt;number&gt; 通常简写为\number</code></pre><ul id="fbc0cc04-53f1-45e4-bde9-86bf936567f1" class="bulleted-list"><li style="list-style-type:disc">number是十进制的数字，即捕获组的编号</li></ul><ul id="407d0740-4804-43ad-8774-7dc9c6ebaa33" class="bulleted-list"><li style="list-style-type:disc">JavaScript暂时不支持\k&lt;number&gt;的写法</li></ul><ul id="9404a932-d5d2-405d-9541-9aaffa797262" class="bulleted-list"><li style="list-style-type:disc">使用\number 进行匹配时，匹配的内容一定和指定编号的捕获组内容一样</li></ul><pre id="279bafca-ef36-4f8b-bd16-6072dc75089c" class="code"><code>const pattern5 = /(\d{4})-((\d{2})-\3)/;
+console.log(pattern5.exec(&quot;2022-07-07&quot;));</code></pre><ul id="9a5b9b0f-3494-4ab7-86b1-1f622535e893" class="bulleted-list"><li style="list-style-type:disc"><code>\3</code> 会匹配第三个捕获组的内容，第三个捕获组匹配到“07”，所以\3也匹配”07”（不能匹配到其他的）</li></ul><h3 id="2564b1c3-3ef8-44fd-baa8-468775177403" class="">2.2.2命名捕获组的反向引用</h3><pre id="b846bab1-22ef-48e1-9b9d-83bad2fe807c" class="code"><code>\k&lt;name&gt;或者\k&quot;name&quot;</code></pre><ul id="33a76961-ea14-40ee-bff3-45dcdb44a2f9" class="bulleted-list"><li style="list-style-type:disc">JavaScript不支持双引号，只支持第一种个</li></ul><ul id="6779b69b-52b3-4aff-86ad-ab50ba18ab9b" class="bulleted-list"><li style="list-style-type:disc">name是捕获组的名称</li></ul><pre id="714d67d2-52cc-4170-8bee-76ef8e91f536" class="code"><code>const pattern6 = /(\d{4})-((?&lt;month&gt;\d{2})-\k&lt;month&gt;)/;
+console.log(pattern6.exec(&quot;2022-07-07&quot;));</code></pre><ul id="645dfd55-0e81-4b59-96fe-fd07e92bd393" class="bulleted-list"><li style="list-style-type:disc"><code>\k&lt;month&gt;</code> 匹配命为month的捕获组的内容</li></ul><h2 id="2b3e370c-33ef-4d2b-8f81-cf7a241da9b8" class="">2.2 条件判断结构引用</h2><pre id="f9c1920d-4dc5-4f05-a724-7335f2c868cf" class="code"><code>(?(name)yes|no) 或者(?(expression)yes|no)</code></pre><ul id="0851b1a1-dbf9-461e-b4ee-3b5c23a8181f" class="bulleted-list"><li style="list-style-type:disc">对于<code>(?(expression)yes|no)</code> 它是<code><strong>(?(?=Expression)yes|no)</strong></code><strong> </strong>的简写模式，相当于三元运算符<code><strong>(?=Expression) ? yes : no</strong></code></li></ul><ul id="20ac00d7-4fd6-4304-b9d2-33ae81d988a1" class="bulleted-list"><li style="list-style-type:disc">如果子表达式<code>?=expression</code> 匹配成功则匹配yes子表达式，否则匹配no子表达式<ul id="a0c816b6-6752-4d56-843c-bd2002c51a3a" class="bulleted-list"><li style="list-style-type:circle">如果expression的表达式和可能出现的命名捕获组组名相同，避免混淆，建议使用<code><strong>(?(?=Expression)yes|no)</strong></code><strong> </strong></li></ul></li></ul><ul id="aaf705de-e2d5-4840-9022-02380ff2e694" class="bulleted-list"><li style="list-style-type:disc">例子<ul id="5b0c934d-1612-4a52-b99d-630c5eb018c0" class="bulleted-list"><li style="list-style-type:circle">字符串abc</li></ul><ul id="3ffcfaca-11d1-4f9a-a9f2-81517bc72213" class="bulleted-list"><li style="list-style-type:circle">正则表达式<code>(?(?=a)\w{2}|\w)</code></li></ul><ul id="9379e175-cfc1-4bd4-9985-8a761e60722b" class="bulleted-list"><li style="list-style-type:circle">如果当前位置右侧是字符a，则匹配两个<code>\w</code> 否则匹配一个<code>\w</code><pre id="0b7a7181-eee3-464a-ba63-2585d15311c1" class="code"><code>string test = &quot;abc&quot;;
+
+Regex reg = new Regex(@&quot;(?(?=a)\w{2}|\w)&quot;);
+
+MatchCollection mc = reg.Matches(test);
+
+foreach(Match m in mc)
+
+{
+
+     richTextBox2.Text += m.Value + &quot;\n&quot;;
+
+}
+
+/*--------输出--------
+
+ab
+
+c
+
+*/</code></pre></li></ul></li></ul><ul id="884cdca7-de64-4560-87ea-c85aa4b410bd" class="bulleted-list"><li style="list-style-type:disc"><strong>在JavaScript中似乎并不支持这种语法</strong></li></ul><h2 id="eb7092a5-4fc9-4d2e-9305-6de402a95086" class="">2.3 程序中的引用</h2><ul id="411deace-500b-4d04-8189-26a0e705ec61" class="bulleted-list"><li style="list-style-type:disc">在不同的程序中，捕获组的引用方式不同</li></ul><h3 id="baf71c55-8faf-4903-836b-cf7fb47eed65" class="">2.3.1 JavaScript中的引用</h3><ul id="c14ba800-17cc-4d9d-af94-2c56c46ee438" class="bulleted-list"><li style="list-style-type:disc">JavaScript在程序中的引用一般在<strong>替换和匹配</strong>时使用</li></ul><p id="5d756d67-8c79-4028-876c-7207e4a35254" class=""><strong>1) 在String.prototype.replace()中引用</strong></p><ul id="457b000b-d41d-4748-98ad-7c10bf4f80d9" class="bulleted-list"><li style="list-style-type:disc">通过$number的方式引用，number是捕获组的编号<pre id="99eed517-dd5b-48e1-92d8-0dfec7f7b40d" class="code"><code>const pattern7 = /&lt;([a-z]+)[^&gt;]*&gt;/gi;
+console.log(
+  &quot;&lt;table id=&#x27;test&#x27;&gt;&lt;tr class=&#x27;tr-row&#x27;&gt;&lt;td id=&#x27;td-cell&#x27;&gt;test&lt;/td&gt;&lt;/tr&gt;&quot;.replace(
+    pattern7,
+    &quot;&lt;$1&gt;&quot;
+  )
+);</code></pre><ul id="b9e40847-387b-425e-b2df-07da929217e4" class="bulleted-list"><li style="list-style-type:circle"><code>/&lt;([a-z]+)[^&gt;]*&gt;/gi</code> 能匹配所有的带任何属性的规则html标签，例如上面的table标签，带有id属性</li></ul><ul id="d750daf3-0ae4-4a2d-b9e8-5d559f5c0969" class="bulleted-list"><li style="list-style-type:circle">使用replace能够匹配字符串中的内容，然后替换成指定的字符，第二个参数就是替换的字符串</li></ul><ul id="f85ec692-01eb-4b0e-a331-7ba6cc4e1841" class="bulleted-list"><li style="list-style-type:circle">第二个参数可以传入第一个参数（正则表达式）的捕获组编号，以替换成子表达式捕获组的内容</li></ul><ul id="dcd55efc-5e5a-4023-ad61-5370e95428fb" class="bulleted-list"><li style="list-style-type:circle">上述的例子将匹配的内容替换成了只有标签，没有属性的html标签，使用$1表示捕获组编号</li></ul></li></ul><ul id="c19874db-062a-405b-a7e5-4c4e0dc45c1e" class="bulleted-list"><li style="list-style-type:disc">也可以使用$name的方式引用，name是捕获组的名称<pre id="03d1afa7-b3d1-47a5-bb0f-f93fa376de87" class="code"><code>const pattern7 = /&lt;(?&lt;tag&gt;[a-z]+)[^&gt;]*&gt;/gi;
+console.log(
+  &quot;&lt;table id=&#x27;test&#x27;&gt;&lt;tr class=&#x27;tr-row&#x27;&gt;&lt;td id=&#x27;td-cell&#x27;&gt;test&lt;/td&gt;&lt;/tr&gt;&quot;.replace(
+    pattern7,
+    &quot;&lt;$&lt;tag&gt;&gt;&quot;
+  )
+);</code></pre><ul id="23c93763-e833-4a4d-9a3a-48da6b758bf8" class="bulleted-list"><li style="list-style-type:circle">同使用$number，只是定义并使用了捕获组名称</li></ul></li></ul><p id="5e4d3bac-aac8-4e6b-a7ab-6affdc77b4ef" class=""><strong>2) 匹配时引用，通过RegExp.$number的方式进行引用</strong></p><ul id="c629fcc6-16bd-434a-b3d2-b3645ea8d0ac" class="bulleted-list"><li style="list-style-type:disc">在使用test()匹配时<pre id="dfe8010d-409d-4036-9682-a103a93507fe" class="code code-wrap"><code>const pattern8 = /(\d{4})-((?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2}))/;
+console.log(
+  pattern8.test(&quot;2012-07-04&quot;),
+  RegExp.$1,
+  RegExp.$2,
+  RegExp.$3,
+  RegExp.$4
+);</code></pre><ul id="a7dcb35d-5cbb-41d4-9fba-f78d3a6f3182" class="bulleted-list"><li style="list-style-type:circle">打印结果<code>true 2012 07-04 07 04</code></li></ul></li></ul><ul id="ac6e6bb2-caed-4137-9a1f-cbdce20c33d7" class="bulleted-list"><li style="list-style-type:disc">在新的版本的node中，$number的引用方式已被弃用（但仍然有效）</li></ul></div></article></body></html>

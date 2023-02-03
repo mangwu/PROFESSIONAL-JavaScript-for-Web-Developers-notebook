@@ -1,0 +1,1060 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3 生成器（Generator）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d1ecc532-3b6e-41ae-8bd3-f082cf2f78f2" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_eva_during_skylab_3.jpg" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🛋️</span></div><h1 class="page-title">3 生成器（Generator）</h1></header><div class="page-body"><p id="2845f94d-8aa5-4017-a8be-17fe59527058" class="">生成器是ECMAScript 6新增的<strong>极为灵活</strong>的结构，拥有在一个函数块内暂停和恢复代码执行的能力；使用生成器可以<strong>自定义迭代器和实现协程</strong></p><div id="e47f6d5b-5300-48a8-98ea-90ca7e7b9c4b" class="column-list"><div id="f68a2244-9db8-40b6-a4b1-03038d90054d" style="width:12.5%" class="column"><nav id="cf30976a-aad8-43bf-9e7a-db33e237161b" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6e35d438-5434-4127-849d-bffb024564f2">3.1 生成器基础</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#145862c6-47fc-4be3-824a-e40aee1d5099">3.1.1 生成器的基本语法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0f17dcd6-72d0-4d95-bfaa-caca32d30d8a">3.1.2 生成器的使用原则</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fec187fe-72cf-4ae3-83f4-1e197f9b565c">3.1.3 生成器对象</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d5d2e9c8-772f-48a8-b478-068c4cc65fab">3.1.3.1 生成器对象的返回值</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d21179f9-b234-4c76-af19-0d4820000db2">3.1.3.2 生成器函数中语句的执行</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5c17c618-4db7-4691-be2b-8e8d0f3d3330">3.1.3.3 生成器的自引用</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ec003c39-659f-4883-9651-a8501e10b2df">3.2 yield语句</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a8c9a126-c3ab-4e8d-b3e3-cf4e2d053a18">3.2.1 yield的基本使用</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2db871c8-1e98-459f-9de3-b4b112985ced">3.2.2 yield语句规则</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dc0ce8ae-8e98-4f7e-88a9-8dfa1a78a511">3.2.3 生成器对象作为可迭代对象(Iterable Object)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fd3460a3-0d85-4086-9bfb-1dda44060278">3.2.4 使用yield实现输入和输出</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#23461415-246d-4837-a03e-43b8c3416b73">3.2.5 使用生成器自定义迭代对象-计数器</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9f15d922-9f1f-4d00-91fd-46b4796edf7f">3.3 yield * 语句</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#31449053-b999-45b4-8160-8fde5d85675c">3.3.1 定义</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c410d537-76fb-495b-8c14-df9653f45c88">3.3.2 yield * 的返回值</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6198b620-2484-4d2b-a7ff-adaea881b6e0">3.3.3 yield * 实现递归算法</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ed108c4e-b12e-49c2-bee1-d95c5151f558">3.4 生成器作为默认迭代器</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f4c37e0d-a77c-4718-a1bc-93005bf6219d">3.5 提前终止生成器</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#33328029-50e1-4c9d-813a-3d603fe71648">3.5.1 <code>Generator.prototype.return()</code></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3cce4368-afc3-4201-84d7-6291546c96af">3.5.1.1 显示调用</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a928b19c-06b6-4a35-bce2-248685ab7a75">3.5.1.2 隐式调用</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#90b6f74a-86d2-40e2-a123-c16a59215a41">3.5.2 <code>Generator.prototype.throw()</code></a></div></nav><p id="38462f70-134d-482f-ae43-acfb854e2213" class="">
+</p></div><div id="b5d2690a-9a61-456a-8644-30fea093094f" style="width:87.5%" class="column"><h1 id="6e35d438-5434-4127-849d-bffb024564f2" class="">3.1 生成器基础</h1><h2 id="145862c6-47fc-4be3-824a-e40aee1d5099" class="">3.1.1 生成器的基本语法</h2><ul id="7c403beb-1ba9-4682-b6dd-92869d7a5c23" class="bulleted-list"><li style="list-style-type:disc">生成器的形式就是一个函数，函数名称前面加一个星号（<strong>*</strong>）表示它是一个生成器<pre id="b08ba57f-c823-4aeb-9d22-5e16725bb4d1" class="code code-wrap"><code>function * generatorFun(argument) {
+	// 生成器相关代码
+}</code></pre></li></ul><h2 id="0f17dcd6-72d0-4d95-bfaa-caca32d30d8a" class="">3.1.2 生成器的使用原则</h2><ol type="1" id="0535088d-14d1-4d4f-a21f-e905634a3a11" class="numbered-list" start="1"><li>只要可以<strong>定义函数的地方</strong>就可以定义生成器</li></ol><ol type="1" id="370c8b56-9644-4b5a-b8f1-41336157eb71" class="numbered-list" start="2"><li>箭头函数<strong>不能</strong>用来定义生成器函数</li></ol><ol type="1" id="894dbdf8-910e-4a52-8f8a-1590331eda05" class="numbered-list" start="3"><li>生成器可以使用<strong>函数声明</strong>，也可以使用生成器<strong>函数表达式</strong>声明<pre id="e470c18a-bda0-4fd1-936c-953135defd17" class="code code-wrap"><code>function * generatorFn() {} // 函数声明
+var generatorFn = function * () {} // 函数表达式</code></pre></li></ol><ol type="1" id="7ebeb1be-7427-4717-8679-37c7afc08c60" class="numbered-list" start="4"><li>生成器函数可以作为对象字面量的属性<pre id="4529750e-c778-44c3-8278-0acb247ad458" class="code code-wrap"><code>let foo = {
+	* generatorFn() {},
+	gF: function * () {}
+}</code></pre></li></ol><ol type="1" id="2cbe24ba-cbd4-484d-b55f-e56df15bad98" class="numbered-list" start="5"><li>生成器函数可以作为类实例方法属性<pre id="c0af1781-7127-445d-a3df-a917becd8a7e" class="code code-wrap"><code>class Foo {
+	* generatorFn() {
+		
+	}
+}</code></pre></li></ol><ol type="1" id="73047604-f18c-4ad9-9fe9-0241abd90311" class="numbered-list" start="6"><li>生成器函数可以作为类静态方法属性<pre id="17e6f498-b8f5-41bf-a78d-648a1b280bc3" class="code code-wrap"><code>class Foo {
+	static * generatorFn() {
+		
+	}
+}</code></pre></li></ol><ol type="1" id="0518bcf5-b42c-4cdb-b79f-33026776648c" class="numbered-list" start="7"><li>标识生成器函数的星号不受两侧空格的影响（最好左右各一个空格）</li></ol><h2 id="fec187fe-72cf-4ae3-83f4-1e197f9b565c" class="">3.1.3 生成器对象</h2><ul id="8ac77050-3412-4a25-85b3-0b47f5a7dd5d" class="bulleted-list"><li style="list-style-type:disc">调用生成器函数会产生一个<strong>生成器对象（generator object） </strong><ul id="f9d2db0f-befe-4cd3-9177-7ec7fbb4250d" class="bulleted-list"><li style="list-style-type:circle">实现了迭代器协议（Iterator 接口），具有<code>next()</code>方法</li></ul><ul id="4ff792ec-0acf-414c-9f15-b553dd3a5ca2" class="bulleted-list"><li style="list-style-type:circle">初始处于<strong>暂停执行</strong>状态(<strong>suspended</strong>)</li></ul><ul id="36a57e21-b6ea-4368-ad00-280802bf5f9f" class="bulleted-list"><li style="list-style-type:circle">执行<code>next()</code> <strong>让生成器开始或恢复执行</strong>，并返回和迭代器一样类型的返回值，有<code>done</code>属性和<code>value</code>属性，然后继续处于下一个暂停执行状态</li></ul></li></ul><ul id="f8a1471f-f76b-400d-854e-93f3d3da8e17" class="bulleted-list"><li style="list-style-type:disc">函数体为空的生成器函数不会停留，调用一次<code>next()</code> 后就让生成器达到了<code>done:true</code> 的状态<pre id="4cea5edb-765c-4b85-bc77-c9331f18b4a1" class="code code-wrap"><code>const generatorFn = function* () {};
+let gt = generatorFn();
+console.log(gt); // Object [Generator] {}
+console.log(gt.next); // [Function, next]
+console.log(gt.next()); // { value: undefined, done: true }
+console.log(gt); // Object [Generator] {}</code></pre><ul id="4f5599da-c7d5-4774-9376-da10ccbb04b4" class="bulleted-list"><li style="list-style-type:circle">上述的打印是node（v16.14.0）环境下的打印</li></ul><ul id="2e1f0ff2-77d8-4ae3-bb98-e057a1458d06" class="bulleted-list"><li style="list-style-type:circle">在浏览器（谷歌v100+）环境下的打印为<figure id="6686922d-2c48-465a-b112-3f6a2ab20561" class="image"><a href="3%20%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88Generator%EF%BC%89%20d1ecc5323b6e41ae8bd3f082cf2f78f2/Untitled.png"><img style="width:566px" src="3%20%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88Generator%EF%BC%89%20d1ecc5323b6e41ae8bd3f082cf2f78f2/Untitled.png"/></a></figure></li></ul><ul id="b9250772-09a4-4fa6-b49c-9d56a06dceab" class="bulleted-list"><li style="list-style-type:circle">可以发现，调用了一次<code>next()</code> 后，生成器对象的状态就转变为了<code>closed</code> ，这是<a href="3%20%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88Generator%EF%BC%89%20d1ecc5323b6e41ae8bd3f082cf2f78f2.html">因为函数体为空的生成器函数不会停留</a></li></ul><ul id="88662a5d-1e8d-4bbd-a942-c1335aaf6916" class="bulleted-list"><li style="list-style-type:circle"><code>value</code>属性默认为<code>undefined</code></li></ul></li></ul><h3 id="d5d2e9c8-772f-48a8-b478-068c4cc65fab" class="">3.1.3.1 生成器对象的返回值</h3><ul id="0c310c3a-bfbe-470e-8527-1342ed52cfa0" class="bulleted-list"><li style="list-style-type:disc">生成器对象在最后可以使用<code>return</code>返回一个值，这个值会作为最后一个（<code>done</code> 为<code>true</code>时）<code>next()</code> 返回值的<code>value</code>属性值<pre id="7fef0b27-a732-460d-80b9-977b91d49c10" class="code code-wrap"><code>const generatorFn2 = function* () {
+  return &quot;foo&quot;;
+};
+let gt2 = generatorFn2();
+console.log(gt2.next()); // { value: &#x27;foo&#x27;, done: true }
+console.log(gt2.next()); // { value: undefined, done: true }</code></pre><ul id="29c76389-11c6-40b7-abf1-c0f966255eae" class="bulleted-list"><li style="list-style-type:circle">返回值只会作为生成器对象要关闭时调用的<code>next()</code> 返回的对象的<code>value</code>属性值</li></ul></li></ul><h3 id="d21179f9-b234-4c76-af19-0d4820000db2" class="">3.1.3.2 生成器函数中语句的执行</h3><ul id="4586057a-c249-4282-908b-502803e6c28e" class="bulleted-list"><li style="list-style-type:disc">调用生成器函数生成生成器并不会执行生成器函数中的语句（处于暂停执行<strong>suspended</strong>状态）</li></ul><ul id="6fa084f1-9049-4823-9f26-d56fcb26584d" class="bulleted-list"><li style="list-style-type:disc">生成器函数会在<strong>初次</strong>调用<code>next()</code> 方法后开始执行<strong>一般</strong>语句<pre id="80bc934b-bca5-4e3d-8304-41d845702f49" class="code code-wrap"><code>const generatorFn3 = function* () {
+  console.log(&quot;Executed on the first call of next()&quot;);
+  return &quot;foo&quot;;
+};
+let gt3 = generatorFn3();
+console.log(gt3.next()); // Executed on the first call of next()
+// { value: &#x27;foo&#x27;, done: true }
+console.log(&quot;上面是初次执行next的打印&quot;);
+console.log(gt3.next()); // { value: undefined, done: true }</code></pre></li></ul><h3 id="5c17c618-4db7-4691-be2b-8e8d0f3d3330" class="">3.1.3.3 生成器的自引用</h3><ul id="c9cba445-423b-416d-805b-72c15ef5c425" class="bulleted-list"><li style="list-style-type:disc">生成器对象本身是可迭代对象，它实现了Iteratble 接口（可迭代协议），它默认的迭代器是自引用的<pre id="1ea19fe3-2a17-4886-8e3b-5f36e1ea5df9" class="code code-wrap"><code>const gt4 = generatorFn3();
+const gt5 = gt4[Symbol.iterator]();
+console.log(gt4); // Object [Generator] {}
+console.log(gt5); // Object [Generator] {}
+console.log(gt4 === gt5); // true</code></pre></li></ul><h1 id="ec003c39-659f-4883-9651-a8501e10b2df" class="">3.2 yield语句</h1><h2 id="a8c9a126-c3ab-4e8d-b3e3-cf4e2d053a18" class="">3.2.1 yield的基本使用</h2><ul id="1500ef0f-4452-4802-b436-827ae1639001" class="bulleted-list"><li style="list-style-type:disc"><code>yield</code> 关键字能让生成器停止和开始执行，也是生成器最有用的地方<ul id="a6eb76d2-f605-429f-af70-b227169da96c" class="bulleted-list"><li style="list-style-type:circle">生成器函数在遇到<code>yield</code>关键字之前会正常执行</li></ul><ul id="48fe6728-2c2c-464e-8b4b-b0d60760f48b" class="bulleted-list"><li style="list-style-type:circle">遇到这个关键字后，执行会停止,函数作用域的状态会被保留</li></ul><ul id="dd033431-5022-40db-a7e9-f96f35b5441e" class="bulleted-list"><li style="list-style-type:circle">停止执行的生成器函数只能通过在生成器对象上调用<code>next()</code>方法来恢复执行</li></ul></li></ul><ul id="36ca78a2-63e6-47ec-a92b-eab64c9db413" class="bulleted-list"><li style="list-style-type:disc"><code>yield</code> 关键字有点像函数的<strong>中间返回语句,</strong>它生成的值出现在<code>next()</code> 方法返回的对象中<ul id="fada5212-f291-4f66-b914-c4fae23889aa" class="bulleted-list"><li style="list-style-type:circle">但是通过<code>yield</code> 关键字退出的生成器函数会处在<code>done:false</code>状态</li></ul><ul id="2cd5e884-28d1-45a6-859e-85aacb924692" class="bulleted-list"><li style="list-style-type:circle">而通过<code>return</code> 关键字退出的生成器函数会处于<code>done: true</code> 状态</li></ul></li></ul><ul id="8aced165-1249-48ac-b268-2769c6cafc6a" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="2e4c962b-e2c9-46c6-b13a-5578dd93f079" class="code code-wrap"><code>function * generatorFn() {
+	yield value1;
+	yield value2;
+	....
+	yield valuen;
+	return value;
+}</code></pre><ul id="df66bf56-bf2f-4e6a-9611-60768ed47c67" class="bulleted-list"><li style="list-style-type:circle"><code>valuex</code> 是作为一次<code>next()</code> 调用后的返回值的<code>value</code>属性</li></ul><ul id="d4bdd42b-6eca-45d0-a2cd-101dc0cbf948" class="bulleted-list"><li style="list-style-type:circle"><code>next()</code> 调用后<code>done</code>为<code>false</code> 的次数就是<code>yield</code> 的个数</li></ul></li></ul><ul id="97efad85-d9b8-4d3a-8866-91ea0ec270cc" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="141158a1-e1af-4d13-88b0-d97cd17a2910" class="code code-wrap"><code>function* generatorFn() {
+  console.log(&quot;1&quot;);
+  yield &quot;foo&quot;;
+  console.log(&quot;2&quot;);
+  yield &quot;bar&quot;;
+  console.log(&quot;3&quot;);
+  return &quot;baz&quot;;
+}
+const gt1 = generatorFn();
+console.log(gt1.next());
+console.log(gt1.next());
+console.log(gt1.next());
+console.log(gt1.next());
+// 打印结果
+1
+{ value: &#x27;foo&#x27;, done: false }
+2
+{ value: &#x27;bar&#x27;, done: false }
+3
+{ value: &#x27;baz&#x27;, done: true }
+{ value: undefined, done: true }</code></pre><ul id="1ac13bdd-2095-4d65-a85b-055ce44c087d" class="bulleted-list"><li style="list-style-type:circle">第一次调用<code>next()</code> 开始执行生成器函数，正常执行语句，打印出1，然后遇到<code>yield</code>语句，获取到<strong>中间返回值，</strong>执行停止，函数作用域状态被报错，生成器状态变为暂停执行（suspended）</li></ul><ul id="01158adf-2214-47c2-b053-057075c31677" class="bulleted-list"><li style="list-style-type:circle">第二次调用<code>next()</code> 恢复执行生成器函数，正常执行语句，打印出2，然后遇到<code>yield</code>语句，获取到中间返回值，执行停止，函数作用域状态被报错，生成器状态变为暂停执行（suspended）</li></ul><ul id="2ed6ebfa-fe61-42a2-ac38-af4e69596801" class="bulleted-list"><li style="list-style-type:circle">第三次调用<code>next()</code> 恢复执行生成器函数，正常执行语句，打印出3，然后遇到<code>return</code>语句，获取到最终返回值，执行停止，函数被执行完毕，生成器状态变为关闭（closed）</li></ul><ul id="e0e9c9fe-d6c8-4796-8f3d-27fee661496e" class="bulleted-list"><li style="list-style-type:circle">后续的<code>next()</code> 调用都会默认返回<code>{ value: undefined, done: true }</code> 因为生成器状态变为关闭，不能继续迭代可</li></ul></li></ul><ul id="d79037e6-018d-464e-82ab-7adc78456761" class="bulleted-list"><li style="list-style-type:disc"><strong>注意：生成器函数内部的执行流程会针对每个生成器对象区分作用域，即在一个生成器对象上调用next()不会影响其它生成器</strong></li></ul><h2 id="2db871c8-1e98-459f-9de3-b4b112985ced" class="">3.2.2 yield语句规则</h2><ol type="1" id="14cc8bc7-d932-4d44-a2aa-009bdd777d42" class="numbered-list" start="1"><li><code>yield</code>关键字<strong>只能在生成器函数内部</strong>使用，用在其它地方会抛出错误</li></ol><ol type="1" id="f9387c74-3303-43a0-b71b-02e810858c0a" class="numbered-list" start="2"><li><code>yield</code> 关键字不能定义在生成器函数的嵌套的非生成器函数中（必须直接位于生成器函数定义中），否则抛出语法错误<pre id="5a477e41-5400-4f83-bfd8-9191c570c756" class="code code-wrap"><code>function * invalidGeneratorFn {
+	function a() {
+		yield;// 抛出语法错误
+	}
+  (function b() {
+		yield;// 抛出语法错误
+	})(); // 即使是闭包也不行
+}</code></pre></li></ol><h2 id="dc0ce8ae-8e98-4f7e-88a9-8dfa1a78a511" class="">3.2.3 生成器对象作为可迭代对象(Iterable Object)</h2><ul id="bbe3a614-342b-4b11-8cf9-ea45c2e4525a" class="bulleted-list"><li style="list-style-type:disc">获取生成器对象后显式的调用<code>next()</code> 作用并不大</li></ul><ul id="e4f18a36-1177-4abd-a9ec-baed31a5d1be" class="bulleted-list"><li style="list-style-type:disc">因为<a href="3%20%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88Generator%EF%BC%89%20d1ecc5323b6e41ae8bd3f082cf2f78f2.html">实现了迭代器协议（Iterator 接口），具有next()方法</a> 所以生成器可以作为迭代器使用</li></ul><ul id="3a004568-0ba3-4641-8274-2438e11d5c05" class="bulleted-list"><li style="list-style-type:disc">又因为使用<a href="2%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%20c9aca6f249704d60846e143b2b4a26f4.html">闭包实现的迭代器本身实现了可迭代协议</a>（Iterable protocol），所以生成器可以作为可迭代对象使用</li></ul><ul id="7f5163b4-0436-42e0-9d14-c27871a785cd" class="bulleted-list"><li style="list-style-type:disc">对于可迭代对象，它<strong><mark class="highlight-purple"><a href="2%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%20c9aca6f249704d60846e143b2b4a26f4.html">接受隐式调用其工厂函数</a></mark></strong>的语言特性，使用起来会很方便，最典型的就是<code>for…of</code> 循环语句<pre id="44ddfc48-b620-4f88-8b47-a542ab0fe2f6" class="code code-wrap"><code>function* generatorFn() {
+  yield 1;
+  yield 2;
+  yield 4;
+  yield 3;
+  return 5;
+}
+for (const item of generatorFn()) {
+  console.log(item); // 1 2 4 3
+}</code></pre></li></ul><ul id="11a95a95-1e6d-4f68-92ff-9e3871a985f5" class="bulleted-list"><li style="list-style-type:disc">因为生成器既可以作为迭代器使用，也可以作为可迭代对象使用<ul id="772df604-4cb1-40fe-8bbb-bb042dc530d9" class="bulleted-list"><li style="list-style-type:circle">所以在<strong>自定义迭代对象</strong>时，就可以直接声明一个生成器函数，用它来生成需要的可迭代对象</li></ul><ul id="fb45f8d6-0037-49a7-bf9a-90626c395d3a" class="bulleted-list"><li style="list-style-type:circle">相交于声明自定义类型，实现实例符号属性<code>Symbol.iertator</code> ，使用生成器函数更加便捷</li></ul></li></ul><ul id="d64787fa-cb39-455d-8e4c-5e2880c54930" class="bulleted-list"><li style="list-style-type:disc">例如，想要一个迭代指定次数（n）的迭代器，直接使用生成器函数配合循环语句就可以构造：<pre id="f152713d-a222-4a9d-865d-3ab530d57dbd" class="code code-wrap"><code>function* nGeneratorFn(n) {
+  // 循环n次
+  while (n--) {
+    yield;
+  }
+}
+for (const _ of nGeneratorFn(3)) {
+  console.log(&quot;foo&quot;);
+}
+// 打印三次foo</code></pre></li></ul><h2 id="fd3460a3-0d85-4086-9bfb-1dda44060278" class="">3.2.4 使用yield实现输入和输出</h2><ul id="e2d21b5d-6288-4d4a-9f26-b2cbf6956bb9" class="bulleted-list"><li style="list-style-type:disc">yield语句是有返回值的，其语法如下<pre id="fcf513fe-a4f3-4775-b3b3-c2db4c402145" class="code code-wrap"><code>rv = yield expression;</code></pre><ul id="b46087ab-2335-4b6c-88e4-bb15cac19718" class="bulleted-list"><li style="list-style-type:circle"><code>rv</code> : <code>yield</code>语句会返回调用生成器的<code>next()</code> 时传递给<code>next()</code> 的值，如果没有传递给<code>next()</code> ，<code>rv</code>就是<code>undefined</code></li></ul><ul id="020df0f9-b765-4f41-a70f-a86aafcb878c" class="bulleted-list"><li style="list-style-type:circle"><code>expression</code>：该表达式的返回值会作为<code>next()</code> 返回值中的<code>value</code>属性值，默认就是<code>undefined</code></li></ul></li></ul><ul id="05bb7cb1-7315-442a-9d68-a0efc72082da" class="bulleted-list"><li style="list-style-type:disc">yield的输入和输出<ul id="5d9ca4ef-aefe-41c7-ac9c-9b90b76739e1" class="bulleted-list"><li style="list-style-type:circle">输入：上一次让生成器函数暂停的<code>yield</code>关键字会接收到本次调用传给<code>next()</code>方法的第一个值</li></ul><ul id="4b357d53-8af3-4b1a-bded-00b6e9ca3d6f" class="bulleted-list"><li style="list-style-type:circle">输出：本次生成器函数执行的环境可以使用上一个<code>yield</code>关键字返回的<code>rv</code> 即是通过本次调用<code>next()</code> 传递的值</li></ul></li></ul><ul id="b08ae234-0647-4f3d-b816-158630e63674" class="bulleted-list"><li style="list-style-type:disc">例子：<pre id="7d73d225-360a-47df-92f1-73601518c735" class="code code-wrap"><code>function* inputAndOutPut(initial) {
+  console.log(initial);
+  let first = yield 1;
+  console.log(
+    &quot;本语句是第二个next()调用时执行，第一次调用的next参数不会被使用，但上一个yield返回本次传递给next参数的值&quot;,
+    first
+  );
+  let second = yield 2;
+  console.log(&quot;本语句是第三个next(),第三个next的参数为&quot;, second);
+  let third = yield 3;
+  console.log(&quot;本语句是第四个next(),第四个next的参数为&quot;, third);
+  return &quot;foo&quot;;
+}
+const gt = inputAndOutPut(&quot;initial&quot;);
+console.log(&quot;------&quot;);
+console.log(gt.next(&quot;不会被使用的值&quot;));
+console.log(&quot;------&quot;);
+
+console.log(gt.next(&quot;next2&quot;));
+console.log(&quot;------&quot;);
+// 打印结果
+------
+initial
+{ value: 1, done: false }
+------
+本语句是第二个next()调用时执行，第一次调用的next参数不会被使用，但上一个yield返回本次传递给next参数的值 next2
+{ value: 2, done: false }
+------
+本语句是第三个next(),第三个next的参数为 next3
+{ value: 3, done: false }
+------
+本语句是第四个next(),第四个next的参数为 next4
+{ value: &#x27;foo&#x27;, done: true }
+------</code></pre></li></ul><ul id="04fa51f5-0c11-4368-80b7-0b793b864011" class="bulleted-list"><li style="list-style-type:disc"><strong>注意，</strong>通过上面的例子可得知的一些事情<ol type="1" id="cd48d3a0-cbd7-40bf-abc9-d92698ee684c" class="numbered-list" start="1"><li>第一次调用<code>next()</code> 传入的值<strong>不会</strong>被使用，因为第一次调用为初始化，还没有上一个<code>yield</code> 语句，所以不会有传入的值</li></ol><ol type="1" id="094de7de-de6c-4c3c-a7d0-3984d5e9a50d" class="numbered-list" start="2"><li>后面每次调用<code>next()</code> 传入的值都会被上一个<code>yield</code> 语句返回，如下语句<p id="d3b29667-4a09-4bdc-8afb-0af4d96b420e" class=""><code>let first = yield 1;</code> </p><p id="0b8be197-aedd-45f0-854d-6cfc807796a9" class="">这是第一个<code>yield</code>语句，第一个<code>next()</code>执行到这里时<strong>暂停执行</strong>，获取到<code>yield</code>后的值作为返回值的<code>value</code> 属性值</p><p id="37bad452-3ed8-4a55-88ea-df4c46a2411c" class="">但是<code>first</code>此时还没被赋值，即这个语句只执行了了后半句，变成了<code>let first = rv;</code> ，<code>rv</code>此时的值为<code>undefined</code></p><p id="42a4010d-b32b-49fb-aec1-67a3df372e6f" class="">执行第二个<code>next()</code> 语句时，从上次暂停执行的语句恢复执行，即执行已变成<code>let first = rv</code> 的语句</p><p id="c4653c6f-5b46-418b-84d9-56edb9559a50" class="">假设第二个<code>next()</code> 传递的参数为<code>val</code> ,那么上一个<code>yield</code> 语句的返回值<code>rv</code> 就是<code>val</code> ，即执行<code>let first = val</code> 语句</p><p id="e8f1cfc3-1e81-474f-afa8-3b34677efd17" class="">所以<code>first</code>就是第二次执行<code>next()</code> 传递给<code>next()</code>的参数值<code>val</code></p></li></ol></li></ul><ul id="8230c574-8544-436b-8c0a-6d8ecffc3751" class="bulleted-list"><li style="list-style-type:disc">因为上一个<code>yield</code> 语句会返回本次<code>next()</code> 执行传递的参数值，所以可以同时用于输入输出，如下<pre id="fa4e4185-fed4-4c85-ae84-84e2190300f0" class="code code-wrap"><code>function* gFn() {
+  return yield &quot;foo&quot;;
+}
+const gt2 = gFn();
+console.log(gt2.next()); // { value: &#x27;foo&#x27;, done: false }
+console.log(gt2.next(&quot;bar&quot;)); // { value: &#x27;bar&#x27;, done: true }</code></pre><ul id="736fe219-5de1-4bbb-a87c-ed0246d2cbae" class="bulleted-list"><li style="list-style-type:circle">同<a href="3%20%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88Generator%EF%BC%89%20d1ecc5323b6e41ae8bd3f082cf2f78f2.html">注意</a>中的解释，这里只是把上一个<code>yield</code> 的返回值当作了最后一次<code>next()</code> 返回值中的<code>value</code>属性值</li></ul><ul id="8d661fa5-e1cf-40e7-8097-b4e21dce6dbe" class="bulleted-list"><li style="list-style-type:circle">而上一个<code>yield</code>的返回值就是本次<code>next()</code> 调用传递的值<code>bar</code></li></ul></li></ul><h2 id="23461415-246d-4837-a03e-43b8c3416b73" class="">3.2.5 使用生成器自定义迭代对象-计数器</h2><ul id="684a85be-ff34-45ee-9ea5-46d76935930f" class="bulleted-list"><li style="list-style-type:disc">在<a href="3%20%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88Generator%EF%BC%89%20d1ecc5323b6e41ae8bd3f082cf2f78f2.html">3.2.3 生成器对象作为可迭代对象(Iterable Object)</a> 中，构造了一个可以生成指定迭代次数的可迭代对象的生成器函数</li></ul><ul id="b745a81c-67aa-41b2-8c8f-5aa34f39852d" class="bulleted-list"><li style="list-style-type:disc">其实通过<code>yield</code> 构造的生成器函数生成的可迭代对象功能可以很强大</li></ul><ol type="1" id="ed91748e-6032-4d6a-b24c-9ab2037954b0" class="numbered-list" start="1"><li>无穷计数生成器函数：生成一个无穷计数的可迭代对象<pre id="02a34f4e-eb31-4b7a-a63f-ef8d891e3ea3" class="code code-wrap"><code>function* generatorFn() {
+  for (let i = 0; ; i++) {
+    yield i;
+  }
+}
+for (const item of generatorFn()) {
+  console.log(item); // 0 - 100
+  if (item == 100) {
+    break; // 如果使用循环退出语句，会一直
+  }
+}</code></pre></li></ol><ol type="1" id="b983c76a-c4d5-42ee-9c7d-246f4dc8ecd5" class="numbered-list" start="2"><li>可以实现python中的<code>range()</code> 函数，指定开始索引，结束索引以及步数，然后在一个范围中进行迭代的可迭代对象<pre id="f26484cb-0db3-49c9-a4fe-9e5499ad7820" class="code code-wrap"><code>function* range(start = 0, end = 0, step = 1) {
+  while (start &lt; end) {
+    yield start;
+    start += step;
+  }
+}
+for (const item of range(5, 9)) {
+  console.log(item); //  5 6 7 8 
+}
+for (const item of range(7, 17, 3)) {
+  console.log(item); // 7 10 13 16
+}</code></pre></li></ol><ol type="1" id="aed11396-a2d4-4b4e-920f-0b02fe4fcecf" class="numbered-list" start="3"><li>可以实现python中的<code>zeros()</code> 函数，指定0的个数构造一个指定长度，全部填充0的可迭代对象，可用于初始化数组<pre id="c7c9a220-9ce8-4b49-9f0d-faf47cefeffd" class="code code-wrap"><code>function* zeros(n = 0) {
+  while (n--) {
+    yield 0;
+  }
+}
+console.log(Array.from(zeros(5))); // [0,0,0,0,0]</code></pre></li></ol><h1 id="9f15d922-9f1f-4d00-91fd-46b4796edf7f" class="">3.3 yield * 语句</h1><h2 id="31449053-b999-45b4-8160-8fde5d85675c" class="">3.3.1 定义</h2><ul id="5b57ceb4-9753-4825-82dc-6761501ccdbe" class="bulleted-list"><li style="list-style-type:disc"><code>yield *</code> 表达式用于<strong>委托</strong>（<strong>delegate</strong>）给另一个生成器或可迭代对象</li></ul><ul id="b0e849d4-a293-4645-9a30-70ec7c96042c" class="bulleted-list"><li style="list-style-type:disc"><code>yield *</code> 中的星号用于增强<strong>yield</strong>的行为，让它能够迭代一个可迭代对象，从而一次产出一个值</li></ul><ul id="baf6f694-29fc-41b3-9f03-91fbe28cc6e6" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="a8a601bb-0e8b-4881-aec4-a30b44aad8d5" class="code code-wrap"><code>yield * expression</code></pre><ul id="e66fad68-c2ed-4767-827d-9f35922a137b" class="bulleted-list"><li style="list-style-type:circle"><code>expression</code> 表达式返回一个可迭代对象</li></ul></li></ul><ul id="bc575d22-806b-4f11-b5af-83e8c302da42" class="bulleted-list"><li style="list-style-type:disc">与生成器函数的星号类似，<code>yield</code>星号两侧的空格不受影响</li></ul><ul id="302e0422-8191-4267-a572-befb4c44ce24" class="bulleted-list"><li style="list-style-type:disc"><strong><code>yield * </code></strong><strong> 实际上就是把可迭代对象序列化为一连串可以单独产出的值</strong>，相当于在生成器函数中迭代可迭代对象，然后把<code>yield</code> 放到这个迭代循环里<pre id="e18fade3-4d4c-43a7-bfc2-de3891092578" class="code code-wrap"><code>function* generatorFn() {
+  yield* [1, 2, 3];
+}
+function* generatorFn2() {
+  for (const item of [1, 2, 3]) {
+    yield item;
+  }
+}
+for(const item of generatorFn()) {
+  console.log(item);
+}
+for(const item of generatorFn2()) {
+  console.log(item);
+}</code></pre><ul id="9aced3b2-85cc-4065-9cb5-75eaaa0e4370" class="bulleted-list"><li style="list-style-type:circle"><code>generatorFn</code>生成器函数和<code>generatorFn2</code> 生成器函数本质上是一样的</li></ul></li></ul><ul id="0a45937c-087e-42b8-b603-60129b2a9cf2" class="bulleted-list"><li style="list-style-type:disc">注意，和生成器函数一样，星号左右两侧的空格不影响行为</li></ul><h2 id="c410d537-76fb-495b-8c14-df9653f45c88" class="">3.3.2 yield * 的返回值</h2><ul id="9c3abc7d-014c-48a0-a0c8-28812509fb98" class="bulleted-list"><li style="list-style-type:disc"><code>yield * </code> 的默认返回值就是<code>undefined</code> ，不同于<code>yield</code> 的返回值依靠生成器的下一个<code>next()</code> 传入的值，<code>yield * </code> 的返回值依靠后面的<code>expression</code></li></ul><ul id="3fc2a50e-7ed1-4316-802e-7a951cbd175e" class="bulleted-list"><li style="list-style-type:disc">如果<code>expression</code> 是普通的迭代对象，例如数组，集合等，<code>yield *</code> 的返回值就是<code>undefined</code></li></ul><ul id="8a8f365e-d810-4bf0-b7b0-9dedbcec965d" class="bulleted-list"><li style="list-style-type:disc">如果<code>expression</code> 是生成器函数产生的生成器，那么这个值就生成器函数的返回值：<ul id="cf08e2c7-5866-4245-8898-2fb637097510" class="bulleted-list"><li style="list-style-type:circle">即<code>expression</code> 执行<code>next()</code> 返回<code>done:true</code> 时的<code>value</code>属性值</li></ul><ul id="3849e64e-dd11-45c5-9038-e08df65ee0b5" class="bulleted-list"><li style="list-style-type:circle">当然这个值也有可能时<code>undefined</code> ，只要生成器函数不返回任何值</li></ul></li></ul><ul id="ea644ca8-ad1f-46f9-9d4f-a146007b1a01" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="166ef8de-463b-485a-a20c-398960984369" class="code code-wrap"><code>function* generatorFn() {
+  yield 1;
+  yield 2;
+  return &quot;foo&quot;;
+}
+function* generatorFn2() {
+  let first = yield* generatorFn();
+  console.log(&quot;yield *的返回值：&quot;, first);
+  yield first;
+}
+for (const item of generatorFn2()) {
+  console.log(&quot;------&quot;);
+  console.log(item);
+  console.log(&quot;------&quot;);
+}
+// 打印结果
+------
+1
+------
+------
+2
+------
+yield *的返回值： foo
+------
+foo
+------</code></pre><ul id="286c6294-10be-4fd4-be33-ffb3ca548665" class="bulleted-list"><li style="list-style-type:circle">一共迭代3次</li></ul><ul id="ee837cfe-f4f4-4eee-b939-76fed2885abf" class="bulleted-list"><li style="list-style-type:circle"><code>yield *</code> 的返回值是<code>generatorFn()</code> 执行完的返回值</li></ul></li></ul><h2 id="6198b620-2484-4d2b-a7ff-adaea881b6e0" class="">3.3.3 yield * 实现递归算法</h2><ul id="a5a096ea-30d4-4c28-b155-9cd61cbf01e8" class="bulleted-list"><li style="list-style-type:disc">因为<code>yield *</code> 用于迭代一个可迭代对象，生成器函数产生的生成器也是一个可迭代对象，所以可以在声明生成器函数时，在<code>yield *</code> 后<strong>调用自身</strong>生成一个可迭代对象（生成器）</li></ul><ul id="004ebf97-0010-4775-93ab-7e776e4e9b58" class="bulleted-list"><li style="list-style-type:disc">递归语法：<pre id="fd6e2653-d651-4872-ad27-5227ef1956ac" class="code code-wrap"><code>function * generatorFn(arg) {
+	// 递归迭代
+	yield * generatorFn(newArg);
+	// 退出条件
+	yield; // 通常有一个退出时的默认yield
+}</code></pre></li></ul><ul id="83c7fb2a-6385-4c3b-85e2-b834d405445b" class="bulleted-list"><li style="list-style-type:disc">例子, 使用<code>yield *</code> 实现计数器<pre id="6500f383-ff31-481c-a2f7-a9becbb348f5" class="code code-wrap"><code>function* nTimes(n) {
+  if (n &gt; 0) {
+    yield* nTimes(n - 1);
+    yield n - 1;
+  }
+}
+for (const item of nTimes(5)) {
+  console.log(item); // 0 1 2 3 4
+}</code></pre><ul id="48ea90a4-3576-4dca-978d-75f7cd4bc344" class="bulleted-list"><li style="list-style-type:circle">每个生成器首先会从新创建的生成器对象产出每个值，然后再产出一个整数</li></ul><ul id="ecaf1850-82b6-431b-871e-764b2590c769" class="bulleted-list"><li style="list-style-type:circle">结果就是生成器函数会递归地减少计数器值，并实例化另一个生成器对象</li></ul><ul id="3dec5f34-1548-4361-81b6-d465bf9e12ab" class="bulleted-list"><li style="list-style-type:circle">从顶层来看，相当于创建了一个可迭代对象并返回递增的整数</li></ul></li></ul><ul id="ac8e6eb9-b8a0-415f-be45-962a113c47e7" class="bulleted-list"><li style="list-style-type:disc">图的<a href="https://www.notion.so/653ae62c0843418ab84653d39e2fd1f2">深度优先遍历(dfs)</a>，可以使用<code>yield *</code> 递归算法实现<ul id="fd727722-0b41-4b66-a07e-c676975770f6" class="bulleted-list"><li style="list-style-type:circle">图的节点类<pre id="524abd68-f5f8-405e-bda5-2a10dcd6c989" class="code code-wrap"><code>class Node {
+  constructor(id, neighbors = new Set()) {
+    this.id = id;
+    this.neighbors = neighbors;
+  }
+  connect(node) {
+    if (node !== this) {
+      this.neighbors.add(node);
+      node.neighbors.add(this);
+    }
+  }
+}</code></pre></li></ul><ul id="ac0f63d1-5177-4116-9584-7553a53c4be6" class="bulleted-list"><li style="list-style-type:circle">随机图<pre id="3739f04b-ddbd-47a3-ad2a-df336e9a605d" class="code code-wrap"><code>class RandomGraph {
+  constructor(size) {
+    this.size = size;
+    this.nodes = new Set();
+    // 创建节点
+    for (let i = 0; i &lt; size; i++) {
+      this.nodes.add(new Node(i));
+    }
+    // 随机连接节点
+    this.generateRandomGraph();
+  }
+  generateRandomGraph() {
+    // 清空原始连接
+    for (const node of this.nodes) {
+      node.neighbors.clear();
+    }
+    // 随机连接点
+    const threshold = 1 / this.size; // 两个点是否连接的固定值
+    for (const nodea of this.nodes) {
+      for (const nodeb of this.nodes) {
+        if (Math.random() &lt; threshold) {
+          nodea.connect(nodeb);
+        }
+      }
+    }
+  }
+  toString() {
+    // 打印成字符串的方法
+    const prints = [];
+    for (const node of this.nodes) {
+      const ids = [...node.neighbors].map((n) =&gt; n.id).join(&quot;,&quot;);
+      prints.push(`${node.id}:${ids}`);
+    }
+    return prints.join(&quot;\n&quot;);
+  }
+}</code></pre></li></ul><ul id="2d440464-ff00-420d-a085-d0c2b15ff102" class="bulleted-list"><li style="list-style-type:circle">随机图是否连通的方法(放在图内部)<pre id="a149b4f5-d706-4943-b790-4c682ea7e9fb" class="code code-wrap"><code>class RandomGraph {  
+	isConnected() {
+    const visited = new Set();
+    function* traverse(nodes) {
+      for (const node of nodes) {
+        if (!visited.has(node)) {
+          // 没有就进行递归
+          yield node;
+          yield* traverse(node.neighbors);
+        }
+      }
+    }
+    // 获取第一个节点
+    const firstNode = this.nodes[Symbol.iterator]().next().value;
+    // 使用递归将已遍历到的节点入visited
+    for (const node of traverse([firstNode])) {
+      visited.add(node);
+    }
+    return visited.size === this.nodes.size;
+  }
+}</code></pre><ul id="edcc8ac9-1925-473c-9d84-cb595946cafa" class="bulleted-list"><li style="list-style-type:square">这个方法巧妙地使用了<code>yield *</code> 递归节点</li></ul><ul id="adfd1bce-3145-4658-a721-cffeaa9ea1f6" class="bulleted-list"><li style="list-style-type:square">每次遍历到一个新节点都作为迭代值弹出，然后添加到已访问节点(<strong>visited</strong>)中</li></ul><ul id="c7caf0b3-592d-42f8-ba5d-a16705fbfee9" class="bulleted-list"><li style="list-style-type:square">再进行递归迭代时，需要判断当前的node是否已被迭代过，没有就可以使用<code>yield *</code> 遍历它的邻居节点</li></ul></li></ul><ul id="65066ec1-2bb6-41c2-9d1a-b231c372d257" class="bulleted-list"><li style="list-style-type:circle">使用<pre id="195f4489-cea7-4e45-9d48-3a10d7200a1c" class="code code-wrap"><code>const g = new RandomGraph(6);
+console.log(g.toString(), g.isConnected());
+g.generateRandomGraph();
+console.log(g.toString(), g.isConnected());
+g.generateRandomGraph();
+console.log(g.toString(), g.isConnected());
+// 可能的打印结果
+0:2
+1:4
+2:0,3,4
+3:2,5
+4:1,2
+5:3
+ true
+0:5
+1:5,3
+2:5
+3:1
+4:
+5:0,1,2
+ false
+0:3,4
+1:5,3
+2:4,5
+3:0,1
+4:2,0,5
+5:1,2,4
+ true</code></pre></li></ul></li></ul><h1 id="ed108c4e-b12e-49c2-bee1-d95c5151f558" class="">3.4 生成器作为默认迭代器</h1><ul id="beb846b0-d44e-4d6b-a853-3d3efefc9987" class="bulleted-list"><li style="list-style-type:disc"><a href="3%20%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%88Generator%EF%BC%89%20d1ecc5323b6e41ae8bd3f082cf2f78f2.html">因为@实现了迭代器协议（Iterator 接口），具有next()方法 所以生成器可以作为迭代器使用</a> </li></ul><ul id="14337f43-4ee8-4d5b-89d2-bd754ca51384" class="bulleted-list"><li style="list-style-type:disc">而且生成器函数和默认迭代器调用后都产生迭代器，所以生成器格外适合作为默认迭代器</li></ul><ul id="e1f3ee5e-68d2-4294-afe0-5986470add62" class="bulleted-list"><li style="list-style-type:disc">在声明一个可迭代对象的引用类型时，实现<strong>可迭代协议</strong>（<strong>Iterable protocol</strong>）就是赋予迭代器符号属性能产生迭代器的能力，即迭代器工厂函数，这个迭代器工厂函数适合使用生成器函数</li></ul><ul id="a7e4c418-6728-4204-b64a-fd2bd102bfce" class="bulleted-list"><li style="list-style-type:disc">例如<pre id="1de69034-329f-4a8d-a1d0-fab595e8b566" class="code code-wrap"><code>class Foo {
+  constructor(values) {
+    this.values = new Set(values);
+  }
+  add(val) {
+    this.values.add(val);
+    return this;
+  }
+  *[Symbol.iterator]() {
+    yield* this.values;
+  }
+}
+const foo = new Foo([1, 2, 3]).add(4).add(8);
+for (const item of foo) {
+  console.log(item);
+}</code></pre><ul id="28d1b6eb-f64f-4107-a0b5-a7937b6a9844" class="bulleted-list"><li style="list-style-type:circle"><code>for…of</code> 循环调用默认迭代器产生一个生成器对象，生成器对象时可迭代的，所以可以当成迭代器使用</li></ul></li></ul><h1 id="f4c37e0d-a77c-4718-a1bc-93005bf6219d" class="">3.5 提前终止生成器</h1><ul id="57b8c81d-4f89-41b1-a809-8b838b503f49" class="bulleted-list"><li style="list-style-type:disc">和迭代器类似，生成器也支持“可关闭”的概念</li></ul><ul id="c0872365-96c2-4b35-8d57-170556657049" class="bulleted-list"><li style="list-style-type:disc">实现迭代器协议（Iterator 接口）的对象有<code>next(), return(), throw()</code> 方法</li></ul><ul id="23019d12-f2e4-4902-b5ed-93cb05a0a843" class="bulleted-list"><li style="list-style-type:disc">生成器也实现了迭代器协议，所以也有这三个方法<pre id="a576e3cd-57ec-4d48-9844-e54feb19665c" class="code code-wrap"><code>function* generatorFn() {
+  yield 1;
+  yield 2;
+}
+const gt = generatorFn();
+console.log(gt.next); 
+console.log(gt.throw);
+console.log(gt.return);</code></pre><ul id="9ec35754-7052-440e-aa4e-c7383212f6cf" class="bulleted-list"><li style="list-style-type:circle">node环境（v16.14.0）打印<pre id="dd59c5ee-b4e8-432d-aa64-efa9cb3d237b" class="code code-wrap"><code>[Function: next]
+[Function: throw]
+[Function: return]</code></pre></li></ul><ul id="0cf016cd-fe3c-4176-a455-5546ad997453" class="bulleted-list"><li style="list-style-type:circle">浏览器环境打印（谷歌浏览器v100+）<pre id="85e1b402-f530-4a42-8a20-c5ba62747cae" class="code code-wrap"><code>ƒ next() { [native code] }
+ƒ throw() { [native code] }
+ƒ return() { [native code] }</code></pre></li></ul></li></ul><ul id="2ab53663-9e56-4325-923f-2c5610905a14" class="bulleted-list"><li style="list-style-type:disc"><code>return()</code>和<code>throw()</code> 都能强制生成器进入关闭状态</li></ul><h2 id="33328029-50e1-4c9d-813a-3d603fe71648" class="">3.5.1 <code>Generator.prototype.return()</code></h2><ul id="8277bf81-7993-4cf8-a501-72a9f0d00fe0" class="bulleted-list"><li style="list-style-type:disc">return()方法强制生成器进入关闭状态，提供给<code>return()</code>方法的值就是终止迭代器对象的值</li></ul><ul id="47b07f25-0afe-4490-90b0-80a557848b86" class="bulleted-list"><li style="list-style-type:disc">与迭代器不同的是，所有生成器都有<code>return()</code> 方法，只要通过它进入了<strong>关闭状态</strong>（closed）就无法恢复了，后续调用<code>next()</code>会显示<code>done: true</code> 状态</li></ul><h3 id="3cce4368-afc3-4201-84d7-6291546c96af" class="">3.5.1.1 显示调用</h3><ul id="965145da-35d7-4082-9fa3-f4a8533cc424" class="bulleted-list"><li style="list-style-type:disc">通过生成器显示调用：<pre id="cf2326ea-0239-4084-8f70-9236aede90c7" class="code"><code>function* range(start, end) {
+  while (start &lt; end) {
+    yield start;
+    start++;
+  }
+}
+const gt = range(1, 8);
+console.log(gt); // range {&lt;suspended&gt;}
+console.log(gt.next()); // { value: 1, done: false }
+console.log(gt.next()); // { value: 2, done: false }
+console.log(gt.next()); // { value: 3, done: false }
+console.log(gt.return(4)); // { value: 4, done: true }
+console.log(gt.return(5)); // { value: 5, done: true }
+console.log(gt.next()); // { value: undefined, done: true }
+console.log(gt.next()); // { value: undefined, done: true }
+console.log(gt); // range {&lt;closed&gt;}</code></pre><ul id="a83f6fb8-3f09-40ed-b936-e967a9a2a70e" class="bulleted-list"><li style="list-style-type:circle">可以看到在调用<code>return()</code> 后，生成器直接进入关闭状态，再次调用<code>next()</code> 已经无法获取序列中的值</li></ul></li></ul><h3 id="a928b19c-06b6-4a35-bce2-248685ab7a75" class="">3.5.1.2 隐式调用</h3><ul id="be084867-0112-44f1-8b5d-0e8e3909d2d6" class="bulleted-list"><li style="list-style-type:disc">和迭代器一样，<code>return()</code> 在数组解构语法和<code>for…of</code> 循环中如果不迭代完毕生成器中的所有元素，会调用其<code>return()</code> 方法<pre id="9010ad72-66d5-42b4-9a02-b836a0a1500a" class="code"><code>const gt2 = range(2, 6); // 使用上面定义的生成器函数
+const [a, b] = gt2;
+console.log(gt2); // range {&lt;closed&gt;}
+console.log(gt2.next()); // { value: undefined, done: true }
+
+const gt3 = range(3, 8);
+for (const item of gt3) {
+  console.log(item); // 3 4 5
+  if (item == 5) {
+    break;
+  }
+}
+console.log(gt3); // range {&lt;closed&gt;}
+console.log(gt3.next()); // {value: undefined, done: true}</code></pre><ul id="b0f14c8b-4dfd-4e80-b165-0aae16b7641f" class="bulleted-list"><li style="list-style-type:circle">生成器的<code>return()</code> 方法比自定义的迭代器更严格，进入关闭状态后就无法再迭代了</li></ul></li></ul><ul id="93a5aa77-c7cf-403d-9554-b1ac93045ad7" class="bulleted-list"><li style="list-style-type:disc">如果再<code>for…of</code> 循环中途直接显示调用<code>return()</code> 达到的效果和使用<code>break;</code> 语句是一样的，唯一区别是调用return()后本轮循环的后续语句会执行完毕再退出循环<pre id="2b90a88b-d70c-405d-9230-fb36473e50f6" class="code"><code>const gt4 = range(3, 8);
+for (const item of gt4) {
+  console.log(item); // 3 4 5
+  if (item == 5) {
+    gt4.return();
+    console.log(&quot;后续语句&quot;); // 会被执行
+  }
+}
+console.log(gt4); // range {&lt;closed&gt;}
+console.log(gt4.next()); // {value: undefined, done: true}</code></pre></li></ul><h2 id="90b6f74a-86d2-40e2-a123-c16a59215a41" class="">3.5.2 <code>Generator.prototype.throw()</code></h2><ul id="a380c8a1-a69f-4796-8c90-6a7899d058eb" class="bulleted-list"><li style="list-style-type:disc">传入一个错误，<code>throw()</code> 方法被调用在暂停状态将这个错误注入到生成器对象，如果错误未被处，生成器就会被关闭<pre id="765e0f4b-a861-461f-bb4a-dbe440988175" class="code"><code>const range = function* (start, end) {
+  while (start &lt; end) {
+    yield start;
+    start++;
+  }
+};
+const gt = range(1, 6);
+gt.next();
+console.log(gt); // range {&lt;suspended&gt;}
+try {
+  gt.throw(&quot;抛出错误&quot;);
+} catch (error) {
+  console.log(error); // 抛出错误
+}
+console.log(gt); // range {&lt;closed&gt;}
+console.log(gt.next()); // {value: undefined, done: true}</code></pre></li></ul><ul id="9a804c4f-7943-4b16-b4c3-25e4f46315dd" class="bulleted-list"><li style="list-style-type:disc">如果生成器函数内部处理了这个错误，那么生成器就不会关闭，而且可以恢复执行，但是错误处理会跳过本轮的<code>yeild</code> 即跳过序列中的一个值<pre id="1eb17eb5-f6d0-411b-92f1-e7ecc9e6431d" class="code"><code>const range2 = function* (start, end) {
+  while (start++ &lt; end) {
+    try {
+      yield start;
+    } catch (error) {
+      console.log(error); // 抛出错误
+    }
+  }
+};
+const gt2 = range2(2, 7);
+console.log(gt2); // range2 {&lt;suspended&gt;}
+gt2.next();
+gt2.throw(&quot;抛出错误&quot;); 
+console.log(gt2); // range2 {&lt;suspended&gt;}
+console.log(gt2.next()); // {value: 5, done: false}</code></pre><ul id="b298819f-78f3-4493-b3d7-31c938ef3d21" class="bulleted-list"><li style="list-style-type:circle"><code>gt2.throw(&quot;抛出错误&quot;); </code> 向生成器对象内部注入一个错误，这个错误会被<code>yield</code>关键字抛出</li></ul><ul id="49d33298-3276-4d9f-905d-e70623075dd1" class="bulleted-list"><li style="list-style-type:circle">因为错误在生成器函数的try/catch块中被捕获，生成器不会被关闭，只是跑本次抛出错误的<code>yield</code> 语句不会产出值 <code>4</code></li></ul></li></ul><ul id="bdf354fa-a74a-4537-913a-72d8bfe9d3b7" class="bulleted-list"><li style="list-style-type:disc"><strong>注意</strong><ul id="60f19d5b-45cd-4b15-b2b5-46b9a5935458" class="bulleted-list"><li style="list-style-type:circle">如果生成器对象还没有开始执行，那么调用throw()抛出的错误不会在生成器函数内部被捕获，因为这相当于在函数块外部抛出了错误<pre id="780c0a0b-1c6d-4a16-8092-d180851a3342" class="code"><code>const gt3 = range2(2, 7);
+gt3.throw(&quot;直接报错&quot;);</code></pre></li></ul></li></ul><p id="f3719466-4ce1-48d1-9707-df201de6f4c9" class="">
+</p></div></div><p id="8ff5d485-5185-428a-a403-09ae8ba6519c" class="">
+</p></div></article></body></html>

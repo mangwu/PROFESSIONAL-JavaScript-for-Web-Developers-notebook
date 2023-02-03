@@ -1,0 +1,820 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>16. 私有变量（Private Variables）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1d5ebd72-a1ed-4412-a908-22af901ef361" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_earth_grid.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🏜️</span></div><h1 class="page-title">16. 私有变量（Private Variables）</h1></header><div class="page-body"><div id="77679ce6-5d55-429b-a699-dca90b18f146" class="column-list"><div id="ba754f84-4ffe-4146-a624-92393f1aee7b" style="width:12.5%" class="column"><nav id="50dca07a-d60e-4d42-b7be-1f5acb18eeea" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1e5001e3-1398-4bc1-bda6-435a9230a2d6">16.1 定义</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0f8bfb12-8ccf-4093-9fe2-afa6d16263b3">16.2 理解私有变量</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#852eb2e2-ca3c-4d91-a55b-cb80c30cfc6a">16.2.1 特权方法（privileged mehtod）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#eb6ffded-49f6-41e3-8ff2-ffa08b36c093">16.3 静态私有变量（Static Private Varibales）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c65d7b50-7370-441f-90d5-1f0197fef15d">16.4 模块模式（The Module Pattern）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#42d57857-3868-4717-a657-209a444d3b2e">16.4.1 <strong>使用场景</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d9bcf0b9-533b-4788-ad63-0160545f7d30">16.4.2 模块增强模式（The Module Augmentation Pattern）</a></div></nav><p id="1ffe6d5c-1881-4ca6-a03e-7e827bdcfc58" class="">
+</p></div><div id="116b90b2-b1da-4ebf-9969-b1d8d8e423c9" style="width:87.5%" class="column"><h1 id="1e5001e3-1398-4bc1-bda6-435a9230a2d6" class="">16.1 定义</h1><ul id="ef190597-76ef-49fb-884f-ba5816ea0136" class="bulleted-list"><li style="list-style-type:disc">严格来讲，JavaScript没有<strong>私有成员（private members）</strong>的<strong>概念</strong>（<strong>concept</strong>）；所有对象的属性都是公有（public）的。【但是可以通过闭包和WeakMap模拟私有成员，类中也有<code>#member</code> 语法来实现私有成员】</li></ul><ul id="57b4a6dd-4e93-43ac-841d-ca32347d4852" class="bulleted-list"><li style="list-style-type:disc"><strong>私有变量</strong>（<strong>Private Variables</strong>）在JavaScript是存在的<strong>任何定义在函数或块中的变量</strong>，都可以认为是<strong>私有的</strong>，因为在这个函数或块的外部无法访问其中的变量</li></ul><ul id="43319b36-cbf4-4693-93ed-967b1b033f4e" class="bulleted-list"><li style="list-style-type:disc">私有变量包括<strong>函数参数</strong>（<strong>function arguments</strong>）、<strong>局部变量</strong>（<strong>local variables</strong>）、以及函数内部定义的其它函数<pre id="a353ba0b-9888-44eb-9dc3-840f8d685516" class="code code-wrap"><code>function sum(num1, num2) {
+  let sum = num1 + num2;
+  return sum;
+}</code></pre><ul id="f4aca085-7b3f-4e4d-9c3c-73427310a55f" class="bulleted-list"><li style="list-style-type:circle"><code>sum()</code> 函数中有3个私有变量：<code>num1</code> , <code>num2</code> 、<code>sum</code> </li></ul><ul id="f32a51ce-a892-498b-bf3e-f5be884b1b26" class="bulleted-list"><li style="list-style-type:circle">这几个变量只能在函数内部使用不能在函数外部访问</li></ul></li></ul><h1 id="0f8bfb12-8ccf-4093-9fe2-afa6d16263b3" class="">16.2 理解私有变量</h1><ul id="6e60af70-21c9-47ab-823a-fd75d33e4354" class="bulleted-list"><li style="list-style-type:disc">在上一节（闭包）中，在函数中创建一个闭包，则这个闭包能通过其作用域链访问外部函数中的变量，基于这一点，就可以创建出能够访问私有变量的<strong>公共（public）</strong>方法</li></ul><h2 id="852eb2e2-ca3c-4d91-a55b-cb80c30cfc6a" class="">16.2.1 特权方法（privileged mehtod）</h2><ul id="bcc5ffd5-3ffa-4b72-8476-0be5b4556b31" class="bulleted-list"><li style="list-style-type:disc"><strong>特权方法（privileged mehtod）</strong>就是能够访问函数私有变量（及私有函数）的公有方法</li></ul><ul id="efb91086-088a-4dd6-95c7-a8e263b76385" class="bulleted-list"><li style="list-style-type:disc">在<strong>对象（objects）</strong>中创建特权方法的有两种，第一种是在构造函数（constructor）中实现<pre id="c860361d-23f8-41d2-ac66-bdaa45c09c7d" class="code code-wrap"><code>// 在构造函数中创建
+function SuperType() {
+  // 私有变量和私有函数
+  let privateVariable = 0;
+  function privateFunction() {
+    return false;
+  }
+  // 特权方法
+  this.getPrivateVariable = function () {
+    return privateVariable;
+  };
+  this.getPrivateFunction = function () {
+    return privateFunction;
+  };
+}</code></pre><ul id="63ee3823-8a66-4a91-8fdb-701e9c67060f" class="bulleted-list"><li style="list-style-type:circle">这个模式把所有私有变量和私有函数都定义在构造函数，然后再创建两个能访问这些私有成员的特权方法</li></ul><ul id="27b3821f-897c-4db5-9c3b-b44e9dd152c2" class="bulleted-list"><li style="list-style-type:circle">因为定义在构造函数中的特权方法其实是一个闭包，它具有访问构造函数中定义的所有变量和函数的能力</li></ul><ul id="5d8df311-e98c-443c-9c86-ad0a244330af" class="bulleted-list"><li style="list-style-type:circle">在创建<code>SuperType</code> 的实例后，没有办法直接访问<code>privateVariable</code> 私有变量和<code>privateFunction</code> 私有函数，只能通过实例的特权方法<code>getPrivateVariable()</code> 和<code>getPrivateFunction()</code> 访问</li></ul></li></ul><ul id="52cb0008-312a-4340-919c-3992fa3d2ead" class="bulleted-list"><li style="list-style-type:disc">因为闭包除了能访问到函数中外部声明的变量，还能访问到外部函数的参数，所以可以将传入的参数作为私有变量，然后定义访问和设置它的特权方法，隐藏这个参数以达到模拟其他语言中私有成员的效果（隐藏不能直接修改的数据）<pre id="bd1575aa-5aa8-423b-ae4e-e0bdfa27140a" class="code"><code>// 私有变量，隐藏不能被直接修改的数据
+function Person(name) {
+  this.getName = function () {
+    return name;
+  };
+  this.setName = function (value) {
+    name = value;
+  };
+}
+let person = new Person(&quot;mangwu&quot;);
+console.log(person.getName()); // mangwu
+person.setName(&quot;wumang&quot;);
+console.log(person.getName()); // wumang</code></pre><ul id="03d40322-9dc1-4113-804f-935aae4c5d02" class="bulleted-list"><li style="list-style-type:circle"><code>Person</code> 构造函数具有两个特权方法，<code>getName()</code> 和<code>setName()</code> 它们都是闭包，引用<code>Person</code> 函数的活动对象中的参数<code>name</code> ，每次调用都能获取或设置<code>name</code> </li></ul><ul id="4879c616-4e2d-4cd4-90b2-e19ded298ca6" class="bulleted-list"><li style="list-style-type:circle">私有变量<code>name</code> 对每个<code>Person</code> 实例而言都是独一无二，因为每次调用构造函数都会重写创建一套变量和方法，相当于每次调用<code>Person</code> 创建的活动对象都会保留活动对象，这回导致内存占用太多空间，使用静态私有变量特权方法可以避免问题</li></ul></li></ul><h1 id="eb6ffded-49f6-41e3-8ff2-ffa08b36c093" class="">16.3 静态私有变量（Static Private Varibales）</h1><ul id="1b88a4db-9acf-4a93-a6f3-66a358f7de3d" class="bulleted-list"><li style="list-style-type:disc">特权方法也可以通过使用<strong>私有作用域</strong>（<strong>private scope</strong>）定义<strong>私有变量</strong>和<strong>私有函数</strong>来实现；这里这个私有作用域实际上就是<strong>IIFE</strong>或块级作用域，在这个作用域中不使用声明关键字或使用<code>var</code> 保证外部能引用到定义的构造函数，使用<code>let</code> 或<code>const</code> 定义局部的<strong>私有变量</strong>和<strong>私有函数</strong>使得外部不能引用，然后在构造函数中通过原型链的方式定义公共的特权方法能够访问私有变量和私有函数，这样就可以避免内存占用的问题<pre id="6e9ff18b-1989-4eda-bbac-ac51ac46c2f5" class="code"><code>(function () {
+  let name = &quot;&quot;;
+  const hash = new WeakMap();
+  let idx = 0;
+  Person = function (value) {
+    name = value;
+    hash.set(this, idx++);
+  };
+  Person.prototype.getName = function () {
+    return name;
+  };
+  Person.prototype.setName = function (value) {
+    name = value;
+  };
+  Person.prototype.getId = function () {
+    return hash.get(this);
+  };
+})();
+
+const person1 = new Person(&quot;mangwu&quot;);
+console.log(person1.getName()); // mangwu
+person1.setName(&quot;mangmang&quot;)
+console.log(person1.getName()); // mangmang
+console.log(person1.getId()); // 0
+
+const person2 = new Person(&quot;wumang&quot;);
+console.log(person2.getId()); // 1
+console.log(person1.getName()); // wumang</code></pre><ul id="dd47edd3-30be-453c-b404-6be1a9fd8e89" class="bulleted-list"><li style="list-style-type:circle">注意这个模式定义的构造函数没有使用函数声明，使用的是函数表达式且没有使用关键字声明，因为函数声明会创建内部函数，而不使用关键字声明的函数表达式创建的函数能在外部使用（注意严格模式下这种声明发生会抛出异常，就可以使用ES6的块作用域用<code>var</code>关键字声明函数表达式即可）</li></ul><ul id="9c850573-a096-44e9-862e-86f184026ecb" class="bulleted-list"><li style="list-style-type:circle">私有变量<code>name</code>和<code>idx</code> 以及<code>hash</code> 是由实例共享的，它们只被定义一次，是实例共用的静态私有变量，又由于特权方法定义在原型上，特权方法同样是由实例共享的，特权方法作为闭包，始终引用着包含IIEE作用域中的变量</li></ul></li></ul><ul id="b7c0660b-73ad-4a52-be06-e40ce119c033" class="bulleted-list"><li style="list-style-type:disc">像这样创建静态私有变量可以利用原型更好的重用代码，只是每个实例没有了自己的私有变量，最终到底是把私有变量放在实例上还中还是作为静态私有变量，都需要根据自己的需求来确定</li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="9c150d0b-c83f-4c26-bc6e-9ad257a210bf"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：使用闭包和私有变量会导致作用域链变长，作用域链越长，则查找变量所需的时间也越多</div></figure><h1 id="c65d7b50-7370-441f-90d5-1f0197fef15d" class="">16.4 模块模式（The Module Pattern）</h1><ul id="e687a6ab-d64b-4368-bb8a-bdfd91544b27" class="bulleted-list"><li style="list-style-type:disc">前面的私有变量都是通过闭包，要么引用在构造函数外部不可引用的参数或变量实现私有，要么创建一个块作用域后引用在构造函数的原方法中引用定义在块作用域中的变量实现私有；两种方式都是<strong>自定义类型</strong>并创建私有变量和特权方法</li></ul><ul id="83963be5-4f62-4947-849c-1d0a00ec176b" class="bulleted-list"><li style="list-style-type:disc">而模块模式则是在一个<strong>单例对象</strong>（<strong>singletons</strong>）上实现了相同的隔离和封装<ul id="a1c63c25-1cea-4931-8c53-bc9da1dd3dce" class="bulleted-list"><li style="list-style-type:circle">由Douglas Crockford（就是第八章提出原型式继承和寄生式继承的家伙）提出</li></ul><ul id="b00ca5ae-fa04-474e-a2e4-8597794f9431" class="bulleted-list"><li style="list-style-type:circle"><strong>单例对象</strong>（<strong>singleton</strong>）就是只有一个实例的对象</li></ul><ul id="0744bcb1-286d-4241-aa21-0651b0d7ec62" class="bulleted-list"><li style="list-style-type:circle">JavaScript通过对象字面量（object literal notation）来创建单例对象</li></ul></li></ul><ul id="06df78fa-b74c-4788-ba01-b8b66704268d" class="bulleted-list"><li style="list-style-type:disc">模块模式是仍然需要使用闭包和和私有作用域，在单例对象（而不是自定义类型）的基础上加以扩展，让单例对象中的私有变量和私有函数存在于一个私有作用域中，通过作用域链来关联私有变量和特权方法，如下<pre id="9c52d6b7-f47d-4843-b73f-f33f65a01542" class="code code-wrap"><code>let singleton = function () {
+  // 私有变量和私有函数
+  let privateVariable = 10;
+  function privateFunction() {
+    return false;
+  }
+  // 单例对象
+  return {
+    // 公共方法和属性
+    publicProp: true,
+    publciMethod() {
+      privateVariable++;
+      return privateFunction();
+    },
+  };
+};</code></pre><ul id="67fbb929-662e-4042-9c99-0b79dc33bf53" class="bulleted-list"><li style="list-style-type:circle">模块模式使用IIFE返回一个对象，在这个IIFE中，首先定义私有变量和私有函数</li></ul><ul id="bf93ad73-4ebe-4c49-bea2-42a773ee03d7" class="bulleted-list"><li style="list-style-type:circle">之后创建一个要通过IIFE的对象字面量，这个对象字面量中包含可以公开访问的属性和方法以及可以访问私有变量和函数的特权方法</li></ul><ul id="01ee4ede-b087-47db-bee0-a1ad88612c59" class="bulleted-list"><li style="list-style-type:circle">本质上，对象字面量定义了单例对象的公共接口，如果单例对象需要进行某种初始化且需要访问私有变量时就可以采用这个模式</li></ul></li></ul><h2 id="42d57857-3868-4717-a657-209a444d3b2e" class="">16.4.1 <strong>使用场景</strong></h2><ul id="2ed86a73-14af-42f3-8333-8f119f04c3c3" class="bulleted-list"><li style="list-style-type:disc">在Web中，经常需要使用单例对象管理<strong>应用程序级的信息</strong>（<strong>application-level information</strong>），例如需要一个单例对象管理所有的<strong>组件</strong>（<strong>components</strong>），但是由于一些原因不能直接访问组件，所以可以定义一个私有组件变量保存所有组件，同时提供公共方法用于注册新组件和获取组件数量信息等<pre id="5c5eaa94-5478-4197-a242-7b492a285832" class="code code-wrap"><code>class BaseComponent {}
+class Component extends BaseComponent {
+  constructor(name) {
+    super();
+    this.name = name;
+  }
+}
+
+let application = function () {
+  // 私有变量
+  let components = new Array();
+  // 初始化
+  components.push(new BaseComponent());
+  // 公共接口
+  return {
+    getComponetLength() {
+      return components.length;
+    },
+    registerComponent(component) {
+      if (component instanceof Component) {
+        components.push(component);
+        return true;
+      }
+      return false;
+    },
+  };
+};
+application.registerComponent(new Component(&quot;mangwu&quot;));
+console.log(application);
+// {
+  // getComponetLength: [Function: getComponetLength],
+  // registerComponent: [Function: registerComponent]
+// }
+console.log(application.getComponetLength());// 2</code></pre><ul id="859b19d0-62b2-4380-b50f-8484cc03d3bb" class="bulleted-list"><li style="list-style-type:circle">这里<code>Component</code> 组件的实现代码并不重要，关键是<code>application</code>单例对象可以访问到IIFE中的私有组件数组变量，并且外部可以通过对象字面量的<strong>公共接口</strong>（<strong>public  interface</strong>）进行组件注册和获取组件数量信息</li></ul></li></ul><h2 id="d9bcf0b9-533b-4788-ad63-0160545f7d30" class="">16.4.2 模块增强模式（The Module Augmentation Pattern）</h2><ul id="5c92db58-f01d-4df1-b46c-793293f9c997" class="bulleted-list"><li style="list-style-type:disc">模块增强模式与模块模式类似，唯一的区别在于返回的公共接口不再是使用字面量定义的对象，而是需要某个特定类型的实例，（增强体现在）必须给这个实例添加额外的属性和方法，如下<pre id="3aa835df-acf2-460b-93e1-6a4480bcc28e" class="code code-wrap"><code>class CustomType {}
+
+let singleton = (function () {
+  // 私有变量和私有函数
+  let privateVariable = 10;
+  function privateFunction() {
+    return false;
+  }
+  // 创建实例
+  let o = new CustomType();
+  // 增强对象，添加公共方法和属性
+  o.publicProp = true;
+  o.publicMethod = function () {
+    privateVariable++;
+    return privateFunction();
+  };
+  return o;
+})();</code></pre><ul id="cfa9f792-d5c2-4cdd-a215-9978c278a68f" class="bulleted-list"><li style="list-style-type:circle">和模块模式类似，只不过不使用字面量而是使用特定类型创建实例然后作为公共接口访问私有变量和私有函数使用</li></ul></li></ul><ul id="0de3f98f-8abf-4a98-aceb-61ba50a312b1" class="bulleted-list"><li style="list-style-type:disc">同理，上面的<code>application</code>对象也可以使用这种方式，只是单例对象不再是对象字面量定义，而是<code>BaseComponent</code> 实例<pre id="92a9f8a6-01db-4975-b1eb-02d29da70d32" class="code code-wrap"><code>const application = (function () {
+  // 私有变量和私有函数
+  let components = new Array();
+  // 初始化私有变量
+  components.push(new BaseComponent());
+
+  // 创建实例
+  const o = new BaseComponent();
+  // 增强实例,公共接口
+  o.getComponentLength = function () {
+    return components.length;
+  };
+  o.registerComponent = function (component) {
+    if (component instanceof BaseComponent) {
+      components.push(component);
+      return true;
+    }
+    return false;
+  };
+  return o;
+})();
+
+application.registerComponent(new Component(&quot;mangwu&quot;));
+console.log(application.getComponentLength()); // 2
+console.log(application);
+// BaseComponent {
+  // getComponentLength: [Function (anonymous)],
+  // registerComponent: [Function (anonymous)]
+// }</code></pre></li></ul></div></div><p id="fe86fa82-001b-40fd-ae85-0b7545cec7b7" class="">
+</p></div></article></body></html>

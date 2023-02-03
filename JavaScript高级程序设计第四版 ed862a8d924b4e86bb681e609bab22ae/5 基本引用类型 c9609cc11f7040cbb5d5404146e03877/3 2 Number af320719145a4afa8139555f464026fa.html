@@ -1,0 +1,698 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3.2 Number</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="af320719-145a-4afa-8139-555f464026fa" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia_and_sunrise.jpg" style="object-position:center 0%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🧫</span></div><h1 class="page-title">3.2 Number</h1></header><div class="page-body"><h1 id="4d15102d-644a-47a9-88a0-2093d586098c" class="">描述</h1><ul id="068d9f23-d2f2-4108-8b70-f50f6eb301bc" class="bulleted-list"><li style="list-style-type:disc">Number包装类型是对应数值的引用类型</li></ul><h1 id="18ac79d2-03c3-408c-af23-c9c25bab1a81" class="">语法</h1><pre id="211cea58-4df3-46a1-9cba-d6971adb1dfa" class="code"><code>let numObj = new Number(primaryNumber: number);</code></pre><ul id="a1d50eac-1c5b-4280-b458-7d4bad9fd760" class="bulleted-list"><li style="list-style-type:disc">在Number构造函数中传入一个数值</li></ul><ul id="1179b6ca-1ccc-4e72-9bbf-014942951085" class="bulleted-list"><li style="list-style-type:disc">返回一个包装的引用类型实例</li></ul><h1 id="033b29e2-e887-4e06-8d29-3db7cacc0869" class="">方法</h1><h2 id="f8a6bb00-3bac-4d40-8526-10ebf1c93869" class="">继承的方法</h2><ul id="bccbb0e6-1519-4c26-a2f8-cfe718e6abce" class="bulleted-list"><li style="list-style-type:disc">重写了valueOf()和toLocaleString(), toString();</li></ul><h3 id="9de54f5b-afa6-42fc-bf0c-f39aa8ba298f" class="">valueOf()</h3><ul id="993e18a1-c8e4-4783-a5ce-61088afebfed" class="bulleted-list"><li style="list-style-type:disc">返回Number对象实例表示的原始数值</li></ul><h3 id="580dd932-befd-43fc-944b-e1d6b539fe7a" class="">toString()</h3><ul id="c2caa50c-afbd-4584-b2d4-a5b1881cd50a" class="bulleted-list"><li style="list-style-type:disc">接受一个表示进制的基数，并返回相应基数形式的数值字符串<pre id="ac781e6e-1e68-4f5f-991c-aa20650d9664" class="code"><code>let numObj = new Number(10);
+console.log(numObj.toString()); // &quot;10&quot;
+console.log(numObj.toString(2)); // &quot;1010&quot;
+console.log(numObj.toString(8)); // &quot;12&quot;
+console.log(numObj.toString(10)); // &quot;1010&quot;
+console.log(numObj.toString(16)); // &quot;a&quot;</code></pre></li></ul><h3 id="0fff7d06-f03d-4707-9d35-f7e053c8213d" class="">toLocaleString()</h3><ul id="b0d5a83c-e9bf-4e4d-9132-8567bfd2de17" class="bulleted-list"><li style="list-style-type:disc">返回10进制的美式数字格式的字符串<ul id="8306c792-aadf-4a64-8edc-b64fe02d6390" class="bulleted-list"><li style="list-style-type:circle">美式数字格式：三位一个逗号隔开；小数点保留3位</li></ul><pre id="fdf59021-1257-4df2-b995-52328aa9ae39" class="code"><code>const num = 1225.35688;
+const numObj = new Number(num);
+// 继承的方法被重写
+console.log(numObj.valueOf(), numObj.toLocaleString(), numObj.toString(16));</code></pre><ul id="192cc6ef-b4df-4765-91a4-95220f5b87cf" class="bulleted-list"><li style="list-style-type:circle">打印结果<code>1225.35688 1,225.357 4c9.5b5c7cd898c</code></li></ul></li></ul><h2 id="34e2b25f-ec1b-4c50-b5d0-ed94a40fc71f" class="">Number类型提供的方法</h2><ul id="cfe44e72-3d80-4ed4-b138-bbdf50e45c62" class="bulleted-list"><li style="list-style-type:disc">包装类型提供了几个用于将数值格式化为字符串的方法</li></ul><h3 id="e4a29b03-7140-4cd4-92ce-3e639a1581a2" class="">toFixed()</h3><ul id="186aa228-d1b9-46d1-bfd0-c09eca28d9e2" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="0f4f22a5-d499-4466-b156-34983bc2360a" class="code"><code>num.toFixed(digits);</code></pre><ul id="b6dcecbb-a715-48a1-9caf-cabd5b7c5918" class="bulleted-list"><li style="list-style-type:circle">digits表示数字保留的位数,范围[0, 20]</li></ul><ul id="c2414d96-698a-4157-830d-980fca34951e" class="bulleted-list"><li style="list-style-type:circle">返回保留了指定位数的数值字符串</li></ul></li></ul><ul id="efb8772f-63e2-4e9c-b0d6-4ac7ace143a9" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="f7d62937-2844-4018-9e95-4fb08a448cc3" class="code"><code>const num2 = 12.25;
+console.log(num2.toFixed(), num2.toFixed(1), num2.toFixed(2), num2.toFixed(3)); 
+// 12 12.3 12.25 12.250</code></pre><ul id="8bb17456-fab9-41e0-82df-5a36a3bf60b2" class="bulleted-list"><li style="list-style-type:circle">从返回值可以发现toFixed()方法的特性<ul id="aca213e6-8979-4628-aeb6-772cb9258e1b" class="bulleted-list"><li style="list-style-type:square">默认为0，返回整数的字符串</li></ul><ul id="ac788be2-fae4-4364-8bdc-d281e249ee4b" class="bulleted-list"><li style="list-style-type:square">如果数值本身的小数位超过了参数指定的位数，则<strong>四舍五入</strong>到最接近的小数位</li></ul><ul id="3e86e28b-55bf-402b-8660-fa0c8ceb8614" class="bulleted-list"><li style="list-style-type:square">如果数值的小数位小于参数指定的位数，则补上若干0到达指定的小数位</li></ul></li></ul></li></ul><ul id="f2e713b5-3c65-424f-a989-d3e1fea09591" class="bulleted-list"><li style="list-style-type:disc">toFixed()常用来处理货币，但是注意浮点数数学计算不一定会得到精确的结果</li></ul><h3 id="555cb987-5239-46a1-ba71-e78fd16b90d5" class="">toExponential()</h3><ul id="5d0f92d7-ef37-4d56-9f59-2126e6d2ee1d" class="bulleted-list"><li style="list-style-type:disc">语法和toFixed的类似<ul id="a44d2665-c844-4314-a1a9-272bee4e2e43" class="bulleted-list"><li style="list-style-type:circle">输入范围为[0, 20]的保留位数</li></ul><ul id="1cfc3516-f436-4191-94ba-2281a675f3ad" class="bulleted-list"><li style="list-style-type:circle">返回科学计数法（指数计数法）表示的数值字符串</li></ul><ul id="bead93bd-daca-4f77-bc06-5e9f7864f21a" class="bulleted-list"><li style="list-style-type:circle">其中保留位数为科学计数法中的前面小数的位数</li></ul></li></ul><ul id="95483542-977b-46f0-a493-bf6e0e2b4e20" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="b3f0c361-1ead-49d1-847e-1232493a29e3" class="code"><code>const num3 = 15387814524.215;
+console.log(
+  num3.toExponential(),
+  num3.toExponential(1),
+  num3.toExponential(2),
+  num3.toExponential(3),
+	num3.toExponential(15)
+);
+// 打印结果
+1.5387814524215e+10 1.5e+10 1.54e+10 1.539e+10 1.538781452421500e+10</code></pre><ul id="a09b02b4-095c-49c7-a9e1-b2f0e02b6411" class="bulleted-list"><li style="list-style-type:circle">不传递值时，保留可能的最多位数</li></ul><ul id="75f5de39-c044-4418-a524-e7bd2016ffbe" class="bulleted-list"><li style="list-style-type:circle">同样使用四舍五入的方式进行小数取舍</li></ul><ul id="2cdfc5e6-3978-40d8-8165-03135b4afd52" class="bulleted-list"><li style="list-style-type:circle">多余位数补0</li></ul></li></ul><h2 id="6517bc8b-c3b3-4a71-aa23-c84d2fd1dba5" class="">toPrecision()</h2><ul id="56b2edd1-4edc-46ce-b07b-33f5cbe21064" class="bulleted-list"><li style="list-style-type:disc">语法和toFixed类似<ul id="2d660842-78b6-4aa2-96bc-b134b2bc8fcd" class="bulleted-list"><li style="list-style-type:circle">输入范围为[1, 21]</li></ul><ul id="25802107-abd4-43f9-a919-1ed91d0de778" class="bulleted-list"><li style="list-style-type:circle">返回指定位数最合理的输入结果，可以是toExponential()的科学计数法，也可以是toFixed()的位数补齐</li></ul></li></ul><ul id="893e47a6-fdde-4692-9cf0-358bf7fc1bae" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="38d937e0-0f33-4acd-8290-f90fdd51cca2" class="code"><code>const num4 = 555;
+console.log(
+  num4.toPrecision(),
+  num4.toPrecision(1),
+  num4.toPrecision(2),
+  num4.toPrecision(3),
+  num4.toPrecision(4),
+  num4.toPrecision(5)
+);
+// 555 6e+2 5.6e+2 555 555.0 555.00</code></pre><ul id="dd9bb2bc-844f-4e1e-b1dc-a061d424d7e1" class="bulleted-list"><li style="list-style-type:circle">不传递值，默认返回toString()的结果</li></ul><ul id="d18ff2bd-3623-4105-9f5c-484d2977e752" class="bulleted-list"><li style="list-style-type:circle">传递1，使用一位表示555，则必须使用科学计数法，得到6e+2 即600，采用四舍五入的方式得到结果</li></ul><ul id="065360a1-6546-4184-adc7-52e7edfedb97" class="bulleted-list"><li style="list-style-type:circle">传递2，用两位表示555，同样使用科学计数法，得到5.6e+2 即560，采用四舍五入的方式得到合理的结果</li></ul><ul id="34e61b26-5931-4e49-9b19-513cddaa5785" class="bulleted-list"><li style="list-style-type:circle">传递的值大于3时，就可以返回和toFixed()一样的结果了，因为这时能准确表示值了，只需要补0即可</li></ul></li></ul><h3 id="40ed29d9-224c-482a-bfbe-b9688a4ebe71" class="">静态方法</h3><ul id="7febf253-5c29-4d98-9c28-3323888a4e9f" class="bulleted-list"><li style="list-style-type:disc">ES6新增方法，Number.isInteger()和Number.isSafeInteger()</li></ul><p id="54976196-1e72-43e4-83e6-bdf762144f78" class=""><strong>Number.isInterger()</strong></p><ul id="99713168-73de-4ad9-b4dc-a8ba5a16c327" class="bulleted-list"><li style="list-style-type:disc">用于辨别一个数值是否保存为整数,传入数值，返回布尔值</li></ul><ul id="f8ec60e2-73d4-432b-9cc4-23f0c6d828c9" class="bulleted-list"><li style="list-style-type:disc">一个数有小数位不一定不是整数，如果小数位都是0，则会被认为是整数<pre id="7c5ec30f-1047-49f2-b441-45d9c5cfb369" class="code"><code>console.log(Number.isInteger(5.0), Number.isInteger(5.00001)); // true false</code></pre></li></ul><p id="8d908ce8-ecbe-4a58-9bfc-ffb6264df8df" class=""><strong>Number.isSafeInteger()</strong></p><ul id="be1ffd9f-c056-4b5f-b923-264e1b722a00" class="bulleted-list"><li style="list-style-type:disc">在阐述JavaScript的数值类型时理清过，IEEE754数值格式有一个特殊的数值范围<ul id="620a7584-119f-4807-8748-a4bb630fcad9" class="bulleted-list"><li style="list-style-type:circle"><code>[Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]</code> </li></ul><ul id="9d235de5-7541-4b77-b56f-22d387982000" class="bulleted-list"><li style="list-style-type:circle"><code>[-9007199254740991,9007199254740991]</code></li></ul><ul id="491467a7-a0b4-48c1-82b6-49b0da0cac93" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo>−</mo><msup><mn>2</mn><mn>53</mn></msup><mo>+</mo><mn>1</mn><mo separator="true">,</mo><msup><mn>2</mn><mn>53</mn></msup><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-2^{53} + 1, 2^{53} - 1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">53</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">53</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></span><span>﻿</span></span> </li></ul><ul id="e1a8c0d6-ef65-46f1-af1b-7e06f0e5579a" class="bulleted-list"><li style="list-style-type:circle">超出这个范围的数字，即使尝试保存为整数，IEEE754编码无法确定二进制值会正确表示，可能保存的是一个完全不同的数值</li></ul></li></ul><ul id="2a397692-6079-4b0d-8817-20a514da61aa" class="bulleted-list"><li style="list-style-type:disc">使用Number.isSafeInteger()可以判断保存的数值是否是一个编码能正常表达的<strong>安全整数</strong></li></ul><h1 id="a1297479-cf5a-4876-a166-4d02a69b4de0" class="">建议</h1><ul id="eeae7af8-b188-43c9-8882-136eb04ecf08" class="bulleted-list"><li style="list-style-type:disc">不要使用创建Number包装类型的对象</li></ul><ul id="d9f9c0d7-34ad-4a41-b8a1-b349bdfd3107" class="bulleted-list"><li style="list-style-type:disc">Number对象为数值提供了一些重要的能力（如格式化数字的方法）</li></ul><ul id="a2e56ca8-fc3e-4687-9a17-c0fb24fd5040" class="bulleted-list"><li style="list-style-type:disc">因为原始值同样可以通过后台临时创建的Number对象实例调用上述的方法，所以不必使用Number创建引用对象，避免混淆</li></ul><ul id="a551da29-fe82-4839-aa2f-3dcb810d2712" class="bulleted-list"><li style="list-style-type:disc">原始值和引用值的区别和Boolean的一样，使用typeof判断时不同，使用instanceof判断为Number类型时不同</li></ul><p id="f9f7416a-16ee-4b01-95b9-87e458cd939a" class="">
+</p></div></article></body></html>

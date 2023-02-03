@@ -1,0 +1,807 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>13. 尾调用优化（Tail Call Optimization）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e1adb2ab-032a-43ea-9cf7-e364cb8c6e55" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_henri_rousseau_1907.jpg" style="object-position:center 30.000000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🎴</span></div><h1 class="page-title">13. 尾调用优化（Tail Call Optimization）</h1></header><div class="page-body"><div id="46d22dce-e253-46ab-b2fc-45c9f9039978" class="column-list"><div id="bc521ca1-ed5e-42f7-9e47-0b75cc5f8435" style="width:12.5%" class="column"><nav id="ebdf25d8-d12c-4127-a7bb-e981fa606432" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#19d40c88-e4ff-4d8a-8bb8-8b445b8a4773">13.1 尾调用优化</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e9013002-3c7f-415e-9bbe-71f12bdad0b4">13.1.1 尾调用(tail call)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#aefc9b8d-a2e2-44eb-9000-1a362d213cd7">13.1.2 内存管理优化机制</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#60d5f149-c689-4909-a156-d6350bbd4a88">13.2 尾调用优化的条件（Tail Call Optimization Requirements）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#609e6300-487b-48d5-aee7-78ddb9ed9188">13.3 尾调用优化的代码（Coding for Tail Call Optimization）</a></div></nav><p id="db00b334-67da-4969-8df3-7af75fafd856" class="">
+</p></div><div id="74699b93-e4c5-4153-ad91-910b10fe2417" style="width:87.5%" class="column"><h1 id="19d40c88-e4ff-4d8a-8bb8-8b445b8a4773" class="">13.1 尾调用优化</h1><h2 id="e9013002-3c7f-415e-9bbe-71f12bdad0b4" class="">13.1.1 尾调用(tail call)</h2><ul id="23f02ad9-4019-4614-83fa-ab0e6c41d070" class="bulleted-list"><li style="list-style-type:disc"><strong>尾调用</strong>（<strong>tail call</strong>）指在一个函数中，其<strong>返回值为调用另外一个函数的返回值</strong>，即外部函数（<strong>outer function</strong>）的返回值是一个内部函数（<strong>inner function</strong>）的返回值</li></ul><ul id="a95f73cf-d0a0-4f29-ba70-b938cdb7169c" class="bulleted-list"><li style="list-style-type:disc">例如<pre id="d6e3ee28-cad0-4260-b14f-76e55d60ab7d" class="code code-wrap"><code>function innerFunction() {
+  return &quot;尾调用&quot;;
+}
+
+// 尾调用
+function outerFunction() {
+  return innerFunction(); // 尾调用
+}</code></pre></li></ul><h2 id="aefc9b8d-a2e2-44eb-9000-1a362d213cd7" class="">13.1.2 内存管理优化机制</h2><ul id="4385c816-5958-4f4a-b9ce-8b34ea7cf245" class="bulleted-list"><li style="list-style-type:disc">ES6新增了一项<strong>内存管理优化机制</strong>（<strong>memory management optimization</strong>），让JavaScript引擎在满足条件时可以<strong>重用栈帧</strong>（<strong>reuse stack frames</strong>）</li></ul><ul id="df3d6612-8076-4496-be67-079c4d7003f6" class="bulleted-list"><li style="list-style-type:disc">这项优化非常适合尾调用</li></ul><hr id="033eb38f-03a6-4282-a04a-e6545f4e860f"/><ul id="c22940e2-1bd7-46f4-814b-25c3b1890a6d" class="bulleted-list"><li style="list-style-type:disc">在ES6优化之前（不使用内存管理优化机制），尾调用（以上面的尾调用例子举例）会在内存中发生如下操作<ol type="1" id="a7249f92-4844-474a-ae8f-3b9d597ecb69" class="numbered-list" start="1"><li><strong>执行到</strong>(<strong>execution reach</strong>)<code>outerFunction</code> 函数体，第一个<strong>栈帧</strong>(<strong>stack frame</strong>)被<strong>推到</strong>（<strong>push onto</strong>）栈上</li></ol><ol type="1" id="49a3c63b-c2ba-41df-8f96-33c5aeb4e2e7" class="numbered-list" start="2"><li><strong>执行</strong>（<strong>execute</strong>）<code>outerFunction</code> 函数体，<strong>到</strong>(<strong>reach</strong>)<code>return</code>语句，<strong>计算</strong>（<strong>evaluate</strong>）返回值必须先计算<code>innerFunction()</code> </li></ol><ol type="1" id="57956751-c85d-4e66-95ce-34b29a9f38bc" class="numbered-list" start="3"><li><strong>执行到</strong>(<strong>execution reach</strong>)<code>innerFunction</code> 函数体，第二个<strong>栈帧</strong>(<strong>stack frame</strong>)被<strong>推到</strong>（<strong>push onto</strong>）栈上</li></ol><ol type="1" id="c4a53e16-ec2e-4128-8ce1-7e04c6186404" class="numbered-list" start="4"><li><strong>执行</strong>（<strong>execute</strong>）<code>innerFunction</code> 函数体，<strong>计算</strong>（<strong>evaluate</strong>）其返回值</li></ol><ol type="1" id="76271da2-c521-4de9-af42-01db747d4b19" class="numbered-list" start="5"><li>将返回值<strong>传回</strong>(<strong>pass back</strong>)<code>outerFunction</code> ,然后</li></ol><ol type="1" id="fcef9d43-8ad4-4d8c-8ef6-d6b082017e7e" class="numbered-list" start="6"><li>将<strong>栈帧</strong>（<strong>stack frames</strong>）<strong>弹出</strong>（<strong>poped off</strong>）栈（注意这里栈帧是复数）</li></ol></li></ul><ul id="f5225d81-ccc2-431f-bd8e-e1041b9559c2" class="bulleted-list"><li style="list-style-type:disc">在ES6优化之后（使用内存管理优化机制），尾调用（以上面的尾调用例子举例）会在内存中发生如下操作<ol type="1" id="9d3adfc3-6a74-4fad-8a24-f5d2adae7fba" class="numbered-list" start="1"><li><strong>执行到</strong>(<strong>execution reach</strong>)<code>outerFunction</code> 函数体，第一个<strong>栈帧</strong>(<strong>stack frame</strong>)被<strong>推到</strong>（<strong>push onto</strong>）栈上</li></ol><ol type="1" id="7d7e116d-4fab-4a04-bb20-3ad55ad3639e" class="numbered-list" start="2"><li><strong>执行</strong>（<strong>execute</strong>）<code>outerFunction</code> 函数体，<strong>到</strong>(<strong>reach</strong>)<code>return</code>语句，<strong>计算</strong>（<strong>evaluate</strong>）返回值必须先计算<code>innerFunction()</code> </li></ol><ol type="1" id="90396161-4c10-48ee-b4bd-1286bec435fb" class="numbered-list" start="3"><li>引擎发现能把第一个<strong>栈帧</strong>（<strong>stack frame</strong>）<strong>安全</strong>（<strong>safely</strong>）<strong>弹出</strong>（<strong>pop off</strong>）栈，因为<code>innerFunction</code></li></ol><ol type="1" id="c803b31d-4252-4891-9c39-060fffe74f27" class="numbered-list" start="4"><li><strong>弹出</strong>（<strong>pop off</strong>）<code>outerFunction</code> 的<strong>帧栈</strong>（<strong>stack frame</strong>）</li></ol><ol type="1" id="04963fe0-eae1-41dc-93e0-41651eff12e7" class="numbered-list" start="5"><li><strong>执行到</strong>(<strong>execution reach</strong>)<code>innerFunction</code> 函数体，<strong>栈帧</strong>(<strong>stack frame</strong>)被<strong>推到</strong>（<strong>push onto</strong>）栈上</li></ol><ol type="1" id="5304fce9-d82f-48a6-86d0-e9d2659b2414" class="numbered-list" start="6"><li><strong>执行</strong>（<strong>execute</strong>）<code>innerFunction</code> 函数体，<strong>计算</strong>（<strong>evaluate</strong>）其返回值</li></ol><ol type="1" id="028ecc22-e3d8-4793-9477-6683b6e5f1dc" class="numbered-list" start="7"><li><strong>弹出</strong>（<strong>pop off</strong>）<code>innerFunction</code> 的<strong>帧栈</strong>（<strong>stack frame</strong>）</li></ol></li></ul><hr id="53f18a86-793b-4298-8ecd-0dff0aae01df"/><ul id="7fb7010a-dbf4-4076-aafa-5843c9a926df" class="bulleted-list"><li style="list-style-type:disc">很明显，第一种情况下每多调用一次<strong>嵌套函数</strong>（<strong>nested function</strong>），就会多增加一个帧栈的成本</li></ul><ul id="02a462a0-d7ff-43df-975a-67fb3409da0a" class="bulleted-list"><li style="list-style-type:disc">而第二种情况下无论调用多少次嵌套函数，整个<strong>执行周期</strong>（<strong>length of execution</strong>）都只占用一个帧栈的成本</li></ul><ul id="525b1553-76ec-4dcc-9553-cc251cb134f7" class="bulleted-list"><li style="list-style-type:disc">这就是ES6尾调用优化的关键：如果以一种方式被构造的函数（function is structured in a way）允许<strong>基于尾调用</strong>（<strong>upon the tail call</strong>）被<strong>安全的销毁</strong>（<strong>safely discarded</strong>），则引擎就会这么做<ul id="7fb08d5e-e666-4dcd-a5bb-8fcf0c4d1974" class="bulleted-list"><li style="list-style-type:circle">这句话的意思就是内存管理优化后，如果遇到尾调用，可以<strong>提前将外部函数的栈帧出栈</strong>（相当于销毁），直接调用内部函数</li></ul></li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="791a39ce-9c5c-4c71-8b13-61e1d7f4cdc5"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>注意</strong>：现在没有办法测试尾调用优化是否<strong>有作用</strong>（<strong>occurring</strong>）。不过，因为这是ES6规范所规定，<strong>兼容的</strong>（<strong>compliant</strong>）浏览器实现都能保证在代码满足条件（<strong>requirements</strong>）的情况下应用这个优化<p id="bbb27651-f031-48da-8ddb-e5a936e46725" class=""><mark class="highlight-gray">理论上，假设有n个嵌套的尾调用，那么不使用优化的情况下，空间复杂度主要是栈的长度，即O(n)，使用优化的情况下，因为整个执行周期只占用一个栈帧成本，所以空间复杂度只有O(1)</mark></p></div></figure><h1 id="60d5f149-c689-4909-a156-d6350bbd4a88" class="">13.2 尾调用优化的条件（Tail Call Optimization Requirements）</h1><ul id="7f1094cf-f836-4071-b4a8-e2b432b2f646" class="bulleted-list"><li style="list-style-type:disc">明确几个概念<ul id="be36acc2-77c5-4ebd-95fe-7cad4891c702" class="bulleted-list"><li style="list-style-type:circle"><strong>外部函数（outer function）</strong>，返回值为调用另外一个函数的返回值的函数</li></ul><ul id="9712fba1-b861-4b2c-aea8-edeefe4ac2aa" class="bulleted-list"><li style="list-style-type:circle"><strong>尾调用函数（tail call function），</strong>就是尾调用中的内部函数，是外部函数体的返回语句中被调用的函数</li></ul><ul id="8a65e663-349a-4b4b-bd8f-12ab45643dc8" class="bulleted-list"><li style="list-style-type:circle"><strong>外部栈帧</strong>（<strong>outer stack frame</strong>），执行到外部函数推到栈上的栈帧</li></ul></li></ul><ul id="cfa6b8cc-ac84-409a-aff8-655ff3bfe2e1" class="bulleted-list"><li style="list-style-type:disc">尾调用优化的条件就是确定<strong>外部栈帧</strong>（<strong>outer stack frame</strong>）真的没有必要存在了，每必要存在的条件如下<ul id="473a80bc-aac0-44b2-9d54-83628d5d5751" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">代码在严格模式下执行</span></li></ul><ul id="92801a50-500a-4124-8a87-4aa62b88c833" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">外部函数的返回值是对<strong>尾调用函数</strong>（<strong>tail call function</strong>）的调用</span></li></ul><ul id="83267791-7527-40d1-b3c1-2ee55eb0f65a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">尾调用函数返回后没有<strong>额外执行命令</strong>（<strong>no further execution</strong>）</span></li></ul><ul id="a1a19d87-2d53-485e-9686-8ded030869ad" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">尾调用函数不是<strong>引用</strong>（<strong>refer to</strong>）<strong>外部函数的作用域</strong>（<strong>outer function’s scope</strong>）中自有变量的<strong>闭包</strong>（<strong>closure</strong>）</span></li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="9a363447-4901-4e49-9d5a-45f8b46d907a"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：之所以要求严格模式，主要因为在非严格模式下函数调用允许使用<code>f.arguments</code> 和<code>f.caller</code> ，而它们都会引用外部函数的栈帧，而它们都会引用外部函数的栈帧（<code>f.caller</code> 引用的就是外部函数，而<code>f.arguments</code> 的属性<code>f.arguments.callee.caller</code> 会间接引用外部函数）；显然，这意味着不能应用优化了（不能提前销毁外部函数的栈帧），因此尾调用优化必须要求在严格模式下有效，防止引用这些属性</div></figure></li></ul><ul id="9e660847-40d9-4b30-9f23-3015a66b83fb" class="bulleted-list"><li style="list-style-type:disc">一些违反上述条件的例子<pre id="c7fc15c7-2dac-4397-b19b-507c1e7de1ac" class="code code-wrap"><code>// 在外部函数中调用的内部函数
+function innerFunction() {
+  &quot;use strict&quot;;
+  return 4396;
+}
+
+// 以下是不不满足条件的例子
+function outerFunction() {
+  // 无尾调用优化：不是严格模式
+  return innerFunction();
+}
+
+function outerFunction() {
+  // 无尾调用优化：尾调用没有返回
+  &quot;use strict&quot;;
+  innerFunction();
+}
+
+function outerFunction() {
+  // 无尾调用优化：尾调用没有直接返回
+  &quot;use strict&quot;;
+  const res = innerFunction();
+  return res;
+}
+
+function outerFunction() {
+  // 无尾调用优化：尾调用函数返回后不需要执行额外的逻辑
+  &quot;use strict&quot;;
+  return innerFunction().toString();
+}
+
+function outerFunction() {
+  // 无尾调用优化：尾调用函数返不能引用外部函数作用域中的闭包
+  &quot;use strict&quot;;
+  let foo = &quot;bar&quot;;
+  function innerFunction() {
+    return foo;
+  }
+  return innerFunction();
+}</code></pre></li></ul><ul id="dd0549a9-3068-4f58-89d5-739a0d8f77c9" class="bulleted-list"><li style="list-style-type:disc">一些符合条件的例子<pre id="b2ff6aa3-f299-4bc5-ab5e-56bb52db5e84" class="code code-wrap"><code>// 符合条尾调用优化条件的例子
+function outerFunction(a, b) {
+  // 有尾调用优化：帧栈销毁前执行参数计算
+  &quot;use strict&quot;;
+  return innerFunction(a + b);
+}
+
+function outerFunction(a, b) {
+  // 有尾调用优化：初始返回值不涉及栈帧
+  &quot;use strict&quot;;
+  if (a &lt; b) {
+    return a;
+  }
+  return innerFunction(a + b);
+}
+
+function outerFunction(a, b) {
+  // 有尾调用优化：两个尾调用函数都在尾部且没有额外的逻辑执行
+  &quot;use strict&quot;;
+  return a &gt; b ? innerFunction(a) : innerFunction(b); // 这两个尾调用函数可以不是同一个函数对象
+}</code></pre><ul id="258f7c32-17d4-4ee5-8ade-fd0273ebd389" class="bulleted-list"><li style="list-style-type:circle">这三个符合条件的尾调用例子中，最后一个属于<strong>差异化尾调用</strong>（<strong>differentiating tail calls</strong>），即根据条件不同，尾调用的函数参数不同或尾调用函数不同</li></ul></li></ul><hr id="d1002cbb-ddc3-47d4-be13-c7afe8757657"/><ul id="fd7c6fc4-a3be-489c-843c-f3f41b963253" class="bulleted-list"><li style="list-style-type:disc">实际上，<strong>递归调用（recursive cal）在符合条件的情况下也属于尾调用</strong>，差异化尾调用和递归调用是容易让人感到<strong>困惑的</strong>（<strong>confusion</strong>）；但需要注意到的是：无论是递归调用还是非递归调用，在满足尾调用条件的情况下，都可以应用优化，引擎并不区分尾调用中调用的函数是函数自身还是其它函数</li></ul><ul id="b6af13f6-ad55-49c3-a142-2997bdfe56ff" class="bulleted-list"><li style="list-style-type:disc">递归场景下，尾调用优化的效果是最<strong>明显</strong>的，因为一般函数尾调用嵌套不了多少层，而递归代码最容易在栈内存中迅速产生大量栈帧；但是大多数递归函数并不是简单的调用函数本身然后返回，更复杂的会多次递归调用本身，所以下一节会介绍将不符合条件的递归函数转换为可以进行尾调用优化的递归函数</li></ul><h1 id="609e6300-487b-48d5-aee7-78ddb9ed9188" class="">13.3 尾调用优化的代码（Coding for Tail Call Optimization）</h1><ul id="8ffd1d2a-eae4-47f4-bdbf-8e1d4d4ab71c" class="bulleted-list"><li style="list-style-type:disc">可以通过把简单的递归函数转换成待优化的代码以加深对尾调用优化的理解</li></ul><ul id="3d686284-34b8-41de-b120-87d6cfb385c2" class="bulleted-list"><li style="list-style-type:disc">斐波那契数列可以用一个典型的递归函数实现：<pre id="c6b2c856-bead-479f-a40a-0c9b9ee8e663" class="code code-wrap"><code>&quot;use strict&quot;;
+// 0 1 1 2 3 5 ...
+function fibonacci(n) {
+  if (n &lt; 2) {
+    return n;
+  }
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}</code></pre></li></ul><ul id="56138d39-33c3-4c12-ac82-0ecf54bd7398" class="bulleted-list"><li style="list-style-type:disc">显然整个函数不符合尾调用优化的条件，因为返回语句中有相加的操作（需要执行额外的逻辑）</li></ul><ul id="eaf3109d-560f-4090-ae0e-f8b40039f57a" class="bulleted-list"><li style="list-style-type:disc">又因为在一次函数调用中需要递归调用两次<code>fibonacci()</code> 函数，所以<code>fibonacci(n)</code> 需要的栈帧数内存空间复杂度为<p id="6e03a460-d6e8-4378-9230-cbb96a26042b" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.3600em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>if n &lt; 2</mtext></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext>if n ≥ 2</mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">O(n) = \begin{cases} O(1), &amp; \text{if n &lt; 2} \\ O(2^{n-1} + 1) &amp; \text{if n ≥ 2} \end{cases}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0000299999999998em;vertical-align:-1.25003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">{</span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.69em;"><span style="top:-3.69em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">if n &lt; 2</span></span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord text"><span class="mord">if n ≥ 2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.19em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span>.</p><ul id="2f7be2b0-f971-427a-b56c-0d930baa1d97" class="bulleted-list"><li style="list-style-type:circle">因此指数级的空间复杂度导致即使<code>n</code> 只有40这么大都会使得浏览器或node需要耗费较长的时间进行运算，如下</li></ul><pre id="6a79a93f-eabc-4f0a-af43-352fdbe7220d" class="code code-wrap"><code>// node环境
+const date = new Date();
+console.log(fibonacci(40)); // 102334155
+console.log(Date.now() - date); // 1070   (以毫秒为单位，平均为1000ms，因设备不同而异)</code></pre></li></ul><ul id="bf7dff48-eb81-42b6-842e-1ad02bc9fafa" class="bulleted-list"><li style="list-style-type:disc">解决栈帧数空间复杂度的问题有不同的<strong>策略</strong>（<strong>techniques</strong>），例如记忆化或把递归写成迭代循环形式<p id="15e94e12-1375-44a6-9852-c5c82fd2092d" class=""><strong>记忆化方法</strong>，使用<code>Map</code> 映射保存已经计算过的斐波纳契数列，避免重复运算</p><pre id="55c25032-a945-4449-bd17-8d6d6a2358aa" class="code code-wrap"><code>const hash = new Map([
+  [1, 1],
+  [0, 0],
+]);
+const fib = (n) =&gt; {
+  if (n &lt; 2) {
+    return n;
+  }
+  if (hash.has(n)) {
+    return hash.get(n);
+  }
+  let pre1 = -1;
+  let pre2 = -1;
+  if (hash.has(n - 1)) {
+    pre1 = hash.get(n - 1);
+  }
+  if (hash.has(n - 2)) {
+    pre2 = hash.get(n - 2);
+  }
+
+  if (pre1 == -1) {
+    pre1 = fib(n - 1);
+  }
+  if (pre2 == -1) {
+    pre2 = fib(n - 2);
+  }
+  hash.set(n, pre1 + pre2);
+  return pre1 + pre2;
+};
+date = new Date();
+console.log(fib(40)); // 102334155
+console.log(Date.now() - date); // 1 (以毫秒为单位，有时也会是0)</code></pre><p id="f5552d4b-7f67-4d92-9373-72ba0b6cf4cc" class="">把递归写成迭代循环形式</p><pre id="d0798723-90a0-405b-a809-7ac8b855a53e" class="code code-wrap"><code>const fib2 = (n) =&gt; {
+  if (n &lt; 2) {
+    return n;
+  }
+  let a = 1;
+  let b = 1;
+  let temp;
+  for (let i = 2; i &lt; n; i++) {
+    temp = b;
+    b = b + a;
+    a = temp;
+  }
+  return b;
+};
+date = new Date();
+console.log(fib2(40)); // 102334155
+console.log(Date.now() - date); // 0 （以毫秒为单位，有时也会是1）</code></pre></li></ul><ul id="b294775d-0719-4a44-9cbc-40a4a9883955" class="bulleted-list"><li style="list-style-type:disc">如果想要保持递归实现，为了让引擎启用尾调用优化，可以重构成满足优化条件的形式<p id="90b3c07e-76b7-4b92-9145-d5954e643583" class="">使用两个嵌套的函数，外部函数作为基础框架，内部函数执行递归</p><pre id="9e190149-ca77-4410-aa98-2b1259cb0fa1" class="code code-wrap"><code>// 基础框架
+function fibouter(n) {
+  return fibImpl(0, 1, n);
+}
+// 执行递归
+function fibImpl(a, b, n) {
+  if (n == 0) {
+    return a;
+  }
+  return fibImpl(b, a + b, n - 1);
+}
+date = new Date();
+console.log(fibouter(40)); // 102334155
+console.log(Date.now() - date); // 1 (以毫秒为单位，有时也会是0)</code></pre><ul id="02d523c9-1d14-48d7-ac25-c23fcc779ca9" class="bulleted-list"><li style="list-style-type:circle"><code>fibImpl</code> 实际上将<code>n</code>作为递归深度，<code>a</code> ，<code>b</code> 是斐波那契数列的两个初始值，只要不断执行<code>nextA = b , nextB = a + b</code> 就能保证一步步得到第<code>n</code>个斐波那契数</li></ul><ul id="dbdcc118-4ff7-463d-bee0-f5a013fda99b" class="bulleted-list"><li style="list-style-type:circle"><code>fibouter</code> 基础框架是为了保证实现斐波那契数列的函数签名特性：即给一个下标就能获取第n个斐波那契数</li></ul></li></ul></div></div><p id="e4b71da0-3528-414d-828d-be3f627885da" class="">
+</p></div></article></body></html>

@@ -1,0 +1,909 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Element类型</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ec9e1c76-f79c-4c3a-94f3-4cdf447eca0c" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/rijksmuseum_avercamp_1620.jpg" style="object-position:center 60%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🛫</span></div><h1 class="page-title">Element类型</h1></header><div class="page-body"><ul id="2962a0b3-6942-4cce-96dc-60641c3d900a" class="bulleted-list"><li style="list-style-type:disc">Element类型是Web开发中最常用的类型，Element表示XML或HTML元素，对外暴露出访问元素标签名、子节点和属性的能力。Element类型的节点具有以下特征<ul id="e10b197c-e1a4-480e-865c-39e050fa048f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeType等于<code>Node.ELEMENET_NODE</code> (1)</span></li></ul><ul id="52731865-3cdb-47e9-adb5-79aef7f60ee6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeName值为元素的标签名</span></li></ul><ul id="97bf89dd-08ec-4b8c-8816-4c5781149177" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeValue值为null</span></li></ul><ul id="07648956-00b7-4cf0-a530-7a2222a351e6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">parentNode值为Document或Element对象</span></li></ul><ul id="94526215-5600-46a3-9005-0157908b54d9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">子节点可以是Element、Text、Comment、ProcessingInstruction、CDATASection、EntityReference类型</span></li></ul></li></ul><ul id="c81acb1a-1fcf-4159-9dbf-3f70aa637efc" class="bulleted-list"><li style="list-style-type:disc">可以通过<code>nodeName</code>或<code>tagName</code>属性来获取元素的标签名，这两个属性返回同样的值，同时需要注意的是，在HTML中，元素标签名<strong>始终以全大写</strong>表示；在XML（包括XHTML）中，标签名始终与源代码中大小写保持一致，如果不确定脚本是HTML文档还是XML文档，最好将标签名称统一转换为小写形式，便于比较<pre id="a3a48160-315c-460c-812b-37b54965fb52" class="code code-wrap"><code>&lt;div id=&quot;myDiv&quot;&gt;div&lt;/div&gt;
+&lt;script&gt;
+  let div = document.getElementById(&quot;myDiv&quot;);
+  console.log(div.tagName); // &quot;DIV&quot;
+  console.log(div.tagName === div.nodeName); // true
+&lt;/script&gt;</code></pre><ul id="4ed41af6-0e8d-470a-81d8-420ea5310e04" class="bulleted-list"><li style="list-style-type:circle">使用<code>toLowerCase()</code> 将字符串转换为小写就是”div”，更方便比较</li></ul></li></ul><h2 id="9fe46633-f888-4cb5-a47f-ebb5f14410da" class="">1.3.1 Element接口规范</h2><ul id="f9165c9b-9389-4251-82d8-e39d3c41a759" class="bulleted-list"><li style="list-style-type:disc">和<code>Document</code>接口定义的对象类似，元素节点也有<code>Element</code>和<code>HTMLElement</code> 接口定义，其中<code>HTMLElement</code>继承<code>Element</code> ，<code>Element</code> 直接继承<code>Node</code> 接口，其中<code>HTMLElement</code> 接口规范属于HTML Standard内容，而<code>Element</code> 接口规范属于DOM Standard内容</li></ul><ul id="789efa6a-a660-4167-bdaf-4402a0b23885" class="bulleted-list"><li style="list-style-type:disc">DOM Standard规范定义的<a href="https://dom.spec.whatwg.org/#interface-element">Element接口</a>如下<pre id="35f61748-4e4c-4a8f-a857-929ad7c821bf" class="code code-wrap"><code>[Exposed=Window]
+interface Element : Node {
+  readonly attribute DOMString? namespaceURI;
+  readonly attribute DOMString? prefix;
+  readonly attribute DOMString localName;
+  readonly attribute DOMString tagName;
+
+  [CEReactions] attribute DOMString id;
+  [CEReactions] attribute DOMString className;
+  [SameObject, PutForwards=value] readonly attribute DOMTokenList classList;
+  [CEReactions, Unscopable] attribute DOMString slot;
+
+  boolean hasAttributes();
+  [SameObject] readonly attribute NamedNodeMap attributes;
+  sequence&lt;DOMString&gt; getAttributeNames();
+  DOMString? getAttribute(DOMString qualifiedName);
+  DOMString? getAttributeNS(DOMString? namespace, DOMString localName);
+  [CEReactions] undefined setAttribute(DOMString qualifiedName, DOMString value);
+  [CEReactions] undefined setAttributeNS(DOMString? namespace, DOMString qualifiedName, DOMString value);
+  [CEReactions] undefined removeAttribute(DOMString qualifiedName);
+  [CEReactions] undefined removeAttributeNS(DOMString? namespace, DOMString localName);
+  [CEReactions] boolean toggleAttribute(DOMString qualifiedName, optional boolean force);
+  boolean hasAttribute(DOMString qualifiedName);
+  boolean hasAttributeNS(DOMString? namespace, DOMString localName);
+
+  Attr? getAttributeNode(DOMString qualifiedName);
+  Attr? getAttributeNodeNS(DOMString? namespace, DOMString localName);
+  [CEReactions] Attr? setAttributeNode(Attr attr);
+  [CEReactions] Attr? setAttributeNodeNS(Attr attr);
+  [CEReactions] Attr removeAttributeNode(Attr attr);
+
+  ShadowRoot attachShadow(ShadowRootInit init);
+  readonly attribute ShadowRoot? shadowRoot;
+
+  Element? closest(DOMString selectors);
+  boolean matches(DOMString selectors);
+  boolean webkitMatchesSelector(DOMString selectors); // legacy alias of .matches
+
+  HTMLCollection getElementsByTagName(DOMString qualifiedName);
+  HTMLCollection getElementsByTagNameNS(DOMString? namespace, DOMString localName);
+  HTMLCollection getElementsByClassName(DOMString classNames);
+
+  [CEReactions] Element? insertAdjacentElement(DOMString where, Element element); // legacy
+  undefined insertAdjacentText(DOMString where, DOMString data); // legacy
+};
+
+dictionary ShadowRootInit {
+  required ShadowRootMode mode;
+  boolean delegatesFocus = false;
+  SlotAssignmentMode slotAssignment = &quot;named&quot;;
+};</code></pre><ul id="812531fd-6e90-4449-8162-13ae02d5ed0c" class="bulleted-list"><li style="list-style-type:circle">如果<code>[putforward]</code>扩展属性出现在类型为接口类型的只读普通属性声明中，则表明对该属性的赋值将具有特定的行为。也就是说，赋值被“<strong>转发(forwarded)</strong>”到当前被赋值的属性所引用的对象上的属性上(由扩展属性参数指定)。就拿<code>classList</code> 属性举例，它是一个<code>DOMTokenList</code> 对象，对象上有属性<code>value</code> ，<code>value</code> 属性值是一个字符串，对<code>classList</code>的直接赋值（如<code>document.body.classList = &quot;hello&quot;</code>）会被转发到<code>classList</code> 的<code>value</code>属性上（即等价于<code>document.body.classList.value = &quot;hello&quot;</code>）</li></ul><ul id="35dc20ba-f958-4cf7-aa3c-8f863062a3b7" class="bulleted-list"><li style="list-style-type:circle">如果<code>[Unscopable]</code>扩展属性出现在常规属性或常规操作上，则表明使用给定接口成员实现接口的对象不会在任何对象<strong>环境记录</strong>（<strong>environment record</strong>）中包括其属性名称，该对象环境记录将其作为其基本对象。这样做的结果是，与属性名匹配的裸标识符将无法解析到with语句中的属性。这是通过在接口原型对象的@@unscopables属性值中包含属性名来实现的。就拿<code>slot</code> 属性举例，执行<code>with(document.body) { console.log(tagName) }</code> ，因为<code>body</code> 是一个实现了Element接口的元素节点，所以它有<code>tagName</code> 属性，可以打印出”BODY”,但是执行<code>with(document.body) { console.log(slot) }</code> 就会抛出异常，提示没有定义<code>slot</code> 属性， 但是直接调用<code>document.body.slot</code> 是可行的，这就是[Unscopable]的作用</li></ul></li></ul><ul id="16fae9e0-33ea-47e9-b557-2de4c1534fcf" class="bulleted-list"><li style="list-style-type:disc">HTML Standard规范定义的<a href="https://html.spec.whatwg.org/multipage/dom.html#htmlelement">HTMLElement</a>接口如下<pre id="58147bf9-574b-463e-970f-7ab25646db13" class="code code-wrap"><code>[Exposed=Window]
+interface HTMLElement : Element {
+  [HTMLConstructor] constructor();
+
+  // metadata attributes
+  [CEReactions] attribute DOMString title;
+  [CEReactions] attribute DOMString lang;
+  [CEReactions] attribute boolean translate;
+  [CEReactions] attribute DOMString dir;
+
+  // user interaction
+  [CEReactions] attribute (boolean or unrestricted double or DOMString)? hidden;
+  [CEReactions] attribute boolean inert;
+  undefined click();
+  [CEReactions] attribute DOMString accessKey;
+  readonly attribute DOMString accessKeyLabel;
+  [CEReactions] attribute boolean draggable;
+  [CEReactions] attribute boolean spellcheck;
+  [CEReactions] attribute DOMString autocapitalize;
+
+  [CEReactions] attribute [LegacyNullToEmptyString] DOMString innerText;
+  [CEReactions] attribute [LegacyNullToEmptyString] DOMString outerText;
+
+  ElementInternals attachInternals();
+};
+
+HTMLElement includes GlobalEventHandlers;
+HTMLElement includes ElementContentEditable;
+HTMLElement includes HTMLOrSVGElement;
+
+[Exposed=Window]
+interface HTMLUnknownElement : HTMLElement {
+  // Note: intentionally no [HTMLConstructor]
+};</code></pre><ul id="1c66ff97-276d-48fe-8b87-126ca65fa304" class="bulleted-list"><li style="list-style-type:circle">为了支持自定义元素特性，所有HTML元素都有特殊的构造函数行为。这是通过<code>[HTMLConstructor]</code> IDL扩展属性指定的。它指示给定接口的接口对象在被调用时具有特定的行为：<code>[HTMLConstructor]</code>扩展属性不能接受任何参数，并且只能出现在构造函数操作中。它必须只在构造函数操作中出现一次，而且接口必须只包含单个带注释的构造函数操作，不能包含其他操作。带注释的构造函数操作必须声明为无参数。</li></ul><ul id="cb7d77b3-5f21-419b-92bc-ba69c136097d" class="bulleted-list"><li style="list-style-type:circle">如果<code>[LegacyNullToEmptyString]</code>扩展属性出现在DOMString或USVString类型上，它会创建一个新的IDL类型，这样当ECMAScript null转换为IDL类型时，它的处理方式就会与默认的处理方式不同。它不会被字符串化为默认值&quot;null&quot;，而是被转换为空字符串。</li></ul><ul id="f88c2cb0-56ac-47c6-9482-ca50a0381e4f" class="bulleted-list"><li style="list-style-type:circle"><code>HTMLUnknownElement</code> 接口继承HTMLElement，它属于定制的内置元素，定制的内置元素允许扩展现有的HTML元素，这些元素具有用户代理提供的有用行为或api。因此，它们只能扩展本规范中定义的现有HTML元素，而不能扩展使用HTMLUnknownElement作为元素接口的遗留元素，如bgsound、blink、isindex、keygen、multicol、nextid或spacer。这种需求的一个原因是未来兼容性:如果定义了扩展当前未知元素(例如组合框)的自定义内置元素，这将阻止此规范在未来定义组合框元素，因为派生自定义内置元素的消费者将会依赖于他们的基本元素，而没有用户代理提供的有趣行为。 </li></ul></li></ul><h2 id="9d199a1e-0e31-4776-98af-18faf710f67d" class="">1.3.2 HTML元素</h2><ul id="937ff3f4-9985-4a3f-bca4-17b02060fe4d" class="bulleted-list"><li style="list-style-type:disc">所有HTML元素都通过HTMLElement类型表示，包括其直接实例和间接实例，HTMLElement直接继承Element并增加了一些属性，它们是所有HTML元素上都有的标准属性：<ul id="b7d1db5e-91ec-4556-a389-e22744841151" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>id</code> ，元素在文档中的唯一标识符，默认为空字符串</span></li></ul><ul id="9e7296b0-c858-42e1-adc6-6a49906c5d75" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>title</code> ，包含元素的额外信息，通常以提示条形式展示（就是鼠标悬停时出现的白色提示框中的文本）</span></li></ul><ul id="ad97f498-146c-416b-981d-47330a3715c6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>lang</code> ，元素内容的语言代码（很少用）</span></li></ul><ul id="88577746-d0a9-4da7-9441-73580a812ae8" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>dir</code> ，语言的书写方向（”ltr“表示从左到右，”rtl”表示从右到左，同样很少使用）</span></li></ul><ul id="eb36cd6c-dfcc-4443-9c1a-2b36494fa267" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><code>className</code> ，相当于<code>class</code>属性，用于指定元素的CSS类（因为class时ECMAScript关键字，所以不能直接使用class这个名字）</span></li></ul></li></ul><ul id="1e0a3ca7-8a6b-4fae-8368-d314ae4c8b27" class="bulleted-list"><li style="list-style-type:disc">所有这些都可以用来获取对应的属性值，也可以用来修改相应的值，如下<pre id="3b219fcd-efe0-436c-a76e-6eb5848dfbd7" class="code code-wrap"><code>&lt;p lang=&quot;ar_EG&quot; dir=&quot;rtl&quot; title=&quot;阿拉伯语言&quot; id=&quot;myP&quot; class=&quot;unkown&quot;&gt;
+    شسيسلشسلؤ
+&lt;/p&gt;
+&lt;script&gt;
+  const myP = document.getElementById(&quot;myP&quot;);
+  console.log(myP.id, myP.className, myP.dir, myP.lang, myP.title); // myP unkown rtl ar_EG 阿拉伯语言
+&lt;/script&gt;</code></pre><ul id="2c89ddbd-2e05-4aa4-aef4-6ebbef400fa0" class="bulleted-list"><li style="list-style-type:circle"><code>id</code>，<code>className</code> 等这些属性的修改通常和样式有关联</li></ul></li></ul><ul id="938a5711-3aea-4346-a950-f2ad9580a76f" class="bulleted-list"><li style="list-style-type:disc">并非所有这些属性的修改都会对页面产生影响，比如把lang改成其它值而不是”ar_EG“对其它用户而是不可见的（假设没有针对lang属性应用的CSS样式）</li></ul><ul id="711bb5d8-3b93-48ff-8162-de57b1018249" class="bulleted-list"><li style="list-style-type:disc">所有HTML元素都是HTMLElement或其子类型的实例，下表列出了所有HTML元素及其对应的类型（斜体表示已经废弃的元素）<figure id="410c0e8f-7eee-4291-9fbe-f808a5ec974c" class="link-to-page"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/HTMLElement%E5%85%83%E7%B4%A0%E8%A1%A8%E6%A0%BC%20410c0e8f7eee42919fbef808a5ec974c.html"><span class="icon">📂</span>HTMLElement元素表格</a></figure></li></ul><h2 id="ac0bda14-bf90-4559-ae2c-089aa708a97c" class="">1.3.3 取得属性</h2><ul id="b377ffd1-ed96-4705-bab5-225634c1d19a" class="bulleted-list"><li style="list-style-type:disc">每个元素都有零个或多个属性，通常用于为元素或其内容附加更多信息，与属性相关的DOM方法主要有三个,它们定义在<code>Element</code> 接口上：<code>getAttirbute()</code> ，<code>setAttribute()</code> 和<code>removeAttribute()</code> ，这些方法主要用于操作属性，包括在HTMLElement类型上定义的属性</li></ul><h3 id="b17515e9-7217-4d0b-9137-06d3a09ea23e" class="">1.3.3.1 getAttribute()</h3><ul id="73c76ff0-20f1-4685-a80b-e66126752e93" class="bulleted-list"><li style="list-style-type:disc">传递给<code>getAttribute()</code>属性名与它们实际的属性名是一样的，例如获取元素的<code>class</code>名称，传递“class”而不是”className”（className是作为对象属性时才那么拼写），如果给定的属性不存在，则<code>getAttribute()</code> 返回<code>null</code><pre id="b12c5daf-5503-40e0-9f1f-f4d1accb9d4f" class="code code-wrap"><code>&lt;p class=&quot;p&quot; id=&quot;myP&quot; lang=&quot;zh-CN&quot; dir=&quot;ltr&quot;&gt;你好&lt;/p&gt;
+&lt;script&gt;
+  const p = document.getElementById(&quot;myP&quot;);
+  console.log(p.getAttribute(&quot;class&quot;)); // p
+  console.log(p.getAttribute(&quot;id&quot;)); // myP
+  console.log(p.getAttribute(&quot;lang&quot;)); // zh-CN
+  console.log(p.getAttribute(&quot;dir&quot;)); // ltr
+  console.log(p.getAttribute(&quot;title&quot;)); // null
+&lt;/script&gt;</code></pre><ul id="e559df85-a6b8-4b7a-aacf-3047c79ff987" class="bulleted-list"><li style="list-style-type:circle">虽然元素节点上有属性<code>titlte</code> ，但是在HTML中并没有赋值，所以给定的<code>title</code> 属性相当于不存在</li></ul></li></ul><ul id="ae3ad0cf-626f-49d3-b280-b1ba9d736bfe" class="bulleted-list"><li style="list-style-type:disc">HTML中除了可以给节点定义<strong>预留的属性值</strong>，也可以<strong>自定义属性并赋值</strong>，<code>getAttribute()</code> 对获取自定义的属性的值也是有效果的，根据HTML5规范，自定义属性名应该使用<strong>前缀</strong><code>data-</code>以方便验证，并且<strong>属性名称不区分大小写，</strong>id和ID是同一种属性<pre id="0268e9cb-e745-493e-be81-18b3df1d3a3b" class="code code-wrap"><code>&lt;p class=&quot;p&quot; id=&quot;myP&quot; lang=&quot;zh-CN&quot; dir=&quot;ltr&quot; data-special-attribute=&quot;hello&quot;&gt;
+  你好
+&lt;/p&gt;
+console.log(p.getAttribute(&quot;DATA-special-attribute&quot;)); // hello</code></pre><ul id="603e262f-9c35-4c15-bc84-c6dd30208968" class="bulleted-list"><li style="list-style-type:circle">可以发现HTML元素节点上定义的属性名称是不区分大小写的，使用DATA-special-attribute仍然可以获得属性值</li></ul></li></ul><ul id="081a1f6c-1fcf-48a4-af48-58f4f28c1cde" class="bulleted-list"><li style="list-style-type:disc">根据HTML5规范好的自定义属性（即以<code>data-</code>前缀开头）可以通过节点的<code>dataset</code> 属性统一获取到，<code>dataset</code> 返回一个<code>DOMStringMap</code> 对象，键为自定义属性（去掉前缀和横杠，大写横杠后的第一个字母），值为对应自定义属性值<pre id="0de759e6-efe7-4976-9e51-79d00dff2816" class="code code-wrap"><code>&lt;p class=&quot;p&quot; id=&quot;myP&quot; lang=&quot;zh-CN&quot; dir=&quot;ltr&quot; data-special-attribute=&quot;hello&quot;&gt;
+  你好
+&lt;/p&gt;
+console.log(p.dataset); // DOMStringMap {specialAttribute: &#x27;hello&#x27;}</code></pre><ul id="56cb6255-e166-4c67-a3c4-00638afdd3e8" class="bulleted-list"><li style="list-style-type:circle">如果没有按照HTML5规范定义自定义属性，那么dataset不会包含这个自定义属性，但是仍然可以通过<code>getAttribute()</code> 获取到自定义属性值</li></ul></li></ul><ul id="4d9a6492-a7ec-4a87-b1aa-8166016c6aa1" class="bulleted-list"><li style="list-style-type:disc">通过DOM对象访问的属性中有<strong>两个返回的值</strong>跟使用<code>getAttribute()</code> 取得的值不一样<ul id="cab5c92c-6741-426e-b69c-7da14944d41c" class="bulleted-list"><li style="list-style-type:circle"><code>style</code> 属性，用于元素设定CSS样式，通过<code>getAttribute()</code> 获取到的是CSS字符串，但是通过<code>element.style</code> 属性获取到的是一个（<code>CSSStyleDeclaration</code>）对象<pre id="f30dcb1a-6e70-4786-b88d-6036eea53f9c" class="code code-wrap"><code>&lt;p
+  id=&quot;myP2&quot;
+  style=&quot;color: blue; text-align: center; background-color: antiquewhite&quot;
+&gt;
+  Hello, world
+&lt;/p&gt;
+console.log(p2.style);
+console.log(p2.getAttribute(&quot;style&quot;));</code></pre><figure id="9ecd7cef-fba4-42a4-aab5-4c8119421f09" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/CSSStyleDeclaration.png"><img style="width:768px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/CSSStyleDeclaration.png"/></a></figure><ul id="e0f1ae7b-5150-413f-9291-ae2f8cc74ac5" class="bulleted-list"><li style="list-style-type:square"><code>CSSStyleDeclaration</code> 对象除了自定义的<code>style</code> 属性设定的CSS样式外，还包括浏览器支持的所有CSS样式预设</li></ul><ul id="2a7aeb74-af66-45e9-9301-8dbb03931afe" class="bulleted-list"><li style="list-style-type:square">DOM对象的<code>style</code> 属性用于以编程方式读写元素样式，因此不会直接映射为元素中<code>style</code> 属性的字符串值</li></ul></li></ul><ul id="8a15da40-b271-44d1-a76d-163de8db8f89" class="bulleted-list"><li style="list-style-type:circle">事件处理程序（或者事件属性），事件属性有很多种，最常见的如<code>onclick</code>，在元素上<strong>使用事件属性</strong>时，属性的值是一段JavaScript代码；如果使用<code>getAttribute()</code> <strong>访问事件属性</strong>，则返回的是字符串形式的源代码；如果通过DOM对象的属性访问事件属性时返回的则是一个JavaScript函数（未指定属性则返回null），这是因为<code>onclick</code> 及其它事件属性是可以接收函数作为值的<pre id="c2d90114-16ac-48b2-a3cc-9dbb694259ee" class="code code-wrap"><code>&lt;p onclick=&quot;alert(&#x27;Hello, world&#x27;)&quot; id=&quot;myP3&quot;&gt;你好，世界&lt;/p&gt;
+
+console.log(p3.onclick, typeof p3.onclick);
+console.log(p3.getAttribute(&quot;onclick&quot;));</code></pre><figure id="a5be1aed-8878-4c2a-9fc1-de62f6233fc5" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/getAttribute(onclick).png"><img style="width:369px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/getAttribute(onclick).png"/></a></figure></li></ul></li></ul><ul id="0f2561e7-0ecc-4f1a-83ac-731b70e25fbc" class="bulleted-list"><li style="list-style-type:disc">考虑到以上的差异，开发者在进行DOM编程时通常会放弃使用<code>getAttribute()</code> 而只使用对象属性，<code>getAttribute()</code> <strong>主要用于取得自定义属性的值</strong></li></ul><h3 id="675f2ed0-ae9c-4b6d-b85c-90b48db10e15" class="">1.3.3.2 setAttribute()</h3><ul id="d038348c-49c2-4e68-b551-caf30c90e768" class="bulleted-list"><li style="list-style-type:disc"><code>setAttribute()</code> 接收两个参数， 要设置的属性名和属性的值<ul id="70f70823-5a0a-43b9-be7b-4e3a02ce2151" class="bulleted-list"><li style="list-style-type:circle">如果属性已经存在，则<code>setAttribute()</code> 会以指定的值替换原来的值</li></ul><ul id="fe27024b-0976-4a6f-9e79-2054e752718a" class="bulleted-list"><li style="list-style-type:circle">如果属性不存在，则<code>setAttribute()</code> 会以指定的值创建该属性</li></ul><ul id="6580d97e-4f09-4926-8682-c66a3e80f871" class="bulleted-list"><li style="list-style-type:circle"><code>setAttribute()</code> 适用于HTML属性，也适用于自定义属性</li></ul><ul id="ced309ac-5a6b-4920-8b76-86f24a152f63" class="bulleted-list"><li style="list-style-type:circle">此外<code>setAttribute()</code> 方法会规范为小写形式，因此“ID”会变成“id”</li></ul><pre id="038c85c9-da4c-4b04-a390-d4e0894e505c" class="code code-wrap"><code>&lt;p&gt;设置属性&lt;/p&gt;
+
+const p = document.querySelector(&quot;p&quot;);
+p.setAttribute(&quot;CLaSs&quot;, &quot;my-p&quot;);
+p.setAttribute(&quot;LanG&quot;, &quot;zh-CN&quot;);
+p.setAttribute(&quot;DaTa-my-attribute&quot;, &quot;hello&quot;);
+console.log(p.dataset); // DOMStringMap { myAttribute : &quot;hello&quot; }</code></pre><figure id="7be9b8c3-530d-4e95-bca1-ed7c77620098" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/setAttribute.png"><img style="width:697px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/setAttribute.png"/></a></figure></li></ul><ul id="643dd50f-a3a1-4033-a96b-7e0607bb9b7e" class="bulleted-list"><li style="list-style-type:disc">因为元素属性也是DOM对象属性，所以直接给DOM对象的属性赋值也可以设置元素属性的值，这种方式只对<code>Element</code>和<code>HTMLElement</code> 接口定义过的元素节点属性有效，<strong>对自定义属性无效，</strong>但是同样可以通过<code>dataset</code> 属性增加自定义属性，只是增加的自定义属性一定是以<code>data-</code>前缀开头的，如下<pre id="e645e558-08e7-4658-94ce-a2d6717ebf33" class="code code-wrap"><code>p.align = &quot;center&quot;;
+p.dataset.specailAttribute = &quot;hello,world&quot;;</code></pre><figure id="8b881924-dd63-443f-a666-960ec10fa96a" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/dom-element-addAttribute.png"><img style="width:816px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/dom-element-addAttribute.png"/></a></figure></li></ul><h3 id="49db3390-a619-4701-b641-cf0b5105b4bf" class="">1.3.3.3 removeAttribute()</h3><ul id="e161c599-eeba-4bc7-a11b-85aa393fac9f" class="bulleted-list"><li style="list-style-type:disc">用于删除元素中的属性，这样不单单是清除属性的值，而是会把整个属性完全从元素中去掉<pre id="f6ad09bc-0f52-4073-b3f6-db0e4019fe75" class="code code-wrap"><code>&lt;p class=&quot;myP&quot; id=&quot;myP&quot; data-my-attribute=&quot;hello&quot;&gt;Hello&lt;/p&gt;
+
+const p = document.getElementById(&quot;myP&quot;);
+p.removeAttribute(&quot;class&quot;);
+p.removeAttribute(&quot;id&quot;);
+p.removeAttribute(&quot;data-my-attribute&quot;);
+console.log(p.dataset);
+console.log(p.id, typeof p.id, p.id === &quot;&quot;);
+console.log(p.className);</code></pre><div id="0dd46afa-d993-419d-bb79-457abb6df3ff" class="column-list"><div id="70be8358-c766-403e-8c3d-e58fc3e5c103" style="width:100%" class="column"><figure id="fcbe3469-0ffe-498b-ad6b-5b9b0a4173b1" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/removeAttribute.png"><img style="width:342px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/removeAttribute.png"/></a></figure></div><div id="b08e748c-a626-4445-af55-be60b3933bd4" style="width:100%" class="column"><figure id="021c926b-e29d-4580-ae53-f06be2f4a6e2" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/removeAttribute_p.png"><img style="width:201px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/removeAttribute_p.png"/></a></figure><p id="e5b4c0a7-2872-4a27-95c7-311aa017130d" class="">
+</p></div></div></li></ul><ul id="54e74f5a-953e-4d41-9239-66e1505ce887" class="bulleted-list"><li style="list-style-type:disc"><code>removeAttribute()</code> 方法用得并不多，但在序列化DOM元素时可以通过它控制要包含的属性</li></ul><h2 id="3cc73934-d642-44d5-bc6a-73f82b51972d" class="">1.3.4 attributes属性</h2><ul id="ed5de39e-bc4c-4af2-b1f7-6435e0df4b3e" class="bulleted-list"><li style="list-style-type:disc"><code>Element</code> 类型是唯一使用<code>attributes</code> 属性的DOM节点类型。attribute属性包含一个<code>NamedNodeMap</code>实例，是一个类似<code>NodeList</code> 的实时集合，DOM规范的<a href="https://dom.spec.whatwg.org/#namednodemap">NamedNodeMap</a> 接口如下<pre id="e7c2f5cf-af5e-45be-ac3f-cf9014908f82" class="code code-wrap"><code>[Exposed=Window,
+ LegacyUnenumerableNamedProperties]
+interface NamedNodeMap {
+  readonly attribute unsigned long length;
+  getter Attr? item(unsigned long index);
+  getter Attr? getNamedItem(DOMString qualifiedName);
+  Attr? getNamedItemNS(DOMString? namespace, DOMString localName);
+  [CEReactions] Attr? setNamedItem(Attr attr);
+  [CEReactions] Attr? setNamedItemNS(Attr attr);
+  [CEReactions] Attr removeNamedItem(DOMString qualifiedName);
+  [CEReactions] Attr removeNamedItemNS(DOMString? namespace, DOMString localName);
+};</code></pre><ul id="ccb7274e-d2d5-42ba-a3c6-51e1c5e9a783" class="bulleted-list"><li style="list-style-type:circle">元素节点的每个属性都表示为一个<strong>Attr节点</strong>，并保存在整个<code>NamdeNodeMap</code>对象上</li></ul><ul id="07fc3b6c-b48b-44a4-a65f-f01fddafba44" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">getNamedItem(<em>name</em>)，返回nodeName属性等于<em>name</em>的节点</span></li></ul><ul id="15609802-9d35-4dab-8650-0caef53a6439" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">removeNamedItem(<em>name</em>)，删除nodeName属性等于<em>name</em>的节点</span></li></ul><ul id="385aec7e-95ce-4cb3-9b9d-e335c099be9b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">setNamedItem(<em>node</em>)，向列表中添加<em>node</em>节点，以nodeName为索引</span></li></ul><ul id="a57ddac7-0f2f-4b39-ad5c-95e3389f2007" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">item(<em>index</em>)，返回索引位置<em>index</em>处的节点</span></li></ul><ul id="8b892cee-a089-40f8-a278-b2d0c19ec471" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">后面加了NS的方法主要用于XML DOM对象，可以参考<a href="https://www.yiibai.com/dom/dom_namednodemap_getnameditemns.html">DOM NamedNodeMap对象getNamedItemNS()方法</a></span></li></ul></li></ul><ul id="dfa87806-b348-44e6-af08-ceea151a94ab" class="bulleted-list"><li style="list-style-type:disc"><code>attributes</code> 属性中的每个节点的<code>nodeName</code> 是对应属性的名字，<code>nodeValue</code>是属性的值，因为<code>Attr</code> 接口本身继承<code>Node</code> 接口，所以属性节点具有<code>nodeName</code>和<code>nodeValue</code> ，属性节点的<code>nodeType</code> 值就是<code>node.ATTRIBUTE_NODE</code> (2)<pre id="7223869f-b26b-412d-8d99-526a40718a2d" class="code code-wrap"><code>&lt;p
+  class=&quot;myP&quot;
+  id=&quot;myP&quot;
+  data-my-attribute=&quot;hello&quot;
+  style=&quot;color: blue; background-color: antiquewhite&quot;
+  align=&quot;center&quot;
+&gt;
+  Hello
+&lt;/p&gt;
+
+const p = document.getElementById(&quot;myP&quot;);
+console.log(p.attributes);
+console.log(
+  p.attributes[0],
+  typeof p.attributes[0],
+  p.attributes[0] instanceof Attr
+);
+console.log(p.attributes[&quot;align&quot;].nodeValue);
+let oldAttr = p.attributes.removeNamedItem(&quot;id&quot;);
+console.log(oldAttr, typeof oldAttr, oldAttr instanceof Attr);
+let newAttr = document.createAttribute(&quot;id&quot;);
+newAttr.nodeValue = &quot;my-p&quot;;
+p.attributes.setNamedItem(newAttr);
+
+</code></pre><figure id="0e486abc-c091-4807-b224-51b42097788f" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/attributes.png"><img style="width:816px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/attributes.png"/></a></figure></li></ul><ul id="4c5a438d-434b-4c95-8fb3-5c3fb40e311e" class="bulleted-list"><li style="list-style-type:disc">关于属性节点会在 <a href="../1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6.html">1.9 Attr类型</a> 中介绍，上面<code>setNamedItem()</code> 方法很少用到，它接收一个属性节点，属性节点的创建使用了<code>Document</code> 接口定义的<code>createAttribute()</code> 方法，因为使用起来没有<code>getAttribute()</code> ，<code>setAttribute()</code> 方便，开发者一般不使用<code>attributes</code> 及其方法进行元素节点的属性设置和属性获取</li></ul><ul id="e17e3be5-e5aa-4907-a477-b2f145e7bba8" class="bulleted-list"><li style="list-style-type:disc"><code>attributes</code> 最有用的场景是需要<strong>迭代元素上所有属性</strong>的时候，这个时候往往要把DOM结构序列化为XML或HTML字符串，如下代码能将一个元素的所有属性迭代并序列化为<code>attribute1 = value1</code> 的形式，并返回<pre id="c63b7849-f982-49ff-9e9d-03f3f9e65d23" class="code code-wrap"><code>function outputAttributes(element) {
+  let pairs = [];
+  for (let i = 0, len = element.attributes.length; i &lt; len; i++) {
+    const attribute = element.attributes[i];
+    pairs.push(`${attribute.nodeName}=${attribute.nodeValue}`);
+  }
+  return pairs.join(&quot; &quot;);
+}
+let pairstring = outputAttributes(p);
+p.textContent = pairstring;</code></pre><figure id="ee590549-8395-468b-852d-84399d7a19fa" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/attributes_string.png"><img style="width:912px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/attributes_string.png"/></a></figure><ul id="f54221a0-4308-4275-99c2-1164261f9dcd" class="bulleted-list"><li style="list-style-type:circle">注意<code>attributes</code> 中的类属性使用了名称<code>class</code> 而非<code>className</code> </li></ul></li></ul><h2 id="ccf92d7d-ab8e-429c-9c71-51cf6cfbe877" class="">1.3.5 创建元素</h2><ul id="76a3c7f0-7ee8-4281-bea5-377a2c4290ac" class="bulleted-list"><li style="list-style-type:disc">使用<code>document.createElement()</code> 方法创建新元素，它虽然是<code>Document</code> 定义的接口，但是常用于创建元素节点，这个方法接收一个参数，即要<strong>创建元素的标签名称（nodeName）</strong><ul id="d60268bc-7116-45f5-9605-ab30111c2f3c" class="bulleted-list"><li style="list-style-type:circle">在HTML中标签名是不分大小写的，所以传入大写和小写都可以创建对应的元素节点，但是在XML文档（包括XHTML）中是区分大小写的</li></ul><ul id="d7d2b091-c198-4055-bd91-c02a765166b7" class="bulleted-list"><li style="list-style-type:circle">使用<code>createElement()</code> 方法创建新元素的同时也会将其<code>ownerDocument</code> 属性设置成<code>document</code> ，此时可以再为其添加属性，添加更多子元素</li></ul><ul id="14d069c9-174d-4f02-8b98-18f6f0cacf0a" class="bulleted-list"><li style="list-style-type:circle">在新元素上设置属性只会附加信息，因为这个元素节点还没有添加到文档树中，所以不会影响浏览器的显示，要把元素节点添加到文档树中可以使用之前在<code>Document</code> 类型中提到的<code>appendChild()</code> 、<code>insertBefore()</code> 、<code>replaceChild()</code> ；元素被添加到文档树后，浏览器会立即将其渲染出来，之后再对这个元素所在的任何修改都会在浏览器中反映出来<pre id="542dd65c-9168-4fef-b09f-0e07bd5b24d1" class="code code-wrap"><code>&lt;fieldset&gt;
+  创建元素
+  &lt;label for=&quot;tag-name&quot;&gt;输入元素标签名&lt;/label&gt;
+  &lt;input type=&quot;text&quot; name=&quot;tag-name&quot; /&gt;
+  &lt;label for=&quot;node-value&quot;&gt;输入元素文本内容&lt;/label&gt;
+  &lt;input type=&quot;text&quot; name=&quot;node-value&quot; /&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;创建&quot; /&gt;
+&lt;/fieldset&gt;
+&lt;p&gt;创建的元素挂载到下面的content-div上&lt;/p&gt;
+&lt;div class=&quot;content&quot;&gt;&lt;/div&gt;
+
+
+const submit = document.querySelector(&quot;input[type=&#x27;submit&#x27;]&quot;);
+const tagNameInput = document.querySelector(&quot;input[name=&#x27;tag-name&#x27;]&quot;);
+const nodeValueInput = document.querySelector(&quot;input[name=&#x27;node-value&#x27;]&quot;);
+const content = document.querySelector(&quot;.content&quot;);
+submit.addEventListener(&quot;click&quot;, () =&gt; {
+  if (tagNameInput &amp;&amp; nodeValueInput) {
+    const newEle = document.createElement(tagNameInput.value);
+    tagNameInput.value = &quot;&quot;;
+    if (newEle) {
+      newEle.textContent = nodeValueInput.value;
+      content.appendChild(newEle);
+      nodeValueInput.value = &quot;&quot;;
+    } else {
+      alert(&quot;非法的标签&quot;);
+    }
+  } else {
+    alert(&quot;请输入元素标签名和元素文本内容&quot;);
+  }
+});
+    </code></pre><figure id="a3cc25e2-b455-4815-8cd6-5ece6e74b4bc" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/createElement.gif"><img style="width:768px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/createElement.gif"/></a></figure></li></ul></li></ul><h2 id="540db49c-70a6-4e2e-a640-3e83b0ec03aa" class="">1.3.6 元素后代（Element Children）</h2><ul id="df4a7506-004b-480a-a4dd-d25e04b4fb5a" class="bulleted-list"><li style="list-style-type:disc">元素可以拥有任意多个子元素和后代元素，因为元素本身也可以是其它元素的子元素</li></ul><ul id="fcb0cbc9-daf6-45a6-98ba-725c088db288" class="bulleted-list"><li style="list-style-type:disc"><code>childNodes</code> 属性包含元素所有的<strong>子节点</strong>，这些子节点可能是其它元素、文本节点、注释或处理指令，不同浏览器在识别这些节点时的表现有明显不同</li></ul><ul id="d71697b2-c84a-4ede-a78e-987c8c4bfa8d" class="bulleted-list"><li style="list-style-type:disc">在Document类型提到过<a href="Document%E7%B1%BB%E5%9E%8B%20bde94900852d418ba9c7fbb57c0f68cd.html">1.2.2 文档子节点（Document Children）</a> ，本质上，元素的子节点和文档子节点是一样的，都是使用<code>Node</code> 接口定义的<code>childNodes</code> 属性获取节点的所有子节点，因为代码解析的问题，一个元素节点的后代可能包括开发者并不想要的<strong>空格文本节点</strong>，如下<pre id="b5f21ae7-8ef9-44df-abec-8c500a6d01e4" class="code code-wrap"><code>&lt;ul id=&quot;myList&quot;&gt;
+  &lt;li&gt;item 1&lt;/li&gt;
+  &lt;li&gt;item 2&lt;/li&gt;
+  &lt;li&gt;item 3&lt;/li&gt;
+&lt;/ul&gt;
+
+const myList = document.getElementById(&quot;myList&quot;);
+console.log(myList.childNodes);</code></pre><figure id="012d9726-76cc-4007-a50a-04e90629566e" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/node_list.png"><img style="width:288px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/node_list.png"/></a></figure><ul id="9bb4c95b-f5ac-4a7b-aa38-59f63edb8ef4" class="bulleted-list"><li style="list-style-type:circle">其中3个&lt;li&gt;元素，4个文本节点（&lt;li&gt;元素周围的空格）</li></ul><ul id="71f73297-921d-4a98-a914-ec382bddb322" class="bulleted-list"><li style="list-style-type:circle">如果把元素之间的空格去掉，<code>myList</code> 的子节点就会只有3个&lt;li&gt;元素<pre id="0284b973-a71a-450d-8453-2aac31737e09" class="code code-wrap"><code>&lt;ul id=&quot;myList&quot;&gt;&lt;li&gt;item 1&lt;/li&gt;&lt;li&gt;item 2&lt;/li&gt;&lt;li&gt;item 3&lt;/li&gt;&lt;/ul&gt;</code></pre></li></ul><ul id="ecf6e653-b594-4f26-9396-8c6506e43c70" class="bulleted-list"><li style="list-style-type:circle">但是这种写法在&lt;li&gt;元素很多的情况下代码结构会<strong>比较难看</strong>，所以在获取元素节点的所有后代元素节点时，会将<code>childNodes</code> 上的所有节点遍历一遍，只选取<code>nodeType</code> 值是1（元素节点）的节点<pre id="2469755b-24cc-4a9d-91db-d8c1f6575862" class="code code-wrap"><code>function getElementChildren(ele) {
+  let res = [];
+  for (let i = 0; i &lt; ele.childNodes.length; i++) {
+    if (ele.childNodes[i].nodeType === Node.ELEMENT_NODE)
+      res.push(ele.childNodes[i]);
+  }
+  return res;
+}
+let eleChildren = getElementChildren(myList);
+console.log(eleChildren);</code></pre><figure id="c86f4f5f-90a7-47c4-ba7b-9c9bd84459a7" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/elementChildren.png"><img style="width:336px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/elementChildren.png"/></a></figure></li></ul><ul id="f673af4d-81d9-4693-b08c-50d040c824c4" class="bulleted-list"><li style="list-style-type:circle">除此之外，如果在提前知道元素节点的后代节点的标签名称都是一致的情况下，可以使用<code>getElementsByTagName()</code> 方法，与在文档上调用是一样的，只不过限制了在了当前元素之内，只会返回当前元素的后代节点<pre id="7c6a5d89-1a97-4ccd-9240-ea22ac02ab15" class="code code-wrap"><code>console.log(myList.getElementsByTagName(&quot;li&quot;));</code></pre><div><figure id="33807178-1e2d-4262-9b92-585e4cd50458" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/%25E5%2590%258E%25E4%25BB%25A3%25E8%258A%2582%25E7%2582%25B9.png"><img style="width:384px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/%25E5%2590%258E%25E4%25BB%25A3%25E8%258A%2582%25E7%2582%25B9.png"/></a></figure></div></li></ul></li></ul><hr id="5d503f6f-4051-4dcd-a338-a75163eacfa4"/><ul id="8aee87c4-6e82-4777-be9b-25a7e8ec2d32" class="bulleted-list"><li style="list-style-type:disc">以下为对《JavaScript高级程序设计（第4版）》的补充</li></ul><ul id="aaa9be5d-827f-449e-adb3-09610b11186d" class="bulleted-list"><li style="list-style-type:disc">实际上，DOM Standard规范中的<a href="https://dom.spec.whatwg.org/#parentnode"><strong>ParentNode</strong></a><strong> </strong>接口为元素节点、文档节点和文档片段节点都提供了一个<code>children</code> 属性，该属性返回一个<code>HTMLCollection</code> 对象，它<strong>按顺序包含节点的直接后代元素节点</strong>，节点定义如下<pre id="f8549b90-0247-421a-9bc9-ce07ded57aea" class="code code-wrap"><code>interface mixin ParentNode {
+  [SameObject] readonly attribute HTMLCollection children;
+  readonly attribute Element? firstElementChild;
+  readonly attribute Element? lastElementChild;
+  readonly attribute unsigned long childElementCount;
+
+  [CEReactions, Unscopable] undefined prepend((Node or DOMString)... nodes);
+  [CEReactions, Unscopable] undefined append((Node or DOMString)... nodes);
+  [CEReactions, Unscopable] undefined replaceChildren((Node or DOMString)... nodes);
+
+  Element? querySelector(DOMString selectors);
+  [NewObject] NodeList querySelectorAll(DOMString selectors);
+};
+Document includes ParentNode;
+DocumentFragment includes ParentNode;
+Element includes ParentNode;</code></pre><ul id="9f901176-8dba-4421-9c9f-28e4f7586ede" class="bulleted-list"><li style="list-style-type:circle"><code>mixins</code>是一种实现多重继承的方式，通过它可以给现有的类添加特性</li></ul><ul id="a0cdb68b-b8b6-4c7b-98c0-a1ce4bbf3448" class="bulleted-list"><li style="list-style-type:circle"><code>Document</code> 、<code>DocumentFragment</code> 、<code>Element</code> 接口都实现了<code>ParentNode</code> 接口，所以它们的对象可以使用<code>children</code>属性获取直接后代的元素节点，不用管文本节点了</li></ul><pre id="082ebb86-71c6-492c-851f-a12a192499f7" class="code code-wrap"><code>console.log(myList.children);</code></pre><figure id="c5a9528b-72be-4536-b232-7f90aaddea9c" class="image"><a href="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/%25E5%2590%258E%25E4%25BB%25A3%25E8%258A%2582%25E7%2582%25B9.png"><img style="width:384px" src="Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c/%25E5%2590%258E%25E4%25BB%25A3%25E8%258A%2582%25E7%2582%25B9.png"/></a></figure></li></ul></div></article></body></html>

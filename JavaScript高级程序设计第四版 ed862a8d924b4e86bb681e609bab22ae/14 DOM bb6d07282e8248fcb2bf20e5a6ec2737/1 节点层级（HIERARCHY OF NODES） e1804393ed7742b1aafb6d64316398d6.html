@@ -1,0 +1,1040 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>1. 节点层级（HIERARCHY OF NODES）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e1804393-ed77-42b1-aafb-6d64316398d6" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_klimt_1912.jpg" style="object-position:center 0%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">☔</span></div><h1 class="page-title">1. 节点层级（<strong>HIERARCHY OF NODES</strong>）</h1></header><div class="page-body"><ul id="b3ffe1f4-b7c5-43ae-ac38-408cb9d99b64" class="bulleted-list"><li style="list-style-type:disc">任何HTML或XML文档都可以用DOM表示为一个由<strong>节点构成的层级结构（a hierarchy of nodes）</strong><ul id="ec4a06eb-db5c-42da-a468-dc38c37c5191" class="bulleted-list"><li style="list-style-type:circle">节点分为很多类型，每种类型对应着文档中不同的信息 和/或 <strong>标记</strong>(<strong>markup</strong>)，也有各自不同的<strong>特性</strong>(<strong>characteristics</strong>)、数据和方法</li></ul><ul id="a2991718-05b7-407a-884d-4a10270f514b" class="bulleted-list"><li style="list-style-type:circle">不同类型之间的节点或存在某种关系，这些关系构成了<strong>层级结构</strong>（<strong>hierarchy</strong>），让标记可以表示为一个以特定节点为根的树形结构</li></ul></li></ul><ul id="a4d34ba5-4940-439d-a504-56c6f03d95e4" class="bulleted-list"><li style="list-style-type:disc">以如下的HTML为例<pre id="797e712b-a958-400d-ad23-f8023dcaac6e" class="code code-wrap"><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Sample Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;Hello World!&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></li></ul><ul id="c240fc17-d872-41a1-8c8d-72e326fa51d5" class="bulleted-list"><li style="list-style-type:disc">表示为层级结构，如图<div id="d2f9d1ce-c590-46df-a33a-adcc570c197b" class="column-list"><div id="f2847ded-581d-41d2-8223-e8649d5da437" style="width:100%" class="column"><figure id="033c5572-4294-49f5-984c-64bb3b0079ee" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/DOM_%25E7%25BB%2593%25E6%259E%2584.png"><img style="width:528px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/DOM_%25E7%25BB%2593%25E6%259E%2584.png"/></a></figure></div><div id="0d2977e0-7558-447b-89e9-6307ef568f3e" style="width:100%" class="column"><ul id="86f94346-d630-472e-848a-9ace7fbb8abf" class="bulleted-list"><li style="list-style-type:disc">document节点表示每个文档的根节点，这里根节点的唯一子节点是&lt;html&gt;元素，称为<strong>文档元素（documentElement）</strong><ul id="b9c6c7ca-545f-43d2-aea2-a3e7db1eff8d" class="bulleted-list"><li style="list-style-type:circle">文档元素是最外层的元素</li></ul><ul id="84a333ae-5f5f-4980-bf31-ea91ea015de1" class="bulleted-list"><li style="list-style-type:circle">所有其它元素都在文档元素之内</li></ul><ul id="a95986de-086d-4267-9514-1d00b8b7acbf" class="bulleted-list"><li style="list-style-type:circle">每个文档只能有一个文档元素</li></ul><ul id="72f78051-5d01-4bc9-8cfe-682f97f7188c" class="bulleted-list"><li style="list-style-type:circle">在HTML页面中文档元素只能是&lt;html&gt;元素</li></ul><ul id="885b8fdf-98e5-4f52-adfa-4c097732c29d" class="bulleted-list"><li style="list-style-type:circle">在XML文档中，没有预定义这样的元素，任何元素都可成为文档元素</li></ul></li></ul><ul id="4f0f51ad-8cf8-4e48-8762-679c2798cad8" class="bulleted-list"><li style="list-style-type:disc">HTML中的每段<strong>标记</strong>（<strong>markup</strong>）都可以表示为这个树形结构中的一个节点<ul id="5639ad96-e3bc-40f0-a2fc-54aa7e76d19d" class="bulleted-list"><li style="list-style-type:circle">元素节点（attributes nodes）表示HTML元素</li></ul><ul id="2314d792-9ebd-4ae8-b7a0-84d88f19bf9c" class="bulleted-list"><li style="list-style-type:circle">属性节点（attributes nodes）表示属性</li></ul><ul id="016ca5f4-dd22-4c9b-9483-915917192b63" class="bulleted-list"><li style="list-style-type:circle">文档类型节点（document type node）表示文档类型</li></ul><ul id="f286d17b-f9e9-4460-b07b-ff874c7ed331" class="bulleted-list"><li style="list-style-type:circle">注释节点（comment nodes）表示注释</li></ul><ul id="e4d939ca-55fb-449d-b7f9-db579c886b9a" class="bulleted-list"><li style="list-style-type:circle">DOM中总共有<strong>12</strong>种节点类型，这些类型都继承一种基本类型</li></ul></li></ul><p id="ab794504-2f13-4f73-8581-036217939206" class="">
+</p></div></div></li></ul><div id="fb4a3d76-c19e-40a8-9a64-c61883121194" class="column-list"><div id="be8c2b1d-8f0f-4998-81d5-d94d09a0e224" style="width:12.5%" class="column"><nav id="62833314-cf8c-4525-a602-9cf638a1f262" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5ab725f6-c974-43df-95c7-18baa76b5c87">1.1 Node类型</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2cd4d145-244f-4bf8-8876-2ad39bf521b7">1.1.1 Node接口规范</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dd1e6b27-7de4-4317-9383-bfca40ae0db1">1.1.2 nodeName和nodeValue</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c5c29607-2834-4b7a-b34b-2c6ef7499f99">1.1.3 节点关系（Node <strong>Relationships</strong>）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9ea46731-f3ef-4f42-9b61-04a86d898628">1.1.4 操作节点（<strong>Manipulating Node</strong>）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#77ddb372-8206-4d0f-97fb-f57443540dcf">1.1.4.1 appendChild()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#622c06e3-7fb2-40a6-a591-ac5c8b5e52f3">1.1.4.2 insertBefore()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a4b2bf7e-cfcd-4227-acc8-95a994a53d7b">1.1.4.3 replaceChild()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0b7bb88e-2dd4-4339-b599-391eabe91446">1.1.4.4 removeChild()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#38cacfab-6a1b-436a-9dcd-fd1b8e91d62f">1.1.5 其它方法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c3b450c9-a4e4-4bd0-8a80-529ad3f72f7a">1.1.5.1 cloneNode()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7aed9940-15c4-43a6-99f7-b83437d02356">1.1.5.2 normalize()</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1ad38657-7613-46d6-a8af-e40acc1da169">1.2 Document类型</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5c11390b-be54-4ee5-bebc-3def10f1a0ff">1.3 Element类型</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1ac6d771-9373-4db2-b90d-2d02415f830c">1.4 Text类型</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#22a7c335-3ef2-4a23-81a3-4a5f1757f845">1.4.1 Text接口规范</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0c19d05f-5190-4096-973b-5454182592cb">1.4.2 创建文本节点</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#62ba16e9-091a-4f54-a55e-813995c5f297">1.4.3 规范化文本节点（<strong>Normalizing Text Nodes</strong>）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#cc01dc16-5433-4592-8cb7-bdf287c4ea31">1.4.4 拆分文本节点（<strong>Splitting Text Nodes</strong>）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#04eff27a-28ec-41d2-ac19-e9e17b4b13ae">1.5 Comment类型</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c7bf8ea8-c72f-4cb9-a55c-7538e074f6ea">1.6 CDATASection类型</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#937d4fd2-0046-49f0-91e4-d74199974a91">1.7 DocumentType类型</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#1941b4ec-02f9-40e3-9454-e070ae4b280e">1.8 DocumentFragment类型</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#af5de170-f3af-4932-af69-76ebffde38c8">1.9 Attr类型</a></div></nav><p id="e7f6a547-38d4-40a1-8fbf-f0653224db1a" class="">
+</p></div><div id="6951b3b5-8418-44c9-a45d-caa4a8c9c49c" style="width:87.5%" class="column"><h1 id="5ab725f6-c974-43df-95c7-18baa76b5c87" class="">1.1 Node类型</h1><ul id="145f9e6c-78ba-4e87-b4c7-7ecb75dba908" class="bulleted-list"><li style="list-style-type:disc">DOM Level 1 描述了名为<code>Node</code>的接口，这个接口是所有DOM节点类型都必须实现的<ul id="2a3646ce-d6d0-49d6-8d85-9c2b2ce20374" class="bulleted-list"><li style="list-style-type:circle">Node接口在JavaScript中被实现为Node类型，在除了IE之外的所有浏览器都可以直接访问这个类型</li></ul><ul id="f3151d69-543b-4a85-a3db-0a2573ced15c" class="bulleted-list"><li style="list-style-type:circle">在JavaScript中所有节点类型都继承Node类型，因此所有类型都共享相同的基本属性和方法</li></ul><pre id="bd277bf3-7530-4fe4-b3a3-d6c2deb67108" class="code"><code>console.log(typeof Node); // &quot;function&quot;
+console.log(document instanceof Node); // true
+console.log(document.documentElement instanceof Node); // true</code></pre></li></ul><ul id="3eb8e7b1-ca4c-4d81-86a8-ad59847e2208" class="bulleted-list"><li style="list-style-type:disc">每个节点都有nodeType属性，表示该节点的类型，节点类型由定义在Node类型上 的12个数值常量表示<ul id="2aa4e4c6-d21e-4629-81a6-a2ea278ccd26" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.ELEMENET_NODE：1</span></li></ul><ul id="d8bf51a5-47fa-403e-ab12-659125be3bc5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.ATTRIBUTE_NODE：2</span></li></ul><ul id="caa53991-57c1-41d2-8e6d-952c13a68908" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.TEXT_NODE：3</span></li></ul><ul id="f39d2e9c-977a-42f4-913c-57a2ea21ea24" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.CDATA_SECTION_NODE：4</span></li></ul><ul id="2d903819-bc01-46aa-888b-f1a65d2cddf1" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.ENTITY_PEFERENCE_NODE：5</span></li></ul><ul id="d518ad31-9eb4-4cf7-bc2a-88f886352896" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.ENTITY_NODE：6</span></li></ul><ul id="1b7d256a-5c40-470a-bb66-53d89a0bd90e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.PROCESSING_INSTRUCTION_NODE：7</span></li></ul><ul id="e3be7ad9-101f-4dfe-a710-ea2025972c9f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.COMMENT_NODE：8</span></li></ul><ul id="343ac670-9256-41d9-ac4d-a1eafaf05537" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.DOCUMENT_NODE：9</span></li></ul><ul id="8abb1794-dc6a-46fa-88a2-ee0d2705b738" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.DOCUMENT_TYPE_NODE：10</span></li></ul><ul id="c31746c9-bf33-496a-92c3-afc1d2355c74" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.DOCUMENT_FRAGMENT_NODE：11</span></li></ul><ul id="5d96ad16-355e-466e-ab52-4622c9832288" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">Node.NOTATION_NODE：12</span></li></ul></li></ul><ul id="356d538a-9dbb-4eb5-b48e-13d6dde66a35" class="bulleted-list"><li style="list-style-type:disc">节点类型可以通过与这些常量比较来确定<pre id="8f90c63f-5cec-48a4-84b8-32ae348aa0a0" class="code"><code>if(someNode.nodeType === Node.ELEMENT_NODE) {
+	alert(&quot;Node is an element&quot;);
+}</code></pre><ul id="2400b5a8-5d8c-4597-a910-fd6f021c0ac7" class="bulleted-list"><li style="list-style-type:circle">浏览器并不支持所有节点类型</li></ul><ul id="f5422844-eb37-4f4b-8dec-92acfbb2af45" class="bulleted-list"><li style="list-style-type:circle">开发者最常用到的是元素节点（ELEMENT_NODE）和文本节点（TEXT_NODE）</li></ul></li></ul><h2 id="2cd4d145-244f-4bf8-8876-2ad39bf521b7" class="">1.1.1 Node接口规范</h2><ul id="2e1fe37e-9e64-4506-9acd-754f442176e8" class="bulleted-list"><li style="list-style-type:disc">Node接口定义的属性和方法可以参考<a href="https://dom.spec.whatwg.org/#interface-node">HTML-DOM-Standard</a></li></ul><pre id="d417da22-0c9e-4304-aaa1-0460fdd58201" class="code"><code>[Exposed=Window]
+interface Node: EventTarget {
+	const unsigned short ELEMENT_NODE = 1;
+  const unsigned short ATTRIBUTE_NODE = 2;
+  const unsigned short TEXT_NODE = 3;
+  const unsigned short CDATA_SECTION_NODE = 4;
+  const unsigned short ENTITY_REFERENCE_NODE = 5; // legacy
+  const unsigned short ENTITY_NODE = 6; // legacy
+  const unsigned short PROCESSING_INSTRUCTION_NODE = 7;
+  const unsigned short COMMENT_NODE = 8;
+  const unsigned short DOCUMENT_NODE = 9;
+  const unsigned short DOCUMENT_TYPE_NODE = 10;
+  const unsigned short DOCUMENT_FRAGMENT_NODE = 11;
+  const unsigned short NOTATION_NODE = 12; // legacy
+
+	readonly attribute unsigned short nodeType;
+  readonly attribute DOMString nodeName;
+
+	readonly attribute USVString baseURI;
+
+  readonly attribute boolean isConnected;
+  readonly attribute Document? ownerDocument;
+  Node getRootNode(optional GetRootNodeOptions options = {});
+  readonly attribute Node? parentNode;
+  readonly attribute Element? parentElement;
+  boolean hasChildNodes();
+  [SameObject] readonly attribute NodeList childNodes;
+  readonly attribute Node? firstChild;
+  readonly attribute Node? lastChild;
+  readonly attribute Node? previousSibling;
+  readonly attribute Node? nextSibling;
+
+  [CEReactions] attribute DOMString? nodeValue;
+  [CEReactions] attribute DOMString? textContent;
+  [CEReactions] undefined normalize();
+
+  [CEReactions, NewObject] Node cloneNode(optional boolean deep = false);
+  boolean isEqualNode(Node? otherNode);
+  boolean isSameNode(Node? otherNode); // legacy alias of ===
+
+  const unsigned short DOCUMENT_POSITION_DISCONNECTED = 0x01;
+  const unsigned short DOCUMENT_POSITION_PRECEDING = 0x02;
+  const unsigned short DOCUMENT_POSITION_FOLLOWING = 0x04;
+  const unsigned short DOCUMENT_POSITION_CONTAINS = 0x08;
+  const unsigned short DOCUMENT_POSITION_CONTAINED_BY = 0x10;
+  const unsigned short DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 0x20;
+  unsigned short compareDocumentPosition(Node other);
+  boolean contains(Node? other);
+
+  DOMString? lookupPrefix(DOMString? namespace);
+  DOMString? lookupNamespaceURI(DOMString? prefix);
+  boolean isDefaultNamespace(DOMString? namespace);
+
+  [CEReactions] Node insertBefore(Node node, Node? child);
+  [CEReactions] Node appendChild(Node node);
+  [CEReactions] Node replaceChild(Node node, Node child);
+  [CEReactions] Node removeChild(Node child);
+}
+dictionary GetRootNodeOptions {
+  boolean composed = false;
+};</code></pre><ul id="8523462e-1456-4cb1-a5e2-5acfafc476a7" class="bulleted-list"><li style="list-style-type:disc"><code>[Exposed=Window]</code> 表示接口的实例只能在主线程中使用，不能在worker中使用</li></ul><ul id="057507f5-00da-4e09-85de-6d7730169ac2" class="bulleted-list"><li style="list-style-type:disc"><code>: EventTarget</code> 表示接口继承实现EventTarget的属性和方法（其中包括注册和移除时间处理程序的方法等） </li></ul><ul id="70e22db5-7825-4a80-ad33-18e8e9438a2d" class="bulleted-list"><li style="list-style-type:disc"><code>USVString</code> 代表所有可用<code>unicode</code><strong>标量序列</strong>的集合，关于DOMString，USVString，CSSDOMString以及BinaryString可以查看<a href="https://www.notion.so/9-JavaScript-String-e5d7b667f08e4f90ac1f6cefbdb42ad9"><span class="icon">🎍</span>9. JavaScript中的字符串（String）</a> </li></ul><ul id="32b12cb9-cd63-43e7-ae8f-07b00a6976c0" class="bulleted-list"><li style="list-style-type:disc"><code>Document?</code> <code>Node?</code> 等其中的问好表示返回值的类型可能不是Document或Node（可能节点没有对应属性值而是null）</li></ul><ul id="8e909ea3-8c8c-4d22-bf96-d26c2ebe9e4d" class="bulleted-list"><li style="list-style-type:disc"><code>[SameObject]</code> 该扩展属性在修饰只读属性时，表示在获取给定对象上的属性值时，必须总是返回相同的值</li></ul><ul id="b522b91f-8cea-4d59-a269-e8f119a96bba" class="bulleted-list"><li style="list-style-type:disc">用<code>[CEReactions]</code> 修饰的扩展属性必须没有参数，不能出现在操作、属性（attribute）、setter，或deleter之外的地方。此外它不能出现在只读属性上，该属性确保<strong>自定义元素反应</strong>（<strong>custom element reactions</strong>）能被恰当触发，表明相关的算法需要补充额外的步骤，以便适当地跟踪和调用自定义元素反应</li></ul><ul id="72618efa-7547-4dda-bc88-5f6c0ff002c7" class="bulleted-list"><li style="list-style-type:disc"><code>[NewObject]</code> 出现在常规或静态操作上，它表明在调用该操作时，必须始终返回对新创建对象的引用</li></ul><ul id="b26265df-da42-4eac-839e-d1356baddd7b" class="bulleted-list"><li style="list-style-type:disc"><code>dictionary</code> 是一个定义（匹配字典），用于定义固有的，有序的条目的有序MAP数据类型，其中键是字符串，值是定义中指定的特定类型</li></ul><h2 id="dd1e6b27-7de4-4317-9383-bfca40ae0db1" class="">1.1.2 nodeName和nodeValue</h2><ul id="985b05d8-1a3f-469c-9798-cd3ddbacde31" class="bulleted-list"><li style="list-style-type:disc">nodeName和nodeValue保存着有关节点的信息，这两个属性的值完全取决于节点类型（nodeType）</li></ul><ul id="faec64a1-b71e-45f4-aa48-90f9e4f89945" class="bulleted-list"><li style="list-style-type:disc">在使用着两个属性前，最好先检测节点类型，对元素节点而言，nodeName的值始终等于元素的标签名，而nodeValue始终为null；下表是nodeName和nodeValue对于不同的节点类型而言的值<table id="9c089ee7-b1d5-446d-8f47-4a4a89e3800f" class="simple-table"><tbody><tr id="66f4fb19-5b9b-4e57-bd74-ce708c866d13"><td id="uYwI" class="">nodeType</td><td id="|\yq" class="">nodeName</td><td id="w[kz" class="" style="width:280.99314880371094px">nodeValue</td></tr><tr id="d3a0ac70-e320-48a6-a933-c483801970a0"><td id="uYwI" class="">ATTRIBUTE_NODE,属性节点，如input元素节点的placeholder节点</td><td id="|\yq" class="">对应的属性节点的<strong>限定名</strong>（<strong>qualified name</strong>），如placeholder节点就是“placeholder”</td><td id="w[kz" class="" style="width:280.99314880371094px">对应属性节点的值，如placeholder节点就是对应input节点的placeholder属性（attribute）值</td></tr><tr id="323ad71f-9163-4394-9b15-c7c13e0a7de2"><td id="uYwI" class="">ELEMENT_NODE,元素节点</td><td id="|\yq" class="">元素的标签名</td><td id="w[kz" class="" style="width:280.99314880371094px">null</td></tr><tr id="81f299c6-409a-4636-9b0b-89fd41c8f917"><td id="uYwI" class="">TEXT_NODE，文本节点</td><td id="|\yq" class="">“#text”</td><td id="w[kz" class="" style="width:280.99314880371094px">文本节点的文本值</td></tr><tr id="8edf7e02-d291-47ee-a1ee-9c5655f9489b"><td id="uYwI" class="">CDATA_SECTION_NODE，CDATA片段，例如&lt;!CDATA[[ … ]]&gt;，它可以直接包含未经转义的文本，CDATA 片段不应该在 HTML 中被使用；它只在 XML 中有效</td><td id="|\yq" class="">“#cdata-section”</td><td id="w[kz" class="" style="width:280.99314880371094px">null</td></tr><tr id="061bb2f5-8e93-40ca-90e8-eac13195f7fe"><td id="uYwI" class="">PROCESSING_INSTRUCTION_NODE,XML文档的处理指令，如<code>&lt;?xml version=&quot;1.0&quot;?&gt;</code></td><td id="|\yq" class=""><code>ProcessingInstruction</code> 接口定义了一个target字符串，<code>ProcessingInstruction</code> 类型节点返回关联的target字符串</td><td id="w[kz" class="" style="width:280.99314880371094px"><code>ProcessingInstruction</code> 继承自<code>CharacterData</code> ，返回其上定义的data</td></tr><tr id="c99eb3ac-af50-4995-a934-b92d570f8909"><td id="uYwI" class="">COMMENT_NODE,注释节点</td><td id="|\yq" class="">“#comment”</td><td id="w[kz" class="" style="width:280.99314880371094px">对应的注释文本字符串</td></tr><tr id="ebca3802-09e0-4330-8d94-29667bf554ce"><td id="uYwI" class="">DOCUMENT_NODE,文档节点，即document对象</td><td id="|\yq" class="">“#document”</td><td id="w[kz" class="" style="width:280.99314880371094px">null</td></tr><tr id="1952064f-8888-4546-b561-d43b1c68aafd"><td id="uYwI" class="">DOCUMENT_TYPE_NODE，文档类型节点，例如&lt;!DOCTYPE html&gt;，<code>document.childNodes[0]</code> 可能是文档类型节点</td><td id="|\yq" class="">对应的文档类型，如&lt;!DOCTYPE html&gt;对应的文档类型节点的节点名称就是“html”</td><td id="w[kz" class="" style="width:280.99314880371094px">null</td></tr><tr id="26b614fa-e333-4314-9876-8e578a393389"><td id="uYwI" class="">DOCUMENT_FRAGMENT_NODE，一个文档片段节点，它不是真实 DOM 树的一部分，可以使用<code>DocumentFragment</code> 创建一个文档片段节点</td><td id="|\yq" class="">”#document-fragment“</td><td id="w[kz" class="" style="width:280.99314880371094px">null</td></tr><tr id="dde1ccc2-4407-47fa-a3d3-966c2ba1c1c0"><td id="uYwI" class="">其他</td><td id="|\yq" class="">？</td><td id="w[kz" class="" style="width:280.99314880371094px">null</td></tr></tbody></table></li></ul><h2 id="c5c29607-2834-4b7a-b34b-2c6ef7499f99" class="">1.1.3 节点关系（Node <strong>Relationships</strong>）</h2><ul id="40911543-7a05-460d-95e8-6bf61d0d409d" class="bulleted-list"><li style="list-style-type:disc">文档中所有的节点都与其他节点有关系，这些关系可以形容成家族关系，相当于把文档树比作<strong>家谱</strong>（<strong>family tree</strong>）</li></ul><ul id="e6a154bd-f796-418c-b4cc-f5880fe748db" class="bulleted-list"><li style="list-style-type:disc">在HTML中<ul id="96167862-de4d-4910-a710-7c30b4d76d46" class="bulleted-list"><li style="list-style-type:circle">&lt;body&gt;元素是&lt;html&gt;元素的子元素，&lt;html&gt;元素是&lt;body&gt;元素的父元素</li></ul><ul id="8dde034b-8033-4e88-b855-a7ce11d1fafe" class="bulleted-list"><li style="list-style-type:circle">&lt;head&gt;元素是&lt;body&gt;元素的<strong>同胞</strong>元素(<strong>sibling</strong>)，因为它们有共同的父元素&lt;html&gt;</li></ul></li></ul><ul id="a52504eb-37bd-43b8-a067-5cc73d7260e6" class="bulleted-list"><li style="list-style-type:disc">每个节点都有一个<code>childNodes</code>属性，其中包含一个NodeList的实例<ul id="60ac1493-2494-46b9-83b1-2377801f5478" class="bulleted-list"><li style="list-style-type:circle">NodeList是一个<strong>类数组对象，</strong>用于存储可以按位置存取的有序节点</li></ul><ul id="498a11db-fe30-451f-9a69-8dd84922708a" class="bulleted-list"><li style="list-style-type:circle">注意NodeList并不是Array的实例（不能使用map，reduce等数组实例方法），但可以使用中括号访问它的值，而且它也有length属性</li></ul><ul id="6313c2be-b786-44bd-86f4-3ce31c3d0b38" class="bulleted-list"><li style="list-style-type:circle">NodeList对象的独特之处在于，它其实是一个对DOM结构的查询（<strong>queries being</strong>），因此DOM结构的变化会<strong>自动地在NodeList中反映出来，</strong>所以说NodeList是实时的活动对象，而不是第一次访问时所获得的内容的快照</li></ul><pre id="7bfd50d7-1c48-45be-87f6-54f012144a2c" class="code"><code>&lt;button&gt;增加li元素&lt;/button&gt;
+&lt;ul&gt;&lt;/ul&gt;
+&lt;p&gt;ul的ChildNodes: &lt;pre&gt;&lt;/pre&gt;&lt;/p&gt;
+
+const btn = document.querySelector(&quot;button&quot;);
+const ul = document.querySelector(&quot;ul&quot;);
+const k = ul.childNodes;
+btn.addEventListener(&quot;click&quot;, () =&gt; {
+  const li = document.createElement(&quot;li&quot;);
+  li.textContent = ul.childNodes.length;
+  ul.appendChild(li);
+  pre.textContent = [...k]
+});
+const pre = document.querySelector(&quot;pre&quot;);
+pre.textContent = [...k]</code></pre><figure id="40b66949-514c-42b5-9b9b-213ffaaf7acd" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/childNodes.gif"><img style="width:624px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/childNodes.gif"/></a></figure><ul id="8185b7b1-1951-4a69-82dd-9076131c429a" class="bulleted-list"><li style="list-style-type:circle">可以通过中括号的方法访问NodeList中的元素，就像<code>childNodes[0]</code> 这样</li></ul><ul id="f65f1be1-bbc1-409c-b936-60e77710a083" class="bulleted-list"><li style="list-style-type:circle">也可以使用item()方法，如<code>childNodes.item(1)</code> ，但是多数开发者都倾向使用中括号，因为它是一个类数组对象</li></ul><ul id="f0bc6f81-33fe-44b5-9163-6ea092a6e754" class="bulleted-list"><li style="list-style-type:circle">使用<code>Array.prototype.slice()</code> 或者<code>Array.from()</code> 可以将NodeList对象转化成数组</li></ul></li></ul><ul id="bde255b2-2cf3-43f1-9fe2-5ee8684d20b4" class="bulleted-list"><li style="list-style-type:disc">每个节点都有一个<code>parentNode</code>属性，指向其DOM树中的父元素<ul id="750f55cc-eb62-4861-bdd3-848dc1dc66a7" class="bulleted-list"><li style="list-style-type:circle"><code>childNodes</code> 属性中的每个节点都有相同的父元素，因此它们的<code>parentNode</code> 属性都指向同一个节点</li></ul><ul id="0d7171d8-f600-4ba8-be7a-3bc954be3059" class="bulleted-list"><li style="list-style-type:circle">此外<code>childNodes</code> 列表中的每个节点都是同一列表中的其他节点的同胞节点</li></ul><ul id="0751c546-8ee2-48e9-8428-24d6acf9ca7d" class="bulleted-list"><li style="list-style-type:circle">使用<code>previousSibling</code>和<code>nextSibling</code> 可以在这个列表的节点间导航</li></ul><ul id="55eab623-fb76-46a1-ab90-9bdd411eaa54" class="bulleted-list"><li style="list-style-type:circle">这个列表的第一个节点的<code>previousSibling</code> 属性是null，最后一个节点的<code>nextSibling</code> 属性也是<code>null</code> </li></ul><ul id="55046687-493d-4c52-8f29-4ea21fc567a5" class="bulleted-list"><li style="list-style-type:circle">如下是使用上面的例子，每次点击后遍历<code>childNodes</code> 获取每个节点的<code>previousSibling</code>和<code>nextSibling</code> 属性，可以发现<code>childNodes</code>列表中的节点都是相邻的同胞节点<pre id="84682cf2-44a1-48e7-9307-883af603de80" class="code"><code>var alertInfo = () =&gt; {
+  let str = &quot;&quot;;
+  for (const item of k) {
+    str += `当前节点${item.textContent}:上一个节点(previousSibling)为${
+      item.previousSibling &amp;&amp; item.previousSibling.textContent
+    },下一个节点(nextSibling)为${
+      item.nextSibling &amp;&amp; item.nextSibling.textContent
+    }\n`;
+  }
+  alert(str);
+};
+btn.addEventListener(&quot;click&quot;, () =&gt; {
+  const li = document.createElement(&quot;li&quot;);
+  li.textContent = ul.childNodes.length;
+  ul.appendChild(li);
+  pre.textContent = [...k];
+  alertInfo()
+});</code></pre><figure id="3274d3b5-3400-4466-aac6-f4fb4419106b" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/previousSiblingAndNextSibling.png"><img style="width:672px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/previousSiblingAndNextSibling.png"/></a></figure><ul id="dbde3124-305f-49af-be73-4dd6ad61d208" class="bulleted-list"><li style="list-style-type:square">注意如果<code>childNodes</code>中只有一个节点，则它的<code>previousSibling</code>和<code>nextSibling</code> 属性都是<code>null</code> </li></ul></li></ul></li></ul><ul id="f30de4b7-57db-4170-a91a-c6b7fae3ca84" class="bulleted-list"><li style="list-style-type:disc">父节点和它的第一个即最后一个子节点也有专门的属性：<code>firstChild</code> 和<code>lastChild</code> 分别指向childNodes中的第一个和最后一个节点，即<code>someNode.childNodes[0] === someNode.firstChild</code> 始终成立，并且<code>someNode.childNodes[someNode.childNodes.length - 1] === someNode.lastChild</code> 始终成立，如果没有子节点，那么<code>firstChild</code>和<code>lastChild</code> 都是<code>null</code> <pre id="26142e58-7272-42bf-8c7d-a9ac1d0823f7" class="code"><code>document.childNodes[0] === document.firstChild; // true
+document.childNodes[document.childNodes.length - 1] === document.lastChild; // true</code></pre><ul id="8ffe5894-a2b2-4a4b-b115-8bc777af1c19" class="bulleted-list"><li style="list-style-type:circle">上述节点之前的关系如图所示</li></ul><figure id="ed8a7c97-afc8-4a2a-8f6c-26ceb0ebeb07" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/%25E8%258A%2582%25E7%2582%25B9%25E5%2585%25B3%25E7%25B3%25BB.png"><img style="width:816px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/%25E8%258A%2582%25E7%2582%25B9%25E5%2585%25B3%25E7%25B3%25BB.png"/></a></figure></li></ul><ul id="03ca75ae-9f2a-48c7-a87e-10f8e87a25d3" class="bulleted-list"><li style="list-style-type:disc">利用这些关系，<code>childNodes</code> 属性的作用远远不止是必备属性那么简单了<ul id="e78e837e-abac-4786-abcf-85016b9f11c0" class="bulleted-list"><li style="list-style-type:circle">利用这些关系指针，机会可以访问到文档树的任何节点，而这种便利性就是<code>childNodes</code> 的最大亮点</li></ul><ul id="4b80c0aa-e4d9-48f4-acdd-8b5f82188d0d" class="bulleted-list"><li style="list-style-type:circle">还有一个便利的方法是<code>hasChildNodes()</code> ，这个方法返回一个布尔值，说明节点当前是否有一个或多个子节点，相比于查询<code>childNodes.length</code> ，这个方法直接调用更方便</li></ul></li></ul><ul id="ecd1f1c1-a551-4a7e-a9f3-99b99b6f95a8" class="bulleted-list"><li style="list-style-type:disc">最后还有一个所有节点都<strong>共享的关系，</strong><code>ownerDocument</code>  属性是一个指向代表整个文档的文档节点的指针<ul id="fa90a3b2-7bf2-49a8-b0f5-260b4de8a450" class="bulleted-list"><li style="list-style-type:circle">所有节点都被创建它们（或自己所在）的文档所拥有</li></ul><ul id="1000371f-2c19-466a-8605-6e41b0f688a1" class="bulleted-list"><li style="list-style-type:circle">因为一个节点不可能同时存在于两个或多个文档中，这个属性为迅速访问文档节点提供了便利，因为无需在文档结构逐层上溯了<pre id="5da9c9e0-da33-4689-a08e-2683e8933488" class="code"><code>someNode.ownerDocument === document; // true</code></pre></li></ul><ul id="fe4baaa4-e5d0-40be-9d6c-37cb2f89fc49" class="bulleted-list"><li style="list-style-type:circle">需要注意的是，<code>document.ownerDocument</code> 的值是<code>null</code> ，而不是<code>document</code> </li></ul></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="598af481-2f0b-472d-9389-d19c5194c00f"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意，虽然所有节点类型都继承了Node，但并非所有节点都有子节点</div></figure><h2 id="9ea46731-f3ef-4f42-9b61-04a86d898628" class="">1.1.4 操作节点（<strong>Manipulating Node</strong>）</h2><h3 id="77ddb372-8206-4d0f-97fb-f57443540dcf" class="">1.1.4.1 appendChild()</h3><ul id="ecd4e5ad-cb61-4ec5-91ad-8e4da5e73552" class="bulleted-list"><li style="list-style-type:disc">因为所有的节点关系都是只读的，所以DOM提供了一些操作节点的方法，最常用的就是<code>appendChild()</code> </li></ul><ul id="fa0d1b1c-9e55-4f50-82e2-08e33f2ff754" class="bulleted-list"><li style="list-style-type:disc"><code>appendChild()</code> 用于在节点的<code>childNodes</code> 列表末尾添加节点，添加的新节点会更新相关的关系指针，包括父节点和之前的最后一个子节点，<code>appendChild()</code> 方法返回新添加的节点<pre id="7afd3013-48a3-4ae0-aa69-9479451466c9" class="code code-wrap"><code>&lt;body&gt;
+  &lt;input type=&quot;text&quot; /&gt;&lt;button&gt;添加段落&lt;/button&gt;
+&lt;/body&gt;
+
+const btn = document.querySelector(&quot;button&quot;);
+const input = document.querySelector(&quot;input&quot;);
+btn.addEventListener(&quot;click&quot;, () =&gt; {
+  if (input.value) {
+    const p = document.createElement(&quot;p&quot;);
+    p.textContent = input.value;
+    input.value = &quot;&quot;;
+    const k = document.body.appendChild(p);
+    console.log(k === p); // true
+		console.log(k === document.body.lastChild); // true
+  } else {
+    alert(&quot;请输入文本&quot;);
+  }
+});</code></pre><figure id="6843444c-c23c-4fb0-9baf-583a7600908f" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/appendChild.gif"><img style="width:515px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/appendChild.gif"/></a></figure></li></ul><h3 id="622c06e3-7fb2-40a6-a591-ac5c8b5e52f3" class="">1.1.4.2 insertBefore()</h3><ul id="b1068bff-a353-4df5-9d79-06135cd0f379" class="bulleted-list"><li style="list-style-type:disc">如果想把节点放到<code>childNodes</code>中的<strong>特定位置</strong>而不是末尾，可以使用<code>insertBefore()</code> 方法，这个方法接收两个参数，要插入的节点和参考节点，调用这个方法后，要插入的节点会变成参考节点的<strong>前一个同胞节点，并被返回</strong>，如果参考节点是<code>null</code>，则<code>insertBefore()</code> 和<code>appendChild()</code> 效果相同<pre id="03cd72cc-427b-4ae8-9f29-a03f8b3bc99c" class="code code-wrap"><code>&lt;style&gt;
+  p.active {
+    border: 1px solid salmon;
+    background-color: rgb(243, 234, 222);
+  }
+&lt;/style&gt;
+&lt;input type=&quot;text&quot; /&gt;&lt;button&gt;添加段落&lt;/button&gt;
+&lt;div&gt;&lt;/div&gt;
+
+let pre = null;
+const div = document.querySelector(&quot;div&quot;);
+const btn = document.querySelector(&quot;button&quot;);
+const input = document.querySelector(&quot;input&quot;);
+btn.addEventListener(&quot;click&quot;, () =&gt; {
+  if (input.value) {
+    const p = document.createElement(&quot;p&quot;);
+    p.textContent = input.value;
+    input.value = &quot;&quot;;
+    const k = div.insertBefore(p, pre);
+    console.log(k === p); // true
+    console.log(k === div.lastChild); // 如果pre是null就是true
+  } else {
+    alert(&quot;请输入文本&quot;);
+  }
+});
+
+div.addEventListener(&quot;click&quot;, (e) =&gt; {
+  if (pre) {
+    pre.removeAttribute(&quot;class&quot;);
+  }
+  pre = e.target;
+  pre.setAttribute(&quot;class&quot;, &quot;active&quot;);
+});</code></pre><figure id="ca8f484a-867e-4948-8db4-959521e3450a" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/insertBefore.gif"><img style="width:982px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/insertBefore.gif"/></a></figure></li></ul><h3 id="a4b2bf7e-cfcd-4227-acc8-95a994a53d7b" class="">1.1.4.3 replaceChild()</h3><ul id="e35830e3-f3aa-4afd-8105-6994ea931743" class="bulleted-list"><li style="list-style-type:disc"><code>appendChild()</code>和<code>insertBefore()</code> 在插入节点时不会删除任何已有的节点，相对的<code>replaceChild()</code> 接收两个参数：要插入的节点和要替换的节点，要替换的节点会被返回并从文档树中完全移除，要插入的节点取而代之</li></ul><ul id="54ba5144-783e-42a5-bfd4-0a4f323dbc30" class="bulleted-list"><li style="list-style-type:disc">使用<code>replaceChild()</code> 替换一个节点后，所有关系指针都会从被替换的节点复制过来，虽然被替换的节点从技术上说仍然被同一个文档所拥有，但<strong>文档中已经没有它的位置</strong>了</li></ul><ul id="13d12d97-6ecf-41b4-a0f3-8d5b3321ec4f" class="bulleted-list"><li style="list-style-type:disc">参数传递有误可能抛出的异常<ul id="47ba9b7e-8399-4b7b-ab56-3b6663d365cb" class="bulleted-list"><li style="list-style-type:circle"><code>HierarchyRequestError</code> （DOMException）<ul id="d1bed86c-0cd9-4e63-a72c-20b17d771735" class="bulleted-list"><li style="list-style-type:square"><code>oldChild</code> 的父节点不是一个元素节点，文档节点或文档片段节点</li></ul><ul id="840a8c38-d79a-4528-bcab-70eec60b1e98" class="bulleted-list"><li style="list-style-type:square"><code>newChild</code> 是<code>oldChild</code> 的祖先，会导致节点死循环</li></ul><ul id="fac3dc4f-3565-4585-a4f3-6fd8611edc42" class="bulleted-list"><li style="list-style-type:square"><code>newChild</code> 不是一个文档片段节点，文档类型节点，元素节点，CharacterData节点</li></ul><ul id="1bcf9cc0-93df-4685-a517-7dd40ed92cd7" class="bulleted-list"><li style="list-style-type:square">调用<code>replaceChild()</code> 的节点是一个文本节点，且其父节点是<code>Document</code> </li></ul><ul id="7420ce94-0cd6-4266-94b0-4980ed16829c" class="bulleted-list"><li style="list-style-type:square">调用<code>replaceChild()</code> 的节点是一个文档类型节点，且其父节点不是<code>Document</code> （doctype应该是document的直系后代）</li></ul><ul id="65e5bfc4-3405-454c-b4db-0c81fdcdb84f" class="bulleted-list"><li style="list-style-type:square">父节点是<code>Document</code> ，<code>newChild</code> 是一个文档片段节点且有超过一个的子元素节点或有文本节点</li></ul><ul id="15cdedfa-ca2a-4cd8-97c9-62fd6e3e1221" class="bulleted-list"><li style="list-style-type:square">替换后导致<code>Document</code> 拥有超过一个的元素节点作为子结点</li></ul><ul id="2b12cd10-d1bf-4aed-be99-2bedb1bb11e7" class="bulleted-list"><li style="list-style-type:square">替换后导致一个元素节点在文本类型节点的前面</li></ul></li></ul><ul id="e40dc790-4203-4d7e-8bf9-3b023c9eddd1" class="bulleted-list"><li style="list-style-type:circle"><code>NotFoundError</code> (DOMException)<ul id="587b238e-2f80-4c24-881c-cbe16c9ec856" class="bulleted-list"><li style="list-style-type:square"><code>oldChild</code> 不是调用节点的子节点</li></ul></li></ul><pre id="c8c7c3fb-7bd4-4423-970c-4f9e9c5fd9a8" class="code code-wrap"><code>&lt;input type=&quot;text&quot; /&gt;&lt;button class=&quot;btn1&quot;&gt;替换段落&lt;/button
+&gt;&lt;button class=&quot;btn2&quot;&gt;替换第一个节点&lt;/button
+&gt;&lt;button class=&quot;btn3&quot;&gt;替换最后一个节点&lt;/button&gt;
+&lt;div&gt;
+  &lt;p&gt;第一个段落&lt;/p&gt;
+  &lt;p&gt;第二个段落&lt;/p&gt;
+  &lt;p&gt;第三个段落&lt;/p&gt;
+  &lt;p&gt;第四个段落&lt;/p&gt;
+  &lt;p&gt;第五个段落&lt;/p&gt;
+  &lt;p&gt;第六个段落&lt;/p&gt;
+&lt;/div&gt;
+
+let pre = null;
+const div = document.querySelector(&quot;div&quot;);
+const btn1 = document.querySelector(&quot;.btn1&quot;);
+const input = document.querySelector(&quot;input&quot;);
+btn1.addEventListener(&quot;click&quot;, () =&gt; {
+  if (input.value &amp;&amp; pre) {
+    const p = document.createElement(&quot;p&quot;);
+    p.textContent = input.value;
+    input.value = &quot;&quot;;
+    const k = div.replaceChild(p, pre);
+    console.log(k === pre);
+    // 替换选择节点
+    replaceActiveNode(p);
+  } else {
+    alert(&quot;请输入文本并选择要替换的节点&quot;);
+  }
+});
+const btn2 = document.querySelector(&quot;.btn2&quot;);
+btn2.addEventListener(&quot;click&quot;, () =&gt; {
+  if (input.value) {
+    const p = document.createElement(&quot;p&quot;);
+    p.textContent = input.value;
+    input.value = &quot;&quot;;
+    const k = div.replaceChild(p, div.children[0]);
+    console.log(k);
+    // 替换选择节点
+    replaceActiveNode(p);
+  } else {
+    alert(&quot;请输入文本&quot;);
+  }
+});
+
+const btn3 = document.querySelector(&quot;.btn3&quot;);
+btn3.addEventListener(&quot;click&quot;, () =&gt; {
+  if (input.value) {
+    const p = document.createElement(&quot;p&quot;);
+    p.textContent = input.value;
+    input.value = &quot;&quot;;
+    const k = div.replaceChild(p, div.children[div.children.length - 1]);
+    console.log(k);
+    // 替换选择节点
+    replaceActiveNode(p);
+  } else {
+    alert(&quot;请输入文本&quot;);
+  }
+});
+
+function replaceActiveNode(node) {
+  if (pre) {
+    pre.removeAttribute(&quot;class&quot;);
+  }
+  pre = node;
+  pre.setAttribute(&quot;class&quot;, &quot;active&quot;);
+}
+
+div.addEventListener(&quot;click&quot;, (e) =&gt; {
+  replaceActiveNode(e.target);
+});</code></pre><figure id="1cc5ddf0-0c08-46ee-a8ba-7ecb3a2b17bb" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/replaceChild.gif"><img style="width:982px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/replaceChild.gif"/></a></figure></li></ul><h3 id="0b7bb88e-2dd4-4339-b599-391eabe91446" class="">1.1.4.4 removeChild()</h3><ul id="81010485-50b1-4452-87d8-606b74863c78" class="bulleted-list"><li style="list-style-type:disc">要移除节点可以使用<code>removeChild()</code> ，这个方法接收一个参数，即要移除的节点，被移除的节点会被返回</li></ul><ul id="9b35ab13-6cc1-449a-8011-ff73872e9ba1" class="bulleted-list"><li style="list-style-type:disc">注意调用<code>removeChild()</code> 的节点是<strong>要被移除节点的父节点</strong>才能成功移除需要被移除的子结点</li></ul><ul id="20c3fb21-f49b-46ad-a565-d8ad96ae59b2" class="bulleted-list"><li style="list-style-type:disc">如果要移除节点本身，可以利用<code>parentNode</code> 属性获取父节点后移除节点本身，如下<pre id="27ec060f-1ecf-4ffb-9802-a464afb99e6e" class="code code-wrap"><code>let removedNode = someNode.parentNode.removeChild(someNode);
+console.log(removedNode ==== someNode); // true</code></pre></li></ul><ul id="efb8c24a-a0fe-4689-ae13-03bf32fac1f4" class="bulleted-list"><li style="list-style-type:disc">可以利用<code>firstChild</code> 和<code>lastChild</code> 属性移除当前节点的第一个子节点和最后一个子节点<pre id="286003d3-586f-403e-b1d7-9d1c7435dbc8" class="code code-wrap"><code>let formerFirstChild = someNode.removeChild(someNode.firstNode);
+let formerLastChild = someNode.removeChild(someNode.lastNode);</code></pre></li></ul><ul id="a117195f-2d6b-433a-8cb2-ac983d0f4ec7" class="bulleted-list"><li style="list-style-type:disc">和<code>replaceChild()</code> 方法一样，通过<code>removeChild()</code> 被移除的节点从技术上说仍然被同一个文档所拥有，但文档中已经没有它的位置了</li></ul><ul id="3fd0e80d-05f6-4194-8b3f-7c81b0ca52cf" class="bulleted-list"><li style="list-style-type:disc">并非所有的节点类型都有子节点，如果在不支持子节点的节点上调用这些方法，则会抛出错误</li></ul><h2 id="38cacfab-6a1b-436a-9dcd-fd1b8e91d62f" class="">1.1.5 其它方法</h2><h3 id="c3b450c9-a4e4-4bd0-8a80-529ad3f72f7a" class="">1.1.5.1 cloneNode()</h3><ul id="f77b5308-c7b0-46a4-8d03-d6a1768a1a51" class="bulleted-list"><li style="list-style-type:disc">所有节点类型还共享两个方法，第一个是<code>cloneNode()</code> ，会返回调用它的节点<strong>一模一样</strong>的节点<ul id="497c3119-8c9a-423c-bb71-6ebcfa6cc040" class="bulleted-list"><li style="list-style-type:circle"><code>cloneNode()</code> 方法接收一个布尔值参数，表示是否<strong>深复制</strong></li></ul><ul id="22f70edc-aff4-4f67-86a4-3be8505e91ba" class="bulleted-list"><li style="list-style-type:circle">在传入<code>true</code> 参数时，会进行深复制，即复制节点及其整个子DOM树</li></ul><ul id="e1d78119-bb6a-4ba0-953f-45fceafdd1a9" class="bulleted-list"><li style="list-style-type:circle">如果传入<code>fasle</code> ，则只会复制调用改方法的节点，复制返回的节点属于文档所有，但尚未指定父节点，所以可以称为<strong>孤儿节点</strong>（<strong>orphan</strong>）</li></ul><ul id="b55b0955-21dd-44da-a2d6-a534c76ae46c" class="bulleted-list"><li style="list-style-type:circle">可以通过appendChild()、insertBefore()或replaceChild()方法把孤儿节点添加到文档中</li></ul></li></ul><pre id="f304ddea-a333-4f30-8599-639982dca964" class="code code-wrap"><code>&lt;ul&gt;
+  &lt;li&gt;item 1&lt;/li&gt;
+  &lt;li&gt;item 2&lt;/li&gt;
+  &lt;li&gt;item 3&lt;/li&gt;
+&lt;/ul&gt;
+
+const myList = document.querySelector(&quot;ul&quot;);
+let deepList = myList.cloneNode(true);
+alert(deepList.childNodes.length); // 7
+let shallowList = myList.cloneNode(false);
+alert(shallowList.childNodes.length); // 0</code></pre><ul id="781b948b-e084-42e6-9304-5d1a35b9738c" class="bulleted-list"><li style="list-style-type:disc"><code>myList</code> 有三个列表项，每个列表项又各自包含文本</li></ul><ul id="7b82cab3-bf07-4277-955b-4e0264ff561f" class="bulleted-list"><li style="list-style-type:disc">变量<code>shallowList</code> 保存着<code>myList</code> 的浅副本，因此没有子节点</li></ul><ul id="1954468f-9f5c-44a9-a68b-81f7f0c0b129" class="bulleted-list"><li style="list-style-type:disc"><code>deepList.childNodes.length</code> 的值会因IE8及更低版本和其它浏览器对空格的处理方式而不同，现代浏览器都会<strong>为空格创建文本节点</strong>，三个&lt;li&gt;元素节点和父节点以及节点之间有4个空白的地方，所以会创建4个文本节点，共7个子节点</li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="800943c2-f1c5-4e75-84d8-802247edf12e"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：cloneNode()方法不会复制添加到DOM节点的JavaScript属性，比如时间处理程序。整个方法<strong>只复制HTML属性</strong>，以及可选地复制子节点。除此之外则一概不会复制，IE在很长一段时间内会复制事件处理程序，这是一个bug，所以推荐在复制之前先删除事件处理程序</div></figure><h3 id="7aed9940-15c4-43a6-99f7-b83437d02356" class="">1.1.5.2 normalize()</h3><ul id="85c68f2d-1dbf-4a19-b295-7a77d03d5f81" class="bulleted-list"><li style="list-style-type:disc"><code>normalize()</code> 方法唯一的任务就是<strong>处理文档子树中的文本节点</strong><ul id="623ac849-3bea-4dba-8e5c-287239aad6b3" class="bulleted-list"><li style="list-style-type:circle">由于解析器实现的差异或DOM操作等原因，可能会出现并<strong>不包含文本的文本节点</strong>，或者文本节点之间互为同胞关系</li></ul><ul id="2ceddd7e-3e81-42d2-afd7-2625e346617d" class="bulleted-list"><li style="list-style-type:circle">在节点上调用<code>normalize()</code> 方法会检测这个节点的所有后代，从中搜索上述两种情形</li></ul><ul id="ee507f02-49b9-4785-9142-25c8f55a5d32" class="bulleted-list"><li style="list-style-type:circle">如果发现空文本节点，则将其删除，如果两个同胞节点是相邻的，则将其合成一个文本节点</li></ul></li></ul><ul id="5bdc434a-bc05-4aad-8792-23b9fef2a294" class="bulleted-list"><li style="list-style-type:disc">同样是上面的<code>myList</code> ，通过<code>insertBefore()</code> 或<code>appendChild()</code> 为<code>myList</code> 增加子文本节点，可以造成两个文本节点互为同胞关系的情况，如下<pre id="fbd1d01d-ced2-4e3a-a3fd-9725465b971e" class="code code-wrap"><code>&lt;ul&gt;
+  &lt;li&gt;item 1&lt;/li&gt;
+  &lt;li&gt;item 2&lt;/li&gt;
+  &lt;li&gt;item 3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;button class=&quot;btn1&quot;&gt;在ul后增加文本&lt;/button&gt;
+&lt;button class=&quot;btn2&quot;&gt;ul调用normalize&lt;/button&gt;
+&lt;h2&gt;ul的子节点列表&lt;/h2&gt;
+&lt;pre&gt;&lt;/pre&gt;
+
+const myList = document.querySelector(&quot;ul&quot;);
+const btn1 = document.querySelector(&quot;.btn1&quot;);
+const btn2 = document.querySelector(&quot;.btn2&quot;);
+const p = document.querySelector(&quot;pre&quot;);
+btn1.addEventListener(&quot;click&quot;, () =&gt; {
+  myList.appendChild(document.createTextNode(&quot;文本节点&quot;));
+  updateP();
+});
+btn2.addEventListener(&quot;click&quot;, () =&gt; {
+  myList.normalize();
+  updateP();
+});
+updateP();
+function updateP() {
+  let str = &quot;&quot;;
+  myList.childNodes.forEach((v) =&gt; {
+    str += v.nodeName + &quot;\n&quot;;
+  });
+  p.textContent = str;
+}</code></pre><figure id="d2fdcb74-94e9-4f68-92f4-9161ee46122b" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/normalize.gif"><img style="width:624px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/normalize.gif"/></a></figure><ul id="dd8260e8-825b-4113-9e3f-ed21763c634a" class="bulleted-list"><li style="list-style-type:circle">可以看到调用<code>normalize()</code> 后，在最后新增的文本节点都合并成了一个文本节点</li></ul></li></ul><h1 id="1ad38657-7613-46d6-a8af-e40acc1da169" class="">1.2 Document类型</h1><figure id="bde94900-852d-418b-a9c7-fbb57c0f68cd" class="link-to-page"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/Document%E7%B1%BB%E5%9E%8B%20bde94900852d418ba9c7fbb57c0f68cd.html"><span class="icon">🎡</span>Document类型</a></figure><h1 id="5c11390b-be54-4ee5-bebc-3def10f1a0ff" class="">1.3 Element类型</h1><figure id="ec9e1c76-f79c-4c3a-94f3-4cdf447eca0c" class="link-to-page"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/Element%E7%B1%BB%E5%9E%8B%20ec9e1c76f79c4c3a94f34cdf447eca0c.html"><span class="icon">🛫</span>Element类型</a></figure><h1 id="1ac6d771-9373-4db2-b90d-2d02415f830c" class="">1.4 Text类型</h1><ul id="5743b1fd-4ded-4209-9108-592ef3a1169f" class="bulleted-list"><li style="list-style-type:disc">Text节点由Text类型表示，包含按字面解释的纯文本，也可能包含转义后的HTML字符，但不包含HTML代码，Text类型的节点具有如下特征<ul id="6d1845d7-a59e-4115-95d8-171dab313959" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeType等于<code>node.TEXT_NODE</code> (3)</span></li></ul><ul id="cb7d4c0d-9418-4d70-8a3e-f22cd7147d11" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeName值为”#text”</span></li></ul><ul id="3cb43298-02f6-49f6-95ef-289b5f50662d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeValue值为节点中包含的文本</span></li></ul><ul id="1bb61e4c-4223-413c-a250-7f4a0a1d9b2e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">parentNode的值为<code>Element</code>对象</span></li></ul><ul id="185df35b-756d-42fc-9ff2-c4a473c8db68" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><strong>不支持子节点</strong></span></li></ul></li></ul><h2 id="22a7c335-3ef2-4a23-81a3-4a5f1757f845" class="">1.4.1 Text接口规范</h2><ul id="c6c06c79-969f-4d18-8b75-2188f3016bc9" class="bulleted-list"><li style="list-style-type:disc">DOM Standard规范中定义了 <a href="https://dom.spec.whatwg.org/#text">Text</a> 接口，它继承于<a href="https://dom.spec.whatwg.org/#characterdata"><code>CharacterData</code></a><a href="https://dom.spec.whatwg.org/#characterdata"> </a>接口，<code>CharacterData</code> 接口又继承于<code>Node</code> <pre id="ee479d3b-bdb5-48b1-9a9a-885491625832" class="code code-wrap"><code>[Exposed=Window]
+interface Text : CharacterData {
+  constructor(optional DOMString data = &quot;&quot;);
+
+  [NewObject] Text splitText(unsigned long offset);
+  readonly attribute DOMString wholeText;
+};</code></pre><ul id="6967a278-e8e6-44b1-ad5e-0f087965be72" class="bulleted-list"><li style="list-style-type:circle">这里定义的<code>splitText()</code> 方法用于拆分文本节点</li></ul></li></ul><ul id="57b2b501-70c0-4569-a5c3-8732c5ebc04f" class="bulleted-list"><li style="list-style-type:disc"><code>CharacterData</code> 接口如下<pre id="8e38e817-2e88-4f82-81be-b73af1c7db50" class="code code-wrap"><code>[Exposed=Window]
+interface CharacterData : Node {
+  attribute [LegacyNullToEmptyString] DOMString data;
+  readonly attribute unsigned long length;
+  DOMString substringData(unsigned long offset, unsigned long count);
+  undefined appendData(DOMString data);
+  undefined insertData(unsigned long offset, DOMString data);
+  undefined deleteData(unsigned long offset, unsigned long count);
+  undefined replaceData(unsigned long offset, unsigned long count, DOMString data);
+};</code></pre><ul id="d0f5f21e-9dce-44be-9f10-65e7a213d7e2" class="bulleted-list"><li style="list-style-type:circle"><code>appendData()</code> 、<code>insertData()</code> 、<code>replaceData()</code> 等方法是文本节点的重要方法</li></ul><ul id="6b3ed6c5-f9d5-46b1-bce7-bbab3625824e" class="bulleted-list"><li style="list-style-type:circle">除了Text节点外，ProcessingInstruction、Comment节点的实现接口也继承自<code>CharacterData</code> 接口</li></ul></li></ul><div><ul id="0f68b5b5-4c4f-4456-a0dd-485ec83be5d1" class="bulleted-list"><li style="list-style-type:disc"><code>Text</code>节点中的包含的文本可以通过<code>nodeValue</code> 属性访问，也可以通过<code>data</code>属性访问，这两个属性包含相同的值，修改<code>nodeValue</code> 或<code>data</code> 的值会在另一个属性中反映出来，文本节点暴露的操作文本的方法：<ul id="0fca9b21-e1e6-4f90-819f-9020ca439551" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">appendData(<em>text</em>)，向节点末尾添加文本<em>text</em></span></li></ul><ul id="1c843637-4906-44a7-b205-bcd252372f40" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">deleteData(<em>offset, count</em>)，从位置<em>offset</em>开始删除<em>count</em>个字符</span></li></ul><ul id="35b3329e-bf62-42e0-ae37-fa9d35dd06b3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">insertData(<em>offset, text</em>)，从位置<em>offset</em>插入<em>text</em></span></li></ul><ul id="885d12de-1fcc-45f8-90f7-49661a8040dc" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">replaceData(<em>offset, count, text</em>)，用<em>text</em>替换从位置<em>offset</em>到<em>offset</em>+<em>count</em>的文本</span></li></ul><ul id="39a3b5cc-b3bf-4d7e-bac8-eb3a76789d7f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">splitText(<em>offset</em>)，在位置<em>offset</em>将当前文本节点拆分为两个文本节点</span></li></ul><ul id="bbff31a7-af51-4812-8e92-cc77bc0b9705" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">substringData(<em>offset, count</em>)，提取从位置<em>offset</em>到<em>offset+count</em>的文本</span></li></ul><p id="dd5e490e-12bc-4089-8b8a-6f132312c987" class="">除了这些方法外，还可以通过<code>length</code>属性获取文本节点中包含的字符数量，这个值等于<code>nodeValue.length</code>和<code>data.length</code></p></li></ul></div><ul id="0e27c1a4-ebf5-4d05-add4-3b291cbb5aa0" class="bulleted-list"><li style="list-style-type:disc"><strong>默认情况</strong>下，包含文本内容的每个元素最多只有一个文本节点，如下<pre id="4ec829ee-6778-415d-87c3-7cad1da6f872" class="code code-wrap"><code>&lt;body&gt;
+&lt;!-- 没有内容，因此没有文本节点 --&gt;
+&lt;div&gt;&lt;/div&gt;
+
+&lt;!-- 有空格，因此有一个文本节点 --&gt;
+&lt;div&gt; &lt;/div&gt;
+
+&lt;!-- 有内容，因此有一个文本节点 --&gt;
+&lt;div&gt;Hello World!&lt;/div&gt;
+&lt;script&gt;
+  console.log(document.body.children[0].childNodes);
+  console.log(document.body.children[1].childNodes);
+  console.log(document.body.children[2].childNodes);
+&lt;/script&gt;
+&lt;/body&gt;</code></pre><figure id="69566abf-faa7-4f96-9e1d-4aa211a6c2d4" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/TextNode.png"><img style="width:336px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/TextNode.png"/></a></figure></li></ul><ul id="74c1acdb-fc64-4ed5-91c1-9267645ebb47" class="bulleted-list"><li style="list-style-type:disc">取得文本节点的引用后，可以通过<code>nodeValue</code> 和<code>data</code> 属性进行修改，修改文本节点时有一点需要注意，就是HTML或XML代码（取决于文档类型）会被转换成实体编码，即小于号、大于号或引号会被转义，如下<pre id="6ce53c93-5889-432e-873d-c37d430ade92" class="code code-wrap"><code>document.body.children[1].childNodes[0] =
+      &quot;Some &lt;strong&gt;other&lt;strong&gt; message&quot;;
+// 实际在HTML中输出为&quot;Some &amp;lt;strong&amp;gt;other&amp;lt;/strong&amp;gt; message&quot;</code></pre><ul id="23ec7dc6-446c-4265-a0b4-93f550114fc7" class="bulleted-list"><li style="list-style-type:circle">这是将HTML字符串插入DOM文档进行编码的有效方式</li></ul></li></ul><h2 id="0c19d05f-5190-4096-973b-5454182592cb" class="">1.4.2 创建文本节点</h2><ul id="f9dd5db1-4da2-4b86-b218-a632228cae8a" class="bulleted-list"><li style="list-style-type:disc"><code>Document</code> 接口定义的<code>createTextNode()</code> 方法可以用于创建文本节点，它接收一个参数，即要插入节点的文本<ul id="0b9142e9-c9c3-4e9f-94af-f2dacbe15763" class="bulleted-list"><li style="list-style-type:circle">跟设置已有文本节点的值一样，这些要插入文本也会应用HTML和XML编码</li></ul><ul id="9ee0d5d3-c710-49eb-8210-cc9fca9b5af3" class="bulleted-list"><li style="list-style-type:circle">再创建新文本节点后，其<code>ownerDocument</code> 属性也会被设置为<code>document</code> </li></ul><ul id="cb0d443b-f601-463d-abc1-c14a2492da11" class="bulleted-list"><li style="list-style-type:circle">再把这个节点添加到文档树之前，不会在浏览器中看到它</li></ul><ul id="70089ad8-afe6-48bc-a55d-5dda3061dddb" class="bulleted-list"><li style="list-style-type:circle">一般而言，利用<code>appendChild()</code> 可以给元素节点增加子节点，这个子节点可以是文本节点</li></ul><ul id="2123613a-1ed6-49ea-954c-e349d059e2fd" class="bulleted-list"><li style="list-style-type:circle">一个元素只包含一个文本节点，不过也可以让元素包含多个文本子节点</li></ul><ul id="a9a0ccb3-f95b-4e65-9116-1c25ae26719d" class="bulleted-list"><li style="list-style-type:circle">再将一个文本节点作为另一个文本节点的同胞插入后，两个文本节点的文本之间不会包含空格</li></ul><ul id="b8da9823-beb3-41d8-bb99-23f45fcbbe6c" class="bulleted-list"><li style="list-style-type:circle">使用Node接口定义的<code>normalize()</code> 可以将两个或多个相邻的文本节点合并成一个文本节点</li></ul><pre id="12f5e8a3-c8f5-43d4-aff3-674d9c2fab79" class="code code-wrap"><code>&lt;p&gt;&lt;/p&gt;
+
+const p = document.querySelector(&quot;p&quot;);
+const textNode = document.createTextNode(&quot;一个文本节点&quot;);
+p.appendChild(textNode);
+const anotherTextNode = document.createTextNode(&quot;另一个文本节点&quot;);
+p.appendChild(anotherTextNode);
+console.log(p.childNodes.length); // 2
+p.normalize();
+console.log(p.childNodes.length); // 1</code></pre></li></ul><h2 id="62ba16e9-091a-4f54-a55e-813995c5f297" class="">1.4.3 规范化文本节点（<strong>Normalizing Text Nodes</strong>）</h2><ul id="634310d6-f42b-458c-a9cc-a5502a8215f6" class="bulleted-list"><li style="list-style-type:disc">DOM中的同胞文本节点会导致困惑，因为一个文本节点足以表示一个文本字符串<ul id="7af054e3-d849-4c70-8586-a1ace9f0c7ec" class="bulleted-list"><li style="list-style-type:circle">DOM文档中经常出现两个相邻文本节点</li></ul><ul id="1ed6c232-68e3-4d1d-9af9-388fd6435d76" class="bulleted-list"><li style="list-style-type:circle">有一个方法可以合并相邻的文本节点，这个方法就是Node接口定义的<code>normalize()</code></li></ul><ul id="d36736ae-d96b-42fa-a895-0dc0adcc222a" class="bulleted-list"><li style="list-style-type:circle">在包含两个或多个相邻文本节点的父节点上调用<code>normalize()</code> ，所以同胞文本节点会合并为一个文本节点，这个文本节点的<code>nodeValue</code> 等于之前所有同胞节点<code>nodeValue</code> 拼接到一起的字符串</li></ul></li></ul><ul id="24f1b506-fe71-4265-afcd-8d044eafaa85" class="bulleted-list"><li style="list-style-type:disc">浏览器在解析文档时，拥有不会创建同胞文本节点，同胞文本节点只会出现在DOM脚本生成的文本树中</li></ul><h2 id="cc01dc16-5433-4592-8cb7-bdf287c4ea31" class="">1.4.4 拆分文本节点（<strong>Splitting Text Nodes</strong>）</h2><ul id="502b2838-e80b-49d5-bfc3-2d662c7993f2" class="bulleted-list"><li style="list-style-type:disc"><code>Text</code> 接口定义了一个于<code>normalize()</code> 相反的方法——<code>splitText()</code> <ul id="8d167a50-c8eb-4206-ab35-b0cb95117f4e" class="bulleted-list"><li style="list-style-type:circle">这个方法可以在指定的偏移位置拆分<code>nodeValue</code> ，将一个文本节点拆分为两个文本节点</li></ul><ul id="4466ac67-4dfa-4852-a1f1-7e0195369404" class="bulleted-list"><li style="list-style-type:circle">拆分之后，原来的文本节点包含开头到偏移位置前的文本，新文本节点包含剩下的文本</li></ul><ul id="dae26cd4-5e42-4ce5-9c37-99b137759e75" class="bulleted-list"><li style="list-style-type:circle">这个方法返回新的文本节点，具有与原来文本节点相同的<code>parentNode</code> </li></ul><pre id="42896a13-1e2f-40f4-980d-de182f9f9b94" class="code code-wrap"><code>&lt;p&gt;Hello, world&lt;/p&gt;
+&lt;script&gt;
+  let ele = document.querySelector(&quot;p&quot;);
+  let textNode = ele.firstChild;
+  let newNode = textNode.splitText(5);
+  console.log(newNode === ele.lastChild); // true
+  console.log(textNode === ele.firstChild); // true
+  console.log(ele.childNodes.length); // 2
+&lt;/script&gt;</code></pre></li></ul><ul id="1d3158aa-c958-42d0-a582-cf99cebf859d" class="bulleted-list"><li style="list-style-type:disc">拆分文本节点最常用于<strong>从文本节点中提取数据的DOM解析技术</strong></li></ul><h1 id="04eff27a-28ec-41d2-ac19-e9e17b4b13ae" class="">1.5 Comment类型</h1><ul id="b188e8f1-76af-4269-a94a-7dc6bfd8fbb9" class="bulleted-list"><li style="list-style-type:disc">DOM中的注释通过Comment类型表示，Comment类型的节点有如下特征<ul id="18d4fe6f-db51-4c68-bd84-4f07661ed5ba" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeType等于<code>node.COMMENT_NODE</code> （8）</span></li></ul><ul id="70244103-2e1c-4d7e-9976-973ec014deba" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeName等于”#comment”</span></li></ul><ul id="a084f704-ed3c-4d0f-82be-0e0472b197f5" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeValue值为注释的内容</span></li></ul><ul id="47261b04-6fba-42a8-81f8-3d33f4f2ee06" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">parentNode值为Document或Element对象</span></li></ul><ul id="f952c93c-8eca-418b-95be-9e8fe2a09a8c" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">不支持子节点</span></li></ul></li></ul><ul id="f50c8da5-0fb7-455e-834f-e7ff62145056" class="bulleted-list"><li style="list-style-type:disc">Comment类型于Text类型继承同一个基类（<a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6.html">CharacterData</a>），因此除了<code>splitText()</code> 外拥有<code>CharacterData</code> 定义的所有方法，<ul id="faf8bd31-ad7e-4a22-8e4d-ae54401a2e57" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">appendData(<em>text</em>)，向注释节点末尾添加文本<em>text</em></span></li></ul><ul id="cce8804b-cb3a-497b-bcde-be430a306f5a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">deleteData(<em>offset, count</em>)，从位置<em>offset</em>开始删除<em>count</em>个字符</span></li></ul><ul id="cf40d4cc-413a-44d1-a4c6-1ca22c25ddb6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">insertData(<em>offset, text</em>)，从位置<em>offset</em>插入<em>text</em></span></li></ul><ul id="b5b1b1a7-37a9-4a94-834a-a7a7ccf43f54" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">replaceData(<em>offset, count, text</em>)，用<em>text</em>替换从位置<em>offset</em>到<em>offset</em>+<em>count</em>的文本</span></li></ul><ul id="dc53be11-d53b-41f8-ba4f-c150803e794b" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">substringData(<em>offset, count</em>)，提取从位置<em>offset</em>到<em>offset+count</em>的文本</span></li></ul><p id="c66f204a-d996-4b57-af36-aaf02e419e33" class="">除了这些方法外，还可以通过<code>length</code>属性获取注释节点中包含的字符数量，这个值等于<code>nodeValue.length</code>和<code>data.length</code></p></li></ul><ul id="de9741f6-59d3-479c-983e-ae255c0071c8" class="bulleted-list"><li style="list-style-type:disc">DOM Standard规范中定义的Comment接口如下<pre id="c434e453-5585-4279-af52-0659157fcd89" class="code code-wrap"><code>[Exposed=Window]
+interface Comment : CharacterData {
+  constructor(optional DOMString data = &quot;&quot;);
+};</code></pre></li></ul><ul id="aebf293a-44ec-4db9-b3c2-b2cda3849dda" class="bulleted-list"><li style="list-style-type:disc">需要注意的是，注释节点的<code>nodeValue</code> 或<code>data</code> 值是从<code>&lt;!--</code> 开始到<code>--&gt;</code> 结束中间的字符串，上面<code>CharacterData</code> 接口定义的所有操作也是对注释其中的内容进行操作的<pre id="8eece44b-4802-43d8-b51a-a384b92d961d" class="code code-wrap"><code>&lt;p&gt;
+  &lt;!-- 注释节点 --&gt;
+&lt;/p&gt;
+
+const p = document.querySelector(&quot;p&quot;);
+console.log(p.childNodes);
+p.childNodes[1].data = &quot;Hello, world&quot;;
+let newComment = new Comment(&quot;新注释1&quot;);
+let newComment2 = document.createComment(&quot;新注释2&quot;);
+p.appendChild(newComment);
+p.appendChild(newComment2);</code></pre><figure id="68e08609-6786-409c-aa11-2fd9f913b8d0" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/%25E6%25B3%25A8%25E9%2587%258A.png"><img style="width:467px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/%25E6%25B3%25A8%25E9%2587%258A.png"/></a></figure><ul id="c42c3bbe-88b8-471e-a33c-9990e8c74677" class="bulleted-list"><li style="list-style-type:circle">可以通过Document接口定义的<code>createComment()</code> 方法创建注释节点，也可以直接通过<code>Comment</code> 注释构造函数创建</li></ul><ul id="f28bb400-57a1-489d-9247-9c04db9e8ae8" class="bulleted-list"><li style="list-style-type:circle">注释节点很少通过JavaScript创建和访问，因为注释几乎不涉及算法逻辑</li></ul></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="fbfeac56-889b-4277-8b30-e42d4a988b53"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：浏览器不承认结束的&lt;/html&gt;标签之后的注释，如果要访问注释节点，则必须<strong>确定它们是&lt;html&gt;元素的后代</strong></div></figure><h1 id="c7bf8ea8-c72f-4cb9-a55c-7538e074f6ea" class="">1.6 CDATASection类型</h1><ul id="afe3d853-9691-4b7c-88a7-a99f47cf18f8" class="bulleted-list"><li style="list-style-type:disc">CDATASection类型表示XML中特有的CDATA区块，CDATASection类型继承Text类型，因此拥有包括<code>splitText()</code> 在内的所有字符串操作方法，DOM Standard规范的<a href="https://dom.spec.whatwg.org/#interface-cdatasection">CDATASection</a> 接口如下<pre id="8f9652b6-5448-40cb-9646-1eed40ab5185" class="code"><code>[Exposed=Window]
+interface CDATASection : Text {
+};</code></pre></li></ul><ul id="d759ca5c-f21b-4287-92e4-ce62f2fb99e5" class="bulleted-list"><li style="list-style-type:disc">CDATASection类型的节点具有如下特征<ul id="bb43419e-a75e-49a8-abd8-8cdbb583df1d" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeType等于<code>node.CDATA_SECTION_NODE</code> （4）</span></li></ul><ul id="1692f83a-f9a6-4403-88b8-595dbee90d22" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeName值为“#cdata-section”</span></li></ul><ul id="1eb97e64-2511-4b6a-b5d8-f017a3915a63" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeValue值为CDATA区块的内容</span></li></ul><ul id="10c37513-0626-484a-a1bb-c129d03a4203" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">parentNode值为Document或Element对象</span></li></ul><ul id="d6cf3be8-32a6-4f36-8246-4228cace7768" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">不支持子节点</span></li></ul></li></ul><ul id="a73da9a9-558c-4759-85e7-20d308345d0c" class="bulleted-list"><li style="list-style-type:disc">CDATA区块只在XML文档中有效，因此某些浏览器比较陈旧的版本会错误地将CDATA区块解析为Comment或Element<pre id="802bd2a6-28b6-45e9-a13c-4e1a3097962c" class="code"><code>&lt;div&gt;&lt;![CDATA[This is some content.]]&gt;&lt;/div&gt;
+
+const div = document.querySelector(&quot;div&quot;);
+console.log(div.childNodes[0].nodeType); // 8
+console.log(div.childNodes[0]); // &lt;!-- [CDATA[This is some content.]] --&gt;</code></pre><ul id="9783df2a-6ab1-4639-8942-0d747fa995a5" class="bulleted-list"><li style="list-style-type:circle">谷歌和获取都将&lt;![CDATA[This is some content.]]&gt;识别成了Comment类型节点</li></ul></li></ul><ul id="cc3ca97f-80e3-45eb-aee8-f633ff6159cf" class="bulleted-list"><li style="list-style-type:disc">在真正地XML文档中，可以使用<code>document.createCDataSection()</code> 并传入节点内容来创建CDATA区块</li></ul><h1 id="937d4fd2-0046-49f0-91e4-d74199974a91" class="">1.7 DocumentType类型</h1><ul id="9fb3d39c-a3a6-4968-a47a-210e7c81cd9a" class="bulleted-list"><li style="list-style-type:disc">DocumentType类型的节点包含文档的文档类型（doctype）信息，它直接继承于<code>Node</code> 接口，在DOM Standard规范中<a href="https://dom.spec.whatwg.org/#interface-documenttype">DocumentType</a>接口定义如下<pre id="0a9042c5-e839-4d5a-8953-74bcf4a89c7d" class="code"><code>[Exposed=Window]
+interface DocumentType : Node {
+  readonly attribute DOMString name;
+  readonly attribute DOMString publicId;
+  readonly attribute DOMString systemId;
+};</code></pre></li></ul><ul id="10399a3e-0136-4cdf-8b95-3634bcd3dc38" class="bulleted-list"><li style="list-style-type:disc">DocumentType类型节点具有如下特征<ul id="0269fe42-456d-4397-8c32-b25bfe7dabba" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeType等于<code>node.DOCUMENT_TYPE_NODE</code> （10）</span></li></ul><ul id="49b58136-489a-4576-8e2b-283e02a2f269" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeName值为文档类型的名称，如&lt;!DOCTYPE html&gt;的文档类型名称就是<code>html</code></span></li></ul><ul id="63481783-ff1c-4871-af08-0948ab104b0e" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeValue值为null</span></li></ul><ul id="f041508e-3665-4659-b622-f2f3db9fd96f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">parentNode值为Document对象</span></li></ul><ul id="0d7c3bbf-b19a-41c7-ac12-68b4fdea6b2f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">不支持子节点</span></li></ul></li></ul><ul id="c1c5be50-c204-4955-9587-d36bc865dd86" class="bulleted-list"><li style="list-style-type:disc">DocumentType对象在DOM Level 1 中不支持动态创建，只能在解析文档代码时创建<ul id="5a0eb3fe-216b-4f5b-905d-526490a31f84" class="bulleted-list"><li style="list-style-type:circle">对于支持这个类型的浏览器，DocumentType对象保存在<code>document.doctype</code>属性中</li></ul><ul id="a105824d-cdd1-4e4f-9c2d-6ed2924782fc" class="bulleted-list"><li style="list-style-type:circle">DOM Level 1 规定了DocumentType对象的三个属性：<code>name</code>、<code>entrities</code>、<code>notations</code></li></ul><ul id="8be23063-ffd7-4196-95cc-1bce9d7047c0" class="bulleted-list"><li style="list-style-type:circle">其中只有<code>name</code> 是有用的，它等于<code>nodeName</code> ，<code>entrities</code>和<code>notations</code>都被<strong>舍弃</strong>了</li></ul><ul id="3c53387c-2eae-47d5-94f5-c92f453d622f" class="bulleted-list"><li style="list-style-type:circle">根据最新的DOM文档接口定义，DocumentType对象还有<code>publicId</code>和<code>systemId</code> 两个属性，但是值为空字符串且是只读的</li></ul></li></ul><h1 id="1941b4ec-02f9-40e3-9454-e070ae4b280e" class="">1.8 DocumentFragment类型</h1><ul id="f2a9cbef-52fe-409d-bb6f-e9fad7bed916" class="bulleted-list"><li style="list-style-type:disc">DocumentFragment类型是唯一一个在标记中没有对应表示的类型，DOM将文档片段定义为“轻量级”文档，<strong>能够包含和操作节点，却没有完整文档那样额外的消耗</strong>，实际上，在JSX中，<code>React.Fragment</code> 就是<code>DocumentFragment</code> 类型，可以简写成没有标签名称的元素，<code>&lt;&gt;&lt;/&gt;</code> </li></ul><ul id="311a9033-8d85-4e9e-b26c-05f8828167e3" class="bulleted-list"><li style="list-style-type:disc">在DOM Standard规范中，<a href="https://dom.spec.whatwg.org/#interface-documentfragment">DocumentFragment</a> 接口直接继承于<code>Node</code> 接口，并且可以作为构造函数使用<pre id="2f2deb48-bf5a-4fbf-8f46-803e2e73947f" class="code code-wrap"><code>[Exposed=Window]
+interface DocumentFragment : Node {
+  constructor();
+};</code></pre></li></ul><ul id="02c45a92-1ed6-4db2-a4ab-ba5344edbb46" class="bulleted-list"><li style="list-style-type:disc">DocumentFragment节点具有如下特征<ul id="39d34976-6c45-4717-84c6-26639e2f3308" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeType等于<code>Node.DOCUMENT_FRAGMENT_NODE</code> (11)</span></li></ul><ul id="fa1f8b94-04fb-4bb4-9d90-b19d4368a089" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeName值为”#document-fragment”</span></li></ul><ul id="f76ec1aa-930f-40f9-8e1e-801b3a74e588" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeValue值为null</span></li></ul><ul id="f65852d8-408d-4d83-8bf9-41973291c75f" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">parentNode值为null</span></li></ul><ul id="c8813de9-a590-4018-814a-3d657e4e2b30" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">子节点可以是Element、ProcessingInstruction、Comment、Text、CDATASection或EntityReference</span></li></ul></li></ul><ul id="6c8a6eca-8b13-4326-b823-56ad4d03ae69" class="bulleted-list"><li style="list-style-type:disc">不能直接把文档片段添加到文档，<strong>文档片段的作用是充当其它要被添加到文档的节点的仓库</strong></li></ul><ul id="c52abc3c-4b49-48d4-aa88-289d29e84f76" class="bulleted-list"><li style="list-style-type:disc">既可以使用<code>DocumentFragment</code> 构造函数创建没有子节点的文档片段对象，也可以使用<code>Document</code> 接口定义的<code>createDocumentFragment()</code> 方法创建文档片段对象<ul id="8dad01f6-3c99-4bce-ae48-f4aa580f415a" class="bulleted-list"><li style="list-style-type:circle">文档片段从Node类型继承了所有节点类型具备的可以执行DOM操作的方法，可以添加子节点，也可以作为节点被插入到文档树中</li></ul><ul id="b57adb02-b567-4c0c-8575-a3954a87c20d" class="bulleted-list"><li style="list-style-type:circle">与普通的元素节点相同的地方是：如果文档中的一个节点被添加到一个文档片段中，则该节点会从文档树中移除，不会再被浏览器渲染</li></ul><ul id="e7bb8593-9c9e-4b56-8a02-20d570499ddd" class="bulleted-list"><li style="list-style-type:circle">与普通元素节点不同的地方是：通过<code>appendChild()</code> ，<code>inserBefore()</code> 等方法将文档片段添加到文档树中，<strong>文档片段本身永远不会被添加到文档树中，它的子节点会被一一添加到对应位置</strong></li></ul></li></ul><ul id="67ab43ad-580a-4e2b-a7fb-dd477a276922" class="bulleted-list"><li style="list-style-type:disc">文档片段在现代Web应用程序开发中很有用处，它常常作为<strong>临时保存</strong>一系列节点的<strong>”根节点“</strong>，但添加到文档树中时不占用节点位置，这对一次性添加多个节点而只渲染一次有很大帮助，如下<pre id="17915471-84f4-428e-b729-8b6691843058" class="code code-wrap"><code>&lt;ul&gt;&lt;/ul&gt;
+
+const ul = document.querySelector(&quot;ul&quot;);
+const fragment = new DocumentFragment();
+for (let i = 1; i &lt;= 5; i++) {
+  let li = document.createElement(&quot;li&quot;);
+  li.textContent = `item ${i}`;
+  fragment.appendChild(li);
+}
+ul.appendChild(fragment);
+console.log(ul.childNodes);
+</code></pre><figure id="a2d6afb4-4644-458b-833c-7475bbae05d1" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/fragment.png"><img style="width:444px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/fragment.png"/></a></figure><ul id="7e12f3e3-80a8-42c5-9112-952c73dea650" class="bulleted-list"><li style="list-style-type:circle">这里调用五次<code>ul.appendChild(li)</code> 的效果和上面是一样的</li></ul><ul id="eb4d59ee-e124-48fe-a457-78ec4463a547" class="bulleted-list"><li style="list-style-type:circle">文档片段的子节点全部转移到ul元素了</li></ul></li></ul><h1 id="af5de170-f3af-4932-af69-76ebffde38c8" class="">1.9 Attr类型</h1><ul id="b2d40e17-fe24-4a7f-b83f-a2ada8c3bcfb" class="bulleted-list"><li style="list-style-type:disc">元素数据在DOM中通过Attr类型表示。Attr类型构造函数和原型在所有浏览器中都可以直接访问。技术上讲，<strong>属性是存在于元素</strong><strong><code>attributes</code></strong><strong>属性中的节点，</strong>DOM Standard规范了属性节点 <a href="https://dom.spec.whatwg.org/#dom-attr-value">Attr </a>接口继承于Node<pre id="f589fa65-566b-4708-a093-6dccefbe7c99" class="code"><code>[Exposed=Window]
+interface Attr : Node {
+  readonly attribute DOMString? namespaceURI;
+  readonly attribute DOMString? prefix;
+  readonly attribute DOMString localName;
+  readonly attribute DOMString name;
+  [CEReactions] attribute DOMString value;
+
+  readonly attribute Element? ownerElement;
+
+  readonly attribute boolean specified; // useless; always returns true
+};</code></pre><ul id="69a52669-33a0-4da4-bbed-29e8134928c7" class="bulleted-list"><li style="list-style-type:circle"><code>ownerElement</code> 表明了属性所在的元素节点</li></ul></li></ul><ul id="1ca81432-49b0-4536-9a5a-033a9470aa94" class="bulleted-list"><li style="list-style-type:disc">Attr节点具有以下特征<ul id="978bb5a1-eac1-4cf0-8da7-6352ea6e1eb0" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeType等于<code>node.ATTRIBUTE_NODE</code> (2)</span></li></ul><ul id="79f15b56-a12a-4834-9fd8-16ad832333a9" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeName值为属性名</span></li></ul><ul id="7bbb5685-beab-4067-b915-a0b2e4fcfeb6" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">nodeValue值为属性值</span></li></ul><ul id="d9d9826a-6dbc-47ed-8c01-35d66f7358a4" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">parentNode值为<code>null</code> </span></li></ul><ul id="9f489105-d27c-4376-87ac-902ec327ca46" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">在HTML中不支持子节点</span></li></ul><ul id="90c4293d-d573-495d-af0c-82086e70c64a" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked">在XML中子节点可以是Text或EntityReference</span></li></ul></li></ul><ul id="c64275eb-5cb3-4306-a9b5-52e84ac4a83e" class="bulleted-list"><li style="list-style-type:disc">属性节点尽管是节点，却不被认为是DOM文档树的一部分。Attr节点很少直接被引用，通常开发者更喜欢使用<code>getAttribute()</code> 、<code>removeAttribute()</code> 和<code>setAttribute()</code> 方法操作属性</li></ul><ul id="c42c9f64-eed0-414a-a4a8-06e8aea99686" class="bulleted-list"><li style="list-style-type:disc">Attr对象两个重要属性是<a href="https://dom.spec.whatwg.org/#attr">Attr</a> 接口上定义的<code>name</code>和<code>value</code>，它们分别指属性名（和nodeName一样）和属性值（和nodeValue一样）。《JavaScript高级程序设计（第4版）》还指出了一个<code>specified</code> 属性，指出“specified是一个布尔值，表示属性使用的是默认值还是被指定的值”，但是最新的DOM Standard规范指出该属性<strong>已被舍弃</strong>，总是返回<code>true</code> ，仅为兼容性而留存</li></ul><ul id="73472b7a-fb43-4f91-b74f-9822f8fb1640" class="bulleted-list"><li style="list-style-type:disc">新增的<code>ownerElement</code> 属性返回属性节点所属的元素节点引用，如果属性不和任何一个元素节点有关系就返回<code>null</code> </li></ul><ul id="883689ab-133e-4b9a-93a1-672c5a8d11c5" class="bulleted-list"><li style="list-style-type:disc">可以使用<code>document.createAttribute()</code>方法创建新的Attr节点（可以是自定义属性），参数为属性名称，创建后可以通过<code>Element</code> 接口定义的<code>setAttributeNode</code> 为元素节点新设置属性<pre id="81478ac5-7de9-4a1c-b587-e832229342e1" class="code"><code>&lt;p&gt;Hello&lt;/p&gt;
+
+const p = document.querySelector(&quot;p&quot;);
+let attr = document.createAttribute(&quot;align&quot;);
+attr.value = &quot;center&quot;;
+p.setAttributeNode(attr);
+let customAttr = document.createAttribute(&quot;data-custom-attr&quot;);
+customAttr.value = &quot;hello&quot;;
+p.setAttributeNode(customAttr);</code></pre><figure id="845dbf87-743d-4c7f-b72a-bf2da0dae259" class="image"><a href="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/attr.png"><img style="width:816px" src="1%20%E8%8A%82%E7%82%B9%E5%B1%82%E7%BA%A7%EF%BC%88HIERARCHY%20OF%20NODES%EF%BC%89%20e1804393ed7742b1aafb6d64316398d6/attr.png"/></a></figure><ul id="fb490688-7930-485e-a7fb-434950bf044b" class="bulleted-list"><li style="list-style-type:circle">其中<code>getAttributeNode()</code> 方法获取对应属性名称的Attr节点</li></ul></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="a59bbf28-7902-4d69-a953-d2330fa81999"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：将属性作为节点来访问多数情况下并无必要。推荐使用getAttribute()、removeAttribute()和setAttribute()方法操作属性，而不是直接操作属性节点</div></figure><p id="152e24a0-e6c8-4e47-855e-fe7de882f5bc" class="">
+</p></div></div><p id="4a8be595-b3e5-4878-b04c-795b7dc453ca" class="">
+</p></div></article></body></html>

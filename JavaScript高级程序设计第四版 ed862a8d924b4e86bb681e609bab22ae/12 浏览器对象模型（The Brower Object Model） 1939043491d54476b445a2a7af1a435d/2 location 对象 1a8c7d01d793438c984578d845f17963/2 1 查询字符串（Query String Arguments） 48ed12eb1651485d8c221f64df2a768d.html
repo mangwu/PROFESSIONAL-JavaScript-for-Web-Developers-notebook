@@ -1,0 +1,749 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2.1 查询字符串（Query String Arguments）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="48ed12eb-1651-485d-8c22-1f64df2a768d" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/woodcuts_5.jpg" style="object-position:center 100%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🚄</span></div><h1 class="page-title">2.1 查询字符串（Query String Arguments）</h1></header><div class="page-body"><h1 id="f6ded017-931a-43d7-9040-718616df5834" class="">2.1.1 使用查询字符串</h1><ul id="95f4fd3d-f635-4dca-8c25-15a9473ae1c8" class="bulleted-list"><li style="list-style-type:disc"><code>location</code> 的多数信息都有可以通过属性获取，但是URL中的查询字符串并不容易使用</li></ul><ul id="eace684e-c8ab-4a4a-8d14-eeade57c454c" class="bulleted-list"><li style="list-style-type:disc">这是因为<code>location.search</code> 返回了从问号开始直到URL的所有<code>query string</code> ，但是没有办法逐个访问每个查询参数</li></ul><ul id="4f46e68b-5ea1-400b-a473-2b796ad8108f" class="bulleted-list"><li style="list-style-type:disc">下面是一个能解析查询字符串的函数，它返回一个以每个查询字符串的构成的<code>key:value</code> 组合对象<pre id="e702eeb0-da5c-4094-90e5-9d8446d4b1d7" class="code"><code>/**
+ * @description 解析查询字符串
+ * @param {string} search
+ */
+function getQueryString(search) {
+  const queryStrs = search.length &gt; 0 ? search.substring(1).split(&quot;&amp;&quot;) : [];
+  const ans = {};
+  queryStrs.forEach((v) =&gt; {
+    let [key, value] = v.split(&quot;=&quot;);
+    key = decodeURIComponent(key);
+    value = decodeURIComponent(value);
+    if (key) {
+      ans[key] = value;
+    }
+  });
+  return ans;
+}
+console.log(getQueryString(&quot;?age=21&amp;name=%E7%9B%B2%E9%9B%BE&amp;=kk&quot;));
+// 打印
+// {age: &#x27;21&#x27;, name: &#x27;盲雾&#x27;}</code></pre><ul id="a6eadd8b-6d41-4ec3-904d-e4e976cbe2ad" class="bulleted-list"><li style="list-style-type:circle">这个方法有三个需要注意的点<ul id="c72632ed-7423-4371-a18a-b70a24ed8194" class="bulleted-list"><li style="list-style-type:square">注意<code>search</code> 可能为空</li></ul><ul id="742a61ed-59a8-4abb-b445-4ce0b5ef277c" class="bulleted-list"><li style="list-style-type:square">需要使用<code>decodeURIComponent()</code> 将<code>key</code>和<code>value</code> 进行解码，因为查询字符串的键值对可能不是能在网络请求中正常使用的字符，在网络请求中它们会被<code>encodeURIComponent()</code> 进行编码，如汉字</li></ul><ul id="9972f9af-ede9-478f-bd21-e6dddd33a1b6" class="bulleted-list"><li style="list-style-type:square">除此之外要判断<code>key</code> 值是否为空字符串，过滤掉不合理的空字符串<code>key</code>值</li></ul></li></ul></li></ul><h1 id="576e6869-67e3-4b5e-b591-5a8f4058146c" class="">2.1.2 URLSearchParams</h1><ul id="0e63cb84-8407-4370-ab58-649d4487b375" class="bulleted-list"><li style="list-style-type:disc"><code>URLSearchParams</code> 是属于全局对象（<code>window</code>或<code>global</code> 等）的属性，可以再全局环境中直接使用，<code>URLSearchParams</code> 接口提供了使用URL查询字符串的<strong>实用方法（utility methods）</strong></li></ul><ul id="d7b48c10-bed0-45c9-a9f0-8924d48e4e96" class="bulleted-list"><li style="list-style-type:disc">可以通过<code>URLSearchParams</code> 提供的一组标准API方法，检查何修改查询字符串<ul id="783cb2f5-f362-44c4-bbd4-ca6cc1f0d536" class="bulleted-list"><li style="list-style-type:circle">给<code>URLSearchParams</code> <strong>构造函数</strong>传递一个查询字符串，就可以创建一个实例</li></ul><ul id="a0b25cef-d955-43da-822c-b90ac37c5822" class="bulleted-list"><li style="list-style-type:circle">这个实例暴露的get()、set()、delete()、append()、getAll()、has()方法可以对查询字符串进行“获取”，“设置”，“删除”，“增加”，”获取指定key的所有值“，”判断键是否存在“的操作</li></ul><ul id="7bfe18aa-6015-4071-b011-15c68569a15b" class="bulleted-list"><li style="list-style-type:circle">entries()，forEach()，keys()，values()方法可以对查询字符串进行”获取键值迭代器“，”进行内部迭代“，”获取键迭代器“和”获取值迭代器“</li></ul><ul id="915e5a0a-1454-45da-8101-06aac1f03b8d" class="bulleted-list"><li style="list-style-type:circle">sort()方法可以对查询字符串进行”排序“的操作</li></ul><ul id="e130064d-f6f1-41a4-aea0-e401dce027a6" class="bulleted-list"><li style="list-style-type:circle">toString()方法可以对查询字符串进行”转化为字符串“的操作</li></ul></li></ul><h2 id="fa373eae-add8-404c-be29-d9ec658da249" class="">2.1.2.1 查询字符串基本操作</h2><ul id="b2ee85a8-af96-461c-8c61-59400e73fc76" class="bulleted-list"><li style="list-style-type:disc">查询字符串中的值键可以是相同的，<code>URLSearchParams</code> 构造的关于查询字符串的数据结构会保存重复键的不同值<ul id="8795bb0b-82ef-42dc-ac30-36521ffe2c80" class="bulleted-list"><li style="list-style-type:circle"><code>get()</code>获取的是指定key的第一个值，如果没有就返回<code>null</code></li></ul><ul id="45487824-114b-4840-a2be-3d1fb916ee41" class="bulleted-list"><li style="list-style-type:circle"><code>getAll()</code>获取的是指定key的所有值，如果没有就放回空数组(<code>[]</code>)</li></ul><ul id="2a552559-3ad0-4e5f-a5c5-9552644b322f" class="bulleted-list"><li style="list-style-type:circle"><code>delete()</code>删除指定key的所有值，返回<code>undefined</code> </li></ul><ul id="22a3546b-e06b-4073-bbc9-00f59370427b" class="bulleted-list"><li style="list-style-type:circle"><code>append()</code> 增加一个键值对，如果key本身存在，就会在value数组中增加一个，否则创建一个键值对，值为<code>[value]</code> ,返回<code>undefined</code></li></ul><ul id="de67752d-c749-4b1b-af82-7b36257656ac" class="bulleted-list"><li style="list-style-type:circle"><code>set()</code> 设置键值，无论<code>key</code> 本身是否存在，都会将键值设置为<code>[value]</code> （会舍弃原来的键值数组），返回 <code>undefined</code></li></ul><ul id="6ae2012a-0aa9-4b20-86c6-a440347e3f5b" class="bulleted-list"><li style="list-style-type:circle"><code>has()</code> 比较简单，判断键是否存在，返回一个布尔值，<code>true</code> 就是存在，<code>false</code> 就是不存在</li></ul><pre id="85c942e5-fab4-4e72-b366-9a91c45fade0" class="code code-wrap"><code>const urlsp = new URLSearchParams(
+  `?age=21&amp;name=mangwu&amp;name=${encodeURIComponent(&quot;盲雾&quot;)}&amp;=k&amp;1=`
+);
+console.log(urlsp.getAll(&quot;age&quot;)); // [ &#x27;21&#x27; ]
+console.log(urlsp.getAll(&quot;name&quot;)); // [ &#x27;mangwu&#x27;, &#x27;盲雾&#x27; ]
+console.log(urlsp.get(&quot;&quot;)); // k
+console.log(urlsp.get(&quot;1&quot;)); // &quot;&quot;
+console.log(urlsp.get(&quot;age&quot;)); // 21
+console.log(urlsp.get(&quot;name&quot;)); // mangwu
+
+console.log(urlsp.has(&quot;age&quot;)); // true
+urlsp.delete(&quot;age&quot;);
+console.log(urlsp.get(&quot;age&quot;)); // null
+console.log(urlsp.has(&quot;age&quot;)); // false
+
+urlsp.append(&quot;name&quot;, &quot;wumang&quot;);
+console.log(urlsp.getAll(&quot;name&quot;)); // [ &#x27;mangwu&#x27;, &#x27;盲雾&#x27;, &#x27;wumang&#x27; ]
+
+urlsp.set(&quot;name&quot;, encodeURIComponent(&quot;盲雾&quot;));
+console.log(urlsp.getAll(&quot;name&quot;)); // [ &#x27;%E7%9B%B2%E9%9B%BE&#x27; ]
+
+console.log(urlsp.toString()); // name=%25E7%259B%25B2%25E9%259B%25BE&amp;=k&amp;1=</code></pre><ul id="a638ea7b-cf2d-42c4-b817-f8b2750d5460" class="bulleted-list"><li style="list-style-type:circle">从上述例子中可以观察出<ul id="ea5fb11a-6cf3-4c6a-8af2-b4b5e90e5fc0" class="bulleted-list"><li style="list-style-type:square"><code>URLSearchParams</code> 构造函数会对传入的字符串进行解码处理（<code>decodeURIComponent</code>）</li></ul><ul id="7198e172-4675-4a67-8222-dabc97a7a4e9" class="bulleted-list"><li style="list-style-type:square"><code>URLSearchParams</code> 操作实例中数据结构的方法<strong>不会</strong>临时进行解码处理</li></ul><ul id="91a2bcef-e27d-4975-94fe-c5e0ea74f0e3" class="bulleted-list"><li style="list-style-type:square">空<code>key</code> 和空<code>value</code> 可以存在，空<code>key</code> 和空<code>value</code>就是空字符串</li></ul></li></ul></li></ul><ul id="fbd07b43-b4fb-4470-a36f-687ad8e2bf5c" class="bulleted-list"><li style="list-style-type:disc"><code>URLSearchParams</code> 构造的实例实现了可迭代协议，可以作为一个迭代器使用，并且提供了默认迭代器方法和内置迭代方法<ul id="5ab9dea1-1365-4e71-abfe-a50e513b22f8" class="bulleted-list"><li style="list-style-type:circle"><code>forEach()</code> 和数组的内置迭代方法类似，允许通过回调函数迭代该对象中包含的所有查询字符串</li></ul><ul id="4ec4d78b-b8ea-4c8c-9a10-de4e5236cffb" class="bulleted-list"><li style="list-style-type:circle"><code>entries()</code> 是<code>URLSearchParams</code> 实例的默认迭代器方法，返回一个由查询字符串的键值对构成的迭代器对象</li></ul><ul id="18168f57-ec8a-412c-aa53-6d349c115fa1" class="bulleted-list"><li style="list-style-type:circle"><code>keys()</code> 和<code>values()</code> 是类似于<code>entries()</code> 的方法，返回一个迭代器对象，只是前者的迭代器对象由键构成，后者的迭代器对象由值构成</li></ul><pre id="5962e197-6cf0-4ab3-96cd-ab2247d31d7d" class="code"><code>const urlsps = new URLSearchParams(
+  `?age=21&amp;name=mangwu&amp;name=${encodeURIComponent(&quot;盲雾&quot;)}&amp;=k&amp;1=`
+);
+
+for (const [key, value] of urlsps) {
+  console.log(key, value);
+}
+for (const key of urlsps.keys()) {
+  console.log(key);
+}
+for (const value of urlsps.values()) {
+  console.log(value);
+}
+// 打印
+// 第一个，直接迭代实例或者使用entries()
+age 21
+name mangwu
+name 盲雾
+ k
+1
+// 第二个，使用keys()
+age
+name
+name
+
+1
+// 第三个，使用values()
+21
+mangwu
+盲雾
+k
+</code></pre><ul id="fd47a52d-b25f-460a-bbaa-103c5c2a0497" class="bulleted-list"><li style="list-style-type:circle">注意迭代器对象中的迭代次数由总共的<strong>键值个数</strong>决定而<strong>不是</strong>键值对个数决定</li></ul><ul id="c36b13b9-4d7e-4d46-aa44-0f086ef1d8ce" class="bulleted-list"><li style="list-style-type:circle">也就是说，如果一个键对应n个值，那么默认迭代器对象中会包含n个键值对，它们的键相同</li></ul></li></ul><ul id="d547cdc1-b4bb-4196-b502-db1bc52a05c2" class="bulleted-list"><li style="list-style-type:disc"><code>URLSearchParams</code> 实例中的查询字符串的数据结构可以通过<code>sort()</code> 进行排序，排序后可以通过<code>toString()</code> 获取适用于URL的查询字符串，可以发现顺序改变<ul id="12cf54ff-4013-4b68-9016-5945693b8b7b" class="bulleted-list"><li style="list-style-type:circle">查询字符串实例的<code>sort()</code> 与数组的<code>sort()</code> 不同，它不接受任何参数，它预设的排序方式是比较<strong>键</strong>（<strong>keys</strong>）的unicode编码，具有相同编码的键值对按照原始的顺序进行排列，返回值为<code>undefined</code></li></ul><ul id="a5baf800-0adb-4446-baaf-212bca81c640" class="bulleted-list"><li style="list-style-type:circle"><code>toString()</code> 方法会返回<code>URLSearchParams</code> 实例在URL中适用的查询字符串，也就是说，键值会被<code>encodeURIComponent</code> 进行编码以符合URL规范</li></ul><pre id="23fa1cdc-6e9e-4cc0-9fec-47bd3d42539b" class="code"><code>const urlsps = new URLSearchParams(
+  `?age=21&amp;name=mangwu&amp;name=${encodeURIComponent(&quot;盲雾&quot;)}&amp;=k&amp;1=`
+);
+urlsps.sort();
+console.log(urlsps); // URLSearchParams { &#x27;&#x27; =&gt; &#x27;k&#x27;, &#x27;1&#x27; =&gt; &#x27;&#x27;, &#x27;age&#x27; =&gt; &#x27;21&#x27;, &#x27;name&#x27; =&gt; &#x27;mangwu&#x27;, &#x27;name&#x27; =&gt; &#x27;盲雾&#x27; }
+console.log(urlsps.toString()); // =k&amp;1=&amp;age=21&amp;name=mangwu&amp;name=%E7%9B%B2%E9%9B%BE</code></pre><ul id="9f6030e3-2eb3-4b5d-8fe9-0c333b249524" class="bulleted-list"><li style="list-style-type:circle">注意顺序，空字符串排在最前，它没有unicode编码，比较特殊，<code>age</code>中的<code>a</code>字符unicode为0061，<code>name</code> 中的<code>n</code> 字符串unicode为006e，所以<code>age</code> 应该排在<code>name</code> 前面</li></ul></li></ul><p id="04d851b4-94ee-4e6f-854c-86b8c78ce1a0" class="">
+</p><p id="5586a217-8b21-43c9-b04b-f5e4076c6122" class="">
+</p><p id="621cbf0c-12f5-4c9a-8b14-e34fd6e98d84" class="">
+</p><p id="549901ba-64d7-4e26-b5fa-62d44f075b7e" class="">
+</p></div></article></body></html>

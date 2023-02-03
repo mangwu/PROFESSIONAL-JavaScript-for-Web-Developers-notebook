@@ -1,0 +1,913 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2. Function对象的属性</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="58bc3207-a9ff-4d27-93e3-ab739b5a5adb" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_blue.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🥏</span></div><h1 class="page-title">2. Function对象的属性</h1></header><div class="page-body"><div id="f015eb46-9b27-4b16-94ce-092fbf274d23" class="column-list"><div id="f6bd3d55-63a7-4bd1-9e96-d7422be45c3d" style="width:18.75%" class="column"><nav id="a1067e55-6819-4bb3-ae2c-b786ba04e704" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#22f8a53d-4eee-4f41-a187-7014eb29af07">2.1 <code>Function.prototype.arguments</code></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b40b38c1-b4a4-4bfe-b082-f58b2259d038">2.2 <code>Function.prototype.caller</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ac55dee3-ca9b-4f34-bdab-24fa3c8b977e">2.2.1 一个典型的例子</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#759fcc18-9e55-414a-b019-4d2cdd93ebcd">2.2.1  理解<code>caller</code> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0c825377-90a6-46e3-811c-6d69cfcd8af5">2.3 <code>Function.prototype.displayName</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ef3fc8e1-6d86-4b3a-a6e3-6e463885126f">2.3.1 理解<code>displayName</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#69f61fe4-b00f-473e-aaf7-f7038a4dd0c3">2.3.2 例子</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b9966237-d596-4093-8ba6-f45440356695">2.4 <code>Function.prototype.length</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dc68ed74-16ab-4294-9c76-51a2f86cbdb4">2.4.1 理解<code>length</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7d7210be-abe9-44fc-a579-33ead5dbf108">2.4.2 例子</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0d25f026-b33f-484c-a163-f584ab53d14c">2.5 <code>Function.prototype.name</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#aaa1faa2-55ec-45dd-aac5-e2b34af28864">2.5.1 理解<code>name</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9ff691ff-dd09-4f46-95be-a17633c1043e">2.5.2 例子</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f7c008b0-7357-4adf-ab21-1d01c0dd82de">2.5.3 注意事项-JavaScript压缩器（compressor）与精简器（minifier）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ae921daa-0b13-4784-ab25-4a009c9aaa2e">2.6 <code>Function.prototype.prototype</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#097d4f3a-911d-4b9b-a261-02677af1ca07">2.6.1 理解<code>prototype</code> 属性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d8cd977c-50d0-4c99-b5cf-5df2b5ff77bd">2.6.2 例子</a></div></nav><p id="65d32291-3289-4eb2-8e42-ba2246192b55" class="">
+</p></div><div id="6bf4a284-0565-4e48-8c82-dbf3b26aa2d9" style="width:81.25%" class="column"><h2 id="22f8a53d-4eee-4f41-a187-7014eb29af07" class="">2.1 <code>Function.prototype.arguments</code></h2><ul id="02a24c69-4c0e-409f-a773-b2cfa86b9a43" class="bulleted-list"><li style="list-style-type:disc">这是一个<strong>不建议使用（Deprecated）</strong>并且<strong>不是标准（Non-standard）</strong>的函数对象原型属性</li></ul><ul id="99679b0c-15cd-4146-8860-9c4701180b70" class="bulleted-list"><li style="list-style-type:disc"><code>arguments</code> <strong>访问器属性</strong>表示传递给<code>Function</code>对象的参数，它并<strong>不是函数内部</strong>使用的<code>arguments</code> ，它只是一个被废弃的定义在函数对象原型上的属性，如下<pre id="c30a638c-dbe1-4731-8afc-8c4952881aa4" class="code code-wrap"><code>function test(a, b, c) {}
+console.log(test.prototype);
+try {
+  test.__proto__.arguments;
+} catch (error) {
+  console.log(error.message); // &#x27;caller&#x27;, &#x27;callee&#x27;, and &#x27;arguments&#x27; properties may not be accessed on strict mode functions or the arguments objects for calls to them
+}
+</code></pre><ul id="0da4ece7-4bbd-4323-ac5a-3c48be2b9751" class="bulleted-list"><li style="list-style-type:circle"><code>test.__proto__.arguments</code> 就是本节中简述的<code>Function.prototype.arguments</code> ，<del>而</del><del><code>test.arguments</code></del><del> 是在函数内部使用的函数对象自有属性</del>，如下是函数对象原型的打印（谷歌浏览器v105.0.5195.127，<code>test.arguments</code> 只不过是<strong>谷歌浏览器为了实现ECMAScript关于</strong><strong><code>Function.prototype.arguments</code></strong><strong> 的规范</strong>在函数对象实例上额外添加的一个自有数据属性，而在函数内部使用的<code>arguments</code> 是一个<code>Arguments</code> 类型实例，）<figure id="bcb50652-4885-4130-914b-33f5785e53a9" class="image"><a href="2%20Function%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7%2058bc3207a9ff4d2793e3ab739b5a5adb/Untitled.png"><img style="width:912px" src="2%20Function%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7%2058bc3207a9ff4d2793e3ab739b5a5adb/Untitled.png"/></a></figure></li></ul></li></ul><ul id="bf8a12b2-89e8-46c8-aee6-452eac12810f" class="bulleted-list"><li style="list-style-type:disc">需要在注意的是，ECMAScript规范关于<code>Function.prototype.arguments</code> 的唯一行为是，它是一个初始<code>arguments</code> 访问器属性，会无条件的为任何<code>get</code> 和<code>set</code> 请求抛出<code>TypeError</code> 错误【这种访问器属性称为<strong>毒丸访问器（poison pill accessor</strong>）】，并且除了非严格的（<strong>non-strict</strong>）普通函数外，这种抛出错误的实现（implementations）不允许被更改。而关于<code>Function.prototype.arguments</code> 行为规范的实际实现，谷歌浏览器是在<code>Function</code> 的实例上定义了一个<code>arguments</code> 自有属性（<a href="../%E5%87%BD%E6%95%B0%EF%BC%88Function%EF%BC%89%20fbf1244f6ffb419ab669034d6a398e21.html">上述划线的不正确</a>），而火狐和Safari浏览器扩展了<strong>最初的毒丸访问器</strong>(<strong>initial poison-pill </strong><strong><code>Function.prototype.arguments</code></strong><strong> accessor</strong>) 以专门处理非严格函数的值<pre id="1fab3f6d-8bce-4ebe-8985-6964f5cf5c2c" class="code code-wrap"><code>(function f() {
+  if (Object.hasOwn(f, &quot;arguments&quot;)) {
+    console.log(
+      &quot;arguments is an own property with descriptor&quot;,
+      Object.getOwnPropertyDescriptor(f, &quot;arguments&quot;),
+    );
+  } else {
+    console.log(
+      &quot;f doesn&#x27;t have an own property named arguments. Trying to get f.[[Prototype]].arguments&quot;,
+    );
+    console.log(
+      Object.getOwnPropertyDescriptor(
+        Object.getPrototypeOf(f),
+        &quot;arguments&quot;,
+      ).get.call(f),
+    );
+  }
+})();
+// 在谷歌浏览器中的打印
+arguments is an own property with descriptor 
+{value: Arguments(0), writable: false, enumerable: false, configurable: false}
+// 在火狐浏览器中的打印
+f doesn&#x27;t have an own property named arguments. Trying to get f.[[Prototype]].arguments
+Arguments { … }
+</code></pre><ul id="496860ce-f29b-4abb-95f1-5fa22d934394" class="bulleted-list"><li style="list-style-type:circle">上面的<code>.get.call(f)</code>,是获取了<code>Function.prototype.arguments</code> 的属性标识符后直接调用其中的<code>get</code> 方法得到的结果</li></ul><ul id="f0478c62-b441-403b-ae97-29f4ae3c904a" class="bulleted-list"><li style="list-style-type:circle">注意在node（v16.14.0）环境下，打印和谷歌浏览器类似</li></ul></li></ul><h2 id="b40b38c1-b4a4-4bfe-b082-f58b2259d038" class="">2.2 <code>Function.prototype.caller</code></h2><ul id="d9b7e3f9-ce09-4190-9f24-475df9abe19c" class="bulleted-list"><li style="list-style-type:disc">这是一个<strong>不建议使用（Deprecated）</strong>并且<strong>不是标准（Non-standard）</strong>的函数对象原型属性</li></ul><ul id="3761dff9-ce3f-4f98-8a85-0a19fb50b3bc" class="bulleted-list"><li style="list-style-type:disc"><code>Function</code> 对象的<code>caller</code>访问器属性<strong>表示调用当前正在执行的的函数的函数</strong>。在严格模式下，异步函数，生成器函数的调用者（caller），访问<code>caller</code> 属性时会抛出异常</li></ul><ul id="8ee1f148-9bf8-4de2-907f-21a6f460d0cb" class="bulleted-list"><li style="list-style-type:disc">注意函数体内的<code>arguments</code> 对象实现了<code>caller</code> 属性（为了与函数的<code>caller</code> 分清而故意为之），但是始终为<code>undefined</code> ，严格模式下访问<code>arguments.caller</code> 会抛出异常</li></ul><h3 id="ac55dee3-ca9b-4f34-bdab-24fa3c8b977e" class="">2.2.1 一个典型的例子</h3><pre id="e1728a61-a516-4bf0-bf1e-e1bad960ba58" class="code code-wrap"><code>function outer() {
+  inner(arguments.callee);
+}
+
+function inner() {
+  console.log(inner.caller);
+  console.log(inner.caller === arguments[0]);
+}
+outer(); 
+// [Function: outer]
+// true
+</code></pre><ul id="4ff18c6c-110f-466c-a179-e0e3123063c5" class="bulleted-list"><li style="list-style-type:disc"><code>arguments.callee</code> 就是<code>outer</code> 函数对象本身，它与<code>inner.caller</code> 相等，因为<code>inner.caller</code> 是调用当前执行函数时所在作用域的函数，<code>outer</code> 在函数体内调用了<code>inner</code> ，所以<code>inner.caller</code> 就是<code>outer</code> 函数对象本身</li></ul><h3 id="759fcc18-9e55-414a-b019-4d2cdd93ebcd" class="">2.2.1  理解<code>caller</code> </h3><ul id="63fe475e-71bf-427f-88bf-176955021d76" class="bulleted-list"><li style="list-style-type:disc">和<code>Function.prototype.arguments</code> 类似，ECMAScript规范指出<code>Function.prototype</code> 包含一个初始化的<code>caller</code> 访问器属性，它无条件的为任何<code>get</code> 或<code>set</code> 请求抛出<code>TypeError</code> 异常，这种属性访问器称为<strong>毒丸访问器</strong>（<strong>poison pill accessor</strong>），并且<code>caller</code> 的这种实现除了非严格的普通函数，不允许任何函数修改其语义</li></ul><ul id="fa6d6a05-4ba1-4d23-b6b4-2ea75f32e6b0" class="bulleted-list"><li style="list-style-type:disc"><code>Function.prototype.caller</code> 的实际行为是由环境的具体<strong>实现有关</strong>的（<strong>implementation-defined</strong>）；谷歌浏览器实现ECMAScript规范的<code>caller</code> 属性时，会在函数对象中定义一个自有的数据属性，默认为<code>null</code>； 而火狐浏览器和Safari浏览器扩展了<strong>最初的毒丸访问器</strong>(<strong>initial poison-pill </strong><strong><code>Function.prototype.arguments</code></strong><strong> accessor</strong>) 以专门处理非严格函数的值<pre id="752287de-c184-4cba-87ee-cdbd30abb76b" class="code code-wrap"><code>(function f() {
+  if (Object.hasOwn(f, &quot;caller&quot;)) {
+    console.log(
+      &quot;caller is an own property with descriptor&quot;,
+      Object.getOwnPropertyDescriptor(f, &quot;caller&quot;),
+    );
+  } else {
+    console.log(
+      &quot;f doesn&#x27;t have an own property named caller. Trying to get f.[[Prototype]].caller&quot;,
+    );
+    console.log(
+      Object.getOwnPropertyDescriptor(
+        Object.getPrototypeOf(f),
+        &quot;caller&quot;,
+      ).get.call(f),
+    );
+  }
+})();
+// 在谷歌浏览器中的打印
+caller is an own property with descriptor 
+{value: null, writable: false, enumerable: false, configurable: false}
+// 在火狐浏览器中的打印
+f doesn&#x27;t have an own property named caller. Trying to get f.[[Prototype]].caller
+null</code></pre></li></ul><h2 id="0c825377-90a6-46e3-811c-6d69cfcd8af5" class="">2.3 <code>Function.prototype.displayName</code></h2><ul id="79c42b90-bf7f-426d-99fb-26ff7d75474c" class="bulleted-list"><li style="list-style-type:disc">一个函数对象可选的原型属性，返回函数对象的函数<strong>昵称</strong>（<strong>displayName</strong>）</li></ul><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="0a8ed8e8-2552-427d-9b70-1e232737ae66"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：这个原型属性不是标准（non-standard），不要在生成环境下使用它（并不是每个浏览器都支持该属性）。在未来它的实现和行为可能因为兼容性的问题而被改变</div></figure><h3 id="ef3fc8e1-6d86-4b3a-a6e3-6e463885126f" class="">2.3.1 理解<code>displayName</code></h3><ul id="eb859565-1094-4255-9ee3-ac3a34680a06" class="bulleted-list"><li style="list-style-type:disc">这个属性最初不会出现在任何函数上，它是开发者自定义添加的</li></ul><ul id="6f9f2c1c-4ec0-4f6c-aff2-f82374585cc9" class="bulleted-list"><li style="list-style-type:disc">如果属性存在，控制台（consoles）或解析器（profilers）<strong>可能</strong>优先使用<code>displayName</code> 而不是<code>name</code>属性来表示函数名称</li></ul><ul id="5e9a4a9f-9090-4df6-9625-b81f7cf199a5" class="bulleted-list"><li style="list-style-type:disc">实际上也就火狐浏览器的控制台应用（utilizes）了这个属性。React devtools也使用了<code>displayName</code> 属性用于清晰的显示组件树（React中有函数组件）</li></ul><ul id="3ae0c0f1-0241-4202-afc5-9551c3c8d682" class="bulleted-list"><li style="list-style-type:disc">并且火狐浏览器还尝试对<code>displayName</code> 进行解码（decode），依照<a href="http://johnjbarton.github.io/nonymous/index.html">anonymous JavaScript functions naming convention</a>
+ algorithm （一种字符识别算法），将包含特殊字符的<code>displayName</code> 进行转义</li></ul><h3 id="69f61fe4-b00f-473e-aaf7-f7038a4dd0c3" class="">2.3.2 例子</h3><pre id="ba737415-b31d-4801-a21b-afd9fdcfe963" class="code code-wrap"><code>function foo() {}
+
+function testName(name) {
+  foo.displayName = name;
+  console.log(foo);
+}
+
+testName(&quot;$foo$&quot;); // function $foo$()
+testName(&quot;foo bar&quot;); // function bar()
+testName(&quot;Foo.prototype.add&quot;); // function add()
+testName(&quot;foo .&quot;); // function foo .()
+testName(&quot;foo &lt;&quot;); // function foo &lt;()
+testName(&quot;foo?&quot;); // function foo?()
+testName(&quot;foo()&quot;); // function foo()()
+
+testName(&quot;[...]&quot;); // function ...()
+testName(&quot;foo&lt;&quot;); // function foo()
+testName(&quot;foo...&quot;); // function foo()
+testName(&quot;foo(^)&quot;); // function foo()</code></pre><ul id="e9440277-fe61-45c2-a846-71a794338317" class="bulleted-list"><li style="list-style-type:disc">上述打印<strong>仅在</strong>火狐浏览器的控制台生效，谷歌和node环境下，<code>displayName</code> 由于不是标准并没有被实现，显示的名称仍然是原始的<code>foo</code></li></ul><h2 id="b9966237-d596-4093-8ba6-f45440356695" class="">2.4 <code>Function.prototype.length</code></h2><ul id="37e2ebb6-4b4c-4243-94ef-b26d02c019d1" class="bulleted-list"><li style="list-style-type:disc"><code>length</code> 属性表示函数对象定义时的<strong>形式参数</strong>（parameter）数量，它是一个可配置不可写，不可枚举的参数</li></ul><h3 id="dc68ed74-16ab-4294-9c76-51a2f86cbdb4" class="">2.4.1 理解<code>length</code></h3><ul id="1dc85f32-b0b8-4db6-aa20-ea5e99266ecc" class="bulleted-list"><li style="list-style-type:disc">函数对象的<code>length</code> 属性表示函数被调用时期望传递的参数个数，也就是形式参数个数</li></ul><ul id="228ccefc-8931-4db5-8431-d4d1533792da" class="bulleted-list"><li style="list-style-type:disc">这个数量并不包括<strong>收集参数</strong>（<strong>rest parameter，查看</strong><strong><a href="../6%20%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95%E4%B8%8E%E6%94%B6%E9%9B%86%EF%BC%88Spread%20Arguments%20and%20Rest%20Parameters%EF%BC%89%2063b84c068cfa4dd4a89fe1de170defd4.html">6.2 收集参数（Rest Parameter）</a></strong><strong> </strong>）,并且只包括第一个具有默认值之前的参数个数（就是有默认值的参数极其之后的参数都不计入期待传递的参数数量中）</li></ul><ul id="af42efde-53ad-44d6-807b-06854c891142" class="bulleted-list"><li style="list-style-type:disc">与函数对象本身的<code>length</code> 相比，函数内部的<code>arguments</code> 对象的<code>length</code> 属性表示实际传入的<strong>参数个数</strong>（<strong>number of arguments</strong>）【注意这里传递参数使用arguments而不是parameters，表示<a href="../6%20%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95%E4%B8%8E%E6%94%B6%E9%9B%86%EF%BC%88Spread%20Arguments%20and%20Rest%20Parameters%EF%BC%89%2063b84c068cfa4dd4a89fe1de170defd4.html">实际参数</a>】</li></ul><ul id="2d2063cb-e60d-4d2b-908d-e8fffd6769f0" class="bulleted-list"><li style="list-style-type:disc"><code>Function</code> 构造函数本身的<code>length</code> 属性值为1（由<code>Function</code>构造函数的语法可知，必填的参数只有一个，其它的都是可选的）</li></ul><ul id="3d8cbca1-5034-4f19-8679-7d1b6b9ecdb9" class="bulleted-list"><li style="list-style-type:disc">由于历史原因，<code>Function.prototype</code> 对象本身就是<strong>可调用的</strong>（<strong>callable</strong>），它的<code>length</code> 属性值为0</li></ul><h3 id="7d7210be-abe9-44fc-a579-33ead5dbf108" class="">2.4.2 例子</h3><pre id="2f8bcb53-28d3-43da-af9b-aeb690496642" class="code code-wrap"><code>console.log(Function.length); // 1
+console.log(Function.prototype.length); // 0
+
+console.log(function (a, b) {}.length); // 2
+console.log(((a) =&gt; {}).length); // 1
+
+console.log(((a, ...rest) =&gt; {}).length); // 1
+console.log(((a, b = 1, c, ...rest) =&gt; {}).length); // 1</code></pre><h2 id="0d25f026-b33f-484c-a163-f584ab53d14c" class="">2.5 <code>Function.prototype.name</code></h2><ul id="9e4816d7-05d3-488a-9063-73810fe12382" class="bulleted-list"><li style="list-style-type:disc">ES6新增的表示函数对象名称的属性<code>name</code>，它被初始化为 定义函数时使用在<code>function</code>关键字后的名称标识符，或初始赋值的变量的标识符，否则要么是<code>anonymous</code> （匿名）要么是空字符串</li></ul><ul id="5011faac-ad10-4c1a-bad8-f2de341df555" class="bulleted-list"><li style="list-style-type:disc"><code>name</code> 是可配置的不可写不可枚举属性</li></ul><h3 id="aaa1faa2-55ec-45dd-aac5-e2b34af28864" class="">2.5.1 理解<code>name</code></h3><ul id="0c899ed3-aaeb-4af8-a4a2-dc81711d2b41" class="bulleted-list"><li style="list-style-type:disc">函数的<code>name</code> 属性可用于在<strong>调式工具</strong>（<strong>debugging tools</strong>）或错误信息中<strong>标识函数（identify function）</strong></li></ul><ul id="f323a7f2-2ac8-45c6-a076-24d896c71b45" class="bulleted-list"><li style="list-style-type:disc">函数名称标识符本身<strong>不具有语义意义</strong>（<strong>semantic significance</strong>）<ul id="f255f22e-8a35-49d1-a47f-e4671296e2b2" class="bulleted-list"><li style="list-style-type:circle">实际上递归函数中递归调用本身时使用的标识符不完全等同于函数名称，等同于保存函数对象的变量标识符</li></ul><ul id="5259aff0-33d5-4d52-83bd-d0ba4bd6e2c5" class="bulleted-list"><li style="list-style-type:circle">一旦保存函数对象的变量标识符不再和函数名称一致，就会导致函数名称不能等价与自身</li></ul></li></ul><ul id="018e0a09-a00d-42f5-b3ab-fdf2d8d6d7f6" class="bulleted-list"><li style="list-style-type:disc">函数对象的<code>name</code> 属性是不可写的，但是能通过<code>Object.defineProperty()</code> 修改[[Writable]]特性后进行修改</li></ul><ul id="1bc685e2-8856-4d44-84ba-20afcd350483" class="bulleted-list"><li style="list-style-type:disc"><code>name</code> 的属性值是从函数的定义方式<strong>推断</strong>（<strong>inferred</strong>）出来的（例如是<code>Function</code> 构造函数创建的函数对象默认使用<code>anonymous</code> 作为函数名称）</li></ul><h3 id="9ff691ff-dd09-4f46-95be-a17633c1043e" class="">2.5.2 例子</h3><p id="f5fed498-e346-4d06-a84e-cfa9f51c8e4a" class=""><strong>函数声明</strong></p><pre id="cb40293b-3c37-45d6-8ce1-2df4675c67e2" class="code code-wrap"><code>function doSomething() {}
+console.log(doSomething.name); // doSomething
+let temp = doSomething;
+doSomething = null;
+console.log(temp.name); // doSomething</code></pre><p id="0b63097a-c857-4bda-a67e-c5cf32ae5316" class=""><strong>node环境下的方法在一个文件中导出方法，方法名称为空字符串（打印显示为匿名函数）</strong></p><pre id="765a73a2-c1c0-41f7-909f-41bdb0229813" class="code code-wrap"><code>// a.js
+// export
+exports.test = function () {
+  return false;
+};
+// b.js
+const someModule = require(&quot;./10.0.2.5 Function.prototype.name&quot;);
+console.log(someModule.test.name === &quot;&quot;); // true
+console.log(someModule.test); // [Function (anonymous)]</code></pre><p id="7d16f576-38c7-43f1-a29c-945c4716cc24" class=""><strong>浏览器环境下使用ES6语法导出默认方法，方法名称为default</strong></p><pre id="726e0f4b-953d-4dae-9847-cdec9cc904f7" class="code code-wrap"><code>// module.js
+export default function() {
+  console.log(&quot;1&quot;);
+}
+// main.js
+import someModule from &quot;./module.js&quot;;
+console.log(someModule.name); // default</code></pre><p id="8fb62f7f-38fb-4407-a8cd-6e25870d4c14" class=""><strong><code>Function</code></strong><strong> 构造函数创建的函数对象的</strong><strong><code>name</code></strong><strong> 属性值为</strong><strong><code>anonymous</code></strong></p><pre id="e27759b3-b4f0-4281-8f90-6439cd033dbf" class="code code-wrap"><code>console.log(new Function().name); // anonymous</code></pre><p id="79db526e-461e-48c7-bfa0-1398a219457a" class="">函数表达式分两种情况：如果使用命名函数表达式，函数名称就是命名标识符；匿名函数表达式的函数名称默认为空字符串，除非在定义时就赋值为一个变量，该变量标识符会作为匿名函数表达式的名称</p><pre id="9cf8668d-e186-4bb4-a030-981f5efd081a" class="code code-wrap"><code>console.log(function hello() {}.name); // hello
+console.log(function () {}.name); // 空字符串
+let k = function () {}; 
+console.log(k.name); // k</code></pre><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="bbd1e591-f42d-4c0b-a585-cfbdfc6cd250"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意箭头函数的名称和匿名函数表达式创建的函数名称行为一致</div></figure><hr id="bbba8ecb-4a29-4ca9-9581-8ccf51f3fd7d"/><p id="79f0cf7b-b40f-4b02-ae06-fd3b80d226ba" class="">在对象中声明的方法(method)的<code>name</code> 属性和变量声明时的行为一致（优先使用命名函数标识符，之后再使用属性标识符）</p><pre id="5cbe4c95-f205-4f94-a4f0-3210da0a546c" class="code code-wrap"><code>// 方法
+const o = {
+  someMethod: function a() {
+    return false;
+  },
+  someMethod2: function () {
+    return true;
+  },
+  someMethod3() {
+    return true;
+  },
+};
+console.log(o.someMethod.name); // a
+console.log(o.someMethod2.name); // someMethod2
+console.log(o.someMethod3.name); // someMethod3</code></pre><p id="2709dfb5-3187-4ace-962d-dd4502cb8eee" class="">通过解构（<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value">destructuring</a>）语法，默认参数值(deault parameters)，类域中获取的函数将继承<strong>绑定标识符（the bound identifier）</strong>作为名称</p><pre id="eb2e5c3f-98c6-4ca7-9a73-5aa5bc1436c1" class="code code-wrap"><code>const [f = () =&gt; {}] = [];
+console.log(f.name); // f
+
+const { someMethod: m = () =&gt; {} } = {};
+console.log(m.name); // m
+
+function foo(f = () =&gt; {}) {
+  console.log(f.name); // f
+}
+foo();
+
+class Foo {
+  static someMethod = () =&gt; {};
+}
+console.log(Foo.someMethod.name); // someMethod</code></pre><p id="36651ef1-a0f7-498a-932f-870318af7e95" class="">通过<code>bind()</code> 方法生成的绑定指定<code>this</code> 的函数名称会在原函数的名称加上<code>bound</code> 字符串</p><pre id="b81f8ea4-d8c7-4611-945d-9f5847c49dcb" class="code code-wrap"><code>console.log(foo.bind({}).name); // bound foo</code></pre><p id="848c34f5-7fbb-4423-8b5f-d430a1927388" class="">访问器属性的<code>setter</code>和<code>getter</code> 方法的函数名称会加上<code>set</code>或<code>get</code></p><pre id="1d807a6c-6ce2-48a6-adcc-cc1b79850d2d" class="code code-wrap"><code>// setter
+const obj = {
+  set prop(v) {},
+  get prop() {},
+};
+
+const descriptors = Object.getOwnPropertyDescriptors(obj);
+console.log(descriptors.prop.get.name); // get prop
+console.log(descriptors.prop.set.name); // set prop</code></pre><p id="d2eca0db-2bcb-445d-bc72-87717ea4b959" class="">类的底层依靠函数的原型，所以类的名称的和函数名称类似，根据声明方式而有所不同</p><pre id="e7c6baaf-ff7a-4ce8-b199-1af23ef75324" class="code code-wrap"><code>class A {}
+const B = class C {};
+class D {
+  static name = &quot;ABCD&quot;;
+}
+// node环境下的打印
+console.log(A.name);  // A
+console.log(B.name);  // C
+console.log(D.name);  // ABCD
+console.log(A); // [class A] {}
+console.log(B); // [class C] {}
+console.log(D); // [class ABCD] {}</code></pre><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="6a7df09f-c786-4114-a77f-14ba222cc235"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：在类中定义名称为<code>name</code> 的静态属性会与底层的函数实现<code>name</code> 冲突，在node环境下打印出来的结果和浏览器环境下的结果有区别（浏览器按照class D处理而node环境按照class ABCD处理）；在类中定义<code>name</code> 为一个函数时，就无法使用<code>name</code> 标识类名称了，所以不要依赖<code>name</code> 属性来表示类名称</div></figure><p id="7c4e398b-595a-452d-8e2e-33a21779c40b" class="">当符号作为函数对象的<code>name</code> 值时，标识符号的字符串包裹中括号（square brackets）将作为函数名称（仍然是字符串），如果是匿名函数，依旧是空字符串</p><pre id="9a751aca-025f-49b6-84a2-5b8f24d62336" class="code code-wrap"><code>const sym1 = Symbol();
+const sym2 = Symbol(&quot;foo&quot;);
+const obj2 = {
+  [sym1]() {},
+  [sym2]() {},
+};
+console.log(obj2); 
+// {
+  // [Symbol()]: [Function (anonymous)],
+  // [Symbol(foo)]: [Function: [foo]]
+// }
+console.log(obj2[sym1].name); // 空字符串
+console.log(obj2[sym2].name); // [foo]</code></pre><p id="875ebf59-e187-47a3-b8c8-fc2773cfd4ef" class="">类中的私有属性（<strong>Private property</strong>）值是匿名函数的情况</p><pre id="b68459f6-7b8e-4574-8a54-99aae50f133a" class="code code-wrap"><code>class F {
+  #field = () =&gt; {};
+  #method() {}
+  getNames() {
+    console.log(this.#field.name);
+    console.log(this.#method.name);
+  }
+}
+new F().getNames() 
+// #field
+// #method</code></pre><h3 id="f7c008b0-7357-4adf-ab21-1d01c0dd82de" class="">2.5.3 注意事项-JavaScript压缩器（compressor）与精简器（minifier）</h3><ul id="bbaab4ca-780b-4437-abe0-c74ad8ff9826" class="bulleted-list"><li style="list-style-type:disc">在现代Web前端开发中，JavaScript代码往往会被压缩打包成更小的体积，提高运行性能，为了让文件体积更小，会将一个作用域小的所有标识符按照一定规则进行替换，如<code>Foo</code> 函数标识符占用3个字符，为了节省空间可能就用一个字符<code>F</code> （也可能是其他的）表示</li></ul><ul id="afce24ce-e2c9-4e94-810c-3f9bc354bad6" class="block-color-red_background bulleted-list"><li style="list-style-type:disc">需要注意的是，谨慎在需要进行<strong>转化</strong>（<strong>transformations，</strong>即使用JavaScript压缩器和精简器进行压缩和丑化）的源代码中使用<code>name</code> 属性，因为这些转化工具通常作为JavaScript<strong>构建管道</strong>（<strong>build pipeline</strong>）的一部分在程序部署到生产之前减少程序的大小，就也是说<code>name</code> 属性值会被连带修改</li></ul><ul id="d659c9f7-324a-4fd4-a1ae-0fc7b125dec9" class="bulleted-list"><li style="list-style-type:disc">最典型的不合理使用是将<code>name</code> 属性值作为判断依据执行不同的代码，如下<pre id="de15ecaa-3d53-43bc-b9fd-0ca632e61e0b" class="code"><code>// 不要使用name属性值
+function Bar() {}
+const bar = new Bar();
+if (bar.constructor.name === &quot;Bar&quot;) {
+  console.log(&quot;bar is an instance of Bar&quot;);
+} else {
+  console.log(&quot;Oops&quot;);
+}</code></pre><ul id="7588cf07-d7ef-41fe-aac0-12617a1b4d66" class="bulleted-list"><li style="list-style-type:circle">它使用<code>name</code> 的属性值作为判断依据，如果程序被压缩，可能变成如下代码</li></ul><pre id="d4ace421-7fe9-4eb3-bcb1-e6ab663649c3" class="code"><code>// 不要使用name属性值
+function a() {}
+const b= new a();
+if (b.constructor.name === &quot;Bar&quot;) {
+  console.log(&quot;bar is an instance of Bar&quot;);
+} else {
+  console.log(&quot;Oops&quot;);
+}</code></pre><ul id="62d84637-c7d8-4a7c-8588-073a545f8f61" class="bulleted-list"><li style="list-style-type:circle">在未压缩版本中，<code>Bar()</code> 函数的名称就是<code>&quot;Bar&quot;</code> 打印<code>&quot;bar is an instance of Bar&quot;</code> </li></ul><ul id="246e2d96-02dd-4bde-a22c-9bbad203b547" class="bulleted-list"><li style="list-style-type:circle">但是在压缩版本中，<code>Bar()</code>函数 的标识符被压缩为<code>a</code> ，也就是说<code>a()</code> 函数在被JavaScript执行时，它的函数名称会变为<code>a</code>，这个时候<code>b.constructor.name === &quot;Bar&quot;</code> 返回<code>false</code>， 打印<code>&quot;Oops&quot;</code> </li></ul></li></ul><ul id="c89fc73e-3537-4423-b792-d49fe438cd4f" class="bulleted-list"><li style="list-style-type:disc">所以使用<code>name</code> 属性可能导致生产环境和运行环境下的运行结果不同，需要谨慎使用；如果代码一定要依赖<code>name</code> 属性，需要确保<strong>构建管道</strong>（<strong>build pipeline</strong>）没有更改函数名，或者不要假定函数有一个特定（<strong>particular</strong>）的名称</li></ul><h2 id="ae921daa-0b13-4784-ab25-4a009c9aaa2e" class="">2.6 <code>Function.prototype.prototype</code></h2><ul id="7fdcd473-e458-4e9c-af4d-e4c498c7215f" class="bulleted-list"><li style="list-style-type:disc"><code>Function.prototype.prototype</code> 的值本身是<code>undefined</code> ，这里指的是<strong>函数对象的自有属性，</strong>这个<code>prototype</code>属性被用在函数作为<strong>构造函数</strong>（<strong>constructor</strong>）使用<code>new</code> 操作符实例化对象时，新对象的[[Prototype]]隐藏属性会被赋值构造函数的<code>prototype</code> 以继承原型方法和原型属性</li></ul><ul id="6fb325a7-70f8-4359-994d-933c2bf2e2c1" class="bulleted-list"><li style="list-style-type:disc">函数对象的自有属性<code>prototype</code> 属性是可写的不可配置不可枚举的数据属性，不也是所有函数对象都有<code>prototype</code> 属性（箭头函数就没有<code>prototype</code> 属性）</li></ul><h3 id="097d4f3a-911d-4b9b-a261-02677af1ca07" class="">2.6.1 理解<code>prototype</code> 属性</h3><ul id="790f3314-5705-46d5-9e9c-3620605eee4f" class="bulleted-list"><li style="list-style-type:disc">当使用<code>new</code> 操作符调用函数时，构造函数的<code>prototype</code> 属性会作为结果对象的原型（[[Prototype]]）</li></ul><ul id="5803b776-1722-40b9-a92a-f88b9fb615d0" class="bulleted-list"><li style="list-style-type:disc"><strong>具有</strong><strong><code>prototype</code></strong><strong> 属性的函数并不足以使其具有作为构造函数的资格（eligible），</strong>例如<code>Generator</code> 函数（生成器）具有<code>prototype</code> 属性，但是它不能通过<code>new</code> 调用<ul id="8bbbdadc-6d85-4cf9-bec2-a3e9a75367aa" class="bulleted-list"><li style="list-style-type:circle">生成器函数的<code>prototype</code> 属性在正常调用（不使用<code>new</code>）时被使用，生成器函数的<code>prototype</code> 会成功其返回值（生成器对象）对象的[[Prototype]]隐藏属性值<pre id="b344a78c-3853-4234-aa1b-a950798bec9f" class="code code-wrap"><code>function* Generator() {
+  yield* [1, 2, 3];
+}
+
+const iterator = Generator();
+console.log(iterator.__proto__ === Generator.prototype); // true</code></pre></li></ul></li></ul><ul id="2ff66456-6b42-432e-a6e6-8a1494e2dc49" class="bulleted-list"><li style="list-style-type:disc">还有些内置函数具有原型但是在用<code>new</code> 调用时会无条件抛出异常，如<code>Symbol()</code> 函数，它用于生成符号实例，<code>BigInt()</code> 函数，用于将number类型值转化为BigInt类型，它们都具有<code>prototype</code> 属性但是仅用于为对应的原始值（符号和BigInt类型值）提供方法，不能使用<code>new</code> 调用<pre id="5584c015-515e-49b3-9d75-48b92c86e32b" class="code code-wrap"><code>const sym = Symbol(&quot;123&quot;);
+const bigint = BigInt(123);
+console.log(sym); // Symbol(123)
+console.log(bigint); // 123n</code></pre></li></ul><ul id="1660a895-ad8d-40f5-8f03-bd1ea3043528" class="bulleted-list"><li style="list-style-type:disc">箭头函数因为没有<code>prototype</code> 属性无法作为构造函数，即使为箭头函数本身<strong>手动分配</strong>（<strong>manually assigned</strong>）一个<code>prototype</code> 对象也无法作为构造函数<pre id="0bea25fb-fe6f-4047-a9da-ab7efd636214" class="code code-wrap"><code>// 箭头函数不具有prototype所以不能作为构造函数(即使进行自定义)
+const arrow = () =&gt; {};
+console.log(arrow.prototype);
+arrow.prototype = {
+  constructor: arrow,
+  __proto__: Object.prototype,
+};
+console.log(arrow);
+// &lt;ref *1&gt; [Function: arrow] {
+ // prototype: { constructor: [Circular *1] }
+// }
+try {
+  const o = new arrow();
+} catch (error) {
+	console.log(error.toString()); // TypeError: arrow is not a constructor
+}</code></pre></li></ul><ul id="025136b8-5b98-40f4-892e-b5ac0186cbfa" class="bulleted-list"><li style="list-style-type:disc"><strong>绑定函数</strong>（<strong>bound functions</strong>）没有<code>prototype</code> 属性，但是它可能是<strong>可构造的</strong>（<strong>constructable</strong>）。使用一个绑定函数作为构造函数时，实例原型使用原始函数的<code>prototype</code> 属性（如果原始函数不可构造就不能使用<code>new</code> 操作符调用绑定函数了）<pre id="ecc955fd-b44a-4c63-accd-889ac9d0b2e4" class="code"><code>// 绑定函数不具有prototype，但是可能是可构造的
+function a() {}
+const boundFunc = a.bind(null);
+console.log(boundFunc.prototype); // undefined
+const b = new boundFunc();
+console.log(b); // a {}
+console.log(b.__proto__ === a.prototype); // true</code></pre></li></ul><ul id="e62f80fb-e73d-40b7-b9e6-6d67b3a42482" class="bulleted-list"><li style="list-style-type:disc">函数对象的<code>prototype</code> 属性值是一个只有<code>constructor</code> 属性的<strong>普通对象</strong>（<strong>plain object</strong>），<code>constructor</code> 属性引用函数对象本身，<code>constructor</code>是一个可写、不可枚举、可配置的属性（普通对象的意思就是它具有[[Prototype]]特性属性）</li></ul><ul id="82be6df0-6b65-4e24-b5e9-5f150c714685" class="bulleted-list"><li style="list-style-type:disc">如果一个函数对象的<code>prototype</code> 属性值被<strong>重新赋值</strong>（<strong>reassigned</strong>） 为非对象的值（原始数据类型），当使用<code>new</code> 操作符调用这个函数对象创建实例时，新实例的原型（[[Prototype]]）不会是函数对象的<code>prototype</code> 而是使用<code>Object.prototype</code> 替代（换句话说，<code>new</code> 操作符会忽略函数对象的<code>prototype</code> 属性值为非对象而使用<code>Object.prototype</code> 作为新对象的原型）<pre id="5b9dba54-3934-4ae6-b82f-28891219c4c6" class="code code-wrap"><code>function foo() {}
+foo.prototype = 3;
+const f = new foo();
+console.log(foo.prototype); // 3
+console.log(f.__proto__ === Object.prototype); // true</code></pre></li></ul><h3 id="d8cd977c-50d0-4c99-b5cf-5df2b5ff77bd" class="">2.6.2 例子</h3><p id="1845c60e-9a1a-4dc6-9cbb-7ed2e45dfefe" class=""><strong>为类添加非方法（non-method）原型属性</strong></p><ul id="7a05406f-29c1-432c-9227-ee64014f699e" class="bulleted-list"><li style="list-style-type:disc">类是ES6实现构造函数和继承的语法糖，所以其底层实现就是函数和原型链，通过给类的原型（<strong>prototype</strong>）添加属性就能给每个类实例添加原型([[Prototype]])属性了<pre id="c2d7672f-ab59-43ae-b8bd-ae3d96bc7256" class="code code-wrap"><code>class Dog {
+  constructor(name) {
+    this.name;
+  }
+}
+Dog.prototype.species = &quot;dog&quot;;
+
+console.log(new Dog(&quot;Jack&quot;).species);</code></pre></li></ul><ul id="7a3805f5-bb58-41f2-a148-abed43ab0187" class="bulleted-list"><li style="list-style-type:disc">使用<a href="../../8%20%E5%AF%B9%E8%B1%A1%E3%80%81%E7%B1%BB%E4%B8%8E%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%20f6fb465850ab4a29b1eb099f634fc5a5/4%20%E7%B1%BB%2046f0babda3ea43c68202540a3b83d631/%E7%B1%BB%E9%9D%99%E6%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E5%9D%97%EF%BC%88Class%20static%20initalization%20blocks%EF%BC%89%205e7e1003ed0347e4b5070ddbfaefb7c1.html"><span class="icon">🏐</span>类静态初始化块（Class static initalization blocks）</a> 会使得这种添加更加<strong>人性化</strong>（<strong>ergonomic</strong>），因为使用类静态初始化块能在声明类时就能定义原型属性<pre id="37c4a5c4-e4f2-48e1-aa3d-c5c708dc48db" class="code code-wrap"><code>class Dog2 {
+  constructor(name) {
+    this.name = name;
+  }
+  static {
+    this.prototype.species = &quot;dog&quot;;
+  }
+}
+console.log(new Dog2(&quot;Jack&quot;).species);</code></pre><ul id="194af550-10e4-4282-baf0-fe590744b123" class="bulleted-list"><li style="list-style-type:circle">类静态初始化块中的<code>this</code> 就是类本身</li></ul></li></ul></div></div></div></article></body></html>

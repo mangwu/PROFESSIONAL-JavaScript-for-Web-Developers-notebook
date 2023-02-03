@@ -1,0 +1,843 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3. 代理模式(Proxy Pattern)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e4fa9b02-cb6a-460f-89fc-1264d7939168" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_goya_1789.jpg" style="object-position:center 80%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🔮</span></div><h1 class="page-title">3. 代理模式(Proxy Pattern)</h1></header><div class="page-body"><p id="7d09de9b-73f5-412a-b307-2e5d35b3e462" class="">使用代理可以在代码中实现一些有用的<strong>编程模式</strong></p><div id="ba85de43-ed74-46d8-bf2f-729a8381ff0f" class="column-list"><div id="ad9b85d4-9553-4b7c-9019-1b9b8580c206" style="width:25%" class="column"><nav id="5eea42c3-e4a5-415f-98b7-22ca2939a204" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d2d24a0c-62ff-49b2-b2d0-cb980952204a">3.1 跟踪属性访问（Tracking Property Access）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fd387f14-e033-407b-b96e-96f570d231eb">3.2 隐藏属性(Hidden Properties)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#95fdddc3-4407-40ba-a768-5a1b70f87c92">3.3 属性验证（Property Validation）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4afdef20-13f2-48ca-b71d-7fbf4ea68947">3.4 函数与构造函数参数验证（Parameter Validation）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#283cd35f-0da9-4e3e-be66-493876fecaf1">3.5 数据绑定与可观察对象（Data Binding and Observables）</a></div></nav><p id="82ffe67d-5840-4259-a271-00422a97f187" class="">
+</p></div><div id="a68205b6-c76e-4161-944e-34f632fc754f" style="width:75%" class="column"><h1 id="d2d24a0c-62ff-49b2-b2d0-cb980952204a" class="">3.1 跟踪属性访问（Tracking Property Access）</h1><ul id="68818ee5-c240-49aa-85da-58f43625325e" class="bulleted-list"><li style="list-style-type:disc"><code>get</code>, <code>set </code>和 <code>has</code> 等基本（nature）操作提供了大体上对象属性在什么时候正被<strong>访问</strong>（<strong>accessed</strong>）或<strong>检查</strong>（<strong>inspected</strong>）的<strong>了解</strong>（<strong>insight</strong>）</li></ul><ul id="a66b54d8-ef50-4f1c-ac38-be7fbce70b81" class="bulleted-list"><li style="list-style-type:disc">如果把实现相应捕获器的某个对象代理放到应用中，可以<strong>准确（exactly）</strong>监控这个对象何时在何处被访问过</li></ul><pre id="9c97ec1c-c90d-4cd7-b9b8-bbc03c70c528" class="code code-wrap"><code>const target = {
+  age: 22,
+  name: &quot;mangwu&quot;,
+};
+target.__proto__.sayHello = function () {
+  console.log(`Hello, I&#x27;m ${this.name}`);
+};
+
+const proxy = new Proxy(target, {
+  set() {
+    console.log(
+      `target ${arguments[0]} is setting ${arguments[1]} = ${arguments[2]}`
+    );
+    return Reflect.set(...arguments);
+  },
+  get() {
+    console.log(
+      `target ${arguments[0]} is getting ${arguments[1]} property value`
+    );
+    return Reflect.get(...arguments);
+  },
+});
+proxy.age;
+proxy.name = &quot;wumang&quot;;
+proxy.sayHello();
+// 打印
+target [object Object] is getting age property value
+target [object Object] is setting name = wumang
+target [object Object] is getting sayHello property value
+target [object Object] is getting name property value
+Hello, I&#x27;m wumang</code></pre><ul id="835fa6ac-37d1-4328-a129-9c52be7ce175" class="bulleted-list"><li style="list-style-type:disc">在调用<code>sayHello()</code> 时，执行了两次<code>get</code> 操作，一次是对<code>sayHello</code> 本身的操作，另一次是在调用执行方法过程中，因为方法对<code>name</code> 的依赖所以还要获取<code>name</code></li></ul><h1 id="fd387f14-e033-407b-b96e-96f570d231eb" class="">3.2 隐藏属性(Hidden Properties)</h1><ul id="d1f881b1-b23d-48c0-96b0-ba35215180db" class="bulleted-list"><li style="list-style-type:disc">代理的内部实现对外部代码是不可见的，因此要<strong>隐藏</strong>（<strong>conceal</strong>）目标对象上属性的存在比较容易</li></ul><ul id="20c7453e-924b-4fea-92ad-7426fb7b44c0" class="bulleted-list"><li style="list-style-type:disc">只要get捕获器，has捕获器实现时将需要隐藏的对象当作不存在进行返回，就实现了在使用代理时就好像目标对象上不存在这些属性一样</li></ul><pre id="eca31f47-54fb-4d0f-863c-285ec165a405" class="code code-wrap"><code>const target = {
+  foo: &quot;foo&quot;,
+  bar: &quot;bar&quot;,
+  baz: &quot;baz&quot;,
+};
+const hiddenProp = [&quot;foo&quot;, &quot;bar&quot;];
+
+const proxy = new Proxy(target, {
+  get() {
+    if (hiddenProp.includes(arguments[1])) {
+      return undefined;
+    }
+    return Reflect.get(...arguments);
+  },
+  has() {
+    if (hiddenProp.includes(arguments[1])) {
+      return false;
+    }
+    return Reflect.has(...arguments);
+  },
+});
+
+// get
+console.log(proxy.foo); // undefined
+console.log(proxy.bar); // undefined
+console.log(proxy.baz); // baz
+// has
+console.log(&quot;foo&quot; in proxy); // false
+console.log(&quot;bar&quot; in proxy); // false
+console.log(&quot;baz&quot; in proxy); //  true</code></pre><h1 id="95fdddc3-4407-40ba-a768-5a1b70f87c92" class="">3.3 属性验证（Property Validation）</h1><ul id="6f01aa98-fdf7-4e6f-b6e8-775b071ecb67" class="bulleted-list"><li style="list-style-type:disc">因为所有的<strong>赋值操作</strong>（<strong>assignments</strong>）都会通过set()捕获器，可以根据所赋值决定是允许还是拒绝赋值</li></ul><pre id="71f98708-204f-4787-99c5-321b0ad69440" class="code code-wrap"><code>const person = {
+  age: 22,
+};
+const proxy = new Proxy(person, {
+  set() {
+    if (typeof arguments[2] !== &quot;number&quot;) {
+      return false;
+    }
+    if (arguments[2] &lt; 0 || arguments[2] &gt; 100) {
+      return false;
+    }
+    return Reflect.set(...arguments);
+  },
+});
+console.log(Reflect.set(proxy, &quot;age&quot;, &quot;23&quot;, proxy)); // 赋值失败 false
+console.log(Reflect.set(proxy, &quot;age&quot;, 123, proxy)); // 赋值失败 false
+console.log(Reflect.set(proxy, &quot;age&quot;, -1, proxy)); // 赋值失败 fasle
+console.log(Reflect.set(proxy, &quot;age&quot;, 23, proxy)); // 赋值成功 true</code></pre><ul id="5cbe1f25-4839-4cea-97d2-4dd4448e8265" class="bulleted-list"><li style="list-style-type:disc"><code>age</code> 属性的验证是只能赋值 [0,100]范围内的数字</li></ul><h1 id="4afdef20-13f2-48ca-b71d-7fbf4ea68947" class="">3.4 函数与构造函数参数验证（Parameter Validation）</h1><ul id="eb4a25db-7afd-4538-8e03-864c6932e22a" class="bulleted-list"><li style="list-style-type:disc">跟保护（protected）和验证（validated）对象属性类似，函数和构造函数的参数也能被捕获器审查（vetting）</li></ul><ul id="6f6a94a6-1ec6-4970-a6d1-53671bbaaab5" class="bulleted-list"><li style="list-style-type:disc">使用<code>apply</code> 捕获器验证函数的参数，使用<code>construct()</code> 捕获器验证构造函数的参数</li></ul><ul id="a46e9504-26de-457e-a838-e267bf1dbb7d" class="bulleted-list"><li style="list-style-type:disc">例如可以让函数只接受某种类型的值</li></ul><pre id="f937d96e-780e-470c-aa48-5c45b64c1609" class="code code-wrap"><code>function average(...nums) {
+  let sum = 0;
+  for (const num of nums) {
+    sum += num;
+  }
+  return sum / nums.length;
+}
+
+const proxy = new Proxy(average, {
+  apply(target, thisArg, argArray) {
+    for (const arg of argArray) {
+      if (typeof arg !== &quot;number&quot;) {
+        throw &quot;需要数字数组&quot;;
+      }
+    }
+    return Reflect.apply(...arguments);
+  },
+});
+console.log(proxy(4, 2, 5, 8, 6, 4, 1, 2, 4, 3)); //3.9
+try {
+  console.log(proxy(4, 2, 5, 8, 6, &quot;4&quot;, 1, 2, 4, 3)); 
+} catch (error) {
+  console.log(error.toString());  // 需要数字数组
+}</code></pre><ul id="d40e2a44-9120-4d6d-8540-ab88220ac437" class="bulleted-list"><li style="list-style-type:disc">类似，可以让构造函数在实例化对象是必须传递某些参数</li></ul><pre id="c34e8cb6-db20-4592-adc2-5a28ae45b90f" class="code code-wrap"><code>function User(id) {
+  this.id = id;
+}
+const proxy2 = new Proxy(User, {
+  construct(target, argArray, newTarget) {
+    if (argArray[0] === undefined) {
+      throw &quot;User 构造函数必须传递id&quot;;
+    }
+    return Reflect.construct(...arguments);
+  },
+});
+
+new proxy2(1);
+try {
+  console.log(new proxy2()); //
+} catch (error) {
+  console.log(error.toString()); // User 构造函数必须传递id
+}</code></pre><h1 id="283cd35f-0da9-4e3e-be66-493876fecaf1" class="">3.5 数据绑定与可观察对象（Data Binding and Observables）</h1><ul id="afc4da91-06bb-4b6e-b7aa-02f9c43b55d4" class="bulleted-list"><li style="list-style-type:disc">代理可以将<strong>运行时</strong>（<strong>runtime</strong>）中原本不想关的部分<strong>联系</strong>（<strong>intertwine</strong>）在一起，这样可以实现各种模式，从而让不同的代码进行交互（<strong>interact</strong>）</li></ul><ul id="2e82af54-e41d-420b-bdaf-e8d7e5d0a442" class="bulleted-list"><li style="list-style-type:disc">例如，可以将代理的类绑定到一个全局实例集合中（<strong>数据绑定</strong>），让所有创建的实例都被添加到这个集合中</li></ul><pre id="24ee430b-9256-4a86-857c-c6466faaf840" class="code code-wrap"><code>const userList = [];
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+const proxy = new Proxy(User, {
+  construct() {
+    const newUser = Reflect.construct(...arguments);
+    userList.push(newUser);
+    return newUser;
+  },
+});
+new proxy(&quot;mang&quot;);
+new proxy(&quot;wu&quot;);
+new proxy(&quot;mangwu&quot;);
+
+console.log(userList); // [ User { name: &#x27;mang&#x27; }, User { name: &#x27;wu&#x27; }, User { name: &#x27;mangwu&#x27; } ]</code></pre><ul id="8d71060b-f06c-4246-bdbb-82f0462a507d" class="bulleted-list"><li style="list-style-type:disc">另外，还可以把集合绑定到一个<strong>事件分派程序</strong>（<strong>emitter</strong>），每次插入新实例都会发送消息（fire）</li></ul><pre id="ec29f145-8b0d-4a0c-8121-ee0cfc265bb0" class="code code-wrap"><code>const userList = [];
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+}
+var proxy2 = new Proxy(userList, {
+  set(target, property, newValue, receiver) {
+    const res = Reflect.set(...arguments);
+    if (res &amp;&amp; property !== &quot;length&quot;) {
+      // 判断是否插入成功
+      emit(Reflect.get(target, property));
+    }
+    return res;
+  },
+});
+function emit(newValue) {
+  console.log(`create a new User named ${newValue.name}`);
+}
+
+const proxy = new Proxy(User, {
+  construct() {
+    const newUser = Reflect.construct(...arguments);
+    proxy2.push(newUser);
+    return newUser;
+  },
+});
+new proxy(&quot;mang&quot;);
+new proxy(&quot;wu&quot;);
+new proxy(&quot;mangwu&quot;);
+
+console.log(userList);
+// 打印
+create a new User named mang
+create a new User named wu
+create a new User named mangwu
+[ User { name: &#x27;mang&#x27; }, User { name: &#x27;wu&#x27; }, User { name: &#x27;mangwu&#x27; } ]</code></pre><ul id="5aed0d03-e3b7-494a-9cbb-d9b3e7a72451" class="bulleted-list"><li style="list-style-type:disc">每通过<code>proxy</code>创建一次User实例，都会使用<code>proxy2</code> 在<code>userList</code>中新增实例</li></ul><ul id="b258f658-ceb2-497e-a0e2-b8873a840e7a" class="bulleted-list"><li style="list-style-type:disc">因为创建了3次实例，所以<code>emit</code> 被执行三次，即打印三次的消息</li></ul><ul id="30986b80-9999-4e20-9e8e-c9274587f10d" class="bulleted-list"><li style="list-style-type:disc">实际上<code>proxy2</code> 的<code>set</code> 捕获器被调用了6次，因为<code>push</code> 方法在添加元素成功后会设置数组长度，通过<code>res &amp;&amp; property !== &quot;length&quot;</code> 过滤掉了<code>length</code> 设置导致的<code>emit</code>触发</li></ul><p id="7dac0815-b24c-4b50-b646-b08268a653ec" class="">
+</p><p id="711436fc-b3b7-4ca0-8903-c3d8c7b27dfb" class="">
+</p></div></div><p id="9798a031-f9f6-4cbe-b84f-92b5284454bb" class="">
+</p></div></article></body></html>

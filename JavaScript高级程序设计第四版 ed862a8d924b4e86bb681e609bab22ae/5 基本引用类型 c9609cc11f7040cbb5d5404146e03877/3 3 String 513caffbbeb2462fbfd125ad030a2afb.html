@@ -1,0 +1,922 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3.3 String</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="513caffb-beb2-462f-bfd1-25ad030a2afb" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/gradients_8.png" style="object-position:center 70%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🎰</span></div><h1 class="page-title">3.3 String</h1></header><div class="page-body"><div id="05919dcb-3165-44cf-accd-dcb667657e59" class="column-list"><div id="68dfa1df-9fb3-451b-9353-ea868abc0362" style="width:25%" class="column"><nav id="7242a6a4-c6bb-4fcf-a6f6-5f7957019031" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0a31561f-7b93-455b-9463-d0705f0ba34e">描述</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9f850786-585d-4782-8386-e2f570177813">语法</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fa3e32b3-6715-4fbc-b9a6-643c0b809ab5">方法与属性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e8d4023b-0677-4ea3-889c-3eb6df8098c0">继承方法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ce3d05ad-70a0-40ab-89f1-4abd75077265">valueOf()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f045b0b9-dba8-48e2-8e54-5eab6c596e30">toLocaleString()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7a5ed08c-9e1d-4c96-8285-f9f99f1520b0">toString()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#09bc312a-b0ff-403c-a823-34aae951f24c">length属性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3525fa0d-d662-4683-8325-7fb6d82bd640">1. JavaScript字符</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3e9bf21a-6511-4867-a565-da04773a5922">码元</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d2ba8f28-00d9-41f2-ac09-609dd432c1c4">String.prototype.charAt()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7801c425-dc5a-4256-a813-e9522516c91a">字符编码</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#098b68c7-db3e-499e-8d03-261ff7672a13">String.prototype.charCodeAt()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b602eca2-dd41-493c-9c2e-7affbb1cc3b9">String.fromCharCode()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f127f289-e710-46d6-8dce-842b0d045ef4">字符编码对String方法的影响</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7e6eb30b-8255-4bda-a9bc-9ff2f866200a">String.prototype.codePointAt()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#78795178-9e6f-4c73-ab9b-1cf23805e367">String.fromCodePoint()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#20828db2-b5e1-4046-81ac-f76ef268ff80">2. String.prototype.normalize()方法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e6561433-3119-48e2-932d-50295744cacb">字符编码的映射</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4d28fa5b-86b3-41f3-b6ae-fa187fa52eb8">字符规范</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9d8b2eae-fd45-4895-aa9b-8ab3f3a83c02">3. 字符串操作方法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fed3c3da-8316-4c0e-b3c6-8bf891c54511">String.prototype.concat()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f5860d55-947e-4b62-b21c-2e4768b6ae08">String.prototype.slice(),String.prototype.substring(),String.prototype.substr()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b9c2e14d-82d8-45b3-92ac-89622ae0a4b4">4. 字符串位置方法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f5e89835-a874-43f7-b190-7df1c8700638">String.prototype.indexOf()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#dd52507b-ffdb-4944-babc-48cbc738bf19">String.prototype.lastIndexOf()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#91fed956-4a56-45f6-9ea2-cbe7f294d313">注意</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d31aa68d-5e90-464a-b391-7a49b947acf0">5. 字符串包含方法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6233a52d-c056-4027-8b8d-41a869ba63a6">String.prototype.includes()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c22e8d1f-76b7-4095-9824-62c7e5897eae">String.prototype.startWith()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#78e6c89b-a53d-4874-b09b-ff1b15a59167">String.prototype.endWith()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#47c41122-3335-45eb-bff0-06134e82a2d0">注意</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#659bbb0f-a633-4d94-b7f9-903f15cc8104">6.String.prototype.trim()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7ab05cbb-7912-4af3-a3c4-0af78431b1d4">注意</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#46b2104f-1080-46c3-bf99-082803332474">7. String.prototype.repeat()方法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4a729e7e-1e9c-4f7e-88be-2ba636162062">8. String.prototype.padStart()和String.prototype.padEnd()方法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e53413b4-5912-4251-9604-10c639e6c434">9. 字符串迭代与解构</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c8f0ae01-2e10-4810-9531-f7f1d88d7908">String.prototype[Symbol[@@iterator]]()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e345ce66-58bd-41b4-a6b3-25639390b68f">10. 字符串大小写转换</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c7834958-c25a-4a8a-a2f8-d85eddf449a8">String.prototype.toLowerCase(), String.prototype.toUpperCase()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ed2fdceb-31c7-40d7-8d55-9d136c5b89d1">String.prototype.toLocaleLowerCase(), String.prototype.toLocaleUpperCase()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4bdecd59-e7f0-4d04-a612-5ce112e07363">11. 字符串模式匹配方法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#813555cb-a206-4134-a0ee-62f0e648fde3">String.prototype.match()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2ab4aad5-d58b-4fb7-8d7d-789262b716e7">String.prototype.search()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d0643584-8451-4c21-ae33-7f5a1b71e46c">String.prototype.replace()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6161bfed-37ef-49c1-b092-3b4088b2c83e">String.prototype.split()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#223dccb6-9f8f-41ac-ad1a-4222812f5135">String.prototype.replaceAll()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#eacbb650-fd72-456e-9ab0-f57a32970daa">12. String.prototype.localeCompare()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bc46fba0-c839-4e53-9d02-931926f96929">13. HMTL方法</a></div></nav><p id="ee6fe9db-305e-47a6-976d-d94eac35c288" class="">
+</p></div><div id="132fa06f-8f0e-4e7c-a004-44f6dacecdf7" style="width:75%" class="column"><h1 id="0a31561f-7b93-455b-9463-d0705f0ba34e" class="">描述</h1><ul id="b5d3ea47-d0ee-488a-a02b-cc3872e45087" class="bulleted-list"><li style="list-style-type:disc">String包装类型对应字符串的引用类型</li></ul><h2 id="9f850786-585d-4782-8386-e2f570177813" class="">语法</h2><pre id="4a6d375f-6650-4863-b0b3-6b95899ae4b7" class="code code-wrap"><code>let strObj = new String(string)</code></pre><ul id="d0357e17-1579-43c0-bae9-0aec41841653" class="bulleted-list"><li style="list-style-type:disc">构造函数传入一个原始字符串</li></ul><ul id="6ce53b23-c828-4a0c-a7a3-d1f2b216d928" class="bulleted-list"><li style="list-style-type:disc">返回一个String包装对象实例</li></ul><h1 id="fa3e32b3-6715-4fbc-b9a6-643c0b809ab5" class="">方法与属性</h1><p id="5a723e68-cc46-4993-937f-946bfe89ebed" class="">String对象的方法可以在字符串原始值上调用；属性可以在原始字符串上访问</p><p id="a3e460af-3c30-41e1-87d3-023b739e5d29" class="">String提供了很多方法来解析和操作字符串</p><h2 id="e8d4023b-0677-4ea3-889c-3eb6df8098c0" class="">继承方法</h2><h3 id="ce3d05ad-70a0-40ab-89f1-4abd75077265" class="">valueOf()</h3><h3 id="f045b0b9-dba8-48e2-8e54-5eab6c596e30" class="">toLocaleString()</h3><h3 id="7a5ed08c-9e1d-4c96-8285-f9f99f1520b0" class="">toString()</h3><ul id="526a3c56-a8bf-46d8-bd89-09fda0faee0f" class="bulleted-list"><li style="list-style-type:disc">三个方法都返回对象的原始字符串值</li></ul><h2 id="09bc312a-b0ff-403c-a823-34aae951f24c" class="">length属性</h2><ul id="ef8b7b98-ff2b-48cf-9e79-9a9ae908025c" class="bulleted-list"><li style="list-style-type:disc">每个String对象都有一个length属性，表示字符串中字符的数量</li></ul><ul id="c893ccb9-31f8-4d9d-88f4-64f99f70b902" class="bulleted-list"><li style="list-style-type:disc">即使字符串中包含双字节字符（而不是单字节的ASCII字符），仍然按照单字符来计数（因为JavaScript的字符串基本单元码元是16位的，具体看下面的<a href="3%203%20String%20513caffbbeb2462fbfd125ad030a2afb.html">JavaScript字符</a>）<pre id="f475430b-0c90-40eb-bcd1-7355554abbfc" class="code code-wrap"><code>const strObj = new String(&quot;Hello, 世界&quot;);
+// length属性表示字符串中的字符数量，双字节字符按照单个字符数量计算
+console.log(strObj.length); // 9</code></pre><ul id="190465b8-f8e8-4a50-be7e-32282bb0e00c" class="bulleted-list"><li style="list-style-type:circle">“世界”两个字都是双字节字符，但是按照单字符计数，两个字就是两个字符</li></ul></li></ul><h2 id="3525fa0d-d662-4683-8325-7fb6d82bd640" class="">1. JavaScript字符</h2><h3 id="3e9bf21a-6511-4867-a565-da04773a5922" class="">码元</h3><ul id="8ea6ea08-3f9e-4ed3-8fda-83901e13e300" class="bulleted-list"><li style="list-style-type:disc"><strong>码元（code unit）</strong>是构成JavaScript字符串的基本单元</li></ul><ul id="87a9b935-94dc-4745-a9dd-bf7d9dfa5f91" class="bulleted-list"><li style="list-style-type:disc">对于多数字符，每<strong>16位码元</strong>对应<strong>一个JavaScript字符</strong></li></ul><ul id="b3e7db2b-4faa-48f6-9e2f-245feead4ff2" class="bulleted-list"><li style="list-style-type:disc">JavaScript字符串由<strong>16位码元</strong>组成</li></ul><ul id="7eef467f-7d32-4f54-a354-cf7980da207c" class="bulleted-list"><li style="list-style-type:disc">字符串中的length属性表示字符串包含多少16位码元</li></ul><h3 id="d2ba8f28-00d9-41f2-ac09-609dd432c1c4" class="">String.prototype.charAt()</h3><ul id="fea9dbfc-4138-4b2f-8425-2758ff919e5d" class="bulleted-list"><li style="list-style-type:disc">字符串调用<code>charAt()</code>方法<ul id="3895d3b2-94d1-4016-8ae3-47f9eea2b87e" class="bulleted-list"><li style="list-style-type:circle">传入字符串中字符的索引位置（整数）</li></ul><ul id="169676af-88e3-472e-a47e-4ac104f5acf5" class="bulleted-list"><li style="list-style-type:circle">查找指定索引位置的16位码元，并返回该码元对应的字符</li></ul></li></ul><pre id="ddf4c28c-3e70-4b6b-83c2-cf4a70c25d02" class="code code-wrap"><code>llet message = &quot;abc按不出&quot;;
+console.log(message.charAt(4)); // &quot;不&quot;</code></pre><ul id="2b49b6de-b887-47b2-95bd-eb0798ccee7d" class="bulleted-list"><li style="list-style-type:disc">字符索引位置为4的16位码元对应的字符是”不“</li></ul><h3 id="7801c425-dc5a-4256-a813-e9522516c91a" class="">字符编码</h3><ul id="98a869fd-a480-4266-8067-49939a2716ce" class="bulleted-list"><li style="list-style-type:disc">JavaScript字符串中的字符编码使用<strong>Unicode编码混合策略</strong><ul id="123e5824-336c-4e0f-b76d-8ead5482b6ac" class="bulleted-list"><li style="list-style-type:circle">UCS-2</li></ul><ul id="d32d5d2a-c129-497e-b954-f93ec659b748" class="bulleted-list"><li style="list-style-type:circle">UTF-16</li></ul></li></ul><ul id="0f11f890-dcdc-4515-953c-7615e2ba6039" class="bulleted-list"><li style="list-style-type:disc">对于可以采用16位编码的字符（U+0000~U+FFFF），这两种编码是一样的</li></ul><ul id="058ab591-3ed1-4eae-98db-f2615ba14952" class="bulleted-list"><li style="list-style-type:disc">关于JavaScript的字符编码可以查看如下文章<figure id="cb6c9414-c737-4c59-a7e6-ee0b41a8ee5b"><a href="https://mathiasbynens.be/notes/javascript-encoding" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">JavaScript&#x27;s internal character encoding: UCS-2 or UTF-16?</div><div class="bookmark-description">Does JavaScript use UCS-2 or UTF-16 encoding? Since I couldn&#x27;t find a definitive answer to this question anywhere, I decided to look into it. The answer depends on what you&#x27;re referring to: the JavaScript engine, or JavaScript at the language level. Let&#x27;s start with the basics...</div></div><div class="bookmark-href"><img src="https://mathiasbynens.be/favicon.ico" class="icon bookmark-icon"/>https://mathiasbynens.be/notes/javascript-encoding</div></div><img src="https://gravatar.com/avatar/24e08a9ea84deb17ae121074d0f17125?s=112" class="bookmark-image"/></a></figure></li></ul><ul id="7ce2eddb-edaa-44d0-ad03-bcb137f21b28" class="bulleted-list"><li style="list-style-type:disc">UCS-2（2字节通用字符集）对于简单地将16位编码和字符一一对应，对于0-0xFFFF范围地大多数字符都可以表示；如果字符才有16位编码，那么这两种编码完全一致</li></ul><ul id="f223a07b-2049-4450-8883-eb1562f12331" class="bulleted-list"><li style="list-style-type:disc">UTF-16（16位Unicode转换格式）是UCS-2的扩展，它定义的字符编码长度是可变的，相较于UCS-2，具有额外的16种代码点，可以对0~0x10FFFF范围内的代码点进行编码<pre id="78f78855-45a9-42d4-8c20-3c4db1371c3e" class="code code-wrap"><code>message = &quot;𝌆&quot;;
+
+console.log(message.length, message.charAt(0), message.charAt(1));
+// 2 � �</code></pre><ul id="417b5c12-a373-4f4d-9d6f-9756047f97a1" class="bulleted-list"><li style="list-style-type:circle">中心四方文（𝌆），使用UTF-16编码，unicode码为U+1D306，需要使用<strong>两个十六位编码单元</strong>：0xD834 和0xDF06，构成一个代理对，即<code><strong>&quot;𝌆&quot; == &quot;\uD834\uDF06&quot;</strong></code></li></ul><ul id="ec77aeeb-f801-4cf1-8806-58d9c817b17b" class="bulleted-list"><li style="list-style-type:circle">所以字符长度为2，且单独的16位码元不能表示任何的字符，打印出未知字符</li></ul></li></ul><h3 id="098b68c7-db3e-499e-8d03-261ff7672a13" class="">String.prototype.charCodeAt()</h3><ul id="d7400444-fc16-436c-8aeb-b10b71c560bc" class="bulleted-list"><li style="list-style-type:disc">查看指定码元的字符编码</li></ul><ul id="2e01147a-01fe-4e94-a48c-02dedc5276f9" class="bulleted-list"><li style="list-style-type:disc">可以传递字符串码元的位置索引（整数，范围为[0, str.length - 1]），返回指定索引位置的码元值（字符编码）<ul id="0d46b6b0-f624-432f-b593-4d0d214f3520" class="bulleted-list"><li style="list-style-type:circle">码元值是10进制整数（将16进制的编码进行了处理）</li></ul><ul id="79f6953c-7db4-48ea-a56c-79800cf7c660" class="bulleted-list"><li style="list-style-type:circle">如果不传递码元的位置索引，默认返回第一位码元的码元值</li></ul><ul id="2c4c09c9-bba2-4ccd-97d3-be12b4c2a24e" class="bulleted-list"><li style="list-style-type:circle">如果传递的位置索引不在可选的范围，返回NaN</li></ul><ul id="16c75c3f-56fa-4667-8c22-4f256441eb3b" class="bulleted-list"><li style="list-style-type:circle">调用的字符串为空字符串，也会返回NaN</li></ul></li></ul><pre id="e78eb64d-8bac-4273-95b7-60f224d6f3f7" class="code code-wrap"><code>let message = &quot;𝌆a&quot;;
+console.log(
+  &quot;&quot;.charCodeAt(),
+  message.charCodeAt(),
+  message.charCodeAt(0),
+  message.charCodeAt(1),
+  message.charCodeAt(2),
+  message.charCodeAt(3)
+);
+
+// 打印结果
+NaN 55348 55348 57094 97 NaN</code></pre><ul id="92eec095-e994-4f00-bae2-58ef107186c2" class="bulleted-list"><li style="list-style-type:disc">字符𝌆，charCodeAt()将视其占用两位码元，字符串总长度为3，三个码元具有各自的编码</li></ul><ul id="0db6541b-4168-4c84-a88a-d75bd173bca3" class="bulleted-list"><li style="list-style-type:disc">一些常用的字符编码可以记住：<ul id="84d3b34b-57cc-4e24-96c6-d00f1ac4eb0c" class="bulleted-list"><li style="list-style-type:circle">[a, z] ⇒ [97, 122]</li></ul><ul id="798523d5-a90f-436f-8af4-6839eb83b46b" class="bulleted-list"><li style="list-style-type:circle">[A, Z] ⇒ [65, 90] （与上面的编码范围正好相差32）</li></ul><ul id="9ab6da90-4898-4c89-b886-ec41e0fca866" class="bulleted-list"><li style="list-style-type:circle">[0, 9] ⇒ [48, 57]</li></ul></li></ul><h3 id="b602eca2-dd41-493c-9c2e-7affbb1cc3b9" class="">String.fromCharCode()</h3><ul id="0b7fbf19-a80e-438e-83b4-876e227aed15" class="bulleted-list"><li style="list-style-type:disc">字符串引用类型的静态方法</li></ul><ul id="22df4cb6-c935-41b0-966b-f4c7148b26a6" class="bulleted-list"><li style="list-style-type:disc">根据给定的UTF-16码元创建字符串中的字符</li></ul><ul id="3785a239-73aa-42bd-be56-8e57c933f0a3" class="bulleted-list"><li style="list-style-type:disc">传入x个字符的码元值或者字符编码，可以返回x长度的对应的字符串<ul id="bbe7b496-dd7d-4677-9378-87188c07b522" class="bulleted-list"><li style="list-style-type:circle">字符串字符的顺序按照传入参数的顺序</li></ul><ul id="2b37fde1-c048-4f03-87d0-e24fe6dead1f" class="bulleted-list"><li style="list-style-type:circle">码元值或字符编码必须是有效的，否则返回的字符串可能会有未知字符</li></ul></li></ul><pre id="73898cd8-28ca-48ae-9c75-c5426da59fee" class="code code-wrap"><code>console.log(String.fromCharCode(67, 85, 0x61, 0x65, 12582, 0xd834, 0xdf06));
+// CUaeㄦ𝌆</code></pre><ul id="fe33679a-718b-4e4e-888e-3fa904618054" class="bulleted-list"><li style="list-style-type:disc">码元值67的字符编码是U+0043,代表字符“C”</li></ul><ul id="11a34c37-babd-4154-ab9a-dd6c28914b5e" class="bulleted-list"><li style="list-style-type:disc">码元值85的字符编码是U+0055， 代表字符”U“</li></ul><ul id="d6b311b6-ce4a-48ad-926c-ab0eaaba82d3" class="bulleted-list"><li style="list-style-type:disc">字符编码0x0061码元值是97，代表字符”a”</li></ul><ul id="709e50f8-ff43-4d6d-8baf-3140c6cead60" class="bulleted-list"><li style="list-style-type:disc">字符编码0x0065码元值是101, 代表字符”e”</li></ul><ul id="372e5270-5901-4c49-82e1-b36575929340" class="bulleted-list"><li style="list-style-type:disc">12582是随手输入的码元值，在UTC-16编码中代表汉字”儿“</li></ul><ul id="fcce7ffb-4080-446b-acc1-af72de96932a" class="bulleted-list"><li style="list-style-type:disc">后面的两个码元构成一个代理对，代表字符“𝌆”</li></ul><h3 id="f127f289-e710-46d6-8dce-842b0d045ef4" class="">字符编码对String方法的影响</h3><ul id="fc40e896-fe7e-4eab-b096-99268ecca242" class="bulleted-list"><li style="list-style-type:disc">对于U+0000~U+FFFF范围内的字符，使用UCS-2编码方式，一个字符固定为16位码元<ul id="ffe3892f-b0cc-487b-985b-6cae6b6b0694" class="bulleted-list"><li style="list-style-type:circle">length，charAt()，charCodeAt()和fromCharCode()都是基于16位码元完成操作的</li></ul><ul id="8f8b16dd-e66e-4626-af46-34f85859409a" class="bulleted-list"><li style="list-style-type:circle">只要字符编码大小和码元大小一一对应，这些方法就能正常工作</li></ul></li></ul><ul id="7b4f33b1-f800-47d1-abff-7b83127a8bbc" class="bulleted-list"><li style="list-style-type:disc">但是对于使用UTF-16编码的字符，这些对应关系就不一定成立了<ul id="93034142-7311-4096-9818-57a18a36513f" class="bulleted-list"><li style="list-style-type:circle">UTF-16称为16位Unicode转换格式， 包含Unicode增补字符平面，是对UCS-2的扩展</li></ul><ul id="4df91b29-a4bd-422d-af91-a3cfb0ef2d1f" class="bulleted-list"><li style="list-style-type:circle">16位只能编码65 536 个字符，这些编码字符在Unicode中被称为<strong>基本多语言平面（BMP）</strong></li></ul><ul id="3b902339-121d-434b-9f50-2fec0a621cec" class="bulleted-list"><li style="list-style-type:circle">为了表示更多的字符，Unicode采用<strong>代理对</strong>的策略，即每个字符<strong>使用另外16位去选择一个增补平面</strong><ul id="4a4498f3-d10a-4873-9680-d7ae33d6d4f8" class="bulleted-list"><li style="list-style-type:square">这种每个字符使用两个16位码元的策略就是<strong>代理对</strong>策略</li></ul></li></ul></li></ul><ul id="a732c947-09dc-4245-9519-ac6de97bdd7e" class="bulleted-list"><li style="list-style-type:disc">上述的例子中实际上已经测试过String的方法和属性<ul id="7dba3233-1989-4e86-80d7-fa3818bc522e" class="bulleted-list"><li style="list-style-type:circle">对于length,不在BMP（基本多语言平面）的编码字符会占用两位码元，一个字符表示两个字符长度</li></ul><ul id="190b050c-6bb1-489d-b14c-955fb357476e" class="bulleted-list"><li style="list-style-type:circle">对于charAt() 当索引位置到<strong>代理对</strong>码元位置时，会返回未知字符<code>&lt;?&gt;</code> </li></ul><ul id="25d059f2-cd51-4050-baf5-ce94987c0766" class="bulleted-list"><li style="list-style-type:circle">对于charCodeAt()，指定索引位置到代理对码元位置时，返回单个码元的码元值</li></ul><ul id="e7c2d0c5-54eb-456f-bb34-27dc4ecfff67" class="bulleted-list"><li style="list-style-type:circle">而对于fromCharCode(), 只要<strong>代理对码元是连续传入的，</strong>那么返回的字符串就不会出错</li></ul></li></ul><ul id="175d923b-39de-4f7a-88ac-4f9fd19c38b9" class="bulleted-list"><li style="list-style-type:disc">对于需要输入索引位置的方法 charAt()和charCodeAt()<ul id="0f9590f2-8036-4ac0-aac5-5d7ed3e6c4c7" class="bulleted-list"><li style="list-style-type:circle">由于字符串中的字符无法确定是双码元字符还是单码元字符</li></ul><ul id="a8cfa6a5-8b80-464b-b9d8-8d02e837d74e" class="bulleted-list"><li style="list-style-type:circle">需要确定的码元位置索引就无法得知了</li></ul></li></ul><h3 id="7e6eb30b-8255-4bda-a9bc-9ff2f866200a" class="">String.prototype.codePointAt()</h3><ul id="f13bf5eb-b311-4d96-935b-3a93ae22b06b" class="bulleted-list"><li style="list-style-type:disc">codePointAt()解决上述方法只基于16为码元进行操作的缺点，可以代替codePointAt()实现对双码元字符的UTF编码获取</li></ul><ul id="66e55fff-2f0f-435b-b6fa-93d72c1c30de" class="bulleted-list"><li style="list-style-type:disc">和使用codePointAt()类似<ul id="724b938b-7919-4bd5-b1e6-a5809ee65b74" class="bulleted-list"><li style="list-style-type:circle">接受16位码元的索引位置</li></ul><ul id="2c103324-9ada-4579-b227-ed0033ff2b6b" class="bulleted-list"><li style="list-style-type:circle">返回索引位置上的<strong>码点（code point）</strong></li></ul></li></ul><ul id="a9572e2b-f75d-49e6-9933-f0024964776c" class="bulleted-list"><li style="list-style-type:disc">码点是Unicode中一个字符的完整标识,可以是16位的，也可以是32位的<ul id="c7316dfa-04d7-4828-8ee7-2cc20103ea38" class="bulleted-list"><li style="list-style-type:circle">“c”的码点是0x0063，16位</li></ul><ul id="816626ba-1948-49e6-9ca5-45c6650f8217" class="bulleted-list"><li style="list-style-type:circle">而“😊”的码点是0x1F60A，32位</li></ul><ul id="092082a9-afbb-4ce1-ac2f-e90320a6c4cd" class="bulleted-list"><li style="list-style-type:circle">在实际的node环境中，会返回10进制的码点值，而不是十六进制的码点编码</li></ul></li></ul><pre id="af020dd9-7e4b-4c66-9154-9a5e148ebf7a" class="code"><code>message = &quot;a😊b&quot;;
+console.log(
+  message,
+  message.codePointAt(),
+  message.codePointAt(0),
+  message.codePointAt(1),
+  message.codePointAt(2),
+	message.codePointAt(3)
+);
+// 打印结果
+a😊b 97 97 128522 56842 98</code></pre><ul id="d5ec1323-5deb-427a-9548-34dcc8dd94d4" class="bulleted-list"><li style="list-style-type:disc">倒数第二个输出的不是码点，它是没有意义的</li></ul><ul id="beee8f6b-2009-4af3-8958-fb4c32456db1" class="bulleted-list"><li style="list-style-type:disc">传入的码元索引位置必须是代理对的开头位置才有效果，否则会返回错误的码点（实际上这个码点值和使用charCodeAt()返回是一致的）</li></ul><ul id="638c5ffe-258e-437d-b6f3-8c9269ad48cc" class="bulleted-list"><li style="list-style-type:disc">注意在字符串迭代时，能智能的识别代理对的码点<pre id="3908a809-0944-4e08-9f69-9552f1042032" class="code"><code>for(const ch of message) {
+  console.log(ch);
+}
+console.log(...message)
+// 打印结果 
+a
+😊
+b
+a 😊 b</code></pre></li></ul><h3 id="78795178-9e6f-4c73-ab9b-1cf23805e367" class="">String.fromCodePoint()</h3><ul id="5112e251-1ab3-4150-81b2-cc083b5e342a" class="bulleted-list"><li style="list-style-type:disc">得到了码点值使用fromCharCode()方法不一定能还原字符串<ul id="d00d536a-83b2-408d-a1c1-4588c0493f2f" class="bulleted-list"><li style="list-style-type:circle">fromCharCode()只接受16位编码的码元值</li></ul><ul id="6f2d99e9-f79c-4255-93ec-ce589845af24" class="bulleted-list"><li style="list-style-type:circle">如果需要还原32位的编码字符，需要连续传入占用的两个码元值</li></ul><ul id="7b33d5f0-aafa-4960-ab97-9370c95c81ee" class="bulleted-list"><li style="list-style-type:circle">传入码点值不一定能识别，因为码点值可能是32位的</li></ul></li></ul><ul id="e8dd12d6-a510-4a50-9586-da134494a545" class="bulleted-list"><li style="list-style-type:disc">而使用fromCodePoint()只需要传入一个码点值就能还原<ul id="b488fdf8-5336-4a4b-ba71-5a11a8671de7" class="bulleted-list"><li style="list-style-type:circle">formCodePoint()会自动识别码点值是16位还是32位，遇到32位码点值会构造占用两个码元的字符</li></ul></li></ul><pre id="9c588bb8-efde-4bf1-959e-14334974f72f" class="code"><code>console.log(String.fromCodePoint(97, 128522, 98));
+// 打印结果
+a😊b</code></pre><h2 id="20828db2-b5e1-4046-81ac-f76ef268ff80" class="">2. String.prototype.normalize()方法</h2><h3 id="e6561433-3119-48e2-932d-50295744cacb" class="">字符编码的映射</h3><ul id="c535b423-6f89-4030-b26d-e136d2d2d018" class="bulleted-list"><li style="list-style-type:disc">字符编码并不是一一对应的，一个Unicode字符可能有多种编码方式</li></ul><ul id="1fc9c3a8-9017-4f60-9ffc-59d7ab9d025d" class="bulleted-list"><li style="list-style-type:disc">有的字符可以通过一个<strong>BMP</strong>（基本多语言平面）字符表示，也可以通过一个<strong>代理对</strong>表示<ul id="2e360a9a-1e59-4ea8-9f14-acf0a9f567a8" class="bulleted-list"><li style="list-style-type:circle">上面带圆圈的大写拉丁字母A—Å , 是BMP字符编码表示，码点U+00C5<pre id="3aaa1e21-c480-4b71-a43d-bdad1afd57cd" class="code code-wrap"><code>console.log(String.fromCharCode(0x00c5));
+// Å</code></pre></li></ul><ul id="7419d76f-e7ca-4797-bade-749848ed8df3" class="bulleted-list"><li style="list-style-type:circle">长度单位“埃”— Å， 也是BMP字符编码表示，码点U+212B<pre id="02589ca0-5d53-4567-a4e8-22eca37522e8" class="code code-wrap"><code>console.log(String.fromCharCode(0x212b));
+// Å</code></pre></li></ul><ul id="c43a56ee-97d3-45ad-a899-333558f0bc9c" class="bulleted-list"><li style="list-style-type:circle">大写拉丁字母A— U+004, 上面加个圆圈U+030A; 两个码元代表一个字符<pre id="279ae125-9c38-47c3-a86d-9d9124ace5c3" class="code code-wrap"><code>console.log(String.fromCharCode(0x0041, 0x030a));
+// Å</code></pre></li></ul></li></ul><ul id="e4246a4e-29f3-4771-a411-4abeff1e2b48" class="bulleted-list"><li style="list-style-type:disc">这些看起来相同的字符，实际上比较时是互不相等的<pre id="794ab777-7eb8-44a4-91ac-bb4d71887905" class="code code-wrap"><code>let a = &quot;Å&quot;;
+let b = &quot;Å&quot;;
+let c = &quot;Å&quot;;
+console.log(a == b, b == c, a == c);
+console.log(a.charCodeAt(), b.charCodeAt(), c.codePointAt());
+// 打印结果
+false false false
+197 8491 65</code></pre><ul id="40c4bd15-d9e8-41be-8f79-fbe105878170" class="bulleted-list"><li style="list-style-type:circle">从次也可以得知，JavaScript比较字符不是在比较字符是否看起来相同，而是在<strong>比较字符串中的每个码元是否相同</strong></li></ul></li></ul><h3 id="4d28fa5b-86b3-41f3-b6ae-fa187fa52eb8" class="">字符规范</h3><ul id="fcd15169-716b-4be2-b1ef-81252692897e" class="bulleted-list"><li style="list-style-type:disc">上述的字符显示的是同一个，但是编码却不是同一个</li></ul><ul id="e62ca5e2-e305-4db7-afe9-63e31cb6c658" class="bulleted-list"><li style="list-style-type:disc">为此需要将字符规范成同一种格式，Unicode提供了4种规范化形式，无论底层字符代码是什么<ul id="110e1d2b-e7e0-4c91-acef-3591b5b946f2" class="bulleted-list"><li style="list-style-type:circle">NFD：Normalization Form D</li></ul><ul id="e99eafaf-7efc-4fe3-8f30-fde8205c0c6d" class="bulleted-list"><li style="list-style-type:circle">NFC： Normalization Form C</li></ul><ul id="0158daad-9acf-4845-81ef-49430b1edf0b" class="bulleted-list"><li style="list-style-type:circle">NFKD：Normalization Form KD</li></ul><ul id="acb96089-b2b7-4b38-9c33-622ccbaa17f0" class="bulleted-list"><li style="list-style-type:circle">NFKC: Normalization Form KC</li></ul></li></ul><ul id="0474ab05-dc8b-4f79-8cd1-f04573f3be4c" class="bulleted-list"><li style="list-style-type:disc">上面的四种规范实际上就是<strong>字符标准化表， </strong>只是每个字符标准化表的标准各不相同，以D、C、KD、KC命名<p id="e5d8043b-0418-4fb2-a38d-c3fd7c6ef4f7" class="">字符标准化标准的相关内容可以查看<a href="https://www.unicode.org/reports/tr15/">UAX15 # :Unicode Normalization Forms</a> 中的1.2节</p></li></ul><hr id="b7dec3a3-11e9-4680-afd3-2f4131be8af9"/><ul id="c44071d2-7492-4cf1-8999-c3e5fd68a7f4" class="bulleted-list"><li style="list-style-type:disc">normalize()方法由字符实例调用，传入4个标准中其中一个的简称，返回标准化后的字符<pre id="660774d1-2806-481a-b989-be7092b3dc31" class="code code-wrap"><code>let a = &quot;Å&quot;; // 0x00c5
+let b = &quot;Å&quot;; // 0x212b
+let c = &quot;Å&quot;; // 0x0041, 0x030a
+console.log(a == b, b == c, a == c);
+console.log(a.charCodeAt(), b.charCodeAt(), c.codePointAt());
+
+// normalize
+
+console.log(
+  a.normalize(&quot;NFD&quot;).charCodeAt(),
+  a.normalize(&quot;NFC&quot;).charCodeAt(),
+  a.normalize(&quot;NFKD&quot;).charCodeAt(),
+  a.normalize(&quot;NFKC&quot;).charCodeAt()
+);
+
+console.log(
+  b.normalize(&quot;NFD&quot;).charCodeAt(),
+  b.normalize(&quot;NFC&quot;).charCodeAt(),
+  b.normalize(&quot;NFKD&quot;).charCodeAt(),
+  b.normalize(&quot;NFKC&quot;).charCodeAt()
+);
+
+console.log(
+  c.normalize(&quot;NFD&quot;).charCodeAt(),
+  c.normalize(&quot;NFC&quot;).charCodeAt(),
+  c.normalize(&quot;NFKD&quot;).charCodeAt(),
+  c.normalize(&quot;NFKC&quot;).charCodeAt()
+);
+
+console.log(b == b.normalize(&quot;NFC&quot;), b == b.normalize(&quot;NFD&quot;));
+// 打印结果
+false false false
+197 8491 65
+65 197 65 197
+65 197 65 197
+65 197 65 197
+false false</code></pre><ul id="5db05473-4617-49c0-abee-23421712da40" class="bulleted-list"><li style="list-style-type:circle">可以得到，四种标准中，NFD和NFKD规范对字符Å的编码规范确定为0x0041, 0x030a代理对，Å占用两个码元</li></ul><ul id="891119a6-d8fc-46b9-a19a-4ef93270581f" class="bulleted-list"><li style="list-style-type:circle">NFC和NFKC规范对字符Å的编码规范确定为0x00c5，Å占用一个码元</li></ul><ul id="c6d977b3-e539-408b-843d-ec51ef6b7002" class="bulleted-list"><li style="list-style-type:circle">而0x212b不属于任何规范，所以保存0x212b的b经过NFC或NFD标准化后都变为与原始编码不同码元了</li></ul></li></ul><ul id="4ee334ce-04e7-4e4b-bf38-27e5c804b908" class="bulleted-list"><li style="list-style-type:disc">选择同一种编码规范能够避免在比较字符串时因为字符使用的码元不同而导致的比较不相等<pre id="5a5e4c6b-c16d-4f6d-b189-56db24457b04" class="code code-wrap"><code>console.log(
+  a.normalize(&quot;NFD&quot;) == b.normalize(&quot;NFD&quot;),
+  a.normalize(&quot;NFKD&quot;) == c.normalize(&quot;NFKD&quot;),
+  b.normalize(&quot;NFC&quot;) == c.normalize(&quot;NFC&quot;)
+);
+// true true true</code></pre></li></ul><h2 id="9d8b2eae-fd45-4895-aa9b-8ab3f3a83c02" class="">3. 字符串操作方法</h2><h2 id="fed3c3da-8316-4c0e-b3c6-8bf891c54511" class="">String.prototype.concat()</h2><ul id="1c834b56-0c34-4835-b80a-0cb2f14d1f67" class="bulleted-list"><li style="list-style-type:disc">用于将一个或多个字符串拼接成一个新字符串（注意和数组的concat()方法是两个不同的方法，但是功能类似）</li></ul><ul id="604a2595-c376-41c1-bc2e-4e40d928487d" class="bulleted-list"><li style="list-style-type:disc">语法:<pre id="a22c5880-6444-4f57-bd69-19a6f4640af9" class="code code-wrap"><code>let res = strValue.concat(str);</code></pre><ul id="13fdba07-8b1e-47fc-aeaf-099cb8fb86c4" class="bulleted-list"><li style="list-style-type:circle">调用者为字符串</li></ul><ul id="4eecd954-d733-4957-b4b2-6731817317e6" class="bulleted-list"><li style="list-style-type:circle">返回值为拼接的字符串</li></ul><ul id="d8c99d4a-051f-4f8c-853e-2ec8d37d117a" class="bulleted-list"><li style="list-style-type:circle">源字符串不会发生改变，获得的是<strong>新的字符串</strong></li></ul></li></ul><ul id="7ba37581-1424-44ac-8ac2-83464ab64012" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="969fbf94-f2e1-4e16-9e06-5640cb8a91c2" class="code code-wrap"><code>let strValue = &quot;hello &quot;;
+let res = strValue.concat(&quot;world&quot;);
+console.log(res);
+// hello world</code></pre></li></ul><ul id="56c0daae-1af3-4afe-b7d7-7f82d13931c3" class="bulleted-list"><li style="list-style-type:disc">注意：<ul id="76177f4f-bc6e-47f6-838a-997713f3ab84" class="bulleted-list"><li style="list-style-type:circle">实际上<strong>加法操作符</strong>有<a href="../3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/5%205%E5%8A%A0%E6%80%A7%E6%93%8D%E4%BD%9C%E7%AC%A6%2091fa8f5db1ca4f2ca76936cebbecbd1f.html">连接字符串</a>的功能</li></ul><ul id="ed809308-b84b-421b-8bff-e1dd389d2875" class="bulleted-list"><li style="list-style-type:circle">实际开发过程中，拼接字符串更多使用<code>+</code> 而非concat()方法</li></ul></li></ul><h3 id="f5860d55-947e-4b62-b21c-2e4768b6ae08" class="">String.prototype.slice(),String.prototype.substring(),String.prototype.substr()</h3><ul id="f3a17370-46b6-46a9-9be3-80d94c805f20" class="bulleted-list"><li style="list-style-type:disc">这三个方法功能相近，从字符串中提取子字符串</li></ul><ul id="41bfdb7a-5f60-440f-9b0b-b28ce4b1bdd2" class="bulleted-list"><li style="list-style-type:disc">slice()和substrng()的语法<ul id="30486503-7653-4710-99c5-7b7e8596e58e" class="bulleted-list"><li style="list-style-type:circle">传入0-2个参数，第一个参数为子字符串在源字符串中的起始索引位置，第二个参数为子字符串在源字符串中结束的位置</li></ul><ul id="81e657c8-068b-4660-aaee-2bc5e99274f8" class="bulleted-list"><li style="list-style-type:circle">返回指定参数表示的子字符串<ul id="62dfb4d9-5805-418f-bd8f-7677cccddc9f" class="bulleted-list"><li style="list-style-type:square">如果不传入任何参数，返回源字符串的副本</li></ul><ul id="f78b1eb5-37d0-4652-a03c-49b58a91e25c" class="bulleted-list"><li style="list-style-type:square">如果只传入第一个参数，从开始位置提取到源字符串末尾</li></ul></li></ul><ul id="e9114836-ba84-4db8-b3cf-33eca8556a5d" class="bulleted-list"><li style="list-style-type:circle">需要注意的是<strong>子字符串包括第一个参数索引的字符而不包括第二个参数索引的字符</strong></li></ul><pre id="175a30df-acb5-41c7-b917-df92c52c8b61" class="code code-wrap"><code>let str = &quot;ABCDEFGHIJKLM&quot;;
+console.log(str.slice(2, 5), str.substring(2, 5), str.slice(8), str.slice());
+// CDE CDE IJKLM ABCDEFGHIJKLM</code></pre></li></ul><ul id="6a42ceee-a94f-45d1-866a-15e364a949f1" class="bulleted-list"><li style="list-style-type:disc">substr()语法<ul id="200929cd-9874-4800-8564-29e085e462d0" class="bulleted-list"><li style="list-style-type:circle">同样传入两个参数，第一个参数是子字符串在源字符串中的起始索引位置，第二个参数是<strong>子字符串的长度</strong></li></ul><ul id="b5f242b0-3f7f-43df-9700-576fe67b6baf" class="bulleted-list"><li style="list-style-type:circle">返回指定参数表示的子字符串<ul id="de716799-7510-471a-a2f7-ae64cd385b10" class="bulleted-list"><li style="list-style-type:square">如果不传入任何参数，返回源字符串副本</li></ul><ul id="aa4ab8da-1177-4d46-91df-f57ad8003713" class="bulleted-list"><li style="list-style-type:square">如果传入第一个参数，从开始位置提取源字符串到末尾</li></ul></li></ul><ul id="86689f52-a378-44b4-9d70-9e301c524314" class="bulleted-list"><li style="list-style-type:circle">注意：<strong>substr已被定为</strong><strong><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/substr">废弃标准</a></strong><strong>，将来可能被移除</strong>，应该避免使用</li></ul><pre id="42f118a6-8436-4906-9353-741923d1bed5" class="code code-wrap"><code>let str = &quot;ABCDEFGHIJKLM&quot;;
+console.log(str.substr(2, 5));
+// CDEFG</code></pre></li></ul><p id="8964d940-df96-49b0-91e4-00ca72790692" class=""><strong>注意</strong></p><ul id="70aade7c-1cc8-4812-8d88-b9062b1e8b83" class="bulleted-list"><li style="list-style-type:disc">如果上面三个提取子字符串的操作不会对源字符串产生影响，返回的是<strong>新的子字符串</strong></li></ul><ul id="59f1eb69-bebd-4fcb-bf31-6475bd664379" class="bulleted-list"><li style="list-style-type:disc">参数可以为负数，对于负数，每个方法的处理方式不同，假设源字符串长度为n<ul id="ef93566b-ffca-4f49-b3f9-d2d5bf3bb1e7" class="bulleted-list"><li style="list-style-type:circle">slice()， <strong>两个参数的范围都是[-n, n]</strong><ul id="dc28343d-e5eb-47af-95fc-4e7ed4680593" class="bulleted-list"><li style="list-style-type:square"><strong>超出范围被视为0，负数的索引值会被加上一个n进行处理</strong></li></ul><ul id="db6e8913-d5e5-4744-9ec5-54314f8e207c" class="bulleted-list"><li style="list-style-type:square">所以slice()中的两个参数param1 和param2在处理后的大小应该是<strong>param1 &lt; param2 </strong>否则返回空字符串</li></ul></li></ul><ul id="77ef7caf-2ce4-47d4-bd43-54ab3c3026d1" class="bulleted-list"><li style="list-style-type:circle">substring()，两个参数的范围都是[0, n]<ul id="8e84fb26-34fb-4cb4-8741-5089a9c74365" class="bulleted-list"><li style="list-style-type:square">超出范围被视为0，所以负数被当成0看</li></ul></li></ul><ul id="7ea14b03-13d4-4e9c-a323-0b8b97f8af7a" class="bulleted-list"><li style="list-style-type:circle">substr(), 第一个参数范围[-n, n], <strong>第二个参数必须大于等于0</strong><ul id="dd162653-6a26-4701-ae81-a769278c1365" class="bulleted-list"><li style="list-style-type:square"><strong>超出范围被视为0</strong></li></ul><ul id="8aa1426d-3902-4b6b-8331-29030d764ecc" class="bulleted-list"><li style="list-style-type:square">第一个参数的负数索引值会被加上一个n进行处理</li></ul></li></ul><pre id="55e93401-2623-437e-b329-2b38fb8d1987" class="code code-wrap"><code>let str = &quot;ABCDEFGHIJKLM&quot;;
+console.log(str.slice(-8, -2), str.substring(-5, 11), str.substr(-2, 1));
+// FGHIJK ABCDEFGHIJK L
+// 相当于 
+console.log(str.slice(5, 11), str.substring(0, 11), str.substr(11, 1));</code></pre></li></ul><h2 id="b9c2e14d-82d8-45b3-92ac-89622ae0a4b4" class="">4. 字符串位置方法</h2><h3 id="f5e89835-a874-43f7-b190-7df1c8700638" class="">String.prototype.indexOf()</h3><ul id="12c44f17-f42b-4c8a-9da0-337b6489743f" class="bulleted-list"><li style="list-style-type:disc">定位子字符串在源字符串的开始位置索引，如果源字符串不包含子字符串就返回-1;搜索顺序为从左到右。</li></ul><ul id="5c13c1dc-9e09-414a-b1e7-2472da387834" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="ed7dea65-69a9-475b-ba98-b078323237d3" class="bulleted-list"><li style="list-style-type:circle">源字符串调用</li></ul><ul id="2178e105-61cc-4513-b68a-e89640b6dc69" class="bulleted-list"><li style="list-style-type:circle">第一个参数必传递，子字符串</li></ul><ul id="28aeedf5-e9bf-4af0-901a-a982b0e23fd1" class="bulleted-list"><li style="list-style-type:circle">第二个参数可传递，表示开始搜索的位置（搜索包括这个位置的字符）</li></ul><ul id="1c605209-c7cf-4176-afb3-1317cc29cfeb" class="bulleted-list"><li style="list-style-type:circle">返回<strong>第一个</strong>搜索到的子字符串的开始位置</li></ul></li></ul><ul id="c43ce0d1-1381-46b2-9407-5e041bf64205" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="7d06e62c-aa1a-4914-a298-59a63447190e" class="code code-wrap"><code>let str2 =
+  &quot;Hello, cat, how constructor pop you Oh, you are fine cat, be careful cat&quot;;
+console.log(str2.indexOf(&quot;cat&quot;));
+// 7</code></pre></li></ul><ul id="82bb49cc-8f63-4700-805b-24a97bdb6550" class="bulleted-list"><li style="list-style-type:disc">如果想要搜索字符串中的<strong>所有子字符串</strong>，可以利用第二个参数，每次搜索后传入上一个结果加1的索引位置，从上一个子字符串开始位置往后一个位置开始搜索，就能搜索到下一个子字符串<pre id="6488647e-f2bf-4f37-b0ca-182a6ce6bc9d" class="code code-wrap"><code>let str2 =
+  &quot;Hello, cat, how constructor pop you Oh, you are fine cat, be careful cat&quot;;
+console.log(str2.indexOf(&quot;cat&quot;));
+let pos = str2.indexOf(&quot;cat&quot;);
+let allIdx = [];
+while (pos &gt; -1) {
+  allIdx.push(pos);
+  pos = str2.indexOf(&quot;cat&quot;, pos + 1);
+}
+console.log(allIdx);
+// [ 7, 53, 69 ]</code></pre></li></ul><h3 id="dd52507b-ffdb-4944-babc-48cbc738bf19" class="">String.prototype.lastIndexOf()</h3><ul id="492744a3-9baf-40b8-aef8-65f3dd733369" class="bulleted-list"><li style="list-style-type:disc">作用和indexOf一样，从源字符串中搜索子字符串的开始位置，<strong>只是搜索顺序是从右到左的</strong></li></ul><ul id="3b712031-710f-4e77-ae0b-67744f2ded80" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="6591a3b7-e464-4601-965f-b3edbbaa96ad" class="bulleted-list"><li style="list-style-type:circle">源字符串调用</li></ul><ul id="d352ef7a-23a4-4a22-a58e-55376f82625b" class="bulleted-list"><li style="list-style-type:circle">第一个参数必传递，子字符串</li></ul><ul id="3c130b21-29ea-4dd6-aa02-56eea65c82af" class="bulleted-list"><li style="list-style-type:circle">第二个参数可选，搜索开始位置</li></ul><ul id="2900afd0-970f-4841-b05a-381fbf4aaaef" class="bulleted-list"><li style="list-style-type:circle">返回第一个搜索到的子字符串的开始位置</li></ul></li></ul><ul id="154e82b8-cacd-400d-a9e1-ab0378ff2802" class="bulleted-list"><li style="list-style-type:disc">注意，传入第二个参数后，搜索从这个参数指定的位置开始<strong>向字符串开头进行搜索</strong></li></ul><ul id="d1aa6716-d06c-4bc4-97e2-be466abe538b" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="a6967ac1-587a-414c-97fd-d862c02d2be7" class="code code-wrap"><code>let str2 =
+  &quot;Hello, cat, how constructor pop you Oh, you are fine cat, be careful cat&quot;;
+console.log(str2.lastIndexOf(&quot;cat&quot;)); // 69
+console.log(str2.lastIndexOf(&quot;cat&quot;, 20)); // 7</code></pre></li></ul><h3 id="91fed956-4a56-45f6-9ea2-cbe7f294d313" class="">注意</h3><ul id="0e1eea51-43ae-48af-9df3-89a072228d25" class="bulleted-list"><li style="list-style-type:disc">对于字符位置方法，<strong>第一个子字符串可以传递空字符串</strong></li></ul><ul id="d4de0ffa-d8d2-4288-ab62-a7fe73c79094" class="bulleted-list"><li style="list-style-type:disc">传递空字符串后，返回的索引范围为[0, n] n是源字符串长度</li></ul><ul id="cbc2f85b-5c3a-4f08-8168-b531d4ba6fdb" class="bulleted-list"><li style="list-style-type:disc">返回值和传入的第二个参数有关<ul id="35a194c9-3cd8-4151-82b7-4d6c12c1f0df" class="bulleted-list"><li style="list-style-type:circle">indexOf，默认是0</li></ul><ul id="a9d4add4-ea5a-47c4-8d8e-4e784a60ce1d" class="bulleted-list"><li style="list-style-type:circle">lastIndexOf默认是n</li></ul></li></ul><ul id="b92351d5-cb56-4633-a2e5-70063537a037" class="bulleted-list"><li style="list-style-type:disc">如果传入第二个参数，就会返回第二个参数的索引值<ul id="d25639a4-1ef9-4a24-87ca-d1796c9b2300" class="bulleted-list"><li style="list-style-type:circle">第二个参数范围有效的范围也是[0, n]</li></ul><ul id="1962f65c-13e0-4be0-a8ac-30af4e50b211" class="bulleted-list"><li style="list-style-type:circle">如果超出范围，会被处理为最接近的有效值(负数当作0，正数当作n)</li></ul></li></ul><h2 id="d31aa68d-5e90-464a-b391-7a49b947acf0" class="">5. 字符串包含方法</h2><p id="ffbe30de-c98c-43bb-8be9-030987bb317d" class="">ECMAScript 6 新增的3个用于判断字符串是否包含另一个字符串的方法（判断子字符串是否在源字符串中被找到），返回布尔值</p><h3 id="6233a52d-c056-4027-8b8d-41a869ba63a6" class="">String.prototype.includes()</h3><ul id="644dda6d-5e2a-45c8-b61f-ca316ae4b5c6" class="bulleted-list"><li style="list-style-type:disc">检查整个字符串是否包含一个指定的子字符串，形如 <code>str.indexOf(substr) !== -1</code> </li></ul><ul id="29696271-fe7f-4abc-90de-9f051d2994b1" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="fbd257c9-90a0-4f88-9a4a-0d380eae23c4" class="bulleted-list"><li style="list-style-type:circle">源字符串调用</li></ul><ul id="5514ddea-2f74-4626-8b0c-0595480b9563" class="bulleted-list"><li style="list-style-type:circle">第一个参数，必传，子字符串</li></ul><ul id="ac789dfb-2cee-4b68-bf8d-b3e0406d001a" class="bulleted-list"><li style="list-style-type:circle">第二个参数，可选，表示开始搜索的位置索引</li></ul><ul id="34c46a64-0614-4a4a-9122-0552f3720de7" class="bulleted-list"><li style="list-style-type:circle">返回布尔值，表示包含或不包含</li></ul></li></ul><ul id="53b1e32a-ddef-45fb-af0a-bdeb1f337cdf" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="740eea2a-7a91-4c9c-a41b-f812babedd10" class="code code-wrap"><code>let str3 = &quot;foobarbaz&quot;;
+console.log(str3.includes(&quot;bar&quot;)); // true
+console.log(str3.includes(&quot;bar&quot;, 4)); // false</code></pre></li></ul><h3 id="c22e8d1f-76b7-4095-9824-62c7e5897eae" class="">String.prototype.startWith()</h3><ul id="333add6a-41cb-4bee-a6d8-4a7c34d4ceb3" class="bulleted-list"><li style="list-style-type:disc">方法如其名，检查从字符串索引位置0开始的同长子字符串是否和指定字符串相等，形如 <code>str.indexOf(substr) === 0</code> </li></ul><ul id="2a92e9bb-5a75-41be-aabd-3cc8745f3b76" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="4ee5b694-6810-4454-9897-8fb8b3dc2157" class="bulleted-list"><li style="list-style-type:circle">源字符串调用</li></ul><ul id="7d19c13a-787f-4ed4-bb20-91e2d77e4af7" class="bulleted-list"><li style="list-style-type:circle">第一个参数必传，子字符串</li></ul><ul id="2e274af4-d2c0-4c3d-9a41-80b8970483b8" class="bulleted-list"><li style="list-style-type:circle">第二个参数，可选，表示开始搜索的位置索引</li></ul><ul id="3cd6260f-903a-44ff-bb6e-689fd08f66ff" class="bulleted-list"><li style="list-style-type:circle">返回布尔值，表示搜索开头是否包含子字符串</li></ul></li></ul><ul id="f722333f-e086-47ff-9f99-cee4390fec77" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="06a8d9e5-7af2-466a-866b-473c5ba34ddc" class="code code-wrap"><code>let str3 = &quot;foobarbaz&quot;;
+console.log(str3.startsWith(&quot;foo&quot;), str3.startsWith(&quot;bar&quot;));
+console.log(str3.startsWith(&quot;foo&quot;, 3), str3.startsWith(&quot;bar&quot;, 3));
+// 打印结果
+true false
+false true</code></pre></li></ul><h3 id="78e6c89b-a53d-4874-b09b-ff1b15a59167" class="">String.prototype.endWith()</h3><ul id="e49d91ab-069f-4b83-8504-8efcbc8508d8" class="bulleted-list"><li style="list-style-type:disc">方法如其名。检查从字符串索引位置(str.length -substr.length)开始的同长子字符串是否和指定字符串相等，形如<code>str.lastIndexOf(substr) == str.length - substr.length</code> </li></ul><ul id="fce8504b-2f23-4d2c-944a-ae9b717a136f" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="3383e8cf-9e24-4cb0-a1e5-6240098ac186" class="bulleted-list"><li style="list-style-type:circle">源字符串调用</li></ul><ul id="a9154a1c-113c-4cb7-a753-8b7ab1c52ecd" class="bulleted-list"><li style="list-style-type:circle">第一个参数必传，子字符串</li></ul><ul id="d5534f2c-9574-49e1-a2dc-27b70f456e3e" class="bulleted-list"><li style="list-style-type:circle">第二个字符串可选，表示字符串末尾的位置，传递后从该位置<strong>向原字符串前</strong>搜索等长子字符串</li></ul><ul id="8da9f882-939f-4f6b-9797-f80801407719" class="bulleted-list"><li style="list-style-type:circle">返回布尔值，表示搜索的源字符串末尾是否包含子字符串</li></ul></li></ul><ul id="d9e6aaea-7c11-44fa-9e59-388ac0ab7e49" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="0c000ee6-86e3-43af-9569-fe1bb8254d0d" class="code code-wrap"><code>let str3 = &quot;foobarbaz&quot;;
+console.log(str3.endsWith(&quot;baz&quot;), str3.endsWith(&quot;bar&quot;));
+console.log(str3.endsWith(&quot;baz&quot;, 6), str3.endsWith(&quot;bar&quot;, 6));
+// 打印结果
+true false
+false true</code></pre></li></ul><h3 id="47c41122-3335-45eb-bff0-06134e82a2d0" class="">注意</h3><ul id="07b7111a-8fc3-4232-9116-1365b9cf68ab" class="bulleted-list"><li style="list-style-type:disc">上述方法对于传入空字符串时，统一返回true，无论第二个参数值是什么</li></ul><h2 id="659bbb0f-a633-4d94-b7f9-903f15cc8104" class="">6.String.prototype.trim()</h2><ul id="8f020466-c74d-426a-a57e-fdc92bb75de0" class="bulleted-list"><li style="list-style-type:disc">创建一个字符串的副本，删除前后的所有空格字符</li></ul><ul id="636a7682-14e5-4d23-9aa6-b14b4784f0b9" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="49655890-fb98-4d3b-af4b-8beb418df06d" class="bulleted-list"><li style="list-style-type:circle">源字符串调用</li></ul><ul id="b5b56fe1-fdcd-42b7-98d2-5b14528f45f1" class="bulleted-list"><li style="list-style-type:circle">无参数</li></ul><ul id="7fe954c4-028b-4bff-b4c9-9abc0889fdd4" class="bulleted-list"><li style="list-style-type:circle">返回删除前后所有空格的副本字符串</li></ul></li></ul><ul id="93a06299-6ee5-445d-9b41-4dd95ff9a460" class="bulleted-list"><li style="list-style-type:disc">原始字符串不受影响，得到的是新的字符串<pre id="f5059474-e3d7-4890-9837-13e33af7023a" class="code code-wrap"><code>let str4 = &quot; \r\n\tabcde  f\r\n\tg hijklmn  \r\n\t&quot;;
+console.log(str4);
+console.log(str4.trim());
+// 打印结果
+________
+				abcde  f
+        g hijklmn  
+________
+abcde  f
+        g hijklmn</code></pre><ul id="d44756af-7c24-4d76-81e3-16434bd484e1" class="bulleted-list"><li style="list-style-type:circle">其中黄色部分为原始字符所占的位置，下划线所在位置为空格或转义字符，为了更好标识而制作</li></ul><ul id="76556c36-04fc-4c77-b4a5-50fc9495175e" class="bulleted-list"><li style="list-style-type:circle">红色部分为使用trim()方法后的字符<ul id="bd5ad7f5-9e2b-4204-9d7e-b519bea0969d" class="bulleted-list"><li style="list-style-type:square">可以发现trim()对标识换行，回车，制表的转义字符是有效果的</li></ul><ul id="57be58fb-79d1-4ca5-a9c6-f56ca2b62452" class="bulleted-list"><li style="list-style-type:square">对于字符中间的空格，trim()不会处理</li></ul><ul id="2702f7f2-02e9-4025-9cd1-172587f3eac0" class="bulleted-list"><li style="list-style-type:square">关于转义字符可以查看<a href="../3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">第三章介绍原始数据类型String</a>时</li></ul></li></ul><ul id="a7375baf-fec1-4758-b515-4d21355712db" class="bulleted-list"><li style="list-style-type:circle">原始字符长度为29，而非打印出来的那么长（因为\t可以打印4个空格，而只占用一个字符长度）</li></ul></li></ul><hr id="79901d3c-de95-44e9-b521-989440e39cc9"/><h3 id="7ab05cbb-7912-4af3-a3c4-0af78431b1d4" class="">注意</h3><ul id="92d3791b-c51b-4f4c-b3a7-b1bb7b6a6dd4" class="bulleted-list"><li style="list-style-type:disc">其它trim()方法还包括<strong>String.prototype.trimLeft()和String.prototype.trimRight()</strong><ul id="e663824b-fbf0-438c-b5df-a61aed5f6e38" class="bulleted-list"><li style="list-style-type:circle">分别用于清理字符串开始和末尾的空格</li></ul><ul id="00a9c1f2-6afc-4acc-a73f-d2351b1efe62" class="bulleted-list"><li style="list-style-type:circle">和trim()能清理的”空格“一样，包括制表，回车，换行等转义字符</li></ul></li></ul><h2 id="46b2104f-1080-46c3-bf99-082803332474" class="">7. String.prototype.repeat()方法</h2><ul id="6d8bc9b7-d3e7-4994-b1d1-cc7b77e32070" class="bulleted-list"><li style="list-style-type:disc">复制字符串的方法，将复制的字符串进行拼接返回</li></ul><ul id="4c4f883e-7c75-4c3c-9cfe-554e73820e19" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="7b84ab63-8257-4528-86fa-35a5315c8695" class="bulleted-list"><li style="list-style-type:circle">接受一个整数参数，表示将字符串复制多少次</li></ul><ul id="949985c0-a989-4aca-aac2-f4be5725a09b" class="bulleted-list"><li style="list-style-type:circle">返回复制指定次数后字符串拼接结果</li></ul></li></ul><ul id="fcadd3b1-cb2e-4a85-b9e2-5c5afe7bc799" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="7920459e-cafb-4efe-abe3-4b836f0bc10e" class="code"><code>let str5 = &quot;cn &quot;;
+console.log(str5.repeat());
+console.log(str5.repeat(0));
+console.log(str5.repeat(1));
+console.log(str5.repeat(2));
+// 打印结果
+
+
+cn
+cn cn</code></pre><ul id="5cf68c1f-5efe-424c-9112-cc1714472400" class="bulleted-list"><li style="list-style-type:circle">不传入参数或者传入参数0，相当于复制0次，即返回空字符串</li></ul><ul id="e2a6b5e1-9e6d-4410-9ed3-ad02059677e4" class="bulleted-list"><li style="list-style-type:circle">传入1返回一个字符串副本</li></ul></li></ul><h2 id="4a729e7e-1e9c-4f7e-88be-2ba636162062" class="">8. String.prototype.padStart()和String.prototype.padEnd()方法</h2><ul id="fae6bc42-d62d-4d9f-9c27-263c12806558" class="bulleted-list"><li style="list-style-type:disc">字符串填充方法，如其名称，在字符串的左侧或者右侧填充相同字符（默认为空格U+0020），直到长度达到给定的参数大小</li></ul><ul id="475509bc-aa94-4c01-aa50-ae23ce9b1de1" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="2d2c2edb-2940-4ff7-af78-7660fafb4158" class="bulleted-list"><li style="list-style-type:circle">第一个参数为整数，表示需要将字符串填充到的指定长度</li></ul><ul id="c2f79b07-4c7c-4c2f-8f4e-14b96cf9aa34" class="bulleted-list"><li style="list-style-type:circle">第二个参数可选，表示填充的字符，默认为空格字符，参数可以是字符串，按照字符顺序循环填充</li></ul><ul id="e5155194-818a-46da-9e37-d0b72999b599" class="bulleted-list"><li style="list-style-type:circle">返回填充后的字符串</li></ul></li></ul><ul id="5cc62d25-f8ef-4de7-acbb-b6b7e1ec56df" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="13aaa678-762d-4493-ad3f-e3a3ee65babb" class="code"><code>let str6 = &quot;bar&quot;;
+console.log(str6.padStart(10, &quot;.&quot;), str6.padEnd(8, &quot;foo&quot;), str6.padStart(2));
+// 打印
+.......bar barfoofo bar</code></pre><ul id="e5366be8-8a30-4214-a8a3-ea20dd205f16" class="bulleted-list"><li style="list-style-type:circle">如果第一个参数的大小没有源字符串长度大，则不做任何处理，返回源字符串副本</li></ul></li></ul><h2 id="e53413b4-5912-4251-9604-10c639e6c434" class="">9. 字符串迭代与解构</h2><ul id="4726c021-71e1-4380-8426-27939abc2a25" class="bulleted-list"><li style="list-style-type:disc">字符串原型上具有一个<code>@@iterator</code>方法，表示可以迭代字符串的每个字符</li></ul><ul id="4edab1cb-039f-468d-b1e2-d9806045ec33" class="bulleted-list"><li style="list-style-type:disc">对于具有迭代器的字符串，可以使用解构操作符对字符串进行字符分割解构</li></ul><h3 id="c8f0ae01-2e10-4810-9531-f7f1d88d7908" class="">String.prototype[Symbol[@@iterator]]()</h3><ul id="ddf2781e-f832-40f6-9784-71fa1847949e" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="40733fc1-93c6-4237-a191-2e443aa77bb2" class="bulleted-list"><li style="list-style-type:circle">调用字符串实例的迭代符号方法会得到一个迭代器对象</li></ul><ul id="bc37274e-e504-4f2d-b42f-eef8ebdccac9" class="bulleted-list"><li style="list-style-type:circle">调用迭代器对象的next()方法会顺序返回字符和字符串状态的对象</li></ul><ul id="066beceb-76f9-4534-8953-3a4ee786664c" class="bulleted-list"><li style="list-style-type:circle">返回解构如下<pre id="b8b77fa8-0096-480e-a14e-77f27dfb2f58" class="code code-wrap"><code>{
+	value: ch,
+	done: boolean,
+}</code></pre><ul id="ca38f4af-0cba-4674-93ea-3c5360d460d4" class="bulleted-list"><li style="list-style-type:square">ch是调用迭代符号方法的字符串中的字符</li></ul><ul id="a6b2baa4-d5eb-44fd-9b20-721a146dd96c" class="bulleted-list"><li style="list-style-type:square">done表示是否已经迭代完毕</li></ul></li></ul></li></ul><ul id="ceb34396-b01c-484b-abed-c84231086430" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="6fdca0a3-c241-4877-a8ca-ec79a142ec99" class="code code-wrap"><code>let str7 = &quot;abc&quot;;
+const iterator = str7[Symbol[&quot;iterator&quot;]]();
+console.log(iterator.next());
+console.log(iterator.next());
+console.log(iterator.next());
+console.log(iterator.next());
+// 打印结果
+{ value: &#x27;a&#x27;, done: false }
+{ value: &#x27;b&#x27;, done: false }
+{ value: &#x27;c&#x27;, done: false }
+{ value: undefined, done: true }</code></pre><ul id="815ac359-0a4d-42e2-b142-894449686180" class="bulleted-list"><li style="list-style-type:circle">字符串长度为3，所以调用next()方法三次可以顺序得到每个字符</li></ul><ul id="42776cb3-5fd1-4ae6-bcf2-4de2b240d7e3" class="bulleted-list"><li style="list-style-type:circle">第四次调用时，已经迭代完毕，所以done状态为真值，而value为undefined</li></ul></li></ul><hr id="9f02d5dc-de05-4e87-a3e6-7651177d796d"/><ul id="42608d9a-6bd6-43ad-8e0c-cf92f7814f73" class="bulleted-list"><li style="list-style-type:disc">在介绍Symbol的常用内置符号中包含<a href="../3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E7%AC%A6%E5%8F%B7%2020d09a965d2844c886bf494160a778c5.html">Symbol.iterator符号</a>的解释<ul id="43af1d3a-b918-474f-849d-4fa421dc5e0a" class="bulleted-list"><li style="list-style-type:circle">描述：该符号属性表示“一个方法，该方法返回<strong>对象默认的迭代器</strong>，由for of语句使用”。</li></ul></li></ul><ul id="f0d0c78c-c39e-4c2c-ab95-af3df1711f06" class="bulleted-list"><li style="list-style-type:disc">所以可以直接使用for of 语句通过迭代器按序访问每个字符<pre id="617981fd-3532-4220-a8b2-4c3021e0ef0d" class="code code-wrap"><code>let str7 = &quot;abc&quot;;
+for (const ch of str7) {
+  console.log(ch);
+}
+// 打印结果
+a
+b
+c</code></pre></li></ul><hr id="42da66ea-9ce1-40aa-af68-2b90f88deffb"/><ul id="75a68db3-4a5c-4a59-bd09-9464ec8008c1" class="bulleted-list"><li style="list-style-type:disc">迭代器还有一个作用，可以被解构操作符进行解构，得到字符数组<pre id="a1fc1cfc-a95a-4293-9ff7-2de5697f6a57" class="code code-wrap"><code>console.log([...str7]);
+// [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</code></pre></li></ul><h2 id="e345ce66-58bd-41b4-a6b3-25639390b68f" class="">10. 字符串大小写转换</h2><ul id="c32adb21-449e-47a8-8fad-55ebb22e7ee7" class="bulleted-list"><li style="list-style-type:disc">字符串大小写涉及部分字符的大小写转换<ul id="79fcf1ba-1dd1-4ad5-b869-ba0e13d02123" class="bulleted-list"><li style="list-style-type:circle">一般而言英文的26位字母大小写是一一对应的</li></ul><ul id="1cf78ac5-297c-4a7f-b228-809583f93460" class="bulleted-list"><li style="list-style-type:circle">如果语言不同，部分字符的大小写对应规则也不同</li></ul><ul id="85888729-9e78-4a56-951a-a9bcd353c903" class="bulleted-list"><li style="list-style-type:circle">所以除了通用的转化大小写的方法<code>toLowerCase()</code>和<code>toUpperCase()</code> 针对不同地区，需要有<code>toLocaleLowerCase()</code> 和 <code>toLocaleUpperCase()</code></li></ul></li></ul><ul id="f3caad8d-e26c-486f-8ea6-9d30d4897510" class="bulleted-list"><li style="list-style-type:disc">大部分地区，Locale方法和默认方法是一样的，具有相同的大小写规则，但是有些地区不相同，如土耳其语言中的<code>i</code> 对应大写字母为<code>İ</code> </li></ul><h3 id="c7834958-c25a-4a8a-a2f8-d85eddf449a8" class="">String.prototype.toLowerCase(), String.prototype.toUpperCase()</h3><ul id="252094a7-2e0c-4531-8fdd-fa89a3fc0602" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="386cc265-0d3d-4b61-b775-57e98229f06c" class="bulleted-list"><li style="list-style-type:circle">字符串调用</li></ul><ul id="11a2bc37-6925-4e13-a34c-9d3fd563d08b" class="bulleted-list"><li style="list-style-type:circle">没有参数</li></ul><ul id="4b723663-1646-45c8-884a-6a1ffc706963" class="bulleted-list"><li style="list-style-type:circle">返回一个新的字符串，表示转换为小写或大写的调用字符串</li></ul></li></ul><ul id="9e36dc22-1553-4806-909b-1b2268dc3183" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="7daee995-0f4b-4f27-8388-af0d0919b2fe" class="code code-wrap"><code>let hello = &quot;Hello, World&quot;;
+console.log(hello.toLowerCase(), hello.toUpperCase());
+// 打印
+hello, world HELLO, WORLD</code></pre></li></ul><h3 id="ed2fdceb-31c7-40d7-8d55-9d136c5b89d1" class="">String.prototype.toLocaleLowerCase(), String.prototype.toLocaleUpperCase()</h3><ul id="eef90fa1-ea9c-402f-8c2e-38f948041975" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="1f19dc65-a434-4ff0-8be3-dc35758d3dfc" class="bulleted-list"><li style="list-style-type:circle">字符串调用</li></ul><ul id="2559f560-9529-4a3b-b63e-df2ef12239e9" class="bulleted-list"><li style="list-style-type:circle">可选参数locale,指明要转换成小写或大写格式的特定语言区域，可以传递一个表示区域的字符串，也可以以数组形式传递多个locales，由方法决定<a href="https://tc39.es/ecma402/#sec-bestavailablelocale">最合适的区域</a>；默认的locale是主机环境的区域设置,如中国大陆为<code>zh_CN</code> （中国大陆的区域和上面的两个标准方法没有区别）</li></ul><ul id="1d7124f7-2284-4255-86a2-c3cb7e6f45b4" class="bulleted-list"><li style="list-style-type:circle">返回一个新字符串，表示指定区域的转换成大写或小写的调用字符串</li></ul></li></ul><ul id="631ab7ca-1d0c-4cdd-919d-abc41b2fdc28" class="bulleted-list"><li style="list-style-type:disc">例子（土耳其语为例子）<pre id="4e756e99-c24b-4cf3-b8fc-eb90c3bde331" class="code code-wrap"><code>let tl = &quot;Türk dili&quot;;
+console.log(
+  tl.toLocaleLowerCase([&quot;tr&quot;, &quot;TR&quot;, &quot;tr-TR&quot;, &quot;tr-u-co-search&quot;, &quot;tr-x-turkish&quot;])
+);
+console.log(tl.toLowerCase());
+console.log(
+  tl.toLocaleUpperCase([&quot;tr&quot;, &quot;TR&quot;, &quot;tr-TR&quot;, &quot;tr-u-co-search&quot;, &quot;tr-x-turkish&quot;])
+);
+console.log(tl.toUpperCase());
+// 打结果
+türk dili
+türk dili
+TÜRK DİLİ
+TÜRK DILI</code></pre><ul id="e459f581-c958-47e2-9ebf-0d4991a3bdea" class="bulleted-list"><li style="list-style-type:circle">可以看到，标准方法对<code>i</code> 的大小写转换处理使用英语字母的 <code>i - I</code> 对，而土耳其语言区域中使用 <code>i - İ</code> 对</li></ul></li></ul><h2 id="4bdecd59-e7f0-4d04-a612-5ce112e07363" class="">11. 字符串模式匹配方法</h2><h3 id="813555cb-a206-4134-a0ee-62f0e648fde3" class="">String.prototype.match()</h3><ul id="8ba98ada-8cba-4c72-9393-ff4069847639" class="bulleted-list"><li style="list-style-type:disc">和正则表达式实例的exec()方法类似，用于模式匹配，只是调用者和参数反了过来</li></ul><ul id="e5d702ac-58f3-48ad-8141-164ad2b0a22f" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="3325d1b2-9e62-42c4-b7ae-9f784fab8aa2" class="bulleted-list"><li style="list-style-type:circle">接受一个参数，可以是一个正则表达式字符串，也可以是正则实例</li></ul><ul id="6b6b460c-be7d-4cbf-a3c0-3ec3f0811dd6" class="bulleted-list"><li style="list-style-type:circle">如果正则表达式不是全局匹配<ul id="0f77486f-5460-47ea-a20b-b14327104786" class="bulleted-list"><li style="list-style-type:square">返回匹配到的有关第一个子字符串的数组，包含匹配的子字符串，捕获组，匹配开始的位置索引，和exe()方法的返回值<a href="2%203%20RegExp%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%204c4c0d08cd6c423aaa39f4a3405a3323.html">一样</a></li></ul></li></ul><ul id="69274828-3aea-483b-be37-3ae0bc7f25df" class="bulleted-list"><li style="list-style-type:circle">如果正则表达式是全局匹配<ul id="e5411d25-785b-402f-9ac4-364b7ec8a3ba" class="bulleted-list"><li style="list-style-type:square">返回每个匹配到的字符串数组，不包含额外的捕获组，匹配开始索引信息等</li></ul></li></ul></li></ul><ul id="c8750078-890f-4827-9981-379288c387d0" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="d1dbfbea-db79-4dfe-8725-3bd770c88945" class="code code-wrap"><code>let text = &quot;cat, bat, sat, lat&quot;;
+let reg1 = /.a(t)/;
+let reg2 = /.a(t)/g;
+
+console.log(text.match(reg1));
+console.log(text.match(reg2));
+// 打印结果
+[
+  &#x27;cat&#x27;,
+  &#x27;t&#x27;,
+  index: 0,
+  input: &#x27;cat, bat, sat, lat&#x27;,
+  groups: undefined
+]
+[ &#x27;cat&#x27;, &#x27;bat&#x27;, &#x27;sat&#x27;, &#x27;lat&#x27; ]</code></pre><ul id="7c43a35e-4bc1-4936-a642-56a50cce2818" class="bulleted-list"><li style="list-style-type:circle">第一个match匹配执行的reg1不是全局匹配，所以只返回第一个匹配结果，但是包含捕获组，匹配开始索引等信息</li></ul><ul id="08c3fd6c-ac56-4ade-8cf5-f3439566165c" class="bulleted-list"><li style="list-style-type:circle">第二个match匹配执行的reg2是全局匹配，返回所有匹配结果，不包含匹配成功的子字符串的额外信息</li></ul></li></ul><ul id="a6814adb-767b-4df6-b6a5-c7f1db443133" class="bulleted-list"><li style="list-style-type:disc"><strong>注意</strong><ul id="ecdd79b6-8241-435a-954a-d3021fd42e5e" class="bulleted-list"><li style="list-style-type:circle">如果没有匹配成功任何子字符串，返回null</li></ul><ul id="68e9c33b-b9c5-4053-b9b0-5c51c6eb3da5" class="bulleted-list"><li style="list-style-type:circle"><strong>match方法调用正则实例匹配，不会改变正则实例的lastIndex属性</strong><ul id="7d5779e7-ff31-4b4c-b9a7-38b4ec8f3bfe" class="bulleted-list"><li style="list-style-type:square">使用正则实例调用exec()会改变实例的lastIndex属性</li></ul></li></ul><ul id="0bc80e89-1359-42e9-bf52-11eb8de31840" class="bulleted-list"><li style="list-style-type:circle">如果传入空字符串，默认返回如下<pre id="929307b9-66bd-42b3-9d21-92ead9fb62bb" class="code code-wrap"><code>[ &#x27;&#x27;, index: 0, input: &#x27;cat, bat, sat, lat&#x27;, groups: undefined ]</code></pre></li></ul></li></ul><ul id="aede58f1-5c64-41c5-a10b-ee62cb92e766" class="bulleted-list"><li style="list-style-type:disc">更多详细介绍查看<a href="https://www.notion.so/JavaScript-RegExp-e4a0793f0ca8454880ba7d7a4732f3c5">JavaScript正则表达式（RegExp）</a></li></ul><h3 id="2ab4aad5-d58b-4fb7-8d7d-789262b716e7" class="">String.prototype.search()</h3><ul id="d8ff2770-7446-40c3-a85b-533fc226d7d6" class="bulleted-list"><li style="list-style-type:disc">和match()方法不同的时，search()方法更像indexOf()方法，用于查找源字符串中是否具有可以正则匹配的子字符串</li></ul><ul id="9d5e27bd-20ac-4d18-8107-27bda69d704e" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="c973b325-44f3-419f-a8cb-5c92c361799f" class="bulleted-list"><li style="list-style-type:circle">由源字符串调用</li></ul><ul id="7c66ff88-ece0-4090-a0ba-ae3b735ca566" class="bulleted-list"><li style="list-style-type:circle">一个参数，可以是一个正则表达式字符串，也可以是正则实例</li></ul><ul id="e0ea3ed4-7ec0-4e37-b02d-38a727a53075" class="bulleted-list"><li style="list-style-type:circle">返回第一个匹配到正则模式的子字符串开始位置索引</li></ul><ul id="662844c5-2ac9-4bf1-966c-a4eefc9bcd67" class="bulleted-list"><li style="list-style-type:circle">如果没有匹配到，就返回-1</li></ul></li></ul><ul id="e626d42f-5eff-4fb7-a99b-6773220221c3" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="f86353b2-ef0e-458d-a9d5-80a3b8236e37" class="code code-wrap"><code>let text = &quot;cat, bat, sat, lat&quot;;
+let reg1 = /.a(t)/;
+let reg2 = /.a(t)/g;
+console.log(
+  text.search(&quot;bat&quot;),
+  text.search(&quot;&quot;),
+  text.search(reg1),
+  text.search(reg2)
+);
+// 打印结果
+5 0 0 0</code></pre><ul id="8f9aae2a-e41e-4bf1-935d-083e48588df7" class="bulleted-list"><li style="list-style-type:circle">传入空字符串返回0</li></ul><ul id="8ee4bce8-d284-45f1-ab98-46a72068b6c8" class="bulleted-list"><li style="list-style-type:circle">search方法不关心正则实例是否为全局匹配，只返回第一个匹配到的子字符串的开始索引位置</li></ul></li></ul><h3 id="d0643584-8451-4c21-ae33-7f5a1b71e46c" class="">String.prototype.replace()</h3><ul id="b5579ba0-624f-40cf-b9e6-7aea1837951a" class="bulleted-list"><li style="list-style-type:disc">字符串中子字符串的替换操作方法</li></ul><ul id="5420e8cd-6b88-4b70-aa2f-a7d075137fc7" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="2e69ae85-75cf-41fb-836d-a0bdac9c5e14" class="bulleted-list"><li style="list-style-type:circle">第一个参数，可以是字符串（不会被转换为正则表达式），也可以是正则实例</li></ul><ul id="881e06d5-9ffd-4473-bb89-46fd1cdacea3" class="bulleted-list"><li style="list-style-type:circle">第二个参数可以是一个字符串或函数<ul id="97cac752-db6a-4301-a8c5-9341acf465b1" class="bulleted-list"><li style="list-style-type:square">如果是字符串，那么前面匹配的子字符串就会被这个字符串替换</li></ul><ul id="13f4ec04-4ba5-4ce6-8e75-2337e9bb5714" class="bulleted-list"><li style="list-style-type:square">如果是函数，函数可以传递有关匹配的信息参数，然后处理返回新的替换的字符串<pre id="8c1d5896-feb0-4eb6-8f7b-f7533c9a3638" class="code code-wrap"><code>function replacer(match, p1, p2 ..., offset, string) {
+	// 通过参数处理得到新字符串
+	return newStr;
+}</code></pre><ul id="6001d512-f4d5-4e17-994a-f42545698ca5" class="bulleted-list"><li style="list-style-type:disc">match是匹配到的子字符串</li></ul><ul id="b1ef72e1-9c39-4463-8440-6e1ddedd3051" class="bulleted-list"><li style="list-style-type:disc">p1,p2..是正则实例的捕获组匹配到的子字符串</li></ul><ul id="5ff35330-9735-4f59-93da-cac468262a96" class="bulleted-list"><li style="list-style-type:disc">offset是match在原字符串中的偏移量，如”abcd” 匹配到”bc”，那么偏移量就是1</li></ul><ul id="a9a15ec5-5741-43c4-aadf-c3bf72a0e307" class="bulleted-list"><li style="list-style-type:disc">string是原字符串（调用replace方法的字符串）</li></ul></li></ul></li></ul><ul id="78927231-34f3-453f-82d7-96b5e53be5fc" class="bulleted-list"><li style="list-style-type:circle">返回值<ul id="167a4ac0-9a9d-4f6b-bfbd-2bd2c1412cc9" class="bulleted-list"><li style="list-style-type:square">如果第一个参数是一个字符串，那么<strong>替换的子字符串只会是第一个匹配到的子字符串</strong></li></ul><ul id="6396d458-56f7-46e5-9a7f-b46a7ce211ea" class="bulleted-list"><li style="list-style-type:square">如果第已个参数是正则实例且带有g标记，那么字符串中所有匹配的字符串都会被替换，否则也只替换第一个匹配到的子字符串</li></ul><ul id="2330206b-fe89-48b2-8c62-ecb29edf0afc" class="bulleted-list"><li style="list-style-type:square">调用字符串不会改变，返回的是一个在调用字符串基础上经过替换的新字符串</li></ul></li></ul></li></ul><ul id="69bfa8ea-9442-4e09-9659-c48e9263a789" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="89ecc753-7b50-4f0d-b925-becd4c0d5c6d" class="code code-wrap"><code>let text = &quot;cat, bat, sat, lat&quot;;
+console.log(text.replace(&quot;at&quot;, &quot;onc&quot;));
+console.log(text.replace(/at/g, &quot;onc&quot;));
+console.log(
+  text.replace(/(.)(a)(t)/g, (_match, $1, $2, $3) =&gt; {
+    return $3 + $2 + $1;
+  })
+);
+// 打印
+conc, bat, sat, lat
+conc, bonc, sonc, lonc
+tac, tab, tas, tal</code></pre><ul id="8527deba-1a67-4afe-a508-ba0588f12b5c" class="bulleted-list"><li style="list-style-type:circle">第一个参数为字符串，只替换了第一个匹配到的子字符串</li></ul><ul id="dfb78066-a5da-4f6c-9208-0c44d51f1065" class="bulleted-list"><li style="list-style-type:circle">第二个参数为函数时，改函数利用捕获组捕获到的字符串将子字符串顺序颠倒然后作为替换子字符串返回</li></ul></li></ul><hr id="81075c5e-a691-42e5-be0d-32b117a7dd88"/><ul id="3eb0eb93-5391-4eff-8845-a82159ada34c" class="bulleted-list"><li style="list-style-type:disc">注意<ul id="cba58c59-26ff-4267-b10d-a6c61d7dbc03" class="bulleted-list"><li style="list-style-type:circle">使用字符串作为第二个参数时，有一些特殊的序列用来表达式匹配到的值</li></ul><table id="5b19a5fb-f614-44a0-8b53-1759f423de8f" class="simple-table"><tbody><tr id="2333420d-a544-4a5e-8b52-8e2b6d2447cd"><td id="MP&lt;\" class="">字符序列</td><td id="dKN~" class="" style="width:376.09088134765625px">替换文本</td></tr><tr id="4a2551ec-60ad-4667-b092-1134eee33fde"><td id="MP&lt;\" class="">$$</td><td id="dKN~" class="" style="width:376.09088134765625px">$ (即要替换成$字符时的用法)</td></tr><tr id="9462e509-a392-4667-8920-dfb1de489562"><td id="MP&lt;\" class="">$&amp;</td><td id="dKN~" class="" style="width:376.09088134765625px">匹配的子串，与RegExp.lastMatch类似</td></tr><tr id="d7806a9a-8b64-494b-9ee0-85141597f849"><td id="MP&lt;\" class="">$’</td><td id="dKN~" class="" style="width:376.09088134765625px">匹配的子串之前的字符串，与RegExp.rightContext类似</td></tr><tr id="b8770433-ff52-4f4a-8045-a02938a5850b"><td id="MP&lt;\" class="">$`</td><td id="dKN~" class="" style="width:376.09088134765625px">匹配的子串之后的字符串，与RegExp.leftContext类似</td></tr><tr id="fa4aecfd-409f-4983-9c29-d54610053d02"><td id="MP&lt;\" class="">$n</td><td id="dKN~" class="" style="width:376.09088134765625px">匹配的第n个捕获组的字符串，范围[0, 9],$1表示第一个捕获组匹配到的字符串，如果没有捕获组就为空字符串</td></tr><tr id="b0dd5bf4-763f-473c-be87-9c7921d017ff"><td id="MP&lt;\" class="">$nn</td><td id="dKN~" class="" style="width:376.09088134765625px">匹配的第nn个捕获组的字符串，范围[01, 99], $01表示第一个捕获组匹配到的字符串，如果没有捕获组就为空字符串</td></tr></tbody></table></li></ul><ul id="52171497-b859-452d-bdd7-7f4192b93bac" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="ae4d49c0-6198-486f-be85-738afe0b8b62" class="code code-wrap"><code>let text = &quot;cat, bat, sat, lat&quot;;
+console.log(text.replace(/(.)(a)(t)/g, &quot;$3$2$1&quot;));
+tac, tab, tas, tal</code></pre><ul id="4a1b8bb6-ce7d-4e7f-b4d1-a6aeb1eb1d47" class="bulleted-list"><li style="list-style-type:circle">替换作用和上面第二个参数使用函数是一样，将捕获组的子字符串颠倒拼接后返回</li></ul></li></ul><ul id="ddc58381-c4d3-4c2b-9a66-48716f03e2c9" class="bulleted-list"><li style="list-style-type:disc">如果第一个参数传入空字符串<ul id="5f3416fe-02a5-412c-962e-aee1dfab3fbc" class="bulleted-list"><li style="list-style-type:circle">返回的新字符串会在原字符串的基础上在字符串开头加上第二个参数的字符串</li></ul></li></ul><h3 id="6161bfed-37ef-49c1-b092-3b4088b2c83e" class="">String.prototype.split()</h3><ul id="ba438a96-49c2-40a9-af15-8b40edc0f46d" class="bulleted-list"><li style="list-style-type:disc">这个方法根据传入的分隔符将字符串拆分成数组</li></ul><ul id="4dc58392-3358-44c9-940d-190f1fc6e7b4" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="13221373-63bb-42f3-b05d-0060014a4ec1" class="bulleted-list"><li style="list-style-type:circle">字符串调用</li></ul><ul id="11b5c002-efa5-47d4-a0f9-53f22300240c" class="bulleted-list"><li style="list-style-type:circle">传入一个可选的参数， 可以是字符串，也可以正则实例</li></ul><ul id="3cc3bc59-c942-4201-ae24-14b118201677" class="bulleted-list"><li style="list-style-type:circle">第二个参数也是可选的，表示返回的字符串数组长度，确保返回的数组不会超过指定大小</li></ul><ul id="87aa5915-94c2-49c1-adae-958f8ca3323e" class="bulleted-list"><li style="list-style-type:circle">返回值<ul id="a9e92724-0cd0-46b1-a641-52813938732f" class="bulleted-list"><li style="list-style-type:square">如果不传入任何参数，返回一个长度为1，只有原字符串的数组</li></ul><ul id="a3fbbd70-f26d-410b-b31c-b423b1814105" class="bulleted-list"><li style="list-style-type:square">如果只传入第一个参数，根据原字符串匹配到参数的个数决定返回的数组的长度，加上匹配个数为n，则数组长度为n+1,每个元素是匹配到的子字符串之间的字符串，如图所示<figure id="354c1d0c-35d9-4e30-8c8b-33df89c4a82f" class="image"><a href="3%203%20String%20513caffbbeb2462fbfd125ad030a2afb/split%E6%96%B9%E6%B3%95.png"><img style="width:432px" src="3%203%20String%20513caffbbeb2462fbfd125ad030a2afb/split%E6%96%B9%E6%B3%95.png"/></a></figure><p id="f6d33b22-a864-4cbc-b3a5-2fc7cdafb64d" class="">如果匹配项在边缘，那么空字符串也会作为一个元素存在于数组中。如如果匹配项为0，就返回一个长度为1的只包含原字符串的数组</p><p id="a1f9efd4-fc2e-4a99-8996-e839c44f75b8" class="">最终匹配项会被当作分割符在数组中被删除</p></li></ul></li></ul></li></ul><ul id="a7b79ec3-98ec-4ae7-a1d6-78c062531584" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="997c28f7-47f8-42fd-af5b-d2968fc58dcc" class="code code-wrap"><code>console.log(&quot;blue, wihte, red&quot;.split(&quot;&quot;));
+console.log(&quot;blue, wihte, red&quot;.split(&quot;, &quot;));
+console.log(&quot;blue, wihte, red&quot;.split(&quot;, &quot;, 2));
+console.log(&quot;blue, wihte, red&quot;.split(&quot;, &quot;, -1));
+// 打印
+[
+  &#x27;b&#x27;, &#x27;l&#x27;, &#x27;u&#x27;, &#x27;e&#x27;,
+  &#x27;,&#x27;, &#x27; &#x27;, &#x27;w&#x27;, &#x27;i&#x27;,
+  &#x27;h&#x27;, &#x27;t&#x27;, &#x27;e&#x27;, &#x27;,&#x27;,
+  &#x27; &#x27;, &#x27;r&#x27;, &#x27;e&#x27;, &#x27;d&#x27;
+]
+[ &#x27;blue&#x27;, &#x27;wihte&#x27;, &#x27;red&#x27; ]
+[ &#x27;blue&#x27;, &#x27;wihte&#x27; ]
+[ &#x27;blue&#x27;, &#x27;wihte&#x27;, &#x27;red&#x27; ]</code></pre><ul id="e9b6926b-d047-4150-887f-57913c1718bf" class="bulleted-list"><li style="list-style-type:circle">注意第二个参数的如果为负数将会无效，范围大于等于0，先得到分割好字符串数组后，从前面开始截取指定长度的数组，直到截取完</li></ul><ul id="7957d29e-d8c0-430d-b30f-65d179256012" class="bulleted-list"><li style="list-style-type:circle">第一个参数传入空字符串相当于获取字符串的单字符数组，等价于解构语法<code>[…str]</code> </li></ul></li></ul><h3 id="223dccb6-9f8f-41ac-ad1a-4222812f5135" class="">String.prototype.replaceAll()</h3><ul id="2376e429-074d-47d5-a0da-bb84110063a6" class="bulleted-list"><li style="list-style-type:disc">ES6的新方法，实际上谷歌浏览器85版本之前未实现这个方法，具体规范查看<a href="https://tc39.es/ecma262/#sec-string.prototype.replaceall">ecma262官网</a> JavaScript高级程序设计指南未介绍该方法</li></ul><ul id="fe646fe3-04bf-413b-b357-c857759939ce" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="5e9d3e7f-0bce-454a-a156-5f18daddedd7" class="bulleted-list"><li style="list-style-type:circle">第一个参数，<strong>字符串</strong>或者<strong>带有g标记的正则实例</strong></li></ul><ul id="8415425e-8aad-4970-b87d-d8d71e1e3736" class="bulleted-list"><li style="list-style-type:circle">第二个参数和replace方法一样，特性也一样</li></ul><ul id="ef2e2113-f095-44d8-be07-2dec75dc2221" class="bulleted-list"><li style="list-style-type:circle">返回，<strong>替换了所有匹配项的字符串</strong></li></ul></li></ul><ul id="e916a205-6431-408f-91a2-47a48f27a80d" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="083fb115-c267-4b85-abf2-60ad9dae3d50" class="code code-wrap"><code>let text = &quot;cat, bat, sat, lat&quot;;
+console.log(text.replaceAll(&quot;at&quot;, &quot;onc&quot;));
+// 打印
+conc, bonc, sonc, lonc</code></pre><ul id="6bf085dc-a0a9-45b1-a904-6dbe10ff1522" class="bulleted-list"><li style="list-style-type:circle">replaceAll与replace的最大区别在于<strong>前者默认替换所有匹配项，且正则必须带有g标记</strong></li></ul><ul id="1aadb321-761e-4047-be41-928ad1241811" class="bulleted-list"><li style="list-style-type:circle"><strong>replace完全具有replaceAll的功能</strong>，只要传递的正则具有g标记</li></ul></li></ul><h2 id="eacbb650-fd72-456e-9ab0-f57a32970daa" class="">12. String.prototype.localeCompare()</h2><ul id="3de1fd0b-5dd0-4520-926a-b8e4ad2fdddc" class="bulleted-list"><li style="list-style-type:disc">按照<strong>字典顺序</strong>比较字符串的大小，这里的字典顺序<strong>不可以</strong>看成使用String.charCodeAt()方法获取到的十进制Unicode编码大小，而是传统意义上的字典中对单词的排序方式<strong>[aAbBcCdD-zZ]</strong></li></ul><ul id="f5002482-e043-4dcc-a854-fa1d26c7d79e" class="bulleted-list"><li style="list-style-type:disc">语法<ul id="fac5715d-0871-4f1a-936b-7b95fb353b91" class="bulleted-list"><li style="list-style-type:circle">字符串调用</li></ul><ul id="a67b5851-137e-4842-9327-c9c1d56fc270" class="bulleted-list"><li style="list-style-type:circle">传入第一个参数，也是字符串</li></ul><ul id="aff4b70f-4f41-470c-a608-f37b0e7ba52f" class="bulleted-list"><li style="list-style-type:circle">第二个参数可选，locales，表示语言和区域，不同语言的字母使用和排序方式不同，默认使用英语区的26位字母排序</li></ul><ul id="7769c93f-6d38-48d7-918b-dec54a03c6a4" class="bulleted-list"><li style="list-style-type:circle">第三个参数可选 options，这两个可选参数是额外特性，查看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare">mdn</a>查找有关兼容性问题</li></ul><ul id="0b336dd7-1c99-4cf5-8624-2d4fa588f381" class="bulleted-list"><li style="list-style-type:circle">返回值为0, 1, -1 其中一个<ul id="e3003b00-a81f-4b89-b8fd-f5fc2b941f4a" class="bulleted-list"><li style="list-style-type:square">0：调用字符串和传入字符串相等</li></ul><ul id="67986e9c-e2fe-43f3-917a-46d47982cfc4" class="bulleted-list"><li style="list-style-type:square">1： 按照字典顺序，从两个字符串的第0位开始比较，如果调用字符排列在传入字符的<strong>后面</strong>则返回1</li></ul><ul id="54504e51-b576-4b89-bfe8-93fdaf3e913c" class="bulleted-list"><li style="list-style-type:square">-1: 按照字典顺序，从两个字符串的第0位开始比较，如果调用字符排列在传入字符的<strong>前面</strong>则返回-1</li></ul><hr id="00c0f9ae-84ec-4f05-bedb-560c2417c5fe"/><ul id="9ca06b2f-09d2-4c87-9b65-0d16a36ce74e" class="bulleted-list"><li style="list-style-type:square">注意这里的前后，对于字母表而言就是<strong>[aAbBcCdD-zZ], </strong>a在所有其它字母的前面</li></ul></li></ul></li></ul><ul id="52bd30f8-3059-4f1e-bbe4-43a809fa7d2e" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="573b7c80-f544-4194-b414-b59abb99b52e" class="code"><code>console.log(&quot;dce&quot;.localeCompare(&quot;dcea&quot;));
+console.log(&quot;dce&quot;.localeCompare(&quot;dce&quot;));
+console.log(&quot;dce&quot;.localeCompare(&quot;abc&quot;));
+console.log(&quot;dce&quot;.localeCompare(&quot;Dce&quot;));
+// 
+-1
+0
+1
+-1</code></pre><ul id="1aba02a1-9a26-419e-b6a1-193738f97d84" class="bulleted-list"><li style="list-style-type:circle">dce与dcea相比，前面dce相同，但是deca比dec多一个字符，所以dec在前面，返回负数</li></ul><ul id="d46b43c2-f0db-4eb9-9fc3-ab4b45c6cc5f" class="bulleted-list"><li style="list-style-type:circle">dce与dce相同，二者相同，返回0</li></ul><ul id="6401cdda-9a91-4d4e-a60a-e5067c22bebd" class="bulleted-list"><li style="list-style-type:circle">dce与abc相比，字符d在字符a之后，返回正数</li></ul><ul id="e4b7dcdc-b6ff-48d0-8f6a-b3af5020b5f3" class="bulleted-list"><li style="list-style-type:circle">dce与Dce相比，字符d在字符D之前，返回负数</li></ul></li></ul><ul id="730ecbab-0b50-453c-8064-9584e6c6bfeb" class="bulleted-list"><li style="list-style-type:disc">注意<ul id="ef6834f8-68e9-4f4c-ab2c-78b5253918f2" class="bulleted-list"><li style="list-style-type:circle">不同的实现返回的整数可能不同，因为ECMAScript只规范了应该返回负数，0或正数，没规定一定返回-1或1</li></ul><ul id="7f726cb8-f437-4a49-a436-096f1e57da91" class="bulleted-list"><li style="list-style-type:circle">localeCompare()的实现与所在地区（国家和语言）有关系，比较字符串的大小和语言的字母顺序相关<ul id="d65119e3-199f-4cc3-8927-195c9f71faff" class="bulleted-list"><li style="list-style-type:square">默认使用英语地区的字母排序[aAbB-zZ]</li></ul><ul id="72aee435-19a6-49a0-b0ed-c3d666683bec" class="bulleted-list"><li style="list-style-type:square">locales设定地区后，可能产生不同的情况<pre id="d3380bc1-174d-44ab-b270-4b669333d646" class="code"><code>console.log(&quot;ä&quot;.localeCompare(&quot;z&quot;, &quot;de&quot;)); // 德语区ä字符在z的前面，返回负数
+console.log(&quot;ä&quot;.localeCompare(&quot;z&quot;, &quot;sv&quot;)); // 瑞典语区ä字符在z的后面，返回正数</code></pre><ul id="301a744e-fd65-4798-9af7-e303e9aa3463" class="bulleted-list"><li style="list-style-type:disc">打印结果第一个为-1, 第二个为1</li></ul><ul id="822712b0-a1b1-43fd-a61b-13fe29beb6a9" class="bulleted-list"><li style="list-style-type:disc">因为字符ä在德语字母和瑞典字母中的排序不同导致的</li></ul></li></ul></li></ul><p id="b2deffb2-f207-49dd-924c-0af594c923d5" class="">
+</p></li></ul><h2 id="bc46fba0-c839-4e53-9d02-931926f96929" class="">13. HMTL方法</h2><ul id="1005beaf-1d9d-4059-8f9a-06c949cf1889" class="bulleted-list"><li style="list-style-type:disc">早期浏览器需要JavaScript动态生成一个HTML标签</li></ul><ul id="316398c2-eee1-4623-a362-81373f2be2e3" class="bulleted-list"><li style="list-style-type:disc">因为早期DOM还未完善，所以依靠String定义了一些方法来生成HMTL标签</li></ul><ul id="a2a9fc45-3ca9-4618-a2ea-0a30eb70da38" class="bulleted-list"><li style="list-style-type:disc">这些方法现在已经没人使用了，因为结果不是语义化的标记</li></ul><table id="8f7abd73-3071-40e7-95c5-11a1276baea1" class="simple-table"><tbody><tr id="e9a21b39-9fb7-4f92-89d8-b1c7daae02ec"><td id="DFfd" class="" style="width:219.36361694335938px">方法</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">输出</td><td id="`~a[" class="">备注</td></tr><tr id="25075b5d-1f86-4773-9e35-916e34a29a3f"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.anchor(name)</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;a name=&quot;name&quot;&gt;string&lt;/a&gt;</td><td id="`~a[" class="">name是传入的字符串参数，string是调用的字符串实例，下同，返回的也是字符串， 下同，<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/anchor">该方法在web标准中已被删除</a></td></tr><tr id="4b508359-7636-48d1-abfb-5db5bd7fd5da"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.big()</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;big&gt;string&lt;/big&gt;</td><td id="`~a[" class="">不仅该方法在web标准中被删除，<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/big">big标签本身在HTML5中也被移除了</a></td></tr><tr id="bcbaf778-4c4b-4a76-bd76-a1f51da69f2f"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.bold()</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;b&gt;string&lt;/b&gt;</td><td id="`~a[" class=""><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/bold">该方法已被web标准删除</a></td></tr><tr id="a22ee7fe-7e6f-4907-bc45-9e6c10b8ca1e"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.fixed()</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;tt&gt;string&lt;/tt&gt;</td><td id="`~a[" class=""><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/fixed">该方法已被web标准删除</a> tt标签用于将包裹的字符串具有固定间距</td></tr><tr id="beddf2af-c7b6-478c-8856-2ee763084b44"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.fontcolor(color)</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;font color=&quot;color&quot;&gt;string&lt;/font&gt;</td><td id="`~a[" class="">color是传入的字符串参数，该方法在web标准中已被删除，且<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/fontcolor">font标签本身在HTML5中也被移除</a></td></tr><tr id="c48f1d99-c207-422c-9812-cd37d54220cd"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.fontsize(size)</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;font size=&quot;size&quot;&gt;string&lt;/font&gt;</td><td id="`~a[" class="">size是传入的字符串参数，该方法在web标准中已被删除，且<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/fontcolor">font标签本身在HTML5中也被移除</a></td></tr><tr id="ac782310-bd30-49a7-acbf-4e4ad72ac920"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.italics()</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;i&gt;string&lt;/i&gt;</td><td id="`~a[" class="">i标签用于将包裹的字符串变为斜体，<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/italics">该方法在web标准中已被删除</a></td></tr><tr id="7206c385-0758-426e-9bda-8daba04cc18e"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.link(url)</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;a href=&quot;url&quot;&gt;string&lt;/a&gt;</td><td id="`~a[" class="">url是传入的字符串参数，<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/link">该方法在web标准中已被删除</a></td></tr><tr id="20d494ce-06ab-4acf-9b51-e44d3631fbcf"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.small()</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;small&gt;string&lt;/small&gt;</td><td id="`~a[" class=""><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/small">该方法在web标准中已被删除</a>, small用于将包裹的字符串显示小号字体</td></tr><tr id="e52283e7-55d8-49ab-8111-6a0c7da5a8c5"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.strike()</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;strike&gt;string&lt;/strike&gt;</td><td id="`~a[" class=""><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/strike">该方法在web标准中已被删除</a>，strike标签用于将包裹的字符串展示位被删除的文本</td></tr><tr id="244d4bda-45d7-48a0-9313-7ccb3694dcf3"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.sub()</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;sub&gt;string&lt;/sub&gt;</td><td id="`~a[" class=""><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/sub">该方法在web标准中已被删除</a></td></tr><tr id="93bb8646-14c1-4b43-8cb7-ad8a2f3e7022"><td id="DFfd" class="" style="width:219.36361694335938px">String.prototype.sup()</td><td id="j&lt;{&lt;" class="" style="width:209.57574462890625px">&lt;sup&gt;string&lt;/sup&gt;</td><td id="`~a[" class=""><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/sup">该方法在web标准中已被删除</a></td></tr></tbody></table></div></div></div></article></body></html>

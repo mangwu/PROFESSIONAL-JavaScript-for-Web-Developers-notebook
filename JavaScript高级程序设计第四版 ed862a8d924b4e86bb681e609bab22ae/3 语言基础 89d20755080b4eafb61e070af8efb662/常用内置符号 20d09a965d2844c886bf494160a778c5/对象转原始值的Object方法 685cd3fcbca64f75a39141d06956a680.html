@@ -1,0 +1,702 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>对象转原始值的Object方法</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="685cd3fc-bca6-4f75-a391-41d06956a680" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/gradients_8.png" style="object-position:center 70%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">📹</span></div><h1 class="page-title">对象转原始值的Object方法</h1></header><div class="page-body"><h1 id="53f9cd37-71bd-4346-8dff-5593a86e08ce" class="">Object.prototype.valueOf()</h1><h2 id="73cee6c3-5d97-444a-80c1-29ce2cb6c496" class="">描述</h2><ul id="af3761a3-3191-4112-a0be-dc7fa8ed51d0" class="bulleted-list"><li style="list-style-type:disc">该方法指定对象的原始值</li></ul><ul id="730d388b-3210-4923-bf5d-a0c6c158f713" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="66566645-6f2f-426a-a80c-fb4ee85055cf" class="code"><code>object.valueOf(); // object是一个对象</code></pre><ul id="265164b0-156b-4383-a047-301c77805b2b" class="bulleted-list"><li style="list-style-type:circle">返回值为object的原始值</li></ul></li></ul><h2 id="6003261a-272d-4226-b57e-be2058aa02ee" class="">功能</h2><h3 id="7e770508-a4cf-4442-88b9-ec44d4f0662d" class="">调用情况</h3><ul id="ced83555-fda3-4af2-ba36-805c924ff1e8" class="bulleted-list"><li style="list-style-type:disc">默认情况下很少主动调用该方法</li></ul><ul id="8a11bf20-2ffa-4c99-8845-fd0e994ddb72" class="bulleted-list"><li style="list-style-type:disc">当遇到要预期的原始值对象时，JavaScript会自动调用<ul id="e4c5a32a-105a-4b54-9195-3ec40850bfed" class="bulleted-list"><li style="list-style-type:circle">即在有些操作下，需要将该对象转化为原始值进行计算时就会调用<code>valueOf()</code> 方法</li></ul><ul id="71792192-d088-4049-8a5e-992866ebc076" class="bulleted-list"><li style="list-style-type:circle">例如，使用<code>console.log(object)</code> 打印对象时，就会调用valueOf打印出原始值<pre id="24df2fdf-d33e-4f59-9025-783c07c26b3d" class="code"><code>#// valueOf
+const object = { a: 1, b: 2 };
+console.log(object);
+
+// 结果
+{ a: 1, b: 2 } // 默认以大括号包裹，键值对形式显示(对象的字面量写法)</code></pre></li></ul></li></ul><h3 id="7243949e-4b4a-48a7-a093-6338b9a4c4a5" class="">覆盖情况</h3><ul id="93d87884-f29a-45c8-9ac6-994e1aaa8d09" class="bulleted-list"><li style="list-style-type:disc">默认情况<code>valueOf</code> 方法由<code>Object</code> 后面的对象继承</li></ul><ul id="bc91a11c-27c4-4172-ab1b-87d4dcefb3ab" class="bulleted-list"><li style="list-style-type:disc">每个<strong>内置的核心对象（</strong>如下<strong>）</strong>都会覆盖此以返回适当的值<figure id="f5a9a1e5-149c-4281-865d-65de95b9ea63" class="image"><a href="%E5%AF%B9%E8%B1%A1%E8%BD%AC%E5%8E%9F%E5%A7%8B%E5%80%BC%E7%9A%84Object%E6%96%B9%E6%B3%95%20685cd3fcbca64f75a39141d06956a680/Untitled.png"><img style="width:432px" src="%E5%AF%B9%E8%B1%A1%E8%BD%AC%E5%8E%9F%E5%A7%8B%E5%80%BC%E7%9A%84Object%E6%96%B9%E6%B3%95%20685cd3fcbca64f75a39141d06956a680/Untitled.png"/></a></figure></li></ul><ul id="5e87e0a1-1d84-4901-a4bc-723752b77525" class="bulleted-list"><li style="list-style-type:disc">如果对象没有原始值，valueOf()返回对象本身（即显示对象的字面量写法）</li></ul><h3 id="db8ba2a7-7d60-43ad-8a4e-7f860b0ced84" class="">不同对象的valueOf()返回值类型</h3><table id="1b3c432f-2449-4d58-b803-2f45652a6bae" class="simple-table"><tbody><tr id="6c71b8e8-50e0-4a2d-b0ed-ac069e8b3ca9"><td id="XWT}" class="">对象</td><td id="`:pi" class="" style="width:540.51513671875px">返回值</td></tr><tr id="93187816-1ea7-43b2-b05a-042d966795e7"><td id="XWT}" class="">Obejct</td><td id="`:pi" class="" style="width:540.51513671875px">对象本身（默认情况）,例如<code>{a:1}</code> ,<code>type {}</code> (如果对象是自定义类型的话) </td></tr><tr id="e2508393-fd0a-4fcb-8822-7cd9bfb711ba"><td id="XWT}" class="">Array</td><td id="`:pi" class="" style="width:540.51513671875px">数组本身,例如 <code>[1,2,3]</code></td></tr><tr id="40f45ad4-bbd1-4efb-ac63-3f1c6a496eac"><td id="XWT}" class="">Boolean</td><td id="`:pi" class="" style="width:540.51513671875px">布尔值（true或者false）</td></tr><tr id="b114d783-4d28-4053-a396-37ce43521a07"><td id="XWT}" class="">Date</td><td id="`:pi" class="" style="width:540.51513671875px">从1970.1.1午夜开始的毫秒数UTC，例如1652888139333</td></tr><tr id="5a2a1235-6f5a-42d4-aa84-adc059ea2489"><td id="XWT}" class="">Function</td><td id="`:pi" class="" style="width:540.51513671875px">函数本身，例如<code>parseInt.valueOf() // ƒ parseInt() { [native code] }</code></td></tr><tr id="662d49b1-1693-4678-bfea-de9aaf08a28b"><td id="XWT}" class="">Number</td><td id="`:pi" class="" style="width:540.51513671875px">数字值</td></tr><tr id="76a60fc4-4e12-4a09-80fb-4054c72040c4"><td id="XWT}" class="">String</td><td id="`:pi" class="" style="width:540.51513671875px">字符串值</td></tr><tr id="7042edcd-bb6b-49a0-a391-f8384d942083"><td id="XWT}" class="block-color-gray_background"></td><td id="`:pi" class="block-color-gray_background" style="width:540.51513671875px">注意：Math和Error对象没有valueOf方法</td></tr></tbody></table><h1 id="7f258420-c79a-4124-a6f4-a1d8373ebb01" class="">Object.prototype.toString()</h1><h2 id="b3f497ba-4c2a-40b8-a29b-d883b164217b" class="">描述</h2><ul id="cecac95b-696f-4025-a6a8-18b1211283fa" class="bulleted-list"><li style="list-style-type:disc">返回一个表示该对象的字符串</li></ul><ul id="2ca926c6-e93f-4a2d-9cac-07e3108f7c00" class="bulleted-list"><li style="list-style-type:disc">语法<pre id="0f1fd16d-5649-4f10-89f4-7d66f4252f78" class="code"><code>obj.toString()</code></pre><ul id="0583c44c-4963-4bbb-a136-e95bf4c88f5a" class="bulleted-list"><li style="list-style-type:circle">默认Object对象返回<code>[object Object]</code> </li></ul></li></ul><h2 id="45e13e4d-1afe-460a-ab58-7743f25d260b" class="">功能</h2><ul id="486971bc-06aa-45a5-a7bc-7b8e4add7952" class="bulleted-list"><li style="list-style-type:disc">每个对象都会有一个toString()方法</li></ul><h3 id="9a008d63-594c-4361-9862-3197d52b8d86" class="">调用情况</h3><ul id="7fe2f41f-fc80-4975-b79d-be71b458b233" class="bulleted-list"><li style="list-style-type:disc">在对象被当作文本值或者一个对象以预期字符串的方式引用时自动调用</li></ul><ul id="2007f67a-1cc7-4f82-9262-c31cf66062d2" class="bulleted-list"><li style="list-style-type:disc">例如使用<code>+</code> 对字符串和一个普通对象相加时，普通对象就会调用toString()方法获取字符串值<pre id="f042571a-83cd-4f3d-97e6-12c33a73bc42" class="code"><code>const obj = {}
+console.log(&quot;obj&quot; + obj); // &#x27;obj[object Object]&#x27;</code></pre></li></ul><h3 id="68e19123-e129-4b5c-b50e-3eb1db30823d" class="">覆盖情况</h3><ul id="ffc2fa80-5926-4150-bb53-80f0de288095" class="bulleted-list"><li style="list-style-type:disc">toString()方法被每个对象继承<ul id="b42849fc-bd1e-4109-b2c0-4afc525cbcc3" class="bulleted-list"><li style="list-style-type:circle">对于自定义的对象，如果没有覆盖该方法，默认返回<code>&quot;[object type]&quot;</code> 其中type是对象的类型,默认是Object（没有覆写的话）<pre id="f1b65ded-4c9a-4f8d-9315-b9bc36080cde" class="code"><code>class A extends Object {
+  constructor(data) {
+    super();
+    this.data = data;
+  }
+}
+const a = new A(123);
+console.log(a); // 调用valueOf()
+console.log(a.toString()); // 调用toString();
+
+// 打印
+A { data: 123 }
+[object Object]</code></pre></li></ul><ul id="9c092e42-7000-44ec-972e-c9c2ecf7bae7" class="bulleted-list"><li style="list-style-type:circle">覆写该方法可以自定义转化的字符串，如Date对象就覆写，返回一个实际时间<figure id="54c5a54b-e9c0-4d90-9221-76e476cb6f07" class="image"><a href="%E5%AF%B9%E8%B1%A1%E8%BD%AC%E5%8E%9F%E5%A7%8B%E5%80%BC%E7%9A%84Object%E6%96%B9%E6%B3%95%20685cd3fcbca64f75a39141d06956a680/Untitled%201.png"><img style="width:837px" src="%E5%AF%B9%E8%B1%A1%E8%BD%AC%E5%8E%9F%E5%A7%8B%E5%80%BC%E7%9A%84Object%E6%96%B9%E6%B3%95%20685cd3fcbca64f75a39141d06956a680/Untitled%201.png"/></a></figure></li></ul></li></ul><h3 id="7cc53acf-aab7-4aa0-8875-bf7d32189284" class="">用于检查对象类型</h3><ul id="c0fc3d37-2f0c-4d83-b14f-3792147c545f" class="bulleted-list"><li style="list-style-type:disc">将Object内置的toString方法使用变量保存，然后使用<code>Function.prototype.call()</code> 返回的形式调用它，填入需要检查的对象作为第一个参数，即thisArg<pre id="852203dc-7d55-470d-aec5-aaf8a9f4aee6" class="code"><code>let toString = Object.prototype.toString;
+console.log(toString.call(this));
+console.log(toString.call(new Date()));
+console.log(toString.call(global));
+console.log(toString.call()); // thisArg 是undefined
+console.log(toString.call(null));
+
+console.log(new Date().toString());
+
+// 打印
+[object Object]
+[object Date]
+[object global]
+[object Undefined]
+[object Null]
+Thu May 19 2022 23:20:43 GMT+0800 (中国标准时间)</code></pre><ol type="1" id="0f5986ba-a238-4b8b-a2c5-540c2ba24b7a" class="numbered-list" start="1"><li>这种调用方式会将type指定为对应的对象类型，从而更好的判断</li></ol><ol type="1" id="9845810f-0438-4c28-8f93-88f2bb871092" class="numbered-list" start="2"><li>在JavaScript1.8.5之后，通过<code>null</code>，<code>undefined</code> 调用的toString() 返回如上形式（不能直接调用<code>null.toString()</code>）</li></ol><ol type="1" id="be3cb2ea-4c5a-428d-8de4-0f58b81a6f5c" class="numbered-list" start="3"><li>通过call方法指明调用的this指向和直接通过对象调用内置的toString()方法是不同的<ol type="a" id="3f11e66b-2ed8-4415-b0e8-d7ad8e491a0a" class="numbered-list" start="1"><li>一个是调用Object类定义的toString方法</li></ol><ol type="a" id="f2e74bf0-fb9a-41db-9f77-7c864e39a8c4" class="numbered-list" start="2"><li>一个是调用对象内置的toString()方法（虽然是从Object继承的，但是可能被覆写了）</li></ol></li></ol></li></ul><h1 id="774e9f67-aebd-4fb2-867b-24ed5e5beb0f" class="">注意</h1><ul id="974223cc-09b0-4591-969b-733e166068d1" class="bulleted-list"><li style="list-style-type:disc">在默认将对象转化为原始数据类型的过程中，调用方法是有优先级的</li></ul><ul id="4a0bb8e1-9143-4fdb-8810-63241ff91154" class="bulleted-list"><li style="list-style-type:disc">优先调用valueOf，再调用toString()</li></ul></div></article></body></html>

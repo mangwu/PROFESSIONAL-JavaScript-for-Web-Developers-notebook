@@ -1,0 +1,729 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>6. 参数扩展与收集（Spread Arguments and Rest Parameters）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="63b84c06-8cfa-4dd4-a89f-e1de170defd4" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_william_morris_1875.jpg" style="object-position:center 0%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🏅</span></div><h1 class="page-title">6. 参数扩展与收集（Spread Arguments and Rest Parameters）</h1></header><div class="page-body"><p id="d4b36216-9bb1-40cf-8118-305ee6949255" class="">ES6新增了<strong>扩展操作符</strong>（<strong>spread operator</strong>），使用它可以非常<strong>简洁</strong>（<strong>elegant</strong>）地操作和组合<strong>集合数据</strong>（<strong>collections</strong>）</p><p id="01f7508b-60d4-420d-b2e5-78c9c89fb524" class="">扩展操作符最有用地场景就是函数定义中的参数列表（函数签名），它充分利用JavaScript的弱类型及参数长度可变的特点</p><p id="3d2f187c-9e12-4dda-83cf-e17c4d436fd1" class="">扩展操作符既可以用于调用函数时传递参数，也可以用于定义函数参数</p><div id="24bd1400-a8fe-42b3-bb4f-acfd2d1917e6" class="column-list"><div id="821a3429-d4ca-4ab6-9d6b-1d1ac4b17db4" style="width:18.75%" class="column"><nav id="b2b48cc0-6001-48b4-a2b9-ab835ae556fb" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bc7b67be-37cf-4614-8df8-14f65beb0239">6.0 关于ECMAScript中的Arguments和Parameters</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f68e465e-534e-4e03-88f1-48759c7b84a3">6.1 扩展参数（Spread Arguments）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#89fa660a-94d0-4aaf-8913-c9c7623b70ed">6.2 收集参数（Rest Parameter）</a></div></nav><p id="524c1858-49ba-4033-ac50-df340526df02" class="">
+</p></div><div id="187cf6d8-ad03-43ff-a831-bf4c70188665" style="width:81.25%" class="column"><h1 id="bc7b67be-37cf-4614-8df8-14f65beb0239" class="">6.0 关于ECMAScript中的Arguments和Parameters</h1><ul id="e67e2dee-ca3f-4ab1-8318-9e26252470af" class="bulleted-list"><li style="list-style-type:disc"><em>Arguments </em>和<em> Parameters </em>在通常情况下是可以互相使用的，即都表示参数的意思</li></ul><ul id="de925cff-bee5-4207-b8f2-75fe8243c7c5" class="bulleted-list"><li style="list-style-type:disc">但是在大多数的标准中，这两个还是有区别的<ul id="3c2acb5b-1903-4a86-9ad8-6a027cea87f4" class="bulleted-list"><li style="list-style-type:circle"><em>Parameters </em>表示<strong>形式参数</strong>，指<strong>声明函数使用的参数</strong>,即命名参数</li></ul><ul id="0468ca34-48f9-4e5f-9fa4-d35183e0ee84" class="bulleted-list"><li style="list-style-type:circle"><em>Arguments </em>表示<strong>实际参数</strong>，指在<strong>函数实际调用时传入的确定值</strong></li></ul></li></ul><ul id="d46254a5-9074-44ba-a72e-fc6ac6b0cd16" class="bulleted-list"><li style="list-style-type:disc">例如<pre id="30383333-11a9-4cf4-be5e-d9d6282c1fc7" class="code"><code>function demo(a, b) {
+	console.log(a, b);
+}
+demo(1,2);</code></pre><ul id="8b02d880-04af-44bc-9b91-d3cea15409e2" class="bulleted-list"><li style="list-style-type:circle"><code>a</code>, <code>b</code> 是函数的形式参数，即<em>Parameters</em></li></ul><ul id="e37797fa-b47c-470c-960b-88a99dc9fa21" class="bulleted-list"><li style="list-style-type:circle">1，2是函数的实际参数，即<em>Arguments</em></li></ul></li></ul><h1 id="f68e465e-534e-4e03-88f1-48759c7b84a3" class="">6.1 扩展参数（Spread Arguments）</h1><ul id="42896525-4d19-417c-bd85-79d1eeeb6328" class="bulleted-list"><li style="list-style-type:disc">扩展参数指在调用函数时，可以利用扩展操作符（<code>…</code>）扩展实际参数（<em>Arguments</em>），以达到只使用少数的实际参数（<em>Arguments</em>），传递到多数形式参数（<em>Parameters</em>）的目的</li></ul><p id="e899c63f-d91d-49c3-85ac-5ab25b280a0a" class=""><strong>从例子出发</strong></p><ul id="96084038-3101-49b2-b663-a70ba5584b23" class="bulleted-list"><li style="list-style-type:disc">一个函数需要分别传递多个参数，而这多个参数正好在组合在一个数组中，假设有如下函数定义，它将所有传入的参数累加起来<pre id="50955482-654b-4694-8fff-e489713987d2" class="code"><code>function getSum() {
+	let sum = 0;
+	for(const item of arguments) {
+		sum+=item;
+	}
+	return sum;
+}</code></pre><ul id="a9e9428c-cd23-48f2-b5da-1a35f92d4f29" class="bulleted-list"><li style="list-style-type:circle">这个函数希望所有加数逐个传入，然后通过迭代<code>arguments</code> 对象实现累计</li></ul><ul id="57a00673-a6d1-435c-8f9a-db1a0d75b2de" class="bulleted-list"><li style="list-style-type:circle">这个时候开发者得到一个数组，需要计算数组中元素之和，使用上述的<code>getSum()</code> 无法进行直接传递，如果不使用扩展操作符，想要将实际参数（数组）进行<strong>拆分</strong>（<strong>flattern，</strong>也称“打平”）传入函数中，就得应用<code>apply()</code> 方法了<pre id="9db8ab3e-2e61-46c2-9677-38ae971e92aa" class="code"><code>let values = [1,2,3,4];
+console.log(getSum.apply(null ,values)); // 10</code></pre></li></ul></li></ul><ul id="cce5caad-bb1f-44f8-99db-23b342945d9c" class="bulleted-list"><li style="list-style-type:disc">但是在ES6中，就可以通过扩展操作符极为<strong>简洁</strong>（<strong>succinctly</strong>）实现这种“打平”操作：对可迭代对象（实际参数）应用扩展操作符，然后将其作为单个参数传入；这种方式可以将可迭代对象<strong>拆分</strong>（<strong>break apart</strong>）为N个值，并将迭代返回的N个值逐个进行传入<pre id="047b28fd-d247-4eae-b518-519e70ecf337" class="code"><code>getSum(...values); // 10
+// 等价于
+getSum(1,2,3,4);</code></pre><ul id="203372f5-410f-4b17-916e-b66112fb033a" class="bulleted-list"><li style="list-style-type:circle"><code>...values</code> 相当于将可迭代对象<code>values</code> 进行拆分，变成了 <code>1,2,3,4</code> ，根据<code>value</code> 的元素顺序和个数不同，拆分得到的结果也不同</li></ul></li></ul><p id="a57052c1-bf10-416e-b972-ef8b9e440fc3" class=""><strong>组合使用</strong><div class="indented"><ul id="99bac24c-fe33-4b87-af6a-6efb3cc7953d" class="bulleted-list"><li style="list-style-type:disc">因为使用扩展操作符扩展<strong>可迭代的实际参数</strong>相当于拆分可迭代对象为<strong>N size的分离实际参数</strong>（<strong>N separate arguments</strong>）进行传递，这个N根据扩展参数而确定，所以不会妨碍在其前面或后面再传入其他的值，<strong>包括使用扩展操作符传入其他可迭代的实际参数</strong><pre id="3ca367fd-c583-4e81-aa00-03d0fb5992b1" class="code"><code>console.log(getSum(3, 5, ...values, ...[-3, -8, 9], 2, 5)); // 23</code></pre></li></ul><ul id="25deaac1-2a26-4d3b-a8d5-15456ecb76d7" class="bulleted-list"><li style="list-style-type:disc">上面这个例子等价于传入了<code>(3,5,1,2,3,4,-3,-8,9,2,5)</code> ，对于函数体中的<code>arguments</code> 对象而言，它得到的就是按照调用函数时传入的<strong>已被拆分</strong>（<strong>being broken apart</strong>）成<strong>分离形式</strong>（<strong>separate pieces</strong>）的参数，即<code>(3,5,1,2,3,4,-3,-8,9,2,5)</code> ，而不会知道扩展操作符的存在</li></ul></div></p><p id="1c46bc4e-bb77-4ab4-815a-db0fbaebd309" class=""><strong>命名参数同样适用</strong></p><ul id="0803e4c1-0cc5-4c25-b308-44e53589dd38" class="bulleted-list"><li style="list-style-type:disc">上面的例子从整体来看就是使用<code>arguments</code> 消费扩展操作符，在普通函数和箭头函数中，也可以将扩展操作符用于命名参数（named parameters），同样也可以使用默认参数，因为扩展参数的本质就是<strong>使用少数的实际参数（</strong><strong><em>Arguments</em></strong><strong>），传递到多数形式参数（</strong><strong><em>Parameters</em></strong><strong>）</strong><pre id="490cb041-6ff4-433f-b812-c0d62f9fb57c" class="code"><code>function getProduct(a, b, c = 1) {
+  return a * b * c;
+}
+let getThreeSum = (a, b, c = 0) =&gt; {
+  return a + b + c;
+};
+console.log(getProduct(...[1, 2])); // 2
+console.log(getProduct(...[1, 2, 3])); // 6
+console.log(getProduct(...[1, 2, 3, 4])); // 6
+
+console.log(getThreeSum(...[1, 2])); // 3
+console.log(getThreeSum(...[1, 2, 3])); // 6
+console.log(getThreeSum(...[1, 2, 3, 4])); // 6</code></pre></li></ul><h1 id="89fa660a-94d0-4aaf-8913-c9c7623b70ed" class="">6.2 收集参数（Rest Parameter）</h1><ul id="39b85c0a-ba74-4cb7-8266-e2c7c29c820e" class="bulleted-list"><li style="list-style-type:disc">收集参数（Rest Parameter）指的是在函数定义时，使用扩展操作符把不同长度的独立<strong>形式参数</strong>（<strong><em>Parameters</em></strong>）组合成一个数组，这类似于<code>arguments</code> 对象的构造机制（works），但是收集参数的结果是得到了一个<code>Array</code> 类型的<strong>形式参数</strong>（<strong><em>Parameters</em></strong>）【<code>arguments</code> 是一个类似数组的<code>Arguments</code> 类型实例】</li></ul><p id="8567374a-5d79-4727-b45d-e343f3cb3a5c" class=""><strong>例子</strong></p><ul id="c897376b-9279-4375-85f2-dfee4be52ffb" class="bulleted-list"><li style="list-style-type:disc">6.1中的<code>getSum</code> 函数可以利用扩展操作符定义一个收集参数直接使用，而不用麻烦<code>arguments</code> 了<pre id="a4ed3f28-1b6e-44d0-8c0f-94c11a0452c0" class="code"><code>function getSum(...values) {
+  let sum = 0;
+  for (const item of values) {
+    sum += item;
+  }
+  return sum;
+}</code></pre></li></ul><ul id="82618b4e-766e-4e57-987b-a7ae8c19ca57" class="bulleted-list"><li style="list-style-type:disc">实际上，上面的例子不能很好的显示收集参数对于<code>arguments</code> 的优势，下面的写法展示了收集参数能更好利用数组的各种API的优势<pre id="74bd48b7-d36a-415e-9e52-2cfafd310d89" class="code"><code>function getSum(...values) {
+  return values.reduce((pre, cur) =&gt; pre+cur, 0);
+}</code></pre></li></ul><p id="f6ecce34-6517-4d86-abdf-294ceddeb26e" class=""><strong>组合使用</strong></p><ul id="25a590e3-ba26-48eb-9f3e-3161542ff032" class="bulleted-list"><li style="list-style-type:disc">除了能利用<code>Array</code> API这种优势外，收集参数的其他优势在于它可以和其他命名参数（named parameter）组合使用，一起定义函数</li></ul><ul id="f30ffac6-a62c-4553-a6bc-c4a1ef31cec8" class="bulleted-list"><li style="list-style-type:disc">不过因为收集参数的长度是可变的，它会尽可能多的匹配传入的参数，所以<strong>只能把收集参数作为最后一个参数</strong>，它收集的是前面的命名参数匹配完毕后的<strong>其余参数</strong>（<strong>remaining parameters</strong>），如果没有则会得到空数组<pre id="dec9592b-d22f-4fa8-afce-c9f6fb5bc42a" class="code"><code>function ignoreFirst(firstValue, ...rest) {
+  console.log(rest);
+}
+ignoreFirst(1); // []
+ignoreFirst(1, 2, 3); // [2,3]
+ignoreFirst(1, 2, 3, 4);// [2,3,4]</code></pre><ul id="73184b57-bae4-4395-81a5-6d67b7c6bfb3" class="bulleted-list"><li style="list-style-type:circle">收集参数的英文名称为Rest Parameter，所以常使用<code>rest</code> 作为收集参数的标识符</li></ul></li></ul><p id="49ef94d8-7f5b-4b07-94c2-be92f3373edb" class=""><strong>箭头函数使用场景</strong></p><ul id="e94a94ca-e399-46d4-b9ac-2b5907b99131" class="bulleted-list"><li style="list-style-type:disc">箭头函数不支持<code>arguments</code>对象，但是支持收集参数的定义方式，因此可以利用扩展操作符实现与<code>arguments</code> 一样的逻辑<pre id="1657b294-8d90-4411-82db-042e56d3feb6" class="code"><code>const getSumArrow = (...values) =&gt; {
+  return values.reduce((x, y) =&gt; x + y, 0);
+};
+getSumArrow(1, 2, 3, 4); // 10</code></pre></li></ul><ul id="928c0ead-adf7-4d7b-b8e5-383eb930c03d" class="bulleted-list"><li style="list-style-type:disc">从这里也可以看成，收集参数并不会影响<code>arguments</code> 对象，二者是相互独立的语法，就像<a href="6%20%E5%8F%82%E6%95%B0%E6%89%A9%E5%B1%95%E4%B8%8E%E6%94%B6%E9%9B%86%EF%BC%88Spread%20Arguments%20and%20Rest%20Parameters%EF%BC%89%2063b84c068cfa4dd4a89fe1de170defd4.html">扩展参数</a>中所述：<p id="c2e4a4f0-19b0-4f66-93e3-73474672f909" class="">在函数调用时，对于函数体中的<code>arguments</code> 对象而言，它得到的就是按照调用函数时传入的<strong>已被拆分</strong>（<strong>being broken apart</strong>）成<strong>分离形式</strong>（<strong>separate pieces</strong>）的参数，而不会知道扩展操作符的存在</p><pre id="9c78d003-0888-442e-9967-eb260ad2640e" class="code"><code>function getSum(...values) {
+  console.log(arguments.length);
+  console.log(arguments);
+  arguments[0] = &quot;k&quot;;
+  console.log(arguments);
+  console.log(values);
+}
+getSum(1, 2, 3, 4);
+// 打印
+4
+[Arguments] { &#x27;0&#x27;: 1, &#x27;1&#x27;: 2, &#x27;2&#x27;: 3, &#x27;3&#x27;: 4 }
+[ 1, 2, 3, 4 ]
+[Arguments] { &#x27;0&#x27;: &#x27;k&#x27;, &#x27;1&#x27;: 2, &#x27;2&#x27;: 3, &#x27;3&#x27;: 4 }</code></pre><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="cf69c2c4-19ad-4546-88bc-d1e57cb64e13"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><strong>注意：</strong>使用收集参数，因为形式参数被组合成了一个数组，所以<code>arguments</code> 对象中的元素无法和某一个命名参数<strong>同步，</strong>同时在组合使用的场景下，在收集参数前的单个的形式参数<strong>也不能</strong>同步<pre id="792c25bf-f955-45a7-8943-07e6326f6fc9" class="code"><code>function ignoreRest(firstValue, ...rest) {
+  arguments[0] = &quot;k&quot;;
+  console.log(firstValue); // 不会被改变
+}
+ignoreRest(...[1, 2, 3, 4]);</code></pre></div></figure><p id="e7df0c02-fe2f-4942-8b5e-a01d144efe59" class="">
+</p></li></ul><p id="905baea8-7462-4590-9eb7-606cf7e99121" class="">
+</p></div></div><p id="b16b25d9-d170-4de9-a679-2a64c413dd51" class="">
+</p></div></article></body></html>

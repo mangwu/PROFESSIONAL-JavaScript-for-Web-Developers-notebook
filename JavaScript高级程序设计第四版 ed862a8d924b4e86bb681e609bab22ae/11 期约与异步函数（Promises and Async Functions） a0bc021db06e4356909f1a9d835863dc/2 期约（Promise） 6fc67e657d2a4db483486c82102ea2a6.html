@@ -1,0 +1,1607 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2. 期约（Promise）</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="6fc67e65-7d2a-4db4-8348-6c82102ea2a6" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/webb3.jpg" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">⛵</span></div><h1 class="page-title">2. 期约（Promise）</h1></header><div class="page-body"><p id="b0037194-d41b-455d-a07f-30cc9bc5122b" class="">
+</p><blockquote id="0592bcd5-6a73-4152-99c2-7ad3b6a732a2" class="">A “promise” is a surrogate entity that acts as a stand-in for a result that does not yet exist. —《JavaScript高级程序设计（第4版）》</blockquote><p id="9744be8c-f2a9-43bd-aebd-64b79275d5c3" class=""><strong>一个“promise”就是一个尚不存在的结果的一个代理实体</strong>（替身）。</p><p id="de9d2431-5b91-4713-8dfd-6c0060edf776" class="">“promise“这个名字最早由Daniel Friedman和David Wise在他们于1976年发表的论文”The Impact of Applicative Programming on Multiprocessing”“中提出来的，直到十几年后，Barbara Liskov和Liuba Shrira在1988年发表论文“Promises: Linguistic Support for Efficient Asynchronous Procedure Calls in Distributed Systems”,这个概念才真正确立下来</p><p id="fcafd371-328e-47f6-8364-68d963869253" class="">同一时期的计算机科学家还使用了“eventual”，“future”，“delay”，“deferred”等术语指代同样的概念，所有<strong>这些概念描述的都是一种异步程序执行的机制</strong></p><div id="88c66758-be83-4676-8679-89d98600c1d6" class="column-list"><div id="c9108aa6-8347-43e1-bb20-f145f308519c" style="width:18.75%" class="column"><nav id="5f341cf8-4415-43b6-a700-3ff5e68a0ab1" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#580342ac-b881-4567-b386-c1a654f1e523">2.1 Promises/A+规范（The Promises/A+ Specification）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e7b50aec-52cd-416b-9eb0-db79fad9121b">2.2 Promise基础（Basics） </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3ad6115b-38c4-465f-9cf4-7b1453c177cb">2.2.1 期约状态机（The Promise State Machine）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#01f250a2-58ca-4aa5-ad33-668cc273124c">2.2.2 解决值、拒绝理由及期约用例（Resovled Values, Rejection Reasons and Utility of Promises）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2df5d17d-7dac-4ec7-b215-6852accf723f">2.2.3 通过执行函数控制期约状态（Controlling Promise State with the Executor）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4681fba3-7073-4104-92ae-8f3b85428365">2.2.4 Promise.resolve() （Promise Casting with Promise.resolve()）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0bdbfe62-4571-44cd-80cb-0ef7e38db850">2.2.5 Promise.reject()（Promise Rejection with Promise.reject()）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#92264bf6-6db3-4c20-8f01-c05dd2009c13">2.2.5 同步/异步执行的二元性（Synchronous/Asynchronous Execution Duality）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4a9accce-259e-4bf8-aa66-c97f049f17b9">2.3 期约的实例方法（Promise Instance Method）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f43a3fb8-2648-4556-8ccf-c6fb6149c2a6">2.3.1 实现<em>Thenable</em>接口（Implementing The <em>Thenable </em>Interface）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#74cb9a8d-cbb1-4fc0-aa2c-dff9a7b25ab7">2.3.2 Promise.prototype.then()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fa59b667-0153-421d-8205-f7ea3ef207b0">2.3.3 <code>Promise.prototype.catch()</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7271abf5-cd74-4d3d-97dd-033d086d3c62">2.3.4 <code>Promise.prototype.finally()</code></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d077e0ba-2888-4296-b747-d1e57fe1f069">2.3.5 非重入期约方法（Non-Reentrant Promise Methods）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#75f01ae3-df67-4ef6-9f01-329bdeae4845">2.3.6 临近处理程序的执行顺序（Sibling Handler Order of Execution）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#82f1a145-3849-48bb-859d-279f3a4f1479">2.3.7 传递解决值和拒绝理由（Resolved Value and Rejected Reason Passing）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f50719a8-e766-40e1-ba50-9aeb861fd34b">2.3.8 拒绝期约与拒绝错误处理（Rejecting Promises and Rejection Error Handling）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#03d69894-3966-448e-b166-eb88fbde5879">2.3.8.1 拒绝期约</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f766aa03-bc39-4acb-90a9-a7d80ed0b8b4">2.3.8.2 拒绝错误处理</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#53dfa334-9baf-47ad-a9a4-df20b66ea1e8">2.4 期约连锁与期约合成（Promise Chaining and Composition）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#15f8e6aa-a53a-49d7-9c7b-ab0105cb262d">2.4.1 Promise Chaining</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e68a2296-1128-4fc4-b947-6e8f2d8a3d7f">2.4.2 期约图（Promise Graphs）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#43918a86-9bff-49c9-b96b-17a45dd565e6">2.4.3 Promise.all()和Promise.race() （Parallel Promise Composition with Promise.all() and Promise.race() ）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3b1829ad-27db-49b0-90bb-b4bd4bedca5e">2.4.3.1 Promise.all()</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a87bbbf7-21ff-419a-9ed9-b1f1830b3d4b">2.4.3.2 Promise.race()</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#87a31ff9-2c1e-4bda-bd44-c4024236961a">2.4.3 串行期约合成（Serial Promise Composition）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#82474ab2-0f12-4cf4-b2e2-217206868ad9">2.5 期约扩展（Promise Extensions）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#936dd2b7-0e46-4fc0-ba08-afa3c9273c6c">2.5.1 期约取消（Promise Canceling）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#744f8478-b926-4c5e-9361-190dee459411">2.5.2 期约进度通知（Promise Progress Notifications）</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a4e4bc09-2d60-443c-af07-7a2a45e35c01">2.6 现代ECMAScript关于Promise新增的特性</a></div></nav><p id="80cea2e3-422b-49b2-8ca7-f5855c0dcf9b" class="">
+</p></div><div id="dd8232d4-9dad-43f4-88eb-87e0bfe25c7a" style="width:81.25%" class="column"><h1 id="580342ac-b881-4567-b386-c1a654f1e523" class="">2.1 Promises/A+规范（The Promises/A+ Specification）</h1><ul id="62aec8ec-7eb2-4977-857a-73e16ae8b68d" class="bulleted-list"><li style="list-style-type:disc">早期的promises机制在jQuery和Dojo中以Deferred API的形式出现，到了2010年，CommonJS项目实现的Promises/A规范日益流行起来</li></ul><ul id="35747977-9862-4a53-a9e3-0ca0a08ef102" class="bulleted-list"><li style="list-style-type:disc">Q和Bluebird等第三方JavaScript promises库也越来越得到社区认可，虽然这些库的实现多少都有些不同</li></ul><ul id="e9ab4ea6-fb07-4c3c-bb98-de11622e1b46" class="bulleted-list"><li style="list-style-type:disc">为弥合现有实现之间的差异，2012年Promises/A+组织<strong>分叉了</strong>（<strong>forked</strong>）CommonJS的Promises/A<strong>建议</strong>（<strong>proposal</strong>），并以相同的名字指定了Promises/A+规范，这个规范最终成为了ECMAScript6规范实现的范本 </li></ul><hr id="e867b036-28ce-4765-a1ac-fb5d4d31153b"/><ul id="a4957a43-d403-43c7-a7bf-7b9a3b65c394" class="bulleted-list"><li style="list-style-type:disc">ECMAScript 6 增加了对Promises/A+规范的完善支持，就即<code>Promise</code>类型。一经推出，<code>Promise</code> 就大受欢迎，成为了<strong>主导性的异步编程机制</strong></li></ul><ul id="2260fc83-c142-4e3d-bd57-c445748f9814" class="bulleted-list"><li style="list-style-type:disc">所有现代浏览器都支持ES6 Promises/A+规范，很多其他浏览器API（如fetch()和Battery Status API）也以<code>Promise</code>为基础</li></ul><h1 id="e7b50aec-52cd-416b-9eb0-db79fad9121b" class="">2.2 Promise基础（Basics） </h1><ul id="1279f3fe-865f-4dad-9db0-cbc1bc0807d7" class="bulleted-list"><li style="list-style-type:disc">ECMAScript 6 新增的引用类型<code>Promise</code> ，可以通过<code>new</code> 操作符来实例化。</li></ul><ul id="51b36d7e-33e3-4f8c-b3d8-e97bd66dfdad" class="bulleted-list"><li style="list-style-type:disc">创建新<code>Promise</code>对象时需要传入<strong>执行器</strong>（<strong>executor</strong>）函数作为参数，一个简单的例子使用空函数对象当作执行器应付解释器<pre id="33ea9764-1bee-4f9a-97e2-486a015f9af5" class="code"><code>let promise = new Promise(() =&gt; {});
+setTimeout(console.log, 0, promise); // Promise { &lt;pending&gt; }</code></pre><ul id="d9fff93d-6aee-480c-9ccf-0aeb513b6954" class="bulleted-list"><li style="list-style-type:circle">应付解释器的意思就是在创建<code>Promise</code> 对象时必须提供执行器函数，否则会抛出语法错误</li></ul><ul id="4a19c4a5-f9e0-442a-a0d1-c4abadd95d8d" class="bulleted-list"><li style="list-style-type:circle">这里<code>setTimeout</code> 模拟异步操作，对新创建的<code>Promise</code>对象进行了打印</li></ul></li></ul><h2 id="3ad6115b-38c4-465f-9cf4-7b1453c177cb" class="">2.2.1 期约状态机（The Promise State Machine）</h2><ul id="4f431eff-a436-402e-8191-df1965def5b3" class="bulleted-list"><li style="list-style-type:disc">在把一个<code>Promise</code>实例传递给<code>console.log()</code> 时，控制台输出（可能因浏览器不同而有所差异）表明该实例处于<strong>待定</strong>（<strong>pending</strong>）状态，也就是说，<code>Promise</code> 实例是一个有状态的对象，它可能处于如下3种状态之一：<ul id="b0459c20-508c-4061-bca5-463ee0a854fb" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><strong><em>Pending </em></strong><em>（待定）</em></span></li></ul><ul id="3199516c-704e-4a63-a6a8-de860ce70ea3" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><strong><em>Fulfilled</em></strong><em> (兑现，有时候也称为</em><strong><em>resolved&lt;解决&gt;</em></strong><em>)</em></span></li></ul><ul id="41e74b97-0e3b-4d6c-98b0-44ea76157d08" class="to-do-list"><li><div class="checkbox checkbox-off"></div> <span class="to-do-children-unchecked"><strong><em>Rejected </em></strong><em>（拒绝）</em></span></li></ul></li></ul><p id="4c8dfa04-e401-43b8-909a-8e7d2f0b9467" class=""><strong>Pending Fulfilled Rejected</strong></p><ul id="9fe2ce9b-f7d2-416b-84dd-d947fc7b0959" class="bulleted-list"><li style="list-style-type:disc"><strong>Pending&lt;待定&gt;</strong>状态是<code>Promise</code> 实例<strong>最初始</strong>（<strong>initial</strong>）的状态<ul id="f697bfab-ccd1-4b29-97f2-6023626ef116" class="bulleted-list"><li style="list-style-type:circle">在<strong>pending&lt;待定&gt;</strong>状态下，<code>Promise</code>实例可以<strong>落定</strong>（<strong>settled</strong>）<strong>转化为</strong>（<strong>transitioning to</strong>）代表成功的<strong>fulfilled&lt;兑现&gt;</strong>状态</li></ul><ul id="92529603-e300-4e7c-be02-791d58733085" class="bulleted-list"><li style="list-style-type:circle">也可以落定为代表失败的<strong>rejected&lt;拒绝&gt;状态</strong></li></ul></li></ul><ul id="e5b78405-bbc5-47b0-b84c-86927e394c84" class="bulleted-list"><li style="list-style-type:disc">无论落定成哪种状态都是不可逆的，只要从<strong>pending&lt;待定&gt;</strong>转换为<strong>fulfilled&lt;兑现&gt;</strong>或<strong>rejected</strong>&lt;<strong>拒绝</strong>&gt;，<code>Promise</code> 实例的状态就不会再改变</li></ul><ul id="e010b9eb-8225-4637-becc-02995a0b0524" class="bulleted-list"><li style="list-style-type:disc">并且，不能保证<code>Promise</code> 实例会脱离<strong>pending</strong>&lt;<strong>待定</strong>&gt;状态（即一个期约对象可能一直处于待定状态）</li></ul><ul id="2297376f-2138-4943-be7c-fa7a19692f5f" class="bulleted-list"><li style="list-style-type:disc">所以，无论<code>Promise</code> 对象是成功解决（<strong>resolve， </strong>指进入兑现状态），还是拒绝（<strong>reject</strong>，指进入拒绝状态），异或是永远处于<strong>Pending</strong>&lt;<strong>待定</strong>&gt;状态,都应该组织合理的代码结构，避免状态转换混乱</li></ul><p id="29505bd2-180c-4b11-8ca5-c9ce7241ea5d" class=""><strong>State features</strong></p><ul id="93adeb75-fd6d-4d0f-bc35-27ede28cb0af" class="bulleted-list"><li style="list-style-type:disc"><code>Promise</code>对象的状态是<strong>私有（Private）</strong>的，不能直接通过JavaScript检测到<ul id="a0b9580b-ef5d-45ea-9048-5d077feafbbc" class="bulleted-list"><li style="list-style-type:circle">主要是<strong>避免</strong>根据读取到的<code>Promise</code> 实例状态以同步方式处理（synchronous programmatic handling）Promise实例</li></ul></li></ul><ul id="5a842472-74d8-4a3b-992c-6f69a398d568" class="bulleted-list"><li style="list-style-type:disc"><code>Promise</code> 对象的状态不能被外部JavaScript代码修改<ul id="ca71a56d-e24c-4a82-a92d-5ed0a7f70938" class="bulleted-list"><li style="list-style-type:circle">与不能读取该状态的原因一致：Promise故意将异步行为<strong>封装</strong>（<strong>encapsulates</strong>）起来，从而隔离外部的同步代码</li></ul></li></ul><h2 id="01f250a2-58ca-4aa5-ad33-668cc273124c" class="">2.2.2 解决值、拒绝理由及期约用例（Resovled Values, Rejection Reasons and Utility of Promises）</h2><ul id="6d7ed740-7455-4979-a12e-f1a11da01819" class="bulleted-list"><li style="list-style-type:disc">Promise结构有两大用途<ul id="dba73758-43ed-47c9-9271-dc51b45cbb9e" class="bulleted-list"><li style="list-style-type:circle">首先是<strong>抽象地</strong>（<strong>abstractly</strong>）表示一个<strong>异步执行</strong>（<strong>asynchronous execution</strong>）<ul id="5df1d35d-e4dc-4fc5-b07d-8f64b5b841b3" class="bulleted-list"><li style="list-style-type:square">一个promise的状态能表示它是否完成执行</li></ul><ul id="b493074b-022b-4e31-81ae-1f223c095a80" class="bulleted-list"><li style="list-style-type:square"><em><strong>Pending</strong></em>&lt;<strong>待定</strong>&gt;状态表示执行还未开始或正在执行中</li></ul><ul id="56d95498-dd6f-4216-af31-65ba527508c1" class="bulleted-list"><li style="list-style-type:square"><em><strong>Fulfilled</strong></em>&lt;<strong>兑现</strong>&gt;状态表示执行已经成功完成</li></ul><ul id="4c9c57c7-c263-4728-9699-ec03cad17839" class="bulleted-list"><li style="list-style-type:square"><em><strong>Rejected</strong></em>&lt;<strong>拒绝</strong>&gt;状态表示执行<strong>没有</strong>成功完成</li></ul><hr id="6f2c87a7-1213-49f1-b490-26ccc3f8472d"/><ul id="02bcee71-8353-4346-8661-94be7d8c804d" class="bulleted-list"><li style="list-style-type:square">某些情况下，内部状态机就是promise能提供的最有用的信息：仅仅知道一段异步代码已经完成 对 <strong>通知程序流</strong>（<strong>informing program flow</strong>）就足够了</li></ul><ul id="fb8abfed-1f42-4ea8-a9e9-9a68dce79d66" class="bulleted-list"><li style="list-style-type:square">例如，假设promise要向服务器发送一个HTTP请求，请求返回200~299范围内的<strong>状态码</strong>（<strong>status code</strong>）就足以让promise的状态变为<em><strong>Fulfilled</strong></em>&lt;<strong>兑现</strong>&gt;；如果请求返回的状态码不在200~299这个范围内，那么就会把promise状态切换为<em><strong>Rejected</strong></em>&lt;<strong>拒绝</strong>&gt;</li></ul></li></ul><ul id="29745671-bd41-4907-9c88-095e8e84e0ee" class="bulleted-list"><li style="list-style-type:circle">另一个用途是，Promise封装的<strong>异步执行</strong>（<strong>asynchronous execution</strong>）会实际生成某个值，而程序期待promise状态改变时可以访问这个值<ul id="362fd0a1-e56c-41c8-b642-ad8fc941c4f4" class="bulleted-list"><li style="list-style-type:square">如果promise被拒绝，程序流就会期待promise状态改变时可以拿到<strong>拒绝的理由</strong>（<strong>reason for rejection</strong>）</li></ul><ul id="74c21044-2526-4c53-b54d-c71170913a0e" class="bulleted-list"><li style="list-style-type:square">如果promise成功解决（<strong>resolve</strong>），程序流就会期待promise状态改变时可以拿到<strong>解决的结果</strong>（<strong>result for resolution</strong>）</li></ul><hr id="97acde3c-f7d0-4a16-bea0-f4dce2f58635"/><ul id="afe38940-1e01-4d0f-89ec-7e1890cfee33" class="bulleted-list"><li style="list-style-type:square">以同样的例子举例，假设promise向服务器发送一个HTTP请求并预定会返回一个JSON数据，如果请求返回范围为200~299的状态码，则足以让promise的状态变为<em><strong>Fulfilled</strong></em>&lt;<strong>兑现</strong>&gt;，此时<strong>promise内部就会收到一个JSON字符串（</strong>解决的结果<strong>）；</strong>如果请求返回范围不再200~299这个范围内，那么就会把promise的状态变为<em><strong>Rejected</strong></em>&lt;<strong>拒绝</strong>&gt;，此时<strong>拒绝的理由</strong></li></ul></li></ul></li></ul><ul id="7fd1bd51-f6a1-4b79-b59a-2e8074002119" class="bulleted-list"><li style="list-style-type:disc">为了支持这两种用例，每个<code>Promise</code> 实例只要状态切换为<em><strong>Fulfilled</strong></em>&lt;<strong>兑现</strong>&gt;就会有一个<strong>私有的内部值</strong>（<strong>private internal value</strong>）；每个<code>Promise</code> 实例只要状态切换为<em><strong>Rejected</strong></em>&lt;<strong>拒绝</strong>&gt;，就会有一个<strong>私有的内部理由</strong>（<strong>private internal reason</strong>）<ul id="de7927f8-c9b6-49f7-8554-12f20f066b8f" class="bulleted-list"><li style="list-style-type:circle">无论是值还是理由，都是包含原始值或对象的<strong>不可修改引用</strong>（<strong>immutable reference</strong>）</li></ul><ul id="5cace52f-3c62-427b-9645-35d7e5ad5826" class="bulleted-list"><li style="list-style-type:circle">并且二种都是可选的，默认值都是<code>undefined</code></li></ul><ul id="7aeb3fc6-83ce-4bbb-b6bc-2b95eba2a896" class="bulleted-list"><li style="list-style-type:circle">在promise到达某个<strong>落地状态</strong>（<strong>settled state</strong>）后，执行的异步代码始终会收到这个值或理由</li></ul></li></ul><h2 id="2df5d17d-7dac-4ec7-b215-6852accf723f" class="">2.2.3 通过执行函数控制期约状态（Controlling Promise State with the Executor）</h2><ul id="c70b352b-2d5e-417f-8fe5-55dba394c8a5" class="bulleted-list"><li style="list-style-type:disc">因为Promise的状态是私有的，所以只能在内部进行<strong>操作</strong>（<strong>manipulate</strong>），内部操作在Promise的<strong>执行器函数</strong>（<strong>executor function</strong>）中执行</li></ul><ul id="a95815e6-76a9-47ad-892a-81f980f445a7" class="bulleted-list"><li style="list-style-type:disc">执行器主要有两项主要职责：<ul id="20a17176-a108-4a42-9648-848d93e95c78" class="bulleted-list"><li style="list-style-type:circle">初始化Promise的<strong>异步行为</strong>（<strong>asynchronous behavior</strong>）</li></ul><ul id="2beefa48-56f7-42da-8635-e4c753c373fc" class="bulleted-list"><li style="list-style-type:circle">控制状态的最终转换（any eventual state transition）</li></ul></li></ul><ul id="9cd55ce0-fc27-4352-a0c2-204036725690" class="bulleted-list"><li style="list-style-type:disc">其中第二项控制Promise状态的转换是通过调用控制器函数的两个函数<strong>参数</strong>（<strong>parameters</strong>）实现的<ul id="ca5f6532-8015-460d-9e4d-5bfdc9385492" class="bulleted-list"><li style="list-style-type:circle"><code>resolve()</code> ：调用<code>resolve()</code> 会把状态切换为<em><strong>Fulfilled</strong></em>&lt;<strong>兑现</strong>&gt;</li></ul><ul id="054b023c-1cc2-49d0-befc-76880f549d12" class="bulleted-list"><li style="list-style-type:circle"><code>reject()</code> :调用<code>reject()</code> 会把状态切换为<em><strong>Rejected</strong></em>&lt;<strong>拒绝</strong>&gt;，通常调用<code>reject()</code> 也会抛出错误</li></ul><pre id="bffdc871-83b9-404e-b668-382253b2f8e6" class="code"><code>let p1 = new Promise((resolve, reject) =&gt; resolve());
+setTimeout(console.log, 0, p1); // Promise {&lt;fulfilled&gt;: undefined}
+let p2 = new Promise((resolve, reject) =&gt; reject());
+setTimeout(console.log, 0, p2); // Promise {&lt;rejected&gt;: undefined}
+// Uncaught (in promise) undefined</code></pre><ul id="7df3c7ee-fcf7-4199-aa64-919b35b6aad2" class="bulleted-list"><li style="list-style-type:circle">注意上述打印都是在谷歌浏览器的控制台下的打印</li></ul><ul id="d403e0e2-1a6c-439b-ba9a-c7c3236b67d1" class="bulleted-list"><li style="list-style-type:circle">在node环境下，<code>p2</code> 的<code>Promise</code> 构造函数构造就会抛出错误<code>UnhandledPromiseRejection</code> ，即没有使用<code>catch</code> 捕获拒绝之后抛出的错误</li></ul></li></ul><ul id="78b7906c-1c67-40ad-a3c9-a84d283fe187" class="bulleted-list"><li style="list-style-type:disc">上面这个例子没有异步操作，因为在初始化构造<code>Promsie</code> 实例时，执行器函数就已经改变了每个<code>Promise</code> 实例的状态<ul id="dd79b8c4-eff4-431b-8c0e-e19439fe2d41" class="bulleted-list"><li style="list-style-type:circle">关键在于：执行器函数是<strong>同步（synchronously）</strong>执行的，因为执行器函数是Promise的<strong>初始化程序</strong>（<strong>initializer</strong>）</li></ul><pre id="d1f03fa2-86ac-4fea-822e-7f4d61a3069a" class="code code-wrap"><code>// 观察顺序
+let p3 = new Promise(() =&gt; setTimeout(console.log, 0, &quot;executor&quot;)); 
+console.log(p3);
+setTimeout(console.log, 0, &#x27;promise initialized&#x27;);
+// 打印结果
+Promise { &lt;pending&gt; }
+executor
+promise initialized</code></pre><ul id="ca3a2014-4cbe-4fee-bf3b-928d9cd7fca2" class="bulleted-list"><li style="list-style-type:circle">上面的打印可以得出，执行顺序是同步操作优先，<code>Promise</code> 构造函数中的执行器随后执行，最后是外部的<code>setTimeout()</code> </li></ul><ul id="16fbffd1-effc-47d1-bd3e-bda902bdb9d3" class="bulleted-list"><li style="list-style-type:circle">在执行器函数中添加 <code>setTimeout()</code> 可以推迟切换形态，如下</li></ul><pre id="e7215a8b-c9c9-4996-91e5-de7e733b6523" class="code code-wrap"><code>let p4 = new Promise((resolve, reject) =&gt; setTimeout(resolve, 1000));
+
+setTimeout(console.log, 0, p4);
+setTimeout(console.log, 1000, p4);
+// 打印结果
+Promise {&lt;pending&gt;}
+Promise {&lt;fulfilled&gt;: undefined}</code></pre><ul id="98077c96-041a-45af-997a-adf7506470a8" class="bulleted-list"><li style="list-style-type:circle">第一个<code>setTimeout</code> 在打印<code>p4</code> 时，还没有执行超时调用（即没有执行<code>resolve()</code>）</li></ul><ul id="e578d880-10eb-44b0-8d02-eb1938cb1e0e" class="bulleted-list"><li style="list-style-type:circle">第二个<code>setTimeout</code> 在打印<code>p4</code> 时，执行器中的异步操作已执行完毕（执行了<code>resolve()</code>）所以打印出的<code>p4</code> 状态为<em><strong>Fulfilled</strong></em>&lt;<strong>兑现</strong>&gt;</li></ul></li></ul><ul id="cb97253f-da92-467b-bd19-01bd9e00d1d5" class="bulleted-list"><li style="list-style-type:disc">无论<code>resolve()</code> 还是<code>reject()</code> 中的哪个被调用，状态转换的不可<strong>撤销（undone）</strong>了，于是继续修改状态会<strong>静默失败</strong>(<strong>silently be ignored</strong>)，如下<pre id="894301b9-31c2-4759-a965-b0a3c286b5f0" class="code code-wrap"><code>// 不可撤销的状态转换
+let p5 = new Promise((resolve, reject) =&gt; {
+  resolve();
+  reject(); // 默认被忽略
+  console.log(&quot;----&quot;); // ----
+});
+console.log(p5); // Promise {&lt;fulfilled&gt;: undefined}</code></pre></li></ul><ul id="0a8f12f7-aa54-4227-970d-a26452c27fc8" class="bulleted-list"><li style="list-style-type:disc">为了避免Promise卡在<em><strong>Pending</strong></em>&lt;<strong>待定</strong>&gt;状态，可以添加一个定时退出功能，比如，通过一个<code>setTimeout</code> 设置一个10秒钟后无论如何都会拒绝Promise的回调<pre id="672f0ff5-4d06-4df3-abd7-6964df99a4bc" class="code code-wrap"><code>// 避免期约一直在等待状态
+let p6 = new Promise((resolve, reject) =&gt; {
+  setTimeout(reject, 10000); // 10秒后调用reject拒绝函数
+  // 进行请求
+  /** 请求的异步代码有10秒的请求时间，请求成功就执行resolve */
+});
+setTimeout(console.log, 0, p6); // Promise {&lt;pending&gt;}
+setTimeout(console.log, 11000, p6); // （11 秒后的打印）Promise {&lt;rejected&gt;: undefined}
+// 报错打印
+Uncaught (in promise) undefined （10秒后的打印）
+</code></pre><ul id="784a4e74-3dc0-4b5c-9a41-baf93003fd02" class="bulleted-list"><li style="list-style-type:circle">因为Promise的状态只能改变一次，所以这里的超时拒绝逻辑中可以放心地设置让Promise处于待定状态的最长时间</li></ul><ul id="f0646ff2-4e10-4a89-824b-cad290b22cca" class="bulleted-list"><li style="list-style-type:circle">如果执行器中的代码之前已经解决或拒绝，那么超时回调中再尝试拒绝也会<strong>静默失败</strong>(<strong>silently be ignored</strong>)</li></ul></li></ul><h2 id="4681fba3-7073-4104-92ae-8f3b85428365" class="">2.2.4 Promise.resolve() （Promise Casting with Promise.resolve()）</h2><ul id="f4d2441b-d350-403d-9510-32147e4aa858" class="bulleted-list"><li style="list-style-type:disc">Promise并不是一定要一开始就是<em><strong>Pending</strong></em>&lt;<strong>待定</strong>&gt;状态，它可以利用执行器函数一开始就达到另两个<strong>落定状态</strong>（<strong>settled state</strong>）</li></ul><ul id="7bd4b9e6-ccb2-4bd4-8b06-331ffdc51d10" class="bulleted-list"><li style="list-style-type:disc">通过调用<code>Promise.resolve()</code> 静态方法可以直接实例化一个在<em><strong>Fulfilled</strong></em>&lt;<strong>兑现</strong>&gt;状态的的<code>Promise</code> 实例；下面两个<code>Promise</code> 对象的<strong>实例化</strong>（<strong>instantiations</strong>）后实际上是一样的（状态一致）<pre id="751991c1-69fc-4f8e-8890-1fe4ec6a669e" class="code code-wrap"><code>let p1 = new Promise((resolve, reject) =&gt; resolve());
+
+let p2 = Promise.resolve();
+
+console.log(p1); // Promise {&lt;fulfilled&gt;: undefined}
+console.log(p2); // Promise {&lt;fulfilled&gt;: undefined}</code></pre><ul id="815a668f-4bb7-4238-b2f0-5cc553dc873e" class="bulleted-list"><li style="list-style-type:circle">可以看到两个声明了两个状态都是<em><strong>Fulfilled</strong></em>&lt;<strong>兑现</strong>&gt;的<code>Promise</code>对象，但是两个<code>Promise</code>对象的<strong>内部值</strong>（<strong>internal value</strong>）都是<code>undefined</code></li></ul></li></ul><ul id="dc7bb150-08f4-473a-9e90-eadb2b2d3067" class="bulleted-list"><li style="list-style-type:disc">解决的Promise值（<strong>the value of resolved promise</strong>）对应着传给<code>Promise.resolve()</code> 的第一个参数，使用这个静态方法实际上可以把如何值都转化为一个Promise实例<pre id="e84f7a79-fcdb-40f0-90af-9221868d2041" class="code code-wrap"><code>setTimeout(console.log, 0, Promise.resolve()); // Promise {&lt;fulfilled&gt;: undefined}
+setTimeout(console.log, 0, Promise.resolve(3)); // Promise {&lt;fulfilled&gt;: 3}
+// 多余的参数会被忽略
+setTimeout(console.log, 0, Promise.resolve(3, 4, 5)); // Promise {&lt;fulfilled&gt;: 3}</code></pre><ul id="c55328bd-edae-4f02-bbf6-b55077e1ec6b" class="bulleted-list"><li style="list-style-type:circle">这个静态方法相当于将参数<strong>包装（wrap）</strong>成了一个状态为<em><strong>Fulfilled</strong></em>&lt;<strong>兑现</strong>&gt;<code>Promise</code> 的对象</li></ul></li></ul><ul id="4326197e-acc5-412e-b763-05668d6b0446" class="bulleted-list"><li style="list-style-type:disc">如果传入<code>Promise.resolve()</code> 的参数本身就是一个<code>Promise</code> 对象，那么它的行为类似于一个<strong>空包装</strong>（<strong>passthrough </strong>英文版使用透传这个词语解释）；因此<code>Promise.resolve()</code> 可以说是一个<strong>幂等方法（idempotent method）</strong><figure id="2fc34513-d334-440d-bee4-37137adfbd4e" class="link-to-page"><a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/%E5%85%B3%E4%BA%8E%E5%B9%82%E7%AD%89%EF%BC%88about%20idempotent%EF%BC%89%202fc34513d334440dbee437137adfbd4e.html"><span class="icon">🥍</span>关于幂等（about idempotent）</a></figure><pre id="6afeb85d-7dde-4ee4-84e9-21f9eaf2e195" class="code code-wrap"><code>let p3 = new Promise(() =&gt; {});
+console.log(p3 === Promise.resolve(p3)); // true
+console.log(p3 === Promise.resolve(Promise.resolve(p3))); // true
+console.log(p3); // Promise {&lt;pending&gt;}</code></pre><ul id="7a0c3ded-23a1-4536-9f77-c5060067c0c6" class="bulleted-list"><li style="list-style-type:circle">这个幂等性体现在对传入的<code>Promise</code> 对象进行原封不动的进行返回，并且会保留<code>Promise</code> 对象在传入的状态</li></ul></li></ul><ul id="6fcee4b3-5450-475e-90ab-9b4c5bb05119" class="bulleted-list"><li style="list-style-type:disc">需要注意的是这个静态方法能<strong>包装</strong>任何非Promise值（对Promise对象是透传的），包括错误对象，并将器转换为<strong>解决</strong>（<strong>resolved</strong>）的<code>Promise</code>对象，因此可能导致不符合预期的行为<pre id="55f9648b-3eb1-47b7-9a83-84a8fb3439cb" class="code code-wrap"><code>let p4 = Promise.resolve(new Error(&quot;foo&quot;));
+console.log(p4);
+// 打印
+// 谷歌
+Promise {&lt;fulfilled&gt;: Error: foo
+    at &lt;anonymous&gt;:1:26}
+// 火狐
+Promise { &lt;state&gt;: &quot;fulfilled&quot;, &lt;value&gt;: Error }</code></pre><ul id="5798963f-af1e-4e02-a690-7c51f47c6597" class="bulleted-list"><li style="list-style-type:circle">上面是谷歌和火狐浏览器的打印，而node环境下会直接打印出错误的完整位置（但仍然正常执行）<figure id="11d73155-a49c-43b7-a228-85d8dc9bea40" class="image"><a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/Untitled.png"><img style="width:1259px" src="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/Untitled.png"/></a></figure></li></ul></li></ul><h2 id="0bdbfe62-4571-44cd-80cb-0ef7e38db850" class="">2.2.5 Promise.reject()（Promise Rejection with Promise.reject()）</h2><ul id="1c816898-7974-4833-b5d9-a6b30a35e966" class="bulleted-list"><li style="list-style-type:disc">与<code>Promise.resolve()</code> 类似的静态方法，<code>Promise.reject()</code> 会实例化一个处于<strong><em>Rejected &lt;</em></strong><strong>拒绝</strong><em>&gt;</em>状态的<code>Promise</code> 对象，<strong>并抛出一个异步错误(asynchronous error，</strong>这个异步错误不能通过<code>try/catch</code> 语句捕获，而只能通过拒绝处理程序捕获<strong>，</strong>下面两个<code>Promise</code> 对象的<strong>实例化</strong>（<strong>instantiations</strong>）后实际上是一样的（状态一致）<pre id="74adef1b-b8af-4573-9765-d24d0c5165ea" class="code code-wrap"><code>let p1 = Promise.reject();
+let p2 = new Promise((resolve, reject) =&gt; reject());
+console.log(p1); // Promise {&lt;rejected&gt;: undefined}
+console.log(p2); // Promise {&lt;rejected&gt;: undefined}
+// 错误信息
+Uncaught (in promise) undefined</code></pre><ul id="c52975a0-7acb-42e3-8685-2513604a87bd" class="bulleted-list"><li style="list-style-type:circle">node环境下直接<a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6.html">抛出错误</a>（不会执行打印语句）；上述打印是谷歌浏览器下的打印</li></ul></li></ul><ul id="aa5c9322-a755-4b77-9242-474368b23b01" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.reject()</code> 的第一个参数就是拒绝的Promise的理由（‘reason’ filed），这个参数也会传递给后续的<strong>拒绝处理程序</strong>（<strong>reject handler</strong>）<pre id="c2c65e17-1519-4e3c-b282-8c74a7820efe" class="code code-wrap"><code>// 第一个参数接受拒绝的期约的理由
+let p = Promise.reject(&quot;reason&quot;);
+console.log(p); // Promise {&lt;rejected&gt;: &#x27;reason&#x27;
+p.then(null, (e) =&gt; {
+  console.log(e); // reason
+}) // then方法本身会返回一个新期约 Promise {&lt;fulfilled&gt;: undefined}</code></pre><ul id="66f0bb86-574b-46dd-9395-fd491e942c16" class="bulleted-list"><li style="list-style-type:circle">这里<code>then</code>方法会在后续介绍，它能接受Promise状态转换后的内部值，并且让拒绝的Promise能正常执行（不会抛出报错红字）</li></ul></li></ul><ul id="648ba93b-2dae-4007-9fed-7ec4a8362036" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.reject()</code> 的区别除了生成的<code>Promise</code> 对象状态不一样外，<code>Promise.reject()</code> 没有照搬<code>Promise.resolve()</code> 的幂等逻辑，如果给它传递一个<code>Promise</code> 对象，那么这个对象会成功它返回的<strong>拒绝期约</strong>（<strong>rejected promise</strong>）的“理由（reason）”<pre id="d9ad5376-2114-4dbb-9b77-e6d29432e371" class="code"><code>console.log(Promise.reject(Promise.resolve(5))); // Promise {&lt;rejected&gt;: Promise}
+// 报错信息
+Uncaught (in promise) Promise {&lt;fulfilled&gt;: 5}</code></pre><ul id="1a071650-a7db-431b-a062-4240b349468f" class="bulleted-list"><li style="list-style-type:circle">在谷歌浏览器中，它的结构如下<figure id="044a51f4-0a76-48e9-9e80-53025242a4cb" class="image"><a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/1.png"><img style="width:720px" src="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/1.png"/></a></figure></li></ul></li></ul><h2 id="92264bf6-6db3-4c20-8f01-c05dd2009c13" class="">2.2.5 同步/异步执行的二元性（Synchronous/Asynchronous Execution Duality）</h2><ul id="8013bf87-ba9c-4a84-bf57-446ccc9f62a5" class="bulleted-list"><li style="list-style-type:disc">Promise的设计很大程度上会导致一种完全不同于JavaScript的<strong>计算模式</strong>（<strong>computation mode</strong>），下面的例子完美地展示了这一点，它指出了两种模式在错误处理情况下的不同<pre id="27fc3070-2d23-4398-a6e0-4eaa46ea38d7" class="code"><code>// 同步执行与异步执行的二元性
+try {
+  throw new Error(&quot;foo&quot;);
+} catch (error) {
+  console.log(error.toString()); // Error: foo
+}
+try {
+  Promise.reject(new Error(&quot;bar&quot;)); 
+// Promise {&lt;rejected&gt;: Error: bar
+//    at &lt;anonymous&gt;:8:18}
+} catch (error) {
+  console.log(error.toString());
+}</code></pre><ul id="64b9fe4f-9a62-415a-911f-dc40b7d619d3" class="bulleted-list"><li style="list-style-type:circle">第一个<code>try/catch</code> 抛出并捕获了异常，第二个<code>try/catch</code> 中<code>try</code> 中的<code>Promise</code> 语句调用<code>reject()</code> 静态方法创建<code>Promise</code> 实例同时抛出了错误，但是缺<strong>没有</strong>被<code>catch</code> 捕获到</li></ul><ul id="be3cc29a-6bf6-4e40-87cb-b42620df44a2" class="bulleted-list"><li style="list-style-type:circle">乍一看可能<strong>违反直觉</strong>（<strong>counterintuitive</strong>），因为代码中确实<strong>同步（synchronously）</strong>创建了一个拒绝的期约实例，而这个实例在拒绝时抛出了错误</li></ul><ul id="a1bff707-6788-41ab-ad98-0362f52a44ff" class="bulleted-list"><li style="list-style-type:circle">这里的同步代码之所以没有捕获期约抛出的错误，是因为代码没有通过合适的<strong>异步模式（asynchronous mode）</strong>来捕获错误</li></ul><ul id="da1210ac-0ba9-43bb-9c5f-ade0c7bda9d2" class="bulleted-list"><li style="list-style-type:circle">从这里可以看出Promise真正的特性：它们是<strong>同步对象—</strong>在同步执行模式中使用，但也是<strong>异步执行模式</strong>（<strong>asynchronous mode of execution</strong>）得到媒介</li></ul></li></ul><ul id="e9edba7e-2c30-4096-93d0-d4fdffd7a8a4" class="bulleted-list"><li style="list-style-type:disc">在上面的例子中，拒绝期约的错误并没有抛到执行同步代码中的线程（<strong>thread</strong>）里，而是通过浏览器异步消息队列来处理的，因此，<code>try/catch</code>块并不能捕获该错误；代码一旦开始以异步模式执行，则唯一与之交互的方式就是使用异步结构——更确切地说就是<code>Promise</code> 的方法</li></ul><h1 id="4a9accce-259e-4bf8-aa66-c97f049f17b9" class="">2.3 期约的实例方法（Promise Instance Method）</h1><p id="8180046f-6698-4836-abb1-032e8e90c73c" class="">Promise实例方法是连接外部同步代码和内部异步代码之间的桥梁</p><p id="3bf2456d-4e96-4a33-991a-5d557db7fe5d" class="">这些方法可以</p><ul id="39e0c2e5-ef08-4e77-92ba-0500f9658e8f" class="bulleted-list"><li style="list-style-type:disc">访问异步操作返回的数据</li></ul><ul id="6e305641-f517-4a29-afc1-5ef28f9f5a9f" class="bulleted-list"><li style="list-style-type:disc">处理promise成功和失败的结果</li></ul><ul id="128c4e30-9c1f-441e-95f6-38e053d9b892" class="bulleted-list"><li style="list-style-type:disc">连续对promises求值</li></ul><ul id="ef08bc78-65fd-485c-a94c-21b87e1d3f32" class="bulleted-list"><li style="list-style-type:disc">或者添加只有promise进入<strong>终止状态</strong>（<strong>terminal state</strong>）时才会执行的代码</li></ul><p id="fd63a6f4-c09c-459e-a007-c75c3c9fbfa7" class="">期约的所有实例方法可以通过谷歌浏览器中打印出来的简单<code>Promise</code> 对象查看</p><figure id="d7d4928e-42a4-49fe-8504-72008d21ca0b" class="image"><a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/2.png"><img style="width:672px" src="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/2.png"/></a></figure><ul id="45544f66-f39e-4e60-9c86-662ee0d8374b" class="bulleted-list"><li style="list-style-type:disc">可以发现有<code>catch()</code>、<code>finally()</code>、<code>then()</code>等方法</li></ul><ul id="25b8e938-a55e-4ba4-83d8-46fc7e220071" class="bulleted-list"><li style="list-style-type:disc">其中<code>constructor</code> 属性引用<code>Promise</code> 构造函数，这一点和之前介绍过的原型对象默认属性一样</li></ul><ul id="9df5d176-b69a-43de-9a55-5cdd5129c623" class="bulleted-list"><li style="list-style-type:disc">除此之外还有<code>Symbol(Symbol.toStringTag)</code> 符号属性，引用一个字符串，该字符串用于创建对象的默认字符串描述（所以调用期约实例的<code>toString()</code> 返回<code>&quot;[object Promise]&quot;</code>）</li></ul><h2 id="f43a3fb8-2648-4556-8ccf-c6fb6149c2a6" class="">2.3.1 实现<em>Thenable</em>接口（Implementing The <em>Thenable </em>Interface）</h2><ul id="ddbb7e8f-9d5f-464a-866c-5dd3f82e8802" class="bulleted-list"><li style="list-style-type:disc">在ECMAScript暴露的异步结构中，<strong>任何对象</strong>都有一个<code>then()</code> 方法，这个方法被认为实现了<strong><em>Thenable</em></strong>接口</li></ul><ul id="0d0aa55c-255c-458a-a1ca-67cafed3f4ba" class="bulleted-list"><li style="list-style-type:disc"><strong><em>Thenable </em></strong>分开就是 then + able ,<del>then指的就是</del><del><code>then()</code></del><del> 方法</del>，而able在英语中作为后缀表示”能…的“之意，这里可以理解为：Thenable表示”具有then特性的“</li></ul><ul id="dd40c18b-ed1d-4edd-9d24-aea77604ef0b" class="bulleted-list"><li style="list-style-type:disc">一个简单的实现Thenable接口的类如下<pre id="a0d07f37-ff4b-476a-b56f-93c838542237" class="code"><code>// Thenable接口
+class MyThenable {
+  then() {}
+}</code></pre></li></ul><ul id="71a320fd-08dc-47e5-9447-5701bd3972c9" class="bulleted-list"><li style="list-style-type:disc">ECMAScript的<code>Promise</code>类型实现了<strong><em>Thenable</em></strong> 接口；这个简化的接口（指上面的例子）跟TypeScript或其他包中的接口或类型定义不同，它们都设定了<strong><em>Thenable</em></strong>接口更具体的形式</li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="61f4082a-edb2-47ab-9ae7-089020d834cd"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：这里只是简单解释以下<strong><em>Thenable </em></strong>接口，后面介绍异步函数时还会再谈到它的<em>用途（utility）</em>和<em>目的（purpose）</em></div></figure><h2 id="74cb9a8d-cbb1-4fc0-aa2c-dff9a7b25ab7" class="">2.3.2 Promise.prototype.then()</h2><ul id="27a49187-34cf-4192-86e3-0dde65be425e" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.prototype.then()</code> 是为了<code>Promise</code> 实例<strong>添加处理程序</strong>（<strong>attach handlers</strong>）的主要方法，它接受最多两个参数（都是可选的）<ul id="cb6ae546-2763-438b-840a-54613584198e" class="bulleted-list"><li style="list-style-type:circle"><code>onResolved</code> 处理程序函数，提供的话，会在<code>Promise</code> 实例进入<em><strong>fulfilled</strong></em>&lt;<strong>兑现</strong>&gt;状态时执行</li></ul><ul id="ac610822-6575-4b16-996e-902f5bd72c91" class="bulleted-list"><li style="list-style-type:circle"><code>onRejected</code> 处理程序函数，提供的话，会在<code>Promise</code> 实例进入<strong><em>rejected</em></strong>&lt;<strong>拒绝</strong>&gt;状态时执行</li></ul></li></ul><ul id="bba5f9d6-9755-4607-8baa-4a28a7cbe8be" class="bulleted-list"><li style="list-style-type:disc">因为<code>Promise</code> 实例的状态只能转换一次，所以这两个操作（处理程序函数）一定是互斥的（只能有一个被执行），如下<pre id="a708536d-c50f-4c30-8053-b59a3e7c678e" class="code"><code>// Promise进入兑现状态时的处理程序
+function onResolved(id) {
+  setTimeout(console.log, 0, id, &quot;resolved&quot;);
+}
+// Promise进入拒绝状态时的处理程序
+function onRejected(id) {
+  setTimeout(console.log, 0, id, &quot;rejected&quot;);
+}
+// 3秒后进入兑现状态
+let p1 = new Promise((resolve, reject) =&gt; setTimeout(resolve, 3000));
+// 3秒后进入拒绝状态
+let p2 = new Promise((resolve, reject) =&gt; setTimeout(reject, 3000));
+
+p1.then(
+  () =&gt; onResolved(&quot;p1&quot;),
+  () =&gt; onRejected(&quot;p1&quot;)
+);
+p2.then(
+  () =&gt; onResolved(&quot;p2&quot;),
+  () =&gt; onRejected(&quot;p2&quot;)
+);
+// 3秒后的打印
+p1 resolved
+p2 rejected</code></pre><ul id="94ac5902-f36d-4ffb-97b6-ecc672a16b3d" class="bulleted-list"><li style="list-style-type:circle">两个处理程序参数都是可选的，这里给<code>p1.then()</code> 和<code>p2.then()</code> 都传递了两个进入不同状态后的处理程序参数</li></ul></li></ul><ul id="44d17eab-ad22-4ba4-8516-4714bf7c7177" class="bulleted-list"><li style="list-style-type:disc">如果只想提供<code>onRebjected</code> 参数，可以在<code>onResolved</code> 参数位置（第一个参数）上传入<code>undefined</code> （<strong>canonical 规范</strong>的选择） ，这样有助于避免在内存中创建多余的<strong>临时</strong>（<strong>temporary</strong>）对象（会被解释器忽略），对期待函数参数的类型系统也是一个交代；并且传递给任何非函数类型的参数都会被<strong>静态忽略</strong>（<strong>silently ignored</strong>）<pre id="ad2a1eb4-959a-4d59-8306-437537022a37" class="code"><code>// 3秒后进入兑现状态
+let p3 = new Promise((resolve, reject) =&gt; setTimeout(resolve, 3000));
+// 3秒后进入拒绝状态
+let p4 = new Promise((resolve, reject) =&gt; setTimeout(reject, 3000));
+// 会被忽略，不推荐
+p3.then(&quot;auisdhc&quot;);
+// 不传递onResolved处理程序的规范写法
+p4.then(null, () =&gt; onRejected(&quot;p4&quot;)); // p4 rejected （3秒后打印）</code></pre></li></ul><hr id="5edc5721-f1b1-4218-ae54-9e239a1de85a"/><ul id="ba5ddcb5-5c2d-4a23-926d-1db3b9784563" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.prototype.then()</code> 方法返回一个新的<code>Promise</code> 对象<ul id="3381ca61-4c4c-49f3-be32-6a6a36c17e21" class="bulleted-list"><li style="list-style-type:circle">这个新对象基于<code>onResovled</code> 处理程序的返回值构建，也就是说该处理程序的返回值通过<code>Promise.resolve()</code> 静态方法包装生成新<code>Promise</code> 对象</li></ul><ul id="b170ee17-e6fd-4715-8092-73f94738cca0" class="bulleted-list"><li style="list-style-type:circle">如果没有提供对应的处理程序，则<code>Promise.resolve()</code> 就会包装上一个<code>Promise</code> 解决之后的值（<strong>包括</strong>拒绝的Promise对象）</li></ul><ul id="06bd54e4-4913-47c0-b2f2-977d001b35c6" class="bulleted-list"><li style="list-style-type:circle">如果提供了处理程序但是没有显式的返回语句，则<code>Promise.resolve()</code> 会默认包装默认的返回值<code>undefined</code></li></ul><pre id="d01cae5c-cc50-4a11-8818-7162aeb8d438" class="code"><code>// p.then()的返回值
+// 4秒后进入兑现状态
+let p5 = new Promise((resolve, reject) =&gt; setTimeout(resolve, 4000));
+let reP5 = p5.then(() =&gt; {
+  // onResolved
+  console.log(&quot;p5 resolved&quot;);
+  // 返回p5作为p5.then返回值(Promise兑现)包装的值
+  return &quot;p5&quot;;
+});
+setTimeout(console.log, 4000, reP5); 
+// 四秒后打印
+// p5 resolved
+// Promise {&lt;fulfilled&gt;: &#x27;p5&#x27;}
+
+// 3秒后进入兑现状态
+let p6 = new Promise((resolve, reject) =&gt;
+  setTimeout(() =&gt; {
+    resolve(&quot;foo&quot;);
+  }, 500)
+);
+// 不传递任何处理程序
+let p7 = p6.then();
+setTimeout(() =&gt; {
+  console.log(p6);
+  console.log(p7);
+  console.log(p6 === p7);
+}, 500);
+// 半秒后打印
+// Promise {&lt;fulfilled&gt;: &#x27;foo&#x27;}
+// Promise {&lt;fulfilled&gt;: &#x27;foo&#x27;}
+// false
+
+// 返回的Promise兑现内部值都是undefined的例子
+let p8 = p6.then(() =&gt; undefined);
+let p9 = p6.then(() =&gt; {});
+let p10 = p6.then(() =&gt; Promise.resolve());
+setTimeout(() =&gt; {
+  console.log(p8);
+  console.log(p9);
+  console.log(p10);
+}, 500);
+// 半秒后打印
+// Promise {&lt;fulfilled&gt;: undefined}
+// Promise {&lt;fulfilled&gt;: undefined}
+// Promise {&lt;fulfilled&gt;: undefined}</code></pre><ul id="a7b304e1-cfe8-41d9-b987-9de603141773" class="bulleted-list"><li style="list-style-type:circle">如果直接调用<code>then()</code> 不传递任何处理程序，相当于<strong>透传</strong>（<strong>passthrough</strong>）返回一个新的与调用者状态和值都相同的<code>Primise</code> 实例</li></ul><ul id="0b7c942b-7537-456a-b5af-e2772f509192" class="bulleted-list"><li style="list-style-type:circle">有对应的处理程序且该处理程序有返回值，那么<code>Promise.resovle()</code> 的会包装这个值，如上面的<code>p5</code> 和<code>reP5</code></li></ul><ul id="35bce063-3891-421a-9007-b7c309cf0c8a" class="bulleted-list"><li style="list-style-type:circle"> 在不返回值，或者返回没有值的<code>Promise</code> 实例时，<code>then()</code> 返回的新创建的<code>Promise</code> 实例内部也会没有值，就像<code>p8</code>, <code>p9</code>, <code>p10</code></li></ul></li></ul><ul id="765386b5-1260-4882-885f-96f17c116458" class="bulleted-list"><li style="list-style-type:disc">如果在处理程序中抛出异常，<code>then()</code> 会返回一个拒绝的<code>Promise</code> 实例，而把错误对象在对应的处理程序中作为返回值不会触发拒绝行为（浏览器引擎不会抛出红字错误）<pre id="399cf86c-e8c0-43c4-a852-b3af0e688f92" class="code"><code>// 在处理程序中抛出异常
+const p11 = Promise.resolve(&quot;foo&quot;);
+let p12 = p11.then(() =&gt; {
+  throw &quot;baz&quot;;
+});
+setTimeout(() =&gt; {
+  console.log(p12);
+}, 0);
+let p13 = p11.then(() =&gt; Error(&quot;qux&quot;));
+setTimeout(() =&gt; {
+  console.log(p13);
+}, 0);</code></pre><figure id="7600ebf1-7769-4079-b436-944d109f81b9" class="image" style="text-align:center"><a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/3.png"><img style="width:672px" src="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/3.png"/></a></figure><ul id="36e1e66f-496f-4ac9-b215-8c60fd2eb029" class="bulleted-list"><li style="list-style-type:circle">可以看到在对应的处理程序中抛出错误，<code>p12</code> 就是一个状态为<strong><em>Rejected </em></strong><strong>&lt;拒绝&gt;</strong>，值为抛出的异常的<code>Promise</code> 对象，因为没有在内部捕捉拒绝的原因，所以浏览器打印出红字错误（<code>Uncaught</code>）</li></ul><ul id="cf1f57dc-1133-4a2a-b69f-bb49fe666534" class="bulleted-list"><li style="list-style-type:circle">但是直接将错误作为返回值在对应的处理程序中返回，<code>p13</code> 就是一个状态为<strong><em>Fulfilled</em></strong><em> &lt;</em><strong>兑现</strong><em>&gt;</em>，值为返回的错误对象的<code>Promise</code> 实例，且不会触发浏览器的未捕获错误信息（因为这个错误对象未被抛出）</li></ul><ul id="9663da3e-b98f-43b9-a29d-9e85fe7cfc6d" class="bulleted-list"><li style="list-style-type:circle">注意这里使用<code>setTimeout</code> 函数<strong>异步</strong>打印两个<code>Promise</code> 对象，如果直接使用<code>console.log()</code> 会打印出两个处于<strong><em>Pending &lt;</em></strong>待定<em>&gt;</em>状态的<code>Promise</code> 对象，因为<code>then()</code> 是异步函数</li></ul></li></ul><hr id="0aabcb74-f662-4b15-a4d2-f2ff8fa44662"/><ul id="99a443c9-15b7-45b4-900d-92a74cc17e66" class="bulleted-list"><li style="list-style-type:disc">上述介绍的<code>then()</code> 返回值的调用者都是解决的<code>Promise</code>实例——全利用<code>onResolved</code> 处理程序的返回值进行<code>Promise.resolve()</code> 的包装后返回；类似地，而拒绝的<code>Promise</code> 实例在<code>onRejected</code> 处理程序中的返回值也会被<code>Promise.resolve()</code> 包装后作为<code>then()</code> 的返回值：这可能有点<strong>违反直觉</strong>（<strong>counterintuitive</strong>），但是，<code>onRejected</code> 处理程序的任务就是捕获<strong>异步错误（asynchronous error）</strong>，因此<strong>拒绝处理程序</strong>（<strong>rejection handler</strong>）在捕获异常错误后不抛出异常是符合Promise的行为的，应该返回一个<strong>解决</strong>（<strong>resolved</strong>）<code>Promise</code>实例; 下面的代码将之前例子中的解决<code>Promise</code>实例替换为拒绝<code>Promise</code>实例<pre id="e0878260-b101-42ba-9a36-ba4b2acc830e" class="code"><code>// p.then()的返回值
+// 4秒后进入兑现状态
+let p5_ = new Promise((resolve, reject) =&gt; setTimeout(reject, 4000));
+let reP5_ = p5_.then(() =&gt; {
+  // onRjected
+  console.log(&quot;p5 rejected&quot;);
+  // 返回p5_作为p5_.then返回值(Promise兑现)包装的值
+  return &quot;p5_&quot;;
+});
+setTimeout(console.log, 4000, reP5_); // （4秒后打印）p5 rejected Promise {&lt;fulfilled&gt;: &#x27;p5_&#x27;}
+
+// 3秒后进入兑现状态
+let p6_ = new Promise((resolve, reject) =&gt;
+  setTimeout(() =&gt; {
+    reject(&quot;foo&quot;);
+  }, 500)
+);
+// 不传递任何处理程序
+let p7_ = p6_.then();
+setTimeout(() =&gt; {
+  console.log(p6_);
+  console.log(p7_);
+  console.log(p6_ === p7_);
+}, 500); 
+// 半秒后打印
+Uncaught (in promise) foo // 这里会抛出错误，因为没有对p7_的拒绝状态抛出的错误进行处理，这一点与上面的例子不同
+// Promise {&lt;rejected&gt;: &#x27;foo&#x27;}
+// Promise {&lt;rejected&gt;: &#x27;foo&#x27;} 
+// false
+
+// 返回的Promise兑现内部值都是undefined的例子
+let p8_ = p6_.then(null, () =&gt; undefined);
+let p9_ = p6_.then(null, () =&gt; {});
+let p10_ = p6_.then(null, () =&gt; Promise.resolve());
+setTimeout(() =&gt; {
+  console.log(p8_);
+  console.log(p9_);
+  console.log(p10_);
+}, 500);
+// 半秒后打印
+// Promise {&lt;fulfilled&gt;: undefined}
+// Promise {&lt;fulfilled&gt;: undefined}
+// Promise {&lt;fulfilled&gt;: undefined}
+
+// 在处理程序中抛出异常
+const p11_ = Promise.reject(&quot;foo&quot;);
+let p12_ = p11_.then(null, () =&gt; {
+  throw &quot;baz&quot;;
+});
+setTimeout(() =&gt; {
+  console.log(p12_);
+}, 0);
+let p13_ = p11_.then(null, () =&gt; Error(&quot;qux&quot;));
+setTimeout(() =&gt; {
+  console.log(p13_);
+}, 0);
+// 马上打印
+Uncaught (in promise) baz // 这里和上面的例子相同不会因为返回值是错误对象而打印错误信息，而是因为抛出错误而打印错误信息
+// Promise {&lt;rejected&gt;: &#x27;baz&#x27;}
+// Promise {&lt;fulfilled&gt;: Error: qux
+   // at &lt;anonymous&gt;:9:34}</code></pre><ul id="497d2fa3-9f86-443f-9d1c-03c678b08633" class="bulleted-list"><li style="list-style-type:circle">可以看到，唯一不同的地方在直接调用<code>then()</code> 不传递任何处理程序时，拒绝的<code>Promise</code> 实例因为透传的原型，<code>then()</code> 的返回值也是新的拒绝的<code>Promise</code>实例，因为新的拒绝<code>Promise</code> 实例抛出的错误未被捕获，所以浏览器引擎打印出红色错误<code>Uncaught</code></li></ul></li></ul><h2 id="fa59b667-0153-421d-8205-f7ea3ef207b0" class="">2.3.3 <code>Promise.prototype.catch()</code></h2><ul id="7ddb8909-a640-4e5d-9117-177bb11ae4e8" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.prototype.catch()</code> 方法用于给Promise添加<strong>拒绝处理程序</strong>（<strong>reject handler</strong>），这个方法只接受一个参数：<code>onRejected</code>处理程序</li></ul><ul id="2872f82d-8e87-4549-9438-a0dd351012a1" class="bulleted-list"><li style="list-style-type:disc">实际上它就是一个语法糖，使用<code>Promise.prototype.then()</code> 能实现同样的功能，调用它相当于调用<code>Promise.prototype.then(null, onRejected)</code><pre id="fb987876-6e1a-4d90-8624-20a67a79e8b0" class="code"><code>let p = Promise.reject(&quot;reason&quot;);
+let onRejected = function (e) {
+  console.log(e);
+  setTimeout(console.log, 0, &quot;rejected&quot;);
+};
+
+// 两种添加拒绝处理程序的方式是一样的
+p.then(null, onRejected); // reason \n rejected
+p.catch(onRejected); // reason \n rejected</code></pre></li></ul><ul id="5921968e-1d26-4772-8371-8fed083d877b" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.prototype.catch()</code> 返回一个新的<code>Promise</code> 实例，这方面的行为和<code>Promise.prototype.then()</code> 的<code>onRejected</code> 处理程序是一样的<pre id="ea573319-120c-403e-bc7b-c3e29cbdad6f" class="code"><code>let p1 = new Promise(() =&gt; {});
+let p2 = p1.catch();
+setTimeout(console.log, 0, p1); // Promise {&lt;pending&gt;}
+setTimeout(console.log, 0, p2); // Promise {&lt;pending&gt;}
+setTimeout(console.log, 0, p1 === p2); // false</code></pre></li></ul><h2 id="7271abf5-cd74-4d3d-97dd-033d086d3c62" class="">2.3.4 <code>Promise.prototype.finally()</code></h2><ul id="cc3740b9-e602-4142-82e2-d80c662b4f0b" class="bulleted-list"><li style="list-style-type:disc"> <code>Promise.prototype.finally()</code>方法给Promise添加<code>onFinally</code> 处理程序，这个处理程序在<code>Promise</code> 实例转换为<strong>解决或拒绝状态</strong>（<strong>resolved or rejected state</strong>）时都会执行</li></ul><ul id="73c01966-c527-4973-bc24-a7a9e24ac04a" class="bulleted-list"><li style="list-style-type:disc">这个方法可以避免<code>onResolved</code> 和<code>onRejected</code> 处理程序中出现<strong>冗余代码</strong>（<strong>code duplication</strong>）</li></ul><ul id="cc61c7d1-8cbb-4411-8642-66ecaf790007" class="bulleted-list"><li style="list-style-type:disc">但是<code>onFinally</code> 处理程序没有办法知道Promise的状态是解决还是拒绝，所以这个方法主要用于添加<strong>清理代码（cleanup）</strong><pre id="50030d32-0720-4297-bba0-8ac31cc75879" class="code"><code>let p1 = Promise.resolve(&quot;resolved value&quot;);
+let p2 = Promise.reject(&quot;rejected reason&quot;);
+
+let onFinally = function () {
+  setTimeout(console.log, 0, &quot;Finally!&quot;);
+};
+
+p1.finally(onFinally); // Finally!
+p2.finally(onFinally); // Finally!
+// 谷歌浏览器打印
+Uncaught (in promise) rejected reason</code></pre><ul id="5bee6f9e-299b-451a-8951-5cdfcea42af4" class="bulleted-list"><li style="list-style-type:circle">注意<code>onFinally</code> 处理程序没有参数，不能获取调用者（<code>Promise</code>实例）的内部值（拒绝和解决处理程序可以获取到调用者的内部值）</li></ul><ul id="58fcbf6e-aeb9-4b58-aa34-ca5f830cf598" class="bulleted-list"><li style="list-style-type:circle">上面<code>p2</code> 被拒绝，所以它会抛出错误，<code>finally()</code> 不能像<code>then()</code> 和<code>catch()</code> 一样捕获错误，所以node环境会直接报错（不能运行），而谷歌浏览器会打印出<code>Uncaght</code> 的错误信息</li></ul></li></ul><ul id="01799993-a759-46a9-8816-43ad42bd1425" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.prototype.finally()</code> 方法返回一个新的<code>Promise</code> 实例，它返回的实例不同与<code>Promise.prototype.catch()</code> 和<code>Promise.prototype.then()</code> 返回的实例，因为<code>onFinally</code> 处理程序被设置为一个<strong>状态无关</strong>（<strong>state-agnostic</strong>）的方法，所以在<strong>大多数情况下</strong>它将表现为父Promise的传递（<strong>passthrough，透传</strong>），对于已解决和被拒绝状态都是如此（即返回的新<code>Promise</code> 实例的状态和内部值和调用者一致）<pre id="30c65963-72da-46b5-b23e-a02c56d73967" class="code"><code>let p = Promise.resolve(&quot;foo&quot;);
+let pa = p.finally();
+setTimeout(console.log, 0, p, pa); // Promise {&lt;fulfilled&gt;: &#x27;foo&#x27;} Promise {&lt;fulfilled&gt;: &#x27;foo&#x27;}
+setTimeout(console.log, 0, p === pa); // false
+
+let pb = p.finally(() =&gt; undefined);
+let pc = p.finally(() =&gt; {});
+let pd = p.finally(() =&gt; &#x27;bar&#x27;);
+let pe = p.finally(() =&gt; Promise.resolve(&#x27;bar&#x27;));
+let pf = p.finally(() =&gt; new Error(&#x27;qux&#x27;));
+// 打印的Promise实例引用个不相同，但是状态和内部值和p一致
+setTimeout(console.log, 0, pb); // Promise {&lt;fulfilled&gt;: &#x27;foo&#x27;}
+setTimeout(console.log, 0, pc); // Promise {&lt;fulfilled&gt;: &#x27;foo&#x27;}
+setTimeout(console.log, 0, pd); // Promise {&lt;fulfilled&gt;: &#x27;foo&#x27;} 
+setTimeout(console.log, 0, pe); // Promise {&lt;fulfilled&gt;: &#x27;foo&#x27;}
+setTimeout(console.log, 0, pf); // Promise {&lt;fulfilled&gt;: &#x27;foo&#x27;}</code></pre></li></ul><ul id="7acc1c52-15b9-44cc-93e7-9d02275351e7" class="bulleted-list"><li style="list-style-type:disc">少数情况下，<code>onFinally</code> 不会表现为父Promise的传递<ul id="d336941b-3d15-418f-8e16-df44f1de3094" class="bulleted-list"><li style="list-style-type:circle">返回的是一个处于<strong><em>Pending &lt;</em></strong><strong>待定</strong><em>&gt;</em>状态的Promise实例，返回待定Promise实例</li></ul><ul id="5bf0eb0f-6181-4ed9-99c1-8cfbd2b546ab" class="bulleted-list"><li style="list-style-type:circle"><code>onFinally</code> 处理程序抛出错误，包括显式抛出错误，或者返回一个拒绝Promise实例隐式抛出，返回相应的拒绝<code>Promise</code>实例</li></ul><pre id="58c50826-fe5e-4b3a-a4af-9ca25ebc8ec1" class="code"><code>// 返回待定和拒绝的情况
+let pg = p.finally(() =&gt; new Promise(() =&gt; {}));
+let ph = p.finally(() =&gt; Promise.reject(&quot;reason&quot;));
+
+setTimeout(console.log, 0, pg); // Promise {&lt;pending&gt;}
+setTimeout(console.log, 0, ph); // Promise {&lt;rejected&gt;: &#x27;reason&#x27;}
+// 谷歌浏览器的错误信息打印
+Uncaught (in promise) reason
+
+let pi = p.finally(() =&gt; {
+  throw new Error(&quot;baz&quot;);
+});
+
+setTimeout(console.log, 0, pi); 
+// Promise {&lt;rejected&gt;: Error: baz
+   // at &lt;anonymous&gt;:9:9
+   // at &lt;anonymous&gt;}
+// 谷歌浏览器的错误信息打印
+Uncaught (in promise) Error: baz
+    at &lt;anonymous&gt;:9:9
+    at &lt;anonymous&gt;</code></pre></li></ul><ul id="ce18caf5-2bed-4099-bbee-7c08f3bfe08c" class="bulleted-list"><li style="list-style-type:disc">对于上面的特殊情况，返回处于<strong><em>Pending &lt;</em></strong><strong>待定</strong><em>&gt;</em>状态的Promise实例并<strong>不常见</strong>，因为这个待定Promise只要一解决（resolves），返回的新期约就会被透传为和父Promise（调用者）一样的状态和值的Promise实例<pre id="8c041fe8-9a43-454b-972d-bfc3d2acc47f" class="code"><code>let p = Promise.resolve(&quot;foo&quot;);
+// 返回待定的期约并不常见，这个待定的期约一旦被解决，就会返回为透传的新期约
+// 返回一个待定的期约，这个期约在100ms后会被解决
+let pj = p.finally(
+  () =&gt; new Promise((resolve, reject) =&gt; setTimeout(() =&gt; resolve(&quot;bar&quot;), 100))
+);
+
+setTimeout(console.log, 0, pj); // Promise {&lt;pending&gt;} 
+// 0ms时返回的就是在onFinally中创建的新期约
+setTimeout(console.log, 0, pj == p); // false
+
+setTimeout(console.log, 200, pj); // Promise {&lt;fulfilled&gt;: &#x27;foo&#x27;} 
+// 200ms时返回的就是透传的和调用者一样(状态和内部值)的新期约
+setTimeout(console.log, 200, pj == p); // false</code></pre><ul id="86126e2e-1004-483b-a14d-9c68da42136b" class="bulleted-list"><li style="list-style-type:circle">在0~100ms期间的<code>pj</code> 是在<code>onFinally</code> 程序处理程序中临时创建的待定状态的<code>Promise</code> ，它（指临时创建的<code>Promise</code> 实例）解决后就是内部值为’bar’的<strong><em>Fulfilled</em></strong><em> &lt;</em><strong>兑现</strong><em>&gt;</em>Promise实例，但是之后<code>pj</code> 就是一个新创建的和调用者一样的状态和值的<code>Promise</code> 实例（不是之前临时创建的<code>Promise</code>实例）</li></ul></li></ul><h2 id="d077e0ba-2888-4296-b747-d1e57fe1f069" class="">2.3.5 非重入期约方法（Non-Reentrant Promise Methods）</h2><p id="01b22a2f-e126-48ed-b6cc-ae9b9f02e13c" class="">关于可重入函数可以查看<a href="https://www.notion.so/reentrant-function-19a89b87fa6040d090f1f24bda16b9be"><span class="icon">🏪</span>可重入函数（reentrant function）</a> ，简单来说就是一个函数在调用执行完全之前（被中断），它能被安全地再次调用（<strong>safely called again</strong>），JavaScript典型的可重入函数就是<strong>生成器</strong></p><hr id="31d155c0-3f96-4060-8d54-2c5fa07cc622"/><ul id="d5f53650-c464-4472-bc2c-bb39a4a3bf87" class="bulleted-list"><li style="list-style-type:disc">当一个<code>Promise</code> 实例进入<strong>落地状态</strong>（<strong>settled state</strong>）时，与该状态相关的处理程序仅仅会被<strong>排期</strong>（<strong>scheduled</strong>），而不是立即执行（也就是说<code>then()</code>，<code>catch()</code> 等函数是异步的，传递给它们的处理程序异步执行）</li></ul><ul id="47d874b0-b8af-496d-ab16-4c0bdcacedb4" class="bulleted-list"><li style="list-style-type:disc">这就导致跟在这个处理程序的代码之后的<strong>同步（Synchronous）</strong>代码一定会在处理程序被调用之前执行，即使<code>Promise</code> 实例一开始就是与<strong>新附加处理程序</strong>（<strong>newly attached handler</strong>）关联的状态，执行顺序也是这样的</li></ul><ul id="e0df9b6b-4d78-46bf-a028-cb72ea053720" class="bulleted-list"><li style="list-style-type:disc">这种特性由JavaScript<strong>运行时</strong>（<strong>runtime</strong>）保证，被称为”<strong>非重入</strong>“（<strong>non-reentrancy</strong>）特性<pre id="932f469b-07d5-489b-bc34-a4fa44110b3f" class="code"><code>// 创建解决的期约
+let p = Promise.resolve();
+
+// 添加解决处理程序
+p.then(() =&gt; console.log(&quot;onResolved handler&quot;));
+
+/// 添加onFinally处理程序
+p.finally(() =&gt; console.log(&quot;onFinally handler&quot;));
+
+// 同步输出
+console.log(&quot;then() returns&quot;);
+// 实际的输出
+then() returns
+onResolved handler
+onFinally handler</code></pre><ul id="ef142e96-9f31-4a81-9aad-42a2deef6298" class="bulleted-list"><li style="list-style-type:circle">在一个<strong><em>fulfilled</em></strong>&lt;<strong>兑现</strong>&gt;状态Promise实例上调用<code>then()</code>会把<code>onResolved</code> 处理程序推进消息队列，调用<code>finally()</code> 会把<code>onFinally</code> 处理程序推进消息队列，但这个两个处理程序在当前线程上的同步代码执行完成前不会执行，因此跟在<code>then()</code> 和<code>finally()</code> 后面的同步代码一定先于处理程序执行</li></ul></li></ul><ul id="5b946885-92eb-4103-bfa1-454ff656dbdf" class="bulleted-list"><li style="list-style-type:disc">实际上<strong>非重入 </strong>最基础的<strong>充分条件</strong>就是不能被<strong>中断</strong>，因为JavaScript单线程的缘故，对于两个非重入的处理程序而言，运行时不能在执行一个处理程序的中途被中断执行同步输出代码，所以会先执行完后续所有的同步代码再执行两个处理程序</li></ul><hr id="efdc4bf4-e36a-4bb5-9ae9-af28da3f331a"/><ul id="7b4925a8-333b-4585-8aad-f02502714e11" class="bulleted-list"><li style="list-style-type:disc">先添加处理程序后解决Promise具有一样的效果（即先让处于<strong><em>Pending</em></strong>&lt;等待&gt;状态的期约调用<code>then()</code> ，然后调用同步方法解决Promise让其落地状态，最后书写同步代码，这个时候的同步代码仍然发生在<code>then()</code> 执行处理程序前），在添加处理程序之后，同步代码才改变Promise状态，那么处理程序仍然会基于该状态变化表现出<strong>非重入</strong>特性，如下<pre id="96da4ed8-2910-4be1-b332-f3a09c3677ef" class="code"><code>let synchronousResolve = null;
+
+let p1 = new Promise((resolve) =&gt; {
+  synchronousResolve = function () {
+    console.log(&quot;1: invoking resolve()&quot;);
+    resolve();
+    console.log(&quot;2: resolve return&quot;);
+  };
+});
+
+p1.then(() =&gt; console.log(&quot;4:then() handler executes&quot;));
+
+synchronousResolve();
+console.log(&quot;3: synchronousResolve() returns&quot;);
+// 实际输出
+1: invoking resolve()
+2: resolve return
+3: synchronousResolve() returns
+4:then() handler executes</code></pre><ul id="1bea606e-a028-4b71-9ae1-b372134d854b" class="bulleted-list"><li style="list-style-type:circle"><code>p1</code> 的状态变化发生在添加处理器之后，处理器程序也会等到运行的消息队列让它出列时才会执行</li></ul></li></ul><ul id="48ffe712-0018-4d8b-9c38-d2bf9f7bb6c4" class="bulleted-list"><li style="list-style-type:disc">非重用特性适用于<code>onResolved</code>/<code>onRejected</code>处理程序，<code>catch()</code> 处理程序和<code>finally()</code> 处理程序，下面的例子中的处理程序都只能异步执行<pre id="06162380-33d7-4253-8cf7-b49afcc11231" class="code"><code>let pa = Promise.resolve();
+let pb = Promise.reject();
+let pc = Promise.reject();
+let pd = Promise.resolve();
+
+// 进入落地状态时调用对应的处理程序
+pa.then(() =&gt; console.log(&quot;5: pa.then() onResolved&quot;));
+pb.then(null, () =&gt; console.log(&quot;6: pb.then() onRejected&quot;));
+pc.catch(() =&gt; console.log(&quot;7: pc.catch onRejected&quot;));
+pd.finally(() =&gt; console.log(&quot;8: pd.finally onFinally&quot;));
+
+console.log(&quot;1: pa.then() returns&quot;);
+console.log(&quot;2: pb.then() returns&quot;);
+console.log(&quot;3: pc.catch() returns&quot;);
+console.log(&quot;4: pd.finally() returns&quot;);
+// 打印结果
+1: pa.then() returns
+2: pb.then() returns
+3: pc.catch() returns
+4: pd.finally() returns
+4:then() handler executes
+5: pa.then() onResolved
+6: pb.then() onRejected
+7: pc.catch onRejected
+8: pd.finally onFinally</code></pre></li></ul><h2 id="75f01ae3-df67-4ef6-9f01-329bdeae4845" class="">2.3.6 临近处理程序的执行顺序（Sibling Handler Order of Execution）</h2><ul id="f99eec99-c61d-4a28-a674-7f9cc596ff6d" class="bulleted-list"><li style="list-style-type:disc">如果给Promise添加多个处理程序，当期约状态变化时，相关处理程序会按照添加它们的属顺序依次执行，无论是<code>then()</code>,<code>catch()</code> ,<code>finally()</code> 添加的处理程序都是如此（这一点在上一节的例子中也有所体现）<pre id="2b6e6725-d445-4306-96d8-802d64116a43" class="code"><code>// 临近处理程序的顺序
+let p1 = Promise.resolve();
+let p2 = Promise.reject();
+
+p1.then(() =&gt; console.log(1));
+p1.then(() =&gt; setTimeout(console.log, 0, 4));
+
+p2.catch(() =&gt; console.log(2));
+p2.catch(() =&gt; setTimeout(console.log, 0, 5));
+
+p1.finally(() =&gt; console.log(3));
+p1.finally(() =&gt; setTimeout(console.log, 0, 6));
+// 打印
+1
+2
+3
+4
+5
+6</code></pre></li></ul><h2 id="82f1a145-3849-48bb-859d-279f3a4f1479" class="">2.3.7 传递解决值和拒绝理由（Resolved Value and Rejected Reason Passing）</h2><ul id="212a1d62-86df-4476-9437-604fb33f505c" class="bulleted-list"><li style="list-style-type:disc">到了<strong>落定状态</strong>（<strong>settled state</strong>）后，promise会提供其解决值（如果兑现，fulfilled）获取拒绝理由（如果拒绝，rejected）给相关状态的处理程序，拿到返回值后，就可以进一步对这个值进行操作，这种串行的场景对需要进行<strong>连续的串行计算块</strong>（<strong>successive blocks of serial computation</strong>）时很方便</li></ul><ul id="e1b2262e-b642-4785-af10-8063a8a3e783" class="bulleted-list"><li style="list-style-type:disc">例如，第一次<strong>网络请求</strong>（<strong>network request</strong>）返回JSON是发送第二次请求必须的数据，那么第一次请求返回的值就应该传给<code>onResolved</code> 处理程序继续处理；当然失败的网络请求也应该把HTTP状态码传给<code>onRejected</code> 处理程序</li></ul><ul id="505ccc73-7424-45d1-a8cb-4436f2f5716e" class="bulleted-list"><li style="list-style-type:disc">解决的值和拒绝理由是在执行函数（executor）中分别作为<code>resolve()</code> 和<code>reject()</code> 的第一个参数往后传的，然后这些值又会传给它们各自的处理程序，作为<code>onResolved</code>或<code>onRejected</code> 处理程序的唯一参数，下面的例子展示了上述传递的过程<pre id="596a9232-0889-4f75-9a00-19ecdbc595e1" class="code"><code>let p1 = new Promise((resolve, reject) =&gt; resolve(&quot;foo&quot;));
+let p2 = new Promise((resolve, reject) =&gt; reject(&quot;reason&quot;));
+
+p1.then((value) =&gt; console.log(value)); // foo
+p2.catch((reason) =&gt; console.log(reason)); // reason</code></pre><ul id="d172777b-1caa-4a12-9680-e178c19737ac" class="bulleted-list"><li style="list-style-type:circle">将<code>p1</code>和<code>p2</code> 赋值为<code>Promise.resolve()</code> 和<code>Promise.reject()</code> 静态方法创建的兑现期约和拒绝期约具有一样的效果</li></ul></li></ul><h2 id="f50719a8-e766-40e1-ba50-9aeb861fd34b" class="">2.3.8 拒绝期约与拒绝错误处理（Rejecting Promises and Rejection Error Handling）</h2><h3 id="03d69894-3966-448e-b166-eb88fbde5879" class="">2.3.8.1 拒绝期约</h3><ul id="17f30567-30fe-4b8f-95c2-34e1806ec556" class="bulleted-list"><li style="list-style-type:disc">拒绝一个<code>Promise</code>实例相当于一个<code>throw</code>表达式，它们都代表一种程序状态，即需要<strong>中断</strong>（<strong>discontinuation</strong>）或特殊<strong>后续</strong>（<strong>subsequent</strong>）处理</li></ul><ul id="d140e832-46b8-43d8-9760-f38544897295" class="bulleted-list"><li style="list-style-type:disc">将一个<code>Promise</code> 由等待状态变为拒绝状态的拒绝期约动作包含<ul id="3ca0671c-bae4-4f35-9643-7323609bebe8" class="bulleted-list"><li style="list-style-type:circle">在<code>Promise</code> 实例的执行函数（executor）中抛出错误，错误对象会作为拒绝的原因</li></ul><ul id="ab6e57a0-801e-4328-9ec3-344057a90762" class="bulleted-list"><li style="list-style-type:circle">在<code>Promise</code> 实例的执行函数中调用执行函数的第二个参数<code>reject()</code> 隐式抛出异常，<code>reject()</code> 的参数会拒绝的原因</li></ul><ul id="e771b0a0-d638-4283-9dff-9fdb4aff60ec" class="bulleted-list"><li style="list-style-type:circle">在<code>Promise</code> 实例的处理程序中抛出错误，错误对象会作为拒绝的原因</li></ul><ul id="928f72c7-4491-49cc-8405-de526d61dfbc" class="bulleted-list"><li style="list-style-type:circle">在<code>Promise</code> 实例的处理程序中返回拒绝的<code>Promise</code> 实例</li></ul><ul id="0fb12b64-27e8-4782-a2cb-a3e3ff9221b6" class="bulleted-list"><li style="list-style-type:circle">直接调用<code>Promise.reject()</code> 方法</li></ul><hr id="dd3eadb8-5eaf-4a6a-b7c5-533d99a47d70"/><ul id="3f064f4c-baad-46e8-8518-e74cf8ca05b1" class="bulleted-list"><li style="list-style-type:circle">例子如下<pre id="8abfeec5-6c40-4bda-8484-b3c71ea33145" class="code"><code>// 拒绝期约
+let p1 = new Promise((resolve, reject) =&gt; reject(Error(&quot;foo&quot;)));
+let p2 = new Promise((resolve, reject) =&gt; {
+  throw new Error(&quot;foo&quot;);
+});
+let p3 = Promise.resolve().then(
+  () =&gt; new Promise((resolve, reject) =&gt; reject(new Error(&quot;foo&quot;)))
+);
+let p4 = Promise.resolve().then(() =&gt; {
+  throw new Error(&quot;foo&quot;);
+});
+
+let p5 = Promise.reject(new Error(&quot;foo&quot;));
+setTimeout(console.log, 0, p1);
+setTimeout(console.log, 0, p2);
+setTimeout(console.log, 0, p3);
+setTimeout(console.log, 0, p4);
+setTimeout(console.log, 0, p5);
+// 打印结果
+Promise {&lt;rejected&gt;: Error: foo
+    at &lt;anonymous&gt;:2:50
+    at new Promise (&lt;anonymous&gt;)
+    at &lt;anonymous&gt;:2:10}
+Promise {&lt;rejected&gt;: Error: foo
+    at &lt;anonymous&gt;:4:9
+    at new Promise (&lt;anonymous&gt;)
+    at &lt;anonymous&gt;:3:10}
+Promise {&lt;rejected&gt;: Error: foo
+    at &lt;anonymous&gt;:7:49
+    at new Promise (&lt;anonymous&gt;)
+    at &lt;anonymous&gt;:7:9}
+Promise {&lt;rejected&gt;: Error: foo
+    at &lt;anonymous&gt;:10:9}
+Promise {&lt;rejected&gt;: Error: foo
+    at &lt;anonymous&gt;:13:25}
+// 同时会抛出5个未捕获的错误（红字）
+Uncaught (in promise) Error: foo × 5
+...</code></pre></li></ul></li></ul><ul id="90187f56-99b7-4f02-a83f-628687b2fb50" class="bulleted-list"><li style="list-style-type:disc">期约可以使用任何理由拒绝，包括<code>undefined</code> ，但是最好统一使用错误对象，这样做主要是因为创建错误对象可以让浏览器不会错误对象中的<strong>栈追踪信息</strong>(<strong>capture the stack trace</strong>)，而这些信息对调试非常有用，例如前面浏览器抛出的5个未捕获的错误<pre id="e08bd0bd-21e8-4e2d-a101-7dc30b836775" class="code"><code>Uncaught (in promise) Error: foo
+    at &lt;anonymous&gt;:2:50
+    at new Promise (&lt;anonymous&gt;)
+    at &lt;anonymous&gt;:2:10
+Uncaught (in promise) Error: foo
+    at &lt;anonymous&gt;:4:9
+    at new Promise (&lt;anonymous&gt;)
+    at &lt;anonymous&gt;:3:10
+Uncaught (in promise) Error: foo
+    at &lt;anonymous&gt;:13:25
+Uncaught (in promise) Error: foo
+    at &lt;anonymous&gt;:10:9
+Uncaught (in promise) Error: foo
+    at &lt;anonymous&gt;:7:49
+    at new Promise (&lt;anonymous&gt;)
+    at &lt;anonymous&gt;:7:9</code></pre></li></ul><ul id="80a150ea-1136-45ab-8876-6afef232e251" class="bulleted-list"><li style="list-style-type:disc">所有错误都是<strong>异步</strong>（<strong>asynchronously</strong>）抛出且未处理的，通过错误对象捕获的栈追踪信息展示了错误发生的路径；同时，需要注意浏览器<strong>抛出错误的顺序：p1 p2 p5 p4 p3</strong>,（打印Promise实例的顺序是正常的p1, p2, p3, p4, p5）,这是因为<code>p1</code>, <code>p2</code> 都是在执行函数中就抛出错误，而<code>p5</code> 使用静态方法的方式<a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6.html">等同于</a>在执行函数中就抛出错误，它应该排在<code>p1</code>和<code>p2</code>后，而<code>p3</code>和<code>p4</code> 都使用了<code>then()</code> 方法在相应的处理程序中抛出错误，因为它们需要在<strong>运行时消息队列</strong>（<strong>runtime’s message queue</strong>）中<strong>添加</strong>处理程序，也就是说在最终抛出的未捕获错误之前还会创建另一个<code>Promise</code>实例，又因为<code>p3</code> 需要额外创建2个Promise实例而<code>p4</code> 只需要额外创建1个Promise实例，所以<code>p4</code> 抛出的错误信息在<code>p3</code> 之前</li></ul><ul id="d9e1c01b-45cb-48b3-b041-45b281ea8477" class="bulleted-list"><li style="list-style-type:disc">这个例子同样揭示了异步错误有意思的副作用：<ul id="6bd51c45-9601-4a15-b390-c5a3137bbd98" class="bulleted-list"><li style="list-style-type:circle">正常情况下通过<code>throw</code> 关键字抛出错误时，JavaScript运行时的错误处理机制会停止执行抛出错误之后的任何指令<pre id="51d594cf-bf4f-4059-88df-b195e8231356" class="code"><code>throw Error(&quot;foo&quot;);
+console.log(&quot;bar&quot;); // 这一行不会执行
+// 抛出异常信息
+Uncaught Error: foo</code></pre></li></ul><ul id="6c85f514-278b-444a-ae32-d609a5514889" class="bulleted-list"><li style="list-style-type:circle">但是，在Promise抛出错误时，因为错误实际上是从消息队列中异步抛出的，所以并不会阻止运行时继续执行同步指令（即同步和异步操作具有一定的独立性，但是node环境下抛出异步错误也会立马终止执行）<pre id="abce9240-fd60-45af-b69b-73b49cba81f0" class="code"><code>// 异步抛出错误
+Promise.reject(Error(&quot;foo&quot;))
+console.log(bar); // 会执行
+// Uncaught (in promise) Error: foo</code></pre></li></ul></li></ul><h3 id="f766aa03-bc39-4acb-90a9-a7d80ed0b8b4" class="">2.3.8.2 拒绝错误处理</h3><ul id="cae1c34d-0ed4-4d5c-ab83-a32b01487c2b" class="bulleted-list"><li style="list-style-type:disc">拒绝的Promise会隐式抛出异步错误，异步错误只能通过异步的<code>onRejected</code>处理程序进行捕获，而不能使用同步的<code>try/catch</code> 语句进行捕获<pre id="d0279a9f-f74f-444b-8026-a37c7dec8e82" class="code"><code>Promise.reject(Error(&quot;foo&quot;)).catch(e =&gt; console.log(e)) 
+// Error: foo
+  // at &lt;anonymous&gt;:1:16</code></pre><figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="66041bf4-efff-44d1-a1a9-99f2cfdb4bc0"><div style="font-size:1.5em"><span class="icon">🚫</span></div><div style="width:100%">try {
+  Promise.reject(Error(&quot;foo&quot;));
+} catch (error) {} // 错误的捕获方式</div></figure></li></ul><ul id="50ba2d96-4e42-4bdb-8dc0-c30b0c623a51" class="bulleted-list"><li style="list-style-type:disc">但是在执行函数（<code>executor</code>）中的错误，在解决和决绝Promise前，仍然可以使用<code>try/catch</code> 在执行函数中捕获错误（因为执行函数同步执行）<pre id="65e296dc-d828-43ef-991d-9b1b38b204f0" class="code"><code>// 在执行函数中使用try catch
+let p = new Promise((resolve, reject) =&gt; {
+  try {
+    throw new Error(&quot;foo&quot;);
+  } catch (error) {
+    console.log(error);
+// Error: foo
+//    at &lt;anonymous&gt;:4:11
+//    at new Promise (&lt;anonymous&gt;)
+//    at &lt;anonymous&gt;:2:9
+  }
+  resolve();
+});
+setTimeout(console.log, 0, p); // Promise {&lt;fulfilled&gt;: undefined}</code></pre></li></ul><ul id="a4ce8d52-ee2d-468c-9612-4a2cf697bf39" class="bulleted-list"><li style="list-style-type:disc"><code>then()</code> 和<code>catch()</code> 的<code>onRejected</code> 处理程序在<strong>语义</strong>（<strong>semantics</strong>）上相当于<code>try/catch</code> 出发点都是捕获错误之后将其<strong>隔离</strong>（<strong>neutralize</strong>），同时不影响正常逻辑执行，为此，<code>onRejected</code> 处理程序的任务应该是在捕获异步错误之后返回一个<a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6.html"><strong>解决</strong></a><a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6.html">的期约</a><pre id="b0ffe373-07f1-414b-8d6a-39f45944a203" class="code"><code>// 同步错误处理和异步错误处理
+console.log(&quot;开始同步错误处理&quot;);
+try {
+  throw new Error(&quot;foo&quot;);
+} catch (error) {
+  console.log(&quot;捕获错误:&quot;, error.toString());
+}
+console.log(&quot;结束同步错误处理&quot;);
+
+new Promise((resolve, reject) =&gt; {
+  console.log(&quot;开始异步拒绝错误处理&quot;);
+  reject(new Error(&quot;foo&quot;));
+})
+  .catch((reason) =&gt; {
+    console.log(&quot;捕获异步错误：&quot;, reason.toString());
+  })
+  .then(() =&gt; {
+    console.log(&quot;结束异步拒绝错误处理&quot;);
+  });
+// 打印
+开始同步错误处理
+捕获错误: Error: foo
+结束同步错误处理
+开始异步拒绝错误处理
+捕获异步错误： Error: foo
+结束异步拒绝错误处理</code></pre></li></ul><h1 id="53dfa334-9baf-47ad-a9a4-df20b66ea1e8" class="">2.4 期约连锁与期约合成（Promise Chaining and Composition）</h1><p id="a90910ef-763d-40d3-93c2-348387294a55" class="">Composition，组成，构成之意</p><p id="8feb8414-e9cf-4871-a7d0-38e695be3006" class="">多个Promise实例<strong>组合在一起</strong>（<strong>Combining together</strong>）可以构成强大的<strong>代码逻辑</strong>（<strong>code patterns</strong>），这种组合行为有两种实现方式：<div class="indented"><p id="aa691824-1c22-4e7b-831d-8ca9446ace84" class=""><strong>期约连锁</strong>（<strong>Promise Chaining</strong>），就是一个Promise接一个Promise地<strong>拼接（sequencing）</strong></p><p id="9d633b51-8b2e-453d-9cb1-9494e1cac328" class=""><strong>期约合成</strong>（<strong>Promise Composition</strong>），将多个Promise组合成一个Promise</p></div></p><h2 id="15f8e6aa-a53a-49d7-9c7b-ab0105cb262d" class="">2.4.1 Promise Chaining</h2><ul id="988485bd-46fc-49de-952f-ac12a4a6bb4b" class="bulleted-list"><li style="list-style-type:disc">ECMAScript 的Promise最有用的特性之一就是<strong>期约连锁（Promise Chaining）</strong>:一种将非常有用的将期约逐个<strong>串联（sequencing）</strong>起来的编程模式</li></ul><ul id="72f4631a-e42c-48e2-9069-19d10797621d" class="bulleted-list"><li style="list-style-type:disc">能将期约串联起来的能力来源于Promise API的结构：每个<code>Promise</code>实例的<code>then()</code> ,<code>catch()</code> ,<code>finally()</code> 方法都会返回一个<strong>新的（separate）</strong><code>Promise</code>对象，而这个新实例又有自己的实例方法，可以继续调用Promise API的方法。这种连缀的方法调用就可以构成所谓的“<strong>期约连锁</strong>”，例如<pre id="710dfbf9-485c-47e0-9ff6-5aa5aeb7ab04" class="code code-wrap"><code>let p = new Promise((resolve, _reject) =&gt; {
+  console.log(&quot;first&quot;);
+  setTimeout(() =&gt; resolve(&quot;DATA&quot;), 500);
+});
+
+p.then((res) =&gt; {
+  console.log(&quot;second:&quot;, res);
+  return `dispose or wrap &#x27;${res}&#x27;`;
+})
+  .then((res) =&gt; {
+    console.log(&quot;third:&quot;, res);
+    return `dispose or wrap &#x27;${res}&#x27;`;
+  })
+  .then((res) =&gt; {
+    console.log(&quot;fourth:&quot;, res);
+    return `dispose or wrap &#x27;${res}&#x27;`;
+  });
+	// 打印结果
+// first
+// second: DATA
+// third: dispose or wrap &#x27;DATA&#x27;
+// fourth: dispose or wrap &#x27;dispose or wrap &#x27;DATA&#x27;&#x27;</code></pre><ul id="10ce753f-745c-4497-af57-abb068022e11" class="bulleted-list"><li style="list-style-type:circle">这个实现最终执行了一连串的<strong>同步</strong>任务（chained <strong>synchronous </strong>tasks， 这里指在<code>then()</code> 方法中执行打印语句），这种方式执行的任务没有那么有用，因为使用4个同步函数也可以做到</li></ul></li></ul><ul id="67394b35-4a03-468b-a56b-f83b68a5a92f" class="bulleted-list"><li style="list-style-type:disc">要真正实现串联的<strong>异步</strong>任务（chained <strong>asynchronous </strong>tasks），可以改写之前的例子，让每个处理程序都返回一个Promise实例，每个期约的执行器都使用<code>setTimeout</code>模拟异步执行，这样就可以让每个后续Promise对象都等待之前的Promise实例从Pending状态到达落地状态，也就是<strong>串行化异步任务（serialize asynchronous tasks）</strong><pre id="1c5dc05e-3204-4d73-ba64-43132cf7bcab" class="code code-wrap"><code>// 串行化异步任务
+let p2 = new Promise((resolve) =&gt; {
+  console.log(&quot;p2 executor&quot;);
+  setTimeout(resolve, 500, &quot;p2 data&quot;);
+});
+
+p2.then((res) =&gt; {
+  console.log(res);
+  return new Promise((resolve) =&gt; {
+    console.log(&quot;p3 executor&quot;);
+    setTimeout(resolve, 500, &quot;p3 data&quot;);
+  });
+}).then((res) =&gt; {
+  console.log(res);
+  return new Promise((resolve) =&gt; {
+    console.log(&quot;p4 executor&quot;);
+    setTimeout(resolve, 500, &quot;p4 data&quot;);
+  });
+}).then((res) =&gt; {
+  console.log(res);
+  return new Promise((resolve) =&gt; {
+    console.log(&quot;p5 executor&quot;);
+    setTimeout(resolve, 500, &quot;p5 data&quot;);
+  });
+})
+// 打印
+// p2 exetcuor (立即)
+// p2 data (500ms后)
+// p3 executor (500m后)
+// p3 data (1s后)
+// p4 executor (1s后)
+// p4 data (1.5s后)
+// p5 executor (1.5s后)</code></pre></li></ul><ul id="0d5269f0-19d2-4e8e-96bf-0e1e0089697d" class="bulleted-list"><li style="list-style-type:disc">在期约连锁的过程中，每次在<code>then()</code> 方法中都要创建新Promise对象，为此可以将生成期约的代码提取到一个工厂函数（<strong>factory function</strong>）中<pre id="c62c71c0-6996-41a8-a5f6-6f27c99374c1" class="code code-wrap"><code>/**
+ * @description 生成Promise的工厂函数
+ * @param {string} pStr 执行器打印字符串
+ * @param {string} pdata 当前期约的内部值
+ * @param {string} preData 上一个期约的内布置
+ * @returns
+ */
+function delayedResolve(pStr, pdata, preData = &quot;初始期约&quot;) {
+  console.log(preData);
+  return new Promise((resolve, _reject) =&gt; {
+    console.log(pStr);
+    setTimeout(resolve, 1000, pdata);
+  });
+}
+
+delayedResolve(&quot;p1 executor&quot;, &quot;p1 data&quot;)
+  .then((res) =&gt; delayedResolve(&quot;p2 executor&quot;, &quot;p2 data&quot;, res))
+  .then((res) =&gt; delayedResolve(&quot;p3 executor&quot;, &quot;p3 data&quot;, res))
+  .then((res) =&gt; delayedResolve(&quot;p4 executor&quot;, &quot;p4 data&quot;, res));
+// 打印
+// 初始期约 (立即)
+// p1 executor (立即)
+// p1 data (1s后)
+// p2 executor (1s后)
+// p2 data (2s后)
+// p3 executor (2s后)
+// p3 data (3s后)
+// p4 executor (3s后)</code></pre><ul id="3ab2e9e3-3b38-4ede-a7c0-4de59513b42e" class="bulleted-list"><li style="list-style-type:circle">每个后续的处理程序都会等待<strong>前一个</strong>（<strong>predecessor</strong>）Promise实例解决，然后实例化一个新的Promise对象并返回</li></ul><ul id="3cf38d34-7f2c-44ce-93d5-e5a4ace7d392" class="bulleted-list"><li style="list-style-type:circle">这种结构可以简洁地将异步任务串行化，解决了之前依赖回调（<strong>callbacks</strong>）的难题，如果使用回调上述代码可能如下<pre id="6233feba-2c16-49ef-9857-3e5f05b31aee" class="code code-wrap"><code>/**
+ * @description 回调的结构
+ * @param {string} pStr 表示正在执行的回调
+ * @param {string} pdata 当前回调获得的数据，这里直接传递，实际上是在回调内部通过异步操作获取的
+ * @param {Function} callback 下一个回调函数
+ * @param {string} preData 上一个回调产生的数据
+ */
+function delayedCallback(pStr, pdata, callback, preData = &quot;初始回调&quot;) {
+  console.log(preData);
+  console.log(pStr);
+  setTimeout(() =&gt; {
+    callback &amp;&amp; callback(pdata);
+  }, 1000);
+}
+
+delayedCallback(&quot;p1 callback&quot;, &quot;p1 data&quot;, (res) =&gt; {
+  delayedCallback(
+    &quot;p2 callback&quot;,
+    &quot;p2 data&quot;,
+    (res) =&gt; {
+      delayedCallback(
+        &quot;p3 callback&quot;,
+        &quot;p3 data&quot;,
+        (res) =&gt; {
+          delayedCallback(&quot;p4 callback&quot;, &quot;p4 data&quot;, null, res);
+        },
+        res
+      );
+    },
+    res
+  );
+});
+// 打印结果
+// 初始回调 (立即)
+// p1 callback (立即)
+// p1 data (1s后)
+// p2 callback (1s后)
+// p2 data (2s后)
+// p3 callback (2s后)
+// p3 data (3s后)
+// p4 callback (3s后)</code></pre><ul id="befa5970-a6de-4b70-9e4a-7a9a5a651850" class="bulleted-list"><li style="list-style-type:square">如果嵌套再多几层，就会出现很明显的<strong>回调地狱</strong>（<strong>callback hell</strong>）</li></ul></li></ul></li></ul><ul id="e3a5a2f3-d115-42a6-81e0-8a0de544fde6" class="bulleted-list"><li style="list-style-type:disc">Promise这种期约连锁的特性正好解决了以前的异步编程模式的回调地狱问题，因为<code>then()</code> 、<code>catch()</code> 、<code>finally()</code> 都返回期约，所以串联这些方法很<strong>直观</strong>（<strong>straightforward</strong>）<pre id="1e38d815-94c1-4369-856d-a7ee87795a02" class="code code-wrap"><code>let pa = new Promise((resovle, reject) =&gt; {
+  console.log(&quot;inital pa promise rejects&quot;);
+  setTimeout(() =&gt; {
+    reject(&quot;test&quot;);
+  }, 500);
+});
+pa.catch((reason) =&gt; {
+  console.log(&quot;捕获异步错误：&quot;, reason);
+  return &quot;默认数据&quot;;
+})
+  .then((res) =&gt; console.log(&quot;处理获取到的数据：&quot;, res))
+  .finally(() =&gt; console.log(&quot;一些拒绝和解决都有的冗余操作&quot;));
+// 打印结果
+// inital pa promise rejects
+// 捕获异步错误： test
+// 处理获取到的数据： 默认数据
+// 一些拒绝和解决都有的冗余操作</code></pre></li></ul><h2 id="e68a2296-1128-4fc4-b947-6e8f2d8a3d7f" class="">2.4.2 期约图（Promise Graphs）</h2><ul id="6366f3a3-5db4-4b1f-bf83-a94f4c7715fd" class="bulleted-list"><li style="list-style-type:disc">因为期约可以有任意多个处理程序，所以期约连锁可以构建<strong>有向非循环图（directed acyclic graphs）</strong><ul id="87eb4aac-227b-4749-942d-f7b83ca609b2" class="bulleted-list"><li style="list-style-type:circle">每个期约都是一个图中的一个<strong>节点</strong>（<strong>node</strong>）</li></ul><ul id="a363d2da-271b-4c21-a1f5-560b4ff96396" class="bulleted-list"><li style="list-style-type:circle">而使用实例方法（<code>then()</code> 等）添加的处理程序则是<strong>有向顶点</strong>（<strong>directed vertex</strong>）</li></ul><ul id="b728417e-a2c5-4dc9-a638-23dd4b0b3a57" class="bulleted-list"><li style="list-style-type:circle">图的方向就是期约的解决或拒绝顺序，因为图中的每个节点都会等待前一个节点落地</li></ul></li></ul><ul id="85e71f44-6c83-4399-9105-4fd6efb885d4" class="bulleted-list"><li style="list-style-type:disc">一个简单例子<pre id="9d2e3007-015c-42d1-91b6-b3a3055f30a0" class="code code-wrap"><code>let A = new Promise((resovle, reject) =&gt; {
+  console.log(&quot;A&quot;);
+  resovle();
+});
+
+let B = A.then(() =&gt; console.log(&quot;B&quot;));
+let C = A.then(() =&gt; console.log(&quot;C&quot;));
+
+B.then(() =&gt; console.log(&quot;D&quot;));
+B.then(() =&gt; console.log(&quot;E&quot;));
+C.then(() =&gt; console.log(&quot;F&quot;));
+C.then(() =&gt; console.log(&quot;G&quot;));
+// 打印
+A
+B
+C
+D
+E
+F
+G
+// 图
+//    A
+//   / \
+//  B   C
+// /\   /\
+// D E  F G</code></pre><ul id="d660048e-43f3-4509-a7b5-2a2ca801d3d3" class="bulleted-list"><li style="list-style-type:circle">日志的输出语句是对二叉树（<strong>binary tree</strong>）的<strong>层序遍历</strong>（<strong>level-order traversal</strong>）</li></ul><ul id="436996ee-033e-4f59-b54c-46447edb0e1f" class="bulleted-list"><li style="list-style-type:circle">期约的处理程序按照它们添加的顺序执行，由于期约的处理程序是<strong>先</strong>（<strong>eagerly</strong>）添加到消息队列，<strong>然后</strong>（<strong>lazily</strong>）才逐个执行，因此构成了层序遍历</li></ul></li></ul><ul id="3ea37002-d777-4af7-974f-01e3d63cc22a" class="bulleted-list"><li style="list-style-type:disc">树只是期约的<strong>一种表现形式</strong>（<strong>one manifestation of</strong>）。考虑到根节点不一定唯一，且多个Promise实例可以组合成一个期约（下一个小节介绍的Promise的静态方法），所以<strong>有向非循环图</strong>（<strong>directed acyclic graph</strong>）是体现期约连锁可能性的最准确的<strong>表达</strong>（<strong>characterization</strong>）</li></ul><h2 id="43918a86-9bff-49c9-b96b-17a45dd565e6" class="">2.4.3 Promise.all()和Promise.race() （Parallel Promise Composition with Promise.all() and Promise.race() ）</h2><p id="a27a5b7f-e0ee-44cd-b4f9-7d65c9983f54" class="">Parallel 表示“并行的，并联”，这里应该表示Promise的<strong>组合</strong>（<strong>Composition</strong>）方式应该是并联的，各个Promise实例并行平等</p><ul id="71efe3b5-1803-4977-9e9e-0f9bfc29c5c9" class="bulleted-list"><li style="list-style-type:disc"><code>Promise</code>类提供两个将多个Promise实例组合成一个Promise期约的静态方法：<code>Promise.all()</code> 和<code>Promise.race()</code> </li></ul><ul id="91fd983b-26ab-472b-84b8-ce44afeb2bb8" class="bulleted-list"><li style="list-style-type:disc">而后<strong>合成promise</strong>（<strong>composed promise</strong>）的行为取决于内部期约的行为</li></ul><h3 id="3b1829ad-27db-49b0-90bb-b4bd4bedca5e" class="">2.4.3.1 Promise.all()</h3><ul id="d95b5933-a702-477b-8c79-f4197cc18c77" class="bulleted-list"><li style="list-style-type:disc">Promise.all()静态方法创建<code>Promise</code> <strong>会在一组期约全部解决之后再解决</strong>，这个静态方法接受一个可迭代对象，返回一个<strong>要么全有要么全无的（all-or-nothing）</strong>新期约<pre id="b3ae7cd9-8fc3-4d17-9391-dc412a95a676" class="code"><code>let p1 = Promise.all([Promise.resolve(), Promise.resolve()]);
+console.log(p1);
+setTimeout(console.log, 0, p1)
+// 可迭代元素可以不是期约
+// 但是它会作为期约的内部值传递给Promise.resolve()转换为期约
+let p2 = Promise.all([1, 2]);
+console.log(p2);
+setTimeout(console.log, 0, p2)
+
+// 空的可迭代对象等价于Promise.resolve()
+let p3 = Promise.all([]);
+console.log(p3);
+setTimeout(console.log, 0, p3)
+// 必须给Promise.all传递一个可迭代对象，否则会报错
+let p4 = Promise.all();
+// 打印结果
+Promise {&lt;pending&gt;}
+Promise {&lt;pending&gt;}
+Promise {&lt;fulfilled&gt;: Array(0)}
+Promise {&lt;fulfilled&gt;: Array(2)}
+Promise {&lt;fulfilled&gt;: Array(2)}
+Promise {&lt;fulfilled&gt;: Array(0)}
+Uncaught (in promise) TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+    at Function.all (&lt;anonymous&gt;)
+    at &lt;anonymous&gt;:12:18</code></pre><ul id="0be48ebc-afd5-4a13-91c6-e0a81733f17d" class="bulleted-list"><li style="list-style-type:circle">注意看打印结果，<code>p1</code> 和 <code>p2</code> 立即打印都是<strong><em>Pending&lt;</em></strong><strong>等待</strong><strong><em>&gt;</em></strong><strong>状态</strong>，而<code>p3</code> 立即打印就是<strong><em>filfilled</em></strong>&lt;<strong>兑现</strong>&gt;状态，虽然<code>p1</code> 和<code>p2</code> 组成的期约都是通过<code>Promise.resolve()</code> 直接生成的，但是等待它们都被解决仍然需要“时间”，所以立即（同步）打印自然是等待状态。而<code>p3</code> 则是因为<code>Promise.all([])</code> 等价于<code>Promise.resolve()</code> ，直接创建了一个处于<strong><em>filfilled</em></strong>&lt;<strong>兑现</strong>&gt;状态的promise，所以立即打印的状态就是兑现状态</li></ul><ul id="d0858b71-f059-4423-a0d0-31e4060f73ef" class="bulleted-list"><li style="list-style-type:circle">给<code>Promise.all()</code> 不传递任何参数会抛出<code>TypeError</code> ，但是这个<code>TypeError</code> 不能使用外部的<code>try/catch</code> 语句捕获到，因为它属于Promise内部抛出的异步错误，能通过对应的拒绝处理程序捕获到错误，其中<code>p4</code> 的内部值就是错误对象，如下<pre id="8ac6fd97-6e5b-451b-9acf-423e6b0c131a" class="code code-wrap"><code>let p4 = Promise.all();
+p4.catch((reason) =&gt; {
+  console.log(reason.toString());
+})
+// TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))</code></pre></li></ul></li></ul><ul id="d93a113d-0c87-44e5-a256-4f340086838b" class="bulleted-list"><li style="list-style-type:disc">因为合成的期约(<strong>composed promise</strong>)只会在每个<strong>包含的promises</strong>(<strong>contained promises</strong>)都解决后才解决，所以合成期约的等待时间往往是包含的promises中最后一个的解决的时间<pre id="490f5dd7-63db-4395-9639-7e1a7f352fb1" class="code code-wrap"><code>// 合成的期约等待的时间是包含的最后一个期约的解决时间
+let pa = Promise.all([
+  new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      console.log(&quot;1: resolved&quot;);
+      resolve();
+    }, 589);
+  }),
+  new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      console.log(&quot;2: resolved&quot;);
+      resolve();
+    }, 345);
+  }),
+  new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      console.log(&quot;3: resolved&quot;);
+      resolve();
+    }, 456);
+  }),
+  new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      console.log(&quot;4: resolved&quot;);
+      resolve();
+    }, 590);
+  }),
+  new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      console.log(&quot;5: resolved&quot;);
+      resolve();
+    }, 589);
+  }),
+]);
+pa.then(() =&gt; {
+  console.log(&quot;pa: resolved&quot;);
+});
+// 打印
+// 2: resolved (345ms后)
+// 3: resolved (456ms后)
+// 1: resolved (589ms后)
+// 5: resolved (589ms后)
+// 4: resolved (590ms后)
+// pa: resolved (590ms后)</code></pre><ul id="83b5a171-d6be-4e1a-8243-ebbf6ee6430c" class="bulleted-list"><li style="list-style-type:circle"><code>Promise.all()</code> 的参数（可迭代对象）的第四个元素最后解决，所以合成的参数的解决时间“紧随其后”（立即）</li></ul></li></ul><ul id="dfa3f04a-e1b8-4986-95cd-d18f6a4ce2cc" class="bulleted-list"><li style="list-style-type:disc">如果至少有一个包含的promises(<strong>contained promises</strong>)待定，则合成的promise也会待定；如果有一个包含的promise拒绝，那么合成的promise也会拒绝<pre id="4fe9cc5c-6688-4871-a4a5-5b6bfe4af55c" class="code code-wrap"><code>let p_pending = Promise.all([Promise.resolve(&quot;k&quot;), new Promise(() =&gt; {})]);
+setTimeout(() =&gt; {
+  console.log(p_pending);
+}, 0);
+// 打印 Promise {&lt;pending&gt;}</code></pre><ul id="0d9e049f-65f7-4f2c-8087-d42fc1297a4c" class="bulleted-list"><li style="list-style-type:circle">虽然可迭代对象的第一个元素本身处于兑现状态，但是第二个元素永远不会被解决，所以合成参数不会被解决</li></ul><ul id="90000648-04d2-4f1a-9c60-aefbfc2c2d29" class="bulleted-list"><li style="list-style-type:circle">同时需要注意合成参数的内部值在等待期间一直是<code>undefined</code></li></ul><pre id="17d4a548-3212-42b6-9ee3-7fb7e20f54c2" class="code code-wrap"><code>// 一个拒绝的期约会导致合成期约处于拒绝状态
+let p_reject = Promise.all([
+  new Promise((_resolve, reject) =&gt;
+    setTimeout(
+      (reason) =&gt; {
+        console.log(&quot;1: rejected&quot;);
+        reject(reason);
+      },
+      1001,
+      &quot;reason1&quot;
+    )
+  ),
+  Promise.resolve(&quot;resolve&quot;),
+  Promise.resolve(&quot;resolve&quot;),
+  new Promise((_resolve, reject) =&gt;
+    setTimeout(
+      (reason) =&gt; {
+        console.log(&quot;4: rejected&quot;);
+        reject(reason);
+      },
+      1000,
+      &quot;reason4&quot;
+    )
+  ),
+  new Promise((_resolve, reject) =&gt;
+    setTimeout(
+      (reason) =&gt; {
+        console.log(&quot;5: rejected&quot;);
+        reject(reason);
+      },
+      1000,
+      &quot;reason5&quot;
+    )
+  ),
+]);
+
+p_reject.catch((reason) =&gt; {
+  console.log(reason);
+});
+setTimeout(() =&gt; {
+  console.log(p_reject);
+}, 1000);
+// 打印结果
+// 4: rejected (1000ms后)
+// reason4 (1000ms后)
+// 5: rejected (1000ms后)
+// Promise {&lt;rejected&gt;: &#x27;reason4&#x27;} (1000ms后)
+// 1: rejected (1001ms后)</code></pre><ul id="5156af17-42b4-4af5-832d-46de2ef338ff" class="bulleted-list"><li style="list-style-type:circle">需要注意的是合成的promise和包含的promises之间是<strong>相互独立</strong>的，合成的promise拒绝了 并不影响它包含的promise落定自己的状态，这一点在打印除了合成状态后，第一个元素在1ms后立即进入拒绝状态有关</li></ul><ul id="3504bbf2-6674-4901-8784-b62b629199b8" class="bulleted-list"><li style="list-style-type:circle">合成的promise<em>会</em><strong>静默(</strong><em><strong>will</strong></em><strong> silently handle)</strong>处理所有包含的promises的落地拒绝状态抛出的异步错误；也就是说，第五个元素和第一个元素的promise落地拒绝状态后它们抛出的异步错误，会因为合成的promise在落地拒绝状态时（虽然拒绝理由是第四个元素的拒绝理由），在对应的合成promise的拒绝处理程序捕获而被静默处理</li></ul><ul id="f320c4be-aedb-472e-9746-b6da547d707a" class="bulleted-list"><li style="list-style-type:circle">除此之外，合成的promise拒绝的理由是它包含的promises中第一个拒绝的promise的拒绝理由，虽然第四个元素和第五个元素都在1000ms时落定拒绝状态，在时间相同的情况下，就按照可迭代对象的元素顺序决定合成promise的拒绝理由，即选择第四个元素的拒绝理由作为合成promise的拒绝理由</li></ul></li></ul><ul id="d087b956-24af-4278-ae0e-229f9ab7fa7e" class="bulleted-list"><li style="list-style-type:disc">如果所有promises都成功解决，则合成promise在落定解决状态后的内部值就是<strong>包含所有promises解决值的数组</strong>，按照迭代器顺序<pre id="c973000e-4ebf-46c9-8c48-fdbac2cea3b7" class="code code-wrap"><code>// 合成的期约的内部值
+let p_resolved = Promise.all([
+  Promise.resolve(5),
+  Promise.resolve(),
+  Promise.resolve(1),
+]);
+p_resolved.then((res) =&gt; {
+  console.log(&quot;内部值：&quot;, res);
+}); // [5, undefined, 1]</code></pre></li></ul><h3 id="a87bbbf7-21ff-419a-9ed9-b1f1830b3d4b" class="">2.4.3.2 Promise.race()</h3><ul id="c4c92950-0a6c-43d8-8537-7d4249fbeebd" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.race()</code>静态方法返回一个包装期约，它是一组集合中最先解决或拒绝的promise的<strong>镜像（mirror），</strong>这个方法接收一个可迭代对象，返回一个新promise；它与<code>Promise.all()</code> 最大的区别是，它是”<strong>first-of-all</strong>”（<strong>第一个落地状态的promise镜像</strong>） 而<code>Promise.all()</code> 是（<strong>all-or-nothing）（要么全有要么全无的&lt;对于成为兑现状态而言&gt;）</strong><pre id="5f9202a1-fc58-4677-be76-15b74797f5db" class="code code-wrap"><code>// Promise.race() 返回一组包含的期约中最先落地状态的期约的镜像期约
+let promises = [Promise.resolve(1), Promise.resolve(2), Promise.reject(&quot;reason&quot;)];
+let p1 = Promise.race(promises);
+
+setTimeout(() =&gt; {
+  console.log(p1); // Promise {&lt;fulfilled&gt;: 1}
+  console.log(p1 === promises[0]); // false
+}, 0);</code></pre><ul id="cf13c12a-06c3-499a-b54f-f77a2b069673" class="bulleted-list"><li style="list-style-type:circle">通过打印可以发现，如果有多个“最先”解决或拒绝的包含的promise，就会按照可迭代对象的顺序选择第一个，所以包装期约的内部值是参数的第一个元素的内部值，二者的状态和值完全相同，但是不是同一个promise，所以称为<strong>镜像（mirror）</strong></li></ul><ul id="74b2e11f-5003-4511-885f-f6cb35c4e66d" class="bulleted-list"><li style="list-style-type:circle">和<code>Promise.all()</code> 相似的行为是，合成的promise生成后，它会静默其它包含的promises中的拒绝promise</li></ul></li></ul><ul id="783a9c4c-81ec-468b-ba1c-086b8c5b0176" class="bulleted-list"><li style="list-style-type:disc">关于<code>race()</code> 接收参数的行为也与<code>Promise.all()</code> 类似，以下以可迭代对象代指参数<ul id="0bad1af2-a4f5-4f9f-9cb6-781bb4df23d6" class="bulleted-list"><li style="list-style-type:circle">如果可迭代对象中的元素不是promise，会通过<code>Promise.resolve()</code> 转化为promise</li></ul><ul id="34497657-3151-449b-b154-dc73b529a9d5" class="bulleted-list"><li style="list-style-type:circle">空的可迭代对象等价于<code>new Promise(() =&gt; {})</code> </li></ul><ul id="35940d19-cf75-4065-9423-4c478c90700a" class="bulleted-list"><li style="list-style-type:circle">不传递参数会抛出异步错误，且这个错误不能被<code>try/catch</code> 捕获，可以使用<code>Promise.prototype.catch()</code> 进行捕获<pre id="afd3b996-c037-451a-931a-63841618810b" class="code code-wrap"><code>// 参数
+let p2 = Promise.race([5, 3, 4]);
+p2.then((res) =&gt; {
+  console.log(res); // 5
+});
+
+let p3 = Promise.race([]);
+setTimeout(() =&gt; {
+  console.log(p3); // 
+}, 0);
+
+let p4 = Promise.race();
+p4.catch((reason) =&gt; {
+  console.log(reason.toString());
+});
+// 打印结果
+// TypeError: undefined is not iterable (cannot read property Symbol(Symbol.iterator))
+// 5
+// Promise {&lt;pending&gt;}</code></pre></li></ul></li></ul><ul id="1a3e5ac3-56f3-4885-a5e3-930a245aedeb" class="bulleted-list"><li style="list-style-type:disc"><code>Promise.race()</code> 不会对解决或拒绝的promise区别对待，无论是解决还是拒绝，只要是第一个落定的promise，它就会成为Promise.race()生成的新期约的蓝本<ul id="16804c4b-0d1e-4928-a2f5-c4a5003f30cb" class="bulleted-list"><li style="list-style-type:circle">解决先发生，超时后的拒绝和解决被忽略</li></ul><ul id="bdd6c3a5-4dd1-40fa-9d42-7bad5ffb274b" class="bulleted-list"><li style="list-style-type:circle">拒绝先发送，超时后的解决和拒绝被忽略</li></ul><ul id="5008f4b7-843b-45c2-b025-b5c160d85620" class="bulleted-list"><li style="list-style-type:circle">迭代顺序决定了落定的顺序</li></ul><ul id="7252fa33-7b1d-4703-92a5-b27956a511d9" class="bulleted-list"><li style="list-style-type:circle"><strong>合成</strong>（<strong>composed</strong>）的期约<em><strong>会</strong></em><strong>静默</strong>处理<strong>（</strong><em><strong>will</strong></em><strong> silently </strong>handle<strong>）</strong>所有<strong>包含</strong>（<strong>contained</strong>）期约的拒绝操作</li></ul></li></ul><h2 id="87a31ff9-2c1e-4bda-bd44-c4024236961a" class="">2.4.3 串行期约合成（Serial Promise Composition）</h2><p id="ba46c9c8-06f6-4c69-b94c-66bdac61c832" class="">上面的两个<code>Promise</code> 的静态合成方法都是<strong>并行的期约合成（Parallel Promise Composition），</strong>而在讨论<strong>期约连锁（Promise Chaining）</strong>时一直围绕期约的串行执行，并且期约还有另外一个特性：<strong>异步（asynchronously）产生值并将其传递给处理程序</strong></p><hr id="f14e00c0-7ae2-4fe1-b9c7-2a9e65816603"/><ul id="1687b03c-6aee-40f7-8a68-1931231b82e2" class="bulleted-list"><li style="list-style-type:disc">基于后续期约使用之前期约(<strong>predecessor</strong>)的返回值来串联期约是期约的基本功能,这很像<strong>函数合成（function composition）,</strong>即将多个个函数合成为一个函数<pre id="ea932296-b5aa-4dfb-9c09-314fa54f7301" class="code code-wrap"><code>// 后续期约使用之前的期约的返回值来串联期约很像函数合成
+function addTwo(x) {
+  return x + 2;
+}
+function addThree(x) {
+  return x + 3;
+}
+function addFive(x) {
+  return x + 5;
+}
+
+// 合成函数
+function addTen(x) {
+  return addFive(addTwo(addThree(x)));
+}
+console.log(addTen(7)); // 17</code></pre><ul id="9a5a4e68-1a1b-4ea9-8488-11f64175f679" class="bulleted-list"><li style="list-style-type:circle">在这个例子中，有三个函数基于一个值合成为一个函数（尽管这样看起来很傻，但当三个函数功能都十分复杂时，这种合成函数的作用就很大了）</li></ul></li></ul><ul id="b7340f52-c9ee-4a7d-b812-141a4be62577" class="bulleted-list"><li style="list-style-type:disc">类似于函数合成，期约也可也这样合成起来用，渐进地消费一个值，并返回一个结果<pre id="39795d4d-82b8-488a-88c7-c7cf79e785c2" class="code code-wrap"><code>// 转化为期约形式，假设每个函数都是复杂的操作
+function addTen(x) {
+  return Promise.resolve(x).then(addTwo).then(addThree).then(addFive);
+}
+
+addTen(8).then(console.log); // 18</code></pre><ul id="2f173e97-174b-4263-b805-0604449b517e" class="bulleted-list"><li style="list-style-type:circle">这种将promise的处理程序分离为多个函数作为多个<code>then()</code> 的参数以达到成功处理期约内部值的模式利用到了期约连锁的特性，这就是一种串行的期约合成</li></ul></li></ul><ul id="b4415f8f-0601-4ec2-9fe2-23682a819be6" class="bulleted-list"><li style="list-style-type:disc">如果处理程序函数过多，导致合成的函数也有一条很长的代码，可以利用<code>Array.pototype.reduce()</code> 高阶函数提炼出一个通用函数，把任意多个函数作为处理程序合成一个连续传值的期约连锁，如下<pre id="de5a3a94-b797-437f-bb97-e5df245c6a32" class="code code-wrap"><code>// 通用函数，合成函数时使用reduce()高阶函数生成一个串联的函数
+function compose(...fns) {
+  return (x) =&gt;
+    fns.reduce((promise, fn) =&gt; promise.then(fn), Promise.resolve(x));
+}
+
+let addFifteen = compose(addFive, addTwo, addThree, addFive);
+addFifteen(45).then(console.log); // 60</code></pre></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="53515ba0-fc2b-481c-9260-cf813b4d61c2"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：在讨论异步函数时还会出现这个串行期约合成的概念</div></figure><h1 id="82474ab2-0f12-4cf4-b2e2-217206868ad9" class="">2.5 期约扩展（Promise Extensions）</h1><p id="eaa4c0f5-7926-4881-aeaa-77a83a11746d" class="">上述基本上就是ECMAScript6参考Promises/A+规范实现的期约的大部分特性，但是它也有<strong>不足之处：</strong><div class="indented"><p id="1822f183-4043-4b81-8f70-765baea44660" class=""><strong>期约取消</strong>（<strong>promise canceling</strong>）</p><p id="ff18667b-148e-40e8-aef1-5fe230c726ad" class=""><strong>进度追踪</strong>（<strong>progress tracking</strong>）</p></div></p><p id="3fbf617c-9626-4798-aad7-7e1c0aa57cc1" class="">这些在很多第三方期约库实现中具备而ECMAScript 6 规范未涉及的两个特性就是<strong>期约的扩展特性（Promise Extensions）</strong></p><h2 id="936dd2b7-0e46-4fc0-ba08-afa3c9273c6c" class="">2.5.1 期约取消（Promise Canceling）</h2><ul id="bd24a7e5-b74b-4e67-bb29-ae7702641edf" class="bulleted-list"><li style="list-style-type:disc">在一些场景下， promise还在<strong>进度</strong>（<strong>progress</strong>）中，<strong>程序</strong>（<strong>program</strong>）就不关心这个promise的结果了，这个时候能“<strong>取消</strong>（<strong>cancel</strong>）”promise就好了<ul id="83312c13-b966-4333-9438-68187881cbaa" class="bulleted-list"><li style="list-style-type:circle">一些第三方库就提供了这种期约的扩展功能，如Bluebird</li></ul><ul id="74742b6a-b0b7-414f-bddf-74fdf11ed146" class="bulleted-list"><li style="list-style-type:circle">实际上TC39委员会也曾准备在ES6的期约中增加这个特性，但是相<a href="https://github.com/tc39/proposal-cancelable-promises">提案</a>被<strong>撤回</strong>（<strong>withdrawn</strong>）了</li></ul><ul id="509ee5a0-73f9-40a8-a7ca-7ca4f6d09d79" class="bulleted-list"><li style="list-style-type:circle">这就导致ES6的期约的<strong>封装函数</strong>（<strong>encapsulated function</strong>）开始执行，就没办法阻止它执行到完成，这使得期约很“<strong>激进</strong>（<strong>eager</strong>）”</li></ul></li></ul><ul id="94001bae-bdfb-47d3-8f3d-d3fea09e0860" class="bulleted-list"><li style="list-style-type:disc">要实现期约取消功能，可以在现有的ECMAScript 6 的期约基础上提供<strong>一种临时性的封装</strong>（<strong>an ad-hoc implementation</strong>）<ul id="a70bb28d-87ca-41ed-ac73-7effabf5e587" class="bulleted-list"><li style="list-style-type:circle">Kevin Smith<strong>设计</strong>的”<strong>取消令牌</strong>（<strong>cancel token， </strong><a href="https://github.com/zenparsing/es-cancel-token">github地址</a>）”<strong>草图</strong>（<strong>design sketch</strong>）能实现这种功能</li></ul><ul id="9083a04d-7343-44a1-a265-fd52bb35ef26" class="bulleted-list"><li style="list-style-type:circle">生成的<strong>取消令牌实例（cancel token）</strong>提供一个接口，利用这个接口可以取消期约</li></ul><ul id="ae8b8a3b-020d-47f5-88a6-1008b623a193" class="bulleted-list"><li style="list-style-type:circle">同时提供一个期约的实例，可以用来触发取消（<strong>tigger cancellation</strong>）后的操作并求值取消状态<pre id="f3f658b2-5b11-4e7c-a700-30b0eb2765d6" class="code code-wrap"><code>// 取消令牌
+class CancelToken {
+  constructor(cancelFn) {
+    this.promise = new Promise((resolve, reject) =&gt; {
+      cancelFn(resolve);
+    });
+  }
+}</code></pre><ul id="340442bb-3bea-4df4-a2bd-a498ecd059c1" class="bulleted-list"><li style="list-style-type:square">这个类包装了一个期约，把解决方法暴露给了<code>cancelFn</code>参数，这样<strong>外部代码</strong>（<strong>external entity</strong>）就可以向构造函数中传入一个函数，从而控制什么情况下可以取消期约</li></ul><ul id="8ed37ced-c6bf-434b-a17f-7d0b78afc41f" class="bulleted-list"><li style="list-style-type:square">这里的期约是令牌类的公共成员，因此可以给它添加<strong>监听处理程序</strong>（<strong>listeners</strong>）以取消期约</li></ul></li></ul></li></ul><ul id="094449c9-b0bd-4933-af07-a3d15acc74aa" class="bulleted-list"><li style="list-style-type:disc">一个使用取消令牌的思想的例子<pre id="84432325-f4ba-49b7-9bed-b1c2f8de6eac" class="code code-wrap"><code>class CancelToken {
+  static {
+    this.id = 0;
+  }
+  constructor(cancelFn) {
+    this.id = CancelToken.id++;
+    this.promise = new Promise((resolve, reject) =&gt; {
+      cancelFn(() =&gt; {
+        setTimeout(console.log, 0, &quot;delay cancelled&quot;);
+        resolve();
+      });
+    });
+  }
+}
+
+const startBtn = document.querySelector(&quot;#start&quot;);
+const cancelBtn = document.querySelector(&quot;#cancel&quot;);
+
+function cancellableDelayedResolved(delay) {
+  setTimeout(() =&gt; console.log(&quot;set delay&quot;), 0);
+  return new Promise((resolve, reject) =&gt; {
+    const id = setTimeout(() =&gt; {
+      setTimeout(console.log, 0, &quot;delayed resolved&quot;);
+      resolve();
+      cancelBtn.removeEventListener(&quot;click&quot;, listener);
+    }, delay);
+    let listener = null;
+    const cancelToken = new CancelToken((cancelCallback) =&gt; {
+      listener = () =&gt; {
+        console.log(cancelToken.id);
+        cancelCallback();
+        cancelRequest();
+      };
+      cancelBtn.addEventListener(&quot;click&quot;, listener);
+    });
+    cancelToken.promise.then(() =&gt; {
+      clearTimeout(id);
+      // 移除当前的事件处理程序
+      cancelBtn.removeEventListener(&quot;click&quot;, listener);
+    });
+  });
+}
+
+startBtn.addEventListener(&quot;click&quot;, () =&gt;
+  cancellableDelayedResolved(1000)
+);</code></pre><ul id="f8c38b2f-0ed2-44a2-a40c-3c144e24b7af" class="bulleted-list"><li style="list-style-type:circle">最重要的两部分代码是黄色背景的代码，第一段黄色背景的代码<code>CancelToken</code>实例声明后就会立即将构造函数传递进来的回调函数执行，执行时将resolve配合函数参数作为对象传递，让外部代码可以获取到resolve决定何时执行以取消其它的promise</li></ul><ul id="ef04feb2-e0df-4aa0-adc1-e11c3dbe6c54" class="bulleted-list"><li style="list-style-type:circle">第二段黄色背景的代码就是在进行一次Promise请求时创建它对应的取消令牌，这里很高级的是，<code>cancelCallback</code> 参数实际上就是创建过程中<code>CancelToken</code> 传递出来的包含<code>resolve</code>的取消函数对象，在这里取消promise的条件是点击一个按钮，所以会声明一个点击事件处理程序用于监听按钮的点击，而这个事件处理程序就会执行<code>cancelCallback</code> ，即执行<code>resolve</code> 直接将<code>CancelToken</code> 实例的promise完成（取消确定），后续<code>CancelToken</code> 实例将当前Promise请求中的异步操作清除即可（这里使用<code>clearTimeout</code>）</li></ul><ul id="44850318-6026-46a3-96df-2bef8c11a8d2" class="bulleted-list"><li style="list-style-type:circle">注意在取消Promise和完成Promise都需要将取消按钮关联的<mark class="highlight-yellow_background"><strong>listener</strong></mark>解绑，因为<code><mark class="highlight-yellow_background"><strong>addEventListener</strong></mark></code>的监听的事件处理程序是独立叠加的，防止下一次取消时执行上一次监听的事件处理程序（否则会多次调用不同的<code>CancelToken</code> 实例的promise中的resolve，打印出多个<mark class="highlight-yellow_background"><strong>&quot;delay cancelled&quot;</strong></mark>）</li></ul><ul id="17c3218c-6574-4ec6-ba45-3a7819d56163" class="bulleted-list"><li style="list-style-type:circle">完整代码在<a href="https://github.com/mangwu/javascript/blob/master/ProfessionalJavaScriptForWebDeveloper4/ch11%20-%20Promise%20And%20Async%20Functions/11.2%20Promise/11.2.5%20Promise%20Extensions/11.2.5.1%20Promise%20Canceling.js">GitHub</a>上，效果如下<figure id="b3dd349c-eea3-4035-b1e8-ddfaeecf3776" class="image"><a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/Promise_Cancelling.gif"><img style="width:776px" src="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/Promise_Cancelling.gif"/></a></figure></li></ul></li></ul><ul id="b7818f36-a09e-4552-8605-380fdfd85951" class="bulleted-list"><li style="list-style-type:disc">实际上，取消期约的本质就是终止期约在执行过程中的异步操作，而上述的取消令牌方法就是利用期约的<code>resolve()</code> 处理程序，让另外一个<code>Promise</code>实例感知程序是否需要终止进行中的期约，如果需要，就让另一个<code>Promise</code> 实例进入兑现状态（确定取消），执行对应的解决处理程序，将期约的异步操作终止（例子中是使用<code>clearTimeout</code> 函数进行模拟）</li></ul><h2 id="744f8478-b926-4c5e-9361-190dee459411" class="">2.5.2 期约进度通知（Promise Progress Notifications）</h2><ul id="dc27def1-de89-488c-b766-b212a6140cfd" class="bulleted-list"><li style="list-style-type:disc"><strong>执行中</strong>（<strong>in-progress</strong>）的期约可能会有不少的<strong>离散</strong>（<strong>discrete</strong>）的“阶段”，在最终解决之前必须依次经过，某些情况下<strong>监控</strong>（<strong>watch for</strong>）期约的<strong>执行进度</strong>（<strong>checkpoints</strong>）会很有用，这种监控期约的执行进度的特性叫做<strong>进度追踪</strong>（<strong>progress tracking</strong>）<ul id="d0f7ef33-434d-49fe-836a-9458b51268c6" class="bulleted-list"><li style="list-style-type:circle">ECMAScript 6 期约并不支持<strong>进度追踪</strong>（<strong>progress tracking</strong>）</li></ul><ul id="297c3148-398b-4b43-807e-23228413ba37" class="bulleted-list"><li style="list-style-type:circle">但是可以通过<strong>扩展</strong>（<strong>extends</strong>）来实现</li></ul></li></ul><ul id="7b08d8e3-44a9-4640-8f76-97bbed4d8873" class="bulleted-list"><li style="list-style-type:disc">一种实现方式是<strong>扩展</strong>（<strong>extends</strong>）<code>Promise</code>类，为它的子类添加<code>notify()</code> 方法<pre id="57053f27-6516-4bf7-b471-1a12a9bd83cd" class="code code-wrap"><code>// 进度跟踪
+class TrackablePromise extends Promise {
+  constructor(executor) {
+    const notifyHandlers = [];
+    super((resolve, reject) =&gt; {
+      return executor(resolve, reject, (status) =&gt; {
+        notifyHandlers.map((handler) =&gt; handler(status));
+      });
+    });
+    this.notifyHandlers = notifyHandlers;
+  }
+  notify(notifyHandler) {
+    this.notifyHandlers.push(notifyHandler);
+    return this;
+  }
+}</code></pre><ul id="f71d09fc-d427-43dc-a2f5-5498d17040c2" class="bulleted-list"><li style="list-style-type:circle">首先这个<code>TrackablePromise</code> 的构造函数会创建了一个<code>notifyHandlers</code> 数组，这个数组用于保存在追踪过程中的追踪处理程序（即要追踪的Promise）</li></ul><ul id="9a3a183a-a493-45dd-b772-ea5f0c063776" class="bulleted-list"><li style="list-style-type:circle">然后调用<code>super()</code> 以继承<code>Promise</code> 的特性，调用<code>super()</code> 需要传递父类的<code>executor</code> 执行器，但是至少简单的讲子类的<code>executor</code> 传递过去就达不到扩展的效果，需要在<code>executor</code>中增加额外的<strong>追踪参数函数</strong>，使用箭头函数包装一下再传递给执行函数原始的<code>resolve</code> 和<code>reject</code> ，然后在子类的<code>executor</code> 执行器中添加额外的<code>notify</code> 函数，这个函数用于在实例化Promise编写执行器函数时使用，用于设置在何时调用<code>notify</code> 以记录当前<code>Promise</code>进度</li></ul><ul id="c5152dfa-bed3-4ab7-b861-aab4ba35be15" class="bulleted-list"><li style="list-style-type:circle">因为初始时<code>notifyHandlers</code> 是空数组，如果不添加然后追踪处理程序的函数对象，执行上述的<code>notify</code> 也没有效果，所以需要在<code>TrackablePromise</code> 上添加一个原型方法用于在<code>notifyHandlers</code> 上添加追踪处理程序（《JavaScript高级程序设计（第4版）》中将这个原型方法也定义成了<code>notify</code> ，所以可能不好理解）</li></ul></li></ul><ul id="05958313-1804-4bc2-a3fd-c900f62182d4" class="bulleted-list"><li style="list-style-type:disc">使用上述定义的<code>TrackablePromise</code>  <pre id="333a8cd9-1ffe-4e63-a554-a9f46e1fcdb7" class="code code-wrap"><code>let p = new TrackablePromise((resolve, reject, notify) =&gt; {
+  function countDown(x) {
+    if (x &gt; 0) {
+      notify(`${20 * x} % remainin`);
+      setTimeout(() =&gt; countDown(x - 1), 1000);
+    } else {
+      resolve();
+    }
+  }
+  countDown(5);
+});
+// 没有任何打印</code></pre><ul id="66475a3c-0815-41aa-ab08-48415025eb38" class="bulleted-list"><li style="list-style-type:circle">期约<code>p</code> 会连续5次<strong>递归</strong>(<strong>recursively</strong>)的设置1000毫秒的<strong>超时</strong>（<strong>timeout</strong>）</li></ul><ul id="3a5ab936-f0fb-4f29-8afd-e260da5e68f3" class="bulleted-list"><li style="list-style-type:circle">每个超时都会调用<code>notify()</code> 并传入状态值，注意这里的<code>notify()</code> 是在<code>executor</code> 上额外增加的一个函数对象，用于遍历执行<code>notifyHandlers</code> 数组上的每个追踪处理程序</li></ul><ul id="63c22a8b-7b85-433e-8504-45f638faeea0" class="bulleted-list"><li style="list-style-type:circle"><code>notifyHandlers</code> 初始为空数组，因为没有使用<code>notify(notifyHandler)</code> （原型方法）增加追踪处理程序，所以没有任何打印</li></ul></li></ul><ul id="5092f5da-4277-408f-8447-ffe52563046d" class="bulleted-list"><li style="list-style-type:disc">使用原型方法增加追踪处理程序，以记录期约执行时的日志<pre id="a1fe7b37-d9b1-4603-98d2-35272e0d5795" class="code code-wrap"><code>let p1 = new TrackablePromise((resolve, reject, notify) =&gt; {
+  function countDown(x) {
+    if (x &gt; 0) {
+      notify(`${20 * x} % remaining`);
+      setTimeout(() =&gt; countDown(x - 1), 1000);
+    } else {
+			notify(`p1 promise resolved`);
+      resolve();
+    }
+  }
+  countDown(5);
+});
+
+p1.notify((x) =&gt; setTimeout(console.log, 0, &quot;progress:&quot;, x));
+// 打印
+// progress: 80 % remaining (1s 后)
+// progress: 60 % remaining (2s 后)
+// progress: 40 % remaining (3s 后)
+// progress: 20 % remaining (4s 后) 
+// progress: p1 promise resolved (5s 后)</code></pre><ul id="1f8d3012-c6e4-4023-95cc-ac54291c3c08" class="bulleted-list"><li style="list-style-type:circle">注意这里<strong>没有</strong>”100 % remaining” 相关提示，因为在执行<code>countDoun(5)</code> ，<code>notify()</code> 函数执行时，<code>notifyHandlers</code> 还是空（执行器是同步执行的，所以后面执行的<code>p1.notify()</code> 晚于<code>countDown(5)</code>） ，之后才添加通过原型方法添加上一个<code>notifyHandler</code> ,所以才有记录</li></ul></li></ul><ul id="d36ddb34-f650-4738-8eaf-9e59890d9f01" class="bulleted-list"><li style="list-style-type:disc"><code>notify()</code> (原型)函数可以返回期约，所以可以连缀调用，连续添加处理程序，多个处理程序会针对的每条消息分别执行一遍<pre id="c1584d55-1872-4367-b9fb-b19e5625f9be" class="code code-wrap"><code>let p1 = new TrackablePromise((resolve, reject, notify) =&gt; {
+  function countDown(x) {
+    if (x &gt; 0) {
+      notify(x);
+      setTimeout(() =&gt; countDown(x - 1), 1000);
+    } else {
+      console.log(`p1 promise resolved`);
+      resolve();
+    }
+  }
+  countDown(5);
+});
+
+p1.notify((x) =&gt; setTimeout(console.log, 0, `progress: ${x * 20}% remaining`, ));
+p1.notify((x) =&gt; setTimeout(console.log, 0, `${x} seconds later, the execution is complete`));
+// 打印结果
+// progress: 80% remaining (1s 后)
+// 4 seconds later, the execution is complete (1s 后)
+// progress: 60% remaining (2s 后)
+// 3 seconds later, the execution is complete (2s 后)
+// progress: 40% remaining (3s 后)
+// 2 seconds later, the execution is complete (3s 后)
+// progress: 20% remaining (4s 后)
+// 1 seconds later, the execution is complete (4s 后)
+// p1 promise resolved (5s 后)</code></pre><ul id="427ab523-631a-4b7c-a853-9b2b82f010df" class="bulleted-list"><li style="list-style-type:circle">虽然这个实现很<strong>粗糙</strong>（<strong>crude</strong>），但是可以演示如何使用<strong>通知</strong>（<strong>notification</strong>）报告进度了</li></ul></li></ul><figure class="block-color-blue_background callout" style="white-space:pre-wrap;display:flex" id="5e4a21e7-2b42-4beb-8838-bca6072a55b1"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：ES6不支持取消期约和进度追踪，一个主要的原因就是这样会导致期约连锁和期约合成过度复杂化。比如在一个期约连锁中，如果某个被其他期约依赖的期约被取消或者发出了一个通知，那么接下来应该发生什么完全说不清楚（<del>后续的期约都应该取消，个人认为</del>）。毕竟，如果取消了<code>Promise.all()</code> 其中的一个期约（<del>个人认为应该按照这个期约合并时就不存在这种情况继续处理</del>），或者期约连锁中前面的期约都发送了一个通知，那么接下来应该怎么办比较合理呢？</div></figure><h1 id="a4e4bc09-2d60-443c-af07-7a2a45e35c01" class="">2.6 现代ECMAScript关于Promise新增的特性</h1><p id="a1beac97-5613-43b6-bd37-7bbfc115add5" class="">参考MDN</p><figure id="1d872a8b-0569-4045-ad58-56dde8546fe8" class="link-to-page"><a href="2%20%E6%9C%9F%E7%BA%A6%EF%BC%88Promise%EF%BC%89%206fc67e657d2a4db483486c82102ea2a6/2%206%20%E9%A2%9D%E5%A4%96%E8%A1%A5%E5%85%85%201d872a8b05694045ad5856dde8546fe8.html"><span class="icon">🎢</span>2.6 额外补充</a></figure></div></div><p id="ae70bf9a-eb69-4fb5-a557-bd09413b9e6b" class=""> </p><p id="ababaecb-904e-4022-9b25-da9afc242c71" class="">
+</p></div></article></body></html>

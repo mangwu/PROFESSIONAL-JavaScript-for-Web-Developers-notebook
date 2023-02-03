@@ -1,0 +1,724 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>4. screen对象</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4945d3e3-b3fc-4be4-ae5d-49cf3d633d34" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_blue.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🗼</span></div><h1 class="page-title">4. screen对象</h1></header><div class="page-body"><ul id="4e593ca2-2248-4820-a7ad-4e25c8f5c83d" class="bulleted-list"><li style="list-style-type:disc">window上的属性<code>screen</code> 返回一个<code>Screen</code> 对象，是为数不多在编程中很少用的JavaScript对象</li></ul><ul id="458e102a-2770-419d-9013-bafa3a5f4eb3" class="bulleted-list"><li style="list-style-type:disc">这个对象保存的纯粹是客户端能力信息，也就是<strong>浏览器窗口外面的客户端显示器的信息（</strong>screen就是屏幕的意思<strong>）</strong>，例如像素宽度，像素高度等</li></ul><ul id="8180da7b-03f2-47c6-8433-1fbcaada9f0c" class="bulleted-list"><li style="list-style-type:disc">w3c规范的<a href="https://w3c.github.io/csswg-drafts/cssom-view/#the-screen-interface">CSSOM View Module标准</a> 中，Screen 接口的解释为 表示输出设备屏幕的信息</li></ul><div id="6b1e4c44-a3ed-49ea-8c17-db1259c94695" class="column-list"><div id="16b74606-ba54-4029-b6a8-1acb5744a9aa" style="width:18.75%" class="column"><nav id="3d9285f5-aeef-4a18-a8eb-7e575e1ea45f" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#64c62330-8d2b-41cd-8af9-1cb7036a0c3c">4.0 规范中的Screen 接口</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#068a9c15-f451-4518-9f9b-dc98bd2bcb46">4.1 测试</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c6571f73-9b98-4504-beea-c8b8eeb21be9">4.2 非接口直接定义的属性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#81d9d6bd-8322-43cf-912f-45374dd6b6d5">4.2.1 availTop/Left和top/left</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#82b3ad4d-d371-4fc4-b4a6-1d4807fa1b6c">4.2.2 orientation</a></div></nav><p id="f55ac60c-7497-49b8-ba1f-eaa66e4b9231" class="">
+</p></div><div id="09f68f3e-256b-45ad-ba9a-130b8e9605a2" style="width:81.25%" class="column"><h1 id="64c62330-8d2b-41cd-8af9-1cb7036a0c3c" class="">4.0 规范中的Screen 接口</h1><ul id="f4f90f55-6330-4196-87ff-0ee2da69dc20" class="bulleted-list"><li style="list-style-type:disc">w3c规范在<a href="https://w3c.github.io/csswg-drafts/cssom-view/#the-screen-interface">CSSOM View Module</a>标准中规范了Screen 接口以及<code>window.screen</code> 属性</li></ul><ul id="cf859746-34cf-4659-8725-fb5bb943258e" class="bulleted-list"><li style="list-style-type:disc">Screen接口IDL定义如下<pre id="98b0b2cb-96e1-4acc-84f8-ebdb6fec6d1d" class="code"><code>[Exposed=Window]
+interface Screen {
+	readonly attribute long availWidth;
+	readonly attribute long availHeight;
+	readonly attribute long width;
+	readonly attribute long height;
+	readonly attribute unsigned long colorDepth;
+	readonly attribute unsigned long pixelDepth;
+}</code></pre><ul id="070b1adc-1a83-4bfc-bf77-251905241e14" class="bulleted-list"><li style="list-style-type:circle"><code>[Exposed=Window]</code>表示接口的实例只能在主线程中使用，不能在worker中使用</li></ul><ul id="b242d0b1-2d2f-4b06-a636-e53db87d8667" class="bulleted-list"><li style="list-style-type:circle"><code>long</code> 表示属性值为（32位）整型</li></ul><ul id="2cd5db47-a80f-4c93-9966-fc8894cd8b74" class="bulleted-list"><li style="list-style-type:circle"><code>unsigned long</code> 表示属性值为无符号（32位）整型</li></ul></li></ul><table id="cd3b9f4f-0e04-4c86-86f2-256106dbe5c9" class="simple-table"><tbody><tr id="1216ba6c-370a-471e-bc56-485bc433220f"><td id="J:^K" class="" style="width:106.99623107910156px">属性</td><td id="U?KC" class="" style="width:731.984375px">描述/说明</td></tr><tr id="7fdf4826-d151-4fcf-b615-752da6cae8f5"><td id="J:^K" class="" style="width:106.99623107910156px">availWidth</td><td id="U?KC" class="" style="width:731.984375px">只读属性，屏幕像素宽度减去系统组件宽度，也就是<strong>网页可用屏幕区域（Web-exposed available screen area）</strong>的宽度，单位为CSS像素；所谓的<strong>系统组件</strong>就是<strong>浏览器无法覆盖的地方</strong>，如window操作系统下的任务栏；所谓<strong>Web-exposed available screen area</strong>就是<strong>浏览器可以在屏幕中显示的区域</strong>，同样，window操作系统下的任务栏浏览器无法覆盖，显示区域就是不包括任务栏的部分</td></tr><tr id="4ac19875-c8a5-435a-8449-248f413016e5"><td id="J:^K" class="" style="width:106.99623107910156px">avialHeight</td><td id="U?KC" class="" style="width:731.984375px">只读属性，屏幕像素高度减去系统组件高度，也就是<strong>网页可用屏幕区域（Web-exposed available screen area）</strong>的高度，单位为CSS像素</td></tr><tr id="18cb9998-e081-4bc3-8c16-7b5ed715e4ae"><td id="J:^K" class="" style="width:106.99623107910156px">width</td><td id="U?KC" class="" style="width:731.984375px">返回屏幕像素宽度，也就是<strong>暴露给网页显示的屏幕区域的宽度</strong>（<strong>Web-exposed screen area</strong>）；实际上这个值就是浏览器所在设备的显示屏幕以CSS标准像素为单位的宽度</td></tr><tr id="ebd65151-9100-4bab-b782-6d71ddec2769"><td id="J:^K" class="" style="width:106.99623107910156px">height</td><td id="U?KC" class="" style="width:731.984375px">返回屏幕像素高度，也就是<strong>暴露给网页显示的屏幕区域的高度</strong>（<strong>Web-exposed screen area</strong>）；实际上这个值就是浏览器所在设备的显示屏幕以CSS标准像素为单位的高度</td></tr><tr id="00d4cf65-7100-4fb4-9041-be6596b21c78"><td id="J:^K" class="" style="width:106.99623107910156px">colorDepth</td><td id="U?KC" class="" style="width:731.984375px">只读属性，表示屏幕颜色的位数；多数系统是32位；CSSDOM提示，这个值表示一个像素点的颜色用多少个位表示，位数越大，屏幕能表示的颜色越丰富，出于兼容性原则，有些浏览器实现中返回24（实际设备屏幕色深为32）；如果颜色深度小于8，那么屏幕仅能用灰色表示，可以通过这个值特定显示灰色版本的页面</td></tr><tr id="182e37bb-c646-4fe8-8c1e-305d545cff41"><td id="J:^K" class="" style="width:106.99623107910156px">pixelDepth</td><td id="U?KC" class="" style="width:731.984375px">只读属性，屏幕的位深度；CSSDOM提示，这个属性和<code>colorDepth</code> 属性返回的值是一样的，二者实际上表示的是同一个东西，为了兼容性而同时使用；CSSDOM对它们的完整定义为：它们应该返回输出设备中每个像素分配给颜色的位数，alpha通道除外，如果用户代理不能返回输出设备的比特数，它应该返回最接近的估计值，例如发送到显示器的帧缓冲区使用的比特数或任何与输出设备使用的值最接近的内部表示；用户代理<strong>必须返回</strong>这两个属性的值，至少是<strong>彩色媒体特征</strong>（<strong>color media feature</strong>）的值乘以3（通常有RGB三个颜色分量）；如果不同<strong>颜色分量</strong>（<strong>color components</strong>）不使用相同的位数表示，则返回值可能大于彩色媒体特征的3倍；如果用户代理不知道颜色深度或者出于隐式不想返回，就应该返回24</td></tr></tbody></table><h1 id="068a9c15-f451-4518-9f9b-dc98bd2bcb46" class="">4.1 测试</h1><ul id="c9d4b2c5-c1c8-4790-b961-470bd5b58585" class="bulleted-list"><li style="list-style-type:disc">当前显示屏（Lenovo）设备信息<figure id="79cd4b35-f4a0-4bcc-845f-3d571bbecc32" class="image"><a href="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/device_screen.png"><img style="width:429px" src="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/device_screen.png"/></a></figure></li></ul><ul id="1c328e07-1a22-4665-b63d-5ed94742470a" class="bulleted-list"><li style="list-style-type:disc">以此为基础，window10操作系统打开下方的任务栏，那么访问浏览器的<code>window.screen</code> 得到的属性值如下<ul id="4f944c8c-96ca-4624-a624-192b3a0de847" class="bulleted-list"><li style="list-style-type:circle"><code>screen.width</code> 1920</li></ul><ul id="babe007a-59a3-4460-a1ba-0c39c317b479" class="bulleted-list"><li style="list-style-type:circle"><code>screen.height</code> 1080</li></ul><ul id="e7d1b3fc-ce61-453e-9ae9-aeb7feeb71b6" class="bulleted-list"><li style="list-style-type:circle"><code>screen.availWidth</code> 1920</li></ul><ul id="68dac8c0-26b1-4245-97b5-22b6d38b7bf3" class="bulleted-list"><li style="list-style-type:circle"><code>screen.availHeight</code> 1040  （说明任务栏高40px）</li></ul><ul id="34ff5bbf-4459-4185-8809-dc54f69242b4" class="bulleted-list"><li style="list-style-type:circle"><code>screen.colorDepth/pixelDepth</code> 24 </li></ul></li></ul><h1 id="c6571f73-9b98-4504-beea-c8b8eeb21be9" class="">4.2 非接口直接定义的属性</h1><ul id="daf6e658-732b-43ab-b742-8f170b8bdbfb" class="bulleted-list"><li style="list-style-type:disc">MDN提示<code>screen</code> 对象的属性除了CSSDOM规范指出的Screen Interface定义的属性外，还包含一些非接口直接定义和非标准的属性</li></ul><ul id="acae54fb-8ed2-4602-838d-785db1d8f7c1" class="bulleted-list"><li style="list-style-type:disc">同时《JavaScript高级程序设计（第4版）》也列出了一些通用的<code>screen</code> 对象属性</li></ul><table id="168d2790-6a1c-4b35-bf54-b00f17668342" class="simple-table"><tbody><tr id="9996bde6-930b-481a-9595-c9dd184a7ce3"><td id="mG@{" class="">属性</td><td id="}fA\" class="" style="width:547px">描述/说明</td></tr><tr id="b512a0c6-d5a9-4673-9f2e-2bf0500be734"><td id="mG@{" class="">availTop</td><td id="}fA\" class="" style="width:547px">只读属性，没有被系统组件占用的屏幕的最顶端像素（的y坐标），通常为<code>window.screen.height - window.screen.availHeight-toobarHeight</code> 的值（需要减去下方任务栏的高度，如果任务栏在上方，就不能减去），也就是0；MDN提示这个属性为<mark class="highlight-red"><strong>非标准</strong></mark>属性，但是谷歌和火狐都实现了</td></tr><tr id="62c7ba7a-fc69-4ba6-8960-dbe225e71e75"><td id="mG@{" class="">availLeft</td><td id="}fA\" class="" style="width:547px">只读属性只读属性，没有被系统组件占用的屏幕的最顶端像素（的x坐标），通常为<code>window.screen.width - window.screen.availWidth-toobarHeight</code> （需要减去右方任务栏的高度，如果任务栏在左边，就不能减去）的值，也就是0；MDN提示这个属性为<mark class="highlight-red"><strong>非标准</strong></mark>属性，但是谷歌和火狐都实现了</td></tr><tr id="b34c300c-a84f-4231-8c65-8dd620fed88a"><td id="mG@{" class=""><del>top</del></td><td id="}fA\" class="" style="width:547px">当前屏幕顶端的像素距离，通常为0；MDN提示这个属性是<mark class="highlight-red"><strong>非标准</strong></mark>属性，且<mark class="highlight-red"><strong>不再被推荐使用</strong></mark><strong>，</strong>因为在任何浏览器中，保留此属性只是为了<strong>兼容性（compatibility）</strong>的目的，未来该属性可能被删除（谷歌浏览器已经废弃使用，火狐浏览器还保留）</td></tr><tr id="53d03ce5-ed1f-4d3e-8694-6d083e219187"><td id="mG@{" class=""><del>left</del></td><td id="}fA\" class="" style="width:547px">当前屏幕左边的像素距离，通常为0；MDN提示这个属性是<mark class="highlight-red"><strong>非标准</strong></mark>属性，且<mark class="highlight-red"><strong>不再被推荐使用</strong></mark><strong>，</strong>因为在任何浏览器中，保留此属性只是为了<strong>兼容性（compatibility）</strong>的目的，未来该属性可能被删除（谷歌浏览器已经废弃使用，火狐浏览器还保留）</td></tr><tr id="56f470c6-bd94-4d97-a17e-73d9b2216065"><td id="mG@{" class=""><del>mozEnabled</del></td><td id="}fA\" class="" style="width:547px"><del>布尔值，控制屏幕显示的属性，设置成</del><del><code>false</code></del><del> 会关闭屏幕；MDN提示这个属性是</del><del><mark class="highlight-red"><strong>非标准</strong></mark></del><del>属性，且</del><del><mark class="highlight-red"><strong>不再被推荐使用</strong></mark></del><del><strong>，</strong></del><del>因为在任何浏览器中，保留此属性只是为了</del><del><strong>兼容性（compatibility）</strong></del><del>的目的，未来该属性可能被删除（谷歌浏览器和火狐浏览器</del><del><strong>都已经废弃使用</strong></del><del>）</del></td></tr><tr id="da5b6dab-0487-44b9-ac2b-fea06767c56a"><td id="mG@{" class="">和<del>mozEnabled</del>类似的属性</td><td id="}fA\" class="" style="width:547px"><del>mozBrightness</del>，<del>lockOrientation()</del>，<del>unlockOrientation()</del>，<del>mozOrientation</del>，<del>orientationchange</del>，这些属性是<mark class="highlight-red"><strong>仅在火狐浏览器实现过的废弃非标准属性</strong></mark><mark class="highlight-red">（</mark>现代火狐浏览器有些保留，有些删除<mark class="highlight-red">）</mark>，MDN是火狐浏览器背后的mozilla组织对JavaScript进行解释时构建的网站，所以会包含对这些无意义属性的解释（反而是与屏幕扩展相关的<code>screen.isExtended</code> 属性没有得到解释，因为火狐浏览器没有实现）</td></tr><tr id="243f8243-83fd-4632-b4e5-6be263b597c3"><td id="mG@{" class=""><strong>orientation</strong></td><td id="}fA\" class="" style="width:547px">返回<a href="https://w3c.github.io/screen-orientation/#dom-screen-orientation">Screen Orientation API</a> 中关于屏幕朝向的信息，实际上返回一个<code>ScreenOrientation</code> 对象，对象中的<code>type</code> 属性可以指明当前的屏幕朝向；MDN提示除了Safari浏览器外其它浏览器都实现了这个属性</td></tr><tr id="cbe9802e-b6c9-4e78-8c9e-22b2ca54917e"><td id="mG@{" class="">isExtended</td><td id="}fA\" class="" style="width:547px">布尔值，但是设备是否有多个屏幕连接（即主机可以连接多个显示屏）,除了火狐和Safari浏览器外，谷歌系的高版本浏览器都实现了该属性</td></tr></tbody></table><h2 id="81d9d6bd-8322-43cf-912f-45374dd6b6d5" class="">4.2.1 availTop/Left和top/left</h2><ul id="ee2f3c9a-397e-4571-b190-4a0d0f31d097" class="bulleted-list"><li style="list-style-type:disc">它们现在都是0，通过修改任务栏的位置可以查看它们的变动<pre id="1bc54941-2739-4174-b9cc-f6cdad6290a4" class="code code-wrap"><code>&lt;ul&gt;
+  &lt;li&gt;screen.availLeft: &lt;span class=&quot;availLeft&quot;&gt;0&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;screen.left: &lt;span class=&quot;left&quot;&gt;0&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;screen.availTop &lt;span class=&quot;availTop&quot;&gt;0&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;screen.top &lt;span class=&quot;top&quot;&gt;0&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+  const screenAvailLeft = document.querySelector(&quot;.availLeft&quot;);
+  const screenLeft = document.querySelector(&quot;.left&quot;);
+  const screenAvailTop = document.querySelector(&quot;.availTop&quot;);
+  const scrennTop = document.querySelector(&quot;.top&quot;);
+  screenAvailLeft.textContent = screen.availLeft;
+  screenLeft.textContent = screen.left;
+  scrennTop.textContent = screen.top;
+  screenAvailTop.textContent = screen.availTop;
+&lt;/script&gt;</code></pre></li></ul><ul id="43cf407f-8469-4353-958c-ba873bab6389" class="bulleted-list"><li style="list-style-type:disc">window10操作系统可以在设置中调整任务栏位置，解锁任务栏已调整高度或宽度：<figure id="eb4370a6-0dad-4cfd-bd3b-3a7ffbb83984" class="image"><a href="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/task-bar.png"><img style="width:607px" src="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/task-bar.png"/></a></figure></li></ul><ul id="65524a07-a39d-471b-9403-bf7ed4ae222d" class="bulleted-list"><li style="list-style-type:disc">默认情况下（不解锁任务栏），选择任务栏四种显示方位会有如下几种模式：<ul id="229bbf4c-9e75-4494-81ad-61e4226326ff" class="bulleted-list"><li style="list-style-type:circle">底部和靠右<figure id="8c253765-be35-4682-8c28-d39970b0bae6" class="image"><a href="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/bottom_right.png"><img style="width:299px" src="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/bottom_right.png"/></a></figure></li></ul><ul id="8fecd7a7-2774-4ee6-a197-ea3d349a22f1" class="bulleted-list"><li style="list-style-type:circle">顶部<figure id="86185fa6-5f4d-4f14-9c54-99271450b6c6" class="image"><a href="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/top.png"><img style="width:349px" src="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/top.png"/></a></figure></li></ul><ul id="c665390a-eaf4-4408-bbed-a7d02ede77b7" class="bulleted-list"><li style="list-style-type:circle">靠左<figure id="370a271c-7b5f-4c35-bde1-62b33a10b572" class="image"><a href="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/left.png"><img style="width:331px" src="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/left.png"/></a></figure></li></ul><ul id="c5f54692-1094-4355-b917-b5c8a3db3460" class="bulleted-list"><li style="list-style-type:circle">上面都是火狐浏览器的显示（谷歌浏览器已经废弃<code>screen.left</code>和<code>screen.top</code>属性）<ul id="b6e552e0-07e1-4a74-a228-8294c3820adb" class="bulleted-list"><li style="list-style-type:square">可以知道<code>screen.left</code>和<code>screen.top</code> 的值与系统内部组件无关，就是当前显示器左上角为原点的像素点坐标</li></ul><ul id="0d5d9075-9312-4397-aeb3-dc5c15940f85" class="bulleted-list"><li style="list-style-type:square"><code>screen.availLeft</code> 和<code>screen.availTop</code> 的值与系统内部的组件有关，它能显示出浏览器<strong>可以显示区域的左上角坐标位置</strong></li></ul></li></ul></li></ul><h2 id="82b3ad4d-d371-4fc4-b4a6-1d4807fa1b6c" class="">4.2.2 orientation</h2><ul id="9b6b79b1-02bc-4699-9621-f7ae78cc4afb" class="bulleted-list"><li style="list-style-type:disc">所谓朝向（<strong>orientation</strong>）就是设备显示器的文字和图像的朝向<ul id="4b722105-29d9-4806-8606-002c69eeef7a" class="bulleted-list"><li style="list-style-type:circle">正常情况下原点在左上角，x轴为横向向右水平轴，y轴为竖直向下水平轴，称为<strong>横向（landscape）</strong></li></ul><ul id="e30c5c7f-4f99-4e56-aa47-61452672d8ef" class="bulleted-list"><li style="list-style-type:circle">如果原点在左下角，x轴为竖直向上水平轴，y轴为横向向右水平轴，称为<strong>纵向</strong>（<strong>portrait</strong>）</li></ul><ul id="f10027c3-85e7-4c2f-af7f-81900d311db6" class="bulleted-list"><li style="list-style-type:circle">如果原点在右上角，x轴为竖直向下水平轴，y轴为横向向左水平轴，称为<strong>纵向</strong>（<strong>翻转</strong>）</li></ul><ul id="9c64cc22-82fb-4bab-bdf0-44186f7ba8d3" class="bulleted-list"><li style="list-style-type:circle">如果原点在右下角，x轴为横向向左水平轴，y轴为竖直向上水平轴，称为<strong>横向</strong>（<strong>翻转</strong>）</li></ul></li></ul><ul id="5e3e40ac-3181-4657-8986-23be5616038a" class="bulleted-list"><li style="list-style-type:disc">window10操作系统可以在屏幕显示设置中设置这4种翻转方向<figure id="1a86db0f-b133-4f8e-8c4c-ef53f88e7de6" class="image"><a href="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/window10_orientation.png"><img style="width:342px" src="4%20screen%E5%AF%B9%E8%B1%A1%204945d3e3b3fc4be4ae5d49cf3d633d34/window10_orientation.png"/></a></figure></li></ul><ul id="714cf4c7-6ba8-416e-8844-f4faff3c3327" class="bulleted-list"><li style="list-style-type:disc">通过如下代码测试，可以得到四种<code>type</code> 的<code>ScreenOrientation</code> 对象<pre id="9efcf963-f262-4442-a927-ad7b3268374e" class="code code-wrap"><code>&lt;p&gt;screen.orientation: &lt;pre&gt;&lt;/pre&gt;&lt;/p&gt;
+    &lt;script&gt;
+      const pre = document.querySelector(&quot;pre&quot;);
+      pre.innerHTML = 
+`{
+  type: ${screen.orientation.type},
+  angle: ${screen.orientation.angle},
+  onchange: ${String(screen.orientation.onchange)}
+}`
+    &lt;/script&gt;</code></pre></li></ul><ul id="d3a97b02-35a0-4d4b-9548-8ff65e8d10ba" class="bulleted-list"><li style="list-style-type:disc">结果如下<pre id="cacfed90-d8ee-4150-b932-d820d7323642" class="code code-wrap"><code>// 横向
+{
+  type: &quot;landscape-primary&quot;,
+  angle: 0,
+  onchange: null
+}</code></pre><pre id="53065ab6-8c6d-43ca-a664-5a3ead6d4989" class="code code-wrap"><code>// 横向（翻转）
+{
+  type: &quot;landscape-secondary&quot;,
+  angle: 180,
+  onchange: null
+}</code></pre><pre id="e4ae51aa-640c-4466-aab9-02cd2bb360f2" class="code code-wrap"><code>// 纵向
+{
+  type: &quot;portrait-primary&quot;,
+  angle: 270,
+  onchange: null
+}</code></pre><pre id="00af89b0-8515-434f-9ca2-05f37213a2fb" class="code code-wrap"><code>// 纵向（翻转）
+{
+  type: &quot;portrait-secondary&quot;,
+  angle: 90,
+  onchange: null
+}</code></pre></li></ul><ul id="fea48ea0-a807-45a6-83c0-3ff149695036" class="bulleted-list"><li style="list-style-type:disc">可以发现<code>angle</code> 表示当前朝向相较于标准横向时顺时针翻转的角度，它是90的倍数</li></ul><ul id="1e49c7a3-c504-495c-8055-ded4c0881bcc" class="bulleted-list"><li style="list-style-type:disc">四种<code>type</code> 分别表示系统的4中朝向<ul id="8b3eecac-4c75-43ac-ba91-ee6c3b4cf0a9" class="bulleted-list"><li style="list-style-type:circle"><code>landscape-primary</code> 横向</li></ul><ul id="8156f883-3dba-49c2-b849-1310d0ca988b" class="bulleted-list"><li style="list-style-type:circle"><code>landscape-secondary</code> 横向（翻转）</li></ul><ul id="98926b8e-217a-4ea7-933f-0275afc8ed29" class="bulleted-list"><li style="list-style-type:circle"><code>portrait-primary</code> 纵向</li></ul><ul id="0a28deaa-afeb-4eb8-8b12-09d3f180bb83" class="bulleted-list"><li style="list-style-type:circle"><code>portrait-secondary</code> 纵向（翻转）</li></ul></li></ul><ul id="376433af-4934-4afd-9336-a34f487b943c" class="bulleted-list"><li style="list-style-type:disc">这个属性在<strong>手机浏览器</strong>上很有用<ul id="6d2ec757-db46-4821-a226-6bdc3fde740d" class="bulleted-list"><li style="list-style-type:circle">手机可以根据的使用者手持方式（横着拿或竖直拿）更改屏幕朝向</li></ul><ul id="7b8f4289-e738-4f3d-8787-b0861984b90a" class="bulleted-list"><li style="list-style-type:circle">而浏览器可以通过监听朝向的<code>change</code> 事件更改显示布局</li></ul></li></ul><p id="a2c78982-fbda-4c2c-961c-3ef42428c24b" class="">
+</p></div></div><p id="6f75234c-fc80-4832-a63e-79b85c39d242" class="">
+</p></div></article></body></html>

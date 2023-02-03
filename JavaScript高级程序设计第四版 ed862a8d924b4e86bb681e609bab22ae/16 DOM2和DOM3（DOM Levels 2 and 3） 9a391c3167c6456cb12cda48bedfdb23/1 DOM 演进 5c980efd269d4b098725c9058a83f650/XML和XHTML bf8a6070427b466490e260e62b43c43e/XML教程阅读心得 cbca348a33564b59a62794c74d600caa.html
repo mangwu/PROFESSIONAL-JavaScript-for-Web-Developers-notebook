@@ -1,0 +1,762 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>XML教程阅读心得</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="cbca348a-3356-4b59-a627-94c74d600caa" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_william_morris_1877_willow.jpg" style="object-position:center 90%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🕝</span></div><h1 class="page-title">XML教程阅读心得</h1></header><div class="page-body"><h1 id="6f8359b6-26a5-4903-8d3a-685177077ef7" class="">1. XML与HTML本质区别</h1><p id="6df7127b-7570-4bc5-ab99-d651318e1a0a" class=""><strong>XML 被设计用来传输和存储数据。</strong></p><p id="8d5f89a2-5e45-4ff7-ab3e-279bf5c6d434" class=""><strong>HTML 被设计用来显示数据。</strong></p><p id="0c0f81bb-2fb7-4a86-975e-cb354bca75bf" class=""><em><strong>XML 是对 HTML 的补充</strong></em>。</p><p id="e8cca250-b78c-4816-8c0c-187e9450fa13" class=""><em><strong>XML 是独立于软件和硬件的信息传输工具。</strong></em></p><h1 id="d0c556c6-6558-4afb-bb1e-34cf2222b0cc" class="">2. <strong><strong>W3C XML 规范和时间线</strong></strong></h1><ul id="c0174ffe-6a67-4908-bb0f-80be3b63d4e6" class="bulleted-list"><li style="list-style-type:disc">查看w3c的<a href="https://www.w3school.com.cn/w3c/w3c_xml.asp">XML活动</a></li></ul><ul id="c93eb9a0-48e8-425e-b4bd-a7887d4ed412" class="bulleted-list"><li style="list-style-type:disc">最近一次为2010 年 8 月 3 日的<a href="http://www.w3.org/TR/XMLHttpRequest/">XMLHttpRequest Object</a></li></ul><ul id="38b858eb-fd0c-4ba3-8698-e846aa5a3cf5" class="bulleted-list"><li style="list-style-type:disc">最新的XML规范为<a href="https://www.w3.org/TR/xml11/"><strong>Extensible Markup Language (XML) 1.1 (Second Edition)</strong></a>（2006.8.16）</li></ul><ul id="2f45bfb8-0004-4693-8b58-e815066b330e" class="bulleted-list"><li style="list-style-type:disc">最新的XML命名空间规范为<a href="https://www.w3.org/TR/xml-names11/"><strong>Namespaces in XML 1.1 (Second Edition)</strong></a><strong> </strong>（2006.8.16）</li></ul><ul id="562676b2-3cac-4bd0-8dc1-47dd3d1e668a" class="bulleted-list"><li style="list-style-type:disc">还有其它与XML相关的规范，如XPath，XInclude等</li></ul><h1 id="7302fcc0-e53d-4734-9119-678f81869514" class="">3. <strong>XML 把数据从 HTML 分离</strong></h1><p id="1efd8233-2671-462f-b3dd-e38de726107f" class="">如果你需要在 HTML 文档中显示动态数据，那么每当数据改变时将花费大量的时间来编辑 HTML。</p><p id="0febccd0-7e6a-403b-b00d-6271548910d6" class="">通过 XML，数据能够存储在独立的 XML 文件中。这样你就可以专注于使用 HTML 进行布局和显示，并确保修改底层数据不再需要对 HTML 进行任何的改变。</p><p id="4078fc5f-8309-4e9a-ab5f-10aa585016fc" class="">通过使用几行 JavaScript，你就可以读取一个外部 XML 文件，然后更新 HTML 中的数据内容。</p><h1 id="f5e73cfc-3688-4276-b52c-e22b4856787e" class="">4. <strong>XML 文档形成一种树结构</strong></h1><p id="a555802c-8de2-417b-93ea-6c63023afe6a" class="">XML 文档必须包含<em><strong>根元素</strong></em>。该元素是所有其他元素的父元素。</p><p id="d49a9c8f-4799-4ec5-bb5f-bd03b77a4ccb" class="">XML 文档中的元素形成了一棵文档树。这棵树从根部开始，并扩展到树的最底端。</p><h1 id="8ed49bc5-a973-43f5-88e0-693ebb182600" class="">5. <strong>在 XML 中，空格会被保留</strong></h1><p id="7425bd37-ec3e-48a7-ab46-58767fb2574a" class="">HTML 会把多个连续的空格字符裁减（合并）为一个：</p><pre id="5c81258f-4748-4ac3-9fbf-6f2f1592683e" class="code code-wrap"><code>HTML:	Hello           my name is David.
+输出:	Hello my name is David.</code></pre><p id="182fea71-34a4-4f60-a547-2d53a6b49d6d" class="">在 XML 中，文档中的空格不会被删掉</p><h1 id="46de6311-efc0-436b-8afa-b3add4e2adc9" class="">6. <strong>XML 元素是可扩展的</strong></h1><p id="14bcceb6-c020-4377-832f-39dfde9ce012" class="">XML 元素是可扩展，以携带更多的信息</p><p id="11f16b4e-0ebb-4a8a-9c37-67fe962fa7b1" class="">请看下面这个 XML 例子：</p><pre id="ab86ec24-e745-4e9d-a62e-7fbeadb5d944" class="code code-wrap"><code>&lt;note&gt;
+&lt;to&gt;George&lt;/to&gt;
+&lt;from&gt;John&lt;/from&gt;
+&lt;body&gt;Don&#x27;t forget the meeting!&lt;/body&gt;
+&lt;/note&gt;
+</code></pre><p id="7af4c86f-5b5d-46d7-8b46-12ea4bc508dc" class="">让我们设想一下，我们创建了一个应用程序，可将 &lt;to&gt;、&lt;from&gt; 以及 &lt;body&gt; 元素提取出来，并产生以下的输出：</p><pre id="803fbe1c-0a25-422a-adf0-0f19a9741788" class="code code-wrap"><code>MESSAGE
+To: George
+From: John
+
+Don&#x27;t forget the meeting!
+</code></pre><p id="7eed1b5f-a19f-42aa-9a01-f5b7a3697a70" class="">想象一下，之后这个 XML 文档作者又向这个文档添加了一些额外的信息：</p><pre id="4e724868-0a0e-49d3-ab24-b58128230ec8" class="code code-wrap"><code>&lt;note&gt;
+&lt;date&gt;2008-08-08&lt;/date&gt;
+&lt;to&gt;George&lt;/to&gt;
+&lt;from&gt;John&lt;/from&gt;
+&lt;heading&gt;Reminder&lt;/heading&gt;
+&lt;body&gt;Don&#x27;t forget the meeting!&lt;/body&gt;
+&lt;/note&gt;
+</code></pre><p id="263837e3-a954-4252-ae3c-9377e963fa87" class="">那么这个应用程序会中断或崩溃吗？</p><p id="d86165f5-9b8a-430f-8778-a5fb5813f781" class="">不会。这个应用程序仍然可以找到 XML 文档中的 &lt;to&gt;、&lt;from&gt; 以及 &lt;body&gt; 元素，并产生同样的输出。</p><p id="1e12821e-19bc-4696-85b9-38d597429a6f" class="">XML 的优势之一，就是可以经常在不中断应用程序的情况进行扩展。</p><h1 id="6ad337ee-e607-4033-960a-463b32c5370a" class="">7. <strong><strong>XML 属性值可以用实体</strong></strong></h1><p id="1d226896-4163-4147-ab2f-bf7b7f65c8a4" class="">属性值必须被引号包围，并且可以使用实体引用</p><pre id="b01ee4c3-19c9-4796-aa01-8be7138bf37f" class="code"><code>&lt;gangster name=&quot;George &amp;quot;Shotgun&amp;quot; Ziegler&quot;&gt;</code></pre><h1 id="72e5f406-2c95-4509-94ae-971a35752f64" class="">8. XML属性尽量不包含内容数据</h1><p id="f99b4e1d-0bf2-49f8-b42a-f5febb54fcb9" class="">在此我们极力向您传递的理念是：元数据（有关数据的数据）应当存储为属性，而数据本身应当存储为元素</p><p id="1fead43a-9f3e-48cc-a306-d8c16d51b1ee" class="">
+</p><h1 id="b2b54613-afe7-4663-bc64-40744cc5afa5" class="">9. <strong>“形式良好”，“结构良好”的 XML 文档与合法的XML文档</strong></h1><ul id="6b6f708d-fb92-4838-8ed1-f9cd1a9cd3a3" class="bulleted-list"><li style="list-style-type:disc">“形式良好”（Well Formed），“结构良好”的 XML 文档会遵守 XML 语法规则</li></ul><ul id="70dc8f99-e462-41ad-a907-b143ba3079dd" class="bulleted-list"><li style="list-style-type:disc">合法的XML文档是“形式良好”的 XML 文档，同样遵守文档类型定义 (DTD) 的语法规则<ul id="fa07a830-3db2-4149-a7fd-e5794ea2417d" class="bulleted-list"><li style="list-style-type:circle">DTD 的作用是定义 XML 文档的结构。它使用一系列合法的元素来定义文档结构：</li></ul><pre id="694d2047-65de-4cba-b37a-9042e840a5c9" class="code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE note [
+  &lt;!ELEMENT note (to,from,heading,body)&gt;
+  &lt;!ELEMENT to      (#PCDATA)&gt;
+  &lt;!ELEMENT from    (#PCDATA)&gt;
+  &lt;!ELEMENT heading (#PCDATA)&gt;
+  &lt;!ELEMENT body    (#PCDATA)&gt;
+]&gt;
+&lt;note&gt;
+&lt;to&gt;George&lt;/to&gt;
+&lt;from&gt;John&lt;/from&gt;
+&lt;heading&gt;Reminder&lt;/heading&gt;
+&lt;body&gt;Don&#x27;t forget the meeting!&lt;/body&gt;
+&lt;/note&gt;</code></pre></li></ul><h1 id="d9820aa7-918b-40c2-a142-a95904151647" class="">10. XML Scheme</h1><ul id="a9e57ebf-eba9-4c23-a969-d963a0c45e90" class="bulleted-list"><li style="list-style-type:disc">W3C 支持一种基于 XML 的 DTD 代替者，它名为 XML Schema：<pre id="8d946950-bc0e-4c78-9258-a84a3668856b" class="code"><code>&lt;xs:element name=&quot;note&quot;&gt;
+
+&lt;xs:complexType&gt;
+  &lt;xs:sequence&gt;
+    &lt;xs:element name=&quot;to&quot;      type=&quot;xs:string&quot;/&gt;
+    &lt;xs:element name=&quot;from&quot;    type=&quot;xs:string&quot;/&gt;
+    &lt;xs:element name=&quot;heading&quot; type=&quot;xs:string&quot;/&gt;
+    &lt;xs:element name=&quot;body&quot;    type=&quot;xs:string&quot;/&gt;
+  &lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+
+&lt;/xs:element&gt;</code></pre></li></ul><h1 id="848965d3-d9b3-456a-852d-c81acbf20332" class="">11. <strong>不要指望 XML 文件会被浏览器直接显示为 HTML 页面</strong></h1><p id="df0ee8b6-3e44-4046-9fb6-0c5f6c134d4c" class="">XML 文档不会携带有关如何显示数据的信息</p><p id="3091f5ff-5c69-43d0-bdd3-42aa6f2973f4" class="">在没有任何有关如何显示数据的信息的情况下，大多数的浏览器都会仅仅把 XML 文档显示为源代码</p><h1 id="413b3563-c9d1-4e2d-acad-61248dbc66ad" class="">12. <strong>通过使用 CSS，可为 XML 文档添加显示信息。</strong></h1><pre id="dc167913-3a63-4ed5-9c57-5bb60abd64df" class="code"><code>&lt;?xml-stylesheet type=&quot;text/css&quot; href=&quot;cd_catalog.css&quot;?&gt;</code></pre><h1 id="62dd6437-0175-4903-8e47-1b6237abec4d" class="">13. 通过使用XSLT，可以为XML文档添加显示信息</h1><p id="60e5e21a-88a4-424c-99c8-0fd004129ebf" class="">XSLT (eXtensible Stylesheet Language Transformations) 远比 CSS 更加完善。</p><ul id="df67e0ec-e76e-4b59-8ac3-0e9622a2f649" class="bulleted-list"><li style="list-style-type:disc">下面是一个XSLT文件<pre id="ec24dede-ea80-40e3-8244-272236c4b45a" class="code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+&lt;!-- Edited with XML Spy v2007 (http://www.altova.com) --&gt;
+&lt;html xsl:version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+  &lt;body style=&quot;font-family:Arial,helvetica,sans-serif;font-size:12pt;
+        background-color:#EEEEEE&quot;&gt;
+    &lt;xsl:for-each select=&quot;breakfast_menu/food&quot;&gt;
+      &lt;div style=&quot;background-color:teal;color:white;padding:4px&quot;&gt;
+        &lt;span style=&quot;font-weight:bold;color:white&quot;&gt;
+        &lt;xsl:value-of select=&quot;name&quot;/&gt;&lt;/span&gt;
+        - &lt;xsl:value-of select=&quot;price&quot;/&gt;
+      &lt;/div&gt;
+      &lt;div style=&quot;margin-left:20px;margin-bottom:1em;font-size:10pt&quot;&gt;
+        &lt;xsl:value-of select=&quot;description&quot;/&gt;
+        &lt;span style=&quot;font-style:italic&quot;&gt;
+          (&lt;xsl:value-of select=&quot;calories&quot;/&gt; calories per serving)
+        &lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/xsl:for-each&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><ul id="79cedaff-7881-4816-a8a9-e7a52b5f4ff0" class="bulleted-list"><li style="list-style-type:circle">定义文档body基本样式</li></ul><ul id="84a4b958-c77a-4ee2-aa88-4bf4dfe935f7" class="bulleted-list"><li style="list-style-type:circle">对每个<code>breakfast_menu</code> 元素中的<code>food</code> 元素的样式进行定义</li></ul><ul id="20fe2131-f46e-4e75-8375-bd5847f79e96" class="bulleted-list"><li style="list-style-type:circle">继续对每个<code>food</code> 元素中的<code>name</code> 、<code>price</code>、<code>description</code> 、<code>calories</code> 元素的样式进行定义</li></ul></li></ul><ul id="acf58265-7d35-4b68-8af6-b2ecef429592" class="bulleted-list"><li style="list-style-type:disc">XML文件引用XSLT样式文件<pre id="4dcce72b-c7f7-4699-bd1c-f192ce926f2a" class="code"><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;simple.xsl&quot;?&gt;
+&lt;breakfast_menu&gt;
+  &lt;food&gt;
+    &lt;name&gt;Belgian Waffles&lt;/name&gt;
+    &lt;price&gt;$5.95&lt;/price&gt;
+    &lt;description&gt;
+       two of our famous Belgian Waffles
+    &lt;/description&gt;
+    &lt;calories&gt;650&lt;/calories&gt;
+  &lt;/food&gt;
+&lt;/breakfast_menu&gt;</code></pre></li></ul><ul id="5b164832-8596-4f93-8204-29eaf2be18eb" class="bulleted-list"><li style="list-style-type:disc">效果<a href="https://www.w3school.com.cn/example/xmle/simplexsl.xml">example</a></li></ul><h1 id="cfb25dac-d532-4de6-8ad6-563682ecc566" class="">14. <strong>XML 命名空间提供避免元素命名冲突的方法</strong></h1><p id="0bb1d23b-35e4-4d70-b1f3-3371404ea26d" class="">在 XML 中，元素名称是由开发者定义的，当两个不同的文档使用相同的元素名时，就会发生命名冲突</p><h2 id="1d0c0f94-45dc-4233-b76a-a037edda96c3" class="">14.1 <strong><strong>使用前缀来避免命名冲突</strong></strong></h2><pre id="3bdbfde3-8d4c-4b18-a9c0-d1075dcb5bcc" class="code"><code>&lt;h:table&gt;
+   &lt;h:tr&gt;
+   &lt;h:td&gt;Apples&lt;/h:td&gt;
+   &lt;h:td&gt;Bananas&lt;/h:td&gt;
+   &lt;/h:tr&gt;
+&lt;/h:table&gt;</code></pre><pre id="efee056f-bc33-4587-8fe7-caa245da82cf" class="code"><code>&lt;f:table&gt;
+   &lt;f:name&gt;African Coffee Table&lt;/f:name&gt;
+   &lt;f:width&gt;80&lt;/f:width&gt;
+   &lt;f:length&gt;120&lt;/f:length&gt;
+&lt;/f:table&gt;</code></pre><h2 id="79e58486-7d59-4f19-a368-56de4ac118ab" class="">14.2 <strong><strong>使用命名空间（Namespaces）</strong></strong></h2><p id="64b22e51-5405-4ef9-801f-f86a3c61a665" class="">与仅仅使用前缀不同，我们为 &lt;table&gt; 标签添加了一个 <code><strong>xmlns</strong></code>属性，这样就为前缀赋予了一个与某个命名空间相关联的限定名称。</p><pre id="d2dfdfac-bf41-4434-9efa-dead3c1d5b00" class="code"><code>&lt;h:table xmlns:h=&quot;http://www.w3.org/TR/html4/&quot;&gt;
+   &lt;h:tr&gt;
+   &lt;h:td&gt;Apples&lt;/h:td&gt;
+   &lt;h:td&gt;Bananas&lt;/h:td&gt;
+   &lt;/h:tr&gt;
+&lt;/h:table&gt;</code></pre><pre id="a02e2e55-9b89-4997-96e7-d712d9279df6" class="code"><code>&lt;f:table xmlns:f=&quot;http://www.w3school.com.cn/furniture&quot;&gt;
+   &lt;f:name&gt;African Coffee Table&lt;/f:name&gt;
+   &lt;f:width&gt;80&lt;/f:width&gt;
+   &lt;f:length&gt;120&lt;/f:length&gt;
+&lt;/f:table&gt;</code></pre><h2 id="fd3324bf-21d6-4931-a623-95631098ac35" class="">14.3 <strong><strong>XML Namespace (xmlns) 属性</strong></strong></h2><p id="4934e9d2-6fa9-4dfe-a239-39e5c8d3337c" class="">XML 命名空间属性被放置于元素的开始标签之中，并使用以下的语法：</p><pre id="f1cab541-79ef-412b-a780-c41ca7a4c789" class="code"><code>xmlns:namespace-prefix=&quot;namespaceURI&quot;</code></pre><p id="a60430e8-e6cd-4a43-b4af-d80152641187" class="">当命名空间被定义在元素的开始标签中时，所有带有相同前缀的子元素都会与同一个命名空间相关联<strong>：</strong>
+用于标示命名空间的地址不会被解析器用于查找信息，其惟一的作用是赋予命名空间一个惟一的名称</p><h2 id="36bd8048-4a63-42c3-98e6-725d694f9d80" class="">14.4 <strong><strong>默认的命名空间（Default Namespaces）</strong></strong></h2><pre id="cebb2c78-9b89-41e5-a743-b571fc06a8e6" class="code"><code>xmlns=&quot;namespaceURI&quot;</code></pre><h1 id="0b8afaec-a10b-47a9-871e-fbfbc9aba368" class="">15. <strong>CDATA 区段（CDATA section）中的文本会被解析器忽略</strong></h1><p id="6a48aff6-05c5-4acf-8fcf-48f8f097755f" class="">术语 CDATA 指的是不应由 XML 解析器进行解析的文本数据（Unparsed Character Data）。</p><p id="d985487e-e8dd-404c-bbb3-8e346184e097" class=""><strong>所有 XML 文档中的文本均会被解析器解析</strong></p><p id="a020817a-38ac-44ba-82e3-351dafa561b8" class=""><strong>只有 CDATA 区段（CDATA section）中的文本会被解析器忽略</strong></p><pre id="70a50125-d486-42c7-a303-c053c88c38d4" class="code"><code>&lt;![CDATA[content]]&gt;</code></pre><p id="c7e26db9-c2be-4b3c-ac80-67fdf3336a44" class="">CDATA 部分中的所有内容都会被解析器忽略，DATA 部分由 &quot;<em><strong>&lt;![CDATA[</strong></em>&quot; 开始，由 &quot;<em><strong>]]&gt;</strong></em>&quot; 结束</p><p id="3ea2caf4-24e4-4bc3-84a3-4e0a61f3a331" class="">
+</p></div></article></body></html>

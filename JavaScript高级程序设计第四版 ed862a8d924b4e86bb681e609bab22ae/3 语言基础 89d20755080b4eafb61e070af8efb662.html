@@ -1,0 +1,1277 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3. 语言基础</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="89d20755-080b-4eaf-b61e-070af8efb662" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_william_morris_1878.jpg" style="object-position:center 0%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🚤</span></div><h1 class="page-title">3. 语言基础</h1></header><div class="page-body"><ul id="fce797b4-b03b-4c30-ba24-05d2832ec17d" class="bulleted-list"><li style="list-style-type:disc">JavaScript的语言基础，包括<ul id="121d67be-eca4-4cae-87b0-d3abc1497df1" class="bulleted-list"><li style="list-style-type:circle">语法</li></ul><ul id="68e0ca9d-21f3-492a-9d19-ac7f75757337" class="bulleted-list"><li style="list-style-type:circle">数据结构</li></ul><ul id="fe8801db-8586-4022-8cc3-7272d9d42197" class="bulleted-list"><li style="list-style-type:circle">流控制语句</li></ul><ul id="d7619d87-6fe4-414b-a54e-a22b28161805" class="bulleted-list"><li style="list-style-type:circle">函数</li></ul></li></ul><ul id="1f970335-b18d-446a-9152-2dc143711b1b" class="bulleted-list"><li style="list-style-type:disc">任何语言的核心都是描述这门语言在基本层面上如何工作的，这些基本层面由ECMA-262规定</li></ul><ul id="0e66a0af-1e3e-4a34-8428-8460dad11c4b" class="bulleted-list"><li style="list-style-type:disc">ECMA-262第五版规定的ECMAScript是以伪语言形式规定了JavaScript的核心，它也是目前浏览器支持最好的版本</li></ul><ul id="8fb4058b-849d-4cf2-aa04-cdef7c209bbe" class="bulleted-list"><li style="list-style-type:disc">ES6在浏览器实现程度次之，但在2017年底，几乎所有现代浏览器都全部支持了ES6，所以以ES6语法为标准讲解</li></ul><div id="92b5971a-d3f2-428e-bbf5-b1b30fa5933d" class="column-list"><div id="2291a2bf-b2c5-4611-87ca-c3f2ee7460f1" style="width:18.75%" class="column"><nav id="1adafdf4-62ff-4ecb-b622-61c864990f25" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#58db48ca-4ed0-4df9-af90-758d74a59305">1.语法</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#014e1ced-55c8-4f3c-8fc6-871f8073c01b">1.1区分大小写</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#62ccbc18-12fe-4326-ada6-f7a177613167">1.2 标识符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#40100a02-c156-4049-91cd-a44955301da9">1.3 注释</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#86287b13-cf43-451c-84ea-eb7541ccbf39">1.4 严格模式</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#629c48c9-3ca8-4985-a383-c89b6b6d1828">1.5语句特性</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4808441d-65dd-4dfb-83ed-d6cbce8a218a">2.关键字和保留字</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ef578186-914a-4d20-8727-7502a03046b1">3.变量</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#669441fa-b8b9-4b67-a939-0abe8c680b52">3.1 var关键字</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#cc9b514b-5bc9-478f-b7ff-079e91e7a95d">var声明作用域</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a2fc7677-d879-43f3-a70b-5e3bded36ec5">var声明提升</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b8c6e9a9-7ed2-4620-b734-7cc423841abe">3.2 let声明</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#9051a605-4c92-4b9b-b04d-4ecbf516f8b2">let特性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7b03d1d1-bb67-4101-9469-5fd3f78b3d32">let和var声明变量的其他区别</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#eb273831-a0d0-4787-bd69-cf856221143b">3.3 const声明</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5da060f5-beba-4b9d-9235-c86f2cf07309">3.4 声明变量的代码风格</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a6ee18c9-a427-4ff6-9ce0-c46c2976a04d">4.数据类型</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3e52fab3-2a70-4789-bb5c-5dbe54ed48f7">4.1 判断数据类型的方式</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b11973dd-cdcb-46af-ab3e-b855ce0ff008">4.2 Undefined类型</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8bd7616d-f001-460c-ad00-1dc87ed51aa1">4.3 Null类型</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#66a37513-ea3b-4578-9fe6-c57fa0d1006e">null与undefined</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#941a250e-8d79-4cb9-b5ae-f5e56046983a">4.4 Boolean类型</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e6cc4749-d00b-461c-97d7-1415038a4c51">4.5 Number类型</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ef26eb38-8095-42b0-8ac3-2a911b242178">整数数字的数字格式</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7c51cab1-e380-410e-9b79-39cc65dc9dcf">浮点值</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a7205b8f-3934-4a4a-99e5-6747d28a0f30">值范围</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e9adaed3-7ba4-4dee-87e6-020d1973d05d">NaN</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d6a0fe5f-00b6-41cb-9e15-5909caa27dc2">数值转换</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#755aaca5-6a0b-4c1c-a79a-8ef27a2a1ab2">4.6 String类型</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#aa40a5f9-36f0-47ee-9b62-5feda0bbf120">字符字面量（转义字符）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#dafdb54c-194a-4833-a4e8-4f2a773285dc">字符串的特点</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#14750fff-e019-4839-bf69-e0de1ee1fc53">字符串转换</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7be51a0a-088b-47ac-a510-4140b4ce3311">模板字面量</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#59391ebe-61a8-472c-88ae-04d8b0f16059">字符串插值</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#117dc122-20ea-4cfa-806a-caf1dbff5b1e">模板字面量标签函数</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#28a32bed-f820-47ac-a532-44813e488875">原始字符串</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#618b2155-8687-4d12-b8ed-c23565491949">4.7 Symbol类型</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#afa6326b-d5e2-43d7-bca5-d7e3cf528b45">符号的基本用法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#31c5dca9-e78c-4c4b-b0ac-95867447de68">使用全局符号注册表</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#20de248f-ab64-4b33-936d-7bfe462444d4">使用符号作为属性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8c24afb4-7cd9-4d90-b775-ac43c25368eb">常用内置符号</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#13f01fd1-ab4b-4fb6-b270-156512f27ec0">常用内置符号</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f26287fe-1f33-4f01-a9b4-5bcc871693da">4.8 Object类型</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7e4f68fe-cc83-441e-9d97-9b57c8c972e8">描述</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#557d42b0-b917-4276-a5d7-0b5716632b30">语法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0e08c113-0c14-467c-b872-7d541e52ae23">功能</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#84b0c183-0b2b-4fc9-9ff2-41f7946e05d3">注意</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a712c8ea-2808-44f8-8a13-187533d317fd">5.操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3543a9da-c62d-4a44-8fca-d2173fa5adf3">5.1 一元操作符与位操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#aa2ddfa5-69a6-48c7-9e62-f60fae9ea9cc">5.2 布尔操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e42e1d69-7d5d-47ac-ae59-f13b6f123ec5">5.3 乘性操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d8d69106-332a-4cf2-8de0-c96558433c25">5.4 指数操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#cd9e8db7-3bf0-4d11-aedb-3991c124f58b">5.5 加性操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#99e0af0b-8dd5-4b24-855e-98e8b2be67e7">5.6 关系操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1b2ccfc6-ca96-4d9b-99b5-5882afbe4543">5.7 相等操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#49555c4d-5dbb-4c9f-9cbe-f1449ca212aa">5.8 条件操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5706d572-a628-4f21-a9c3-9517968ddf45">5.9 赋值操作符</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#407971f0-ca97-4b5a-b8fe-3015fa055eb0">5.10 逗号操作符</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#18fb9661-8668-4f20-ae57-afa9eb4e26c4">6. 语句</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d8755129-7299-4204-8f10-7897ab36e4e9">6.1 条件语句</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#90509426-ce81-410a-baea-74af6151d0d7">6.2 循环语句</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0164b98a-8b92-44aa-bea8-0345b44068f6">6.3 循环控制语句</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#45d1cf00-cfd7-401b-88ea-e2051408493d">6.4 with</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d931c702-ffc0-47f9-8bea-e8d9cdab8218">7. 函数</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#56dbe094-9433-42a2-baa2-d4f64fd8571d">语法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3a6ba9d1-76aa-4b88-989d-689fbadddb75">函数声明</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#01387649-3547-4bb0-90a6-1d3b05d0ff72">函数调用</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#987e0f1e-2eac-4c79-81a9-550e3d9ba7a1">函数的返回值</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3a07448f-6fc8-4f53-91ed-74d288f1cd7b">使用注意</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#377371d0-d893-4b2a-99e6-d4d8209b17e9">例子</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#02f70c64-6f73-4606-a21d-0ae08cf0e968">8.小结</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9fa2f24d-9268-48dc-b6d3-5d3a622538bc">注意</a></div></nav><p id="61a05532-f504-4d20-af3b-38bce75c5359" class="">
+</p></div><div id="a792f941-7a20-4d72-8b1f-0d8df68b86ee" style="width:81.25%" class="column"><h1 id="58db48ca-4ed0-4df9-af90-758d74a59305" class="">1.语法</h1><p id="4a050636-ea1a-4bca-aacf-9401fc4b44f5" class="block-color-gray">ECMAScript的语法很大程度上借鉴了C语言和其他类C语言，特别是Java和Perl。ECMAScript具有宽松的弱类型语法</p><h2 id="014e1ced-55c8-4f3c-8fc6-871f8073c01b" class="">1.1区分大小写</h2><ul id="f89bdfd5-9132-476c-a777-7d4e8c495fd7" class="bulleted-list"><li style="list-style-type:disc">ECMAScript中的语法中的一切都区分大小写<ul id="5f87855d-ee42-4e31-a579-7a2cfc9de844" class="bulleted-list"><li style="list-style-type:circle">变量</li></ul><ul id="a8f467db-e73c-407b-b79b-cd9b3f26fdd4" class="bulleted-list"><li style="list-style-type:circle">函数名</li></ul><ul id="9abd250a-3d66-4427-8d7b-d422099a927d" class="bulleted-list"><li style="list-style-type:circle">操作符</li></ul></li></ul><ul id="7b9fa1cb-22be-43d6-a87b-44d94ca98e37" class="bulleted-list"><li style="list-style-type:disc">例如typeof是一个函数名，且不能作为变量名（关键字），但是Typeof完全可以是一个变量名</li></ul><h2 id="62ccbc18-12fe-4326-ada6-f7a177613167" class="">1.2 标识符</h2><ul id="08cf2149-6cd4-4ead-bfe7-8aa95e6c46aa" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc"><strong>标识（zhi）符</strong>，就是指变量、函数、属性或函数参数的名称，其构成<ul id="82967974-bba9-440e-b473-936a7016f1ec" class="bulleted-list"><li style="list-style-type:circle">第一个字符必须是一个字母、下划线（_）或者美元($)符号</li></ul><ul id="80fa1553-608a-46d2-abce-328db17c3acf" class="bulleted-list"><li style="list-style-type:circle">剩下的字符由字母、下划线、美元符号和数字组成</li></ul></li></ul><ul id="be1f41f1-0712-45b0-86ad-a6d57c133331" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">字母范围<ul id="4464d0f6-722b-4427-b50a-4c2325015c95" class="bulleted-list"><li style="list-style-type:circle">可以是扩展ASCII中的字母，即<code>[a-zA-Z]</code> </li></ul><ul id="e03aa28a-f5ea-4455-8989-454b19146575" class="bulleted-list"><li style="list-style-type:circle">也可以是Unicode中的字母字符，如æ，α等，但不推荐使用</li></ul></li></ul><ul id="9308ba08-6c37-4e4d-b29e-fc1386e90a5d" class="block-color-blue_background bulleted-list"><li style="list-style-type:disc">标识符写法规范<ul id="4aa7b1b1-0613-48e1-ad18-9370f8533102" class="bulleted-list"><li style="list-style-type:circle">一般而言，ECMAScript标识符使用<strong>驼峰</strong>标识法</li></ul><ul id="d2ae051f-86ad-4395-88ed-739e544a4edd" class="bulleted-list"><li style="list-style-type:circle">对于变量，函数，属性，函数参数都是以第一个单词首字母小写，后面每个单词首字母大写的形式，如<pre id="041e5ee5-ca26-418c-8bb8-5a107528c104" class="code code-wrap"><code>var firstSecond;
+var thisIsAObject = {
+	myName: &quot;mangwu&quot;,
+	myAge: 22
+};
+function sayHi(yourName) {
+	console.log(&quot;Hi!&quot; + yourName);
+}</code></pre></li></ul><ul id="0e98383f-c823-45fe-9b36-c89b118bba64" class="bulleted-list"><li style="list-style-type:circle">对于类，使用大驼峰标识法，所有单词的首字母大写<pre id="47ff2d0d-68b2-425a-8114-4ebb85a02296" class="code code-wrap"><code>class IsAClass extends Object {
+	constructor(name, age){
+		this.name = name;
+		this.age = age;
+	}
+}</code></pre></li></ul></li></ul><ul id="e982bffa-d6ed-4f94-975d-578aea45478f" class="bulleted-list"><li style="list-style-type:disc">关键字、保留字、true、false和null不能作为标识符</li></ul><h2 id="40100a02-c156-4049-91cd-a44955301da9" class="">1.3 注释</h2><ul id="01e9579a-39df-48d1-8be7-00920d7642e5" class="bulleted-list"><li style="list-style-type:disc">ECMAScript使用单行注释和多行注释<ul id="7ef5c950-f080-4cc6-8aac-c9aff58aa338" class="bulleted-list"><li style="list-style-type:circle">单行注释：使用两个斜杠字符开头<pre id="a6ca6d05-a6ca-4197-aee5-c27771e711d0" class="code code-wrap"><code>// 单行注释</code></pre></li></ul><ul id="a3b39960-2571-492f-ba0b-40c125185a38" class="bulleted-list"><li style="list-style-type:circle">多行注释：以一个斜杠加星号（*）开头，以一个星号（*）和斜杠结尾<pre id="3f0c7bcb-c9cb-4ef5-9dd6-bb9a3a0da410" class="code code-wrap"><code>/* 多行
+ * 注释
+ */</code></pre></li></ul></li></ul><h2 id="86287b13-cf43-451c-84ea-eb7541ccbf39" class="">1.4 严格模式</h2><ul id="8867fae9-f58f-42a6-bd33-b5966364c690" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">ECMAScript第五版增加了严格模式（strict mode）的概念：<ul id="f240d569-faff-4d64-8340-92db8fb13b91" class="bulleted-list"><li style="list-style-type:circle">严格模式是一种不同的JavaScript解析和执行模型</li></ul><ul id="17df5836-6759-4cfa-8925-6589e2aaae45" class="bulleted-list"><li style="list-style-type:circle">对于<strong>ES3中不规范的JavaScript写法</strong>以及<strong>不安全的活动</strong>进行限制并抛出错误</li></ul><ul id="3cf71bd0-b13e-4545-8616-a226e0866f26" class="bulleted-list"><li style="list-style-type:circle">默认不会启用严格模式，在脚本开头加上use strict启用严格模式<pre id="4ad8d1f8-213d-4e22-b038-81d0c88b39e0" class="code code-wrap"><code>&quot;use strict&quot;;</code></pre></li></ul></li></ul><ul id="3e26863b-f97b-4605-bb74-8ec0da237995" class="bulleted-list"><li style="list-style-type:disc"><code>&quot;use strict&quot;</code> 其实是一个预处理指令<ul id="72359add-ff92-4353-9e99-94a6e09d44f2" class="bulleted-list"><li style="list-style-type:circle">任何支持JavaScript的环境（不限于浏览器）看到它都会切换到严格模式</li></ul><ul id="91b6856b-8b4c-4ed1-b187-6ed2bfdd6b1f" class="bulleted-list"><li style="list-style-type:circle">使用预处理指令是为了不破坏ES3的语法</li></ul></li></ul><ul id="aae4102f-05e0-4a8a-afc7-03d8dc9c1a11" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">也可以将其封装到一个函数中执行<pre id="929e44a6-beb3-40e1-8b1d-d36a5baf5add" class="code code-wrap"><code>function() tranferStrictMode() {
+	&quot;use strict&quot;;
+}</code></pre></li></ul><ul id="f202f6b2-0ce9-4a6c-ab7c-23ceefdac0e3" class="bulleted-list"><li style="list-style-type:disc">严格模式会影响到JavaScript执行的许多方面，所有现代浏览器都支持</li></ul><h2 id="629c48c9-3ca8-4985-a383-c89b6b6d1828" class="">1.5语句特性</h2><ul id="322dbaa7-fdee-4703-9b40-057a28b80af1" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc"><strong>以分号结尾</strong>，也可以不加分号，由解析器缺点语句的结尾<pre id="83a95b32-9514-4409-a8c6-7e0396af675c" class="code code-wrap"><code>let sum = 5 // 未加分号
+let diff = 1; // 加了分号</code></pre><ul id="ceb7f1c8-6301-4712-aca6-fd51821268a5" class="bulleted-list"><li style="list-style-type:circle">推荐使用分号<ul id="73bc6973-0117-48e7-ba0f-4733f59e9572" class="bulleted-list"><li style="list-style-type:square">有助于省略时造成不必要问题</li></ul><ul id="6a5a92ca-94dc-4747-973f-51da8b5294b9" class="bulleted-list"><li style="list-style-type:square">且有助于删除空行压缩代码</li></ul><ul id="ff24da6b-ec54-4a36-82d2-24037f262783" class="bulleted-list"><li style="list-style-type:square">可能提升性能（解析器会尝试在合适的位置加上分号以纠正语法错误）</li></ul></li></ul></li></ul><ul id="1d4d3c41-b676-4dd9-bd3c-ff880efd6e5c" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">多条语句可以合并到C语言风格的<strong>代码块</strong>中，即使用大括号（<code>{}</code>）包裹多条语句<ul id="1f649f10-c0dd-47f6-af46-bef485941854" class="bulleted-list"><li style="list-style-type:circle">代码块通常出现在控制类语句中，如if，while等<pre id="7af25426-256b-4e47-9f13-7ba480e3337b" class="code code-wrap"><code>if (flag) {
+	flag = false;
+	console.log(flag);
+}</code></pre></li></ul><ul id="a3f2eb3e-5dd0-4e44-9967-3102c90a69d1" class="bulleted-list"><li style="list-style-type:circle">代码块也可以单独使用，作为一个局域使用，和C语言风格类似<pre id="539f24f9-f82d-4923-a25e-3febb1a9b0ab" class="code code-wrap"><code>let a = 1;
+{
+	let a = 2;
+	console.log(a); // 2
+}</code></pre></li></ul></li></ul><h1 id="4808441d-65dd-4dfb-83ed-d6cbce8a218a" class="">2.关键字和保留字</h1><ul id="79434d85-d6ff-4d3b-bb33-22a2592bc2f2" class="bulleted-list"><li style="list-style-type:disc">ECMA-262描述的一组保留的<strong>关键字，</strong>这些关键字有特殊用途<ul id="88d1130f-7a07-4917-a4f2-95f4b67cf7ff" class="bulleted-list"><li style="list-style-type:circle">表示控制语句的开始或结束</li></ul><ul id="551e3ee2-fdb7-4b0a-b865-184da059730d" class="bulleted-list"><li style="list-style-type:circle">循环语句的终止或继续</li></ul><ul id="4c4035c7-8ce0-4edb-9438-487ae9a63e73" class="bulleted-list"><li style="list-style-type:circle">声明常量或变量</li></ul><ul id="4ebbf1da-c542-4077-ac06-84d91b3e778b" class="bulleted-list"><li style="list-style-type:circle">引入其他模块</li></ul><ul id="3a0a3560-ef67-4117-8341-662f856f0f89" class="bulleted-list"><li style="list-style-type:circle">...</li></ul></li></ul><ul id="15ea8041-e1aa-427a-a95c-9b862ed8b735" class="bulleted-list"><li style="list-style-type:disc">ECMA-262第六版规定的ESMAScript6中所有关键字<pre id="b9ff9648-75f8-4bdb-b54d-bf2fe887ac8f" class="code code-wrap"><code>break    do        in          typeof
+case     else      instanceof  var
+catch    export    new         void
+class    finally   super       with
+continue for       switch      yield
+debugger function  this
+default  if        throw
+delete   import    try</code></pre></li></ul><ul id="7c357f67-bfcf-45f5-9742-e9c42f666a20" class="bulleted-list"><li style="list-style-type:disc">ECMA-262第6版本也描述了<strong>未来的保留字，</strong>同样不能作为标识符或属性名<ul id="299f7753-aa8a-4808-aa9e-3beca0b4ef5e" class="bulleted-list"><li style="list-style-type:circle">它们在现在版本的语言中没有特定用途，但是保留给将来的关键字使用</li></ul><ul id="0e344b44-0444-49e2-a211-346ff94b4d70" class="bulleted-list"><li style="list-style-type:circle">有些在ECMAScript7或者8版本里已经实现了</li></ul><ul id="de1af95d-9af8-49d9-aed4-b45a92f4af33" class="bulleted-list"><li style="list-style-type:circle">全部保留字：<pre id="b1835928-d8a5-4afa-af55-94fd312dbafe" class="code code-wrap"><code>// 始终保留
+enum
+// 严格模式下保留
+implements package   public
+interface  protected static
+let        private
+// 模块代码中保留
+await</code></pre></li></ul></li></ul><ul id="9576e1b0-2045-4bdb-baea-ec18527306f4" class="bulleted-list"><li style="list-style-type:disc">这些保留字和关键字<strong>严格不能作为标识符，</strong>但是可以<strong>用作对象的属性名</strong><ul id="6b1762ad-6be4-4d11-bc95-bbd401779d79" class="bulleted-list"><li style="list-style-type:circle">虽然使用保留字或关键字做属性名不会报错，但是最好不要，以兼容过去和未来的ECMAScript版本<pre id="1e86472f-df9f-4615-91cf-5da776658272" class="code code-wrap"><code>let a = {await:1, if:2};// 这样写不会报错，且可以正常读取</code></pre></li></ul></li></ul><ul id="0417f88e-488a-47fd-8c90-45aa5761f097" class="bulleted-list"><li style="list-style-type:disc">注意，在严格模式下，<strong> eval和argments</strong>不能作为变量名，否则会导致语法错误</li></ul><h1 id="ef578186-914a-4d20-8727-7502a03046b1" class="">3.变量</h1><ul id="b652e8f2-84b7-4045-9216-5ad70eea14c5" class="block-color-gray bulleted-list"><li style="list-style-type:disc">ECMAScript的变量是松散型的，即变量可以保存任何类型的数据。</li></ul><ul id="f68b0888-8ab0-4733-9519-fb3110d8f9b8" class="block-color-gray bulleted-list"><li style="list-style-type:disc">每个变量名只是一个用于保存任意值的命名占位符</li></ul><ul id="20da5e88-2603-472d-80f1-a7e69497d3e5" class="block-color-gray bulleted-list"><li style="list-style-type:disc">声明变量或常量的关键字有三个：var, let, const</li></ul><ul id="7cf3e6a4-c401-4519-9b11-b52422b93721" class="block-color-gray bulleted-list"><li style="list-style-type:disc">var在任何版本的ECMAScript都可以使用，const和let只能在ECMAScript6版本及之后的版本使用</li></ul><h2 id="669441fa-b8b9-4b67-a939-0abe8c680b52" class="">3.1 var关键字</h2><ul id="412baadb-e52c-44d0-85f2-3f6751e2135a" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">定义<ul id="6516032d-3544-4438-8f73-c6a8262ce2fb" class="bulleted-list"><li style="list-style-type:circle">描述：定义变量的关键字</li></ul><ul id="74c06a13-f147-49e1-a6ea-0416ea2913d8" class="bulleted-list"><li style="list-style-type:circle">使用方式：使用var操作符，后跟变量名（即标识符）<pre id="dcde6f30-1c62-4cd6-9a7b-49b3a2736ce6" class="code code-wrap"><code>var message;</code></pre><ol type="1" id="b961904f-06bf-41d3-9f17-d4cf5a52d031" class="numbered-list" start="1"><li>整个语句声明了一个名为message的变量，它可以保存任意类型的值</li></ol><ol type="1" id="bcfa319b-9c2a-4048-b403-53e6c838e0dd" class="numbered-list" start="2"><li>不初始化的情况下，它的值为一个特殊值<code>undefined</code> </li></ol><ol type="1" id="4884762a-2ad2-4554-b5e2-0190ce6008eb" class="numbered-list" start="3"><li>可以同时声明后定义变量的值，也可声明后再起其他语句设置</li></ol><pre id="8c552d7d-ca28-44e0-a1cf-32741f9e894f" class="code code-wrap"><code>var message = &quot;hello&quot;;</code></pre><ol type="1" id="6ec0bebd-287a-47c2-b0f9-e99ab0b89737" class="numbered-list" start="1"><li>上述是声明变量并赋值的语句，message变量被赋予一个字符串类型的值</li></ol><ol type="1" id="2e614165-e197-4c35-844a-4f078a2c42c8" class="numbered-list" start="2"><li>这样的字符串值赋值<strong>不会</strong>标识该变量是一个字符串类型，仅仅是赋值，且后续可以随意设置为其他类型的值</li></ol><pre id="79c98e9f-2e3b-438b-977f-48aaf84bad31" class="code code-wrap"><code>var message = &quot;hello&quot;;
+message = 100; // 合法变更值，但不推荐</code></pre><ol type="1" id="9c9dca3d-e376-4b64-93b8-f2c1bf289277" class="numbered-list" start="1"><li>对于弱类型语言ECMAScript来说，这样做完全合法，但不推荐改变初始赋值时保存的值类型</li></ol><ol type="1" id="79687185-7a55-40bc-91ae-9e5ca2415342" class="numbered-list" start="2"><li>其实现代的JavaScript经常这么做（反而更方便），如果要使用有类型检查的JavaScript，建议使用TypeScript(JavaScript的超集)</li></ol></li></ul><ul id="25697d29-fc9c-4043-99b1-4d6a2fc534de" class="bulleted-list"><li style="list-style-type:circle">如果需要定义多个变量<ul id="77b7d223-84e1-4c1d-aa90-cdfdc017070d" class="bulleted-list"><li style="list-style-type:square">可以每个变量起一个语句使用var声明定义</li></ul><ul id="3d1db03b-bc3f-41b3-b8f4-4a2a56dff1fd" class="bulleted-list"><li style="list-style-type:square">也可以在<strong>一条语句</strong>中使用逗号分隔开每个变量（及可选的初始化）：<pre id="44c8fc4f-0a4e-4c48-b771-8bd2d66c3fca" class="code code-wrap"><code>var message = &quot;hi&quot;,
+		found,
+		age = 22;</code></pre><ul id="dd2b8f18-a24f-456e-9c64-4ecae0dc5dd5" class="bulleted-list"><li style="list-style-type:disc">可以一次性声明并定义多个变量的原因在于，ECMAScript是松散类型的，可以使用不同数据类型进行初始化</li></ul></li></ul></li></ul></li></ul><h3 id="cc9b514b-5bc9-478f-b7ff-079e91e7a95d" class="">var声明作用域</h3><ul id="1ce7d2c3-33a8-4b55-9e2a-ccc0e69b268a" class="block-color-brown_background bulleted-list"><li style="list-style-type:disc">使用var操作符定义的变量会成为包含它的函数的<strong>局部变量</strong><ul id="9905ff23-b51e-4312-873d-e39b4fd4fd8f" class="bulleted-list"><li style="list-style-type:circle">例如，使用var在一个函数中声明定义一个变量，函数执行退出后会被销毁<pre id="cd0b3296-3a2a-4605-817d-1a72e63771f3" class="code code-wrap"><code>function test() {
+	var message = &quot;hi&quot;; // 局部变量
+}
+test(); //调用
+console.log(messsage); // 出错</code></pre><p id="6c4bf2e5-68c7-43fa-9fa5-da932bf3e41f" class="">⇒ 调用test函数使用var声明定义一个变量</p><p id="f83194b0-396b-40cb-b0b7-154d3def7270" class="">⇒ 执行结束后变量被销毁，最后一行出错</p></li></ul></li></ul><ul id="a978b79d-4653-4560-9d8f-cd0698da58f8" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">在函数内部声明定义变量时省略var操作符，可以创建一个<strong>全局变量</strong><ul id="54f78504-2040-4d68-8314-1e43e8f50610" class="bulleted-list"><li style="list-style-type:circle">全局变量可以在函数被调用后的外部访问使用<pre id="f3495dbf-f7df-4cb3-9cc8-c2276583d5c7" class="code code-wrap"><code>function test() {
+	message = &quot;hi&quot;; // 全局变量
+}
+test(); // 调用
+console.log(message); // 打印出hi </code></pre></li></ul><ul id="434908ad-e571-4f5b-98ce-5d47caa264ea" class="bulleted-list"><li style="list-style-type:circle">不建议使用这种方式定义全局变量，在严格模式下被禁用，会抛出ReferenceError错误<ul id="5d576f05-43ad-4dce-b396-30c45003ebca" class="bulleted-list"><li style="list-style-type:square">局部作用域中定义全局变量是一种迷惑行为</li></ul><ul id="6cc22485-f023-4ea8-91a0-1662500ff239" class="bulleted-list"><li style="list-style-type:square">这样定义的全局变量难以维护，因为其他人难以知道全局变量定义在了哪个局部作用域中</li></ul></li></ul></li></ul><h3 id="a2fc7677-d879-43f3-a70b-5e3bded36ec5" class="">var声明提升</h3><ul id="1563a798-7db4-4b47-aae4-e4edc55a0bde" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">var关键字定义的变量有一个特性：<strong>该变量会自动提升到作用域的顶部</strong><pre id="fc9038df-4205-4626-822f-fed77e2f04d5" class="code code-wrap"><code>function foo() {
+	console.log(age);
+	var age = 22;
+}
+foo(); // 打印undefined;不会报错</code></pre><p id="b1e2f35c-8258-49e3-b5bd-f2db15e43a1f" class="">⇒ 等价于</p><pre id="7dd531be-996d-4dd8-82ce-bc5d53c15601" class="code code-wrap"><code>function foo() {
+	var age;
+	console.log(age);
+	age = 22;
+}
+foo(); // 打印undefined</code></pre><ul id="b2a0a011-02e7-46a6-b73d-913241d42852" class="bulleted-list"><li style="list-style-type:circle">ECMAScript运行时会被看作如上代码</li></ul><ul id="4f04d598-1851-4379-bca6-ac5384b4d04b" class="bulleted-list"><li style="list-style-type:circle">这就是所谓的提升（hoist）,即<strong>把所有变量声明都拉到作用域的顶部</strong></li></ul></li></ul><ul id="7adecf88-b44b-4497-8c05-c4b1f84eaada" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">var关键字定义的变量还有一个特性就是：<strong>重复声明</strong>同一个变量不会出问题，相当于重复赋值<pre id="1085ac6e-68db-46e4-bd4f-d59723597ae7" class="code code-wrap"><code>function foo() {
+	var age = 16;
+	var age = 26;
+	var age; // 无任何意义
+	console.log(age);
+}
+foo(); // 26</code></pre></li></ul><h2 id="b8c6e9a9-7ed2-4620-b734-7cc423841abe" class="">3.2 let声明</h2><ul id="f2bc08e8-0702-45ac-9989-72be51e46df3" class="bulleted-list"><li style="list-style-type:disc">let也是用来声明变量的关键字，但和var有很重要的区别，最重要区别在于<ul id="61d17daa-f744-4dc3-84d1-600d0605f73c" class="bulleted-list"><li style="list-style-type:circle">let声明的范围是<strong>块作用域</strong><ul id="acc622a7-ffe1-450c-99b0-7662726ea5aa" class="bulleted-list"><li style="list-style-type:square">即let声明的变量在任何作用域中都是局部变量</li></ul></li></ul><ul id="81ac5867-1a6a-4f91-8912-ae63c50be27b" class="bulleted-list"><li style="list-style-type:circle">var声明的范围是<strong>函数作用域</strong><ul id="adbfa7ff-d72d-4d46-b851-b78cf5a8f0e4" class="bulleted-list"><li style="list-style-type:square">var声明的变量只有在函数作用域中才是局部变量，且会具有声明提升效应</li></ul></li></ul></li></ul><ul id="9b2b787f-88ed-4b58-9a9f-0491072473e1" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="d578a523-522c-4739-945f-2687d2e7f745" class="code code-wrap"><code>if (true) {
+	var name = &#x27;Matt&#x27;;
+	let age = 22;
+	console.log(name); // Matt
+	console.log(age); // 26
+}
+console.log(name); // Matt
+console.log(age); // RefferenceError： age没有定义
+</code></pre><p id="2ddf6ce6-aec4-4a67-90d6-24420baba7db" class="">⇒ let声明作用域仅限于块内部，<strong>块作用域是函数作用域的子集</strong></p><p id="b00c1c95-ab24-450b-b4ec-34da472c1215" class="">⇒ var声明的作用域限制同样适用于let(即在函数中适用let声明的变量仍然是局部变量)</p></li></ul><h3 id="9051a605-4c92-4b9b-b04d-4ecbf516f8b2" class="">let特性</h3><ul id="5865bc5b-bc9e-4b2a-88c8-7e984383c356" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">不允许冗余声明：一个变量只能适用let声明一次，不允许使用let声明第二次<pre id="3096f714-d121-4726-983c-26ed14c0fd1d" class="code code-wrap"><code>var name;
+var name; // 不会报错
+
+let age = 22;
+let age = 23; // SynataxError 标识符age已经声明过了</code></pre><ul id="020875f2-ecbc-49e5-b5a0-208ae9b3dfdd" class="bulleted-list"><li style="list-style-type:circle"><strong>混用</strong>let和var声明冗余变量同样会报错，这不是因为声明不同类型，而是它们指出了变量在相关作用域的不同存在方式<pre id="0d5ea580-574f-4046-ba0d-55deaa4287fd" class="code code-wrap"><code>var name;
+let name; //SynataxError
+
+let age;
+var age; //SynataxError</code></pre></li></ul></li></ul><ul id="82d13135-396e-4a12-bbd7-2416aef7959c" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">J<strong>avaScript引擎记录变量声明的标识符以及其所在的作用域</strong><ul id="1ec7914a-3c94-4f0b-8ea4-146405e153d3" class="bulleted-list"><li style="list-style-type:circle">在<strong>不同的作用域</strong>中使用相同的标识符声明变量是可行的</li></ul><ul id="d43f7fe0-4e65-4cee-9f88-82c9372854df" class="bulleted-list"><li style="list-style-type:circle">对于let在不同作用域声明的变量，它们不会相互影响<pre id="c2bad490-2169-414d-94a5-417a65845a33" class="code code-wrap"><code>let age = 22;
+if (true) {
+	let age =26;
+	console.log(age); // 26 优先查找本作用域的标识符变量，没有再查找父作用域的
+}
+console.log(age); //22 处于父作用域中，不会查找子作用域的变量</code></pre></li></ul><ul id="da05701c-c350-4fd7-9d43-c06a5c2524d0" class="bulleted-list"><li style="list-style-type:circle">对于var在不同作用域中声明的变量<ul id="61471561-7d0e-4fe9-89ea-0cebf3c74b1a" class="bulleted-list"><li style="list-style-type:square">如果是非函数作用域，由于状态提升，相当于重新赋值，会相互影响</li></ul><ul id="12784aab-dd9e-4afc-ad3e-b228da228018" class="bulleted-list"><li style="list-style-type:square">如果是在函数作用域，和let一样的效果</li></ul><pre id="9ecb43ff-85fd-41ee-a2f8-c7603d9e1e6d" class="code code-wrap"><code>var name = &quot;mangwu&quot;;
+
+if (true) {
+	var name = &quot;wumang&quot;; // 冗余声明，相当于赋值修改name
+	console.log(name); // &quot;wumang&quot;
+}
+
+function LogName() {
+	var name = &quot;manwug&quot;; // 局部变量
+	console.log(name);
+}
+LogName();
+console.log(name); // &quot;wumang&quot;</code></pre></li></ul></li></ul><h3 id="7b03d1d1-bb67-4101-9469-5fd3f78b3d32" class="">let和var声明变量的其他区别</h3><ol type="1" id="0f801819-8fe5-40f1-b5a5-56fda3e5810f" class="block-color-orange_background numbered-list" start="1"><li>暂时性死区<p id="55cb20aa-cb27-4b1e-923b-6c07619be6ec" class="">let声明的变量不会在作用域中被提升</p><p id="173bae42-9c38-49a0-8698-b552aedcb0e7" class="">var声明的变量在作用域中会被提升</p><pre id="13e23603-44c5-4544-9c8a-c36e3291c845" class="code code-wrap"><code>// name会被提升
+console.log(name); //undefined
+var name = &#x27;Matt&#x27;;
+
+// age不会被提升
+console.log(age); // ReferenceError: age没有定义
+let age = 22; // 此行以上的所有代码区域称为暂时性死区</code></pre><ul id="65ec96e3-c65d-4179-82de-400c47e181d6" class="bulleted-list"><li style="list-style-type:disc">JavaScript引擎实际上会注意块后面的let声明，只是不能以任何方式引用未声明的变量</li></ul><ul id="d5b78512-5aa8-4f44-b978-655fdd20aaad" class="bulleted-list"><li style="list-style-type:disc">let声明之前的引用被称为“暂时性死区”（temporal dead zone）</li></ul></li></ol><ol type="1" id="6258716c-86a6-4f8c-ba78-28aeb609bb87" class="block-color-teal_background numbered-list" start="2"><li>全局声明<ul id="46311137-4ac5-4083-ab7c-5f800fa2abb8" class="bulleted-list"><li style="list-style-type:disc">在浏览器环境下，使用let在全局作用域中声明的变量不会成为window对象的属性<pre id="477387a3-a8c9-4c20-a688-8843f2ae2e37" class="code code-wrap"><code>var name = &#x27;Matt&#x27;;
+console.log(window.name); // &#x27;Matt&#x27;
+
+let age = 22;
+console.log(window.age); // &#x27;undefined&#x27;</code></pre></li></ul><ul id="5573aac9-c02e-4d93-ad06-fcb6ffa3609b" class="bulleted-list"><li style="list-style-type:disc">但是在全局声明的let变量在页面声明周期内存续，可以一直使用</li></ul><ul id="60936358-2302-4ad7-9922-f3e3019f937e" class="bulleted-list"><li style="list-style-type:disc">注意：在<strong>node环境</strong>下，var声明的变量不会挂载到node环境下的global对象上<pre id="7d59ddd1-1658-4257-a7de-4f2c3e46ea8c" class="code code-wrap"><code>// node环境性=下
+var name = &#x27;mangwu&#x27;;
+let age = 22;
+
+console.log(global.name); // undefined
+console.log(global.age); // undefined</code></pre></li></ul></li></ol><ol type="1" id="66a56f1f-6eac-40a8-af64-a4d9a1ed06a9" class="block-color-blue_background numbered-list" start="3"><li>条件声明<ol type="a" id="ee20d5e8-300c-4211-b530-af710f1b8285" class="numbered-list" start="1"><li>对于var声明变量，JavaScript引擎会自动将多余的声明在作用域顶部合并为一个声明（var的<a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">声明提升</a>和<a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">重复声明</a>）<p id="f0af35aa-ae9a-42c8-84ac-7da3952974fa" class="">所以对于var声明的变量，在不同的脚本块中，可以使用<strong>条件声明</strong></p><pre id="9d90b702-7d0b-4d75-8e36-ce15d43db307" class="code code-wrap"><code>&lt;script&gt;
+	var name = &#x27;Nicholas&#x27;;
+	let age = 26;
+&lt;/script&gt;
+&lt;script&gt;
+	// 对于var声明的变量，如果没有声明就声明并赋值，这是一种条件声明
+	if (name === undefined) {
+		var name = &#x27;mangwu&#x27;;
+	}
+	console.log(name); // 前面声明了name，所以打印&#x27;Nicholas&#x27;;
+	//即使不使用条件声明，也可以正常重新声明赋值，这是由于声明提升的原因
+	var name = &quot;wumang&quot;;	
+
+	// 对于let声明的变量，在不同的脚本块中，也会检查之前是否声明了age
+	let age = 22; // 报错
+&lt;/script&gt;</code></pre></li></ol><ol type="a" id="f0d0ec0d-004c-42ec-a9dc-fdc37adcef89" class="numbered-list" start="2"><li>对于let变量，使用<strong>条件声明</strong>也不能解决，因为条件块中的<strong>let声明的作用域仅限该块</strong><p id="b112e85a-dc1d-476d-b8f1-f8ba5445c6b9" class="">所以在不同的脚本中使用条件声明对可能已被声明过的let变量是没有意义的</p><pre id="ab4bb8fc-3d74-46ce-87db-6dd7285c28de" class="code code-wrap"><code>&lt;script&gt;
+	let name = &quot;mangwu&quot;;
+	let age = 22;
+&lt;/script&gt;
+&lt;script&gt;
+	// 假设脚本不确定页面中是否已经声明了同名变量
+	// 假设还未声明过，使用条件声明代码如下
+	if (typeof name === &#x27;undefined&#x27;) {
+		// 无效声明，因为let声明的变量是块作用域
+		let name;
+	}
+	// 这个赋值形同全局赋值
+	name = &#x27;wumang&#x27;
+
+	// 使用try/catch语句
+	try {
+		console.log(age); // 如果没有声明过就会报错
+	} catch(error) {
+		// 在catch块中的声明是局部的
+		let age;
+	}
+	// 这个赋值形同全局赋值
+	age = 23;
+	&lt;/script&gt;</code></pre><p id="e66a547a-f26f-4673-a2cd-1b3188d8596b" class="">⇒ 对此let作为ES6的新声明关键词，<strong>不能依赖条件声明模式</strong></p></li></ol></li></ol><ol type="1" id="5ac387a8-3388-46bd-90e0-236d0f1641c9" class="block-color-purple_background numbered-list" start="4"><li>for循环中的let声明<ol type="a" id="f9548e4f-ebca-4282-b3fb-694e0bf73fa6" class="numbered-list" start="1"><li>对于var，for循环中的定义的<strong>迭代变量</strong>会渗透到循环体外部<pre id="84494dd9-6c57-4455-99fb-e0f2ba26e0a5" class="code code-wrap"><code>for(var i = 0; i &lt; 5; i++) {
+	var a = 2;
+	a++;
+	console.log(a);
+}
+console.log(i, a); //5 2</code></pre><ul id="75d793b6-f7a2-4711-b12b-40be835de413" class="bulleted-list"><li style="list-style-type:disc">在循环体中使用var声明定义的<strong>迭代变量</strong>循环完后不会销毁，占用空间和标识符</li></ul><ul id="15907638-0ab1-46ae-a88b-89812cdaf589" class="bulleted-list"><li style="list-style-type:disc">循环体内使用var声明定义的变量在循环外仍然有用</li></ul><p id="f8f35104-e918-4dd5-af99-ac67d02e85e8" class="">⇒ 如果循环中有<strong>异步</strong>执行的语句，如异步打印迭代变量，最终会<strong>打印退出循环时的迭代变量</strong></p><pre id="8036ba16-2f8b-44e8-8965-f58449155efa" class="code code-wrap"><code>for(var i = 0; i &lt; 5; i++) {
+	setTimeout(() =&gt; console.log(i), 0);
+}
+// 打印5 5 5 5 5</code></pre></li></ol><ol type="a" id="3a7bb9ce-a762-4634-9d03-6eb2257265ea" class="numbered-list" start="2"><li>使用let声明迭代变量时不会出现上述情况<ul id="1e9f8d2d-73f3-4b23-b97e-68f7e2bfbc5a" class="bulleted-list"><li style="list-style-type:disc"><strong>循环体内的let声明的变量在每轮循环中都不是同一个变量</strong></li></ul><ul id="9553a6a6-5853-4d80-b6ff-0ca38e5501b1" class="bulleted-list"><li style="list-style-type:disc">let声明的迭代变量，JavaScript引擎在后台会<strong>为每一个迭代循环声明一个新迭代变量，</strong>所以异步语句引用的是不同的变量实例</li></ul><pre id="8bb16c4b-f3ea-45a4-b393-727889263625" class="code code-wrap"><code>for(let i = 0; i &lt; 5; i++) {
+	setTimeout(() =&gt; console.log(i), 0);
+}
+// 打印0 1 2 3 4</code></pre><ul id="f034417e-86fb-4a49-8683-d21e7b0d6010" class="bulleted-list"><li style="list-style-type:disc">for in / for of 循环也属于这种每轮声明一个独立变量实例的行为风格</li></ul></li></ol></li></ol><h2 id="eb273831-a0d0-4787-bd69-cf856221143b" class="">3.3 const声明</h2><ul id="2b817803-70a5-49d7-80fb-9bd319699a63" class="bulleted-list"><li style="list-style-type:disc">const 声明的行为和let基本相同<ul id="dd064029-1166-4847-a928-be4d7ec46e1d" class="bulleted-list"><li style="list-style-type:circle">块作用域<pre id="55a8495b-7576-472b-b181-9b555a2e4ac7" class="code code-wrap"><code>const name = &quot;matt&quot;
+if (true) {
+	const name = &quot;mangwu&quot;
+	console.log(name); 
+	// 先检查本作用域中是否存在该变量，再检查父作用域，打印 &quot;mangwu&quot;
+}
+// 块中name被销毁
+console.log(name); // &quot;matt&quot;</code></pre></li></ul><ul id="08f53747-7ce8-45c0-831a-e1475837c48f" class="bulleted-list"><li style="list-style-type:circle">局部常量</li></ul><ul id="c2f59bb2-fdfb-4821-8f4e-c0efc2ff3c71" class="bulleted-list"><li style="list-style-type:circle">没有声明提升</li></ul><ul id="3385fa3e-7cb6-4ed9-866b-6c662818b90a" class="bulleted-list"><li style="list-style-type:circle">不能冗余声明<pre id="ed591329-c918-4e2a-8298-3708b4f85663" class="code code-wrap"><code>// 重复声明会报错
+const name = &quot;mangwu&quot;;
+const name = &quot;wumang&quot;; //SyntaxError</code></pre></li></ul></li></ul><ul id="306d9ffc-91bb-42ce-bdb8-a68c80dca681" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">const和let的唯一区别在于<ul id="bb625c44-7475-48e9-ba6f-f1371d09399c" class="bulleted-list"><li style="list-style-type:circle">const<strong>声明变量的同时必须初始化变量</strong></li></ul><ul id="05991a12-031d-4668-ba56-260d7061bcb6" class="bulleted-list"><li style="list-style-type:circle">之后不能修改const声明的变量的值，否则导致错误<pre id="215e6396-839b-4a5c-8356-b8af5eec3cb3" class="code code-wrap"><code>const age = 22;
+age = 36; // TypeError; 给常量赋值</code></pre></li></ul><ul id="6d0b661d-03dd-4c0c-b79f-36744927fdb9" class="bulleted-list"><li style="list-style-type:circle">同时，这也<strong>导致了</strong>const声明不能用于声明循环中的<strong>迭代变量</strong><pre id="b20c26d3-74af-42d7-9c03-192e09a69b89" class="code code-wrap"><code>for (const i = 0; i &lt; 10; i++) {
+	// TypeError:给常量赋值
+}</code></pre><ul id="0a15bf84-51eb-4a52-87e1-d84cb70ecc5f" class="bulleted-list"><li style="list-style-type:square">虽然每轮循环都会生成一个新的变量，当时i是自增的，不能用于迭代变量的声明</li></ul></li></ul><ul id="57933a13-b94a-4777-9e11-3adf5633b0f7" class="bulleted-list"><li style="list-style-type:circle">但是，这一特性也就给了const新的应用，在<strong>for/of和for-in</strong>循环中特别有用<pre id="914a2607-e535-4593-a38e-42a932cce007" class="code code-wrap"><code>for (const value of [1, 2, 3]) {
+	console.log(value); //1, 2, 3
+}</code></pre><pre id="53edd226-44a9-4b14-b78f-cf2c8b0d5e83" class="code code-wrap"><code>for (const key in {a:1, b:2}) {
+	console.log(key);// a, b
+}</code></pre><p id="c95412e5-8444-48f6-919d-fab21252de7a" class="">⇒ 每轮循环都会创建一个新的常量，即能使循环不渗透到循环体外，又能给循环的迭代量做出限制</p></li></ul></li></ul><ul id="1cc29228-988b-4e20-9db3-c6f4b817506f" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">const声明的限制<strong>只适用于指向的变量的引用</strong><ul id="db13dd4b-5782-442f-9de3-e766c5443571" class="bulleted-list"><li style="list-style-type:circle">如果const声明的变量引用是一个对象，那么修改对象内部的属性并不违反const限制<pre id="5443eb19-2379-4e88-88c4-1a5872ae4220" class="code code-wrap"><code>const person = {
+	name: &quot;mangwu&quot;
+};
+person.name = &#x27;wumang&quot;; //不属于赋值修改
+person.age = 22; // const声明的person的引用没有改变
+
+person = {
+	age: 23
+}; // 错误，TypeError,不能再给常量赋值</code></pre></li></ul></li></ul><div><h2 id="5da060f5-beba-4b9d-9235-c86f2cf07309" class="">3.4 声明变量的代码风格</h2><ul id="5840959a-6741-4cb7-9958-b1e5ece81501" class="bulleted-list"><li style="list-style-type:disc">ES6的新声明变量的关键字进一步规范了JavaScript的书写，有助于提升代码质量</li></ul><ul id="df223ebf-6869-401e-8165-48bc79506384" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">ES6新增声明关键字的使用实践<ol type="1" id="e835bddb-eb50-41be-b9db-956c0f0e5730" class="numbered-list" start="1"><li>不使用<strong>var</strong><ol type="a" id="9c6e42f8-197b-4439-8c40-c7375e6a1d83" class="numbered-list" start="1"><li>var的函数作用域范围比let的块作用域大，会导致变量渗透</li></ol><ol type="a" id="9ec0e73d-f76a-4d2c-97e9-8fb9524c83b5" class="numbered-list" start="2"><li>使用let和const能<strong>明确作用域、声明位置、和值限制</strong></li></ol></li></ol><ol type="1" id="194b5ab9-9029-4958-a610-c1d087ce71f4" class="numbered-list" start="2"><li>const 优先，let次之<ol type="a" id="86b78c06-d69b-4ca3-9e3c-a776ea1db128" class="numbered-list" start="1"><li>静态代码分析工具提前发现不合法赋值操作</li></ol><ol type="a" id="0c8afb0b-3149-40ad-aadd-bd78ee05c6b8" class="numbered-list" start="2"><li>优先使用const能让开发者更有信心推断某些变量的值不会改变</li></ol></li></ol></li></ul></div><h1 id="a6ee18c9-a427-4ff6-9ce0-c46c2976a04d" class="">4.数据类型</h1><ul id="38308da1-418d-4215-b1db-a5a682781181" class="bulleted-list"><li style="list-style-type:disc">ECMAScript有<strong>6种</strong>简单数据类型（也称<strong>原始类型</strong>）<ul id="8114239a-4c33-42c5-a4bb-2d6ff1fa3d14" class="bulleted-list"><li style="list-style-type:circle">Undefined</li></ul><ul id="34e30f06-36a9-4369-9f4e-3d3ec37493af" class="bulleted-list"><li style="list-style-type:circle">Null</li></ul><ul id="e446eb8f-c855-42bd-a2c8-2d7ab92e5095" class="bulleted-list"><li style="list-style-type:circle">Boolean</li></ul><ul id="d408b6bb-2a53-4808-a2c1-d9f0d16d3f88" class="bulleted-list"><li style="list-style-type:circle">Number</li></ul><ul id="a1490fed-de7d-4057-9da6-8bd61fb5dc73" class="bulleted-list"><li style="list-style-type:circle">String</li></ul><ul id="f64e0f20-5d5d-4b3c-838b-95f35366e8d5" class="bulleted-list"><li style="list-style-type:circle">Symbol(ES6新增)</li></ul></li></ul><ul id="53d59ddf-a05f-4fe0-baa4-6ab24ccac36b" class="bulleted-list"><li style="list-style-type:disc">ECMAScript有<strong>一种</strong>复杂数据类型<ul id="8384ef50-1eb7-4b40-916a-86105eea8c1c" class="bulleted-list"><li style="list-style-type:circle"><strong>Object（对象）</strong></li></ul></li></ul><ul id="530b9e5d-8c23-4fd0-b718-7e502296744c" class="bulleted-list"><li style="list-style-type:disc">ES中不能定义自己的数据类型，所有值都可以用上述7种数据类型之一表示</li></ul><ul id="4fe7fff0-ea4f-4177-a121-95a2d366f054" class="bulleted-list"><li style="list-style-type:disc">ES的数据类型很灵活，一种数据类型可以当作多种数据类型来使用</li></ul><h2 id="3e52fab3-2a70-4789-bb5c-5dbe54ed48f7" class="">4.1 判断数据类型的方式</h2><p id="2d9e8a45-d273-4dfe-a1cc-eb50353b7e99" class="">
+</p><p id="59d9e81d-2742-4583-95d7-acd8874466fd" class="">
+</p><ul id="0e418ab6-540e-4295-834d-17c77cd353a6" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">使用<code><strong>typeof</strong></code>操作符可以确定任意变量的数据类型<pre id="c2fcf382-a656-4cf4-8d72-49417f0e0e28" class="code code-wrap"><code>// 假设 a是一个未知数据类型的变量
+typeof a; // 返回上述7中数据类型中的一种，使用字符串表示
+typeof(a); // typeof的另一种使用方式</code></pre></li></ul><ul id="10344594-646c-4b72-8f83-d3a3ea966015" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc"><code><strong>typeof</strong></code><strong> 特性</strong><ul id="378d84c6-9a57-4f6a-8a76-e2aa771abb14" class="bulleted-list"><li style="list-style-type:circle">对于松散的ESMAScript的类型系统是很有用的</li></ul><ul id="b638f366-b7eb-4700-99ac-4b85df63df75" class="bulleted-list"><li style="list-style-type:circle">它返回七种数据类型中的一种，使用字符串表示：<ol type="1" id="a5209da9-0e1c-48c4-83e5-c1a809fa0034" class="numbered-list" start="1"><li>“undefined” 表示变量值未定义</li></ol><ol type="1" id="e39264d2-2801-4797-8e30-47f6b98f0815" class="numbered-list" start="2"><li>“boolean” 表示值为布尔值</li></ol><ol type="1" id="86f84b07-3280-48bc-9f8e-3fa57b1f234f" class="numbered-list" start="3"><li>“string” 表示值为字符串</li></ol><ol type="1" id="b0202d02-5dce-4c5d-b4bd-d814aa5d773f" class="numbered-list" start="4"><li>“number” 表示值为数值</li></ol><ol type="1" id="24d0eb36-3bff-4dde-b0ce-a6862feb513c" class="numbered-list" start="5"><li>“obejct” 表示值为对象（而不是函数）<strong>或null</strong></li></ol><ol type="1" id="71b266bf-2c32-4596-8a21-ceb728b6be23" class="numbered-list" start="6"><li>“function” 表示值为函数</li></ol><ol type="1" id="d4302c5d-7cd4-4ecf-a725-5a916b1e4348" class="numbered-list" start="7"><li>“symbol” 表示值为符号</li></ol></li></ul></li></ul><ul id="4d5683ea-643f-4aae-823e-70ece34919fc" class="block-color-pink_background bulleted-list"><li style="list-style-type:disc"><strong>注意</strong><ul id="eecc75bf-4d50-4218-b0bf-19e168be542c" class="bulleted-list"><li style="list-style-type:circle">typeof是操作符，而<strong>不是函数</strong></li></ul><ul id="f00f712e-9e8b-451d-a774-6fd0e894fcf4" class="bulleted-list"><li style="list-style-type:circle">对于null使用typeof会返回”object”,因为null被认为是一个空对象的引用</li></ul><ul id="299f6ed4-1f11-4e18-893c-7bcac101bc68" class="bulleted-list"><li style="list-style-type:circle">严格来说，<strong>函数也是一种对象，并不代表一种数据类型，但是函数有自己的特殊属性，所以有必要区分函数和其他对象</strong></li></ul></li></ul><h2 id="b11973dd-cdcb-46af-ab3e-b855ce0ff008" class="">4.2 Undefined类型</h2><ul id="54a97787-59bf-4f3d-9414-cbb7bfbc7e1a" class="bulleted-list"><li style="list-style-type:disc">Undefined类型的值只有一个，就是特殊值<code>undefined</code></li></ul><ul id="f48b737b-b7c7-4503-9ef5-d507f1157a84" class="bulleted-list"><li style="list-style-type:disc">赋值方式：使用var或者let声明变量但是不赋初始值，相当于赋予了undefined值<pre id="945a9d8f-a7cd-41d9-a066-48b661120c1f" class="code code-wrap"><code>let message;
+console.log(message == undefined); // true</code></pre><ul id="6241513d-1f9d-4c9f-969b-8092092b4a86" class="bulleted-list"><li style="list-style-type:circle">message和字面量<code><strong>undefined</strong></code><strong> </strong>进行比较，二者相等</li></ul></li></ul><ul id="add85eaf-51c4-4158-8f08-3946a2854287" class="bulleted-list"><li style="list-style-type:disc">等同于<pre id="cc08a648-8f40-4257-8402-87420140f1b9" class="code code-wrap"><code>let messgae = undefined; // 非必要赋值
+console.log(message == undefined); //true</code></pre></li></ul><ul id="a345a115-d9ca-4d66-a907-b1bd751a763b" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">注意：<ol type="1" id="9fc94cbd-14ab-4c7a-bad8-6f9e479d46df" class="numbered-list" start="1"><li>不要显示的给某个变量赋值undefined</li></ol><ol type="1" id="3dac9888-daf9-4e2e-8dc1-490099971c57" class="numbered-list" start="2"><li>ECMA-262 第三版之前不存在undefined字面量</li></ol><ol type="1" id="a009a7e2-e5b0-42dc-8f41-bd1d107cf321" class="numbered-list" start="3"><li>undefined字面量的出现就是为了<strong>正式明确空对象指针（null）和未初始化变量的区别</strong></li></ol><ol type="1" id="0bcdb84d-a98e-4263-9042-9dc20029bce1" class="numbered-list" start="4"><li>未初始化变量（未赋值变量）和未定义变量是有区别的，前者指已使用let或者var进行了声明，后者则是未声明和赋值的未知标识符</li></ol><ol type="1" id="b846cd71-60e1-474c-8fc2-31884632963e" class="numbered-list" start="5"><li>未声明（定义）变量只能执行<strong>一个有用操作</strong>，即上一部分的typeof, 返回undefined<pre id="607e0d09-76ec-45fc-a9e4-267cc6ee2907" class="code code-wrap"><code>let name
+// let age
+
+typeof name; // 返回undefined
+typeof age; // 返回undefined</code></pre><ul id="29b40309-b65a-465b-8365-c8c7446c8ab8" class="bulleted-list"><li style="list-style-type:disc">二者使用typeof操作符都返回undefined（未定义），逻辑上是对的</li></ul><ul id="3510240f-6ee2-473f-8393-a0884caa6cd9" class="bulleted-list"><li style="list-style-type:disc">但是这两个变量有本质差别，一个是未定义（已声明未初始化）变量值，另一个是未定义（声明）变量</li></ul></li></ol><ol type="1" id="40191953-b1c3-4d6a-8590-f313d86e0904" class="numbered-list" start="6"><li>undefined是一个<strong>假值，</strong>即可以在<strong>条件语句</strong>中使用它，假值还包括null，false，0等，在使用假值时一定要明确使用的是哪一个假值，如在条件语句中使用<code>undefined</code> 进行逻辑判断<p id="2e92549a-97f5-4558-9bcd-23f81d79c63f" class=""> </p><pre id="b88f2124-6858-4b9b-9a33-c45c79d06906" class="code code-wrap"><code>let message;// undefined
+// let age
+
+if (message) {
+	// message不为假值时执行
+}
+
+if (!message) {
+	// 会被执行的语句块，此时message为undefined，语句块中条件为真
+}
+if (age) {} // 报错，age未定义
+</code></pre></li></ol></li></ul><h2 id="8bd7616d-f001-460c-ad00-1dc87ed51aa1" class="">4.3 Null类型</h2><ul id="bcd6ded6-6bf0-4f61-9046-66a67eb39184" class="bulleted-list"><li style="list-style-type:disc">Null类型只有一个特殊值，null<ul id="a8cfa7ac-5ebf-4b9a-938d-47bf7131cc56" class="bulleted-list"><li style="list-style-type:circle">当时逻辑上，<strong>null是一个空对象指针</strong></li></ul><ul id="7ea2b049-bd56-43fa-8491-b098bf45147c" class="bulleted-list"><li style="list-style-type:circle">所以使用typeof操作符确定变量类型时，null值变量会返回”object”<pre id="c968492e-2f11-4aa9-ba1e-56247e3c7233" class="code code-wrap"><code>let person = null;
+typeof person; // object</code></pre></li></ul></li></ul><ul id="2e3ee99b-16ca-45a9-8724-d5c0c329b504" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">应用<ul id="50c5dd3b-431a-4025-89ab-dda93cdf9493" class="bulleted-list"><li style="list-style-type:circle">在定义将来要保存的对象值的变量时，<strong>使用null来初始化</strong></li></ul><ul id="f2f43ea5-8237-4726-93b5-45d3162eb92b" class="bulleted-list"><li style="list-style-type:circle">同时null可以作为假值用于判断对象变量的值是否为空，从而进行其他操作<pre id="5d758f9f-0147-43bb-856c-65efc8035094" class="code code-wrap"><code>if (car !== null) {
+	// car不为空执行的代码
+} else {
+	// car为空执行的代码
+	car = vhicleInital(); // 可能会初始化赋值
+}</code></pre></li></ul></li></ul><h3 id="66a37513-ea3b-4578-9fe6-c57fa0d1006e" class="">null与undefined</h3><ul id="d26dc8fe-aca2-4da6-a017-57fefc6f1a09" class="block-color-brown_background bulleted-list"><li style="list-style-type:disc">二者是<strong>派生关系</strong><ul id="9262a477-ff0e-4a6a-82c6-a32b189e29ca" class="bulleted-list"><li style="list-style-type:circle"><code><strong>undefiend</strong></code><strong>值是由</strong><code><strong>null</strong></code><strong>值派生出来的</strong></li></ul><ul id="77bc16d1-27c9-4a75-99d2-b7901c2db6c7" class="bulleted-list"><li style="list-style-type:circle">ECMA-262在<strong>表面</strong>上将其视为相等，但<strong>本质</strong>上不相等<pre id="933c58fa-23f3-4131-9903-92dd1ab5983b" class="code code-wrap"><code>console.log(undefined == null); // true</code></pre><figure id="0c2e3672-a95f-45e5-8d4f-b076ba37ddee" class="image"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/undefined_null.png"><img style="width:384px" src="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/undefined_null.png"/></a></figure><ul id="fc413567-9a3b-4bf7-8229-c58a60ffcf07" class="bulleted-list"><li style="list-style-type:square"><code>==</code> 操作符在比较时会转换为它的操作数</li></ul></li></ul></li></ul><ul id="479d8f7b-3082-485a-a6db-7d1f43a7dfba" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">undefined值的产生和null有关系，但是用途完全不一样<ul id="ac664908-cc15-44ac-a2ed-1f045ad9e861" class="bulleted-list"><li style="list-style-type:circle"><code>undefined</code>用于给未初始化值设定一个默认值，不推荐显示设置变量未<code><strong>undefined</strong></code><strong> </strong><ul id="72ff5840-148a-441a-a8e2-b9a6c94fc2c0" class="bulleted-list"><li style="list-style-type:square">即该变量是什么类型，赋予什么值，还未确定，<code>undefined</code> 是它暂时的默认值</li></ul></li></ul><ul id="6a02fc65-7abf-41c8-82af-431ba7281da4" class="bulleted-list"><li style="list-style-type:circle"><code>null</code> 用于给<strong>已确定为对象的变量，但是还未确定具体值的变量赋值</strong>，一定会使用显示的赋值<ul id="8dcb595d-7e8a-433d-8fc0-d6d4ecc2f0f5" class="bulleted-list"><li style="list-style-type:square">这样保证了null空对象指针的语义，且与undefined区分开来</li></ul></li></ul></li></ul><ul id="833c10e8-9c23-4c89-8be6-8014f2eed018" class="bulleted-list"><li style="list-style-type:disc">undefined与null的相同在于都是<strong>假值，</strong>null和undefined一样，在判断假值的时候，一定要明确自己想检查的值就是null这个字面量，而不仅仅是假值（因为假值有很多种）<pre id="a9c44358-7e9e-47df-94da-8751e51c6fe6" class="code code-wrap"><code>let name = null;
+let age;
+if (name) {
+	// 不执行 
+}
+if (!name) {
+	// 执行
+}
+if (!age) {
+	// 执行
+}</code></pre></li></ul><h2 id="941a250e-8d79-4cb9-b5ae-f5e56046983a" class="">4.4 Boolean类型</h2><ul id="482d4c52-15ea-47e9-9993-7fc394e1d0c7" class="bulleted-list"><li style="list-style-type:disc">是ECMAScript使用最频繁的类型之一，有两个<strong>字面量</strong><ul id="d036744c-5b91-4754-bc38-55ca955638c6" class="bulleted-list"><li style="list-style-type:circle"><strong><code>true</code></strong></li></ul><ul id="70b540d8-574f-44de-b6ab-b82f86623eab" class="bulleted-list"><li style="list-style-type:circle"><strong><code>false</code></strong></li></ul></li></ul><ul id="7f53d55e-b39b-4d52-983a-ee833dc8ffdd" class="bulleted-list"><li style="list-style-type:disc">字面量特性<ol type="1" id="ee0e2b07-a471-4fe2-bf11-a4d675a83192" class="numbered-list" start="1"><li><code>true</code>不是1,<code>false</code>也不是0</li></ol><ol type="1" id="d5585a3c-e0e6-4e26-bcec-a0e85f54415e" class="numbered-list" start="2"><li>区分大小写，True和False等大小写混写形式是正常的标识符</li></ol></li></ul><ul id="f5597cf9-c63a-4203-a2fe-84edc010a958" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">其他的所有的ECMAScript类型的值<strong>都有相应的布尔值等价形式</strong><ul id="088ec761-4723-4fec-9268-e0d44224f6ba" class="bulleted-list"><li style="list-style-type:circle">如1的布尔类型等价形式为<code>true</code> ,0的布尔类型等价形式为<code>false</code></li></ul><ul id="9c7b9b7c-6adf-49c4-9131-5ab7aad37b1d" class="bulleted-list"><li style="list-style-type:circle">转化方式：使用特定的<code>Boolean()</code>转化函数<pre id="7745d220-3c93-4702-bc08-43c3b30de71a" class="code code-wrap"><code>let message = &quot;Hello, world!&quot;;
+let messageAsBoolean = Boolean(message);  // true</code></pre></li></ul><ul id="dc9a9c0d-8f8d-4457-b112-82f2257f8f16" class="bulleted-list"><li style="list-style-type:circle">不同数据类型的值的布尔等价形式对照图<table id="e2be8117-24e9-499d-b909-72108716e795" class="simple-table"><thead class="simple-table-header"><tr id="1904c128-9870-48e5-9934-bfd8147f04dd"><th id="\UY{" class="block-color-blue_background simple-table-header" style="width:175px"><strong>数据类型</strong></th><th id="pKZx" class="block-color-blue_background simple-table-header" style="width:217px"><strong>转化为true的值</strong></th><th id="Dyw|" class="block-color-blue_background simple-table-header" style="width:180px"><strong>转化为false的值</strong></th></tr></thead><tbody><tr id="53b1eb57-c6e1-4d32-9b79-900e883fdbd2"><td id="\UY{" class="block-color-pink_background" style="width:175px">Boolean</td><td id="pKZx" class="block-color-pink_background" style="width:217px">true</td><td id="Dyw|" class="block-color-pink_background" style="width:180px">false</td></tr><tr id="37e9f56a-0941-44bd-8d36-803b482f7322"><td id="\UY{" class="block-color-pink_background" style="width:175px">String</td><td id="pKZx" class="block-color-pink_background" style="width:217px">非空字符串</td><td id="Dyw|" class="block-color-pink_background" style="width:180px">空字符串(<code>&quot;&quot;</code>) </td></tr><tr id="38e6368e-4c04-44b0-93a7-f1b922975819"><td id="\UY{" class="block-color-pink_background" style="width:175px">Number</td><td id="pKZx" class="block-color-pink_background" style="width:217px">非零数值（包括无穷值）</td><td id="Dyw|" class="block-color-pink_background" style="width:180px">0，NaN</td></tr><tr id="d39ba296-0c69-46ac-9b34-c9d9f382a5a0"><td id="\UY{" class="block-color-pink_background" style="width:175px">Object</td><td id="pKZx" class="block-color-pink_background" style="width:217px">任意对象（包括空数组）</td><td id="Dyw|" class="block-color-pink_background" style="width:180px">null</td></tr><tr id="bec9eecb-ff79-4fe5-b63c-ef945ff19b1e"><td id="\UY{" class="block-color-pink_background" style="width:175px">Undefined</td><td id="pKZx" class="block-color-pink_background" style="width:217px">N/A(不存在)</td><td id="Dyw|" class="block-color-pink_background" style="width:180px">undefiend</td></tr></tbody></table></li></ul><ul id="b2f95362-d28c-4aa2-9a77-8d2e8b8b16a4" class="bulleted-list"><li style="list-style-type:circle">在条件语句等控制流语句中会<strong>自动执行其他类型到布尔值的转换</strong><pre id="ce82202e-dfb9-4004-8607-f2ca7cc5e7b4" class="code code-wrap"><code>let message = &quot;Hello, World&quot;;
+if (message) {
+	// true 会执行
+	message = null;
+}
+if (message) {
+	// false 不会执行
+} </code></pre></li></ul></li></ul><h2 id="e6cc4749-d00b-461c-97d7-1415038a4c51" class="">4.5 Number类型</h2><ul id="add46d65-ca44-4d17-9f79-5dfa88a0f2f3" class="bulleted-list"><li style="list-style-type:disc">ECMAScript中最有意思的数据类型</li></ul><ul id="59890b9e-795f-4bd8-b2c7-057c503965d4" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">Number类型使用IEEE754格式表示<strong>整数</strong>和<strong>浮点值</strong>（双精度值）</li></ul><h3 id="ef26eb38-8095-42b0-8ac3-2a911b242178" class="">整数数字的数字格式</h3><ol type="1" id="1438da6d-8962-40ce-ac70-01b8c25408c5" class="numbered-list" start="1"><li>十进制<pre id="35969a5a-7fa1-4371-b61e-4140492c2a1e" class="code code-wrap"><code>let age = 22; // 十进制整数，直接写出来</code></pre></li></ol><ol type="1" id="6d870c10-7abd-4c05-a2d7-998312e27b62" class="numbered-list" start="2"><li>八进制：以0开始，八进制<strong>在严格模式下无效，</strong>会导致JavaScript引擎抛出错误<pre id="25becefd-c72f-43b2-8403-7a2af68f2e24" class="code code-wrap"><code>let octalNum = 070; // 八进制的56
+let octalNum2 = 067; // 八进制的55
+let octalNum3 = 078; // 无效的八进制，因为每位值大于等于8，视为78</code></pre><p id="d8fc2036-d01c-45da-928a-a9c3defdab3c" class="">⇒ 在ES6（ECMAScript 2015）中，严格模式下可以使用<code>0o</code> 前缀来表示8进制且不会报错<div class="indented"><pre id="eba3a1e6-04a2-4755-906b-90699f631c69" class="code code-wrap"><code>let octalNum = 0o123; // 进制的83</code></pre></div></p></li></ol><ol type="1" id="a4f07224-e850-4402-a78e-ebdb91519d4d" class="numbered-list" start="3"><li>十六进制，以0x开头（区分大小写），十六进制数字0~9、A~F(不区分大小写)<pre id="7079435b-787e-45c0-9781-9bd983bddf32" class="code code-wrap"><code>let hexNum1 = 0xA; // 十六进制，表示10
+let hexNum2 = 0x2f; // 十六进制，表示47</code></pre></li></ol><ol type="1" id="d1758b1e-49ca-4cbe-a92d-69fef6f9bc04" class="numbered-list" start="4"><li>二进制，以0b开头（区分大小写）<pre id="57c261c6-4291-4cd3-9abe-ca90c0378323" class="code code-wrap"><code>let binaryNum = 0b1011; // 二机制,表示11</code></pre></li></ol><ul id="a02e803a-1531-4a54-a0bd-388673558c39" class="bulleted-list"><li style="list-style-type:disc">注意：JavaScript的保存数值的方式存在正零(+0)和负零(-0),当在所有情况下都是等同的</li></ul><h3 id="7c51cab1-e380-410e-9b79-39cc65dc9dcf" class="">浮点值</h3><ul id="4fe65ae5-81c0-46e9-9d51-6c307f7dab53" class="bulleted-list"><li style="list-style-type:disc">描述：<ul id="2c9398af-142b-4743-bbac-d287f2652344" class="bulleted-list"><li style="list-style-type:circle">包含小数点就可以构成浮点值，且小数点后面至少有一个数字</li></ul><ul id="222aa92c-7c4c-49ef-bf74-650e19472750" class="bulleted-list"><li style="list-style-type:circle">存储浮点值的使用内存空间是存储整数值的两倍</li></ul></li></ul><ol type="1" id="d54afd90-7315-4353-96c1-a07cc376608f" class="block-color-yellow_background numbered-list" start="1"><li>赋值浮点值方式<pre id="7f609f92-4938-427a-a9b9-2711c3fecf49" class="code code-wrap"><code>let floatNum = 0.1;
+let floatNum2 = .12; // 有效，但不推荐，表示0.12</code></pre></li></ol><ol type="1" id="c2f664e1-df55-4f70-94d2-4ac576a95aa5" class="block-color-teal_background numbered-list" start="2"><li>由于浮点值使用内存空间大，ECMAScript总是想方设法把值转化为整数<ol type="a" id="0b2e2389-e8f5-42f0-9679-06de2b0bb4d2" class="numbered-list" start="1"><li>小数点后面没有数字时，或者是0时就会被当成整数处理<pre id="04ff47a5-c97f-4a77-8e06-9649d87de32d" class="code code-wrap"><code>let floatNum1 = 10.; //当作整数10处理
+let floatNum2 = 1.0; // 当作整数1处理</code></pre></li></ol><ol type="a" id="6ee57d40-08db-42cd-b11b-a6da98404fda" class="numbered-list" start="2"><li>当<strong>使用的小数值是超过精度所能表示的数</strong>时，对于循环小数乘以对应的数值可能产生整数<pre id="5c3c463d-caee-4204-bc0b-585a36c262fd" class="code code-wrap"><code>let floatNum = 0.6666666666666666; // 16位小数
+let newNum = floatNum * 3;
+console.log(newNum); // 2</code></pre><figure id="a7118ec1-1328-4f75-95c3-3dd4c68d538a" class="image"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/float.png"><img style="width:538px" src="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/float.png"/></a></figure></li></ol></li></ol><ol type="1" id="5af0ca46-1405-43fc-a5b8-f54e27033d0b" class="block-color-blue_background numbered-list" start="3"><li>浮点数的<strong>科学记数法：用于简洁表示很大或者很小的数</strong><ol type="a" id="31fd4980-7520-4c0c-8900-0539259a1827" class="numbered-list" start="1"><li>ECMAScript中的科学记数法格式是一个数值（整数或者浮点数）后面跟一个大写或者小写的字母e，再加上一个要乘以的10的多少幂次<pre id="473549cf-89d9-4cc5-a78f-0868367e8b77" class="code code-wrap"><code>let floatNum = 3.142e-2; // 表示0.003142
+let floatNum2 = 4.11e5; // 表示411000</code></pre></li></ol><ol type="a" id="3ca020e7-f54a-491b-90b0-f844762d5e49" class="numbered-list" start="2"><li><strong>默认</strong>情况下ECMAScript会<strong>将小数点后至少包含6个0的浮点值</strong>转化为科学记数法<pre id="945a8d06-0001-48ca-9169-c2317bc7c3f8" class="code code-wrap"><code>let floatNum = 0.0000000000000003;// 会自动转化为3e-17</code></pre></li></ol></li></ol><ol type="1" id="2a8f87cf-978c-4482-8fd7-d57ec81ff39e" class="block-color-purple_background numbered-list" start="4"><li>浮点数的精确度最高为17位小数，但在计算中不如整数精确，如0.1加0.2得到的不是0.3，而是0.300 000 000 000 000 04<pre id="49e05421-89a4-456b-8368-7716e18d579f" class="code code-wrap"><code>let a = 0.1;
+let b = 0.2;
+//如果是 0.05和0.25则不会出现这种问题
+if ( a + b == 0.3) {// 逻辑上正确，但实际不通过，所以别这么使用
+	// 不会执行
+}</code></pre><figure id="74986971-b1b9-4019-9a82-ec7befd69a6e" class="image"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/IEEE754.png"><img style="width:418px" src="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/IEEE754.png"/></a></figure><p id="a69df958-8ba1-40ff-b65f-dd6096cf490d" class="">注意：这种微小的舍入错误不是JavaScript独有的而是IEEE 754标准的问题，使用IEEE 754标准的其他语言同样会出现这种错误</p></li></ol><h3 id="a7205b8f-3934-4a4a-99e5-6747d28a0f30" class="">值范围</h3><ul id="a63df459-ff57-4d3b-8d68-ab824ef04e41" class="bulleted-list"><li style="list-style-type:disc">内存限制，ECMAScript不会支持世界上所有的数字</li></ul><ul id="8c3d9856-a1ca-4634-bba4-8c3e68602049" class="bulleted-list"><li style="list-style-type:disc">ECMAScript可表示的最小(正)数值保存在<code>Number.MIN_VALUE</code> 中，其值为5e-324</li></ul><ul id="7957e9e9-1eb6-4f2c-b2d8-01d092730dc4" class="bulleted-list"><li style="list-style-type:disc">ECMAScript可表示的最大数值保存在<code>Number.MAX_VALUE</code> 中，其值为1.797 693 134 862 315 7 e+308</li></ul><ul id="2649d16c-7b17-46d9-9abb-4957e556db38" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">所以<strong>大概</strong>ECMAScript能表示的值的访问为<pre id="80bcd7bc-9ff5-42cc-96b3-0b9f25c1c379" class="code code-wrap"><code>[-Number.MAX_VALUE, -Number.MIN_VALUE]
+0
+[Number.MIN_VALUE, Number.MAX_VALUE]</code></pre><p id="33e2a51d-6918-4825-a0e9-5c4ff74de8a9" class="">⇒ 其中<strong>未考虑小数点后可表示精确度位数，</strong>所以该范围仍然比能表示的范围大</p></li></ul><ul id="1c3ff6ee-adec-44a1-861b-b2592423fc7c" class="block-color-blue_background bulleted-list"><li style="list-style-type:disc">超出-Number.MAX_VALUE和Number.MAX_VALUE的数会被自动转化为一个特殊的无穷值<code><strong>Infinity</strong></code><strong> </strong><pre id="9910fd61-7275-4e7d-a09b-79c2a8fc82b1" class="code code-wrap"><code>let a = Number.MAX_VALUE * 2; // Infinity
+let b = -Number.MAX_VALUE / 0.5; // -Infinity</code></pre><ul id="2f79f95b-5053-4fde-b455-e2b839ecb730" class="bulleted-list"><li style="list-style-type:circle">Infinity不能进一步进行计算</li></ul><ul id="80e400b9-691c-46f8-a1a7-276e545658ac" class="bulleted-list"><li style="list-style-type:circle">可以使用isFinite()函数判断一个数值是否为可计算的值<p id="457033d9-31b0-4feb-9fcb-5c8de41540a8" class="">该函数对下面的NaN同样适用</p><pre id="f574ca92-86c7-4c9b-b7de-b43ddbdd9a9c" class="code code-wrap"><code>let a = Number.MAX_VALUE * 2; // Infinity
+console.log(isFinite(a)); //false</code></pre></li></ul><ul id="e4cfeac1-0c0a-4a2a-90b6-ea461bfb9c15" class="bulleted-list"><li style="list-style-type:circle">使用<strong>Number.NEGATIVE_INFINITY</strong>和<strong>Number.POSITIVE_INFINITY</strong>也可以取得正负Infinity</li></ul></li></ul><h3 id="e9adaed3-7ba4-4dee-87e6-020d1973d05d" class="">NaN</h3><ul id="2e20433d-b6f6-480e-a926-eb3e9313b60e" class="bulleted-list"><li style="list-style-type:disc">NaN表示不是一个数字，即Not a Number，用于表示数处理时操作失败了<ul id="c89e0f24-7452-41fc-967a-8afa24aa90be" class="bulleted-list"><li style="list-style-type:circle">但它不是表示抛出错误</li></ul><ul id="e9199472-5e6e-45b2-90a0-b5a2f3dd50a3" class="bulleted-list"><li style="list-style-type:circle">而是计算过程中出现无法计算的情况时就会返回NaN，如0除以0</li></ul><pre id="8ba5dbe7-0877-4cec-ac55-a4278a84a94b" class="code code-wrap"><code>console.log(0 / 0); // NaN</code></pre><ul id="fc18eba4-cf62-4c9d-92ac-147ace18966e" class="bulleted-list"><li style="list-style-type:circle">上面例子中如果分子不为0而是一个具体的数，会得到正或者负<code>Infinity</code> </li></ul></li></ul><ul id="23adf4e1-6eb1-4a5b-b652-a1244508da54" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">NaN有一些独特的特性：<ol type="1" id="3ff7c33b-a862-4c9d-a852-e0b3f14c4350" class="numbered-list" start="1"><li>任何涉及NaN操作的计算都会返回NaN<pre id="6c7c1509-7306-476c-b0b0-1e1d96a47196" class="code code-wrap"><code>console.log(NaN * 5); // NaN</code></pre></li></ol><ol type="1" id="78e5a7a7-a755-4d9c-b526-c9f183ebc862" class="numbered-list" start="2"><li>NaN不等于包括NaN在内的任何值（Infinity不会出现这种情况，它会与符号相同的Infinity相等）<pre id="2ae5a28f-00d2-4d60-849e-6dc3e5770b72" class="code code-wrap"><code>console.log(NaN == NaN); // false
+console.log(Infinity == Infinity); // true</code></pre></li></ol><ol type="1" id="fc56201e-794c-4773-a079-d2e5d5b7076b" class="numbered-list" start="3"><li>需要有一个判断数值为NaN的函数，即isNaN()函数<ol type="a" id="9d2dfe0d-2d21-48ca-90eb-dc6ff003f421" class="numbered-list" start="1"><li>该函数接受然后数据类型作为参数</li></ol><ol type="a" id="aa238f15-ceeb-40a9-8cb7-7d28d3ffbb5f" class="numbered-list" start="2"><li>该函数首先将参数值转化为数值类型</li></ol><ol type="a" id="36e8c539-0f52-488c-ba09-c80a9b117c4c" class="numbered-list" start="3"><li>再判断该参数值是否“不是数值”（NaN）</li></ol><ol type="a" id="4a56af96-9955-4c99-a2f7-972c6c514904" class="numbered-list" start="4"><li><strong>任何不能转化为数值类型的参数值都会被认为不是数值</strong></li></ol><pre id="65154b5f-7925-4365-aade-774df4711caa" class="code code-wrap"><code>console.log(isNaN(NaN)); // true
+console.log(isNaN(10)); // false
+console.log(isNaN(true)); // false true可以转化为数值1
+console.log(isNaN(&quot;true&quot;)); // true &quot;true&quot;是字符串，不能转化为数值
+console.log(isNaN(&quot;&quot;)); // false 空字符串可以转化为数值0</code></pre><p id="90105da3-2b8a-454d-a811-7b198c81d858" class="">⇒ <code>isNaN()</code> 不常用，但是可以用于测试对象，其原理是</p><ol type="1" id="6181410d-83c9-43a7-8815-deefc7aaee20" class="numbered-list" start="1"><li>首先调用对象的valueOf()方法，确定该方法返回的值是否能转化为数值</li></ol><ol type="1" id="baadc09c-dffe-4cc6-bf8c-65e2d4cc0972" class="numbered-list" start="2"><li>再调用对象的toString()方法，再测试其返回值</li></ol><ol type="1" id="9cc3db92-6bf7-454e-9c9f-34f50a7b0aaa" class="numbered-list" start="3"><li>上述是是ECMAScript内置函数和操作符的工作方式</li></ol></li></ol></li></ul><h3 id="d6a0fe5f-00b6-41cb-9e15-5909caa27dc2" class="">数值转换</h3><ul id="41d72753-9b68-4d3a-b302-37e216498402" class="bulleted-list"><li style="list-style-type:disc">ECMAScript中的数值类型只有一个即<code>Number</code>类型</li></ul><ul id="ee85154f-edad-45b6-a9b5-9aaa2f636057" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">弱类型语言同样需要将其它类型转化为数值的方法：<ol type="1" id="6eded4b2-b0fe-48cc-aa51-d701e68b6a35" class="numbered-list" start="1"><li><code>Number()</code> 转化函数，可用于任何数据类型，其规则如下<ol type="a" id="4d90eb93-c2aa-42da-b1dd-26125c0b198e" class="numbered-list" start="1"><li>布尔值→数值类型，true → 1, false → 0</li></ol><ol type="a" id="cd786c04-0fe2-4380-bf1b-359a04465cca" class="numbered-list" start="2"><li>数值类型 直接返回</li></ol><ol type="a" id="d1e3ade3-dac5-4de6-ba70-aa5df6389efe" class="numbered-list" start="3"><li>null 类型 返回0</li></ol><ol type="a" id="2ce3fe9d-0beb-4056-b39b-9fb2129965d5" class="numbered-list" start="4"><li>字符串类型<ol type="i" id="1a96ed05-75a1-4cfd-bd0a-6178c372a517" class="numbered-list" start="1"><li>只包含数值字符和±号以及可选的一个有效小数点，转化为一个十进制数值<pre id="c6788952-4a2c-41ad-b443-4f7f519de3ef" class="code code-wrap"><code>Number(&quot;-01.1&quot;); // -1.1</code></pre></li></ol><ol type="i" id="93f1c9e7-78a0-4bbf-89de-afc2ec848480" class="numbered-list" start="2"><li>字符是有效的十六进制格式，将转化该16进制格式为相应的十进制数值(不包括正负号和小数点)<pre id="5f056382-f986-440b-bdf4-d44260ccfd71" class="code code-wrap"><code>Number(&quot;0x0123&quot;); //291 </code></pre></li></ol><ol type="i" id="7bc0754e-5bbc-436a-92f9-c668fa6b6c01" class="numbered-list" start="3"><li>空字符串，返回0</li></ol><ol type="i" id="a48d165a-4aa0-4ee2-9ab3-55c6c90b648a" class="numbered-list" start="4"><li>不符合上述所有条件，返回NaN</li></ol></li></ol><ol type="a" id="9af53188-522b-4eff-b314-ca8169b05255" class="numbered-list" start="5"><li>对象类型<ol type="i" id="c4ec989c-c5b8-41fa-ad58-225f5f1c636d" class="numbered-list" start="1"><li>先调用对象的valueOf()方法，按照上述规则转化valueOf返回的值</li></ol><ol type="i" id="92c04c25-3a88-44ac-b349-dd7a13413e61" class="numbered-list" start="2"><li>如果转化结果为NaN，就调用toString()方法，按照字符串规则转化<pre id="914b4035-2adb-483e-a9b7-f38272f6cdef" class="code code-wrap"><code>const a = {b : 1};
+Number(a); //NaN</code></pre></li></ol></li></ol></li></ol><ol type="1" id="a2829257-f07a-4770-9189-b5f7f15f0cee" class="numbered-list" start="2"><li><code>parseInt()</code>转化函数主要针对<strong>字符串</strong>类型<ol type="a" id="92c202f7-c20c-4019-897b-177b05df7d2a" class="numbered-list" start="1"><li>专注于字符串是否包含字符类型，字符前的空格会被忽略(但不会忽略中间的空格)<pre id="f561a1e3-97db-4c7a-9039-2f26d52f6ea0" class="code code-wrap"><code>parseInt(&#x27; 23 &#x27;); // 23
+parseInt(&#x27; 2a3 &#x27;); // 2
+parseInt(&#x27; 2 3 &#x27;); // 2</code></pre></li></ol><ol type="a" id="9fff5c5c-7626-48ae-b1a3-de1e82edbce4" class="numbered-list" start="2"><li>原理：<ul id="ee124d88-92e6-41f9-b7fe-26359365cf3c" class="bulleted-list"><li style="list-style-type:disc"><strong>parseInt从第一个非空字符开始转换，如果第一个不是数字字符或者加减号,会立即返回NaN</strong></li></ul><ul id="89a32b77-2436-41d0-8243-ddc7a740032d" class="bulleted-list"><li style="list-style-type:disc">当遍历到字符后，会以其为开头遍历连续的数值字符，直到遍历到的字符不是数值或者末尾，所以<strong>只返回整数值</strong>（不处理小数点）</li></ul><ul id="38256c0b-ef41-450f-97d4-9490331fe3fb" class="bulleted-list"><li style="list-style-type:disc">除此之外，它也能正常识别十六进制（谷歌浏览器环境下<strong>默认不能</strong>识别八进制和二机制），且默认以十进制形式返回<figure id="156f969e-4b70-4699-a8a7-d1fd6b4a8107" class="image"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/16%E8%BF%9B%E5%88%B6.png"><img style="width:581px" src="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/16%E8%BF%9B%E5%88%B6.png"/></a></figure></li></ul></li></ol><ol type="a" id="b496176b-6b2a-4f3a-93ce-c602edd166bf" class="numbered-list" start="3"><li>参数：<ol type="a" id="312195dc-dda9-47d2-9ca9-965a89896b4c" class="numbered-list" start="1"><li>参数1：必选，字符串</li></ol><ol type="a" id="9c678e5e-36c5-441a-951c-0e253c97cbff" class="numbered-list" start="2"><li>参数2：可选，用于指定底数（进制数）</li></ol><ul id="77953bec-26ef-4596-b323-4c1bb283b489" class="bulleted-list"><li style="list-style-type:disc">在指定进制数之后，就能根据进制数识别字符，而且可以省略特殊进制的前缀，如十六进制就可以省略前缀0x (但是其他进制仍然<strong>不能</strong>像之前<a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">赋值</a>一样使用添加前缀字符串)<pre id="0ae7f0e3-55ac-4a85-ac7d-7de0e0d6b01c" class="code code-wrap"><code>let num1 = parseInt(&quot;AF&quot;, 16); // 175
+let num2 = parseInt(&quot;AF&quot;); //NaN
+
+let num3 = parseInt(&quot;10&quot;, 2); // 2, 按照二进制解析，转化为10进制
+let num4 = parseInt(&quot;10&quot;, 8); // 8, 按照八进制解析</code></pre></li></ul></li></ol><p id="bfb304b4-8b96-44b6-a29c-c9bb7ecb9e06" class="">⇒ <strong>建议使用paserInt时传入第二个参数，</strong>即使只使用十进制，传入10即可</p></li></ol><ol type="1" id="93adec77-dc7a-45ee-9bd1-b1e82adc2259" class="numbered-list" start="3"><li><code>parseFloat()</code> 函数工作方式和<code>parseInt()</code>类似<ol type="a" id="1267c875-5db3-4871-bae8-166dbbe35c2d" class="numbered-list" start="1"><li>从第一个非空字符开始转换，直到解析到无效的浮点数值字符</li></ol><ol type="a" id="52cf8988-3445-48ea-bfac-db8c32cd9124" class="numbered-list" start="2"><li>第一次出现的小数点会被成功转化，而第二个出现的小数点无效，剩余字符串被忽略</li></ol><ol type="a" id="3c281546-2318-47ec-8f8e-76cae896bd29" class="numbered-list" start="3"><li>参数：<ol type="i" id="8f6d3f77-059c-41fd-8a91-77ffd1afa547" class="numbered-list" start="1"><li>只有一个，即字符串，不能指定进制底数，只识别十进制数</li></ol><ol type="i" id="4e22757a-979e-4acc-b4b7-33523a02355f" class="numbered-list" start="2"><li>所以该函数<strong>不能识别</strong>以0x开头的十六进制数（会被识别为0）</li></ol><ol type="i" id="ca535395-ecd3-4f0e-b5ed-52ed09e20014" class="numbered-list" start="3"><li>但是它对之前<a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">所有浮点格式</a>的字符串都能识别（包括科学记数法）</li></ol></li></ol><ul id="dcfd3c12-5e06-41fe-afbc-e433d0cd1ec9" class="bulleted-list"><li style="list-style-type:disc">尽量返回整数，有小数点就返回浮点数，不能识别就方法NaN<pre id="e5f8675f-394c-43ff-a124-fe998521fbf6" class="code code-wrap"><code>let num1 = parseFloat(&quot;1234blue&quot;); // 1234 按照整数解析
+let num2 = parseFloat(&quot;0xA&quot;); // 0 不识别十六进制数
+let num3 = parseFloat(&quot;  22.1.1&quot;); // 22.1 第二个小数点无效
+let num4 = parseFloat(&quot;0213.12&quot;); //213.12 自动忽略前面的0
+let num5 = parseFloat(&quot;1.34e-2&quot;); // 0.0134 对科学计数法有效</code></pre></li></ul></li></ol></li></ul><h2 id="755aaca5-6a0b-4c1c-a79a-8ef27a2a1ab2" class="">4.6 String类型</h2><ul id="cbf5d7f1-fa8f-45f4-ae04-17aee487549f" class="bulleted-list"><li style="list-style-type:disc">String即字符串类型，标识零个或多个16位Unicode字符序列，字符串可以使用三种符号包裹<ul id="8fc4533a-0737-470c-8174-0addd60a63f2" class="bulleted-list"><li style="list-style-type:circle">双引号 <code>&quot;hello&quot;</code> </li></ul><ul id="a29440f8-9eba-494f-8bc9-751cd2ae20e8" class="bulleted-list"><li style="list-style-type:circle">单引号<code>&#x27;Jobs&#x27;</code></li></ul><ul id="3bfad952-9b08-45ea-82ef-ec07bb440cae" class="bulleted-list"><li style="list-style-type:circle">反引号 <code>`Mangwu`</code></li></ul></li></ul><ul id="ae8443c9-7d45-4cd3-9df4-f7f035fac72c" class="bulleted-list"><li style="list-style-type:disc">不同引号不会改变ECMAScript对字符串的解释方式（有些语言会改变）</li></ul><ul id="2f06386a-43aa-4034-b124-e47fdebcef8c" class="bulleted-list"><li style="list-style-type:disc">引号必须是成对的，以某一种引号开头的字符必须以其结尾</li></ul><ul id="bd500a30-6dca-419d-8b3d-31f0afc8ee01" class="bulleted-list"><li style="list-style-type:disc">在以一种引号包裹中的字符中可以使用其他引号<pre id="c5777725-8908-4910-89ca-5fb565ad510a" class="code"><code>let phase = &quot;He said: &#x27;Hello!&#x27;.&quot;</code></pre></li></ul><h3 id="aa40a5f9-36f0-47ee-9b62-5feda0bbf120" class="">字符字面量（转义字符）</h3><ul id="a9041046-45f7-4182-9307-987ad95d2fcd" class="bulleted-list"><li style="list-style-type:disc"><strong>字符字面量的一部分为转义字符</strong>，用于表示非打印字符或者有其他用途的字符<table id="21fdde53-246f-40ab-b6c4-3986c7ef1790" class="simple-table"><thead class="simple-table-header"><tr id="f9ff05ed-2426-4df7-b869-ee379de2b79a"><th id="BUQb" class="simple-table-header-color simple-table-header">字面量</th><th id="X:_m" class="simple-table-header-color simple-table-header" style="width:421px">含义</th></tr></thead><tbody><tr id="f1a346bd-b2d3-4f63-8ae8-0e7e2afd1e65"><td id="BUQb" class="">\n</td><td id="X:_m" class="" style="width:421px">换行，表示newline,将当前位置移动到下一行的开头，也称<strong>LF</strong>符号</td></tr><tr id="dd729a44-6dfe-414f-b892-c138f7d68441"><td id="BUQb" class="">\t</td><td id="X:_m" class="" style="width:421px">（水平）制表，表示<strong>Horizontal tab,</strong>跳到下一个tab位置</td></tr><tr id="83945484-b2cb-4e1c-b36b-5cc5fd190af7"><td id="BUQb" class="">\b</td><td id="X:_m" class="" style="width:421px">退格，表示back， 将光标移回一格，它<strong>本身不删除任何字符</strong>，只是在它之后的字符会依次覆盖光标后的字符，在node环境中生效，在浏览器环境下不生效（测试显示谷歌和火狐都会被识别为未知字符）</td></tr><tr id="2f3fb212-8747-4da4-afa7-002bb2baf2a4"><td id="BUQb" class="">\r</td><td id="X:_m" class="" style="width:421px">回车，表示<strong>Carriage Return，</strong>将当前位置移动到本行开头，也称<strong>CR</strong>符号。Windows系统下文本的行尾序列通常就是<strong>CRLF</strong>，表示回车换行</td></tr><tr id="c1431e66-1cc2-43df-9625-10d376e6bcdb"><td id="BUQb" class="">\f</td><td id="X:_m" class="" style="width:421px">换页，表示Form feed/clear screen，将当前位置移动到下一页开头。一般只在打印（真打印）的时候有用，在node环境字符串打印中显示为一个空心未知字符</td></tr><tr id="09e890b8-0fc4-424f-9687-beb3b6ac0b0d"><td id="BUQb" class="">\\</td><td id="X:_m" class="" style="width:421px">反斜杠，用于转义的反斜杠自身表示时使用双反斜杠即可</td></tr><tr id="164b2807-6644-431c-a0cd-e41d73f48440"><td id="BUQb" class="">\’</td><td id="X:_m" class="" style="width:421px">单引号，在以单引号标示的字符串中使用时，使用反斜杠表示该单引号非结尾</td></tr><tr id="33c11555-09d3-460e-9d3d-38da4891f438"><td id="BUQb" class="">\”</td><td id="X:_m" class="" style="width:421px">双引号，在以双引号标示的字符串中使用时，使用反斜杠表示该双引号非结尾</td></tr><tr id="c378c344-439c-431f-b4b3-378edf4f9c9b"><td id="BUQb" class="">\`</td><td id="X:_m" class="" style="width:421px">反引号，在以反引号标示的字符串中使用时，使用反斜杠表示该反引号非结尾</td></tr><tr id="9b9b8c00-de2d-4b78-b33e-ad4a728d0278"><td id="BUQb" class="">\xnn</td><td id="X:_m" class="" style="width:421px">以十六进制编码nn表示的字符，例如‘a’的ASCII码为97，其十六进制为61，那么\x61就表示字符’a’</td></tr><tr id="cd129019-1c1f-4837-a079-69121f0dd678"><td id="BUQb" class="">\nnn</td><td id="X:_m" class="" style="width:421px">以八进制编码nnn表示的字符，例如’a’的ASCII码为97，其八进制为141，那么\141就表示字符’a’</td></tr><tr id="e5f263af-b55d-4c11-9423-9f4851c142b5"><td id="BUQb" class="">\unnnn</td><td id="X:_m" class="" style="width:421px">以十六进制编码nnnn表示的unicode字符，a字符的UTF-16码位为\u0061; 希腊字母Σ的unicode字符为\u03a3.</td></tr></tbody></table></li></ul><ul id="e0bc3631-f4bf-4e30-bfd6-acc5fcb41ef3" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">转义字符特性<ol type="1" id="0d3d5999-6534-41d3-8ab3-b3d2d65f438f" class="numbered-list" start="1"><li>可以出现在字符串中的任意位置<pre id="92824cc3-985a-40c7-bd8b-6f57c15803d9" class="code code-wrap"><code>let text = &quot;Hello!\n\r This is a sigma: \&quot;\u03a3\&quot;&quot;;
+// Hello!
+// This is a sigma &quot;Σ&quot;</code></pre></li></ol><ol type="1" id="f5cdc84a-2ec8-452a-944b-dfd7f6291136" class="numbered-list" start="2"><li>转义字符的长度被当作1，上面的sigma转义字符即使有6位，也当作一位看待<ul id="cd88bc96-3aef-4452-a1ba-59dcece6fc48" class="bulleted-list"><li style="list-style-type:disc">因为转义序列表示一个字符</li></ul><ul id="786839e3-be02-4f48-9d6b-557d2a29c8ee" class="bulleted-list"><li style="list-style-type:disc">字符串长度通过length属性获取<pre id="0c564d5c-c5f2-4a9c-b8e5-69fc471dabdb" class="code code-wrap"><code>let sigma = &#x27;\u03a3&#x27;;
+conbsole.log(sigma.length); //1</code></pre></li></ul></li></ol><ol type="1" id="25f19ffd-9900-43fc-8fe4-46ebc00c3223" class="numbered-list" start="3"><li>如果字符中包含<strong>双字节字符，</strong>那么length属性返回的值可能不是准确的字符数</li></ol></li></ul><h3 id="dafdb54c-194a-4833-a4e8-4f2a773285dc" class="">字符串的特点</h3><ul id="f6ca07bc-794c-4aa4-a03e-17a7c33636a0" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc"><strong>不可变性</strong>（<strong>immutable</strong>）<ol type="1" id="0d153c48-e4a3-4b93-8bf3-0f2395703680" class="numbered-list" start="1"><li>JavaScript中的字符串是不可变的，一旦创建值就不变了</li></ol><ol type="1" id="0eae1c06-83e4-4c71-8ced-a55f4e102940" class="numbered-list" start="2"><li>要修改变量中的字符串值，必须销毁原先的字符串，然后使用包含新值的另一个字符串赋值到该变量<pre id="66c29a38-0e46-4e61-b9a5-0ef8cf25f9ed" class="code code-wrap"><code>let lang = &quot;Java&quot;;
+lang = lang + &#x27;Script&#x27;; // 返回一个新字符串</code></pre><ul id="8a00a9fe-0f5c-4b16-bbe8-db780608f16b" class="bulleted-list"><li style="list-style-type:disc">lang先被分配4个字符空间容纳字符串”Java”</li></ul><ul id="c753e39b-bba6-4d2f-8ab2-722708128f8e" class="bulleted-list"><li style="list-style-type:disc">然后被分配10个字符空间，填充上”Java”和”Script”</li></ul><ul id="02552e04-9086-4194-b519-ea1b965374ca" class="bulleted-list"><li style="list-style-type:disc">最后原始的”Java”和”Script”被销毁（因为无用了）</li></ul></li></ol></li></ul><h3 id="14750fff-e019-4839-bf69-e0de1ee1fc53" class="">字符串转换</h3><ul id="f350f565-454c-446c-9d15-6f5c67b1fbef" class="bulleted-list"><li style="list-style-type:disc">将其他类型的值转化位字符串的方法有两种<ol type="1" id="c8e79618-4142-4276-be72-6b7e884b6872" class="numbered-list" start="1"><li>一种是每种类型的值都内置的方法toString()</li></ol><ol type="1" id="75751dcf-be14-4acd-a6f2-1bd984847bf6" class="numbered-list" start="2"><li>另一种是转型函数String()</li></ol></li></ul><ul id="f0fa9243-e126-4d33-a6ee-59d53500c980" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc"><code>toString()</code> 方法<strong>被当前值调用并返回当前值的字符串等价值</strong><ul id="0334f66a-90ea-4c85-9e5d-89bfaa09b35e" class="bulleted-list"><li style="list-style-type:circle">例子<pre id="845a28a6-b009-4fa3-8a1d-ada8cc7ef8ba" class="code code-wrap"><code>let age = 11;
+console.log(age.toString()); // 字符串&quot;11&quot;;
+let flag = true;
+console.log(flag.toString()); // 字符串&quot;true&quot;;
+console.log(&quot;Hello&quot;.toStirng()); // 返回自身的副本</code></pre></li></ul><ul id="c3accdd9-2da9-43bc-ba0d-5b24cf13dd73" class="bulleted-list"><li style="list-style-type:circle">适用数据类型：<ul id="1c2c1564-748e-4133-ad8b-e10e288a7eb5" class="bulleted-list"><li style="list-style-type:square">数值</li></ul><ul id="3aaf2067-0d93-414a-9139-4e98b050a283" class="bulleted-list"><li style="list-style-type:square">布尔值</li></ul><ul id="d0df51de-122a-4ad1-8e3c-188a948b6901" class="bulleted-list"><li style="list-style-type:square">对象</li></ul><ul id="2c71b2ff-351a-4955-a9dc-5aa951e6ca66" class="bulleted-list"><li style="list-style-type:square">字符串值</li></ul><ul id="ffd9b26a-86d2-4c6b-b81a-4acb8e137a97" class="bulleted-list"><li style="list-style-type:square">null和undefined值没有toString()方法</li></ul></li></ul><ul id="dab2c1de-951a-4df1-a858-ff4ef845393d" class="bulleted-list"><li style="list-style-type:circle"><code>toString()</code>对于大部分值都没有参数，除了数值<ul id="bef7e742-813d-4f4c-bf5a-068771c51f58" class="bulleted-list"><li style="list-style-type:square">参数x：接受一个进制底数，默认为10</li></ul><ul id="f168b883-5a2b-42ed-aa42-8b6632339337" class="bulleted-list"><li style="list-style-type:square">得到数值的x进制的字符串表示<pre id="b2acd6dd-d7f1-4d86-9af6-090c14bfeec9" class="code code-wrap"><code>let num = 10;
+console.log(num.toString(2)); // &quot;1010&quot; 10的二机制表示
+console.log(num.toString(8)); // &quot;12&quot; 10的八进制表示
+console.log(num.toString(16)); // &#x27;a&#x27; 10的十六进制表示</code></pre></li></ul></li></ul></li></ul><ul id="0ffcfe18-ee6b-4796-aa9c-2c8e70f51624" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc"><code>String()</code> 函数<ul id="f76baa46-43f2-4714-b5f8-ff41afcc3fc8" class="bulleted-list"><li style="list-style-type:circle">但不确定变量值是否是null或者undefined时，使用String()转型函数</li></ul><ul id="382722e8-c01e-41c5-85d7-60d9413e7c8f" class="bulleted-list"><li style="list-style-type:circle">String函数适用于任何数据类型，它始终返回表示对应的字符串等价值</li></ul><ul id="c44c7db7-f3c5-44fb-941f-622751bf32c0" class="bulleted-list"><li style="list-style-type:circle">String函数的原理<ol type="a" id="9a8dc7b5-2135-4e12-8213-8ce4a9588f22" class="numbered-list" start="1"><li>值是有toString()方法的数据值，调用toString()并返回结果</li></ol><ol type="a" id="40bd319f-2cd1-4e3f-ac83-b8510e84f198" class="numbered-list" start="2"><li>值是null 返回”null”</li></ol><ol type="a" id="2e896de1-79c3-4255-8695-f035132b19dd" class="numbered-list" start="3"><li>值是undefined 返回“undefined”</li></ol><pre id="c6c905e0-e900-45f5-b07d-a0d657fdf0e6" class="code code-wrap"><code>let num = 10;
+let flag = true;
+let obj = null;
+let name;
+String(num); // &#x27;10&#x27;
+String(flag); // &#x27;true&#x27;
+String(obj); // &#x27;null&#x27;
+String(name); // &#x27;undefined&#x27;</code></pre></li></ul></li></ul><ul id="4097eef6-1c7d-4fff-ba0d-48adbd550c67" class="bulleted-list"><li style="list-style-type:disc">其他方式：使用＋符号将值加上空字符串也能转化为字符串<pre id="75bf2d98-fc02-4650-99fa-0b1c0603fbaf" class="code code-wrap"><code>let num = 22;
+let age = num + &#x27;&#x27;; // &#x27;22&#x27;</code></pre></li></ul><h3 id="7be51a0a-088b-47ac-a510-4140b4ce3311" class="">模板字面量</h3><ul id="793281b3-db4a-4991-ad6e-82c668ef1904" class="bulleted-list"><li style="list-style-type:disc">ECMAScript6新增的特性</li></ul><ul id="7129122d-8ae5-49d0-8269-62eb4f9a51da" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">模板字面量：<ul id="aba5746b-6796-4716-bf10-dc42d635e538" class="bulleted-list"><li style="list-style-type:circle">描述：本质上就是<strong>可以换行书写的字符串</strong>，即不一定非使用\n，而可以在代码中<strong>物理换行到达跨行定义字符串</strong>的目的</li></ul><ul id="32b8aa99-5c2d-4ba0-a960-c71ff0cf4326" class="bulleted-list"><li style="list-style-type:circle">用法：使用反引号定义模板字符串<pre id="b8d436e5-4b40-438d-9187-aa5de65d1e4f" class="code code-wrap"><code>let multiLineString = `first string
+second string`;
+let multiLineString2 = &quot;first string\nsecond string&quot;; 
+console.log(multiLineString  === multiLineString2); // true</code></pre><p id="53f653f5-971f-4100-afc8-c82499ddad59" class="">⇒ 使用模板字面量跨行定义的字符串和使用转义\n定义的一样</p></li></ul><ul id="379e5340-05c8-4401-bba8-487041896f37" class="bulleted-list"><li style="list-style-type:circle">应用：在定义模板时非常有用，如HTML模板<pre id="2cda3482-0949-4cce-9f92-d9661c46d197" class="code code-wrap"><code>let pageHtml = `
+&lt;div&gt;
+	&lt;a href=&quot;#&quot;&gt;
+		link
+	&lt;/a&gt;
+&lt;div&gt;
+`</code></pre></li></ul><ul id="2288e5ed-73c8-4454-ba05-431861bdba2b" class="bulleted-list"><li style="list-style-type:circle">注意：<ul id="797187aa-e2d4-4460-883e-d98768f3fe67" class="bulleted-list"><li style="list-style-type:square">模板字面量会保持反引号内部的空格和换行，使用时格外注意</li></ul><ul id="9640ed02-9a16-4637-bd78-a1f9ab6ffb93" class="bulleted-list"><li style="list-style-type:square">在换行时注意缩放得当<pre id="e9ad0a12-e0f5-4c60-9437-8ce1d99203d5" class="code code-wrap"><code>let error = `bad
+						 template`; // 这个字符串前有很多空格符
+let error = `
+first line
+second line
+`; // 这个字符串实际上以一个换行符开头，文本段不是第一行</code></pre></li></ul></li></ul><ul id="e7874c82-d6b8-4e91-9ecb-eae1de8b99e9" class="bulleted-list"><li style="list-style-type:circle">ES6之前想要<strong>代码物理换行</strong>需要使用<code>\</code> 符号，但其实这是一个bug<pre id="cbbcef80-d6a6-458e-9997-0413a2518091" class="code"><code>let str = &quot;first line\n\
+second line&quot;；
+console.log(str);
+// first line
+// second line
+</code></pre><p id="be401b38-54ff-4794-9ffc-d594a63174af" class="">⇒ 注意反斜杠可以承接下一行代码，不属于字符串</p><p id="9fae480e-5707-4eba-8fbe-61d5e3d3459b" class="">⇒ 模板字面量<a href="https://www.cnblogs.com/xiaohuochai/p/7234281.html">产生原因</a> 就是为了方便创造多行字符串</p></li></ul></li></ul><h3 id="59391ebe-61a8-472c-88ae-04d8b0f16059" class="">字符串插值</h3><ul id="ddd9c48c-0653-4847-b798-31c0bcd6380f" class="bulleted-list"><li style="list-style-type:disc">字符串插值就是<strong>在字符串中插入变量</strong>，这一特性由模板字符串支持</li></ul><ul id="8fec6b44-eae0-4be8-82ca-6d007ac4bff0" class="bulleted-list"><li style="list-style-type:disc">本质上模板字符串不是字符串，而是<strong>一种特殊的JavaScript句法表达式</strong>，求值后得到字符串</li></ul><ul id="ee1f1019-947c-4a63-b8dc-281a1c792bb8" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">模板字面量在定义时立即对包裹在反引号中的字符和变量求值然后转化为字符串实例<ul id="b859b63c-9c67-4df3-9adf-5681766e77b6" class="bulleted-list"><li style="list-style-type:circle">插值变量从最近的作用域中取值</li></ul><ul id="90de7966-e89e-451e-a70b-d1be2d3b8b1e" class="bulleted-list"><li style="list-style-type:circle">字符串插值使用<code>${var}</code> 的形式实现，var为一个变量</li></ul><ul id="1de6f200-bd5c-498b-8bc3-5b36f054661b" class="bulleted-list"><li style="list-style-type:circle">字符串插值会被强制使用<code>toString()</code> 转化为字符串</li></ul><ul id="803e0341-eb31-4a55-b7ca-282b4e3de333" class="bulleted-list"><li style="list-style-type:circle">字符串插值在一定程度上简化字符串构造，不必使用麻烦的＋号和断续的字符串相加</li></ul></li></ul><ul id="381701c9-1520-4f51-b8f4-92068e919600" class="bulleted-list"><li style="list-style-type:disc">一个使用模板字面量进行字符串插值的例子：<pre id="d2f19575-7c22-47f1-998d-2aa0ba13acce" class="code code-wrap"><code>let age = 22;
+const sports = [&#x27;skating&#x27;, &#x27;football&#x27;, &#x27;tableball&#x27;];
+let interpolatedString = `I&#x27;m ${age}, I like ${sports.join(&#x27;,&#x27;)}.`;</code></pre><ul id="8c874e46-62d6-4a9d-babd-f080fbb3efe4" class="bulleted-list"><li style="list-style-type:circle">在<code>${}</code> 中可以插入任何的JavaScript表达式</li></ul></li></ul><ul id="b48fae89-cb4d-48b1-b137-4214c333d76f" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">功能强大的字符串插值：<ol type="1" id="bc67be5a-9c4b-4175-95f1-70d640345e0b" class="numbered-list" start="1"><li>插值会被强制调用toString，可以在对象中自定义toString方法<pre id="03aa3ffe-a04b-476c-97bd-2f60d3a7b330" class="code code-wrap"><code>let foo = {
+	name: &quot;Hello&quot;,
+	age: 2022,
+	toString: () =&gt; `${foo.name} ${foo.age}`,
+}
+const sayHi = `I want to say ${foo}`; //&#x27;I want to say Hello 2022&#x27;</code></pre></li></ol><ol type="1" id="dd2e6a22-f150-4d9c-857a-6f5c98deb376" class="numbered-list" start="2"><li>插值可以嵌套使用（上面自定义的toString()中返回的模板字面量也是使用了插值）<pre id="1ed140b1-a045-41d9-9811-5f51ecda73a7" class="code code-wrap"><code>let age = 22;
+let good = &quot;You are adult&quot;;
+let bad = &quot;You are nonage!&quot;
+let nestString = `We must ask you:${age &gt;= 18 ? `Ok,${good}` : `Sorry,${bad}`}`; </code></pre></li></ol><ol type="1" id="2e33bc93-9daa-4564-a50a-d09c9bfba950" class="numbered-list" start="3"><li>插值表达式可以调用函数和方法<pre id="7c15cb50-ebb7-4441-abc6-602be2562ca8" class="code code-wrap"><code>function capitalize(word) {
+	return `${word[0].toLocaleUpperCase()}${word.slice(1)}`;
+}
+console.log(`${capitalize(&quot;hello&quot;)}, ${capitalize(&quot;world!&quot;)}`); //Hello, World</code></pre></li></ol><ol type="1" id="94866b11-769a-4718-8d82-bf2d2952c366" class="numbered-list" start="4"><li><strong>模板可以插入之前的值，即将字符串本身作为插值插入，插入的是未被赋值前的值</strong><pre id="d0afcaac-44d1-497b-8db0-82a556300243" class="code code-wrap"><code>let value = &#x27;&#x27;;
+function append() {
+	value = `${value}abc`;
+	console.log(value);
+}
+append(); //abc
+append(); //abcabc
+append(); //abcabcabc</code></pre></li></ol></li></ul><h3 id="117dc122-20ea-4cfa-806a-caf1dbff5b1e" class="">模板字面量标签函数</h3><ul id="30ec16a7-11a3-4ec0-b2b2-c671f4e6ab6b" class="bulleted-list"><li style="list-style-type:disc">模板字面量支持定义<strong>标签函数</strong>（tag function）</li></ul><ul id="5c822935-3520-43bf-85b8-7c6db9598189" class="bulleted-list"><li style="list-style-type:disc"><strong>标签函数</strong><ul id="3ab6fcd1-47bd-464f-b998-eeb611bfc3f6" class="bulleted-list"><li style="list-style-type:circle">本质是一个普通的函数可以通过括号加参数正常调用</li></ul><ul id="226d5770-deca-4ab9-b785-bd5cd5f09860" class="bulleted-list"><li style="list-style-type:circle">除此之外，还可以通过反引号的形式进行调用即<code>tagFunc`templateStr`</code></li></ul><ul id="68f9c064-b8b3-41f0-8b47-c18b3f1a090b" class="bulleted-list"><li style="list-style-type:circle">通过反引号调用的参数传递方式为：<ul id="f2c8aec5-4c81-4a6d-bdb0-6163d74766cd" class="bulleted-list"><li style="list-style-type:square">第一个参数为<strong>由字符串插值分割的字符串数组</strong></li></ul><ul id="fd24ec65-0725-4a81-b981-9fc09ff98a08" class="bulleted-list"><li style="list-style-type:square">后面的每个参数是每个字符串插值的结果（还未转化为字符串的表达式结果）</li></ul></li></ul><ul id="704f2fd8-3330-45fc-8fb5-c9d861fcc0c6" class="bulleted-list"><li style="list-style-type:circle">标签函数可以自定义返回值（一般处理参数后获得返回值结果）</li></ul></li></ul><ul id="00876eca-9971-4a15-ae42-1933e9d104bc" class="bulleted-list"><li style="list-style-type:disc">例子<pre id="d35a10e7-d4ca-421b-b3ac-97bd7dd85334" class="code"><code>// 标签函数：模板字面量支持的函数
+
+function tagFunc(strings, ...expressions) {
+  console.log(strings);
+  for (const expression of expressions) {
+    console.log(expression,typeof expression);
+  }
+  return &quot;处理后的模板字面量&quot;;
+}
+
+let a = 1;
+let b = 2;
+let str = `${a} + ${b} = ${a + b}`;
+tagFunc`${a} + ${b} = ${a + b}`;
+
+// [ &#x27;&#x27;, &#x27; + &#x27;, &#x27; = &#x27;, &#x27;&#x27; ]
+// 1 number
+// 2 number
+// 3 number</code></pre><p id="0e245618-d69d-4217-b395-656b654984cb" class=""><mark class="highlight-red">⇒ 注意：</mark></p><ul id="f71b7679-da95-4507-a5e1-a001f2e86f96" class="bulleted-list"><li style="list-style-type:circle">字符串插值分割的模板字符串数组中包括了<strong>左右边界两个空字符串</strong></li></ul><ul id="da7409d3-60e5-43de-a8d0-b2fe15caa5c3" class="bulleted-list"><li style="list-style-type:circle">通过<strong>剩余操作符（rest operator）</strong>将剩余的参数收集到一个数组中，方便对字符串插值未知的模板字面量进行处理</li></ul><ul id="350e15fa-f13c-4c3f-ac13-2231c61dbcf1" class="bulleted-list"><li style="list-style-type:circle">如果模板字面量有<strong>n个插值，</strong>那么由插值分割的原始字符串数组一定是<strong>n+1</strong>的长度</li></ul></li></ul><h3 id="28a32bed-f820-47ac-a532-44813e488875" class="">原始字符串</h3><ul id="877e4307-5bad-4558-b41f-a1ed0f3d5cbe" class="bulleted-list"><li style="list-style-type:disc">模板字面量的特性<ul id="3f2808cc-c6de-463f-aa6b-ea82501b767b" class="bulleted-list"><li style="list-style-type:circle">可以通过<code>String.raw</code>获取<strong>原始的模板字面量内容</strong></li></ul><ul id="e53a7d5c-28ff-4146-b4ee-435ac339f1fe" class="bulleted-list"><li style="list-style-type:circle">原始的内容指：未对转义字面量进行转换的字符表示</li></ul></li></ul><ul id="31a248d0-d238-474d-a9e2-e859b6c17a57" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red">注意: String.raw是标签函数，不能通过括号调用</mark></li></ul><ul id="f93f0113-303a-427b-b3e2-4974bb4c1bfc" class="bulleted-list"><li style="list-style-type:disc">调用<code>String.raw</code>时直接在后面接上模板字面量就可以返回它的原始字符串形式<ul id="5c976a04-885a-4a7f-9f87-b318bf4f6b9c" class="bulleted-list"><li style="list-style-type:circle">返回\u00A9的原始字符（\u00A9是©的转义字符）<pre id="15edfe1f-ac2f-4fb2-b9ea-571609004ab1" class="code"><code>console.log(&quot;\u00A9&quot;); // ©
+console.log(String.raw`\u00A9`); // \u00A9</code></pre></li></ul><ul id="ae9ea0a0-5c30-425e-bb39-ca1155be60d5" class="bulleted-list"><li style="list-style-type:circle">返回\n的原始字符（即不显示换行）<pre id="fd7c703b-08ba-426c-bc53-ae4c51d7339a" class="code"><code>console.log(&quot;first line\nsecond line&quot;); 
+// first line
+// second line
+console.log(String.raw(`first line\nsecond line`));
+// first line\nsecond line</code></pre></li></ul><ul id="d9555fdd-0709-4e57-8f52-1bb6a1e8cb9a" class="bulleted-list"><li style="list-style-type:circle"><strong>注意：模板字面量物理换行后的转义\n不会被转化出来</strong><pre id="b94c4840-f2be-488f-bf6d-33c2300e80d5" class="code"><code>console.log(String.raw(`first line
+second line`));
+// first line
+// second line</code></pre></li></ul></li></ul><ul id="1f08b8af-7181-4ddf-84d8-f1d0400f8862" class="bulleted-list"><li style="list-style-type:disc">除了String中的raw标签函数可以获得原始字符串外，还可以通过标签函数中的<a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662.html">第一个参数</a> <strong>字符串数组的raw属性获得每个被分割的字符串的原始字符串</strong><pre id="bcdc7a8c-c0e3-4915-9988-52e49098a3c4" class="code"><code>// raw属性
+const tagFunc = (strings) =&gt; {
+  console.log(&quot;----实际字符串----&quot;);
+  for(const str of strings) {
+    console.log(str);
+  }
+  console.log(&quot;----原始字符串----&quot;);
+  for(const str of strings.raw) {
+    console.log(str);
+  }
+}
+let chazhi = 1;
+tagFunc`\u00A9${chazhi}\n`
+// ----实际字符串----
+// ©
+// (换行符)
+
+// ----原始字符串----
+// \u00A9
+// \n</code></pre></li></ul><h2 id="618b2155-8687-4d12-b8ed-c23565491949" class="">4.7 Symbol类型</h2><ul id="c188564d-143d-40dd-ac77-ad64bde84f09" class="bulleted-list"><li style="list-style-type:disc">Symbol（符号）是ECMAScript6新增的数据类型</li></ul><ul id="3ebf888c-11c9-49a2-a2ca-51f826243632" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">描述：<ul id="cea613bd-8dfe-4c92-a5b8-5885b866b087" class="bulleted-list"><li style="list-style-type:circle">符号是原始值，且<strong>符号实例唯一、不可变的</strong></li></ul><ul id="89355151-243e-4519-b900-bca071d48ffe" class="bulleted-list"><li style="list-style-type:circle">用途：确保<strong>对象属性使用唯一标识符</strong>，不会发生属性冲突的危险</li></ul><ul id="a6648d5d-2018-4e49-97c4-6d1e78061c3c" class="bulleted-list"><li style="list-style-type:circle">Object API提供了方法，可以更方便的发现符号属性</li></ul><ul id="6f6d5a8d-8b35-47d1-95ea-ab7bd892453d" class="bulleted-list"><li style="list-style-type:circle">符号不是为了提供私有属性而添加的，相反，它就是用来创建唯一记号，进而<strong>用作非字符串形式的对象属性</strong></li></ul></li></ul><h3 id="afa6326b-d5e2-43d7-bca5-d7e3cf528b45" class="">符号的基本用法</h3><ul id="99fb5519-d590-4e7f-a65b-283175ba47a8" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">用法：<ul id="18b1175f-8609-46de-894d-9190917b25ce" class="bulleted-list"><li style="list-style-type:circle">使用Symbol函数初始化<pre id="f2d762b5-4bcf-4d39-8673-4000ffa0b3fa" class="code"><code>let sym = Symbol();</code></pre><p id="30920ea7-25df-46c7-8361-e62fd143000f" class="">⇒ 注意Symbol函数不是一个构造函数（即<strong>不能用new关键字</strong>）</p></li></ul><ul id="ff7431ae-f852-4641-917f-6e15bf8390d8" class="bulleted-list"><li style="list-style-type:circle">原始类型的符号实例使用typeof返回 symbol<pre id="e5eee956-401e-4af5-a045-5b517a6bc2d3" class="code"><code>console.log(typeof sym); // symbol</code></pre></li></ul><ul id="c992546a-dd8f-4f9b-8b68-c1f3fad0ccfe" class="bulleted-list"><li style="list-style-type:circle">调用Symbol函数可以传递字符串或者数字作为对符号的描述（description）<pre id="915dcbfa-d0a2-4790-b8b4-6590dd5ac3a8" class="code"><code>let fooSymbol = Symbol(&#x27;foo&#x27;);
+let otherFooSymbol = Symbol(&quot;foo&quot;);
+
+console.log(fooSymbol == otherFooSymbol); //false
+console.log(fooSymbol); //Symbol(foo) (打印调试区分)</code></pre><p id="934108dd-4c10-4a0f-9a8a-83914823df2b" class="">⇒ 注意，描述仅用于代码调试，<strong>这种描述本身与符号定义和标识完全无关</strong></p></li></ul><ul id="971a0643-5a1e-4b0f-9e9e-f0f3ff5ecc9a" class="bulleted-list"><li style="list-style-type:circle"><strong>符号没有字面量语法</strong>，这是它发挥作用的关键，因为这保证了它完全可以作为对象的新属性，且<strong>保证它不会覆盖已有的对象属性，无论是对象中已经存在的符号属性还是字符串属性</strong><pre id="426ab412-4572-4872-8d02-ab18e15b8300" class="code"><code>// 当作新属性，不会覆盖已有属性
+
+const a = {
+  foo: &quot;oldFoo&quot;,
+  &quot;foo&quot;: &quot;newFoo&quot;,
+};
+
+a[foosym] = &quot;oldFoo&quot;;
+a[foosym] = &quot;newFoo&quot;;
+a[otherfoosym] = &quot;newFoo&quot;;
+console.log(a);
+// { foo: &#x27;newFoo&#x27;, [Symbol(foo)]: &#x27;newFoo&#x27;, [Symbol(foo)]: &#x27;newFoo&#x27; }</code></pre><p id="0ad34ba5-5912-4466-92a3-f3fb0161669d" class="">⇒ 可以看到，字符串属性会覆盖已有的属性</p><p id="c57b4740-587f-48a3-bf3f-4dd9b2619290" class="">⇒ 每个<strong>不同的符号都会保证不覆盖已有的对象属性</strong></p></li></ul><ul id="b3eb5787-5c0f-40a5-bba0-8eebf35c0ea1" class="bulleted-list"><li style="list-style-type:circle">Symbol函数设定不与new关键字一起作为构造函数使用的原因<ol type="a" id="14edd42d-fbc9-4625-b642-4a9ab5ea95e8" class="numbered-list" start="1"><li><strong>避免创建符号包装对象</strong></li></ol><ol type="a" id="0be3070a-e4df-4691-9df0-5398671ae0c4" class="numbered-list" start="2"><li>Boolean，String等都支持构造函数且可以用于初始化包含原始值的<strong>包装对象</strong>，它们的字面量可以相等</li></ol><ol type="a" id="86bd47dc-e6f0-46ac-b7b2-aea9020db825" class="numbered-list" start="3"><li>为了保证没有字面量且每个符号都不相等，不能通过另一个符号构建新的符号就是基本要求<pre id="9f4c6ed2-c554-426c-a9b9-8932d401af9b" class="code"><code>let str = new String(&quot;string&quot;);
+console.log(typeof str); // Object 包装对象
+
+let sym = new Symbol(); // TypeError</code></pre><figure id="77c8913c-23c1-4a94-83fa-2fd5a5afd377" class="image"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/Untitled.png"><img style="width:432px" src="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/Untitled.png"/></a></figure></li></ol></li></ul><ul id="6f46b3f2-e206-44fb-a1c5-fd9d538ebbf1" class="bulleted-list"><li style="list-style-type:circle">如果想使用符号包装，可以借用Object()函数<pre id="1d03750d-9fba-436e-946d-dfed0f2c6b1a" class="code"><code>let mySym = Symbol();
+let myWrapper = Object(mySym);
+typeof(myWrapper);</code></pre><figure id="a4297d52-4a8d-431f-a724-2b0a673c0ad8" class="image"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/Untitled%201.png"><img style="width:912px" src="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/Untitled%201.png"/></a></figure><p id="1999d28d-44aa-4046-a8ce-ccfcc3f8003d" class="">⇒ 当这本质上就是新建一个对象，包含一个属性值Symbol()符号，和可能存在的description属性和描述值</p></li></ul></li></ul><h3 id="31c5dca9-e78c-4c4b-b0ac-95867447de68" class="">使用全局符号注册表</h3><ul id="8ff88764-dba5-44a9-9445-afdf510a1121" class="bulleted-list"><li style="list-style-type:disc">符号的全局注册表指：<ul id="02555e89-2ed5-4362-8743-a04247fb92d3" class="bulleted-list"><li style="list-style-type:circle">一个以字符串为键，键值为唯一个符号的全局表</li></ul><ul id="c7159028-c726-4d4c-a87a-ba55a0f352c2" class="bulleted-list"><li style="list-style-type:circle">通过全局符号注册表创建符号时，先会检查该键在符号表上是否已创建过符号，如果创建过就返回<strong>相同的符号，</strong>否则新建一个符号，并记录在全局符号注册表中</li></ul><ul id="42d239fc-d4e3-4f6a-b81b-6e3ce1c254e6" class="bulleted-list"><li style="list-style-type:circle">全局符号注册表可以使<strong>不同的部分共享和重用符号实例</strong></li></ul></li></ul><ul id="7134014f-6034-4630-a630-558ac73e679f" class="bulleted-list"><li style="list-style-type:disc">使用方式：<ul id="c0594f33-9c9f-4cee-aa74-a58b1e1c3441" class="bulleted-list"><li style="list-style-type:circle">通过<code>Symbol.for()</code> 方法注册全局符号<pre id="60df37fb-375f-42c0-8f07-2f5017c6bc23" class="code"><code>let globalSym = Symbol.for(&quot;foo&quot;);
+console.log(typeof globalSym);</code></pre></li></ul><ul id="af6b60fd-12a7-4588-807f-e97f19be9016" class="bulleted-list"><li style="list-style-type:circle">重用已有符号时，返回得到的符号和原始符号幂等<pre id="bc197dc9-8a29-4006-8784-da50a35cabc0" class="code"><code>let globalSym = Symbol.for(&#x27;foo&#x27;);
+let otherGlobalSym = Symbol.for(&#x27;foo&#x27;);
+
+console.log(globalSym ===otherGlobalSym); // true</code></pre><p id="8988dbbe-8aae-485a-8c35-e86cc760b7e4" class="">⇒ 全局符号的每个字符串键对应同一个全局符号</p><p id="561c8f94-f55f-4736-98f0-5a263584347e" class="">⇒ 全局符号注册表中不存在当前字符串键的符号就会新建并记录</p></li></ul><ul id="4f477de9-ec12-4f4b-bbee-f779ac033516" class="bulleted-list"><li style="list-style-type:circle">全局符号和和采用相同描述的局部符号不等同，它们属于两个不同符号<pre id="3821da7c-4ef2-4770-bfad-081c319e6a1b" class="code"><code>// 描述符号相同的局部符号是个新符号和全局符号不相等
+const localSym = Symbol(&quot;foo&quot;);
+console.log(globalSym === localSym);</code></pre></li></ul><ul id="6ef248b9-5d8e-4608-bd1a-c494208febf9" class="bulleted-list"><li style="list-style-type:circle">全局符号的键必须由字符串创建，任何传入<code>Symbol.for()</code> 中的值都会被转化为字符串，键也被作为符号描述<pre id="01d3633f-3466-4075-8f8c-8ce2a30e4d4a" class="code"><code>// 键值必须时字符串，仍然参数都会被转化为字符串
+const globalSym2 = Symbol.for(); // 相当于undefined
+const globalSym3 = Symbol.for(null); // 转化为&quot;null&quot;
+const globalSym4 = Symbol.for([]); // 空字符串
+console.log(globalSym2, globalSym3, globalSym4);
+// Symbol(undefined) Symbol(null) Symbol()</code></pre></li></ul></li></ul><ul id="f489de63-0d17-4dda-9dde-82fee7da4e72" class="bulleted-list"><li style="list-style-type:disc">查询全局符号<ul id="80d1f41c-eb02-465e-badd-fe4e03d00d70" class="bulleted-list"><li style="list-style-type:circle">通过<code>Symbol.keyFor()</code> 方法查询全局注册表，这个方法<strong>接受符号</strong>，返回该全局符号对应的字符串键</li></ul><ul id="f1c338c6-d958-4e07-b3b6-cf6e8c33f4aa" class="bulleted-list"><li style="list-style-type:circle">查询的是局部符号，返回undefined</li></ul><ul id="84ac637d-4aba-47d5-a461-03c092c25f07" class="bulleted-list"><li style="list-style-type:circle">查询的不是符号，抛出TypeError错误<pre id="8d130b74-7a36-457c-8dca-46a5cf548b5e" class="code"><code>// 查询符号的键,只对全局符号有效
+console.log(Symbol.keyFor(globalSym3)); // null 
+console.log(Symbol.keyFor(localSym)); // undefined
+try {
+  console.log(Symbol.keyFor(&quot;foo&quot;)); // 报错
+} catch (error) {
+  console.log(&quot;查询的不是符号&quot;, error);
+}</code></pre></li></ul></li></ul><h3 id="20de248f-ab64-4b33-936d-7bfe462444d4" class="">使用符号作为属性</h3><ul id="6081430c-5c5d-443d-9473-52b5f232174c" class="bulleted-list"><li style="list-style-type:disc">凡是可以用字符串或数值做为属性的地方，都可以使用符号</li></ul><ul id="befe854b-21d1-4886-bdc2-b77006e8ba5b" class="bulleted-list"><li style="list-style-type:disc">所以在<strong>对象字面量属性</strong>和<code><strong>Object.defineProperty()/Object.defineProperties()</strong></code>定义属性时可以使用符号定义</li></ul><ul id="1aa4321c-4930-429e-9347-8e03a65d8ff6" class="bulleted-list"><li style="list-style-type:disc">使用符号通过<strong>对象字面量</strong>方式定义属性的方式<ul id="8e4b44ea-b9c8-402d-980d-3c8f0e53a56e" class="bulleted-list"><li style="list-style-type:circle">对象字面量只能在<strong>计算属性语法</strong>中使用符号作为属性</li></ul><ul id="a7b96a58-7060-40ce-b5a1-48ddade8f91c" class="bulleted-list"><li style="list-style-type:circle">计算属性语法如下<pre id="7d19def2-a031-441d-a79a-1f88f65c3e44" class="code"><code>// 计算属性语法
+let a = 1;
+let c = 2;
+const obj = {
+  [a]: 2, // 计算属性语法
+  a: 3,
+};
+obj[c] = 2; // 另一种计算属性语法
+console.log(obj); // {&#x27;1&#x27;:2, &#x27;2&#x27;： 2,a: 3}</code></pre></li></ul><ul id="7af5b2d6-1469-402b-a83f-8cc7dc64a42c" class="bulleted-list"><li style="list-style-type:circle">所以使用符号定义对象属性时，也需要使用计算属性语法，不能直接通过字面量定义<pre id="7c97d493-8254-4cb1-8740-2ed8c70f71f4" class="code"><code>// 符号属性需要使用计算属性语法
+const sym = Symbol(&quot;foo&quot;);
+const sym2 = Symbol(&quot;foo&quot;);
+const obj2 = {
+  [sym]: &quot;foo&quot;,
+};
+obj2[sym2] = &quot;foo&quot;;
+console.log(obj2);
+// { [Symbol(foo)]: &#x27;foo&#x27;, [Symbol(foo)]: &#x27;foo&#x27; }</code></pre></li></ul></li></ul><ul id="23347372-3aff-47be-9ec1-fb7f5119ebda" class="bulleted-list"><li style="list-style-type:disc">使用对象定义属性的方法定义对象的属性为符号<ul id="d6b29fef-1ead-401c-a26b-0a6f524eca5b" class="bulleted-list"><li style="list-style-type:circle">Object.defineProperty(obj, prop, descriptor)<ul id="3176e08a-7ee2-4fb7-9a13-f014c5897a95" class="bulleted-list"><li style="list-style-type:square">参数1， obj，被定义的属性的对象</li></ul><ul id="7a540274-108a-4377-8780-d50179befbc5" class="bulleted-list"><li style="list-style-type:square">参数2，prop，属性名称（一般为字面量，也可以是变量），可以是符号</li></ul><ul id="6b62f996-e9da-4d0b-af60-869dcdf8ee18" class="bulleted-list"><li style="list-style-type:square">参数3，属性描述符，对象类型，一般包括属性值（value），属性是否可写（writable），查看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"><strong>Object.defineProperty_MDN</strong></a><pre id="78235b39-2c42-462f-a647-3dd5ddb98a2b" class="code"><code>const object1 = {};
+
+Object.defineProperty(object1, &#x27;property1&#x27;, {
+  value: 42,
+  writable: false
+});
+
+object1.property1 = 77;
+// throws an error in strict mode
+
+console.log(object1.property1);
+// expected output: 42</code></pre></li></ul><ul id="49832fd7-128f-4ff9-ace7-6469fec35f0f" class="bulleted-list"><li style="list-style-type:square">定义符号属性<pre id="deb14791-bf97-4e42-b7e8-5486bd1a29dd" class="code"><code>// 通过对象定义属性方法定义符号属性
+let o = {};
+Object.defineProperty(o, sym, { value: &quot;sym&#x27;s value&quot; });
+console.log(o, o[sym]);
+// {} sym&#x27;s value
+Object.defineProperty(obj2, sym, { value: &quot;sym&#x27;s value&quot; });
+console.log(obj2);
+// { [Symbol(foo)]: &quot;sym&#x27;s value&quot;, [Symbol(foo)]: &#x27;foo&#x27; }</code></pre><p id="8ac205fd-7079-42cd-8a2a-207d331c836e" class="">⇒ 注意，通过{}新建的对象o，在定义符号属性后，<strong>node环境(v16.14.0)</strong>下打印出来的属性和值为空，而<strong>实际上它是有sym符号属性</strong>的</p><p id="d553dfab-20c2-487b-ac01-0063eeaa9102" class="">⇒ 而之前obj2使用对象字面量方式定义过sym符号属性的再次修改属性值可以成功且能打印出来</p><p id="fb5791fc-c5f5-4cd5-9946-1c140d58e2fa" class="">⇒ 浏览器环境（谷歌）可以打印出来<div class="indented"><figure id="055b3de6-d2f6-4bcc-a808-484c27811e43" class="image"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/Untitled%202.png"><img style="width:1234px" src="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/Untitled%202.png"/></a></figure></div></p></li></ul></li></ul><ul id="683da55d-6685-43b7-b3c3-a231c001f775" class="bulleted-list"><li style="list-style-type:circle">Object.defineProperties(obj, props)<ul id="d2c9dcd1-2f73-4ab2-a552-742ba17f3d03" class="bulleted-list"><li style="list-style-type:square">参数1 obj ，被定义属性的对象</li></ul><ul id="c3351a3e-1ee7-494e-9711-0f60026a9c7b" class="bulleted-list"><li style="list-style-type:square">参数2 props，对象类型，要定义的可枚举的属性或修改属性描述符的对象，形如<code>{[prop1]: {value: &quot;hello&quot;}, [prop2]: {value: &quot;world&quot;}}</code> ;其中prop1和prop2如果是字面量，可以不使用计算属性语法定义</li></ul><ul id="3e575a7b-7bc0-4639-a95e-40deb0ab10c3" class="bulleted-list"><li style="list-style-type:square">查看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties"><strong>MDN_Object.defineProperties</strong></a></li></ul><ul id="e382066c-9a20-4dd9-8d2f-ff90e0e3cc14" class="bulleted-list"><li style="list-style-type:square">定义符号属性（需要使用计算属性语法）<pre id="5fe0d3f0-a1ce-4880-9f0f-b7a47730d30e" class="code"><code>// 定义多个
+let obj3 = {};
+Object.defineProperties(obj3, {
+  [sym]: {
+    value: &quot;Hello&quot;,
+  },
+  [sym2]: {
+    value: &quot;world&quot;,
+  },
+});
+console.log(obj3, obj3[sym2]); //{} world</code></pre><p id="c43128f1-11a2-48cd-bedc-a911a5d00ea9" class="">⇒ 注意，同样在node(v16.14.0)环境中新建符号属性时打印不出来，但是实际有值</p><p id="0fdf6ee2-5033-43f4-a1dc-4c79206207af" class="">⇒ 在浏览器环境(谷歌)可以打印出来</p><figure id="d0031fdd-111d-4718-91de-a72d462cf48f" class="image"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/Untitled%203.png"><img style="width:1223px" src="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/Untitled%203.png"/></a></figure></li></ul></li></ul></li></ul><ul id="19378a81-561f-40bc-bfad-1b70dd0933d1" class="bulleted-list"><li style="list-style-type:disc"><strong>获取对象属性</strong><ul id="d5af129d-3eeb-4807-836a-beb325ed291a" class="bulleted-list"><li style="list-style-type:circle"><code>Object.getOwnPropertyNames()</code>返回对象实例中的<strong>常规属性数组</strong></li></ul><ul id="a6247489-081d-4a3f-8710-c1a10a343e91" class="bulleted-list"><li style="list-style-type:circle"><code>Object.getOwnPropertySymbols()</code>返回对象实例中的<strong>符号属性数组 </strong>二者的返回值彼此互补</li></ul><ul id="54c318ba-3d00-47fc-aa45-6c171c22b097" class="bulleted-list"><li style="list-style-type:circle"><code>Object.getOwnPropertyDescriptors()</code> 返回对象实例中<strong>包含常规和符号属性的描述符</strong>的对象</li></ul><ul id="d2fc136d-3327-4180-9b88-6cca517ec7d8" class="bulleted-list"><li style="list-style-type:circle"><code>Reflect.ownKeys()</code>会返回两种类型的键，它的值等同于<code>Object.getOwnPropertySymbols().concat(Object.getOwnPropertyNames())</code><pre id="fa852f1b-0203-41c3-b507-2c4e10b51c98" class="code"><code>// 获取对象属性键
+obj[sym] = &quot;Hello&quot;;
+console.log(Object.getOwnPropertyNames(obj));
+console.log(Object.getOwnPropertySymbols(obj));
+console.log(Reflect.ownKeys(obj));
+console.log(Object.getOwnPropertyDescriptors(obj));
+// 打印结果
+[ &#x27;1&#x27;, &#x27;2&#x27;, &#x27;a&#x27; ]
+[ Symbol(foo) ]
+[ &#x27;1&#x27;, &#x27;2&#x27;, &#x27;a&#x27;, Symbol(foo) ]
+{
+  &#x27;1&#x27;: { value: 2, writable: true, enumerable: true, configurable: true },
+  &#x27;2&#x27;: { value: 2, writable: true, enumerable: true, configurable: true },
+  a: { value: 3, writable: true, enumerable: true, configurable: true },
+  [Symbol(foo)]: {
+    value: &#x27;Hello&#x27;,
+    writable: true,
+    enumerable: true,
+    configurable: true
+  }
+}</code></pre></li></ul></li></ul><ul id="cb5a938e-aff6-4623-ab81-d2559b0d82d2" class="bulleted-list"><li style="list-style-type:disc">如果通过计算属性语法<strong>直接在</strong><code><strong>[]</strong></code><strong>中新创建符号作为属性</strong>，它们是不会丢失的；但是如果没有使用变量保存这些符号，就需要遍历整个对象中的符号属性才能找到相应的属性键<pre id="6c7de24b-7fcf-4e98-9e27-d6098419dcb1" class="code"><code>// 寻找未显示保存在变量中的符号属性
+
+let obj4 = {
+  [Symbol(&quot;foo&quot;)]: &quot;symfoo&quot;,
+  [Symbol(&quot;bar&quot;)]: &quot;symbar&quot;,
+};
+let symbar = Object.getOwnPropertySymbols(obj4).find((sym) =&gt;
+  sym.toString().match(/bar/)
+);
+console.log(symbar);</code></pre></li></ul><h3 id="8c24afb4-7cd9-4d90-b775-ac43c25368eb" class="">常用内置符号</h3><ul id="c9bc7c14-0401-4c1b-b9c5-e50a4b8c7a1f" class="bulleted-list"><li style="list-style-type:disc">ES6引入了一些<strong>常用的内置符号</strong>（well-known symbol）,用于暴露语言内部行为，开发者可以直接访问、重写或模拟这些行为</li></ul><ul id="f7e0e26c-2c30-4454-b039-6a662133bb7c" class="bulleted-list"><li style="list-style-type:disc">这些内置符号<strong>以Symbol工厂函数字符串属性的形式存在</strong></li></ul><ul id="48f3aacb-b58e-4096-93b7-079a18769dd5" class="bulleted-list"><li style="list-style-type:disc">这些内置符号最重要的作用就是<strong>作为对象属性被重新定义</strong>，改变对象的原生结构行为<ul id="6f8deb79-9df3-46e2-9ffd-c9725be36110" class="bulleted-list"><li style="list-style-type:circle">例如，使用for of遍历数组对象，会使用Symbol.iterator属性</li></ul><ul id="4ae24ddf-36da-44f2-9d8c-5dfa1f9033bb" class="bulleted-list"><li style="list-style-type:circle">普通对象上的并未定义迭代器符号属性，可以通过定义一个迭代器属性，来改变for of 在迭代该对象时的行为<pre id="f1843b96-65b8-448a-9230-0eba85f46d40" class="code"><code>
+// 用于对象属性被重新定义，改变对象的原生结构
+
+const a = {
+  b: 2,
+};
+// for in可以遍历对象的属性（不包括符号属性）
+for (let key in a) {
+  console.log(key); //b
+}
+// for of却不可以，但是通过定义对象的迭代符号属性就可以使用for of遍历了
+a[Symbol.iterator] = function* () {
+  yield 1;
+  yield 2;
+  yield 3;
+};
+for (let v of a) {
+  console.log(v);// 1 2 3
+}</code></pre></li></ul></li></ul><ul id="35143964-d7a9-4eb5-8e64-84e2478d842c" class="bulleted-list"><li style="list-style-type:disc">常用内置符号与普通符号没有特别之处，它们就是全局函数Symbol的普通字符串属性，指向一个符号实例<ul id="1353fb43-e65c-450c-bd35-2aa738841fde" class="bulleted-list"><li style="list-style-type:circle">所有内置符号属性都是不可写、不可枚举、不可配置的</li></ul><ul id="091bb450-4936-4974-9ba0-d3d408ff80a7" class="bulleted-list"><li style="list-style-type:circle">注意，ES规范会引用符号在规范中的名称，前缀为<code>@@</code> ，如<code>Symbol.iterator</code> 按照规范也可以写成<code>@@iterator</code> （代码中会提示错误，规范中用以表示内置符号属性）</li></ul></li></ul><p id="438e79fb-1ccd-4f8d-b33e-eb988e282247" class="">下面是一些常用内置符号</p><hr id="66f76c79-3525-4e58-9f82-8953bf58bb36"/><h3 id="13f01fd1-ab4b-4fb6-b270-156512f27ec0" class="">常用内置符号</h3><figure id="20d09a96-5d28-44c8-86bf-494160a778c5" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E7%AC%A6%E5%8F%B7%2020d09a965d2844c886bf494160a778c5.html"><span class="icon">🪐</span>常用内置符号</a></figure><h2 id="f26287fe-1f33-4f01-a9b4-5bcc871693da" class="block-color-orange_background">4.8 Object类型</h2><ul id="3f5502f2-0c50-403f-879c-d459e949fe8c" class="bulleted-list"><li style="list-style-type:disc">是ECMAScript规范中的唯一一个复杂数据类型，区分于原始数据类型</li></ul><h3 id="7e4f68fe-cc83-441e-9d97-9b57c8c972e8" class="">描述</h3><ul id="f74411f2-e6e4-4616-be06-e91dc3a344c5" class="bulleted-list"><li style="list-style-type:disc">ECMAScript中的对象其实就是<strong>一组数据和功能的集合</strong></li></ul><h3 id="557d42b0-b917-4276-a5d7-0b5716632b30" class="">语法</h3><ul id="0aeffa0e-7d7c-4af2-ac79-febca5289126" class="bulleted-list"><li style="list-style-type:disc">创建对象通过new 操作符号后跟对象类型的名称来创建<pre id="3d0c9cc7-08f9-4bf2-a422-6da56b9cfa83" class="code code-wrap"><code>let o = new Object();</code></pre></li></ul><ul id="da336a02-2431-48e4-ae91-56e4cddd45eb" class="bulleted-list"><li style="list-style-type:disc">这个语法类似Java，但是ECMAScript只要求在需要给构造函数参数时使用括号，没有参数，可以省略括号，如下（但不推荐这么做）<pre id="cb887c29-2795-4b32-8a8f-be40de2b1751" class="code code-wrap"><code>let o = new Object; // 合法创建对象</code></pre></li></ul><ul id="5fdc4c6b-2d83-40c3-a53b-ad402f8fe085" class="bulleted-list"><li style="list-style-type:disc">除此之外，还可以通过<strong>字面量创建Object对象</strong><pre id="ee981487-7512-4835-9adb-0839c89ea0d3" class="code code-wrap"><code>var obj = {};</code></pre><ul id="d4fbae76-e972-44d3-9126-187bd23e1714" class="bulleted-list"><li style="list-style-type:circle">花括号包含具体对象的属性和方法</li></ul></li></ul><h3 id="0e08c113-0c14-467c-b872-7d541e52ae23" class="">功能</h3><ul id="83a36f15-7a7f-4beb-bd45-ea177f93a6b7" class="bulleted-list"><li style="list-style-type:disc">Object实例本身不是很有用，但是其概念和抽象的思想非常重要</li></ul><ul id="c95c71b6-4c14-453e-8d02-acd2e387553c" class="bulleted-list"><li style="list-style-type:disc">ECMAScript中的Obejct类似于Java中的<code>java.lang.Object</code> </li></ul><ul id="362606bc-9a37-49e2-9b10-d4d786eb16d8" class="bulleted-list"><li style="list-style-type:disc">Object类也是派生其它对象的基类，其它对象默认继承Object中已有的属性和方法</li></ul><ul id="094b8042-5b69-47e0-9f36-0531d6b64203" class="bulleted-list"><li style="list-style-type:disc">每个Object实例对象有如下属性和方法<ul id="11b64882-a946-41af-833f-a571c2412220" class="bulleted-list"><li style="list-style-type:circle"><code>constructor</code>:用于创建当前对象的函数，对于Object，其属性值就是Object()函数<blockquote id="691fb096-dcf5-4106-a53b-44e5a429b7ab" class="">“<strong>constructor</strong>”属性返回<code>Object</code> 的构造函数，此属性的值就是对函数本身的引用，而不是一个包含函数名称的字符串</blockquote><pre id="60e4829a-82a7-4c2d-8b92-b5926e286f5d" class="code code-wrap"><code>// 对象constructor属性返回对象的构造方法，它就是对构造函数本身的引用
+
+const o = {};
+console.log(o.constructor, o.constructor == Object, Object);
+
+const a = [];
+console.log(a.constructor, a.constructor == Array, Array);
+
+const n = Number(3);
+console.log(n.constructor, n.constructor == Number, Number);
+// 打印
+[Function: Object] true [Function: Object]
+[Function: Array] true [Function: Array]
+[Function: Number] true [Function: Number]</code></pre></li></ul><div><ul id="b32d90ef-abce-4263-9a17-daa1c939ff8a" class="bulleted-list"><li style="list-style-type:disc"><code>hasOwnProperty(propertyName:string)</code>: 判断当前对象实例上是否存在给定的属性，被检查的属性名必须是字符串或者符号<blockquote id="33e1713a-9a72-4ef8-8915-21ec5721bbe3" class="">所有继承了Object的类都会继承hasOwnProperty方法，该方法<strong>会忽略那些从原型链上继承到的属性</strong></blockquote><ul id="87636cef-b16d-4d66-b891-3187c5797273" class="bulleted-list"><li style="list-style-type:circle">即，hasOwnProperty方法只对<strong>对象自定义的属性判断有效</strong>，使用o.valueOf()方法可以默认看到用户定义的属性</li></ul><pre id="d73ad58b-261d-447f-a76d-f0a47236d052" class="code code-wrap"><code>// hasOwnProperty只检查自定义属性，不检查来自原型链上的属性
+const o = {
+  [Symbol.isConcatSpreadable]: true,
+  length: 2,
+  0: &quot;property1&quot;,
+  1: &quot;property2&quot;,
+};
+console.log(o.hasOwnProperty(Symbol.isConcatSpreadable)); // true
+console.log(o.hasOwnProperty(0)); // true
+console.log(o.hasOwnProperty(Symbol.iterator)); // false
+console.log(o.hasOwnProperty(&quot;toString&quot;)); // false
+console.log(o.hasOwnProperty(&quot;hasOwnProperty&quot;)); // false
+
+// 打印 
+true
+true
+false 
+false // 不检查原型链上的属性
+false</code></pre><ul id="4b85cf32-3016-4be7-b3d8-312654603b6f" class="bulleted-list"><li style="list-style-type:circle">和<code>in</code>操作符不同，<code>in</code>操作符会读取到继承的可枚举属性<blockquote id="881fe05b-bb48-4ac3-9b8f-bf0803a30556" class=""><code><strong>for...in</strong></code><strong>语句</strong>以任意顺序迭代一个对象的除<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol">Symbol</a>以外的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Enumerability_and_ownership_of_properties">可枚举</a>属性，包括继承的可枚举属性。</blockquote></li></ul><pre id="3d13d684-7628-4e28-83e0-e74ac0eb56dc" class="code"><code>class O {
+  constructor(len, arr) {
+    this.length = len;
+    for (let i = 0; i &lt; len; i++) {
+      this[i] = arr[i];
+    }
+    this.odata = &quot;odata&quot;;
+  }
+  [Symbol.isConcatSpreadable] = true;
+}
+const o = new O(2, [1, 2]);
+// 原型链上的属性
+O.prototype.toOdata = () =&gt; {
+  return this.odata.toString();
+};
+// in操作符
+for (const name in o) {
+  if (o.hasOwnProperty(name)) {
+    console.log(&quot;own property:&quot;, name, o[name]);
+  } else {
+    console.log(&quot;prototype property:&quot;, name, o[name]);
+  }
+}
+// 
+own property: 0 1
+own property: 1 2
+own property: length 2
+own property: odata odata
+prototype property: toOdata [Function (anonymous)]</code></pre><p id="5a17ab31-c6b3-4eaf-8779-832ccac44c0c" class="">⇒ for in遍历了原型链上的属性和继承的可枚举的属性</p></li></ul></div><ul id="841e5742-bafb-4f9b-920e-d01e6d2ab53e" class="bulleted-list"><li style="list-style-type:circle"><code>isPrototypeOf(object)</code> :用于判断当前对象(调用对象)是否为另一个对象的原型<div><blockquote id="aa5bbf8f-2560-4b0a-bb2d-e5be9a42d488" class="">备注：isPrototypeOf与instanceOf运算符不同，在表达式”object instanceOf AFucntion”中，object&#x27;的原型链是针对AFunction.prototype进行检查的，而不是AFunction本身</blockquote></div><ul id="0e6bd19f-eda2-4855-bf05-1331f90ffbe8" class="bulleted-list"><li style="list-style-type:square">使用方式<pre id="014eca8b-17ac-4410-a15b-b7af963302ce" class="code"><code>prototypeObj.isPrototypeOf(object);</code></pre></li></ul><ul id="61146260-f443-4c37-b0fb-be0a34c0c715" class="bulleted-list"><li style="list-style-type:square">检查prototypeObj(对象类)是否在object对象的原型链上<pre id="47554e7e-209c-420e-9c5c-80184e92a7d8" class="code"><code>// 检查类是否在对象上的原型链上（实际上就是检查类是否是该对象的类或父类）
+
+class A {}
+function B() {}
+function C() {}
+
+// 连接原型链
+B.prototype = Object.create(A.prototype);
+C.prototype = Object.create(B.prototype);
+
+const c = new C();
+console.log(C.prototype.isPrototypeOf(c));
+console.log(B.prototype.isPrototypeOf(c));
+console.log(A.prototype.isPrototypeOf(c));
+console.log(Object.prototype.isPrototypeOf(c));
+
+// 打印
+true
+true
+true
+true</code></pre></li></ul></li></ul><ul id="209a4040-ef9a-418d-9c60-e3f40c1fcbcd" class="bulleted-list"><li style="list-style-type:circle"><code>propertyIsEnumerable(propertyName)</code> :用于判断给定的属性是否可以使用for-in语句枚举（即属性是可枚举的属性），属性名必须是字符串<ul id="83e0c392-21de-4ecf-acb2-be3b72072c92" class="bulleted-list"><li style="list-style-type:square">通常由对象调用，表示指定的属性是否可枚举</li></ul><ul id="7471f865-0a76-4e72-ac8f-fdf736c0b3a8" class="bulleted-list"><li style="list-style-type:square">常见的例子就是数组对象，数组对象中的每个索引属性都是可枚举的，但是length属性不可枚举<pre id="a1530f69-716c-409d-8443-7fa8b56f7444" class="code"><code>// propertyIsEnumerable有对象调用，表明指定的属性是否可枚举
+const a = [1, 2, 3];
+console.log(a.propertyIsEnumerable(0));
+console.log(a.propertyIsEnumerable(1));
+console.log(a.propertyIsEnumerable(2));
+console.log(a.propertyIsEnumerable(&quot;length&quot;));
+// 打印
+true
+true
+true
+false // length不可枚举 所以返回false</code></pre></li></ul></li></ul><ul id="4ce9928d-dba2-4be0-bd83-7a4646b02c5b" class="bulleted-list"><li style="list-style-type:circle"><code>toLocaleString()</code> 返回对象的字符串表示，该字符串反映对象所在的本地化执行环境<ul id="524f2d09-dc02-49bd-b639-6f8006065a7c" class="bulleted-list"><li style="list-style-type:square">由对象调用，通常每个内置对象都会对toLocaleString()进行覆写（默认返回<code>[object Object]</code>）</li></ul><ul id="60e3216a-0ad1-46ce-9e0c-c992a75151e2" class="bulleted-list"><li style="list-style-type:square">例如<strong>数字对象</strong>中的toLocaleString()就会返回美式的数字格式，三位一个逗号，精确三位小数点</li></ul><ul id="6a4073bd-704c-45f5-a5a0-afe270375fc9" class="bulleted-list"><li style="list-style-type:square">例如<strong>时期对象</strong>中的toLocaleString()就会根据时区返回相应的时间日期<pre id="c0aba318-9aff-4f26-967c-54da3d93b5af" class="code"><code>// 数字对象
+const a = 123456.7891;
+console.log(a.toLocaleString());
+
+// 时期
+const date = new Date();
+console.log(date.toLocaleString());
+
+// 打印
+123,456.789 // 三位一个逗号，精确三位
+2022/5/23 21:58:32 // 北京时间</code></pre></li></ul></li></ul><ul id="3118a33e-7fdb-467d-97c3-20eec29d3ee8" class="bulleted-list"><li style="list-style-type:circle"><code>toString()</code> 返回对象的字符串表示，可以查看[Symbol.toPrimitive]中<a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E7%AC%A6%E5%8F%B7%2020d09a965d2844c886bf494160a778c5/%E5%AF%B9%E8%B1%A1%E8%BD%AC%E5%8E%9F%E5%A7%8B%E5%80%BC%E7%9A%84Object%E6%96%B9%E6%B3%95%20685cd3fcbca64f75a39141d06956a680.html">关于对象转化为原始类型的toString()方式</a></li></ul><ul id="d666f277-de5a-4b86-8f39-7e1d2a63a75f" class="bulleted-list"><li style="list-style-type:circle"><code>valueOf()</code> 返回对象对应的字符串，数字或者布尔值表示，可查看<a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E7%AC%A6%E5%8F%B7%2020d09a965d2844c886bf494160a778c5/%E5%AF%B9%E8%B1%A1%E8%BD%AC%E5%8E%9F%E5%A7%8B%E5%80%BC%E7%9A%84Object%E6%96%B9%E6%B3%95%20685cd3fcbca64f75a39141d06956a680.html">关于对象转为原始类型的valueOf()方式</a></li></ul></li></ul><h3 id="84b0c183-0b2b-4fc9-9ff2-41f7946e05d3" class="">注意</h3><ul id="fc0d9f26-3ef6-4fc2-8895-b7ddf08f6a47" class="bulleted-list"><li style="list-style-type:disc">严格来说，Object只是ECMAScript定义的所有对象的<strong>基类，</strong>而不一定适合于JavaScript中的其他对象</li></ul><ul id="67202318-0922-4f86-be09-37d87497dd48" class="bulleted-list"><li style="list-style-type:disc">这里JavaScript指在不同的宿主环境下的ECMAScript实现，例如浏览器环境，Nodejs环境</li></ul><ul id="f4b2a145-f6d5-4add-aa3a-6d0f7a1b6dbd" class="bulleted-list"><li style="list-style-type:disc">浏览环境下的BOM和DOM对象由宿主环境定义和提供，宿主对象不受ECMA-262约束，所以有些对象不一定会继承Object</li></ul><hr id="5b38e01c-3a1f-4c86-8a03-822c21d6c507"/><h1 id="a712c8ea-2808-44f8-8a13-187533d317fd" class="">5.操作符</h1><ul id="32373502-c616-4aae-9203-c978b3bbc362" class="bulleted-list"><li style="list-style-type:disc">ECMAScript规范定义了一系列在其它语言中同样需要定义的<strong>操作符</strong></li></ul><ul id="59f09669-6863-4b42-a6d7-e7bac48d2c46" class="bulleted-list"><li style="list-style-type:disc">这些操作符可用于操作数据值，包括<strong>数学操作符、位操作符、关系操作符、和相等操作符</strong></li></ul><ul id="9fc22aa9-d0d0-4004-a4b4-4ed08c557bdb" class="bulleted-list"><li style="list-style-type:disc">ECMAScript的操作符与其它语言的不同之处在于：<blockquote id="5690346b-bc73-482e-9056-6fd193f5533b" class="">ECMAScript中的操作符是独特的，因为它们可用于各种值，包括字符串、数值、布尔值、甚至还有对象</blockquote></li></ul><ul id="175c481f-0b46-4b56-a6dd-fb12a5f56c86" class="bulleted-list"><li style="list-style-type:disc">在应用给对象时，通常会调用对象的valueOf()或toString()方法</li></ul><h2 id="3543a9da-c62d-4a44-8fca-d2173fa5adf3" class="">5.1 一元操作符与位操作符</h2><figure id="b21bffaa-662c-41d2-9fec-ace33a6df9e9" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/5%201%E4%B8%80%E5%85%83%E6%93%8D%E4%BD%9C%E7%AC%A6%E4%B8%8E%E4%BD%8D%E6%93%8D%E4%BD%9C%E7%AC%A6%20b21bffaa662c41d29fecace33a6df9e9.html"><span class="icon">🚴🏽</span>5.1一元操作符与位操作符</a></figure><h2 id="aa2ddfa5-69a6-48c7-9e62-f60fae9ea9cc" class="">5.2 布尔操作符</h2><figure id="400f32d3-da10-41bb-841a-ba11798c9fa5" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/5%202%E5%B8%83%E5%B0%94%E6%93%8D%E4%BD%9C%E7%AC%A6%20400f32d3da1041bb841aba11798c9fa5.html"><span class="icon">🌜</span>5.2布尔操作符</a></figure><h2 id="e42e1d69-7d5d-47ac-ae59-f13b6f123ec5" class="">5.3 乘性操作符</h2><figure id="f52e04ce-af18-4a4b-8c6c-d1e4a15f2531" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/5%203%E4%B9%98%E6%80%A7%E6%93%8D%E4%BD%9C%E7%AC%A6%20f52e04ceaf184a4b8c6cd1e4a15f2531.html"><span class="icon">🎀</span>5.3乘性操作符</a></figure><h2 id="d8d69106-332a-4cf2-8de0-c96558433c25" class="">5.4 指数操作符</h2><figure id="f7b53c4e-0c1f-4582-b93c-7bdf4b3925dc" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/5%204%E6%8C%87%E6%95%B0%E6%93%8D%E4%BD%9C%E7%AC%A6%20f7b53c4e0c1f4582b93c7bdf4b3925dc.html"><span class="icon">🎮</span>5.4指数操作符</a></figure><h2 id="cd9e8db7-3bf0-4d11-aedb-3991c124f58b" class="">5.5 加性操作符</h2><figure id="91fa8f5d-b1ca-4f2c-a769-36cebbecbd1f" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/5%205%E5%8A%A0%E6%80%A7%E6%93%8D%E4%BD%9C%E7%AC%A6%2091fa8f5db1ca4f2ca76936cebbecbd1f.html"><span class="icon">🧬</span>5.5加性操作符</a></figure><h2 id="99e0af0b-8dd5-4b24-855e-98e8b2be67e7" class="">5.6 关系操作符</h2><figure id="93659b58-a93e-408e-81f9-cd38b21f90a4" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/5%206%20%E5%85%B3%E7%B3%BB%E6%93%8D%E4%BD%9C%E7%AC%A6%2093659b58a93e408e81f9cd38b21f90a4.html"><span class="icon">🎿</span>5.6 关系操作符</a></figure><h2 id="1b2ccfc6-ca96-4d9b-99b5-5882afbe4543" class="">5.7 相等操作符</h2><figure id="8f8e4912-1cc9-4b33-8dab-841d845536ef" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/5%207%20%E7%9B%B8%E7%AD%89%E6%93%8D%E4%BD%9C%E7%AC%A6%208f8e49121cc94b338dab841d845536ef.html"><span class="icon">🎱</span>5.7 相等操作符</a></figure><h2 id="49555c4d-5dbb-4c9f-9cbe-f1449ca212aa" class="">5.8 条件操作符</h2><figure id="6da3a04b-69ce-4465-991e-f67ab36fe73e" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/%E6%9D%A1%E4%BB%B6%E6%93%8D%E4%BD%9C%E7%AC%A6%206da3a04b69ce4465991ef67ab36fe73e.html"><span class="icon">🏀</span>条件操作符</a></figure><h2 id="5706d572-a628-4f21-a9c3-9517968ddf45" class="">5.9 赋值操作符</h2><figure id="a7091752-559f-4c01-b4d2-61babc827090" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/5%209%20%E8%B5%8B%E5%80%BC%E6%93%8D%E4%BD%9C%E7%AC%A6%20a7091752559f4c01b4d261babc827090.html"><span class="icon">🏖️</span>5.9 赋值操作符</a></figure><h2 id="407971f0-ca97-4b5a-b8fe-3015fa055eb0" class="">5.10 逗号操作符</h2><figure id="ac3bed38-ba23-44a1-b650-4e19f070db4b" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/5%2010%20%E9%80%97%E5%8F%B7%E6%93%8D%E4%BD%9C%E7%AC%A6%20ac3bed38ba2344a1b6504e19f070db4b.html"><span class="icon">🪅</span>5.10 逗号操作符</a></figure><h1 id="18fb9661-8668-4f20-ae57-afa9eb4e26c4" class="">6. 语句</h1><p id="aea1e453-f2b7-447c-aecd-0cf540facb20" class="">ECMAScript中的语句体现了其大部分的语法，语句又称为<strong>流控制语句</strong>，它们可以简单也可复杂，是一条条需要被执行的指令</p><h2 id="d8755129-7299-4204-8f10-7897ab36e4e9" class="">6.1 条件语句</h2><figure id="6a0ff876-0905-41c5-b84b-943ca3e5cd78" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/6%201%201%20%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5%EF%BC%88if%E8%AF%AD%E5%8F%A5%EF%BC%89%206a0ff876090541c5b84b943ca3e5cd78.html"><span class="icon">🪀</span>6.1.1 条件语句（if语句）</a></figure><figure id="c2a6b336-f560-45ab-ba2b-ae1357a2ad3c" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/6%201%202%20switch%E8%AF%AD%E5%8F%A5%20c2a6b336f56045abba2bae1357a2ad3c.html"><span class="icon">🏞️</span>6.1.2 switch语句</a></figure><h2 id="90509426-ce81-410a-baea-74af6151d0d7" class="">6.2 循环语句</h2><figure id="c6c3aebc-e220-44af-b596-dd4ced6a4445" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/6%202%201while%E8%AF%AD%E5%8F%A5%20c6c3aebce22044afb596dd4ced6a4445.html"><span class="icon">🎴</span>6.2.1while语句</a></figure><figure id="0da98a8e-0832-4dff-9f81-4cc901cca34c" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/6%202%202%20for%E8%AF%AD%E5%8F%A5%200da98a8e08324dff9f814cc901cca34c.html"><span class="icon">🖥️</span>6.2.2 for语句</a></figure><h2 id="0164b98a-8b92-44aa-bea8-0345b44068f6" class="">6.3 循环控制语句</h2><figure id="00999d15-97a8-41fd-adc8-0cedd166bab7" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/6%203%201%20break%E5%92%8Ccontinue%E8%AF%AD%E5%8F%A5%2000999d1597a841fdadc80cedd166bab7.html"><span class="icon">⛴️</span>6.3.1 break和continue语句</a></figure><figure id="a01bb47f-d769-43dc-8386-753c18c4868e" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/6%203%202%20%E6%A0%87%E7%AD%BE%E8%AF%AD%E5%8F%A5%20a01bb47fd76943dc8386753c18c4868e.html"><span class="icon">🎭</span>6.3.2 标签语句</a></figure><h2 id="45d1cf00-cfd7-401b-88ea-e2051408493d" class="">6.4 with</h2><figure id="60be3c84-d862-451b-a106-342ef7d9e88b" class="link-to-page"><a href="3%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2089d20755080b4eafb61e070af8efb662/6%204%20with%E8%AF%AD%E5%8F%A5%2060be3c84d862451ba106342ef7d9e88b.html"><span class="icon">🌐</span>6.4 with语句</a></figure><h1 id="d931c702-ffc0-47f9-8bea-e8d9cdab8218" class="">7. 函数</h1><p id="24ce83fd-0d01-4f28-ac05-28c9663558b6" class="">函数在任何语言中都是核心，因为函数具有<strong>封装</strong>的属性，它封装了语句块，只要调用函数就能执行封装在其中的语句块，不用重新书写相关语句块，这极大的提高了代码的编写效率</p><h2 id="56dbe094-9433-42a2-baa2-d4f64fd8571d" class="">语法</h2><h3 id="3a6ba9d1-76aa-4b88-989d-689fbadddb75" class="">函数声明</h3><pre id="1bed687b-3aa5-4797-9cb6-df4c1b099784" class="code code-wrap"><code>function functionName(arg0, arg1, ... argN) {
+	statements
+}</code></pre><ul id="6e631b0b-7cdb-4526-b7d6-7599d7827747" class="bulleted-list"><li style="list-style-type:disc">使用function关键字声明函数</li></ul><ul id="6e435396-cf98-45dc-b47e-25471cec9109" class="bulleted-list"><li style="list-style-type:disc">函数名一般是小驼峰，且在作用域中是独一的</li></ul><ul id="2a83e3cb-d830-4f52-9698-a2242c346769" class="bulleted-list"><li style="list-style-type:disc">函数名后跟括号，括号中是需要的参数，参数可以为空</li></ul><ul id="1ca548af-f921-4cd3-9aac-7f7c2a504de7" class="bulleted-list"><li style="list-style-type:disc">最后使用大括号({})书写函数的函数体</li></ul><h3 id="01387649-3547-4bb0-90a6-1d3b05d0ff72" class="">函数调用</h3><ul id="9d3002e9-e462-4439-9c7d-01bd53053ad6" class="bulleted-list"><li style="list-style-type:disc">一般情况下，使用函数名加括号，括号中传入函数需要的参数进行调用</li></ul><pre id="9540307d-8e96-4c20-be9f-e735623da3d9" class="code code-wrap"><code>functionName(args);</code></pre><p id="ef35d7f4-73fe-4391-8f4e-5550b9a34ffb" class="">⇒ 还可以通过apply和call函数进行调用</p><h2 id="987e0f1e-2eac-4c79-81a9-550e3d9ba7a1" class="">函数的返回值</h2><ul id="b7357f78-168c-45bf-8192-88d5e5dc8184" class="bulleted-list"><li style="list-style-type:disc">ECMAScript中的函数<strong>不一定有返回值</strong></li></ul><ul id="345a0268-cefd-417f-952b-9de090e77709" class="bulleted-list"><li style="list-style-type:disc">如果有返回值，<strong>只能使用return语句</strong>进行返回<ul id="3b357f47-0920-496c-875c-ac02f392f66e" class="bulleted-list"><li style="list-style-type:circle"><strong>return语句被执行，函数就会立即停止执行并退出</strong></li></ul><ul id="009619fd-bc26-49ec-b1ea-c1b963c9413e" class="bulleted-list"><li style="list-style-type:circle">一个函数里可以有多个return语句，配合条件语句使用</li></ul><ul id="0dc0e19f-6d83-44ab-86e5-6f9fdb667393" class="bulleted-list"><li style="list-style-type:circle"><strong>没有return语句</strong>或者<strong>return不带返回值</strong>的函数执行完毕后返回undefined</li></ul><ul id="665870d8-5f89-4ba9-b599-71b183044c97" class="bulleted-list"><li style="list-style-type:circle">可以使用<code>return;</code> (不返回任何值)，立即终止函数执行</li></ul></li></ul><h2 id="3a07448f-6fc8-4f53-91ed-74d288f1cd7b" class="">使用注意</h2><ol type="1" id="5bf70224-9be2-48ff-b601-507e4d03fc36" class="numbered-list" start="1"><li><strong>函数要么始终返回值，要么始终不返回值</strong>，否则可能因为条件一会有值返回，一会没有值返回会照成麻烦</li></ol><ol type="1" id="96fcb4d9-cbb6-45af-8222-87d5b87196cd" class="numbered-list" start="2"><li>函数不能以eval或arguments作为名称</li></ol><ol type="1" id="92a645fe-35a2-4586-a0bb-c62a131e4556" class="numbered-list" start="3"><li>函数的参数不能叫eval或arguments</li></ol><h2 id="377371d0-d893-4b2a-99e6-d4d8209b17e9" class="">例子</h2><pre id="e1302ba1-cfda-4e62-b7a9-5df144d11f0a" class="code code-wrap"><code>// 使用function定义的代码块，可以复用，具有封装特性
+function functionName(name) {
+  console.log(&quot;所以参数&quot;, arguments);
+  return name + &quot;,hello&quot;;
+}
+
+console.log(functionName(&quot;mangwu&quot;, 1, 2));
+// 打印
+所以参数 [Arguments] { &#x27;0&#x27;: &#x27;mangwu&#x27;, &#x27;1&#x27;: 1, &#x27;2&#x27;: 2 }
+mangwu,hello</code></pre><ul id="2726c34f-6286-41e9-817a-57dc1aedc748" class="bulleted-list"><li style="list-style-type:disc">arguments是函数内部可以使用的局部变量，它是所有参数组成的对象</li></ul><h1 id="02f70c64-6f73-4606-a21d-0ae08cf0e968" class="">8.小结</h1><p id="9de7d457-2856-49b8-bdf6-63bc1d426623" class="">上述介绍的语言基础特性都是ECMA-262中以<strong>伪语言ECMAScript的形式定义的</strong></p><p id="cd4d386a-5cc7-402f-a09c-821be5e77a1b" class="">ECMAScript提供了语言的基本语法、操作符、数据类型和对象，能完成基本的计算任务，但是<strong>没有提供获取输入和产生输出的机制</strong></p><p id="69bfa100-fe75-434f-8e61-8e62267fc8f4" class="">浏览器中的JavaScript语言基础特性基于ECMAScript规范的语言基础</p><ul id="2fa1873c-5096-44ac-a029-75b72023ba4a" class="bulleted-list"><li style="list-style-type:disc">ECMAScript的语言基础包括<ol type="1" id="372493c3-ee54-41f3-947d-9572558810c6" class="numbered-list" start="1"><li>数据结构：6种基本（原始）的数据结构和对象<ul id="000344a9-20e5-47cf-806c-0485012ec71f" class="bulleted-list"><li style="list-style-type:disc">Undefined</li></ul><ul id="c824f345-a8ff-4271-9d26-19b4768399b8" class="bulleted-list"><li style="list-style-type:disc">Null</li></ul><ul id="83077acb-6ccb-4501-bb83-12dc8ed436e0" class="bulleted-list"><li style="list-style-type:disc">Boolean</li></ul><ul id="2f023952-c3ac-4db1-a485-ef1d08426ab6" class="bulleted-list"><li style="list-style-type:disc">Number: 与其它语言不同，不区分整数和浮点数，只有Number一种数值数据类型</li></ul><ul id="3e4ab120-cf19-457b-8f71-f3a6b2aa3181" class="bulleted-list"><li style="list-style-type:disc">String</li></ul><ul id="1cb84258-de5c-4689-8b46-b07efb7873a3" class="bulleted-list"><li style="list-style-type:disc">Symbol</li></ul><hr id="bbdb8176-1e55-43c0-83a4-b75e633f7f51"/><ul id="1cb4d010-9270-48e0-9a0f-eddd5acd9c81" class="bulleted-list"><li style="list-style-type:disc">Object: 是一种复杂的数据结构，是ECMAScript中所有对象的基类</li></ul></li></ol><ol type="1" id="a4f51dc1-e9be-4573-aa0c-da0d788f5921" class="numbered-list" start="2"><li>语法：<ul id="988a60d7-8de2-41cb-ae5d-35d3fd85bdab" class="bulleted-list"><li style="list-style-type:disc">严格模式为ECMAScript中容易出错的部分施加限制</li></ul><ul id="9be1a839-3b4e-40a9-830d-f66f575c1e64" class="bulleted-list"><li style="list-style-type:disc">参考其它语言提供了许多基本操作符，包括数学操作符，布尔操作符，关系操作符，相等操作符，赋值操作符</li></ul></li></ol><ol type="1" id="55aea6a1-e77d-428f-91b1-e7c8a1fdfcd5" class="numbered-list" start="3"><li>流控制语句<ul id="1c4f65fa-4f93-479e-b641-ae06e2b6aca0" class="bulleted-list"><li style="list-style-type:disc">大多从其它语言借鉴过来</li></ul><ul id="e41f2aeb-3710-4ead-a65a-a83b7301fa39" class="bulleted-list"><li style="list-style-type:disc">包括条件语句，循环语句，循环控制语句，标签语句等</li></ul></li></ol><ol type="1" id="e57736e0-5801-4f7a-9e3b-7538002898fc" class="numbered-list" start="4"><li>函数：<ul id="84162d15-c7c3-4eb8-aaeb-fed84bf5d700" class="bulleted-list"><li style="list-style-type:disc">ECMAScript中的函数不需要指定返回值</li></ul><ul id="967ba667-36a2-4c61-a553-a771b17f3aff" class="bulleted-list"><li style="list-style-type:disc">不返回值的函数默认返回undefined</li></ul></li></ol></li></ul><p id="355c8c98-3165-4e6b-a922-c75c4133ba3a" class="">
+</p><h1 id="9fa2f24d-9268-48dc-b6d3-5d3a622538bc" class="">注意</h1><ul id="bebf015e-7df8-4813-935a-e2b276e3a215" class="bulleted-list"><li style="list-style-type:disc">JavaScript新增了原始数据类型<code>BigInt</code>用以表示<code>number</code> 表示不到的范围</li></ul><ul id="9d5b85ac-cf92-4ce5-a28d-8c8a1b5c6898" class="bulleted-list"><li style="list-style-type:disc">字面量写法为数字+n，如下<pre id="60eaf0b5-5697-4304-907c-f128de0ec4f0" class="code code-wrap"><code>let bigint = 1n</code></pre></li></ul></div></div><p id="8fcc7287-a059-4caa-bd19-d90bf394998d" class="">
+</p></div></article></body></html>

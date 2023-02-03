@@ -1,0 +1,788 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>&lt;script&gt;元素</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8482acc6-dba1-4ca7-9485-72a51bf60583" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_silk_kashan_carpet.jpg" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🧧</span></div><h1 class="page-title">&lt;script&gt;元素</h1></header><div class="page-body"><div id="fe8494e3-5206-4127-bf2e-a1f1a19509e9" class="column-list"><div id="d269fd95-36ca-4b1b-a343-8e880286b0cd" style="width:18.75%" class="column"><nav id="f3d3d23c-56e1-454b-badb-5152c361c63d" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#34a76a18-c951-4418-9329-3dedd0971815">1.&lt;script&gt;元素的属性(attribute)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e280b12f-51b7-4212-bf10-1fc9b4b92831">2.使用&lt;script&gt;元素的方式</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9b42c941-3ee4-4c23-930c-2d67934e4c02">2.1 直接嵌入JavaScript代码</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#35f32e32-5af0-43a7-b8ac-e6125d353bed">2.2 外部引入JavaScript文件</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1512091b-6b1a-4878-bd6f-4c69d6607276">2.2.1外部引入是&lt;script&gt;元素的一大特性</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d32cb30a-1215-4af0-8309-53c746d95cfc">3.&lt;script&gt;的标签位置和执行顺序</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#761f255d-4dfb-4dfa-ab6e-e6583e6d282d">3.1默认执行顺序</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a724dbc4-6c3f-4a2b-abc6-db3fa6ccd9ff">3.2标签位置</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#af92ff05-b60e-4b7c-92a8-0b9e9a9375e7">3.3 推迟执行脚本</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#fc8bf4d1-2768-4209-b647-87b640d1f0e4">defer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#899afa78-83e4-41a0-b50e-8209e4027a1a">3.4异步执行脚本</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#43a4ae3a-791e-45d3-be22-8891bf8e5571">async</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4b0b6aca-bb90-4a71-9901-21393cb14733">4.动态加载脚本</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d6c6adf0-ae47-4013-880d-aa2a139c3309">5.XHTML中的变化</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e92d217b-c702-43ab-a95d-57a644beb06c">XHTML</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e541d2a1-25d6-4039-9328-f6346dfe5371">在XHTML中使用JavaScript</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#647ab862-d873-4d36-9de8-e656f4e4dbfe">注意</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2595ab4d-d53c-4c41-843d-9dbd0dad923c">6.废弃的语法</a></div></nav><p id="59c7b95a-878e-4eac-939f-fb451cbaa530" class="">
+</p></div><div id="d35f2a63-db56-454d-8a8c-be0f8bebbbd4" style="width:81.25%" class="column"><h1 id="34a76a18-c951-4418-9329-3dedd0971815" class="">1.&lt;script&gt;元素的属性(attribute)</h1><ul id="9994a0af-6481-4fef-9d7b-7b6fc7bdcac3" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">script元素主要的8个属性（不包括HTML全局属性）<ol type="1" id="16cbcdee-b290-4496-91b3-983fd4443b76" class="numbered-list" start="1"><li><code><strong>async</strong></code><strong>（HTML5）:</strong> 可选，异步的意思，使用该属性表示：<ol type="a" id="e15e53b8-cbe4-4032-bf89-3c611136783a" class="numbered-list" start="1"><li>立即开始下载<strong>脚本</strong>(<strong>script</strong>)，并尽快解析执行</li></ol><ol type="a" id="7f425721-9f5a-4a93-a6dc-2684a414e62b" class="numbered-list" start="2"><li>不能阻止(<strong>prevent</strong>)其他的页面动作，如不能阻止其他脚本下载，或其他资源（样式表等）下载</li></ol><ol type="a" id="83d3401d-448d-4143-896e-77172985664e" class="numbered-list" start="3"><li>只对外部脚本(<strong>external script files</strong>)有效（该属性对定义在HTML内部的脚本语句没有意义，因为无需下载）</li></ol></li></ol><ol type="1" id="2b625ac9-94ae-489c-a6bd-fd90c0bd2fd6" class="numbered-list" start="2"><li><code>charset</code>: 可选，已被<strong>废弃</strong>属性<ol type="a" id="9156cb1d-5ab0-4efd-b793-75d95babd63c" class="numbered-list" start="1"><li>值必须为&#x27;utf-8&#x27;, 表示设置<code>src</code>属性的代码字符集</li></ol><ol type="a" id="26466f3b-d254-4682-8ac2-4b17f5dbcb2f" class="numbered-list" start="2"><li>因为页面文档必须是UTF-8，所以<strong>浏览器不会在意它的值</strong></li></ol><ol type="a" id="08d1bee4-c308-4885-98ee-4aeabdb67c5c" class="numbered-list" start="3"><li>script会从页面文档中默认继承该属性</li></ol></li></ol><ol type="1" id="60344ecc-3427-4e37-a658-967d898c48cd" class="numbered-list" start="3"><li><code>crossorigin</code>： 可选，用于配置相关请求的(CORS跨资源共享)设置，默认不会使用CORS<ol type="a" id="e57fd5ae-fc9e-4a0e-80e0-68fc903daaec" class="numbered-list" start="1"><li><code>crossorigin=&quot;anonymous&quot;</code>配置文件请求<strong>不必设置凭据标志</strong>（<strong>no</strong> <strong>credentials flag set</strong>），设置为空或者不设置属性值默认为<code>anonymous</code></li></ol><ol type="a" id="a0831f1b-351e-4121-a8cb-a680e5f1fc4c" class="numbered-list" start="2"><li><code>crossorigin=&quot;use-credentials&quot;</code>设置凭据标志，意味着出站请求会包含凭据</li></ol><ol type="a" id="45d67aa2-10b4-42c7-99bf-7512aeee3d42" class="numbered-list" start="3"><li>在<a href="https://www.notion.so/React-b0fbbea6ce894eb4b48a42e6c3a20a1a">通过cdn引入React使用了crossorigin</a>用于允许接收远程脚本报错</li></ol><figure id="d8834f55-b4eb-4ce4-9948-bc88252f1746"><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Attributes/crossorigin" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">CORS settings attributes - HTML（超文本标记语言） | MDN</div><div class="bookmark-description">在媒体元素上被使用的 crossorigin 内容属性是一个 CORS 设置属性。 这些属性是枚举的，并具有以下可能的值： 默认情况下（即未指定 crossOrigin 属性时），CORS 根本不会使用。如 Terminology section of the CORS specification 中的描述，在非同源情况下，设置 &quot;anonymous&quot; 关键字将不会通过 cookies，客户端 SSL 证书或 HTTP 认证交换用户凭据。 即使是无效的关键字和空字符串也会被当作 anonymous 关键字使用。 你可以使用下面的 元素告诉浏览器执行来自 https://example.com/example-framework.js 的脚本且不发送用户凭据。 在获取需要用户凭据的 manifest 时，属性值必须设置为 use-credentials 。即使是同源的情况。</div></div><div class="bookmark-href"><img src="https://developer.mozilla.org/favicon-48x48.97046865.png" class="icon bookmark-icon"/>https://developer.mozilla.org/zh-CN/docs/Web/HTML/Attributes/crossorigin</div></div><img src="https://developer.mozilla.org/mdn-social-share.0ca9dbda.png" class="bookmark-image"/></a></figure></li></ol><ol type="1" id="79bdae65-f7e1-4097-b4b2-644f5cd22b54" class="numbered-list" start="4"><li><code><strong>defer</strong></code>: 布尔属性，可选：<ol type="a" id="99eeb697-4dfb-4c7c-b978-43b7fd6040cf" class="numbered-list" start="1"><li>表示脚本可以延迟到文档被<strong>完全解析和显示之后（DOMContentLoaded事件之前）</strong>再执行</li></ol><ol type="a" id="f6523f16-3ab8-46be-8c75-73a959638a31" class="numbered-list" start="2"><li>只对外部脚本有效，模块脚本默认是defer</li></ol><ol type="a" id="7c277f87-5a5c-4ee0-922f-18a9f16e8d6e" class="numbered-list" start="3"><li>IE7之前行内脚本也可以指定这个属性</li></ol></li></ol><ol type="1" id="94a988eb-bf90-47eb-ae42-17532b4805f2" class="numbered-list" start="5"><li><code>integrity</code>: 可选：<ol type="a" id="0877ed91-3a62-4805-9d53-85166aefea57" class="numbered-list" start="1"><li>用于对比接收到的资源和指定的加密签名以验证子资源完整性（SRI, Subresource Integrity）</li></ol><ol type="a" id="318c0025-a561-4e63-98d3-0759e75ee4a5" class="numbered-list" start="2"><li>如果接收到的资源的签名和属性指定的签名不匹配，页面报错，脚本不执行</li></ol><ol type="a" id="6c4d975a-23e5-49fe-af23-f58c7739dca9" class="numbered-list" start="3"><li>该属性确保<strong>内容分发网络(CDN, Content Delivery Network)</strong>不会提供恶意内容</li></ol></li></ol><ol type="1" id="a02faa6f-2342-4d3d-acf3-e66a24f1d41b" class="numbered-list" start="6"><li><code>language</code>: <strong>废弃</strong>：<ol type="a" id="72666efd-78af-4edd-b43d-79a53af6ede6" class="numbered-list" start="1"><li>最初用来表示代码块中的脚本语言，如JavaScript ，JavaScript1.2</li></ol><ol type="a" id="bb940377-7646-40bd-96a8-13bf993742a7" class="numbered-list" start="2"><li>但是该属性未被标准化，且有了更为通用的type，大多数浏览器会忽略这个属性、</li></ol></li></ol><ol type="1" id="6a3e78d4-5d2f-4264-af6f-55d5130d73dd" class="numbered-list" start="7"><li><code><strong>src</strong></code>:  可选：<ol type="a" id="e296cd21-9b01-4e4b-ad79-e82d2a3abbbc" class="numbered-list" start="1"><li>用来引用外部脚本的URI，可以代替直接在文档中嵌入脚本</li></ol><ol type="a" id="2c0c8e13-f0b6-4a03-9ae9-5c23dadcb50e" class="numbered-list" start="2"><li>指定了src的脚本不应该在元素标签内部再嵌入脚本</li></ol></li></ol><ol type="1" id="e125927f-c734-4803-812a-61424be0ae7d" class="numbered-list" start="8"><li><code><strong>type</strong></code>: 可选，代替language：<ol type="a" id="c3e16359-5b50-428e-9732-2478a5a0b136" class="numbered-list" start="1"><li>属性值类型为MIME类型（代表代码块脚本语言的内容类型）</li></ol><ol type="a" id="7cdc217a-42a6-4c46-9a0d-c257bb7efc0e" class="numbered-list" start="2"><li>默认值始终是“text/javascript&quot;</li></ol><ol type="a" id="fb011700-d9d8-4bb6-a50d-b02ac8c9b2b9" class="numbered-list" start="3"><li>MIME类型包括&quot;text/javascript&quot;, &quot;text/ecmascript&quot;,&quot;application/javascript&quot;,&quot;application/ecmascript&quot;</li></ol><ol type="a" id="0d3fc3c7-3b4b-49ac-93b5-12faf06ad163" class="numbered-list" start="4"><li>如果不是MIME类型，而是”module“，则代码会被当成ES6的模块，允许使用import和export</li></ol><ol type="a" id="9f3bbfaf-28be-46b5-8d2e-793c801cd287" class="numbered-list" start="5"><li>或者不是MIME类型，也不是&quot;module&quot;，该<strong>元素包含的内容会被当作数据块而不会被浏览器执行</strong></li></ol></li></ol><ol type="1" id="9f01089b-5d41-4aa4-97f1-41adc3354adc" class="numbered-list" start="9"><li><code>nomodule</code>: 不常用属性，布尔值<ol type="a" id="182a8ac3-819d-4188-9d50-e3a110bd86e0" class="numbered-list" start="1"><li>设置脚本在支持ES6 module的浏览器中不执行</li></ol><ol type="a" id="676db511-9409-4715-85d6-1d7d1f268d57" class="numbered-list" start="2"><li>用于在不支持模块化的旧版本浏览器中提供回退脚本</li></ol></li></ol><ol type="1" id="ccb1b378-1bb5-4926-92b9-778c28d608ba" class="numbered-list" start="10"><li><code>nonce</code>： CSP(Content Security Policy)定义的属性<ol type="a" id="6a678262-3a2c-4a8f-86c5-1841bd496902" class="numbered-list" start="1"><li>CSP实质是白名单制度，用于告诉客户端那些外部资源可以加载执行</li></ol><ol type="a" id="892b0ebf-7ba0-4929-8737-0b88a9392991" class="numbered-list" start="2"><li>CSP设置了一些<a href="http://www.ruanyifeng.com/blog/2016/09/csp.html">资源加载限制</a>，其中一个就是script-src</li></ol><ol type="a" id="97b20ea8-bfb5-4c8d-a49c-8db3b7296272" class="numbered-list" start="3"><li>script-src设置了一些特殊值，其中一个就是nonce</li></ol><ol type="a" id="9ee7a347-adbe-4a4c-8ccf-f22229609a50" class="numbered-list" start="4"><li>nonce的值用于在每次HTTP回应都会给出一个授权token，页面内嵌的脚本必须有这个token才会执行<pre id="e3de9723-201d-4055-87e6-5e1d108490f6" class="code code-wrap"><code>// nonce值的例子如下，服务器发送网页的时候，告诉浏览器一个随机生成的token。
+Content-Security-Policy: script-src &#x27;nonce-EDNnf03nceIOfn39fn3e9h3sdfa&#x27;</code></pre><pre id="300de0fa-5693-4f03-8ed6-32107ff86bf9" class="code code-wrap"><code>//页面内嵌脚本，必须有这个token才能执行。
+&lt;script nonce=EDNnf03nceIOfn39fn3e9h3sdfa&gt;
+  // some code
+&lt;/script&gt;</code></pre></li></ol></li></ol><ol type="1" id="45d4d70f-4b6d-4b3c-a7e8-0d86485c676e" class="numbered-list" start="11"><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/script#attr-referrerpolicy"><code><strong>referrerpolicy</strong></code></a><figure id="54fee88d-c398-4b5e-94a7-a5340111484e"><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/script#attr-referrerpolicy" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">- HTML（超文本标记语言） | MDN</div><div class="bookmark-description">该元素包含全局属性。</div></div><div class="bookmark-href"><img src="https://developer.mozilla.org/favicon-48x48.97046865.png" class="icon bookmark-icon"/>https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/script#attr-referrerpolicy</div></div><img src="https://developer.mozilla.org/mdn-social-share.0ca9dbda.png" class="bookmark-image"/></a></figure></li></ol></li></ul><h1 id="e280b12f-51b7-4212-bf10-1fc9b4b92831" class="">2.使用&lt;script&gt;元素的方式</h1><ul id="44632e83-6bda-46b7-b27e-48a30fc83f45" class="block-color-purple_background bulleted-list"><li style="list-style-type:disc">有两种使用&lt;script&gt;元素的方式：<ul id="98ca5877-7d8c-4857-a316-1d2b8e7a0c29" class="bulleted-list"><li style="list-style-type:circle">直接在&lt;script&gt;元素中嵌入JavaScript代码</li></ul><ul id="513c23ea-0a10-4ddc-aa4b-22b6bb239afa" class="bulleted-list"><li style="list-style-type:circle">在网页中通过&lt;script&gt;引入外部代码</li></ul></li></ul><h2 id="9b42c941-3ee4-4c23-930c-2d67934e4c02" class="">2.1 直接嵌入JavaScript代码</h2><ul id="15dc7422-9841-4659-a10f-07af7544e142" class="bulleted-list"><li style="list-style-type:disc">这种方法引入的JavaScript代码称为<strong>行内JavaScript代码</strong></li></ul><ul id="cb068a00-6efd-4c68-aeb1-26279743907e" class="bulleted-list"><li style="list-style-type:disc">使用方式为直接把JavaScript放入&lt;script&gt;元素中即可<pre id="d06e6c5e-ecb8-4d88-b5b7-cfe0096ea90e" class="code code-wrap"><code>&lt;script&gt;
+	function sayHi() {
+		console.log(&quot;Hi!&quot;);
+	}
+&lt;script&gt;</code></pre></li></ul><ul id="92296d44-4918-4840-a043-4b6ab797ca28" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">行内JavaScript代码注意事项: <ol type="1" id="08eb04eb-9f82-4eb3-9a31-e985844922a6" class="numbered-list" start="1"><li>行内JavaScript从从上到下解释执行<ol type="a" id="592b4a4e-b655-4efe-923f-352e62c85845" class="numbered-list" start="1"><li>上面的例子解释的是一个函数定义</li></ol><ol type="a" id="a8bf3a22-698f-4461-bd49-9a91f1496eb3" class="numbered-list" start="2"><li>该函数定义后被<strong>保存在解释器环境</strong>中</li></ol></li></ol><ol type="1" id="4f153eb1-631c-4f05-b904-5667e7d28808" class="numbered-list" start="2"><li>&lt;script&gt;标签没有添加任何属性，所以<ol type="a" id="42da3972-7d53-442e-b98b-dd3a8c1daef6" class="numbered-list" start="1"><li>默认在&lt;script&gt;元素中的代码计算执行完成前，页面的其余内容不会被加载和显示</li></ol></li></ol><ol type="1" id="0fe05838-5087-4c8f-b690-17a92bbb4075" class="numbered-list" start="3"><li>使用行内JavaScript代码注意不要出现”&lt;/script&gt;”字符串，否则报错<pre id="3faa9f85-6e24-4e0b-80fb-9fb3e3829b57" class="code code-wrap"><code>&lt;script&gt;
+	function sayHi() {
+		console.log(&quot;&lt;/script&gt;&quot;); //浏览器报错
+	}
+&lt;script&gt;</code></pre><ol type="a" id="6cf6b646-0d7d-4515-8e1b-2640145bea15" class="numbered-list" start="1"><li>浏览器解析行内JavaScript代码时看到字符串&lt;/script&gt;会将其视为结束标签<figure id="48dfd858-d56d-4a78-9f64-44a68447e26a" class="image"><a href="script%20%E5%85%83%E7%B4%A0%208482acc6dba14ca7948572a51bf60583/tianruo_2021-12-20-637756363422086851.png"><img style="width:528px" src="script%20%E5%85%83%E7%B4%A0%208482acc6dba14ca7948572a51bf60583/tianruo_2021-12-20-637756363422086851.png"/></a></figure></li></ol><ol type="a" id="46d694fa-43a6-4e1a-808c-3fae615e8060" class="numbered-list" start="2"><li>避免这个问题使用转义字符”\”转义”/”即可<pre id="d7cb440c-c79a-4d39-853e-f623d1b38136" class="code code-wrap"><code>&lt;script&gt;
+	function sayHi() {
+		console.log(&quot;&lt;\/script&gt;&quot;); //浏览器报错
+	}
+&lt;script&gt;</code></pre></li></ol></li></ol></li></ul><h2 id="35f32e32-5af0-43a7-b8ac-e6125d353bed" class="">2.2 外部引入JavaScript文件</h2><ul id="083b85f2-bf22-46bb-be93-e09e3ae387a4" class="bulleted-list"><li style="list-style-type:disc">外部引入JavaScript文件的方式<ul id="3bf68a32-0ce8-49ba-85fa-d6082a3e040b" class="bulleted-list"><li style="list-style-type:circle">使用src属性指明文件URL<pre id="f646d51b-52bb-4448-8821-56dd096fd59d" class="code code-wrap"><code>&lt;script src=&quot;./example.js&quot;&gt;&lt;script&gt;</code></pre></li></ul></li></ul><ul id="16401fc5-022a-42ed-8faa-4149d356d659" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">外部引入JavaScript文件注意事项<ol type="1" id="9740e429-43ce-4948-b88c-13ecbb166c4d" class="numbered-list" start="1"><li>文件本身只需包含需要放在&lt;script&gt;开始和结束标签中间的JavaScript代码</li></ol><ol type="1" id="20202809-1abe-4c7e-b513-c21c80773c08" class="numbered-list" start="2"><li>没有添加其他属性的情况下，解释只需外部JavaScript文件时，默认会阻塞页面（单线程），<strong>阻塞时间包括下载文件时间</strong></li></ol><ol type="1" id="db58910a-da59-4c2b-a2c1-e7ddff5375bf" class="numbered-list" start="3"><li>在XHTML文档中，可以忽略结束标签，使用单标签元素模式<pre id="74565736-27c2-4f3d-a8f5-ea83cbed9fa1" class="code code-wrap"><code>&lt;script src=&quot;./example.js&quot; /&gt;</code></pre><p id="f688b3b8-c359-483f-bdae-65bebd9141e5" class="">现代浏览器（谷歌等）无法解析上述语法</p></li></ol><ol type="1" id="1252005e-6dcd-4690-84b1-a92802b108c7" class="numbered-list" start="4"><li>外部JavaScript文件的扩展名不一定为”.js”<ol type="a" id="2e959cb8-4eb7-452b-b825-a3f05d2d9261" class="numbered-list" start="1"><li>浏览器不会检查包含JavaScript代码文件的文件扩展名</li></ol><ol type="a" id="a4e7f03e-dfad-4829-9c00-fa7614943717" class="numbered-list" start="2"><li>这就给<strong>服务器端脚本语言动态生成JavaScript代码</strong>，以及<strong>在浏览器中编译JavaScript扩展语言</strong>（如jsx，typescript）转译为JavaScript提供了可能</li></ol><ol type="a" id="476264c3-a9ea-47ec-9a9d-ee95ea6b3283" class="numbered-list" start="3"><li>服务器会根据文件扩展来确定响应的正确MIME类型，确保不使用.js扩展的文件能返回正确的MIME类型，如<strong>.jsx</strong>使用<code>type=&quot;text/babel&quot;</code> </li></ol></li></ol><ol type="1" id="4a7c275f-ac5c-44c0-b78c-18d075523e4d" class="numbered-list" start="5"><li>使用了src属性的&lt;script&gt;元素不应该再在元素中包含其他JavaScript代码</li></ol></li></ul><h3 id="1512091b-6b1a-4878-bd6f-4c69d6607276" class="">2.2.1外部引入是&lt;script&gt;元素的一大特性</h3><ul id="4a841d9e-13c8-4307-a650-f1e498093746" class="block-color-blue_background bulleted-list"><li style="list-style-type:disc">外部引入文件的类型有以下两种：<ul id="1efe739a-8e70-4033-9127-a16b311d5006" class="bulleted-list"><li style="list-style-type:circle">引入同域的JavaScript文件，可以是同域下的相对路径</li></ul><ul id="fe8e0379-5af0-4b2e-b7d7-318187c56beb" class="bulleted-list"><li style="list-style-type:circle">引入外部域的JavaScript文件，即src属性指明一个完整的外部域URL</li></ul></li></ul><ul id="452cff97-68ff-4e53-862f-da8fd1ec9649" class="block-color-purple_background bulleted-list"><li style="list-style-type:disc">引入外部域JavaScript文件是<strong>强大</strong>也备受<strong>争议</strong>的特性<ul id="f23e7df2-5d45-4c0e-a369-1992003a9384" class="bulleted-list"><li style="list-style-type:circle">引入方式<pre id="07347e33-83ad-4ce0-b7e3-262349d16215" class="code code-wrap"><code>&lt;script src=&quot;http://www.somewhere.com/file.js&quot;&gt;&lt;/script&gt;</code></pre></li></ul><ul id="23678dbd-5aba-487f-a289-46a7e9ace436" class="bulleted-list"><li style="list-style-type:circle">浏览器通过script引入外部域文件过程<ol type="1" id="0c6776f5-7273-4b1e-bc40-19c90fceee9b" class="numbered-list" start="1"><li>浏览器解析到script元素，解析到需要引入外部资源</li></ol><ol type="1" id="d80a2284-7335-4704-b277-4737384dbfa3" class="numbered-list" start="2"><li>浏览器向src属性指定的路径发生一个GET请求，以取得相应资源，假定是JavaScript文件</li></ol><ol type="1" id="c9599e84-396e-43eb-b73a-628c9b58668e" class="numbered-list" start="3"><li>GET请求不受浏览器同源策略的限制，但受页面HTTP/HTTPS协议的限制</li></ol><ol type="1" id="c73cd3f2-06eb-41d0-b7dc-89e8316d18f3" class="numbered-list" start="4"><li>GET返回JavaScript文件后浏览器执行的该文件受同源策略限制</li></ol></li></ul><ul id="f4394ded-e785-46af-a60f-6a2d7ed61c9f" class="bulleted-list"><li style="list-style-type:circle">引入的外部域代码会被当成页面一部分加载和解释<ul id="f8f9bba1-8595-4487-9743-608782a8d3cb" class="bulleted-list"><li style="list-style-type:square">这种方式触发了CDN(<strong>Content Delivery Network</strong> ，内容分发网络)的产生</li></ul><ul id="35d2bf73-6320-449f-9200-44635ecd69b9" class="bulleted-list"><li style="list-style-type:square">虽然很方便，但同时也产生了安全问题，因为外部JavaScript可能是<strong>不安全</strong>的</li></ul><ul id="9ae73fb2-9a5c-4135-bd98-5f4c68e50812" class="bulleted-list"><li style="list-style-type:square">确保外部域是自己所有或者该域是一个<strong>可信的来源</strong></li></ul><ul id="88a5a657-0a1e-4fdc-b943-62d69750e1ca" class="bulleted-list"><li style="list-style-type:square">使用<a href="script%20%E5%85%83%E7%B4%A0%208482acc6dba14ca7948572a51bf60583.html">Integrity</a>标签可以防止安全问题</li></ul></li></ul></li></ul><hr id="fad5f049-7d50-432d-822a-4aeb0564267f"/><h1 id="d32cb30a-1215-4af0-8309-53c746d95cfc" class="">3.&lt;script&gt;的标签位置和执行顺序</h1><h2 id="761f255d-4dfb-4dfa-ab6e-e6583e6d282d" class="">3.1默认执行顺序</h2><ul id="4df6b596-c59b-46cc-8993-5079c254c3c3" class="bulleted-list"><li style="list-style-type:disc">在HTML文档中的script元素会<strong>按照顺序依次解释执行</strong></li></ul><ul id="07a716dc-5b08-4718-9b32-b824e00888e3" class="bulleted-list"><li style="list-style-type:disc">前提是没有使用defer和async属性</li></ul><h2 id="a724dbc4-6c3f-4a2b-abc6-db3fa6ccd9ff" class="">3.2标签位置</h2><ul id="21e8d15a-dc56-4ec0-9de1-b1bfa46b24da" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">过去，&lt;script&gt;元素都被放在页面的&lt;head&gt;标签内<pre id="c78d586a-dae2-4095-a581-de35a88bc54b" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;utf-8&quot;&gt;
+	&lt;title&gt;
+		放在head中的script标签
+	&lt;/title&gt;
+	&lt;script type=&quot;text/javascript&quot;&gt;
+		console.log(&quot;我是放在head标签中的脚本，在加载body之前先加载我&quot;)
+	&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;h2&gt;
+		&lt;a href=&quot;https://www.notion.so/mangwu/script-8482acc6dba14ca7948572a51bf60583#a724dbc46c3f4a2babc6db3fa6ccd9ff&quot;&gt;标签位置&lt;/a&gt;
+	&lt;/h2&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><ol type="1" id="f00cb2a3-49f7-4625-8a54-0ee1bfa16b05" class="numbered-list" start="1"><li>放入head元素中，方便统一处理CSS文件，JavaScript文件</li></ol><ol type="1" id="67c68fdc-1f87-42ba-9d79-e05fe6449a53" class="numbered-list" start="2"><li>缺点是把所有的JavaScript代码都下载解析和解释完成后才能开始渲染页面<ol type="a" id="bd11dafc-39e4-4f92-bdab-a43ed83101bd" class="numbered-list" start="1"><li>页面在浏览器解析到body标签开始渲染</li></ol><ol type="a" id="49dd1ade-75be-47b7-9d57-653189d7959b" class="numbered-list" start="2"><li>JavaScript文件过大过多会导致渲染明显延迟，出现浏览器<strong>窗口白屏</strong></li></ol></li></ol></li></ul><ul id="e147fc72-5e82-4852-b95c-54ace2306e7c" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">现代Web引用程序将所有JavaScript引用放入body元素中的页面内容后面<pre id="5f6ee6d3-f7c2-4b57-b1e5-9643ce162478" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;utf-8&quot;&gt;
+	&lt;title&gt;
+		script标签放入body中的最后位置
+	&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;h2&gt;
+		&lt;a href=&quot;https://www.notion.so/mangwu/script-8482acc6dba14ca7948572a51bf60583#e147fc725e824852b95c54ace2306e7c&quot; target=&quot;_blank&quot;&gt;标签位置&lt;/a&gt;
+	&lt;/h2&gt;
+	&lt;script type=&quot;text/javascript&quot;&gt;
+		console.log(&quot;我在body元素中的末尾位置！现代浏览器都这么干！&quot;)
+	&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p id="f1c94392-7205-4a3c-8582-95b48b5f389c" class="">⇒ 浏览器先渲染body中的内容，最后加载JavaScript，减少白屏时间</p></li></ul><h2 id="af92ff05-b60e-4b7c-92a8-0b9e9a9375e7" class="">3.3 推迟执行脚本</h2><h3 id="fc8bf4d1-2768-4209-b647-87b640d1f0e4" class="">defer</h3><ul id="8db60d6d-28f5-4e16-9b82-efff250fd268" class="block-color-blue_background bulleted-list"><li style="list-style-type:disc">defer是HTML4.01提出的&lt;script&gt;元素的属性<ul id="d6490f6a-220b-4a3a-9516-002aeefb4760" class="bulleted-list"><li style="list-style-type:circle">该属性表示脚本执行时不会改变页面结构</li></ul><ul id="c97c193b-3f18-43c1-adf1-7d3e23883fe8" class="bulleted-list"><li style="list-style-type:circle">即该脚本被延迟到整个页面都解析完毕后再运行<ul id="444eb761-9644-4349-8164-7b7bc8178ae4" class="bulleted-list"><li style="list-style-type:square">立即下载</li></ul><ul id="74790ef3-de1a-462b-a21c-7d5f74148bf2" class="bulleted-list"><li style="list-style-type:square">但延迟执行</li></ul><ul id="0804ba61-739d-4241-b167-31727b439e12" class="bulleted-list"><li style="list-style-type:square"><strong>只对外部脚本有效</strong></li></ul></li></ul><pre id="305f323d-ec7f-4598-8d9b-58366975d8f9" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;utf-8&quot;&gt;
+	&lt;title&gt;推迟执行脚本&lt;/title&gt;
+	&lt;script type=&quot;text/javascript&quot; src=&quot;./deferscript.js&quot; defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;h2&gt;
+		&lt;a href=&quot;https://www.notion.so/mangwu/script-8482acc6dba14ca7948572a51bf60583#8db60d6d28f54e169b82efff250fd268&quot;&gt;
+			推迟执行脚本
+		&lt;/a&gt;
+	&lt;/h2&gt;
+	&lt;script type=&quot;text/javascript&quot;&gt;console.log(&quot;我是正常脚本&quot;)&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre><p id="2ea78a4e-9276-4fa7-8713-e56c66c23c96" class="">⇒ 红色标记脚本为推迟执行脚本，在第二个脚本之后执行，先会打印“我是正常脚本”</p></li></ul><ul id="b187aab0-3b95-4cc0-b44c-47c4d9263cca" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">defer属性脚本特性<ul id="ad9558af-f569-4ea2-b6ea-4cb9a5832aa1" class="bulleted-list"><li style="list-style-type:circle">在浏览器解析到结束的&lt;/html&gt;之后才会执行推迟的脚本</li></ul><ul id="30d4c806-dbd9-45de-b0fb-f3a48ef9e0c3" class="bulleted-list"><li style="list-style-type:circle">HTML5规范要求，推迟的脚本之间的顺序仍然按照出现顺序执行</li></ul><ul id="e2cf7015-b846-47ee-8b43-c36840dda87f" class="bulleted-list"><li style="list-style-type:circle">所有推迟脚本都会在DOMContentLoaded事件之前执行</li></ul><ul id="8ccff349-77cd-4b0c-bddc-36a753cdd6d4" class="bulleted-list"><li style="list-style-type:circle">以上的执行顺序<strong>在实际运行中不是绝对</strong>的，一个页面最好只包含一个这样的脚本</li></ul></li></ul><ul id="e5af7a46-fd73-4f60-bcf4-d086156a6b84" class="block-color-blue_background bulleted-list"><li style="list-style-type:disc">浏览器对defer属性的支持<ul id="62d5dda2-708f-4fc9-a21b-c05f3e9fdcd1" class="bulleted-list"><li style="list-style-type:circle">HTML5明确规范defer只对外部脚本有效</li></ul><ul id="bb5a40b5-b9c0-4c87-afa1-4a01f884f30b" class="bulleted-list"><li style="list-style-type:circle">支持HTML5的浏览器会忽略行内脚本的defer属性</li></ul><ul id="0b858f54-6f93-4fbd-a9f3-c2b4c8919084" class="bulleted-list"><li style="list-style-type:circle">IE4~7都是旧行为（对行内脚本也有效）</li></ul><ul id="f1f7c539-698d-4174-90d9-809d38d9dd18" class="bulleted-list"><li style="list-style-type:circle">对于XHTML文档， 指定defer属性应该写成<code>defer=&quot;defer&quot;</code></li></ul></li></ul><h2 id="899afa78-83e4-41a0-b50e-8209e4027a1a" class="">3.4异步执行脚本</h2><h3 id="43a4ae3a-791e-45d3-be22-8891bf8e5571" class="">async</h3><ul id="9f89bab5-6067-4a7e-9098-7c14649b25f6" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">async是HTML5为&lt;script&gt;元素提出的属性：<ul id="ac09d0d9-04c4-460e-a131-73ed0b11c2a8" class="bulleted-list"><li style="list-style-type:circle">告诉浏览器立即下载脚本，但不阻塞其他资源的加载</li></ul><ul id="74c79c27-d3af-411b-aaac-e6b12f8ae424" class="bulleted-list"><li style="list-style-type:circle">并且<strong>不必</strong>等脚本下载完毕和执行完后再加载页面</li></ul><ul id="5b389bcd-2b99-48f2-80a8-c1db3df21e44" class="bulleted-list"><li style="list-style-type:circle">也<strong>不必</strong>等到该异步脚本下载和执行完毕后再加载其他脚本</li></ul><pre id="fc76e4d5-66cc-4371-ab77-9eeaf7c38293" class="code code-wrap"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;utf-8&quot;&gt;
+	&lt;title&gt;异步加载脚本&lt;/title&gt;
+	&lt;script type=&quot;text/javascript&quot; async src=&quot;./example1.js&quot;&gt;&lt;/script&gt;
+	&lt;script type=&quot;text/javascript&quot; async src=&quot;./example2.js&quot;&gt;&lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;h2&gt;
+		&lt;a href=&quot;https://www.notion.so/mangwu/script-8482acc6dba14ca7948572a51bf60583#9f89bab560674a7e90987c14649b25f6&quot;&gt;异步加载脚本&lt;/a&gt;
+	&lt;/h2&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></li></ul><ul id="3253b265-3602-4189-8940-39d920f0d6a4" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">异步加载脚本特性: <ul id="82e89a62-b7e1-438f-bb00-9bc7d759e910" class="bulleted-list"><li style="list-style-type:circle">只适用于外部脚本</li></ul><ul id="bdbaf0a4-b657-4e5b-acb3-4a21bbba67da" class="bulleted-list"><li style="list-style-type:circle"><strong>async的脚本不能保证按照出现顺序执行，</strong>上面的例子，第二个脚本可能先于第一个执行</li></ul><ul id="b9ea91d9-eca5-49f8-a0f9-7840bca341bf" class="bulleted-list"><li style="list-style-type:circle">异步脚本之间<strong>不能有依赖关系</strong>，否则会出错<ul id="cd3c85cb-70d3-45b6-893c-67ad2686bb83" class="bulleted-list"><li style="list-style-type:square">例如，如果a脚本依赖b脚本，而它们都是异步脚本</li></ul><ul id="768302e5-d898-4700-ae91-e0fa77ea0c09" class="bulleted-list"><li style="list-style-type:square">如果a先执行，由于b未执行，a依赖的b的相关模块或变量有错误，可能得出错误结果或者直接报错</li></ul></li></ul><ul id="ac456ae9-ac5c-4e46-ad54-127220015f65" class="bulleted-list"><li style="list-style-type:circle">异步脚本不应该在加载期间修改DOM<ul id="65f33af2-b0d6-4635-9f2d-fb9cf3e2236c" class="bulleted-list"><li style="list-style-type:square">因为异步脚本的执行后页面加载有可能同时进行</li></ul><ul id="3771b5ee-13b1-4e8b-b338-6b912c5dd6b0" class="bulleted-list"><li style="list-style-type:square">如果在加载页面过程中使用异步脚本同时渲染DOM，会造成一些问题</li></ul></li></ul><ul id="ba4334ff-b54c-43c2-92e4-34784426737b" class="bulleted-list"><li style="list-style-type:circle">异步脚本<strong>保证在页面的load事件前执行，但也可能在DOMContentLoaded之前或之后</strong></li></ul><ul id="11260943-492d-4538-b05c-97ea5302e27b" class="bulleted-list"><li style="list-style-type:circle">对于XHTML文档，异步脚本的async属性应该写成<code>async=&quot;async&quot;</code></li></ul></li></ul><hr id="dfd3f75d-7158-494d-9e65-07313af42fb5"/><h1 id="4b0b6aca-bb90-4a71-9901-21393cb14733" class="">4.动态加载脚本</h1><p id="1bafe32f-6fa4-44e1-abd4-74bc0a827782" class="block-color-gray">除了在HTML中使用script标签加载脚本，还可以通过DOM API动态加载指定脚本</p><ul id="2dab7eaf-3f1c-4136-a209-dc4cbf6fc4c2" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">动态加载脚本<ul id="f2d02e46-0cd6-4d94-8b15-4cdfe995f0c3" class="bulleted-list"><li style="list-style-type:circle">通过DOM API动态引入脚本到HTML文档</li></ul><ol type="1" id="fdf87fbc-5fb7-44da-8569-4ae5b7c1e449" class="numbered-list" start="1"><li>创建一个script元素<pre id="8d9df0a5-fecb-44c1-a12d-6f92451969b2" class="code code-wrap"><code>let script = document.createElement(&#x27;script);</code></pre></li></ol><ol type="1" id="c0223596-0d65-4903-953e-85547caeaebd" class="numbered-list" start="2"><li>设置script元素属性<pre id="0edcf06a-ce12-40ce-ae09-ce288b75de64" class="code code-wrap"><code>script.src = &#x27;gibberish.js&#x27;;</code></pre></li></ol><ol type="1" id="e91014a0-5624-43d8-bfa8-b403a73b8a18" class="numbered-list" start="3"><li>添加到head元素中<pre id="ff8a252e-6eef-41c6-bcdf-49ef7439cb0f" class="code code-wrap"><code>document.head.append(script);</code></pre></li></ol></li></ul><ul id="4a5249b3-4c6b-4e09-ad75-17ced0f2aabc" class="block-color-blue_background bulleted-list"><li style="list-style-type:disc">动态加载脚本的特性: <ol type="1" id="b6c1404a-a5f8-4d23-8a4a-a4c8f0bc3605" class="numbered-list" start="1"><li>动态加载的&lt;script&gt;元素默认是以异步方式加载的（async）</li></ol><ol type="1" id="f42161f8-77fd-4b19-ba64-42a86857b97b" class="numbered-list" start="2"><li>但是并不是所有的浏览器都支持async加载，可以在设置属性时关闭异步，使用同步方式<pre id="5e6663c7-7a32-4863-a56f-fb5ca5a9818e" class="code code-wrap"><code>script.async = false;</code></pre></li></ol><ol type="1" id="1dae4852-df8d-439c-88b2-d6bea3db6ad9" class="numbered-list" start="3"><li>动态加载的脚本对<strong>浏览器预加载器</strong>是不可见的<ul id="fc327724-b44e-4472-8818-87165e29e3af" class="bulleted-list"><li style="list-style-type:disc">动态加载的脚本的优先级在浏览器资源获取队列中很低</li></ul><ul id="fa7aa687-91ed-418f-b478-c3c13fab3170" class="bulleted-list"><li style="list-style-type:disc">低优先级的动态脚本可能影响网页应用程序的的性能（因为脚本加载和执行顺序会影响浏览器加载页面的整体时间）</li></ul><ul id="01ad2ec0-b2bd-4eb3-9776-b213349d3cf8" class="bulleted-list"><li style="list-style-type:disc">让预加载器预见会有动态脚本的加入可以使用<strong>文档头部显式声明</strong><pre id="bf62631a-9249-4e53-8156-8ea6ee632fd5" class="code code-wrap"><code>&lt;link rel=&quot;preload&quot; href=&quot;gibberish.js&quot;&gt;</code></pre></li></ul></li></ol></li></ul><h1 id="d6c6adf0-ae47-4013-880d-aa2a139c3309" class="">5.XHTML中的变化</h1><h2 id="e92d217b-c702-43ab-a95d-57a644beb06c" class="">XHTML</h2><ul id="c89df40d-dfad-4a99-831c-3b992e40e0dd" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">描述<ul id="8afbf6d6-b584-4208-8053-fb83e9a6fcf3" class="bulleted-list"><li style="list-style-type:circle">XHTML，全称Extensible HyperText Markup Language ，可扩展超文本标记语言</li></ul><ul id="a355edb3-c9c9-4c66-896f-04286c14f6e4" class="bulleted-list"><li style="list-style-type:circle">它是将HTML作为XML应用<strong>重新包装</strong>的结果</li></ul><ul id="1b21d295-90c6-4775-b1c1-00feeb55cf18" class="bulleted-list"><li style="list-style-type:circle">与HTML不同的是：<ul id="e2188292-fea1-4994-96d5-c2a892134c70" class="bulleted-list"><li style="list-style-type:square">在XHTML中使用JavaScript必须指定type属性且其值为text/javascript</li></ul><ul id="acad1e9f-cfdd-46f4-89a7-da522ef7f4c7" class="bulleted-list"><li style="list-style-type:square">HTML可以省略这个属性</li></ul></li></ul><ul id="77f01555-98d9-432e-8b77-4a253a003b7b" class="bulleted-list"><li style="list-style-type:circle">XHTML已经退出历史舞台（有相关遗留代码）</li></ul></li></ul><h2 id="e541d2a1-25d6-4039-9328-f6346dfe5371" class="">在XHTML中使用JavaScript</h2><ul id="0ce1cf86-b0ca-4d07-80ee-7145c0420215" class="bulleted-list"><li style="list-style-type:disc">XHTML中编写代码的规则比HTML严格<ul id="826975ca-742c-43eb-82d3-d6c96dcb11b0" class="bulleted-list"><li style="list-style-type:circle">HTML解析JavaScript语句有特殊的规则，对应不同的关键字，运算符等有相关的解释</li></ul><ul id="f854655a-7d69-43d2-9f2d-6b7c51f63f40" class="bulleted-list"><li style="list-style-type:circle">而XHTML对于运算符等可能无法解析，如”&lt;”，会被识别成标签开始</li></ul><pre id="8dc74c33-8811-43d8-afb1-4e5854d3c78a" class="code code-wrap"><code>&lt;script type=&quot;text/javascript&quot;&gt;
+	function compare(a, b) {
+		if (a &lt; b) {
+			console.log(&quot;A is less than B&quot;);
+		} else if (a &gt; b) {
+			console.log(&quot;A is greater than B&quot;);
+		} else {
+			console.log(&quot;A is equal to B&quot;);
+		}
+	}
+&lt;/script&gt;</code></pre></li></ul><ul id="4d3395a9-d31c-4a81-ae4d-96b9f30ee960" class="bulleted-list"><li style="list-style-type:disc">上面的例子在HTML中可以正常运行，在XHTML中无法正常运行<ul id="18f91d5c-7828-4486-84d6-43dc98e273fc" class="bulleted-list"><li style="list-style-type:circle">因为XHTML会解析“&lt;”号为一个标签的开始，且后面不能有空格，导致语法错误</li></ul></li></ul><ul id="c86016d4-80d6-4b67-a8b2-b1e9f3c77b74" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">避免XHTML的这种语法错误的方式：<ol type="1" id="8db98eff-4351-4e61-9c64-4c9b5b63c27a" class="numbered-list" start="1"><li>使用HTML<a href="http://c.biancheng.net/view/5385.html">转义字符</a>，将”<em>&lt;</em>”等字符替换成HTML实体形式<em>&amp;lt;</em><pre id="4e1c38fe-6cfb-4bf9-b16d-a2efe513682d" class="code code-wrap"><code>&lt;script type=&quot;text/javascript&quot;&gt;
+	function compare(a, b) {
+		if (a &amp;lt; b) {
+			console.log(&quot;A is less than B&quot;);
+		} else if (a &amp;gt; b) {
+			console.log(&quot;A is greater than B&quot;);
+		} else {
+			console.log(&quot;A is equal to B&quot;);
+		}
+	}
+&lt;/script&gt;</code></pre></li></ol><ol type="1" id="211d8797-73d0-4cce-a72d-506414ca5571" class="numbered-list" start="2"><li>把所有的代码块放入一个CDATA块中。在XHTML和XML中，CDATA块表示文档中可以包含任意文本的区块，其内容不作为标签来解析，因此其中可以包含任意字符。‘<pre id="ab7029f3-01ae-4979-b9a3-fb6747250a1d" class="code code-wrap"><code>&lt;script type=&quot;text/javascript&quot;&gt;&lt;![CDATA[
+	function compare(a, b) {
+		if (a &lt; b) {
+			console.log(&quot;A is less than B&quot;);
+		} else if (a &gt; b) {
+			console.log(&quot;A is greater than B&quot;);
+		} else {
+			console.log(&quot;A is equal to B&quot;);
+		}
+	}
+]]&gt;&lt;/script&gt;</code></pre><p id="7c962ce0-772e-4628-b750-00a7802b0317" class="">⇒ 这种模式适用于兼容XHTML的浏览器</p><p id="a4daa7ef-7b8a-406b-8bce-be379fbac15a" class="">⇒ 在不支持CDATA块的非XHTML兼容浏览器中无效，会报错</p></li></ol><ol type="1" id="f0faee9a-c4b5-4639-97c3-a3a957679a04" class="numbered-list" start="3"><li>使用注释解决不支持CDATA块的现代浏览器无效问题，同时兼容XHTML<pre id="37d8adb3-db12-48b5-9049-6fe9907fba38" class="code code-wrap"><code>&lt;script type=&quot;text/javascript&quot;&gt;
+//&lt;![CDATA[
+	function compare(a, b) {
+		if (a &lt; b) {
+			console.log(&quot;A is less than B&quot;);
+		}
+	}
+//]]&gt;
+&lt;/script&gt;</code></pre><p id="f487f66b-a006-4858-bab9-c0895e453877" class="">⇒ 对所有现代浏览器都有效，且可以通过XHTML验证</p></li></ol></li></ul><h3 id="647ab862-d873-4d36-9de8-e656f4e4dbfe" class="">注意</h3><ul id="7af04971-e514-40d8-af29-c24dac7f7dc4" class="bulleted-list"><li style="list-style-type:disc">在现代浏览器中几乎看不到XHTML，但是可以通过指定页面类型为”application/xhtml+xml”触发XHTML模式,但并不是所有浏览器都支持XHTML模式。</li></ul><h1 id="2595ab4d-d53c-4c41-843d-9dbd0dad923c" class="">6.废弃的语法</h1><ol type="1" id="06b447d2-c2fd-4252-ac20-da9077ce2d24" class="block-color-teal_background numbered-list" start="1"><li>现在script元素的type属性默认使用”text/javascript”<ul id="b951145f-390f-4aa5-98e9-cbf8f20a90aa" class="bulleted-list"><li style="list-style-type:disc">因为几乎所有的浏览器都将JavaScript作为默认编程语言</li></ul><ul id="83efed63-0a5d-44d7-be5e-fbfe7d8a5244" class="bulleted-list"><li style="list-style-type:disc">所以最好<strong>不用</strong>指定type属性，如果指定错误反而会导致浏览器跳过该script元素</li></ul><ul id="f52d39ef-ffa8-42b9-8b09-46ecdd14e247" class="bulleted-list"><li style="list-style-type:disc"><strong>除非</strong>使用XHTML或者script标签要求的非JavaScript代码</li></ul></li></ol><ol type="1" id="76e47225-5b24-4128-a774-ac1c9d9bcb1b" class="block-color-blue_background numbered-list" start="2"><li>久远年代有一些不支持JavaScript的浏览器（Mosaic）<ul id="4aa83d32-5a29-4177-8cd4-635fd97ea5ce" class="bulleted-list"><li style="list-style-type:disc">这些浏览器无法解析script中的JavaScript代码，会将它们直接输出到页面上</li></ul><ul id="757dcf04-955e-4831-b618-f4c399ab2a4f" class="bulleted-list"><li style="list-style-type:disc">网景公司联合Mosaic出了一个解决方案以解决这种问题<pre id="4d749084-50b9-4894-967c-2eef1cc54003" class="code code-wrap"><code>&lt;script&gt;&lt;!--
+	console.log(&quot;Hi&quot;);
+//--&gt;&lt;/script&gt;</code></pre><p id="32a1f27b-90d3-4bd0-81ef-faeab75b9e29" class="">⇒ 把脚本代码包含在一个HTML注释中</p><p id="40027bcb-408c-4e5b-8595-72b82b7d4a34" class="">⇒ Mosaic会忽略JavaScript，而支持JavaScript的浏览器必须能识别这种模式并执行JavaScript</p></li></ul></li></ol><ul id="da1cd16d-4e2a-4cac-bd69-4cae703fe4ef" class="bulleted-list"><li style="list-style-type:disc">上述的语法已被<strong>废弃</strong><ul id="2d284335-8563-4710-9a23-dbbeda11fa5c" class="bulleted-list"><li style="list-style-type:circle">现代浏览器都支持JavaScript，Mosaic这种不支持JavaScript的已经死了</li></ul><ul id="02f8cb65-d5aa-45d5-b134-b102d4907723" class="bulleted-list"><li style="list-style-type:circle">且在XHTML模式下，这种格式会导致脚本被忽略，因为代码处于有效的XML注释中</li></ul></li></ul><p id="724e2306-8a8d-4519-80c0-0c17f4960fa4" class="">
+</p></div></div></div></article></body></html>

@@ -1,0 +1,670 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>6. 集合引用类型</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="bd032f9f-aee2-41a8-95d1-4d6989c1483e" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_silk_kashan_carpet.jpg" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🀄</span></div><h1 class="page-title">6. 集合引用类型</h1></header><div class="page-body"><p id="068f4511-07b1-42d5-89d3-c973f8abbb18" class="">ECMAScript规范需要JavaScript实现的相关集合引用类型，包括<div class="indented"><ul id="0af1ba98-15b8-4072-b84d-10e2afaeff7c" class="bulleted-list"><li style="list-style-type:disc">对象（Object）</li></ul><ul id="e2e1cb7e-fd2c-4ab3-9fb0-0500f0fe800a" class="bulleted-list"><li style="list-style-type:disc">数组与定型数组</li></ul><ul id="1f5a2849-6dad-4143-b877-267258affb4c" class="bulleted-list"><li style="list-style-type:disc">Map、WeakMap、Set以及WeakSet</li></ul></div></p><h1 id="6dc4a33c-0423-4ae1-8545-bfa0c44a9ad9" class="">1. Object</h1><p id="f183646c-156b-472e-a557-db7de2609c7e" class="">大多少引用值都是Object引用类型的，Object是ECMAScript中最常用的类型之一</p><p id="227e5238-a551-4708-9b80-cf84c5ef336f" class="">这里只对其做基本介绍</p><figure id="c0874c2d-f641-4681-aad9-367993da5506" class="link-to-page"><a href="6%20%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%20bd032f9faee241a895d14d6989c1483e/1%20Object%20c0874c2df6414681aad9367993da5506.html"><span class="icon">🚏</span>1.Object</a></figure><h1 id="1e309e34-6593-4eb1-8fdf-6dc76a84511a" class="">2. Array</h1><p id="fe79a8c9-1cb6-472c-a8fd-5821db4530cb" class="">除了Object，Array就是ECMAScript中最常用的类型</p><figure id="31f8104b-28c3-4957-8ae6-ae94b75d031f" class="link-to-page"><a href="6%20%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%20bd032f9faee241a895d14d6989c1483e/2%20Array%2031f8104b28c349578ae6ae94b75d031f.html"><span class="icon">🧮</span>2. Array</a></figure><h1 id="3a72ceb8-459f-4191-8c19-98053754f40a" class="">3. 定型数组</h1><p id="99d5f95a-ee39-4f75-8204-524cbcd4c654" class="">定型数组，typed array，ECMAScript新增的数据结构，是一种包含特殊数值类型的数值，以提升原生库的传输速率。实际上JavaScript是没有”TypedArray”类型的，只是针对每一种数值类型固定数组元素类型而已</p><figure id="45197f3d-8b3e-4392-8756-1de45982dcb8" class="link-to-page"><a href="6%20%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%20bd032f9faee241a895d14d6989c1483e/3%20%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84%2045197f3d8b3e439287561de45982dcb8.html"><span class="icon">🕔</span>3. 定型数组</a></figure><h1 id="cb524f17-bb10-4968-9854-c4d0c43f5f06" class="">4. Map</h1><p id="2e733a58-785d-4afb-95cf-ebd13d56a7d7" class="">ECMAScript6之前，JavaScript中的键值对式存储使用<code>Object</code> 来高效完成，即对象属性为键，对象属性值为引用值</p><p id="84b36283-a1b6-49f8-921d-92257d903b42" class="">这种实现有一定的问题，TC39委员会专门为键值存储定义了一个规范，即ECMA6新增的特性Map，一种新的集合类型，为JavaScript带来了真正的键/值存储机制</p><p id="1e6d3ec3-6dfa-4f0d-a90c-c5853e156495" class="">Map的特性大多可以通过Object类型实现，但是二者之间仍然有一些差异</p><figure id="1e4990a5-c2b8-4862-b69b-aefd21c7d701" class="link-to-page"><a href="6%20%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%20bd032f9faee241a895d14d6989c1483e/4%20Map%201e4990a5c2b84862b69baefd21c7d701.html"><span class="icon">🔮</span>4. Map</a></figure><h1 id="663c2731-1669-4abe-b35d-ff926508ee9d" class="">5. WeakMap</h1><p id="47b2d9ac-5669-401a-936f-fbc94ed7a934" class="">ECMAScript6 新增的“弱映射”，一种新的保存键值对的集合类型，为这门语言带来了<strong>增强的键值对存储机制</strong></p><p id="4f937e29-c2d0-4738-8c2e-b6d71236ac65" class=""><code>WeakMap</code> 是<code>Map</code> 的兄弟类型（都是JavaScript内置的集合类型），且<code>WeakMap</code>的API也是<code>Map</code>的子集。</p><p id="a75c0119-d2fc-47e9-98a3-d0633716b3fe" class=""><code>WeakMap</code> 的弱（”Weak”），描述的是JavaScript垃圾回收机制对待弱映射中键的方式</p><figure id="efe26b43-b8e0-474e-ae48-fe72b1aab2a9" class="link-to-page"><a href="6%20%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%20bd032f9faee241a895d14d6989c1483e/5%20WeakMap%20efe26b43b8e0474eae48fe72b1aab2a9.html"><span class="icon">🛻</span>5. WeakMap</a></figure><h1 id="8c0b2adb-ff7c-4f15-a537-6f7dade63f77" class="">6. Set</h1><p id="aa2f11f8-8b15-45af-81a7-442e90e34dea" class="">ECMAScript 6 新增的Set是一种新集合类型，是一种集合数据类型</p><p id="c379a451-d4c2-4b86-a9ab-31c89a4d8593" class="">Set在很多方面都像<strong>加强</strong>的Map，因为它们大多数API和行为是共有的</p><figure id="eb561ed9-e1f4-44c7-8d4f-e6854fc27284" class="link-to-page"><a href="6%20%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%20bd032f9faee241a895d14d6989c1483e/6%20Set%20eb561ed9e1f444c78d4fe6854fc27284.html"><span class="icon">🚚</span>6. Set</a></figure><h1 id="c28380d0-d2d2-4c30-b69c-ac61d991dbc8" class="">7. WeakSet</h1><p id="97a71bb7-fca6-440c-a5a1-4e8c564a3861" class="">ES6新增的弱集合是一种新的集合类型，和<code>WeakMap</code> 类似，<code>WeakSet</code> 是<code>Set</code> 的“兄弟“类型，<code>API</code>也是<code>Set</code>的子集</p><p id="608156f3-142d-406c-a421-146e1178f054" class=""><code>WeakSet</code> 中的弱（Weak）描述的是JavaScript垃圾回收程序对待弱集合中值的方式</p><figure id="903d0ef8-349a-406f-bbde-c52062133ca8" class="link-to-page"><a href="6%20%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%20bd032f9faee241a895d14d6989c1483e/7%20WeakSet%20903d0ef8349a406fbbdec52062133ca8.html"><span class="icon">🚬</span>7. WeakSet</a></figure><h1 id="e9a7856c-bafd-4266-bf25-71c8434959a6" class="">8. 小结</h1><h2 id="1d2d9fef-acd9-4278-a313-242f20f7c8e8" class="">8.1 JavaScript的引用类型</h2><ol type="1" id="5cac00db-81dd-4412-9337-86eae6f600c9" class="numbered-list" start="1"><li>JavaScript中的对象是引用值，可以通过几种内置的引用类型创建特定类型的对象</li></ol><ol type="1" id="b1dd7dc9-ded2-457a-8065-de2fa1ec9660" class="numbered-list" start="2"><li>引用类型与与传统面向对象编程语言中的类相似，但实现不同</li></ol><ol type="1" id="bf3a067b-ccd4-423a-aad3-68a1840d973e" class="numbered-list" start="3"><li><code>Object</code>类型是一个基础类型，所有引用类型都从它继承了基本的行为</li></ol><ol type="1" id="b4a44c7f-2ace-4a9b-a27a-c2d57bdcf3f2" class="numbered-list" start="4"><li>函数也是<code>Function</code>类型的实例，着意味着函数也是对象</li></ol><h2 id="f12f56cf-030f-4e54-87d7-5238e8eff323" class="">8.2 JavaScript的基本内置对象类型</h2><ol type="1" id="e6ea44a9-2365-42bc-8f80-66434346a036" class="numbered-list" start="1"><li><code>Array</code> 类型表示一组有序的值，并提供操作和转换值的能力</li></ol><ol type="1" id="3a650b51-7966-4187-8493-3f15df061267" class="numbered-list" start="2"><li>定型数组包含一套不同的引用类型（<code>ElementType</code>）,用于管理数值在内存的类型</li></ol><ol type="1" id="7cbbec27-2941-4672-8334-9ac68c2d11a0" class="numbered-list" start="3"><li><code>Date</code> 类型提供关于日期和时间的信息，包括当前日期和时间以及计算</li></ol><ol type="1" id="2e2bad2e-fdbb-4f9e-8caa-63139b8f97c2" class="numbered-list" start="4"><li><code>RegExp</code> 类型是ECMAScript支持正则表达式的接口，提供了大多数基本正则表达式以及一些高级正则表达式的能力</li></ol><h2 id="af37733b-1785-416b-99eb-ae70459eb246" class="">8.3 JavaScript的单例内置对象</h2><p id="a43a9b43-6eb9-4ec0-ba50-8b67df1821ec" class="">单例内置对象不需要实例化，可以直接使用该引用类型的方法</p><ul id="0a4af7e5-248e-4060-8a7d-0829406c8361" class="bulleted-list"><li style="list-style-type:disc"><code>Math</code> 提供关于数学运算的方法和一些数学常量</li></ul><ul id="6d3edf26-8e94-4dfe-a2eb-63d69af49358" class="bulleted-list"><li style="list-style-type:disc"><code>Global</code> 是兜底对象，所有不属于其它引用类型的方法或属性就属于<code>Global</code> 例如<code>isNaN</code>,<code>isFinite</code>等</li></ul><h2 id="a7f318fa-823f-4800-bff0-e7edae17f226" class="">8.4 JavaScript的集合引用类型</h2><ul id="0aa708cf-acb7-4670-821a-be1ba6e069e2" class="bulleted-list"><li style="list-style-type:disc"><code>Object</code> 既是基本引用类型，也是可以保存键值对的集合引用类型</li></ul><ul id="332190d2-dbee-49d5-ac4c-986aaea758e3" class="bulleted-list"><li style="list-style-type:disc"><code>Map</code> 对标<code>Object</code> 的键值对的ES6新增引用类型，更高效</li></ul><ul id="36527901-abda-42e0-b10b-cb6db0183a49" class="bulleted-list"><li style="list-style-type:disc"><code>Set</code> 只保存独一无二的值的集合</li></ul><ul id="20f60e1e-5bf9-4d63-b8d7-d0551e93d17f" class="bulleted-list"><li style="list-style-type:disc"><code>WeakMap</code> 弱映射，在<code>WeakMap</code> 中的键引用是弱保持的，键只能是对象</li></ul><ul id="07419136-7f86-46d2-b209-229aeca2735b" class="bulleted-list"><li style="list-style-type:disc"><code>WeakSet</code> 弱集合，在<code>WeakSet</code> 中的值引用是弱保持的，值只能是对象</li></ul><p id="5f1e0fbf-6b47-4328-81a4-6b0918056de3" class="">
+</p></div></article></body></html>

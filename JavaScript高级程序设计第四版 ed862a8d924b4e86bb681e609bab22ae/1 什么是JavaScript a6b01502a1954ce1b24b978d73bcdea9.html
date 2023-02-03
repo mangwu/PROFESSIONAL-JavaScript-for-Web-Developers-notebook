@@ -1,0 +1,690 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>1. 什么是JavaScript</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a6b01502-a195-4ce1-b24b-978d73bcdea9" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/solid_blue.png" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🥽</span></div><h1 class="page-title">1. 什么是JavaScript</h1></header><div class="page-body"><div id="bd4882dc-1da7-4280-9977-3c0e304e7ecc" class="column-list"><div id="5181803b-564b-4be4-b6cd-9d8e7b508b78" style="width:25%" class="column"><nav id="30a3cbaa-1fc4-4f3c-a84b-11191d434c83" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f28953c4-d9a0-4297-8115-c0de18161cf2">1. JavaScript诞生历史</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0cea45a7-8761-4b6c-92ac-e6205d230da6">2. JavaScript实现</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c7c48382-1e24-4f62-8d10-b62f6545990a">2.1 ECMAScript</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#456c3aa2-ec65-4e10-b09a-88b7e0728d1c">2.1.1 ECMAScript定义的对象</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ee5f87ed-9f75-4360-9cda-3cdc0f381b36">2.1.2 ECMAScript版本</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b10e37b1-7e89-4a18-81ba-ea5bcd077966">2.1.3 ECMAScript符合性(Conformance)</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#43ae2d15-28ea-4c04-a993-654358b20f8a">2.1.4 浏览器对ECMAScript的支持</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4bf576e8-0ebe-4982-8fb8-fa18e0564001">2.2 DOM</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#9f043b00-2445-47fc-a1c5-d8809beaad4a">2.2.1 DOM的标准必须统一</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#774b1141-8f20-460f-9937-20ffd628ecf6">2.2.2 DOM级别</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#57f73478-8570-4bff-ab7f-f9c124dafdf0">2.2.3 其他DOM</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#cbf91a82-e279-422f-903f-f45a183e9b7c">2.2.4 浏览器对DOM的支持</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8ac74dd6-5ac8-4f22-83d1-2fb96769f9b6">2.3 BOM</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#62ca13a2-9d4b-449e-97a8-5d30027ef8ac">3. JavaScript版本</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#14eff34d-7f1f-484c-ae1f-d94c7e65ddc4">4. 总结</a></div></nav><p id="8623aae8-0dc8-45fb-b78d-4b9544657569" class="">
+</p></div><div id="4951c0ee-0a8e-4248-a856-2fe33dee94db" style="width:75%" class="column"><blockquote id="3acfb061-3bc5-4f1d-b6f0-760a13088729" class="">“1995年JavaScript问世，它的主要用途是代替Perl等服务器端语言处理<strong>输入验证”</strong></blockquote><p id="238cc7fa-8573-40d9-9e00-489c9a68fc73" class="block-color-gray">久远前的输入验证功能是在后端做的，前端只负责接受数据然后返回给后端，每一次验证都需要一次往返通信，这种局面使得浏览器响应缓慢，直到网景公司的Navigator浏览器面世，才通过内置JavaScript来处理输入验证。</p><p id="996d2052-cf7d-44bf-8705-be5c1419a32b" class="">
+</p></div></div><h1 id="f28953c4-d9a0-4297-8115-c0de18161cf2" class="">1. JavaScript诞生历史</h1><ul id="86423332-e94d-430e-a259-6dd6c21500d3" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">起因<ul id="ba73fd86-ef07-4516-8356-39cac1dfbb96" class="bulleted-list"><li style="list-style-type:circle">90年代，使用调制解调器的28.8kbit/s上网速度缓慢</li></ul><ul id="2e186b5d-6c15-43f3-a383-3dcf81756819" class="bulleted-list"><li style="list-style-type:circle">网页变得越来越大，表单验证在后端处理，每次验证都需要一次往返通信</li></ul><ul id="0c799919-5c15-411a-9241-731a2dd7f064" class="bulleted-list"><li style="list-style-type:circle"><strong>客户端脚本语言处理简单数据验证</strong>提上日程</li></ul></li></ul><ul id="c1acdd5e-5712-4a26-948a-6881f39201ff" class="block-color-orange_background bulleted-list"><li style="list-style-type:disc">诞生<ul id="19d67f69-1a04-45fd-af9b-01262c162bc1" class="bulleted-list"><li style="list-style-type:circle">95年，网景打算开发一个叫Mocha的脚本语言，内置在Netscape Navigator 2上，后来改名LiveScript</li></ul><ul id="c58f9fae-3676-4efe-8471-b7603b77f6d0" class="bulleted-list"><li style="list-style-type:circle">计划在服务端也用Mocha，它的服务端版本叫做LiveWire</li></ul><hr id="dfb78ca0-0ad0-4ffd-b7e6-023d5c7de62e"/><ul id="5a32806a-72f7-40ba-b2b4-355105e022e3" class="bulleted-list"><li style="list-style-type:circle">计划赶不上变化，网景与Sun公司联合开发，共同完成LiveScript</li></ul><ul id="06a545c9-f944-48a9-a38b-4a55095c9ffa" class="bulleted-list"><li style="list-style-type:circle">Navigator2发布前，为了<strong>迎合当时火热的Java</strong>，它将LiveScript改名为JavaScript</li></ul><hr id="29f8466c-3126-499a-8066-c2ed5967d591"/><ul id="89697f80-aa70-4bab-89d9-99354015c7a4" class="bulleted-list"><li style="list-style-type:circle">JavaScript1.0很成功，网景在Navigator3发布JavaScript1.1版本</li></ul><ul id="7499debc-0d2f-439a-b412-a9eeb28830be" class="bulleted-list"><li style="list-style-type:circle">同时(96年)，竞争对手微软决定向IE投入资源，IE内置了名为JScript的JavaScript实现</li></ul><hr id="693071ee-8620-4a28-bbc4-71a6d12d2122"/><ul id="4dae6acd-7086-4487-9f67-4156e317fcc4" class="bulleted-list"><li style="list-style-type:circle">两个版本的JavaScript：网景浏览器中的以及IE中的JScript实现有区别</li></ul><ul id="29a13463-b34d-45e2-ba8c-20f68db87605" class="bulleted-list"><li style="list-style-type:circle">没有统一的规范，激发了业界标准化JavaScript的征程</li></ul><hr id="3ef8670b-a421-4f3f-a052-b456cc5c35ec"/><ul id="3816526c-52cc-4452-8126-aa2b85597e59" class="bulleted-list"><li style="list-style-type:circle">97年，JavaScript1.1作为提案交由ECMA（欧洲计算机制造商协会）进行标准化</li></ul><ul id="c49c823f-1494-4097-8b61-96c82ed05011" class="bulleted-list"><li style="list-style-type:circle">TC39技术委员会（Technical Committee #39 (TC39)）被指派“<strong>标准化</strong>（<strong>standardize</strong>）一门<strong>通用</strong>（<strong>general purpose</strong>）、<strong>跨平台</strong>（<strong>cross-platform</strong>）、<strong>厂商中立</strong>（<strong>vendor-neutral</strong>）的<strong>脚本语言</strong>（<strong>scripting language</strong>）的<strong>语法和语义（syntax and semantics）</strong>”的任务（任务称为TC39-ECMAScript）</li></ul><ul id="f57d5e87-9b71-4574-ab0b-9f42bfadd27c" class="bulleted-list"><li style="list-style-type:circle">TC39在JavaScript1.1基础上<strong>打造</strong>（<strong>hammer out</strong>）出了<strong>ECMA-262</strong>：也就是ECMAScript这个新的脚本语言标准<figure class="block-color-red_background callout" style="white-space:pre-wrap;display:flex" id="3c3fdc3c-da7c-4b75-b70c-37ceaec055da"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">注意：ECMA组织的标准牵扯到很多国家（不止欧洲），后来（1994年后）改名为ECMA国际（ECMA International）；ECMA International组织制定了很多标准，这些标准都是以ECMA-Number的形式命名，ECMA-262就是ECMA-262号标准，具体的就是ECMAScript遵照的标准（实际上这个ECMA-262标准就是ECMAScript语言规范）</div></figure></li></ul><hr id="6354869b-db62-4731-85f9-c4213e27e2ff"/><ul id="9d9d5cec-2bdd-4568-a311-e6de28191be4" class="bulleted-list"><li style="list-style-type:circle">98年，ISO和IEC（国际电工委员会）将ECMAScript纳为标准</li></ul><ul id="46acb4b5-5a14-4142-95dd-60bf1b6ecbc5" class="bulleted-list"><li style="list-style-type:circle">此后，各家浏览器都依据ECMAScript实现自己版本的JavaScript，具体实现还有差别</li></ul></li></ul><h1 id="0cea45a7-8761-4b6c-92ac-e6205d230da6" class="">2. JavaScript实现</h1><ul id="ea15a5d4-a61a-4b48-abca-07e692f75934" class="bulleted-list"><li style="list-style-type:disc">浏览器对JavaScript的实现主要依据<strong>ECMAScript，</strong>但是不限于ECMA-262标准</li></ul><ul id="16ca0f68-17e9-4250-be8b-c67df383d193" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">各家浏览器都有自己的浏览器引擎用于运行JavaScript，引擎实现方式不一样，JavaScript的实现也就不一样，其核心都是ECMAScript，同时包含浏览器需要的DOM，和BOM：<ul id="bff6e2ba-d32f-40c6-a639-acd9dfafdb03" class="bulleted-list"><li style="list-style-type:circle">核心（Core）：ECMAScript</li></ul><ul id="5ae8f6ed-50d0-4e7b-b6cf-b948cfc2f7b8" class="bulleted-list"><li style="list-style-type:circle">文档对象模型：DOM</li></ul><ul id="28714e32-ad80-4686-bbea-bff8d7ef517a" class="bulleted-list"><li style="list-style-type:circle">浏览器对象模型：BOM</li></ul></li></ul><h2 id="c7c48382-1e24-4f62-8d10-b62f6545990a" class="">2.1 ECMAScript</h2><ul id="bd0fe165-a03e-46bc-a714-be22a694f4cb" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">ECMAScript即，ECMA-262标准定义的语言，它不局限于Web浏览器，node.js也依据ECMA实现（实际上ECMAScript语言没有规范的输入和输出方法）<ul id="54e7beec-b18a-463a-ab04-57a225d50f2f" class="bulleted-list"><li style="list-style-type:circle">ECMA-262是JavaScript语言的基准，用于构建稳健的JavaScript实现</li></ul><ul id="5a3fbbb8-28de-4dba-a4e1-e40b2e954a98" class="bulleted-list"><li style="list-style-type:circle">Web浏览器只是ECMAScript实现的一种<strong>宿主环境（host environment）</strong></li></ul><ul id="c6b0e07e-b403-4d93-a684-9fc6b518c98d" class="bulleted-list"><li style="list-style-type:circle">宿主环境提供ECMAScript的基准实现和与环境交互的必须扩展，如DOM、BOM</li></ul></li></ul><ul id="2f070c0e-1178-41b2-b37c-b1fa54fb1e44" class="bulleted-list"><li style="list-style-type:disc">其他宿主环境：Node.js（server-side端的JavaScript平台） 和 Adobe Flash(已被淘汰)</li></ul><h3 id="456c3aa2-ec65-4e10-b09a-88b7e0728d1c" class="">2.1.1 ECMAScript定义的对象</h3><ul id="4dbe1c73-2cb3-44c9-a8bd-097efb5734f2" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">ECMA-262标准描述了一门语言的基本规范：<ul id="851fbe18-e72b-4482-8e7f-d6aec91aaaf3" class="bulleted-list"><li style="list-style-type:circle">语法（Syntax）</li></ul><ul id="5d7baf43-2214-48b8-8b5d-7f367222ce8b" class="bulleted-list"><li style="list-style-type:circle">类型（Types）</li></ul><ul id="9e3f4e0a-03a1-4d51-ab07-9c17b1210184" class="bulleted-list"><li style="list-style-type:circle">语句（Statements）</li></ul><ul id="0747b390-9be7-4106-b49b-989c01db69cb" class="bulleted-list"><li style="list-style-type:circle">关键字（Keywords）</li></ul><ul id="a0ed0a49-aff4-43f3-bf33-99b077304de4" class="bulleted-list"><li style="list-style-type:circle">保留字（Reserved words）</li></ul><ul id="a2f970bd-0cce-4854-a9ac-d931f91daae3" class="bulleted-list"><li style="list-style-type:circle">操作符（Operators）</li></ul><ul id="fc429043-b678-46ce-be3a-f893f4353851" class="bulleted-list"><li style="list-style-type:circle">全局对象（Global objects）</li></ul></li></ul><ul id="a12f8cf8-15d2-45aa-9be9-aa8f79dd3f1b" class="bulleted-list"><li style="list-style-type:disc">ECMAScript是对实现上述规范的一门语言的称呼。JavaScript、Adobe ActionScript同样实现了ECMAScript</li></ul><h3 id="ee5f87ed-9f75-4360-9cda-3cdc0f381b36" class="">2.1.2 ECMAScript版本</h3><figure id="239bb2f4-ecf5-4eb6-ae8a-9bb61900019b"><a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">ECMA-262 - Ecma International</div><div class="bookmark-description">Kindly note that the normative copy is the HTML version; the PDF version has been produced to generate a printable document. This 12 th edition has been prepared under the Ecma RF patent policy. Please note that for ECMAScript Edition 4 the Ecma standard number &quot;ECMA-262 Edition 4&quot; was reserved but not used in the Ecma publication process.</div></div><div class="bookmark-href"><img src="https://www.ecma-international.org/wp-content/uploads/ecma-favicon@2x-300x300.png" class="icon bookmark-icon"/>https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</div></div></a></figure><ul id="7de4af9a-3aea-4f15-8549-5c0c3c4092dc" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">ECMAScript版本就是<strong>ECMA-262标准</strong>的版本，以edition表示：<ol type="1" id="679eda62-80c6-4734-b8fc-b2959172bf2d" class="numbered-list" start="1"><li>第1版：基于网景JavaScript1.1的版本，基本相同，<strong>删除浏览器部份</strong>，加上少量修改，支持Unicode标准，对象与平台无关<ul id="c02b131b-2d9a-43b5-9f70-a0337d66342e" class="bulleted-list"><li style="list-style-type:disc">网景公司的JavaScript 1.1 和 JavaScript 1.2不符合（conform）第一版ECMA-262标准</li></ul><ul id="64db0d89-1a99-4f58-b60f-6a37c4945647" class="bulleted-list"><li style="list-style-type:disc">JavaScript 1.1 和 JavaScript 1.2 的一些内置对象在不同平台上有不同的实现（违反对象与平台无关原则）</li></ul></li></ol><ol type="1" id="09f77213-9cba-4af7-ad52-764171477e7c" class="numbered-list" start="2"><li>第2版：基于第一版做了一些编校（editorial），迎合ISO/IEC-16262要求（没有任何特性上的修改），第2版一般不作为衡量符合性（conformance）的标准</li></ol><ol type="1" id="b57bedd4-e24b-4811-b919-1583e6f3bb47" class="numbered-list" start="3"><li>第3版：标准更新，增加字符串处理、错误定义、数值输出、正则表达式、新控制语句、异常处理（try/catch）。第3版标志ECMAScript可以作为一门真正的语言</li></ol><ol type="1" id="c7ecf686-954f-40dc-b5df-0f0c85de46c0" class="numbered-list" start="4"><li>第4版：彻底修订，在第3版基础上几乎完全定义一门新语言；强类型变量、新语句、数据结构、真正的类和继承、操作数据的手段<ul id="645894fe-dd82-486e-94d6-e8f9487f4dcf" class="bulleted-list"><li style="list-style-type:disc">为了响应JavaScript在Web端的流行，开发者开始要求ECMAScript能满足全球Web开发的需求</li></ul><ul id="7c464421-a2f9-447b-8c2e-d8aae37e9720" class="bulleted-list"><li style="list-style-type:disc">ECMA TC39再次被召集，以决定这门语言的未来，结果它们几乎制定了一门新语言</li></ul></li></ol><ol type="1" id="8cf45dca-6799-4d7a-b2f7-a817be05891a" class="numbered-list" start="5"><li>第5版：<strong>弃用了第4版</strong>，由TC39的一个子委员会提出，是基于第3版的&quot;ECMAScript 3.1&quot;,改动较少，在JavaScript引擎基础上做的一些增改。<ul id="d08133d3-129c-4deb-819d-bc17013c28f8" class="bulleted-list"><li style="list-style-type:disc">ES5 2009年12.3发布</li></ul><ul id="669216c2-b235-4103-bc25-1036a0d32033" class="bulleted-list"><li style="list-style-type:disc">厘清了ES3的<strong>歧义</strong>（<strong>ambiguities</strong>）</li></ul><ul id="0b22a2b4-752b-4eca-bdf9-4723bbfc7b61" class="bulleted-list"><li style="list-style-type:disc">增加新功能：原生解析和序列化JSON数据的JSON对象、方法继承和高级属性定义、严格模式</li></ul><ul id="99705e1e-5ae9-4269-8ecb-3f1d0963a20e" class="bulleted-list"><li style="list-style-type:disc">ES5修订版本 2011 6发布，订正ES5中的错误</li></ul></li></ol><ol type="1" id="302f849e-82f1-425a-83ef-e3d268c2b519" class="numbered-list" start="6"><li>第6版本：ES6、ES2015、ES Harmony（和谐版），2015 06发布，重要版本，包括了有史以来最重要的一批<strong>增强</strong>（<strong>enhancements</strong>）特性：<ul id="e948a447-2cac-4490-a53c-08793cfa3577" class="bulleted-list"><li style="list-style-type:disc">类（classes）</li></ul><ul id="fe3cd7dd-80d9-406d-85f5-832d28d60f62" class="bulleted-list"><li style="list-style-type:disc">模块（modules）</li></ul><ul id="cea70720-5e63-46cc-849c-2e14767a5861" class="bulleted-list"><li style="list-style-type:disc">迭代器（iterators）</li></ul><ul id="c696195d-5feb-4bbb-8813-24dd6911a9a0" class="bulleted-list"><li style="list-style-type:disc">生成器（generators）</li></ul><ul id="19242f8b-1965-46cf-85fb-6f103ca58c64" class="bulleted-list"><li style="list-style-type:disc">箭头函数（arrow functions）</li></ul><ul id="7b7cb646-d0aa-427a-8b97-e927075804d8" class="bulleted-list"><li style="list-style-type:disc">期约（promises）</li></ul><ul id="b8d7d804-269e-46a4-9207-8bf9f18a69fd" class="bulleted-list"><li style="list-style-type:disc">反射（reflection）</li></ul><ul id="eaaa91ef-5241-41c6-af0b-ede0fd36999d" class="bulleted-list"><li style="list-style-type:disc">代理（proxies）</li></ul><ul id="8b02755b-1b2c-4d7d-97ba-0199460e6a95" class="bulleted-list"><li style="list-style-type:disc">众多新的数据类型（a host of new data types）</li></ul></li></ol><ol type="1" id="d4c6a225-5dfe-4d97-815d-dcbb191f3683" class="numbered-list" start="7"><li>第7版：ES7、ES2016，少量语法层面增强，如includes和指数操作符</li></ol><ol type="1" id="706d4921-419c-4bdb-ba08-cd99e7f37852" class="numbered-list" start="8"><li>第8版：ES8、ES2017，2017 06发布。增加异步函数（await/async）、SharedArrayBuffer、Atomics API，一些对象方法和字符串填充方法、支持对象字面量最后的逗号</li></ol><ol type="1" id="cbb65f39-9c50-424f-95c2-aa5bde58f308" class="numbered-list" start="9"><li>第9版：ES9、ES2018，2018 06 发布。异步迭代、剩余、扩展属性、新的正则表达式特性、Promise finally()、模板字面量</li></ol><ol type="1" id="a251a7d3-e025-4022-b063-2d0d479b8f85" class="numbered-list" start="10"><li>第10版：ES10、ES2019，2019 06发布。增加一些属性和方法，固定sort()顺序、解决JSON字符串兼容问题、定义catch子句的可选绑定</li></ol><ol type="1" id="e1f55aab-3157-46f4-b147-e910fd4568d0" class="numbered-list" start="11"><li>第11版：ES11、ES2020，2020 06发布</li></ol><ol type="1" id="26f48b0f-9a06-4f31-998c-f2481dce9344" class="numbered-list" start="12"><li>第12版：ES12、ES2021，2021 06发布</li></ol><ol type="1" id="d1870fba-bb46-424a-bd40-88924853830d" class="numbered-list" start="13"><li>第13版：ES13、ES2022，2022 06发布</li></ol></li></ul><h3 id="b10e37b1-7e89-4a18-81ba-ea5bcd077966" class="">2.1.3 ECMAScript符合性(Conformance)</h3><ul id="b632b6b8-4fe1-4f24-898a-1642e0f5cebd" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">ECMAScript<strong>符合性</strong>(<strong>Conformance</strong>)即是对ECMA-262规范的实现程度，满足符合性的ECMAScript实现具有一些条件: <ul id="a1cc2148-bd51-4929-837b-165c5e66811d" class="bulleted-list"><li style="list-style-type:circle">支持ECMA-262中描述的所有“类型、值、对象、属性、函数、以及程序语法与语义”（必要条件）</li></ul><ul id="871c429b-a5d7-4a9f-aa87-96b9d65acd6d" class="bulleted-list"><li style="list-style-type:circle">支持Unicode字符标准(必要条件)</li></ul><p id="ad09897f-f96a-4c61-b482-f947297b0712" class="">建议实现的条件：</p><hr id="331985ee-9520-4c4a-a96f-b2fdfb227b73"/><ul id="87b6fb2a-925a-4041-b846-a038240819da" class="bulleted-list"><li style="list-style-type:circle">增加ECMA-262中未提及的的“额外的类型、值、对象、属性、函数”，即规范未给出的新对象或对象的新属性（根据宿主环境定义）</li></ul><ul id="2f006827-38bf-487d-a852-8bc2921c5c17" class="bulleted-list"><li style="list-style-type:circle">支持ECMA-262中没有定义的“程序和正则表达式语法”，即允许修改扩展内置的正则表达式特性</li></ul></li></ul><ul id="aca1de1e-a743-4e9a-a165-085d7e9b8346" class="bulleted-list"><li style="list-style-type:disc">ECMAScript符合性实现起来容易，具有极大的灵活性，开发者权限大，这也照就了依托浏览器的JavaScript实现的多样性（谷歌内核，火狐内核，欧鹏内核的JavaScript实现细节各不相同）</li></ul><h3 id="43ae2d15-28ea-4c04-a993-654358b20f8a" class="">2.1.4 浏览器对ECMAScript的支持</h3><figure id="59c52a88-650c-48f2-873d-b03be96b6a46"><a href="https://blog.csdn.net/weixin_39976499/article/details/111138702" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">webkit内核_浏览器内核发展编年史_weixin_39976499的博客-CSDN博客</div><div class="bookmark-description">我们每天都在使用浏览器浏览各种各样的网页，而每个页面都是由代码组成，点击浏览器右键查看源代码，可以看到网页的源码内容，浏览器根据这些代码，解析成可视的页面。 无数前端程序员的心酸凝聚成了我们普通用户眼中的网页。那为什么这一堆代码可以变成如此漂亮的网页呢？答案要归功于浏览器的&quot;渲染引擎&quot;，也就是我们常说的&quot;内核&quot;。今天我就为大家科普一下浏览器的内核发展编年史。 ...</div></div><div class="bookmark-href"><img src="https://g.csdnimg.cn/static/logo/favicon32.ico" class="icon bookmark-icon"/>https://blog.csdn.net/weixin_39976499/article/details/111138702</div></div><img src="https://img-blog.csdnimg.cn/img_convert/ae9f23096f82e3c815e9bc2df78c4ef9.png" class="bookmark-image"/></a></figure><ul id="f9dce2e7-461f-48e5-a8ec-24f18fea508e" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">浏览器中的JavaScript语言实现以ECMAScript为核心实现，即满足ECMAScript符合性，则该浏览器支持ECMAScript<ul id="3527f5f1-e8db-4443-81c0-f88d2cf15ff6" class="bulleted-list"><li style="list-style-type:circle">网景浏览器3发布包含的JavaScript 1.1 实现规范交由ECMA进行参考定义<ul id="5dbdf2a4-e701-4972-bb04-897ea1b80bf2" class="bulleted-list"><li style="list-style-type:square">但是JavaScript 1.1 不符合ECMAScript 第一版的规范</li></ul><ul id="081c95e1-a54c-4fbb-9689-9cef9264b718" class="bulleted-list"><li style="list-style-type:square">它不支持Unicode，对象与平台无关</li></ul></li></ul><ul id="c234d7dd-ba6c-459b-83d2-cd705e22b2ca" class="bulleted-list"><li style="list-style-type:circle">网景浏览器4初始发布的 JavaScript1.2在ECMAScript第一版规范前，也不符合ECMAScript规范</li></ul><ul id="8e334974-e6f2-4f45-a42a-828a796ff01c" class="bulleted-list"><li style="list-style-type:circle">网景浏览器4.06及之后的版本（~4.79），发布的JavaScript1.3支持ECMAScript第一版规范</li></ul><ul id="99523e64-a183-4ad6-a79e-a15acbd75a6f" class="bulleted-list"><li style="list-style-type:circle">网景以Mozilla（因为Netscape浏览器内核名称为Mozilla）项目名义开发并开放浏览器内核源代码：<ul id="6eaa60af-dbac-4774-a2d1-37da45f55e0f" class="bulleted-list"><li style="list-style-type:square">Mozilla项目的代码引擎被市场部重新命名为Gecko</li></ul><ul id="316fb0d1-f70a-4191-8861-b2ec0f0dcb2b" class="bulleted-list"><li style="list-style-type:square">Mozilla项目延迟发布，以及网景公司与IE竞争失败，Netscape Navigatior5并未发布</li></ul><ul id="4cf3a030-0112-4511-891a-9a71f607525d" class="bulleted-list"><li style="list-style-type:square">JavaScript 1.4只在Netscape Enterprise Server中作为服务器语言发布</li></ul></li></ul><ul id="5fd7fb5f-e443-49cb-b009-3dfa0d90bb48" class="bulleted-list"><li style="list-style-type:circle">网景被美国在线收购后，发布的Netscape 6+（Mozilla 0.6.0+）符合ECMAScript第三版，且内核改为Gecko M18（Milesone 18）<ul id="8de08334-8565-4e7d-b9f5-cdb624651f0b" class="bulleted-list"><li style="list-style-type:square">后来的Netscape 7基于Mozilla 1.4内核，且同时开始开发Firefox新浏览器</li></ul><ul id="d0d81275-e5f1-4707-8ad3-3e8c2b8c5ac2" class="bulleted-list"><li style="list-style-type:square">Netscape 8 基于Mozilla Firefox核心（Gecko）和IE核心（Trident）</li></ul><ul id="2895d531-c103-4b76-a80e-bb8013e97943" class="bulleted-list"><li style="list-style-type:square">Netscape 9 基于Mozilla Firefox2.0</li></ul><ul id="9f5631bc-06c4-4adb-b930-4c92a1dba4df" class="bulleted-list"><li style="list-style-type:square">由于网景团队被解散，且Netscape浏览器占有率急速下降，Netscape无了</li></ul></li></ul></li></ul><ul id="f0c8792b-f5c3-4c0b-9eae-f56721187cba" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">IE浏览器对ECMAScript的支持<ul id="807a50e4-ebb2-45e2-93ce-ce5536cd5082" class="bulleted-list"><li style="list-style-type:circle">IE3的JScript1.0提供与JavaScript1.1相同的功能，同样不符合ECMAScript规范</li></ul><ul id="07318cca-2350-45f5-ae33-bab9aa32d331" class="bulleted-list"><li style="list-style-type:circle">IE4的JScript3.0（2.0版本发布在服务端），在ECMAScript规范之前发布，也不符合ECMAScript</li></ul><ul id="90a57b45-dce1-4703-963f-17edccdf4d56" class="bulleted-list"><li style="list-style-type:circle">IE5内置实现的JavaScript符合ECMAScript第一版</li></ul><ul id="d5e76d07-4920-4a40-b2e2-cec164098f14" class="bulleted-list"><li style="list-style-type:circle">IE5.5~8符合ECMAScript第三版</li></ul><ul id="e7c22346-18a8-48f5-9d45-f0854ae0f845" class="bulleted-list"><li style="list-style-type:circle">IE9符合ECMAScript第五版（部分）</li></ul><ul id="8f2fade3-104e-4ddb-85b9-d48239b0300d" class="bulleted-list"><li style="list-style-type:circle">IE10~11符合ECMAScript第五版</li></ul><ul id="b04585d1-5a57-48e6-a540-4427b5c2c88d" class="bulleted-list"><li style="list-style-type:circle">之后微软将edge作为IE12发布，edge12+支持ECMAScript第六版本，IE版本不再更新</li></ul><ul id="3b56d4f2-7721-490b-8ec6-b3afb236cbed" class="bulleted-list"><li style="list-style-type:circle">之后微软放弃edgeHTML内核，转而使用谷歌开源的Chromium内核(Blink)，浏览器命名仍然使用Microsoft Edge</li></ul></li></ul><ul id="334d3c89-00f4-4400-aac6-c57814250a61" class="block-color-blue_background bulleted-list"><li style="list-style-type:disc">Opera浏览器从6+版本开始支持ECMAScript 第二版，其内核最初是Presto，后来使用苹果的Webkit，再改为谷歌的Blink内核（Opera和谷歌联合基于Webkit开发）<ul id="4a51a7a5-d9e2-42de-89b7-0ebfbdae9b36" class="bulleted-list"><li style="list-style-type:circle">Opera 7.2+支持ECMAScript第三版本</li></ul><ul id="72d1704a-110c-4db8-a241-fe8d3ceb042a" class="bulleted-list"><li style="list-style-type:circle">Opera 15-28支持ECMAScript第五版本</li></ul><ul id="d7d6fa01-cc78-4597-a09d-4c18af178106" class="bulleted-list"><li style="list-style-type:circle">Opera 29-35 支持ECMAScript第六版本（部分）</li></ul><ul id="2c4518a0-d94a-46d1-876d-b53a9a359f15" class="bulleted-list"><li style="list-style-type:circle">Opera 36+支持第六版本</li></ul><ul id="8374cc41-a50f-4160-b9b4-b8569ff378c7" class="bulleted-list"><li style="list-style-type:circle">Opera最新版本82（2021年12月12日）</li></ul></li></ul><ul id="40244eb3-9d0c-41b2-803d-249e2c62efdd" class="block-color-purple_background bulleted-list"><li style="list-style-type:disc">Safari 浏览器是基于Webkit内核的苹果系统浏览器，Webkit是苹果基于KHTML的开发内核，而KHTML框架来自于挪威（Opera原属国）<ul id="2ee26e89-5482-46ad-9e19-086098f3f61c" class="bulleted-list"><li style="list-style-type:circle">Safari1-2.0.x支持ECMAScript第三版本（部分）</li></ul><ul id="819350a5-8509-46c0-978f-84f9af01fe36" class="bulleted-list"><li style="list-style-type:circle">Safari3.1-5.1支持ECMAScript第五版本（部分）</li></ul><ul id="d4b1af46-fb34-4bff-9a28-803940b4f746" class="bulleted-list"><li style="list-style-type:circle">Safari6~8支持ECMAScript第五版本</li></ul><ul id="aeff76d6-218c-4f7c-9a44-6281298e1ede" class="bulleted-list"><li style="list-style-type:circle">Safari9+支持ECMAScript第六版本</li></ul></li></ul><ul id="af3b3829-5164-4daa-a358-75ae830885ab" class="block-color-pink_background bulleted-list"><li style="list-style-type:disc">Chrome浏览器基于Webkit内核，后来联合Opera开发Blink内核<ul id="ef43a88a-d0e8-4ed4-8c60-00c60fc7a20c" class="bulleted-list"><li style="list-style-type:circle">Chrome1~3支持ECMAScript第三版本</li></ul><ul id="11882f37-6b69-4dbb-b0ff-764ca1784751" class="bulleted-list"><li style="list-style-type:circle">Chrome4~22支持ECMAScript第五版本（部分）</li></ul><ul id="57b50949-1a19-4883-9b1a-a8ab3ed3a813" class="bulleted-list"><li style="list-style-type:circle">Chrome23+ 支持ECMAScript第五版本</li></ul><ul id="086eec81-e482-4023-afcb-5060e03a964a" class="bulleted-list"><li style="list-style-type:circle">Chrome42~48支持ECMAScript第六版本（部分）</li></ul><ul id="d53f2c04-6add-417a-a2f0-3115968ffc71" class="bulleted-list"><li style="list-style-type:circle">Chrome49+支持ECMAScript第六版本</li></ul></li></ul><ul id="e3115290-d4ce-4d60-944d-7facffc85834" class="block-color-pink_background bulleted-list"><li style="list-style-type:disc">Firefox浏览器基于Gecko内核，Mozilla 开源项目从一定程度使得火狐浏览器有自己的内核<ul id="29a64172-93e0-4bbd-828a-62067737bac3" class="bulleted-list"><li style="list-style-type:circle">Firefox1~2支持ECMAScript第三版本</li></ul><ul id="6e7a4771-2c2d-4f90-b008-752bf0b54051" class="bulleted-list"><li style="list-style-type:circle">Firefox3.0x~20支持ECMAScript第五版本（部分）</li></ul><ul id="50ded638-d0e2-4cb4-baf2-2f3804b58a36" class="bulleted-list"><li style="list-style-type:circle">Firefox21~44支持ECMAScript第五版本</li></ul><ul id="738663c1-3584-4e5a-9fdc-d4b54066fd91" class="bulleted-list"><li style="list-style-type:circle">Firefox45+支持ECMAScript第六版本</li></ul></li></ul><h2 id="4bf576e8-0ebe-4982-8fb8-fa18e0564001" class="">2.2 DOM</h2><ul id="a568ba2e-49cb-4bf6-aef0-02d2e6dfbfac" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">DOM全称<strong>文档对象模型</strong>(Document Object Model)<ul id="72570e6a-8ceb-46f6-99e2-08225f852a60" class="bulleted-list"><li style="list-style-type:circle">DOM是在浏览器（宿主环境）中实现ECMAScript并扩展的应用程序接口（API）</li></ul><ul id="ff5c2a04-06e6-4fa8-927a-93979b23b396" class="bulleted-list"><li style="list-style-type:circle">DOM用于在HTML中使用扩展的XML</li></ul><ul id="a3ed9d82-1881-490a-aec6-62724b9b114a" class="bulleted-list"><li style="list-style-type:circle">DOM在浏览器环境中提供DOM API供开发者随心所欲控制网页的HTML内容和结构</li></ul></li></ul><ul id="24d2cb38-12ac-4099-bbca-5bcbcef205a1" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">DOM的实现<ul id="87abf142-8ff5-464a-aba5-4f8b24c762de" class="bulleted-list"><li style="list-style-type:circle">DOM将整个页面抽象为一组分层节点</li></ul><ul id="0eb5729f-c1dd-418b-9ae4-fb2dd8fe4333" class="bulleted-list"><li style="list-style-type:circle">HTML页面的每个标签元素都是一个节点，其包含不同的数据</li></ul><ul id="b054d57f-141d-4306-b317-0951898a2cec" class="bulleted-list"><li style="list-style-type:circle">如HTML<pre id="f0e09772-4e65-4fd5-bdfc-aac118eda2fa" class="code code-wrap"><code>&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;Sample Page&lt;/title&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;p&gt;Hello, World!&lt;/p&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</code></pre></li></ul><ul id="00408ec1-de5c-4b7d-9575-d10c42c4ddcd" class="bulleted-list"><li style="list-style-type:circle">其分层节点图示<pre id="b5fb8157-7fb2-4e9c-b567-ea285c0c213b" class="code code-wrap"><code>html
+|
+|______head
+|        |
+|        |____title
+|               |
+|               |______SamplePage
+|_______body
+					|____p
+							 |___Hello, World!</code></pre></li></ul></li></ul><h3 id="9f043b00-2445-47fc-a1c5-d8809beaad4a" class="">2.2.1 DOM的标准必须统一</h3><ul id="d7793c6b-7670-425b-a1db-c158295cbd7c" class="bulleted-list"><li style="list-style-type:disc">久远时代的<strong>静态HTML</strong>无需控制修改</li></ul><ul id="6994d128-a130-42cf-a6c5-3c382d7c01a5" class="bulleted-list"><li style="list-style-type:disc">但是IE4和网景Navigator4支持了不同形式的动态HTML(DHTML)<ul id="d0878431-f4f1-487f-b092-d5a2c302cf54" class="bulleted-list"><li style="list-style-type:circle">开发者可以通过不刷新页面而修改页面外观和内容</li></ul><ul id="918b8dab-c7e3-43bf-bce8-06b1aa1ba3b7" class="bulleted-list"><li style="list-style-type:circle">DHTML使得用户交互成为可能</li></ul><ul id="3fb0cdbb-21d3-41c1-bd0d-e8a7c9869150" class="bulleted-list"><li style="list-style-type:circle">DOM作为控制HTML节点的API愈发重要</li></ul></li></ul><ul id="94d39709-18ca-4b76-bff6-9ace992ff34e" class="bulleted-list"><li style="list-style-type:disc">但是微软和网景实现动态HTML的方式不一样<ul id="0b963df1-3caa-4018-a053-82548df48f8a" class="bulleted-list"><li style="list-style-type:circle">保持web跨平台的特性，必须标准化DOM</li></ul><ul id="4976c590-58fc-4c1e-93f4-58cd063cefaf" class="bulleted-list"><li style="list-style-type:circle">万维网联盟（W3C， WorldWideWeb Consortium）开始了制定<strong>DOM标准</strong>的进程</li></ul></li></ul><h3 id="774b1141-8f20-460f-9937-20ffd628ecf6" class="">2.2.2 DOM级别</h3><ul id="66f9832e-fc1d-41e1-aef6-ab5fb3720b3e" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">98年，<strong>DOM Level 1</strong>成为W3C推荐标准<ul id="30575973-ab57-428e-bfbe-a9130de9b949" class="bulleted-list"><li style="list-style-type:circle">DOM Level1目标是<strong>映射文档结构</strong>，便于语言实现DOM API<ul id="0d7c3472-cc2f-467a-b649-33bfb4dccab7" class="bulleted-list"><li style="list-style-type:square">除了JavaScript能够访问DOM，其他语言也可实现自己的DOM API加以访问</li></ul><ul id="1bbb9ea2-aba4-42ea-930a-c5669ec128c5" class="bulleted-list"><li style="list-style-type:square">只是对于运行HTML的浏览器来说，DOM就是使用ECMAScript实现的，DOM已然成为JavaScript的一部分</li></ul></li></ul><ul id="381246a1-d7ab-4dae-8c9f-10809aec671a" class="bulleted-list"><li style="list-style-type:circle">DOM Level1由两部分组成<ul id="645897c1-c142-4270-af9b-185a64f2b932" class="bulleted-list"><li style="list-style-type:square"><strong>DOM Core</strong>：提供一种映射XML文档，从而方便访问操作HTML文档的任意部分</li></ul><ul id="318f12d7-685f-455b-a2ee-b003ce7b501d" class="bulleted-list"><li style="list-style-type:square"><strong>DOM HTML</strong>：提供映射扩展，增加特定于HTML的对象和方法</li></ul></li></ul></li></ul><ul id="334c32ce-99f5-48c3-9e8f-71eb143e19c8" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc"><strong>DOM Level2 </strong>新增了很多功能用于扩展DOM API的功能<ul id="7ded3db5-d982-40a2-9bd6-3dd1ff5c548e" class="bulleted-list"><li style="list-style-type:circle">DOM视图：描述追踪文档<strong>不同视图</strong>的接口，如用户界面事件会更改HTML视图，提供追踪接口获取这种变化</li></ul><ul id="f9201f64-3d71-452c-99d3-8acef556fe51" class="bulleted-list"><li style="list-style-type:circle">DOM事件：描述事件及事件处理接口，如onclick,onkeydown等</li></ul><ul id="6b58f3aa-8038-4c8e-809d-82dc206ffacd" class="bulleted-list"><li style="list-style-type:circle">DOM样式：描述处理元素CSS样式的接口，如document.body.width等</li></ul><ul id="fba3b8b1-9d30-4af7-9277-9395986aac75" class="bulleted-list"><li style="list-style-type:circle">DOM遍历和范围：描述<a href="https://www.cnblogs.com/tracylin/p/5220867.html">遍历</a>和操作DOM树的接口</li></ul></li></ul><ul id="a6afe0b4-ebb6-4563-992d-e8c46a1dabbb" class="block-color-blue_background bulleted-list"><li style="list-style-type:disc"><strong>DOM Level3 </strong>进一步扩展DOM<ul id="34cc3f07-5257-44eb-927c-4517f1b50c3f" class="bulleted-list"><li style="list-style-type:circle">增加统一方式加载和保存文档 DOM Load and Save</li></ul><ul id="0574960c-8045-4e11-95c0-02af63b055cf" class="bulleted-list"><li style="list-style-type:circle">验证文档的方法 DOM Validation</li></ul><ul id="6edd62d4-b63f-48a8-8f1b-89d51258d74f" class="bulleted-list"><li style="list-style-type:circle">扩展DOM Core支持所有XML 1.0特性</li></ul></li></ul><ul id="4119770f-9126-49d6-bf9f-e0e5713f2832" class="block-color-purple_background bulleted-list"><li style="list-style-type:disc">DOM Level发展<ul id="36532514-f213-40d1-b0ae-1f3666519345" class="bulleted-list"><li style="list-style-type:circle">W3C不在按照Level来维护DOM，而是作为DOM Living Standard来维护</li></ul><ul id="239af814-04bd-44af-9c50-9d768cd94b8b" class="bulleted-list"><li style="list-style-type:circle">DOM4为DOM Living Standard的快照，新增内容<ul id="be607239-6208-4dc2-a717-3339df73a641" class="bulleted-list"><li style="list-style-type:square">Mutation Events</li></ul><ul id="4b7c91d3-cd98-46eb-a15d-47b72841dbac" class="bulleted-list"><li style="list-style-type:square">Mutation Observers</li></ul></li></ul></li></ul><h3 id="57f73478-8570-4bff-ab7f-f9c124dafdf0" class="">2.2.3 其他DOM</h3><ul id="41107367-08d1-4b4d-9bea-e7e30316e4a8" class="bulleted-list"><li style="list-style-type:disc">DOM是文档对象模型，广义上web的HTML文档只是DOM的一种</li></ul><ul id="054fd327-8c9b-45cf-82d0-fa0873481961" class="bulleted-list"><li style="list-style-type:disc">其它基于XML实现DOM的语言包括<ul id="c173e7ba-e859-4116-a839-063d035fdf37" class="bulleted-list"><li style="list-style-type:circle">SVG：可伸缩矢量图，Scalable Vector Graphics</li></ul><ul id="46f56676-2f34-4a20-ab77-4448526e338a" class="bulleted-list"><li style="list-style-type:circle">MathML：数学标记语言，Mathematical Markup Language</li></ul><ul id="e9882324-9657-4eb2-8188-836e3de57867" class="bulleted-list"><li style="list-style-type:circle">SMIL：同步多媒体集成语言，Synchronized Multimedia Integration Language</li></ul></li></ul><h3 id="cbf91a82-e279-422f-903f-f45a183e9b7c" class="">2.2.4 浏览器对DOM的支持</h3><ul id="8229da20-84f6-43e9-b237-8bde8ec76f97" class="block-color-yellow_background bulleted-list"><li style="list-style-type:disc">DOM并不是一开始就是JavaScript的一部分，浏览器需要自行对W3C提出的DOM标准进行实现,且DOM标准在浏览器实现它之前就发布了<ul id="0828864a-3e34-41c9-b93e-b1ba84a36847" class="bulleted-list"><li style="list-style-type:circle">IE5版本尝试支持DOM，直到5.5版本才真正支持DOM Level1中的大部分</li></ul><ul id="1bdd8be7-c5bc-4806-832e-e196a859dd8d" class="bulleted-list"><li style="list-style-type:circle">网景在6之前都不支持DOM，直到Mozilla把开发资源转到FireFox浏览器上才开始支持，FireFox3+支持全部DOM Level1，DOM Level2，部分Level3</li></ul></li></ul><p id="a3c3c363-8e05-4a30-9ee7-2ad398ca2db2" class="">
+</p><h2 id="8ac74dd6-5ac8-4f22-83d1-2fb96769f9b6" class="">2.3 BOM</h2><ul id="f2777bce-998c-4ec4-b689-7e8ec7194a9b" class="block-color-teal_background bulleted-list"><li style="list-style-type:disc">BOM: 浏览器对象模型(Browser Object Modal)<ul id="2a9ca25b-5726-4f2c-b167-d58efaea6913" class="bulleted-list"><li style="list-style-type:circle">BOM API用于支持访问和操作浏览器窗口</li></ul><ul id="0c54e59d-7dce-4136-9281-19c904ca2633" class="bulleted-list"><li style="list-style-type:circle">使用BOM开发者能操作HTML文档显示之外的部分</li></ul></li></ul><ul id="bb731ab3-fd1b-47c1-8855-cc798e6bf1c0" class="block-color-blue_background bulleted-list"><li style="list-style-type:disc">在HTML5出现之前，BOM没有标准规范<ul id="a90343dd-b225-4c67-a229-add9185154f5" class="bulleted-list"><li style="list-style-type:circle">BOM与浏览器自身相关，不同的浏览器，其BOM实现自然不同</li></ul><ul id="81d70515-b173-424d-add2-237e33fe6e2d" class="bulleted-list"><li style="list-style-type:circle">HTML5出现后规范了BOM API特性，BOM不统一的问题得以解决</li></ul></li></ul><ul id="6f7e5a8b-0b4b-438d-b50b-6881178ab02d" class="block-color-purple_background bulleted-list"><li style="list-style-type:disc">BOM的作用：主要针对浏览器窗口和子窗口（frame）,但是如何关于浏览器的扩展都会归在BOM范畴内<ul id="2b37d544-e121-4c83-9196-38676d2936d1" class="bulleted-list"><li style="list-style-type:circle">弹出新浏览器窗口的能力</li></ul><ul id="3d0d470d-71fe-4e9e-804c-6de2d43e20ba" class="bulleted-list"><li style="list-style-type:circle">移动缩放和关闭浏览器窗口的能力</li></ul><ul id="0b709c9f-2143-4846-9e05-702a81ce53ac" class="bulleted-list"><li style="list-style-type:circle">navigator对象，提供关于浏览器的详尽信息</li></ul><ul id="22b24ab8-452f-436f-8776-0f9d34917af0" class="bulleted-list"><li style="list-style-type:circle">location对象，提供浏览器加载页面的详细信息</li></ul><ul id="26144880-b544-4870-81ed-fbc8282fb8a5" class="bulleted-list"><li style="list-style-type:circle">screen对象，提供关于用户分辨率的详细信息</li></ul><ul id="53530e1f-b862-49e6-85b5-a379f5f3742f" class="bulleted-list"><li style="list-style-type:circle">performance对象，提供浏览器内存占用，导航行为，和时间统计的详细信息</li></ul><ul id="e719da65-19dd-4b88-9c98-cfe26c1b7d25" class="bulleted-list"><li style="list-style-type:circle">对cookie支持</li></ul><ul id="d0975635-f2ab-47fa-b190-520a4f7424b1" class="bulleted-list"><li style="list-style-type:circle">其他自定义对象，如XMLHTTPRequest和IE的ActiveXObject</li></ul></li></ul><h1 id="62ca13a2-9d4b-449e-97a8-5d30027ef8ac" class="">3. JavaScript版本</h1><ul id="638f5495-9403-4c45-a155-110990c3b649" class="bulleted-list"><li style="list-style-type:disc">Mozilla是唯一仍在延续最初JavaScript版本编号的浏览器厂商</li></ul><ul id="ca3537a7-388e-4342-a3ad-8fa00c0d24d0" class="bulleted-list"><li style="list-style-type:disc">Mozilla开发的火狐浏览器继承了网景的JavaScript最后版本1.3，由于1.4是服务器版本，故而使用1.5作为火狐实现的第一版本JavaScript</li></ul><ul id="2e384810-c19a-4090-b146-96a9643f605b" class="bulleted-list"><li style="list-style-type:disc">Mozilla Foundation也在持续开发JavaScript，FireFox4发布了JavaScript1.8.5版本，但是之后决定的JavaScript2.0被取消了</li></ul><ul id="d8556c1f-e007-4c76-ad16-0642fce0e668" class="bulleted-list"><li style="list-style-type:disc">因为JavaScript的发展依靠宿主环境，不同的宿主环境JavaScript实现不完全相同，JavaScript版本没有意义，只有作为标准的ECMAScript和DOM才由实际意义，现代浏览器依靠这两者阐明JavaScript实现程度</li></ul><h1 id="14eff34d-7f1f-484c-ae1f-d94c7e65ddc4" class="">4. 总结</h1><ul id="5b14f5d3-3529-4c8f-8854-c26d4e344c42" class="bulleted-list"><li style="list-style-type:disc">JavaScript是一门用来与网页交互的脚本语言，包含以下三部分：<ul id="92345417-7bef-4238-9f05-775ecf3db9ad" class="bulleted-list"><li style="list-style-type:circle">ECMAScript： 由ECMA-262定义并提供核心功能</li></ul><ul id="9954cf58-8e2d-4db9-a966-e9ca6891d3e7" class="bulleted-list"><li style="list-style-type:circle">文档对象模型（DOM）：提供网页内容交互的方法和接口</li></ul><ul id="e8a3173b-363a-4b9a-9cf5-0e9bf1301348" class="bulleted-list"><li style="list-style-type:circle">浏览器对象模型（BOM）：提供与浏览器交互的方法和接口</li></ul></li></ul><ul id="19f5f838-3f37-472c-8617-e115370453d0" class="bulleted-list"><li style="list-style-type:disc">JavaScript的三个部分得到了五大浏览器的不同程度的支持<ul id="641689b9-22ca-40d0-9164-07ba5f2af652" class="bulleted-list"><li style="list-style-type:circle">Edge,FireFox,Chrome,Safari,Opera基本上都对ES5提供了完善的支持</li></ul><ul id="853b97ec-4657-4d16-ba87-d040e8560a76" class="bulleted-list"><li style="list-style-type:circle">对ES6的支持也在不断提升</li></ul><ul id="7db9069c-85b7-435e-8005-37b593e5e2a4" class="bulleted-list"><li style="list-style-type:circle">浏览器对DOM Level3的支持日益规范</li></ul><ul id="04dc33ba-f0e5-4868-aa95-9a64db544c2a" class="bulleted-list"><li style="list-style-type:circle">HTML5规范的BOM仍然因浏览器而定，但可以假定有很大部分的公共特性</li></ul></li></ul><p id="20b1095d-d84f-49dc-83f9-ec20f9785fee" class="">
+</p><p id="517d4ed4-6220-4faf-8260-d74bc4a360b1" class="">
+</p></div></article></body></html>
